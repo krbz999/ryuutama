@@ -1,0 +1,12 @@
+:root {
+  --ryuutama-color-gold: rgb(159, 146, 117);
+  --ryuutama-color-purple: rgb(146, 20, 146);
+
+  .themed.theme-light {
+    --ryuutama-sidebar-primary-party: var(--ryuutama-color-gold);
+  }
+
+  .themed.theme-dark {
+    --ryuutama-sidebar-primary-party: var(--ryuutama-color-purple);
+  }
+}

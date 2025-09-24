@@ -1,0 +1,97 @@
+{
+  "TYPES": {
+    "Actor": {
+      "monster": "Monster",
+      "monsterPl": "Monsters",
+      "party": "Party",
+      "partyPl": "Parties",
+      "ryuujin": "Ryuujin",
+      "ryuujinPl": "Ryuujin",
+      "traveler": "Traveler",
+      "travelerPl": "Travelers"
+    }
+  },
+  "RYUUTAMA": {
+    "MONSTER": {
+      "FIELDS": {}
+    },
+    "PARTY": {
+      "FIELDS": {}
+    },
+    "RYUUJIN": {
+      "FIELDS": {}
+    },
+    "TRAVELER": {
+      "FIELDS": {},
+      "TYPES": {
+        "attack": "Attack",
+        "magic": "Magic",
+        "technical": "Technical"
+      }
+    },
+
+    "ABILITIES": {
+      "strength": "Strength",
+      "strengthAbbr": "STR",
+      "dexterity": "Dexterity",
+      "dexterityAbbr": "DEX",
+      "intelligence": "Intelligence",
+      "intelligenceAbbr": "INT",
+      "spirit": "Spirit",
+      "spiritAbbr": "SPI",
+
+      "SETS": {
+        "average": "Average Set",
+        "standard": "Standard Set",
+        "specialized": "Specialized Set"
+      }
+    },
+    "GENDERS": {
+      "man": "Man",
+      "woman": "Woman"
+    },
+
+    "ITEM": {
+      "MODIFIERS": {
+        "beautiful": "Beautiful",
+        "broken": "Broken",
+        "cursed": "Cursed",
+        "cute": "Cute",
+        "gross": "Gross",
+        "highQuality": "High Quality",
+        "mythril": "Mythril",
+        "orichalcum": "Orichalcum",
+        "plusOne": "Plus One",
+        "shining": "Shining",
+        "smelly": "Smelly",
+        "speaking": "Speaking",
+        "sturdy": "Sturdy",
+        "uncool": "Uncool",
+        "used": "Used",
+        "walking": "Walking"
+      },
+      "SIZES": {
+        "size1": "Size 1",
+        "size3": "Size 3",
+        "size5": "Size 5"
+      }
+    },
+    "WEAPON": {
+      "CATEGORIES": {
+        "axe": "Axe",
+        "blade": "Blade",
+        "bow": "Bow",
+        "lightBlade": "Light Blade",
+        "polearm": "Polearm",
+        "unarmed": "Unarmed"
+      }
+    },
+
+    "SIDEBAR": {
+      "ACTORS": {
+        "contextMenuAssignPrimaryParty": "Assign Primary Party",
+        "contextMenuRemovePrimaryParty": "Remove Primary Party"
+      }
+    }
+  }
+}
