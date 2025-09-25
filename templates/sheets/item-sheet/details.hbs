@@ -1,0 +1,33 @@
+<section>
+  {{formGroup fields.name value=document.name disabled=true}}
+  {{formInput systemFields.description.fields.value enriched=enriched disabled=true toggled=true}}
+  {{formGroup systemFields.price.fields.value value=document.system.price.total disabled=true label="Price"}}
+
+  {{!-- DURABILITY --}}
+  <div class="form-group">
+    <label>Durability</label>
+    <div class="form-fields">
+      <input type="text" value="{{document.system.durability.value}}" disabled>
+      /
+      <input type="text" value="{{document.system.durability.max}}" disabled>
+    </div>
+  </div>
+
+  {{formGroup systemFields.modifiers value=source.system.modifiers type="checkboxes" localize=true classes="stacked" disabled=true}}
+  {{formGroup systemFields.size.fields.value value=document.system.size.total disabled=true localize=true label="Size"}}
+
+  {{!-- GEAR --}}
+  <div class="form-group">
+    <label>Bonus</label>
+    <div class="form-fields">
+      <input type="text" value="{{document.system.gear.check}}" disabled>
+    </div>
+  </div>
+  {{formGroup systemFields.gear.fields.strength value=document.system.gear.strength disabled=true label="Strength Requirement"}}
+
+  {{formGroup systemFields.gear.fields.habitat.fields.terrain value=document.system.gear.habitat.terrain disabled=true type="checkboxes" localize=true classes="stacked"}}
+
+  {{formGroup systemFields.gear.fields.habitat.fields.levels value=document.system.gear.habitat.levels disabled=true label="Max Terrain Level"}}
+
+  {{formGroup systemFields.gear.fields.habitat.fields.weather value=document.system.gear.habitat.weather disabled=true type="checkboxes" localize=true classes="stacked"}}
+</section>

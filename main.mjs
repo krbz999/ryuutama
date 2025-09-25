@@ -53,6 +53,15 @@ Hooks.once("init", () => {
 
   CONFIG.ui.actors = applications.sidebar.tabs.RyuutamaActorDirectory;
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
+
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.Item, ryuutama.id, applications.sheets.RyuutamaItemSheet,
+    {
+      types: ["accessory", "armor", "cape", "hat", "shield", "shoes", "staff", "weapon"],
+      label: "RYUUTAMA.SHEETS.ItemSheet",
+      makeDefault: true,
+    },
+  );
 });
 
 /* -------------------------------------------------- */

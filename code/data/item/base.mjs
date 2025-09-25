@@ -28,7 +28,7 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
     this.size.total = this.size.value;
     if (this.modifiers.has("mythril")) {
-      this.size.total = Math.max(0, this.size.total - 2);
+      this.size.total = Math.max(1, this.size.total - 2);
       this.durability.max = 5;
     } else {
       this.durability.max = this.size.total;
