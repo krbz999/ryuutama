@@ -38,7 +38,7 @@
   "socket": false,
   "url": "https://github.com/krbz999/ryuutama",
   "manifest": "https://github.com/krbz999/ryuutama/releases/latest/download/system.json",
-  "license": "<REPLACE_ME>",
+  "license": "https://github.com/krbz999/ryuutama/blob/main/LICENSE",
   "changelog": "",
   "flags": {
     "hotReload": {
@@ -58,7 +58,34 @@
     "Actor": {
       "monster": {},
       "party": {},
+      "ryuujin": {},
       "traveler": {}
+    },
+    "Item": {
+      "accessory": {
+        "htmlFields": ["description.value"]
+      },
+      "armor": {
+        "htmlFields": ["description.value"]
+      },
+      "cape": {
+        "htmlFields": ["description.value"]
+      },
+      "hat": {
+        "htmlFields": ["description.value"]
+      },
+      "shield": {
+        "htmlFields": ["description.value"]
+      },
+      "shoes": {
+        "htmlFields": ["description.value"]
+      },
+      "staff": {
+        "htmlFields": ["description.value"]
+      },
+      "weapon": {
+        "htmlFields": ["description.value"]
+      }
     }
   }
 }

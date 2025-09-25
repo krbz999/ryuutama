@@ -9,6 +9,24 @@
       "ryuujinPl": "Ryuujin",
       "traveler": "Traveler",
       "travelerPl": "Travelers"
+    },
+    "Item": {
+      "accessory": "Accessory",
+      "accessoryPl": "Accessories",
+      "armor": "Armor",
+      "armorPl": "Armor",
+      "cape": "Cape",
+      "capePl": "Capes",
+      "hat": "Hat",
+      "hatPl": "Hats",
+      "shield": "Shield",
+      "shieldPl": "Shields",
+      "shoes": "Shoes",
+      "shoesPl": "Shoes",
+      "staff": "Staff",
+      "staffPl": "Staffs",
+      "weapon": "Weapon",
+      "weaponPl": "Weapons"
     }
   },
   "RYUUTAMA": {
@@ -76,6 +94,29 @@
         "size5": "Size 5"
       }
     },
+    "ACCESSORY": {
+      "TYPES": {
+        "accessory": "Accessory",
+        "goggles": "Goggles"
+      }
+    },
+    "ARMOR": {
+      "CATEGORIES": {
+        "clothes": "Clothes",
+        "light": "Light Armor",
+        "medium": "Medium Armor",
+        "heavy": "Heavy Armor"
+      }
+    },
+    "CAPE": {
+      "TYPES": {}
+    },
+    "SHIELD": {
+      "CATEGORIES": {
+        "light": "Light Shield",
+        "heavy": "Heavy Shield"
+      }
+    },
     "WEAPON": {
       "CATEGORIES": {
         "axe": "Axe",
@@ -92,6 +133,30 @@
         "contextMenuAssignPrimaryParty": "Assign Primary Party",
         "contextMenuRemovePrimaryParty": "Remove Primary Party"
       }
+    },
+
+    "TERRAIN": {
+      "road": "On the road",
+      "wasteland": "Wasteland",
+      "rocky": "Rocky Terrain",
+      "mountain": "Mountain",
+      "alpine": "Alpine",
+      "swamp": "Swamp",
+      "woods": "Woods",
+      "deepForest": "Deep Forest",
+      "jungle": "Jungle",
+      "desert": "Desert"
+    },
+
+    "WEATHER": {
+      "rain": "Rain",
+      "hardRain": "Hard Rain",
+      "storm": "Storm",
+      "snow": "Snow",
+      "blizzard": "Blizzard",
+      "strongWind": "Strong Wind",
+      "cold": "Cold",
+      "hot": "Hot"
     }
   }
 }

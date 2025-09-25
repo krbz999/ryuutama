@@ -1,13 +1,28 @@
 /**
- * @typedef GenderConfig
+ * @typedef AccessoryTypeConfig
  * @property {string} label   Human-readable label.
  */
 
 /* -------------------------------------------------- */
 
 /**
- * @typedef TravelerTypeConfig
- * The general loadout of a traveler.
+ * @typedef ArmorCategoryConfig
+ * @property {string} label           Human-readable label.
+ * @property {number|null} defense    Defense points.
+ * @property {number|null} penalty    Penalties applied to Travel and Initiative checks.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef CapeTypeConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef GenderConfig
  * @property {string} label   Human-readable label.
  */
 
@@ -21,6 +36,31 @@
  * @property {boolean} [hidden]     If `true`, this modifier is not shown on the item sheet unless the item has this
  *                                  modifier and derived data is being shown.
  * @property {boolean} [magical]    If `true`, the `cost` property is additive.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef ShieldCategoryConfig
+ * @property {string} label           Human-readable label.
+ * @property {number} defense         Defense points.
+ * @property {number|null} penalty    Penalties applied to Travel and Initiative checks.
+ * @property {number} dodge           Shield dodge value.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef TerrainConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef TravelerTypeConfig
+ * The general loadout of a traveler.
+ * @property {string} label   Human-readable label.
  */
 
 /* -------------------------------------------------- */

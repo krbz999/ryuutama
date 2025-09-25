@@ -13,6 +13,9 @@ export default class WeaponData extends BaseData {
         }),
         bonus: new NumberField({ nullable: true, integer: true, initial: null }),
       }),
+      category: new SchemaField({
+        value: new StringField({ required: true, blank: false, choices: () => ryuutama.config.weaponCategories }),
+      }),
       damage: new SchemaField({
         custom: new BooleanField(),
         ability: new StringField({
@@ -29,8 +32,9 @@ export default class WeaponData extends BaseData {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    const { accuracy: acc, damage } = this;
-    const config = ryuutama.config.weaponCategories[this.type.value];
+    const { accuracy: acc, damage, category } = this;
+    const config = ryuutama.config.weaponCategories[category.value];
+    this.grip = config.grip;
 
     if (!acc.custom) {
       acc.ability = new Set(config.accuracy.abilities);
@@ -41,5 +45,8 @@ export default class WeaponData extends BaseData {
       damage.ability = config.damage.ability;
       damage.bonus = (config.damage.bonus ?? 0);
     }
+
+    if (this.modifiers.has("highQuality")) acc.bonus = (acc.bonus ?? 0) + 1;
+    if (this.modifiers.has("plusOne")) damage.bonus = (damage.bonus ?? 0) + 1;
   }
 }

@@ -25,21 +25,31 @@ Hooks.once("init", () => {
   registerSettings();
 
   CONFIG.ActiveEffect.documentClass = documents.RyuutamaActiveEffect;
-  CONFIG.Actor.documentClass = documents.RyuutamaActor;
-  CONFIG.ChatMessage.documentClass = documents.RyuutamaChatMessage;
-  CONFIG.Combat.documentClass = documents.RyuutamaCombat;
-  CONFIG.Combatant.documentClass = documents.RyuutamaCombatant;
-  CONFIG.CombatantGroup.documentClass = documents.RyuutamaCombatantGroup;
-  CONFIG.Item.documentClass = documents.RyuutamaItem;
-  CONFIG.Scene.documentClass = documents.RyuutamaScene;
-  CONFIG.Token.documentClass = documents.RyuutamaTokenDocument;
 
+  CONFIG.Actor.collection = documents.collections.RyuutamaActors;
+  CONFIG.Actor.documentClass = documents.RyuutamaActor;
   CONFIG.Actor.dataModels.monster = data.actor.MonsterData;
   CONFIG.Actor.dataModels.party = data.actor.PartyData;
   CONFIG.Actor.dataModels.ryuujin = data.actor.RyuujinData;
   CONFIG.Actor.dataModels.traveler = data.actor.TravelerData;
 
-  CONFIG.Actor.collection = documents.collections.RyuutamaActors;
+  CONFIG.ChatMessage.documentClass = documents.RyuutamaChatMessage;
+  CONFIG.Combat.documentClass = documents.RyuutamaCombat;
+  CONFIG.Combatant.documentClass = documents.RyuutamaCombatant;
+  CONFIG.CombatantGroup.documentClass = documents.RyuutamaCombatantGroup;
+
+  CONFIG.Item.documentClass = documents.RyuutamaItem;
+  CONFIG.Item.dataModels.accessory = data.item.AccessoryData;
+  CONFIG.Item.dataModels.armor = data.item.ArmorData;
+  CONFIG.Item.dataModels.cape = data.item.CapeData;
+  CONFIG.Item.dataModels.hat = data.item.HatData;
+  CONFIG.Item.dataModels.shield = data.item.ShieldData;
+  CONFIG.Item.dataModels.shoes = data.item.ShoesData;
+  CONFIG.Item.dataModels.staff = data.item.StaffData;
+  CONFIG.Item.dataModels.weapon = data.item.WeaponData;
+
+  CONFIG.Scene.documentClass = documents.RyuutamaScene;
+  CONFIG.Token.documentClass = documents.RyuutamaTokenDocument;
 
   CONFIG.ui.actors = applications.sidebar.tabs.RyuutamaActorDirectory;
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;

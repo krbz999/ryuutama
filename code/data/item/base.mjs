@@ -1,9 +1,12 @@
-const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class BaseData extends foundry.abstract.TypeDataModel {
   /** @override */
   static defineSchema() {
     return {
+      description: new SchemaField({
+        value: new HTMLField(),
+      }),
       durability: new SchemaField({
         spent: new NumberField({ nullable: false, initial: 0, integer: true, min: 0 }),
       }),
