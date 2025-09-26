@@ -1,6 +1,6 @@
 const { HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
-export default class BaseData extends foundry.abstract.TypeDataModel {
+export default class PhysicalData extends foundry.abstract.TypeDataModel {
   /** @override */
   static defineSchema() {
     return {

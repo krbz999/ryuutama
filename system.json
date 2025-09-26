@@ -80,6 +80,9 @@
       "shoes": {
         "htmlFields": ["description.value"]
       },
+      "skill": {
+        "htmlFields": ["description.value"]
+      },
       "staff": {
         "htmlFields": ["description.value"]
       },

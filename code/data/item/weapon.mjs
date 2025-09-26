@@ -1,8 +1,8 @@
-import BaseData from "./base.mjs";
+import PhysicalData from "./templates/physical.mjs";
 
 const { BooleanField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
-export default class WeaponData extends BaseData {
+export default class WeaponData extends PhysicalData {
   /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
@@ -14,7 +14,11 @@ export default class WeaponData extends BaseData {
         bonus: new NumberField({ nullable: true, integer: true, initial: null }),
       }),
       category: new SchemaField({
-        value: new StringField({ required: true, blank: false, choices: () => ryuutama.config.weaponCategories }),
+        value: new StringField({
+          required: true, blank: false,
+          choices: () => ryuutama.config.weaponCategories,
+          initial: () => Object.keys(ryuutama.config.weaponCategories)[0],
+        }),
       }),
       damage: new SchemaField({
         custom: new BooleanField(),

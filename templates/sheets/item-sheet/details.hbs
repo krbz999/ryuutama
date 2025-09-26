@@ -13,8 +13,8 @@
     </div>
   </div>
 
-  {{formGroup systemFields.modifiers value=source.system.modifiers type="checkboxes" localize=true classes="stacked" disabled=true}}
-  {{formGroup systemFields.size.fields.value value=document.system.size.total disabled=true localize=true label="Size"}}
+  {{formGroup systemFields.modifiers value=source.system.modifiers type="checkboxes" classes="stacked" disabled=disabled options=modifierOptions}}
+  {{formGroup systemFields.size.fields.value value=document.system.size.total disabled=disabled label="Size"}}
 
   {{!-- GEAR --}}
   <div class="form-group">
@@ -25,9 +25,9 @@
   </div>
   {{formGroup systemFields.gear.fields.strength value=document.system.gear.strength disabled=true label="Strength Requirement"}}
 
-  {{formGroup systemFields.gear.fields.habitat.fields.terrain value=document.system.gear.habitat.terrain disabled=true type="checkboxes" localize=true classes="stacked"}}
+  {{formGroup systemFields.gear.fields.habitat.fields.terrain value=document.system.gear.habitat.terrain disabled=true type="checkboxes" classes="stacked" label="Terrains"}}
 
   {{formGroup systemFields.gear.fields.habitat.fields.levels value=document.system.gear.habitat.levels disabled=true label="Max Terrain Level"}}
 
-  {{formGroup systemFields.gear.fields.habitat.fields.weather value=document.system.gear.habitat.weather disabled=true type="checkboxes" localize=true classes="stacked"}}
+  {{formGroup systemFields.gear.fields.habitat.fields.weather value=document.system.gear.habitat.weather disabled=true type="checkboxes" classes="stacked" options=weatherOptions label="Weather Conditions"}}
 </section>

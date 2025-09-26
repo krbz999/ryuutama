@@ -1,3 +1,5 @@
+import LocalDocumentField from "../fields/local-document-field.mjs";
+
 const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class TravelerData extends foundry.abstract.TypeDataModel {
@@ -43,6 +45,16 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
           custom: new StringField({ required: true, blank: true }),
         }),
         level: new NumberField({ nullable: false, integer: true, initial: 1, max: 10 }),
+      }),
+      equipped: new SchemaField({
+        weapon: new LocalDocumentField(foundry.documents.Item, { subtype: "weapon" }),
+        armor: new LocalDocumentField(foundry.documents.Item, { subtype: "armor" }),
+        shield: new LocalDocumentField(foundry.documents.Item, { subtype: "shield" }),
+        shoes: new LocalDocumentField(foundry.documents.Item, { subtype: "shoes" }),
+        cape: new LocalDocumentField(foundry.documents.Item, { subtype: "cape" }),
+        staff: new LocalDocumentField(foundry.documents.Item, { subtype: "staff" }),
+        hat: new LocalDocumentField(foundry.documents.Item, { subtype: "hat" }),
+        accessory: new LocalDocumentField(foundry.documents.Item, { subtype: "accessory" }),
       }),
       exp: new SchemaField({
         value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
@@ -95,8 +107,8 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     super.prepareBaseData();
 
     this.capacity = { bonus: 0 };
-    this.concentration = { bonus: 1 };
     this.mastered.max = 1;
+    this.habitats = { weather: new Set(), terrain: new Set() };
   }
 
   /* -------------------------------------------------- */
@@ -120,5 +132,17 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
 
     const gender = this.details.gender;
     gender.label = gender.custom ? gender.custom : ryuutama.config.genders[gender.value]?.label ?? "";
+
+    if (this.equipped.weapon?.system.grip === 2) Object.defineProperty(this.equipped, "shield", { value: null });
+  }
+
+  /* -------------------------------------------------- */
+
+  async rollSkill(abilities) {
+    const formula = `1d@abilities.${abilities[0]}.value + 1d@abilities.${abilities[1]}.value`;
+    const rollData = this.parent.getRollData();
+    const roll = foundry.dice.Roll.create(formula, rollData, { type: "skill" });
+    await roll.toMessage({ flavor: "" });
+    return roll;
   }
 }

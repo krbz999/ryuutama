@@ -1,0 +1,29 @@
+<section>
+  <div class="form-group slim">
+    <label for="{{rootId}}-ALL">{{localize "RYUUTAMA.WEATHER.CATEGORY.all"}}</label>
+    <div class="form-fields">
+      <input type="checkbox" name="weather" value="ALL" {{checked hasAll}} id="{{rootId}}-ALL">
+    </div>
+  </div>
+
+  {{#each groups}}
+  <label class="checkbox">
+    <input type="checkbox" name="weather" value="ALL:{{head.value}}" {{disabled head.disabled}} {{checked head.checked}}>
+    <span>{{head.label}}</span>
+  </label>
+
+  {{#unless (or head.checked @root.hasAll)}}
+  {{#each entries}}
+  <div class="form-group">
+    <div class="form-fields">
+      <label class="checkbox">
+        <input type="checkbox" name="weather" value="{{value}}" {{disabled disabled}} {{checked checked}}>
+        <span>{{label}}</span>
+      </label>
+    </div>
+  </div>
+  {{/each}}
+  {{/unless}}
+
+  {{/each}}
+</section>

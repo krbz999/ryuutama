@@ -1,8 +1,8 @@
-import BaseData from "./base.mjs";
+import PhysicalData from "./templates/physical.mjs";
 
 const { NumberField, SchemaField, StringField } = foundry.data.fields;
 
-export default class ShieldData extends BaseData {
+export default class ShieldData extends PhysicalData {
   /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
@@ -12,7 +12,11 @@ export default class ShieldData extends BaseData {
         penalty: new NumberField({ nullable: true, integer: true, initial: null }),
       }),
       category: new SchemaField({
-        value: new StringField({ required: true, blank: false, choices: () => ryuutama.config.shieldCategories }),
+        value: new StringField({
+          required: true, blank: false,
+          choices: () => ryuutama.config.shieldCategories,
+          initial: () => Object.keys(ryuutama.config.shieldCategories)[0],
+        }),
       }),
     });
   }

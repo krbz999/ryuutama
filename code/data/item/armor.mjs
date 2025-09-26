@@ -1,8 +1,8 @@
-import BaseData from "./base.mjs";
+import PhysicalData from "./templates/physical.mjs";
 
 const { NumberField, SchemaField, StringField } = foundry.data.fields;
 
-export default class ArmorData extends BaseData {
+export default class ArmorData extends PhysicalData {
   /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {

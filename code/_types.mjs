@@ -1,11 +1,4 @@
 /**
- * @typedef AccessoryTypeConfig
- * @property {string} label   Human-readable label.
- */
-
-/* -------------------------------------------------- */
-
-/**
  * @typedef ArmorCategoryConfig
  * @property {string} label           Human-readable label.
  * @property {number|null} defense    Defense points.
@@ -15,8 +8,9 @@
 /* -------------------------------------------------- */
 
 /**
- * @typedef CapeTypeConfig
- * @property {string} label   Human-readable label.
+ * @typedef CheckConfig
+ * @property {string} label         Human-readable label.
+ * @property {string[]} abilities   One or two abilities commonly used for this check.
  */
 
 /* -------------------------------------------------- */
@@ -77,4 +71,20 @@
  * @property {object} damage
  * @property {string} damage.ability          The default ability used for a damage roll with a weapon.
  * @property {number} [damage.bonus]          A modifier added on top of a damage roll.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef WeatherCategoryConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef WeatherTypeConfig
+ * @property {string} label       Human-readable label.
+ * @property {string} category    The weather category, for use with features
+ *                                such as 'all rain related conditions'.
  */

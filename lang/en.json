@@ -30,6 +30,7 @@
     }
   },
   "RYUUTAMA": {
+    "ACTOR": {},
     "MONSTER": {
       "FIELDS": {}
     },
@@ -63,6 +64,17 @@
         "standard": "Standard Set",
         "specialized": "Specialized Set"
       }
+    },
+    "CHECKS": {
+      "exercise": "Hard Exercise",
+      "drinking": "Drinking",
+      "stealth": "Stealth",
+      "perception": "Perception",
+      "dodge": "Dodge",
+      "delicateWork": "Delicate Work",
+      "negotiation": "Negotiation",
+      "sense": "Sense",
+      "job": "Job Knowledge"
     },
     "GENDERS": {
       "man": "Man",
@@ -128,8 +140,12 @@
       }
     },
 
+    "SHEET": {
+      "toggleEditMode": "Toggle Edit Mode"
+    },
+
     "SHEETS": {
-      "ItemSheet": "Ryuutama Item Sheet"
+      "GearSheet": "Ryuutama Gear Sheet"
     },
 
     "SIDEBAR": {
@@ -160,7 +176,20 @@
       "blizzard": "Blizzard",
       "strongWind": "Strong Wind",
       "cold": "Cold",
-      "hot": "Hot"
+      "hot": "Hot",
+
+      "CATEGORY": {
+        "rain": "Rain",
+        "snow": "Snow",
+        "wind": "Wind",
+        "temperature": "Temperature",
+        "all": "All weather conditions",
+        "allType": "All {type} related conditions"
+      },
+
+      "CONFIG": {
+        "title": "Configure Weather Conditions"
+      }
     }
   }
 }

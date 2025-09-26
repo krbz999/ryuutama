@@ -45,6 +45,7 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels.hat = data.item.HatData;
   CONFIG.Item.dataModels.shield = data.item.ShieldData;
   CONFIG.Item.dataModels.shoes = data.item.ShoesData;
+  CONFIG.Item.dataModels.skill = data.item.SkillData;
   CONFIG.Item.dataModels.staff = data.item.StaffData;
   CONFIG.Item.dataModels.weapon = data.item.WeaponData;
 
@@ -55,10 +56,10 @@ Hooks.once("init", () => {
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
 
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
-    foundry.documents.Item, ryuutama.id, applications.sheets.RyuutamaItemSheet,
+    foundry.documents.Item, ryuutama.id, applications.sheets.RyuutamaGearSheet,
     {
-      types: ["accessory", "armor", "cape", "hat", "shield", "shoes", "staff", "weapon"],
-      label: "RYUUTAMA.SHEETS.ItemSheet",
+      types: ["accessory", "cape", "hat", "shoes", "staff"],
+      label: "RYUUTAMA.SHEETS.GearSheet",
       makeDefault: true,
     },
   );
@@ -66,7 +67,11 @@ Hooks.once("init", () => {
 
 /* -------------------------------------------------- */
 
-Hooks.once("i18nInit", () => {});
+Hooks.once("i18nInit", () => {
+  for (const [record, options] of helpers.Prelocalization.toLocalize) {
+    utils.prelocalize(record, options);
+  }
+});
 
 /* -------------------------------------------------- */
 

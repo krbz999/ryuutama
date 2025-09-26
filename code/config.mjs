@@ -1,7 +1,10 @@
+import Prelocalization from "./helpers/prelocalization.mjs";
+
 /**
  * @import {
- * AccessoryTypeConfig, ArmorCategoryConfig, CapeTypeConfig, GenderConfig, ItemModifierConfig, ShieldCategoryConfig,
- * TerrainConfig, TravelerTypeConfig, WeaponCategoryConfig,
+ * ArmorCategoryConfig, CheckConfig, GenderConfig, ItemModifierConfig, ShieldCategoryConfig,
+ * TerrainConfig, TravelerTypeConfig, WeaponCategoryConfig, WeatherCategoryConfig,
+ * WeatherTypeConfig,
  * } from "./_types.mjs";
  */
 
@@ -25,20 +28,7 @@ export const abilityScores = {
     abbreviation: "RYUUTAMA.ABILITIES.spiritAbbr",
   },
 };
-
-/* -------------------------------------------------- */
-
-/**
- * @type {Record<string, AccessoryTypeConfig>}
- */
-export const accessoryTypes = {
-  goggles: {
-    label: "RYUUTAMA.ACCESSORY.TYPES.goggles",
-  },
-  accessory: {
-    label: "RYUUTAMA.ACCESSORY.TYPES.accessory",
-  },
-};
+Prelocalization.prelocalize(abilityScores, { properties: ["label", "abbreviation"] });
 
 /* -------------------------------------------------- */
 
@@ -67,32 +57,52 @@ export const armorCategories = {
     penalty: 3,
   },
 };
+Prelocalization.prelocalize(armorCategories);
 
 /* -------------------------------------------------- */
 
 /**
- * @type {Record<string, CapeTypeConfig>}
+ * @type {Record<string, CheckConfig>}
  */
-export const capeTypes = {
-  windbreaker: {
-    label: "RYUUTAMA.CAPE.TYPES.windbreaker",
+export const checks = {
+  exercise: {
+    label: "RYUUTAMA.CHECKS.exercise",
+    abilities: ["strength", "dexterity"],
   },
-  warm: {
-    label: "RYUUTAMA.CAPE.TYPES.warm",
+  drinking: {
+    label: "RYUUTAMA.CHECKS.drinking",
+    abilities: ["strength", "spirit"],
   },
-  raincoat: {
-    label: "RYUUTAMA.CAPE.TYPES.raincoat",
+  stealth: {
+    label: "RYUUTAMA.CHECKS.stealth",
+    abilities: ["dexterity", "dexterity"],
   },
-  camo: {
-    label: "RYUUTAMA.CAPE.TYPES.camo",
+  perception: {
+    label: "RYUUTAMA.CHECKS.perception",
+    abilities: ["dexterity", "intelligence"],
   },
-  fire: {
-    label: "RYUUTAMA.CAPE.TYPES.fire",
+  dodge: {
+    label: "RYUUTAMA.CHECKS.dodge",
+    abilities: ["dexterity", "intelligence"],
   },
-  sun: {
-    label: "RYUUTAMA.CAPE.TYPES.sun",
+  delicateWork: {
+    label: "RYUUTAMA.CHECKS.delicateWork",
+    abilities: ["dexterity", "spirit"],
+  },
+  negotiation: {
+    label: "RYUUTAMA.CHECKS.negotiation",
+    abilities: ["intelligence", "spirit"],
+  },
+  sense: {
+    label: "RYUUTAMA.CHECKS.sense",
+    abilities: ["intelligence", "spirit"],
+  },
+  job: {
+    label: "RYUUTAMA.CHECKS.job",
+    abilities: ["intelligence", "intelligence"],
   },
 };
+Prelocalization.prelocalize(checks);
 
 /* -------------------------------------------------- */
 
@@ -107,6 +117,7 @@ export const genders = {
     label: "RYUUTAMA.GENDERS.woman",
   },
 };
+Prelocalization.prelocalize(genders);
 
 /* -------------------------------------------------- */
 
@@ -185,6 +196,7 @@ export const itemModifiers = {
     magical: true,
   },
 };
+Prelocalization.prelocalize(itemModifiers);
 
 /* -------------------------------------------------- */
 
@@ -202,6 +214,7 @@ export const itemSizes = {
     grip: 2,
   },
 };
+Prelocalization.prelocalize(itemSizes);
 
 /* -------------------------------------------------- */
 
@@ -224,6 +237,7 @@ export const shieldCategories = {
     dodge: 9,
   },
 };
+Prelocalization.prelocalize(shieldCategories);
 
 /* -------------------------------------------------- */
 
@@ -241,6 +255,7 @@ export const startingScores = {
     values: [4, 4, 8, 8],
   },
 };
+Prelocalization.prelocalize(startingScores);
 
 /* -------------------------------------------------- */
 
@@ -279,6 +294,7 @@ export const terrainTypes = {
     label: "RYUUTAMA.TERRAIN.desert",
   },
 };
+Prelocalization.prelocalize(terrainTypes);
 
 /* -------------------------------------------------- */
 
@@ -296,6 +312,7 @@ export const travelerTypes = {
     label: "RYUUTAMA.TRAVELER.TYPES.magic",
   },
 };
+Prelocalization.prelocalize(travelerTypes);
 
 /* -------------------------------------------------- */
 
@@ -367,13 +384,38 @@ export const weaponCategories = {
     },
     damage: {
       ability: "strength",
-      bonus: -2, // TODO: improved weapons have -1 instead of -2
+      bonus: -2, // TODO: improvised weapons have -1 instead of -2
     },
   },
 };
+Prelocalization.prelocalize(weaponCategories);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, WeatherCategoryConfig>}
+ */
+export const weatherCategories = {
+  rain: {
+    label: "RYUUTAMA.WEATHER.CATEGORY.rain",
+  },
+  snow: {
+    label: "RYUUTAMA.WEATHER.CATEGORY.snow",
+  },
+  wind: {
+    label: "RYUUTAMA.WEATHER.CATEGORY.wind",
+  },
+  temperature: {
+    label: "RYUUTAMA.WEATHER.CATEGORY.temperature",
+  },
+};
+Prelocalization.prelocalize(weatherCategories);
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, WeatherTypeConfig>}
+ */
 export const weatherTypes = {
   rain: {
     label: "RYUUTAMA.WEATHER.rain",
@@ -408,3 +450,4 @@ export const weatherTypes = {
     category: "temperature",
   },
 };
+Prelocalization.prelocalize(weatherTypes);
