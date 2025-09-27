@@ -55,6 +55,9 @@
     }
   },
   "documentTypes": {
+    "ActiveEffect": {
+      "status": {}
+    },
     "Actor": {
       "monster": {},
       "party": {},

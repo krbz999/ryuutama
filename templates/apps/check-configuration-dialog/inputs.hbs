@@ -1,0 +1,43 @@
+<form class="standard-form">
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ROLL.abilities"}}</legend>
+    <div class="form-group">
+      <div class="form-fields">
+        <select name="abilities.0" {{#unless configurations.dialogConfig.selectAbilities}}disabled{{/unless}}>
+          {{selectOptions abilityOptions selected=abilities.abi1}}
+        </select>
+        {{#if abilities.abi2}}
+        <select name="abilities.1" {{#unless configurations.dialogConfig.selectAbilities}}disabled{{/unless}}>
+          {{selectOptions abilityOptions selected=abilities.abi2}}
+        </select>
+        {{/if}}
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-group">
+    <label for="{{partId}}-situationalBonus">{{localize "RYUUTAMA.ROLL.situationalBonus"}}</label>
+    <div class="form-fields">
+      <input type="number" name="situationalBonus" id="{{partId}}-situationalBonus" value="{{configurations.rollConfig.situationalBonus}}" placeholder="0">
+    </div>
+  </div>
+
+  {{#if showConcentration}}
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ROLL.concentration"}}</legend>
+    <div class="form-group slim">
+      <label for="{{partId}}-concentration.consumeMental">{{localize "RYUUTAMA.ROLL.consumeMental"}}</label>
+      <div class="form-fields">
+        <input type="checkbox" name="concentration.consumeMental" id="{{partId}}-concentration.consumeMental" {{checked configurations.rollConfig.concentration.consumeMental}}>
+      </div>
+    </div>
+
+    <div class="form-group slim">
+      <label for="{{partId}}-concentration.consumeFumble">{{localize "RYUUTAMA.ROLL.consumeFumble"}}</label>
+      <div class="form-fields">
+        <input type="checkbox" name="concentration.consumeFumble" id="{{partId}}-concentration.consumeFumble" {{checked configurations.rollConfig.concentration.consumeFumble}}>
+      </div>
+    </div>
+  </fieldset>
+  {{/if}}
+</form>

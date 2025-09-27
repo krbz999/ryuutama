@@ -1,4 +1,12 @@
 /**
+ * @typedef AbilityScoreConfig
+ * @property {string} label           Human-readable label.
+ * @property {string} abbreviation    Short-form of the label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef ArmorCategoryConfig
  * @property {string} label           Human-readable label.
  * @property {number|null} defense    Defense points.
@@ -35,11 +43,44 @@
 /* -------------------------------------------------- */
 
 /**
+ * @typedef ItemSizeConfig
+ * @property {string} label   Human-readable label.
+ * @property {number} grip    Number of hands needed to wield the item.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef JourneyCheckTypeConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef ShieldCategoryConfig
  * @property {string} label           Human-readable label.
  * @property {number} defense         Defense points.
  * @property {number|null} penalty    Penalties applied to Travel and Initiative checks.
  * @property {number} dodge           Shield dodge value.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef StartingScoreConfig
+ * @property {string} label       Human-readable label.
+ * @property {number[]} values    Array of starting scores, of length 4.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef StatusEffectConfig
+ * @property {string} name              Human-readable label.
+ * @property {string} img               The image used for the status effect.
+ * @property {string} _id               Unique document id of the status effect.
+ * @property {"body"|"mind"} category   The status effect category.
  */
 
 /* -------------------------------------------------- */

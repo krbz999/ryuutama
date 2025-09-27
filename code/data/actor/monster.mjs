@@ -25,6 +25,9 @@ export default class MonsterData extends foundry.abstract.TypeDataModel {
     if (!foundry.utils.hasProperty(data, "prototypeToken.sight.enabled"))
       foundry.utils.setProperty(update, "prototypeToken.sight.enabled", false);
 
+    if (!foundry.utils.hasProperty(data, "prototypeToken.disposition"))
+      foundry.utils.setProperty(update, "prototypeToken.disposition", CONST.TOKEN_DISPOSITIONS.HOSTILE);
+
     if (!foundry.utils.isEmpty(update)) this.parent.updateSource(update);
   }
 }

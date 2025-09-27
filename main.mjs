@@ -25,6 +25,7 @@ Hooks.once("init", () => {
   registerSettings();
 
   CONFIG.ActiveEffect.documentClass = documents.RyuutamaActiveEffect;
+  CONFIG.ActiveEffect.dataModels.status = data.effect.StatusData;
 
   CONFIG.Actor.collection = documents.collections.RyuutamaActors;
   CONFIG.Actor.documentClass = documents.RyuutamaActor;
@@ -55,6 +56,7 @@ Hooks.once("init", () => {
   CONFIG.ui.actors = applications.sidebar.tabs.RyuutamaActorDirectory;
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
 
+  // Register sheets.
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Item, ryuutama.id, applications.sheets.RyuutamaGearSheet,
     {
@@ -63,6 +65,12 @@ Hooks.once("init", () => {
       makeDefault: true,
     },
   );
+
+  // Register status effects.
+  // TODO: This becomes a Record in v14.
+  CONFIG.statusEffects = Object.entries(config.statusEffects).map(([id, { _id, img, name }]) => {
+    return { id, _id, img, name };
+  });
 });
 
 /* -------------------------------------------------- */
@@ -71,6 +79,7 @@ Hooks.once("i18nInit", () => {
   for (const [record, options] of helpers.Prelocalization.toLocalize) {
     utils.prelocalize(record, options);
   }
+  helpers.Prelocalization.toLocalize = [];
 });
 
 /* -------------------------------------------------- */

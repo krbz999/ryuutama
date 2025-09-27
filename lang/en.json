@@ -1,5 +1,9 @@
 {
   "TYPES": {
+    "ActiveEffect": {
+      "status": "Status Effect",
+      "statusPl": "Status Effects"
+    },
     "Actor": {
       "monster": "Monster",
       "monsterPl": "Monsters",
@@ -23,6 +27,8 @@
       "shieldPl": "Shields",
       "shoes": "Shoes",
       "shoesPl": "Shoes",
+      "skill": "Skill",
+      "skillPl": "Skills",
       "staff": "Staff",
       "staffPl": "Staffs",
       "weapon": "Weapon",
@@ -65,7 +71,7 @@
         "specialized": "Specialized Set"
       }
     },
-    "CHECKS": {
+    "SKILLS": {
       "exercise": "Hard Exercise",
       "drinking": "Drinking",
       "stealth": "Stealth",
@@ -75,6 +81,13 @@
       "negotiation": "Negotiation",
       "sense": "Sense",
       "job": "Job Knowledge"
+    },
+    "JOURNEY": {
+      "TYPES": {
+        "travel": "Travel",
+        "direction": "Direction",
+        "camping": "Camping"
+      }
     },
     "GENDERS": {
       "man": "Man",
@@ -144,7 +157,21 @@
       "WARNING": {
         "fumblesUnavailable": "{name} does not have any Fumble Point available.",
         "mentalUnavailable": "{name} does not have any MP available."
-      }
+      },
+      "TYPES": {
+        "accuracy": "Accuracy",
+        "condition": "Condition",
+        "damage": "Damage",
+        "initiative": "Initiative",
+        "journey": "Journey",
+        "skill": "Skill"
+      },
+      "title": "Configure {type} Check: {name}",
+      "situationalBonus": "Situational Bonus",
+      "concentration": "Concentration",
+      "consumeMental": "Consume MP",
+      "consumeFumble": "Spend Fumble Point",
+      "abilities": "Abilities"
     },
 
     "SHEET": {
@@ -159,6 +186,23 @@
       "ACTORS": {
         "contextMenuAssignPrimaryParty": "Assign Primary Party",
         "contextMenuRemovePrimaryParty": "Remove Primary Party"
+      }
+    },
+
+    "STATUSES": {
+      "injury": "Injury",
+      "poison": "Poison",
+      "sickness": "Sickness",
+      "exhaustion": "Exhaustion",
+      "muddled": "Muddled",
+      "shock": "Shock"
+    },
+
+    "STATUS": {
+      "HUD_APPLY": {
+        "title": "Configure Strength",
+        "label": "Strength",
+        "hint": "The strength of the status effect determines how likely a character is to succumb to it."
       }
     },
 

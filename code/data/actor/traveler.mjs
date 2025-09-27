@@ -39,7 +39,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         initiative: new NumberField({ integer: true }),
       }),
       condition: new SchemaField({
-        score: new NumberField({ nullable: true, initial: null, integer: true }),
+        value: new NumberField({ nullable: true, initial: null, integer: true }),
       }),
       details: new SchemaField({
         age: new NumberField({ integer: true, nullable: false, initial: 20, min: 1 }),
@@ -119,6 +119,9 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     if (!foundry.utils.hasProperty(data, "prototypeToken.sight.enabled"))
       foundry.utils.setProperty(update, "prototypeToken.sight.enabled", true);
 
+    if (!foundry.utils.hasProperty(data, "prototypeToken.disposition"))
+      foundry.utils.setProperty(update, "prototypeToken.disposition", CONST.TOKEN_DISPOSITIONS.FRIENDLY);
+
     if (!foundry.utils.isEmpty(update)) this.parent.updateSource(update);
   }
 
@@ -156,6 +159,29 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     gender.label = gender.custom ? gender.custom : ryuutama.config.genders[gender.value]?.label ?? "";
 
     if (this.equipped.weapon?.system.grip === 2) Object.defineProperty(this.equipped, "shield", { value: null });
+
+    // Apply changes from status effects.
+    const con = this.condition.value;
+    this.condition.statuses = {};
+    for (const status of this.parent.effects.documentsByType.status) {
+      const id = status.statuses.first();
+      const str = status.system.strength.value;
+      if ((str < con) || (id in this.condition.statuses)) continue;
+      let abilities;
+      switch (id) {
+        case "injury": abilities = ["dexterity"]; break;
+        case "poison": abilities = ["strength"]; break;
+        case "exhaustion": abilities = ["spirit"]; break;
+        case "muddled": abilities = ["intelligence"]; break;
+        case "shock":
+        case "sickness": abilities = ["strength", "dexterity", "intelligence", "spirit"]; break;
+      }
+      if (!abilities) continue;
+      for (const abi of abilities) {
+        this.abilities[abi].value = Math.max(4, this.abilities[abi].value - 2);
+      }
+      this.condition.statuses[id] = status.system.strength.value;
+    }
   }
 
   /* -------------------------------------------------- */
@@ -181,10 +207,21 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
       if (!configured) return null;
     }
 
-    const consumed = await this.#consumeCheck(rollConfig, dialogConfig, messageConfig);
+    const roll = this._constructCheckRoll(rollConfig, dialogConfig, messageConfig);
+    await roll.evaluate();
+
+    const consumed = await this.#performCheckUpdates(roll, rollConfig, dialogConfig, messageConfig);
     if (consumed === false) return null;
 
-    const roll = await this.#evaluateCheck(rollConfig, dialogConfig, messageConfig);
+    if (rollConfig.condition?.removeStatuses) {
+      const score = this.parent.system.condition.value;
+      const deleteIds = [];
+      for (const status of this.parent.effects.documentsByType.status) {
+        const str = status.system.strength.value;
+        if (str < score) deleteIds.push(status.id);
+      }
+      await this.parent.deleteEmbeddedDocuments("ActiveEffect", deleteIds);
+    }
 
     if (messageConfig.create !== false) {
       const speaker = foundry.documents.ChatMessage.implementation.getSpeaker({ actor: this.parent });
@@ -201,21 +238,22 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
-   * Perform the consumption related to a check.
+   * Perform the updates related to a check.
+   * @param {foundry.dice.Roll} roll    The evaluated check.
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
    * @returns {Promise<boolean|void>}    Explicitly returning false if consumption was not possible.
    */
-  async #consumeCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+  async #performCheckUpdates(roll, rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     const update = {};
 
+    // Consume a fumble point and MP due to concentration.
     const c = rollConfig.concentration ?? {};
-
     if (c.consumeFumble) {
       const value = this.fumbles.value - 1;
       if (value < 0) {
-        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.fumblesUnavailable", { name: this.parent.name });
+        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.fumblesUnavailable", { format: { name: this.parent.name } });
         return false;
       }
       update["system.fumbles.value"] = value;
@@ -224,14 +262,17 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     if (c.consumeMental) {
       const value = this.resources.mental.value;
       if (!value) {
-        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.mentalUnavailable", { name: this.parent.name });
+        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.mentalUnavailable", { format: { name: this.parent.name } });
         return false;
       }
       const toSpend = Math.ceil(value / 2);
       update["system.resources.mental.spent"] = this.resources.mental.spent + toSpend;
     }
 
-    // TODO: for condition checks, set condition score.
+    // Update condition score.
+    if (rollConfig.condition?.updateScore) {
+      update["system.condition.value"] = roll.total;
+    }
 
     await this.parent.update(update);
   }
@@ -239,13 +280,13 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
-   * Create and evaluate a check roll.
+   * Create a check roll.
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<foundry.dice.Roll>}
+   * @returns {foundry.dice.Roll}
    */
-  async #evaluateCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+  _constructCheckRoll(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     let bonus = 0;
 
     // Concentration
@@ -259,17 +300,18 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
 
     const formula = [
       "1d@ability1",
-      rollConfig.abilities.length > 1 ? "1d@ability2" : null,
+      (rollConfig.abilities.length > 1) ? "1d@ability2" : null,
+      rollConfig.modifier ? "@modifier" : null,
       bonus ? "@bonus" : null,
     ].filterJoin(" + ");
     const rollData = {
       bonus,
+      modifier: rollConfig.modifier,
       ability1: this.abilities[rollConfig.abilities[0]].value,
       ability2: this.abilities[rollConfig.abilities[1]]?.value,
     };
 
     const roll = foundry.dice.Roll.create(formula, rollData);
-    await roll.evaluate();
     return roll;
   }
 
@@ -284,11 +326,13 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
    */
   async rollSkillCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
-    if (!(rollConfig.skillId in ryuutama.config.checks)) {
+    if (!(rollConfig.skillId in ryuutama.config.skillCheckTypes)) {
       throw new Error(`Invalid skillId '${rollConfig.skillId}' for a skill check.`);
     }
 
-    if (!rollConfig.abilities?.length) rollConfig.abilities = [...ryuutama.config.checks[rollConfig.skillId].abilities];
+    if (!rollConfig.abilities?.length) rollConfig.abilities = [
+      ...ryuutama.config.skillCheckTypes[rollConfig.skillId].abilities,
+    ];
     rollConfig.type = "skill";
     dialogConfig.selectAbilities = dialogConfig.selectSubtype = true;
 
@@ -326,10 +370,20 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   async rollAccuracyCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
     rollConfig.type = "accuracy";
-    const category = this.equipped.weapon?.system.category.value ?? "unarmed";
-    const { abilities, bonus } = ryuutama.config.weaponCategories[category].accuracy;
+
+    let abilities;
+    let bonus;
+    if (this.equipped.weapon) {
+      abilities = this.equipped.weapon.system.accuracyAbilities;
+      bonus = this.equipped.weapon.system.accuracy.bonus;
+    } else {
+      const acc = ryuutama.config.weaponCategories.unarmed.accuracy;
+      abilities = [...acc.abilities];
+      bonus = acc.bonus;
+    }
+
     rollConfig.abilities = abilities;
-    rollConfig.situationalBonus = bonus;
+    rollConfig.modifier = bonus;
     dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
     return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
   }
@@ -346,10 +400,20 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   async rollDamageCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
     rollConfig.type = "damage";
-    const category = this.equipped.weapon?.system.category.value ?? "unarmed";
-    const { ability, bonus } = ryuutama.config.weaponCategories[category].damage;
+
+    let ability;
+    let bonus;
+    if (this.equipped.weapon) {
+      ability = this.equipped.weapon.system.damage.ability;
+      bonus = this.equipped.weapon.system.damage.bonus;
+    } else {
+      const d = ryuutama.config.weaponCategories.unarmed.damage;
+      ability = d.ability;
+      bonus = d.bonus;
+    }
+
     rollConfig.abilities = [ability];
-    rollConfig.situationalBonus = bonus;
+    rollConfig.modifier = bonus;
     dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
     rollConfig.concentration = false;
 
@@ -371,6 +435,8 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     rollConfig.abilities = ["strength", "spirit"];
     dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
     rollConfig.concentration = false;
+    rollConfig.condition ??= {};
+    rollConfig.condition.updateScore = rollConfig.condition.removeStatuses = true;
 
     return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
   }

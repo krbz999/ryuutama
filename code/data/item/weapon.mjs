@@ -53,4 +53,16 @@ export default class WeaponData extends PhysicalData {
     if (this.modifiers.has("highQuality")) acc.bonus = (acc.bonus ?? 0) + 1;
     if (this.modifiers.has("plusOne")) damage.bonus = (damage.bonus ?? 0) + 1;
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The abilities used for accuracy checks.
+   * @type {string[]}
+   */
+  get accuracyAbilities() {
+    const acc = this.accuracy;
+    if (acc.ability.size < 2) return [acc.ability.first(), acc.ability.first()];
+    return [...acc.ability];
+  }
 }

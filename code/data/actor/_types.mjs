@@ -2,12 +2,19 @@
  * @typedef CheckRollConfig
  * @property {string[]} [abilities]
  * @property {string} [type]
- * @property {string} [skillId]   If a skill check, the type of skill from `config.checks`.
- * @property {"travel"|"direction"|"camping"} [journeyId]   If a journey check, the type of check.
+ * @property {string} [skillId]                             If a skill check, the type of skill from `skillCheckTypes`.
+ * @property {"travel"|"direction"|"camping"} [journeyId]   If a journey check, the type of check from `journeyCheckTypes`.
+ * @property {number} [modifier]                            A modifier to the roll that cannot be changed via the UI,
+ *                                                          e.g., the accuracy or damage modifier from a weapon.
  * @property {number} [situationalBonus]
- * @property {object|false} [concentration]
- * @property {boolean} [concentration.consumeMental]
- * @property {boolean} [concentration.consumeFumble]
+ * @property {object|false} [concentration]                 If explicitly `false`, options are not shown in the dialog.
+ * @property {boolean} [concentration.consumeMental]        Consume half the traveler's current MP (rounded up)?
+ * @property {boolean} [concentration.consumeFumble]        Consume a Fumble point?
+ * @property {object} [condition]
+ * @property {boolean} [condition.updateScore]              Update the traveler's condition score with
+ *                                                          the total of the check?
+ * @property {boolean} [condition.removeStatuses]           Remove status effects whose strength is lower than the
+ *                                                          traveler's condition score?
  */
 
 /* -------------------------------------------------- */

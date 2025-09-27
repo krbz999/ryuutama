@@ -2,14 +2,17 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 
 /**
  * @import {
- * ArmorCategoryConfig, CheckConfig, GenderConfig, ItemModifierConfig, ShieldCategoryConfig,
- * TerrainTypeConfig, TravelerTypeConfig, WeaponCategoryConfig, WeatherCategoryConfig,
- * WeatherTypeConfig,
+ * AbilityScoreConfig, ArmorCategoryConfig, CheckConfig, GenderConfig, ItemModifierConfig, ItemSizeConfig,
+ * JourneyCheckTypeConfig, ShieldCategoryConfig, StartingScoreConfig, StatusEffectConfig, TerrainTypeConfig,
+ * TravelerTypeConfig, WeaponCategoryConfig, WeatherCategoryConfig, WeatherTypeConfig,
  * } from "./_types.mjs";
  */
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, AbilityScoreConfig>}
+ */
 export const abilityScores = {
   strength: {
     label: "RYUUTAMA.ABILITIES.strength",
@@ -64,45 +67,45 @@ Prelocalization.prelocalize(armorCategories);
 /**
  * @type {Record<string, CheckConfig>}
  */
-export const checks = {
+export const skillCheckTypes = {
   exercise: {
-    label: "RYUUTAMA.CHECKS.exercise",
+    label: "RYUUTAMA.SKILLS.exercise",
     abilities: ["strength", "dexterity"],
   },
   drinking: {
-    label: "RYUUTAMA.CHECKS.drinking",
+    label: "RYUUTAMA.SKILLS.drinking",
     abilities: ["strength", "spirit"],
   },
   stealth: {
-    label: "RYUUTAMA.CHECKS.stealth",
+    label: "RYUUTAMA.SKILLS.stealth",
     abilities: ["dexterity", "dexterity"],
   },
   perception: {
-    label: "RYUUTAMA.CHECKS.perception",
+    label: "RYUUTAMA.SKILLS.perception",
     abilities: ["dexterity", "intelligence"],
   },
   dodge: {
-    label: "RYUUTAMA.CHECKS.dodge",
+    label: "RYUUTAMA.SKILLS.dodge",
     abilities: ["dexterity", "intelligence"],
   },
   delicateWork: {
-    label: "RYUUTAMA.CHECKS.delicateWork",
+    label: "RYUUTAMA.SKILLS.delicateWork",
     abilities: ["dexterity", "spirit"],
   },
   negotiation: {
-    label: "RYUUTAMA.CHECKS.negotiation",
+    label: "RYUUTAMA.SKILLS.negotiation",
     abilities: ["intelligence", "spirit"],
   },
   sense: {
-    label: "RYUUTAMA.CHECKS.sense",
+    label: "RYUUTAMA.SKILLS.sense",
     abilities: ["intelligence", "spirit"],
   },
   job: {
-    label: "RYUUTAMA.CHECKS.job",
+    label: "RYUUTAMA.SKILLS.job",
     abilities: ["intelligence", "intelligence"],
   },
 };
-Prelocalization.prelocalize(checks);
+Prelocalization.prelocalize(skillCheckTypes);
 
 /* -------------------------------------------------- */
 
@@ -200,6 +203,9 @@ Prelocalization.prelocalize(itemModifiers);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<number, ItemSizeConfig>}
+ */
 export const itemSizes = {
   1: {
     label: "RYUUTAMA.ITEM.SIZES.size1",
@@ -215,6 +221,24 @@ export const itemSizes = {
   },
 };
 Prelocalization.prelocalize(itemSizes);
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, JourneyCheckTypeConfig>}
+ */
+export const journeyCheckTypes = {
+  travel: {
+    label: "RYUUTAMA.JOURNEY.TYPES.travel",
+  },
+  direction: {
+    label: "RYUUTAMA.JOURNEY.TYPES.direction",
+  },
+  camping: {
+    label: "RYUUTAMA.JOURNEY.TYPES.camping",
+  },
+};
+Prelocalization.prelocalize(journeyCheckTypes);
 
 /* -------------------------------------------------- */
 
@@ -241,6 +265,9 @@ Prelocalization.prelocalize(shieldCategories);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, StartingScoreConfig>}
+ */
 export const startingScores = {
   average: {
     label: "RYUUTAMA.ABILITIES.SETS.average",
@@ -256,6 +283,51 @@ export const startingScores = {
   },
 };
 Prelocalization.prelocalize(startingScores);
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, StatusEffectConfig>}
+ */
+export const statusEffects = {
+  injury: {
+    name: "RYUUTAMA.STATUSES.injury",
+    img: "icons/svg/leg.svg",
+    _id: "injury0000000000",
+    category: "body",
+  },
+  poison: {
+    name: "RYUUTAMA.STATUSES.poison",
+    img: "icons/svg/biohazard.svg",
+    _id: "poison0000000000",
+    category: "body",
+  },
+  sickness: {
+    name: "RYUUTAMA.STATUSES.sickness",
+    img: "icons/svg/pill.svg",
+    _id: "sickness00000000",
+    category: "body",
+  },
+  exhaustion: {
+    name: "RYUUTAMA.STATUSES.exhaustion",
+    img: "icons/svg/walk.svg",
+    _id: "exhaustion000000",
+    category: "mind",
+  },
+  muddled: {
+    name: "RYUUTAMA.STATUSES.muddled",
+    img: "icons/svg/stoned.svg",
+    _id: "muddled000000000",
+    category: "mind",
+  },
+  shock: {
+    name: "RYUUTAMA.STATUSES.shock",
+    img: "icons/svg/ice-aura.svg",
+    _id: "shock00000000000",
+    category: "mind",
+  },
+};
+Prelocalization.prelocalize(statusEffects, { properties: ["name"] });
 
 /* -------------------------------------------------- */
 
