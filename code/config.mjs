@@ -3,7 +3,7 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 /**
  * @import {
  * ArmorCategoryConfig, CheckConfig, GenderConfig, ItemModifierConfig, ShieldCategoryConfig,
- * TerrainConfig, TravelerTypeConfig, WeaponCategoryConfig, WeatherCategoryConfig,
+ * TerrainTypeConfig, TravelerTypeConfig, WeaponCategoryConfig, WeatherCategoryConfig,
  * WeatherTypeConfig,
  * } from "./_types.mjs";
  */
@@ -260,38 +260,62 @@ Prelocalization.prelocalize(startingScores);
 /* -------------------------------------------------- */
 
 /**
- * @type {Record<string, TerrainConfig>}
+ * @type {Record<string, TerrainTypeConfig>}
  */
 export const terrainTypes = {
   road: {
     label: "RYUUTAMA.TERRAIN.road",
+    level: 0,
   },
   wasteland: {
     label: "RYUUTAMA.TERRAIN.wasteland",
+    level: 1,
   },
   rocky: {
     label: "RYUUTAMA.TERRAIN.rocky",
+    level: 2,
   },
   mountain: {
     label: "RYUUTAMA.TERRAIN.mountain",
+    level: 3,
+    movementModifier: 1 / 2,
   },
   alpine: {
     label: "RYUUTAMA.TERRAIN.alpine",
+    level: 5,
+    movementModifier: 1 / 4,
   },
   swamp: {
     label: "RYUUTAMA.TERRAIN.swamp",
+    level: 3,
+    movementModifier: 1 / 2,
   },
   woods: {
     label: "RYUUTAMA.TERRAIN.woods",
+    level: 2,
   },
   deepForest: {
     label: "RYUUTAMA.TERRAIN.deepForest",
+    level: 3,
+    movementModifier: 1 / 2,
   },
   jungle: {
     label: "RYUUTAMA.TERRAIN.jungle",
+    level: 4,
+    movementModifier: 1 / 3,
   },
   desert: {
     label: "RYUUTAMA.TERRAIN.desert",
+    level: 4,
+    movementModifier: 1 / 3,
+  },
+  grassland: {
+    label: "RYUUTAMA.TERRAIN.grassland",
+    level: 1,
+  },
+  highland: {
+    label: "RYUUTAMA.TERRAIN.highland",
+    level: 2,
   },
 };
 Prelocalization.prelocalize(terrainTypes);
@@ -405,9 +429,6 @@ export const weatherCategories = {
   wind: {
     label: "RYUUTAMA.WEATHER.CATEGORY.wind",
   },
-  temperature: {
-    label: "RYUUTAMA.WEATHER.CATEGORY.temperature",
-  },
 };
 Prelocalization.prelocalize(weatherCategories);
 
@@ -417,12 +438,37 @@ Prelocalization.prelocalize(weatherCategories);
  * @type {Record<string, WeatherTypeConfig>}
  */
 export const weatherTypes = {
+  clear: {
+    label: "RYUUTAMA.WEATHER.clear",
+  },
+  cloudy: {
+    label: "RYUUTAMA.WEATHER.cloudy",
+  },
+  fog: {
+    label: "RYUUTAMA.WEATHER.fog",
+    modifier: 1,
+  },
+  deepFog: {
+    label: "RYUUTAMA.WEATHER.deepFog",
+    modifier: 3,
+  },
+  night: {
+    label: "RYUUTAMA.WEATHER.night",
+    modifier: 3,
+  },
+  hurricane: {
+    label: "RYUUTAMA.WEATHER.hurricane",
+    modifier: 5,
+    category: "wind",
+  },
   rain: {
     label: "RYUUTAMA.WEATHER.rain",
+    modifier: 1,
     category: "rain",
   },
   hardRain: {
     label: "RYUUTAMA.WEATHER.hardRain",
+    modifier: 3,
     category: "rain",
   },
   storm: {
@@ -431,23 +477,26 @@ export const weatherTypes = {
   },
   snow: {
     label: "RYUUTAMA.WEATHER.snow",
+    modifier: 3,
     category: "snow",
   },
   blizzard: {
     label: "RYUUTAMA.WEATHER.blizzard",
+    modifier: 5,
     category: "snow",
   },
   strongWind: {
     label: "RYUUTAMA.WEATHER.strongWind",
+    modifier: 1,
     category: "wind",
   },
   cold: {
     label: "RYUUTAMA.WEATHER.cold",
-    category: "temperature",
+    modifier: 1,
   },
   hot: {
     label: "RYUUTAMA.WEATHER.hot",
-    category: "temperature",
+    modifier: 1,
   },
 };
 Prelocalization.prelocalize(weatherTypes);

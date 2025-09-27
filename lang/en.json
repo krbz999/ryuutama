@@ -140,6 +140,13 @@
       }
     },
 
+    "ROLL": {
+      "WARNING": {
+        "fumblesUnavailable": "{name} does not have any Fumble Point available.",
+        "mentalUnavailable": "{name} does not have any MP available."
+      }
+    },
+
     "SHEET": {
       "toggleEditMode": "Toggle Edit Mode"
     },
@@ -165,7 +172,9 @@
       "woods": "Woods",
       "deepForest": "Deep Forest",
       "jungle": "Jungle",
-      "desert": "Desert"
+      "desert": "Desert",
+      "grassland": "Grassland",
+      "highland": "Highland"
     },
 
     "WEATHER": {
@@ -177,12 +186,17 @@
       "strongWind": "Strong Wind",
       "cold": "Cold",
       "hot": "Hot",
+      "clear": "Clear Skies",
+      "cloudy": "Cloudy",
+      "fog": "Fog",
+      "deepFog": "Deep Fog",
+      "night": "Night",
+      "hurricane": "Hurricane",
 
       "CATEGORY": {
         "rain": "Rain",
         "snow": "Snow",
         "wind": "Wind",
-        "temperature": "Temperature",
         "all": "All weather conditions",
         "allType": "All {type} related conditions"
       },

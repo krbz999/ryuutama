@@ -45,8 +45,10 @@
 /* -------------------------------------------------- */
 
 /**
- * @typedef TerrainConfig
- * @property {string} label   Human-readable label.
+ * @typedef TerrainTypeConfig
+ * @property {string} label                 Human-readable label.
+ * @property {number} level                 The terrain level.
+ * @property {number} [movementModifier]    A modifier to movement speed through this terrain.
  */
 
 /* -------------------------------------------------- */
@@ -84,7 +86,8 @@
 
 /**
  * @typedef WeatherTypeConfig
- * @property {string} label       Human-readable label.
- * @property {string} category    The weather category, for use with features
- *                                such as 'all rain related conditions'.
+ * @property {string} label         Human-readable label.
+ * @property {number} [modifier]    The weather modifier for a journey check.
+ * @property {string} category      The weather category, for use with features
+ *                                  such as 'all rain related conditions'.
  */

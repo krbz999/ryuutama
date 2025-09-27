@@ -1,5 +1,9 @@
 import LocalDocumentField from "../fields/local-document-field.mjs";
 
+/**
+ * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "./_types.mjs";
+ */
+
 const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class TravelerData extends foundry.abstract.TypeDataModel {
@@ -7,7 +11,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const makeAbility = () => {
       return new SchemaField({
-        value: new NumberField({ step: 2, min: 4, max: 8, nullable: false, initial: 4 }),
+        value: new NumberField({ step: 2, min: 4, max: 12, nullable: false, initial: 4 }),
       });
     };
 
@@ -34,6 +38,9 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         damage: new NumberField({ integer: true }),
         initiative: new NumberField({ integer: true }),
       }),
+      condition: new SchemaField({
+        score: new NumberField({ nullable: true, initial: null, integer: true }),
+      }),
       details: new SchemaField({
         age: new NumberField({ integer: true, nullable: false, initial: 20, min: 1 }),
         background: new HTMLField(),
@@ -59,6 +66,9 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
       exp: new SchemaField({
         value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
       }),
+      fumbles: new SchemaField({
+        value: new NumberField({ nullable: false, min: 0, integer: true, initial: 0 }),
+      }),
       gold: new SchemaField({
         value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
       }),
@@ -83,6 +93,18 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.TRAVELER",
   ];
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is this character Technical and receives an additional +1 bonus when concentrating?
+   * @type {boolean}
+   */
+  get isTechnical() {
+    if (this.type.value === "technical") return true;
+    if ((this.details.level >= 6) && (this.type.additional === "technical")) return true;
+    return false;
+  }
 
   /* -------------------------------------------------- */
 
@@ -137,12 +159,266 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------------- */
+  /*   Checks                                           */
+  /* -------------------------------------------------- */
 
-  async rollSkill(abilities) {
-    const formula = `1d@abilities.${abilities[0]}.value + 1d@abilities.${abilities[1]}.value`;
-    const rollData = this.parent.getRollData();
-    const roll = foundry.dice.Roll.create(formula, rollData, { type: "skill" });
-    await roll.toMessage({ flavor: "" });
+  /**
+   * Perform a check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<foundry.dice.Roll|null>}
+   */
+  async #rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    messageConfig = foundry.utils.mergeObject({ create: true }, messageConfig);
+
+    if (dialogConfig.configure !== false) {
+      // The dialog modifies the three configurations inplace.
+      const configured = await ryuutama.applications.apps.CheckConfigurationDialog.create({
+        rollConfig, dialogConfig, messageConfig,
+        document: this.parent,
+      });
+      if (!configured) return null;
+    }
+
+    const consumed = await this.#consumeCheck(rollConfig, dialogConfig, messageConfig);
+    if (consumed === false) return null;
+
+    const roll = await this.#evaluateCheck(rollConfig, dialogConfig, messageConfig);
+
+    if (messageConfig.create !== false) {
+      const speaker = foundry.documents.ChatMessage.implementation.getSpeaker({ actor: this.parent });
+      roll.toMessage({ speaker });
+    }
+
+    if (roll.isFumble) {
+      // TODO: items lose durability
+    }
+
     return roll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Perform the consumption related to a check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<boolean|void>}    Explicitly returning false if consumption was not possible.
+   */
+  async #consumeCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    const update = {};
+
+    const c = rollConfig.concentration ?? {};
+
+    if (c.consumeFumble) {
+      const value = this.fumbles.value - 1;
+      if (value < 0) {
+        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.fumblesUnavailable", { name: this.parent.name });
+        return false;
+      }
+      update["system.fumbles.value"] = value;
+    }
+
+    if (c.consumeMental) {
+      const value = this.resources.mental.value;
+      if (!value) {
+        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.mentalUnavailable", { name: this.parent.name });
+        return false;
+      }
+      const toSpend = Math.ceil(value / 2);
+      update["system.resources.mental.spent"] = this.resources.mental.spent + toSpend;
+    }
+
+    // TODO: for condition checks, set condition score.
+
+    await this.parent.update(update);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Create and evaluate a check roll.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<foundry.dice.Roll>}
+   */
+  async #evaluateCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    let bonus = 0;
+
+    // Concentration
+    const c = rollConfig.concentration ?? {};
+    if (c.consumeFumble) bonus++;
+    if (c.consumeMental) bonus++;
+    if (this.isTechnical && (c.consumeFumble || c.consumeMental)) bonus++;
+
+    // Situational bonus.
+    if (rollConfig.situationalBonus) bonus += rollConfig.situationalBonus;
+
+    const formula = [
+      "1d@ability1",
+      rollConfig.abilities.length > 1 ? "1d@ability2" : null,
+      bonus ? "@bonus" : null,
+    ].filterJoin(" + ");
+    const rollData = {
+      bonus,
+      ability1: this.abilities[rollConfig.abilities[0]].value,
+      ability2: this.abilities[rollConfig.abilities[1]]?.value,
+    };
+
+    const roll = foundry.dice.Roll.create(formula, rollData);
+    await roll.evaluate();
+    return roll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll a skill check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<foundry.dice.Roll|null>}
+   */
+  async rollSkillCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
+    if (!(rollConfig.skillId in ryuutama.config.checks)) {
+      throw new Error(`Invalid skillId '${rollConfig.skillId}' for a skill check.`);
+    }
+
+    if (!rollConfig.abilities?.length) rollConfig.abilities = [...ryuutama.config.checks[rollConfig.skillId].abilities];
+    rollConfig.type = "skill";
+    dialogConfig.selectAbilities = dialogConfig.selectSubtype = true;
+
+    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll an initiative check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<foundry.dice.Roll|null>}
+   */
+  async rollInitiativeCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
+    rollConfig.type = "initiative";
+    rollConfig.abilities = ["dexterity", "intelligence"];
+    dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
+    rollConfig.concentration = false;
+
+    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll an accuracy check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<foundry.dice.Roll|null>}
+   */
+  async rollAccuracyCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
+    rollConfig.type = "accuracy";
+    const category = this.equipped.weapon?.system.category.value ?? "unarmed";
+    const { abilities, bonus } = ryuutama.config.weaponCategories[category].accuracy;
+    rollConfig.abilities = abilities;
+    rollConfig.situationalBonus = bonus;
+    dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
+    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll a damage check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<foundry.dice.Roll|null>}
+   */
+  async rollDamageCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
+    rollConfig.type = "damage";
+    const category = this.equipped.weapon?.system.category.value ?? "unarmed";
+    const { ability, bonus } = ryuutama.config.weaponCategories[category].damage;
+    rollConfig.abilities = [ability];
+    rollConfig.situationalBonus = bonus;
+    dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
+    rollConfig.concentration = false;
+
+    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll a condition check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<foundry.dice.Roll|null>}
+   */
+  async rollConditionCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
+    rollConfig.type = "condition";
+    rollConfig.abilities = ["strength", "spirit"];
+    dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
+    rollConfig.concentration = false;
+
+    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll a journey check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<foundry.dice.Roll|null>}
+   */
+  async rollJourneyCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
+    switch (rollConfig.journeyId) {
+      case "travel": rollConfig.abilities = ["strength", "dexterity"]; break;
+      case "camping": rollConfig.abilities = ["intelligence", "intelligence"]; break;
+      case "direction": rollConfig.abilities = ["dexterity", "intelligence"]; break;
+      default: throw new Error(`Invalid journeyId '${rollConfig.journeyId}' for a journey check.`);
+    }
+    rollConfig.type = "journey";
+    dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
+
+    // TODO: some checks have target number set explicitly. In this case terrain + weather.
+
+    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll a check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<foundry.dice.Roll|null>}
+   */
+  async rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
+    switch (rollConfig.type) {
+      case "skill": return this.rollSkillCheck(rollConfig, dialogConfig, messageConfig);
+      case "initiative": return this.rollInitiativeCheck(rollConfig, dialogConfig, messageConfig);
+      case "accuracy": return this.rollAccuracyCheck(rollConfig, dialogConfig, messageConfig);
+      case "damage": return this.rollDamageCheck(rollConfig, dialogConfig, messageConfig);
+      case "condition": return this.rollConditionCheck(rollConfig, dialogConfig, messageConfig);
+      case "journey": return this.rollJourneyCheck(rollConfig, dialogConfig, messageConfig);
+      default: throw new Error(`Invalid roll type '${rollConfig.type}' for a check.`);
+    }
   }
 }
