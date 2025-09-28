@@ -51,7 +51,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
       template: "systems/ryuutama/templates/apps/check-configuration-dialog/formula.hbs",
     },
     inputs: {
-      // abilities, situationalBonus, concentration
+      // abilities, situationalBonus, critical, concentration
       template: "systems/ryuutama/templates/apps/check-configuration-dialog/inputs.hbs",
       forms: {
         form: {

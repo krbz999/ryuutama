@@ -10,7 +10,7 @@ export default class PhysicalData extends foundry.abstract.TypeDataModel {
       durability: new SchemaField({
         spent: new NumberField({ nullable: false, initial: 0, integer: true, min: 0 }),
       }),
-      modifiers: new SetField(new StringField({ choices: ryuutama.config.itemModifiers })),
+      modifiers: new SetField(new StringField()),
       price: new SchemaField({
         value: new NumberField({ nullable: false, initial: 1, min: 0, integer: true }),
       }),
@@ -19,6 +19,14 @@ export default class PhysicalData extends foundry.abstract.TypeDataModel {
       }),
     };
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RYUUTAMA.PHYSICAL",
+  ];
 
   /* -------------------------------------------------- */
 
@@ -47,7 +55,9 @@ export default class PhysicalData extends foundry.abstract.TypeDataModel {
     this.price.magical = 0;
     this.price.total = this.price.value;
     for (const mod of this.modifiers) {
-      const { cost, magical } = ryuutama.config.itemModifiers[mod];
+      const config = ryuutama.config.itemModifiers[mod];
+      if (!config) continue;
+      const { cost, magical } = config;
       if (magical) this.price.magical += cost;
       else this.price.total *= cost;
     }

@@ -117,14 +117,31 @@
         "size1": "Size 1",
         "size3": "Size 3",
         "size5": "Size 5"
+      },
+      "details": "Details",
+      "durability": "Durability ({value}/{max})"
+    },
+    "HABITAT": {
+      "FIELDS": {
+        "gear.strength.label": "Max Strength",
+        "gear.strength.hint": "A traveler will not receive a benefit from this equipment if their Strength is higher than this value."
+      },
+      "configureHabitat": "Configure Terrain and Weather conditions",
+      "habitatBonuses": "Habitat Bonuses",
+      "terrainAndWeather": "Terrain & Weather Conditions",
+      "noTerrainWeather": "No bonuses",
+      "CONFIG": {
+        "title": "Configure Terrain & Weather Conditions"
       }
     },
-    "ACCESSORY": {
-      "TYPES": {
-        "accessory": "Accessory",
-        "goggles": "Goggles"
+    "PHYSICAL": {
+      "FIELDS": {
+        "price.value.label": "Gold Value",
+        "size.value.label": "Size",
+        "durability.spent.label": "Spent"
       }
     },
+    "ACCESSORY": {},
     "ARMOR": {
       "CATEGORIES": {
         "clothes": "Clothes",
@@ -133,9 +150,7 @@
         "heavy": "Heavy Armor"
       }
     },
-    "CAPE": {
-      "TYPES": {}
-    },
+    "CAPE": {},
     "SHIELD": {
       "CATEGORIES": {
         "light": "Light Shield",
@@ -149,8 +164,15 @@
         "bow": "Bow",
         "lightBlade": "Light Blade",
         "polearm": "Polearm",
+        "improvised": "Improvised",
         "unarmed": "Unarmed"
-      }
+      },
+      "FIELDS": {
+        "category.value.label": "Category"
+      },
+      "weaponConfiguration": "Weapon Configuration",
+      "weaponAccuracy": "Accuracy",
+      "weaponDamage": "Damage"
     },
 
     "ROLL": {
@@ -171,7 +193,8 @@
       "concentration": "Concentration",
       "consumeMental": "Consume MP",
       "consumeFumble": "Spend Fumble Point",
-      "abilities": "Abilities"
+      "abilities": "Abilities",
+      "critical": "Critical"
     },
 
     "SHEET": {
@@ -179,7 +202,7 @@
     },
 
     "SHEETS": {
-      "GearSheet": "Ryuutama Gear Sheet"
+      "ItemSheet": "Ryuutama Item Sheet"
     },
 
     "SIDEBAR": {
@@ -218,7 +241,12 @@
       "jungle": "Jungle",
       "desert": "Desert",
       "grassland": "Grassland",
-      "highland": "Highland"
+      "highland": "Highland",
+
+      "CATEGORY": {
+        "all": "All terrain types",
+        "allLevel": "All level {level} terrain types"
+      }
     },
 
     "WEATHER": {
@@ -243,10 +271,6 @@
         "wind": "Wind",
         "all": "All weather conditions",
         "allType": "All {type} related conditions"
-      },
-
-      "CONFIG": {
-        "title": "Configure Weather Conditions"
       }
     }
   }

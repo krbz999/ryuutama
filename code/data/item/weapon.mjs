@@ -1,6 +1,6 @@
 import PhysicalData from "./templates/physical.mjs";
 
-const { BooleanField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { ArrayField, BooleanField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
 export default class WeaponData extends PhysicalData {
   /** @inheritdoc */
@@ -8,9 +8,10 @@ export default class WeaponData extends PhysicalData {
     return Object.assign(super.defineSchema(), {
       accuracy: new SchemaField({
         custom: new BooleanField(),
-        ability: new SetField(new StringField({ choices: () => ryuutama.config.abilityScores }), {
-          min: 1, max: 2, initial: ["strength"],
-        }),
+        abilities: new ArrayField(
+          new StringField({ choices: () => ryuutama.config.abilityScores }),
+          { min: 2, max: 2, initial: ["strength", "strength"] },
+        ),
         bonus: new NumberField({ nullable: true, integer: true, initial: null }),
       }),
       category: new SchemaField({
@@ -33,6 +34,14 @@ export default class WeaponData extends PhysicalData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RYUUTAMA.WEAPON",
+  ];
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
 
@@ -41,7 +50,7 @@ export default class WeaponData extends PhysicalData {
     this.grip = config.grip;
 
     if (!acc.custom) {
-      acc.ability = new Set(config.accuracy.abilities);
+      acc.abilities = [...config.accuracy.abilities];
       acc.bonus = (config.accuracy.bonus ?? 0);
     }
 

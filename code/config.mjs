@@ -338,56 +338,68 @@ export const terrainTypes = {
   road: {
     label: "RYUUTAMA.TERRAIN.road",
     level: 0,
+    difficulty: 0,
   },
   wasteland: {
     label: "RYUUTAMA.TERRAIN.wasteland",
     level: 1,
+    difficulty: 6,
   },
   rocky: {
     label: "RYUUTAMA.TERRAIN.rocky",
     level: 2,
+    difficulty: 8,
   },
   mountain: {
     label: "RYUUTAMA.TERRAIN.mountain",
     level: 3,
+    difficulty: 10,
     movementModifier: 1 / 2,
   },
   alpine: {
     label: "RYUUTAMA.TERRAIN.alpine",
     level: 5,
+    difficulty: 14,
     movementModifier: 1 / 4,
   },
   swamp: {
     label: "RYUUTAMA.TERRAIN.swamp",
     level: 3,
+    difficulty: 10,
     movementModifier: 1 / 2,
   },
   woods: {
     label: "RYUUTAMA.TERRAIN.woods",
     level: 2,
+    difficulty: 8,
   },
   deepForest: {
     label: "RYUUTAMA.TERRAIN.deepForest",
     level: 3,
+    difficulty: 10,
     movementModifier: 1 / 2,
   },
   jungle: {
     label: "RYUUTAMA.TERRAIN.jungle",
     level: 4,
+    difficulty: 12,
     movementModifier: 1 / 3,
   },
   desert: {
     label: "RYUUTAMA.TERRAIN.desert",
     level: 4,
+    difficulty: 12,
     movementModifier: 1 / 3,
   },
   grassland: {
     label: "RYUUTAMA.TERRAIN.grassland",
     level: 1,
+    difficulty: 6,
   },
   highland: {
     label: "RYUUTAMA.TERRAIN.highland",
     level: 2,
+    difficulty: 8,
   },
 };
 Prelocalization.prelocalize(terrainTypes);
@@ -420,7 +432,7 @@ export const weaponCategories = {
     label: "RYUUTAMA.WEAPON.CATEGORIES.axe",
     grip: 2,
     accuracy: {
-      abilities: ["strength"],
+      abilities: ["strength", "strength"],
       bonus: -1,
     },
     damage: {
@@ -472,18 +484,24 @@ export const weaponCategories = {
       bonus: 1,
     },
   },
-  unarmed: {
-    label: "RYUUTAMA.WEAPON.CATEGORIES.unarmed",
+  improvised: {
+    label: "RYUUTAMA.WEAPON.CATEGORIES.improvised",
     grip: 2,
     accuracy: {
       abilities: ["dexterity", "strength"],
     },
     damage: {
       ability: "strength",
-      bonus: -2, // TODO: improvised weapons have -1 instead of -2
+      // Improved weapons have -1, unarmed has -2. It is assumed that
+      // if making an unarmed strike, you have no weapon equipped.
+      bonus: -1,
     },
   },
 };
+weaponCategories.unarmed = foundry.utils.mergeObject(weaponCategories.improvised, {
+  label: "RYUUTAMA.WEAPON.CATEGORIES.unarmed",
+  damage: { bonus: -2 },
+}, { inplace: false });
 Prelocalization.prelocalize(weaponCategories);
 
 /* -------------------------------------------------- */

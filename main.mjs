@@ -2,6 +2,7 @@ import * as applications from "./code/applications/_module.mjs";
 import * as canvas from "./code/canvas/_module.mjs";
 import * as config from "./code/config.mjs";
 import * as data from "./code/data/_module.mjs";
+import * as dice from "./code/dice/_module.mjs";
 import * as documents from "./code/documents/_module.mjs";
 import * as helpers from "./code/helpers/_module.mjs";
 import * as utils from "./code/utils/_module.mjs";
@@ -13,6 +14,7 @@ globalThis.ryuutama = {
   canvas,
   config,
   data,
+  dice,
   documents,
   helpers,
   utils,
@@ -56,14 +58,16 @@ Hooks.once("init", () => {
   CONFIG.ui.actors = applications.sidebar.tabs.RyuutamaActorDirectory;
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
 
+  // Assign rolls.
+  CONFIG.Dice.rolls.unshift(dice.CheckRoll);
+  Object.assign(CONFIG.Dice, {
+    CheckRoll: dice.CheckRoll,
+  });
+
   // Register sheets.
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
-    foundry.documents.Item, ryuutama.id, applications.sheets.RyuutamaGearSheet,
-    {
-      types: ["accessory", "cape", "hat", "shoes", "staff"],
-      label: "RYUUTAMA.SHEETS.GearSheet",
-      makeDefault: true,
-    },
+    foundry.documents.Item, ryuutama.id, applications.sheets.RyuutamaItemSheet,
+    { label: "RYUUTAMA.SHEETS.ItemSheet", makeDefault: true },
   );
 
   // Register status effects.

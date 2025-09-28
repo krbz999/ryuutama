@@ -22,6 +22,15 @@
     </div>
   </div>
 
+  {{#if configurations.rollConfig.critical.allowed}}
+  <div class="form-group">
+    <label for="{{partId}}-critical.isCritical">{{localize "RYUUTAMA.ROLL.critical"}}</label>
+    <div class="form-fields">
+      <input type="checkbox" name="critical.isCritical" id="{{partId}}-critical.isCritical" {{checked configurations.rollConfig.critical.isCritical}}>
+    </div>
+  </div>
+  {{/if}}
+
   {{#if showConcentration}}
   <fieldset>
     <legend>{{localize "RYUUTAMA.ROLL.concentration"}}</legend>

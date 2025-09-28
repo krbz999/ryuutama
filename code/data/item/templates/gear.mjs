@@ -10,12 +10,19 @@ export default class GearData extends PhysicalData {
         habitat: new SchemaField({
           terrain: new SetField(new StringField()),
           weather: new SetField(new StringField()),
-          levels: new NumberField({ nullable: true, initial: null, integer: true }), // eg "level 3 or lower terrain"
         }),
         strength: new NumberField({ nullable: true, initial: null, integer: true }), // see 'walking stick' p65
       }),
     });
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RYUUTAMA.HABITAT",
+  ];
 
   /* -------------------------------------------------- */
 
@@ -37,6 +44,75 @@ export default class GearData extends PhysicalData {
         return weather[prop];
       }).bind(this),
     });
+
+    this.gear.habitat.label = this.#prepareTerrainAndWeatherLabel();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare the habitat label.
+   * @returns {string}
+   */
+  #prepareTerrainAndWeatherLabel() {
+    const formatter = game.i18n.getListFormatter({ type: "conjunction" });
+
+    const w = (() => {
+      const weathers = this.gear.habitat.weather;
+      if (weathers.has("ALL")) return game.i18n.localize("RYUUTAMA.WEATHER.CATEGORY.all");
+      if (!weathers.size) return null;
+
+      const configs = { cats: ryuutama.config.weatherCategories, types: ryuutama.config.weatherTypes };
+
+      let alls = [];
+      let singles = [];
+
+      for (const v of weathers) {
+        if ((v in configs.types) && !weathers.has(`ALL:${configs.types[v].category}`)) singles.push(v);
+      }
+      for (const v in configs.cats) {
+        if (weathers.has(`ALL:${v}`)) alls.push(v);
+      }
+
+      alls = alls.map(v => configs.cats[v].label);
+      singles = singles.map(v => configs.types[v].label);
+
+      if (!alls.length && !singles.length) return null;
+
+      if (alls.length) alls = game.i18n.format("RYUUTAMA.WEATHER.CATEGORY.allType", { type: formatter.format(alls) });
+      return formatter.format(alls.length ? [alls, ...singles] : singles);
+    })();
+
+    const t = (() => {
+      const terrains = this.gear.habitat.terrain;
+      if (terrains.has("ALL")) return game.i18n.localize("RYUUTAMA.TERRAIN.CATEGORY.all");
+      if (!terrains.size) return null;
+
+      let alls = [];
+      let singles = [];
+
+      for (const k of terrains) {
+        if (k in ryuutama.config.terrainTypes) {
+          const level = ryuutama.config.terrainTypes[k].level;
+          const hasLevel = terrains.has(`ALL:${level}`);
+          if (hasLevel) continue;
+          singles.push(ryuutama.config.terrainTypes[k].label);
+        } else {
+          const level = parseInt(k.replace("ALL:", ""));
+          if (isNaN(level)) continue;
+          alls.push(String(level));
+        }
+      }
+
+      if (!alls.length && !singles.length) return null;
+
+      if (alls.length) alls = game.i18n.format("RYUUTAMA.TERRAIN.CATEGORY.allLevel", { level: formatter.format(alls) });
+      return formatter.format(alls.length ? [alls, ...singles] : singles);
+    })();
+
+    if (!w && !t) return game.i18n.localize("RYUUTAMA.HABITAT.noTerrainWeather");
+    if (w && t) return formatter.format([w, t]);
+    return w || t;
   }
 
   /* -------------------------------------------------- */

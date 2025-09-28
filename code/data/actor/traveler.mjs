@@ -2,6 +2,7 @@ import LocalDocumentField from "../fields/local-document-field.mjs";
 
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "./_types.mjs";
+ * @import CheckRoll from "../../dice/check-roll.mjs";
  */
 
 const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
@@ -193,7 +194,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<foundry.dice.Roll|null>}
+   * @returns {Promise<CheckRoll|null>}
    */
   async #rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     messageConfig = foundry.utils.mergeObject({ create: true }, messageConfig);
@@ -239,7 +240,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
 
   /**
    * Perform the updates related to a check.
-   * @param {foundry.dice.Roll} roll    The evaluated check.
+   * @param {CheckRoll} roll    The evaluated check.
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
@@ -284,7 +285,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {foundry.dice.Roll}
+   * @returns {CheckRoll}
    */
   _constructCheckRoll(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     let bonus = 0;
@@ -311,7 +312,9 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
       ability2: this.abilities[rollConfig.abilities[1]]?.value,
     };
 
-    const roll = foundry.dice.Roll.create(formula, rollData);
+    /** @type {CheckRoll} */
+    const roll = new CONFIG.Dice.CheckRoll(formula, rollData);
+    if (rollConfig.critical?.allowed && rollConfig.critical.isCritical) roll.alter(2, 0);
     return roll;
   }
 
@@ -416,6 +419,8 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     rollConfig.modifier = bonus;
     dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
     rollConfig.concentration = false;
+    rollConfig.critical ??= {};
+    rollConfig.critical.allowed = true;
 
     return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
   }

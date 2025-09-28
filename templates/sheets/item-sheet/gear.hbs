@@ -1,0 +1,16 @@
+<section>
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.HABITAT.terrainAndWeather"}}</legend>
+
+    {{formGroup systemFields.gear.fields.strength value=(ifThen disabled document.system.gear.strength source.system.gear.strength) disabled=disabled placeholder="∞" classes="slim"}}
+
+    <div class="form-group slim">
+      <label>{{localize "RYUUTAMA.HABITAT.habitatBonuses"}}</label>
+      <div class="form-fields">
+        <button type="button" data-action="configureHabitat" class="icon fa-solid fa-cog" {{disabled disabled}} data-tooltip="RYUUTAMA.HABITAT.configureHabitat"></button>
+      </div>
+      <p class="hint">{{document.system.gear.habitat.label}}.</p>
+    </div>
+
+  </fieldset>
+</section>

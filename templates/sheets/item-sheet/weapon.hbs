@@ -1,0 +1,30 @@
+<section>
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.WEAPON.weaponConfiguration"}}</legend>
+    {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim"}}
+
+    {{#with source.system.accuracy as |src|}}
+    <div class="form-group">
+      <label>{{localize "RYUUTAMA.WEAPON.weaponAccuracy"}}</label>
+      <div class="form-fields">
+        {{formInput @root.systemFields.accuracy.fields.custom value=src.custom disabled=@root.disabled}}
+        {{#each (ifThen (or @root.disabled (not src.custom)) @root.document.system.accuracy.abilities src.abilities) as |v k|}}
+        {{formInput @root.systemFields.accuracy.fields.abilities.element value=v blank=false name=(concat "system.accuracy.abilities." k) disabled=(or @root.disabled (not src.custom))}}
+        {{/each}}
+        {{formGroup @root.systemFields.accuracy.fields.bonus value=(ifThen (or @root.disabled (not src.custom)) @root.document.system.accuracy.bonus src.bonus) disabled=(or @root.disabled (not src.custom)) placeholder="0" classes="slim"}}
+      </div>
+    </div>
+    {{/with}}
+
+    {{#with source.system.damage as |src|}}
+    <div class="form-group">
+      <label>{{localize "RYUUTAMA.WEAPON.weaponDamage"}}</label>
+      <div class="form-fields">
+        {{formInput @root.systemFields.damage.fields.custom value=src.custom disabled=@root.disabled}}
+        {{formInput @root.systemFields.damage.fields.ability value=(ifThen (or @root.disabled (not src.custom)) @root.document.system.damage.ability src.ability) disabled=(or @root.disabled (not src.custom))}}
+        {{formGroup @root.systemFields.damage.fields.bonus value=(ifThen (or @root.disabled (not src.custom)) @root.document.system.damage.bonus src.bonus) disabled=(or @root.disabled (not src.custom)) placeholder="0" classes="slim"}}
+      </div>
+    </div>
+    {{/with}}
+  </fieldset>
+</section>

@@ -1,1 +1,1 @@
-export { default as RyuutamaGearSheet } from "./gear-sheet.mjs";
+export { default as RyuutamaItemSheet } from "./item-sheet.mjs";
