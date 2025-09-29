@@ -379,77 +379,25 @@ export const weaponCategories = {
   axe: {
     label: "RYUUTAMA.WEAPON.CATEGORIES.axe",
     grip: 2,
-    accuracy: {
-      abilities: ["strength", "strength"],
-      bonus: -1,
-    },
-    damage: {
-      ability: "strength",
-    },
   },
   blade: {
     label: "RYUUTAMA.WEAPON.CATEGORIES.blade",
     grip: 1,
-    accuracy: {
-      abilities: ["dexterity", "strength"],
-    },
-    damage: {
-      ability: "strength",
-    },
   },
   bow: {
     label: "RYUUTAMA.WEAPON.CATEGORIES.bow",
     grip: 2,
     ranged: true,
-    accuracy: {
-      abilities: ["intelligence", "dexterity"],
-      bonus: -2,
-    },
-    damage: {
-      ability: "dexterity",
-    },
   },
   lightBlade: {
     label: "RYUUTAMA.WEAPON.CATEGORIES.lightBlade",
     grip: 1,
-    accuracy: {
-      abilities: ["dexterity", "intelligence"],
-      bonus: 1,
-    },
-    damage: {
-      ability: "intelligence",
-      bonus: -1,
-    },
   },
   polearm: {
     label: "RYUUTAMA.WEAPON.CATEGORIES.polearm",
     grip: 2,
-    accuracy: {
-      abilities: ["dexterity", "strength"],
-    },
-    damage: {
-      ability: "strength",
-      bonus: 1,
-    },
-  },
-  improvised: {
-    label: "RYUUTAMA.WEAPON.CATEGORIES.improvised",
-    grip: 2,
-    accuracy: {
-      abilities: ["dexterity", "strength"],
-    },
-    damage: {
-      ability: "strength",
-      // Improved weapons have -1, unarmed has -2. It is assumed that
-      // if making an unarmed strike, you have no weapon equipped.
-      bonus: -1,
-    },
   },
 };
-weaponCategories.unarmed = foundry.utils.mergeObject(weaponCategories.improvised, {
-  label: "RYUUTAMA.WEAPON.CATEGORIES.unarmed",
-  damage: { bonus: -2 },
-}, { inplace: false });
 Prelocalization.prelocalize(weaponCategories);
 
 /* -------------------------------------------------- */

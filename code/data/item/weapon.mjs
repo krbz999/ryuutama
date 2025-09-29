@@ -7,7 +7,6 @@ export default class WeaponData extends PhysicalData {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       accuracy: new SchemaField({
-        custom: new BooleanField(),
         abilities: new ArrayField(
           new StringField({ choices: () => ryuutama.config.abilityScores }),
           { min: 2, max: 2, initial: ["strength", "strength"] },
@@ -22,7 +21,6 @@ export default class WeaponData extends PhysicalData {
         }),
       }),
       damage: new SchemaField({
-        custom: new BooleanField(),
         ability: new StringField({
           required: true, blank: false, choices: () => ryuutama.config.abilityScores, initial: "strength",
         }),
@@ -41,26 +39,27 @@ export default class WeaponData extends PhysicalData {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Is this weapon mastered by its owner?
+   * @type {boolean|null}
+   */
+  get isMastered() {
+    if (!this.parent.isEmbedded) return null;
+    const weapons = this.parent.actor.system.mastered?.weapons;
+    return weapons ? weapons.has(this.category.value) : null;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    // TODO: don't derive any of this from configs. Always set on items.
-    const { accuracy: acc, damage, category } = this;
-    const config = ryuutama.config.weaponCategories[category.value];
+    const config = ryuutama.config.weaponCategories[this.category.value];
     this.grip = config.grip;
+    this.ranged = config.ranged ?? false;
 
-    if (!acc.custom) {
-      acc.abilities = [...config.accuracy.abilities];
-      acc.bonus = (config.accuracy.bonus ?? 0);
-    }
-
-    if (!damage.custom) {
-      damage.ability = config.damage.ability;
-      damage.bonus = (config.damage.bonus ?? 0);
-    }
-
-    if (this.modifiers.has("highQuality")) acc.bonus = (acc.bonus ?? 0) + 1;
-    if (this.modifiers.has("plusOne")) damage.bonus = (damage.bonus ?? 0) + 1;
+    if (this.modifiers.has("highQuality")) this.accuracy.bonus = (this._source.accuracy.bonus ?? 0) + 1;
+    if (this.modifiers.has("plusOne")) this.damage.bonus = (this._source.damage.bonus ?? 0) + 1;
   }
 }

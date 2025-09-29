@@ -51,7 +51,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
       template: "systems/ryuutama/templates/apps/check-configuration-dialog/formula.hbs",
     },
     inputs: {
-      // abilities, situationalBonus, critical, concentration
+      // abilities, situationalBonus, critical, concentration, accuracy
       template: "systems/ryuutama/templates/apps/check-configuration-dialog/inputs.hbs",
       forms: {
         form: {
@@ -125,13 +125,16 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
       this.#configurations.messageConfig,
     ).formula;
 
-    context.showConcentration = this.#configurations.rollConfig.concentration !== false;
+    const roll = this.#configurations.rollConfig;
+    context.showConcentration = roll.concentration !== false;
+    context.showAccuracy = (roll.accuracy?.weapon?.system.isMastered === false) || (roll.accuracy?.consumeStamina);
 
     const wCats = ryuutama.config.weaponCategories;
     switch (this.#configurations.rollConfig.type) {
       case "damage":
       case "accuracy":
-        context.subtitle = this.options.document.system.equipped.weapon?.name ?? wCats.unarmed.label;
+        context.subtitle =
+          this.options.document.system.equipped.weapon?.name ?? game.i18n.localize("RYUUTAMA.WEAPON.CATEGORIES.unarmed");
         break;
       case "journey":
         context.subtitle = ryuutama.config.journeyCheckTypes[this.#configurations.rollConfig.journeyId].label;

@@ -167,7 +167,6 @@
         "bow": "Bow",
         "lightBlade": "Light Blade",
         "polearm": "Polearm",
-        "improvised": "Improvised",
         "unarmed": "Unarmed"
       },
       "FIELDS": {
@@ -181,7 +180,8 @@
     "ROLL": {
       "WARNING": {
         "fumblesUnavailable": "{name} does not have any Fumble Point available.",
-        "mentalUnavailable": "{name} does not have any MP available."
+        "mentalUnavailable": "{name} does not have any MP available.",
+        "staminaUnavailable": "{name} does not have any HP available."
       },
       "TYPES": {
         "accuracy": "Accuracy Check",
@@ -198,7 +198,9 @@
       "consumeMental": "Consume MP",
       "consumeFumble": "Spend Fumble Point",
       "abilities": "Abilities",
-      "critical": "Critical"
+      "critical": "Critical",
+      "consumeStamina": "Consume Stamina",
+      "unmasteredWeaponHint": "An accuracy check with an unmastered weapon costs 1 HP."
     },
 
     "SHEET": {

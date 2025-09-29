@@ -19,8 +19,8 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     const makeResource = () => {
       return new SchemaField({
         bonuses: new SchemaField({
-          flat: new NumberField({ integer: true }),
-          level: new NumberField({ integer: true }),
+          flat: new NumberField({ integer: true, initial: null }),
+          level: new NumberField({ integer: true, initial: null }),
         }),
         max: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
         spent: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
@@ -275,7 +275,11 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         let abi;
         let bon;
         if (w) ({ ability: abi, bonus: bon } = weapon.system.damage);
-        else ({ ability: abi, bonus: bon } = ryuutama.config.weaponCategories.unarmed.damage);
+        else {
+          // Unarmed
+          abi = "strength";
+          bon = -2;
+        }
         roll.abilities = [abi];
         roll.modifer = bon;
         dialog.selectAbilities = false;
@@ -289,15 +293,15 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         let bonus;
         const w = this.equipped.weapon;
         if (w) {
-          abilities = w.system.accuracy.abilities;
+          abilities = [...w.system.accuracy.abilities];
           bonus = w.system.accuracy.bonus;
+          roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
         } else {
-          const acc = ryuutama.config.weaponCategories.unarmed.accuracy;
-          abilities = acc.abilities;
-          bonus = acc.bonus;
+          abilities = ["dexterity", "strength"]; // unarmed
+          bonus = -2; // unarmed has -2, an improvised weapon has -1
         }
 
-        roll.abilities = [...abilities];
+        roll.abilities = abilities;
         roll.modifier = bonus;
         dialog.selectAbilities = false;
         break;
@@ -370,6 +374,21 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     // Update condition score.
     if (rollConfig.condition?.updateScore) {
       update["system.condition.value"] = roll.total;
+    }
+
+    // Consume HP due to unmastered weapon.
+    if (rollConfig.accuracy?.consumeStamina) {
+      const value = this.resources.stamina.value;
+      if (!value) {
+        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.staminaUnavailable", { format: { name: this.parent.name } });
+        return false;
+      }
+      update["system.resources.stamina.spent"] = this.resources.stamina.spent + 1;
+    }
+
+    // Deduct durability.
+    if (roll.isFumble) {
+      // iterate over rollConfig.items and deduct durability.
     }
 
     await this.parent.update(update);

@@ -22,6 +22,16 @@
     </div>
   </div>
 
+  {{#if showAccuracy}}
+  <div class="form-group">
+    <label for="{{partId}}-accuracy.consumeStamina">{{localize "RYUUTAMA.ROLL.consumeStamina"}}</label>
+    <div class="form-fields">
+      <input type="checkbox" name="accuracy.consumeStamina" id="{{partId}}-accuracy.consumeStamina" {{checked configurations.rollConfig.accuracy.consumeStamina}}>
+    </div>
+    <p class="hint">{{localize "RYUUTAMA.ROLL.unmasteredWeaponHint"}}</p>
+  </div>
+  {{/if}}
+
   {{#if configurations.rollConfig.critical.allowed}}
   <div class="form-group">
     <label for="{{partId}}-critical.isCritical">{{localize "RYUUTAMA.ROLL.critical"}}</label>

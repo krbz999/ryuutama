@@ -87,15 +87,9 @@
 /**
  * @typedef WeaponCategoryConfig
  * Configuration for a weapon category.
- * @property {string} label                   Human-readable label.
- * @property {0|1|2} grip                     The number of hands needed to wield.
- * @property {boolean} [ranged]               Can this weapon attack from long range?
- * @property {object} accuracy
- * @property {string[]} accuracy.abilities    The default abilities used for an attack with a weapon.
- * @property {number} [accuracy.bonus]        A modifier added on top of an accuracy check.
- * @property {object} damage
- * @property {string} damage.ability          The default ability used for a damage roll with a weapon.
- * @property {number} [damage.bonus]          A modifier added on top of a damage roll.
+ * @property {string} label       Human-readable label.
+ * @property {0|1|2} grip         The number of hands needed to wield.
+ * @property {boolean} [ranged]   Can this weapon attack from long range?
  */
 
 /* -------------------------------------------------- */

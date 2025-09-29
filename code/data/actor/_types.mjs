@@ -18,6 +18,9 @@
  *                                                          the total of the check?
  * @property {boolean} [condition.removeStatuses]           Remove status effects whose strength is lower than the
  *                                                          traveler's condition score?
+ * @property {object} [accuracy]
+ * @property {boolean} [accuracy.weapon]                    The weapon being used for the check.
+ * @property {boolean} [accuracy.consumeStamina]            Consume HP due to using a non-Mastered weapon?
  */
 
 /* -------------------------------------------------- */
