@@ -45,6 +45,7 @@ export default class WeaponData extends PhysicalData {
   prepareDerivedData() {
     super.prepareDerivedData();
 
+    // TODO: don't derive any of this from configs. Always set on items.
     const { accuracy: acc, damage, category } = this;
     const config = ryuutama.config.weaponCategories[category.value];
     this.grip = config.grip;

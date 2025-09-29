@@ -27,8 +27,10 @@ export default class ArmorData extends PhysicalData {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    if (this.modifiers.has("highQuality")) this.armor.defense++;
-    if (this.modifiers.has("plusOne")) this.armor.defense++;
-    if (this.modifiers.has("mythril") && (this.armor.penalty > 0)) this.armor.penalty--;
+    let bonus = 0;
+    if (this.modifiers.has("highQuality")) bonus++;
+    if (this.modifiers.has("plusOne")) bonus++;
+    this.armor.defense = this._source.armor.defense + bonus;
+    if (this.modifiers.has("mythril") && (this.armor.penalty > 0)) this.armor.penalty = this._source.armor.penalty - 1;
   }
 }

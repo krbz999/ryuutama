@@ -14,25 +14,4 @@ export default class SkillData extends foundry.abstract.TypeDataModel {
       }),
     };
   }
-
-  /* -------------------------------------------------- */
-
-  /**
-   *
-   */
-  async use() {
-    const actor = this.parent.actor;
-    if (!actor) {
-      throw new Error("An unowned item cannot perform a Skill Check.");
-    }
-
-    const abilities = this.abilities.size === 1
-      ? [this.abilities.first(), this.abilities.first()]
-      : [...this.abilities].slice(0, 2);
-
-    if (abilities.length !== 2) {
-      throw new Error("This skill is not able to perform a Skill Check.");
-    }
-    return actor.rollSkill({ abilities });
-  }
 }
