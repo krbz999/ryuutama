@@ -7,6 +7,20 @@
     </div>
   </div>
 
+  {{#if weather.uncategorized.length}}
+  <div class="form-group stacked">
+    <label>{{localize "RYUUTAMA.HABITAT.CONFIG.uncategorized"}}</label>
+    <div class="form-fields">
+      {{#each weather.uncategorized}}
+      <label class="checkbox">
+        <input type="checkbox" name="weather" value="{{value}}" {{disabled disabled}} {{checked checked}}>
+        <span>{{label}}</span>
+      </label>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+
   {{#each weather.groups}}
   <label class="checkbox">
     <input type="checkbox" name="weather" value="ALL:{{head.value}}" {{disabled head.disabled}} {{checked head.checked}}>

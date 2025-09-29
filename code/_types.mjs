@@ -7,15 +7,6 @@
 /* -------------------------------------------------- */
 
 /**
- * @typedef ArmorCategoryConfig
- * @property {string} label           Human-readable label.
- * @property {number|null} defense    Defense points.
- * @property {number|null} penalty    Penalties applied to Travel and Initiative checks.
- */
-
-/* -------------------------------------------------- */
-
-/**
  * @typedef CheckConfig
  * @property {string} label         Human-readable label.
  * @property {string[]} abilities   One or two abilities commonly used for this check.
@@ -53,16 +44,6 @@
 /**
  * @typedef JourneyCheckTypeConfig
  * @property {string} label   Human-readable label.
- */
-
-/* -------------------------------------------------- */
-
-/**
- * @typedef ShieldCategoryConfig
- * @property {string} label           Human-readable label.
- * @property {number} defense         Defense points.
- * @property {number|null} penalty    Penalties applied to Travel and Initiative checks.
- * @property {number} dodge           Shield dodge value.
  */
 
 /* -------------------------------------------------- */
@@ -130,6 +111,5 @@
  * @typedef WeatherTypeConfig
  * @property {string} label         Human-readable label.
  * @property {number} [modifier]    The weather modifier for a journey check.
- * @property {string} category      The weather category, for use with features
- *                                  such as 'all rain related conditions'.
+ * @property {string} [category]    The weather category, for use with features such as 'all rain related conditions'.
  */

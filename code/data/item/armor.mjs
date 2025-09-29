@@ -1,6 +1,6 @@
 import PhysicalData from "./templates/physical.mjs";
 
-const { NumberField, SchemaField, StringField } = foundry.data.fields;
+const { NumberField, SchemaField } = foundry.data.fields;
 
 export default class ArmorData extends PhysicalData {
   /** @inheritdoc */
@@ -10,20 +10,22 @@ export default class ArmorData extends PhysicalData {
         defense: new NumberField({ nullable: true, integer: true, initial: null }),
         penalty: new NumberField({ nullable: true, integer: true, initial: null }),
       }),
-      category: new SchemaField({
-        value: new StringField({ required: true, blank: false, choices: () => ryuutama.config.armorCategories }),
-      }),
     });
   }
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RYUUTAMA.ARMOR",
+  ];
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-
-    const config = ryuutama.config.armorCategories[this.category.value];
-    for (const k of ["defense", "penalty"]) this.armor[k] ??= config[k];
 
     if (this.modifiers.has("highQuality")) this.armor.defense++;
     if (this.modifiers.has("plusOne")) this.armor.defense++;

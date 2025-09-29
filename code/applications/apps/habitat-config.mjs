@@ -29,31 +29,42 @@ export default class HabitatConfig extends DocumentConfig {
 
     // WEATHER
     weather.groups = [];
-    for (const groupKey in ryuutama.config.weatherCategories) {
-      const group = {
-        label: ryuutama.config.weatherCategories[groupKey].label,
-        head: {
-          checked: weathers.has(`ALL:${groupKey}`),
+    weather.uncategorized = [];
+    for (const weatherType in ryuutama.config.weatherTypes) {
+      const category = ryuutama.config.weatherCategories[ryuutama.config.weatherTypes[weatherType].category];
+      if (!category) {
+        weather.uncategorized.push({
+          checked: weathers.has(weatherType),
           disabled: weathers.has("ALL"),
-          value: groupKey,
-          label: game.i18n.format("RYUUTAMA.WEATHER.CATEGORY.allType", {
-            type: ryuutama.config.weatherCategories[groupKey].label,
-          }),
-        },
-        entries: [],
-      };
-
-      for (const k in ryuutama.config.weatherTypes) {
-        if (ryuutama.config.weatherTypes[k].category !== groupKey) continue;
-        const checked = weathers.has(k);
-        const disabled = weathers.has(`ALL:${groupKey}`) || weathers.has("ALL");
-        group.entries.push({
-          checked, disabled, value: k,
-          label: ryuutama.config.weatherTypes[k].label,
+          value: weatherType,
+          label: ryuutama.config.weatherTypes[weatherType].label,
         });
+        continue;
       }
 
-      weather.groups.push(group);
+      let group = weather.groups.find(g => g.head.key === ryuutama.config.weatherTypes[weatherType].category);
+      if (!group) {
+        group = {
+          label: ryuutama.config.weatherCategories[ryuutama.config.weatherTypes[weatherType].category].label,
+          entries: [],
+          head: {
+            checked: weathers.has(`ALL:${ryuutama.config.weatherTypes[weatherType].category}`),
+            disabled: weathers.has("ALL"),
+            value: ryuutama.config.weatherTypes[weatherType].category,
+            key: ryuutama.config.weatherTypes[weatherType].category,
+            label: game.i18n.format("RYUUTAMA.WEATHER.CATEGORY.allType", {
+              type: ryuutama.config.weatherCategories[ryuutama.config.weatherTypes[weatherType].category].label,
+            }),
+          },
+        };
+        weather.groups.push(group);
+      }
+      group.entries.push({
+        checked: weathers.has(weatherType),
+        disabled: weathers.has(`ALL:${group.key}`) || weathers.has("ALL"),
+        value: weatherType,
+        label: ryuutama.config.weatherTypes[weatherType].label,
+      });
     }
     weather.hasAll = weathers.has("ALL");
 

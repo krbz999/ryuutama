@@ -2,8 +2,8 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 
 /**
  * @import {
- * AbilityScoreConfig, ArmorCategoryConfig, CheckConfig, GenderConfig, ItemModifierConfig, ItemSizeConfig,
- * JourneyCheckTypeConfig, ShieldCategoryConfig, StartingScoreConfig, StatusEffectConfig, TerrainTypeConfig,
+ * AbilityScoreConfig, CheckConfig, GenderConfig, ItemModifierConfig, ItemSizeConfig,
+ * JourneyCheckTypeConfig, StartingScoreConfig, StatusEffectConfig, TerrainTypeConfig,
  * TravelerTypeConfig, WeaponCategoryConfig, WeatherCategoryConfig, WeatherTypeConfig,
  * } from "./_types.mjs";
  */
@@ -32,35 +32,6 @@ export const abilityScores = {
   },
 };
 Prelocalization.prelocalize(abilityScores, { properties: ["label", "abbreviation"] });
-
-/* -------------------------------------------------- */
-
-/**
- * @type {Record<string, ArmorCategoryConfig>}
- */
-export const armorCategories = {
-  clothes: {
-    label: "RYUUTAMA.ARMOR.CATEGORIES.clothes",
-    defense: null,
-    penalty: null,
-  },
-  light: {
-    label: "RYUUTAMA.ARMOR.CATEGORIES.light",
-    defense: 1,
-    penalty: null,
-  },
-  medium: {
-    label: "RYUUTAMA.ARMOR.CATEGORIES.medium",
-    defense: 2,
-    penalty: 1,
-  },
-  heavy: {
-    label: "RYUUTAMA.ARMOR.CATEGORIES.heavy",
-    defense: 3,
-    penalty: 3,
-  },
-};
-Prelocalization.prelocalize(armorCategories);
 
 /* -------------------------------------------------- */
 
@@ -239,29 +210,6 @@ export const journeyCheckTypes = {
   },
 };
 Prelocalization.prelocalize(journeyCheckTypes);
-
-/* -------------------------------------------------- */
-
-/**
- * @type {Record<string, ShieldCategoryConfig>}
- */
-export const shieldCategories = {
-  light: {
-    label: "RYUUTAMA.SHIELD.CATEGORIES.light",
-    grip: 1,
-    defense: 1,
-    penalty: null,
-    dodge: 7,
-  },
-  heavy: {
-    label: "RYUUTAMA.SHIELD.CATEGORIES.heavy",
-    grip: 1,
-    defense: 2,
-    penalty: 1,
-    dodge: 9,
-  },
-};
-Prelocalization.prelocalize(shieldCategories);
 
 /* -------------------------------------------------- */
 

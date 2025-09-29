@@ -131,6 +131,7 @@
       "terrainAndWeather": "Terrain & Weather Conditions",
       "noTerrainWeather": "No bonuses",
       "CONFIG": {
+        "uncategorized": "Uncategorized",
         "title": "Configure Terrain & Weather Conditions"
       }
     },
@@ -141,20 +142,22 @@
         "durability.spent.label": "Spent"
       }
     },
+    "DEFENSE": {
+      "defenses": "Defenses"
+    },
     "ACCESSORY": {},
     "ARMOR": {
-      "CATEGORIES": {
-        "clothes": "Clothes",
-        "light": "Light Armor",
-        "medium": "Medium Armor",
-        "heavy": "Heavy Armor"
+      "FIELDS": {
+        "armor.penalty.label": "Penalty",
+        "armor.defense.label": "Defense Points"
       }
     },
     "CAPE": {},
     "SHIELD": {
-      "CATEGORIES": {
-        "light": "Light Shield",
-        "heavy": "Heavy Shield"
+      "FIELDS": {
+        "armor.penalty.label": "Penalty",
+        "armor.defense.label": "Defense Points",
+        "armor.dodge.label": "Shield Dodge Value"
       }
     },
     "WEAPON": {
@@ -181,14 +184,15 @@
         "mentalUnavailable": "{name} does not have any MP available."
       },
       "TYPES": {
-        "accuracy": "Accuracy",
-        "condition": "Condition",
-        "damage": "Damage",
-        "initiative": "Initiative",
-        "journey": "Journey",
-        "skill": "Skill"
+        "accuracy": "Accuracy Check",
+        "check": "Check",
+        "condition": "Condition Check",
+        "damage": "Damage Check",
+        "initiative": "Initiative Check",
+        "journey": "Journey Check",
+        "skill": "Skill Check"
       },
-      "title": "Configure {type} Check: {name}",
+      "title": "Configure {type}: {name}",
       "situationalBonus": "Situational Bonus",
       "concentration": "Concentration",
       "consumeMental": "Consume MP",

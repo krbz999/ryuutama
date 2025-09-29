@@ -197,7 +197,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
    * @returns {Promise<CheckRoll|null>}
    */
   async #rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    messageConfig = foundry.utils.mergeObject({ create: true }, messageConfig);
+    ({ rollConfig, dialogConfig, messageConfig } = this.#constructCheckConfigs(rollConfig, dialogConfig, messageConfig));
 
     if (dialogConfig.configure !== false) {
       // The dialog modifies the three configurations inplace.
@@ -234,6 +234,103 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     }
 
     return roll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Construct the configuration objects for a check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {{ rollConfig: CheckRollConfig, dialogConfig: CheckDialogConfig, messageConfig: CheckMessageConfig }}
+   */
+  #constructCheckConfigs(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
+
+    let roll = {};
+    let dialog = { configure: true };
+    let message = { create: true };
+
+    switch (rollConfig.type) {
+      case "journey":
+        switch (rollConfig.journeyId) {
+          case "travel": roll.abilities = ["strength", "dexterity"]; break;
+          case "camping": roll.abilities = ["intelligence", "intelligence"]; break;
+          case "direction": roll.abilities = ["dexterity", "intelligence"]; break;
+          default: throw new Error(`Invalid journeyId '${rollConfig.journeyId}' for a journey check.`);
+        }
+        dialog.selectAbilities = false;
+        break;
+
+      case "condition":
+        roll.abilities = ["strength", "spirit"];
+        dialog.selectAbilities = false;
+        roll.concentration = false;
+        roll.condition = { updateScore: true, removeStatuses: true };
+        break;
+
+      case "damage": {
+        const w = this.equipped.weapon;
+        let abi;
+        let bon;
+        if (w) ({ ability: abi, bonus: bon } = weapon.system.damage);
+        else ({ ability: abi, bonus: bon } = ryuutama.config.weaponCategories.unarmed.damage);
+        roll.abilities = [abi];
+        roll.modifer = bon;
+        dialog.selectAbilities = false;
+        roll.concentration = false;
+        roll.critical = { allowed: true };
+        break;
+      }
+
+      case "accuracy": {
+        let abilities;
+        let bonus;
+        const w = this.equipped.weapon;
+        if (w) {
+          abilities = w.system.accuracy.abilities;
+          bonus = w.system.accuracy.bonus;
+        } else {
+          const acc = ryuutama.config.weaponCategories.unarmed.accuracy;
+          abilities = acc.abilities;
+          bonus = acc.bonus;
+        }
+
+        roll.abilities = [...abilities];
+        roll.modifier = bonus;
+        dialog.selectAbilities = false;
+        break;
+      }
+
+      case "initiative":
+        roll.abilities = ["dexterity", "intelligence"];
+        dialog.selectAbilities = false;
+        roll.concentration = false;
+        break;
+
+      case "skill":
+        if (!(rollConfig.skillId in ryuutama.config.skillCheckTypes)) {
+          throw new Error(`Invalid skillId '${rollConfig.skillId}' for a skill check.`);
+        }
+        roll.abilities = [...ryuutama.config.skillCheckTypes[rollConfig.skillId].abilities];
+        dialog.selectAbilities = true;
+        break;
+
+      case "check":
+        roll.abilities = ["strength", "strength"];
+        dialog.selectAbilities = true;
+        break;
+
+      default:
+        throw new Error(`Invalid check type '${rollConfig.type}' passed to rollConfig parameter.`);
+    }
+
+    return {
+      rollConfig: foundry.utils.mergeObject(roll, rollConfig),
+      dialogConfig: foundry.utils.mergeObject(dialog, dialogConfig),
+      messageConfig: foundry.utils.mergeObject(message, messageConfig),
+    };
   }
 
   /* -------------------------------------------------- */
@@ -321,175 +418,13 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
-   * Roll a skill check.
-   * @param {CheckRollConfig} [rollConfig={}]
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<foundry.dice.Roll|null>}
-   */
-  async rollSkillCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
-    if (!(rollConfig.skillId in ryuutama.config.skillCheckTypes)) {
-      throw new Error(`Invalid skillId '${rollConfig.skillId}' for a skill check.`);
-    }
-
-    if (!rollConfig.abilities?.length) rollConfig.abilities = [
-      ...ryuutama.config.skillCheckTypes[rollConfig.skillId].abilities,
-    ];
-    rollConfig.type = "skill";
-    dialogConfig.selectAbilities = dialogConfig.selectSubtype = true;
-
-    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Roll an initiative check.
-   * @param {CheckRollConfig} [rollConfig={}]
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<foundry.dice.Roll|null>}
-   */
-  async rollInitiativeCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
-    rollConfig.type = "initiative";
-    rollConfig.abilities = ["dexterity", "intelligence"];
-    dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
-    rollConfig.concentration = false;
-
-    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Roll an accuracy check.
-   * @param {CheckRollConfig} [rollConfig={}]
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<foundry.dice.Roll|null>}
-   */
-  async rollAccuracyCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
-    rollConfig.type = "accuracy";
-
-    let abilities;
-    let bonus;
-    if (this.equipped.weapon) {
-      abilities = this.equipped.weapon.system.accuracyAbilities;
-      bonus = this.equipped.weapon.system.accuracy.bonus;
-    } else {
-      const acc = ryuutama.config.weaponCategories.unarmed.accuracy;
-      abilities = [...acc.abilities];
-      bonus = acc.bonus;
-    }
-
-    rollConfig.abilities = abilities;
-    rollConfig.modifier = bonus;
-    dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
-    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Roll a damage check.
-   * @param {CheckRollConfig} [rollConfig={}]
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<foundry.dice.Roll|null>}
-   */
-  async rollDamageCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
-    rollConfig.type = "damage";
-
-    let ability;
-    let bonus;
-    if (this.equipped.weapon) {
-      ability = this.equipped.weapon.system.damage.ability;
-      bonus = this.equipped.weapon.system.damage.bonus;
-    } else {
-      const d = ryuutama.config.weaponCategories.unarmed.damage;
-      ability = d.ability;
-      bonus = d.bonus;
-    }
-
-    rollConfig.abilities = [ability];
-    rollConfig.modifier = bonus;
-    dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
-    rollConfig.concentration = false;
-    rollConfig.critical ??= {};
-    rollConfig.critical.allowed = true;
-
-    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Roll a condition check.
-   * @param {CheckRollConfig} [rollConfig={}]
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<foundry.dice.Roll|null>}
-   */
-  async rollConditionCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
-    rollConfig.type = "condition";
-    rollConfig.abilities = ["strength", "spirit"];
-    dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
-    rollConfig.concentration = false;
-    rollConfig.condition ??= {};
-    rollConfig.condition.updateScore = rollConfig.condition.removeStatuses = true;
-
-    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Roll a journey check.
-   * @param {CheckRollConfig} [rollConfig={}]
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<foundry.dice.Roll|null>}
-   */
-  async rollJourneyCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
-    switch (rollConfig.journeyId) {
-      case "travel": rollConfig.abilities = ["strength", "dexterity"]; break;
-      case "camping": rollConfig.abilities = ["intelligence", "intelligence"]; break;
-      case "direction": rollConfig.abilities = ["dexterity", "intelligence"]; break;
-      default: throw new Error(`Invalid journeyId '${rollConfig.journeyId}' for a journey check.`);
-    }
-    rollConfig.type = "journey";
-    dialogConfig.selectAbilities = dialogConfig.selectSubtype = false;
-
-    // TODO: some checks have target number set explicitly. In this case terrain + weather.
-
-    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
    * Roll a check.
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<foundry.dice.Roll|null>}
+   * @returns {Promise<CheckRoll|null>}
    */
   async rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
-    switch (rollConfig.type) {
-      case "skill": return this.rollSkillCheck(rollConfig, dialogConfig, messageConfig);
-      case "initiative": return this.rollInitiativeCheck(rollConfig, dialogConfig, messageConfig);
-      case "accuracy": return this.rollAccuracyCheck(rollConfig, dialogConfig, messageConfig);
-      case "damage": return this.rollDamageCheck(rollConfig, dialogConfig, messageConfig);
-      case "condition": return this.rollConditionCheck(rollConfig, dialogConfig, messageConfig);
-      case "journey": return this.rollJourneyCheck(rollConfig, dialogConfig, messageConfig);
-      default: throw new Error(`Invalid roll type '${rollConfig.type}' for a check.`);
-    }
+    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
   }
 }

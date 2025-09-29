@@ -26,7 +26,6 @@
  * @typedef CheckDialogConfig
  * @property {boolean} [configure]        Should a configuration dialog be created?
  * @property {boolean} [selectAbilities]  Allow for selecting the abilities?
- * @property {boolean} [selectSubtype]    Allow for selecting the subtype?
  */
 
 /* -------------------------------------------------- */

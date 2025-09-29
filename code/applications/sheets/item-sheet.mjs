@@ -26,6 +26,7 @@ export default class RyuutamaItemSheet extends HandlebarsApplicationMixin(Docume
       templates: [
         "systems/ryuutama/templates/sheets/item-sheet/weapon.hbs",
         "systems/ryuutama/templates/sheets/item-sheet/gear.hbs",
+        "systems/ryuutama/templates/sheets/item-sheet/defense.hbs",
       ],
       classes: ["scrollable", "standard-form"],
       scrollable: [""],
@@ -92,6 +93,7 @@ export default class RyuutamaItemSheet extends HandlebarsApplicationMixin(Docume
       hasDurability: this.document.system.schema.has("durability"),
       isGear: this.document.system.schema.has("gear"),
       isWeapon: this.document._source.type === "weapon",
+      hasArmor: this.document.system.schema.has("armor"),
       modifierOptions: Object.values(modifierOptions),
       document: this.document,
       systemFields: this.document.system.schema.fields,
