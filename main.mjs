@@ -55,6 +55,8 @@ Hooks.once("init", () => {
   CONFIG.Scene.documentClass = documents.RyuutamaScene;
   CONFIG.Token.documentClass = documents.RyuutamaTokenDocument;
 
+  CONFIG.time.roundTime = 10;
+
   CONFIG.ui.actors = applications.sidebar.tabs.RyuutamaActorDirectory;
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
 

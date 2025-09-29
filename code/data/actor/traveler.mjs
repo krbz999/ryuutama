@@ -240,12 +240,12 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
 
   /**
    * Construct the configuration objects for a check.
-   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckRollConfig} rollConfig
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
    * @returns {{ rollConfig: CheckRollConfig, dialogConfig: CheckDialogConfig, messageConfig: CheckMessageConfig }}
    */
-  #constructCheckConfigs(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+  #constructCheckConfigs(rollConfig, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
 
     let roll = {};
