@@ -62,7 +62,9 @@
       "monster": {},
       "party": {},
       "ryuujin": {},
-      "traveler": {}
+      "traveler": {
+        "htmlFields": ["background.appearance", "background.hometown", "background.notes"]
+      }
     },
     "Item": {
       "accessory": {

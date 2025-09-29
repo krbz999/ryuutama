@@ -139,9 +139,6 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
       case "journey":
         context.subtitle = ryuutama.config.journeyCheckTypes[this.#configurations.rollConfig.journeyId].label;
         break;
-      case "skill":
-        context.subtitle = ryuutama.config.skillCheckTypes[this.#configurations.rollConfig.skillId].label;
-        break;
     }
 
     return context;

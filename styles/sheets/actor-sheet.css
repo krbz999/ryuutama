@@ -1,0 +1,17 @@
+.application.sheet inventory-element {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  .entry {
+    cursor: var(--cursor-pointer);
+    max-width: 40px;
+    border-radius: 3px;
+    padding: 2px;
+    transition: background-color 150ms ease;
+
+    &:hover {
+      background-color: var(--ryuutama-inventory-hover-color);
+    }
+  }
+}

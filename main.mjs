@@ -26,6 +26,9 @@ globalThis.ryuutama = {
 Hooks.once("init", () => {
   registerSettings();
 
+  // Define custom elements.
+  window.customElements.define(applications.elements.InventoryElement.tagName, applications.elements.InventoryElement);
+
   CONFIG.ActiveEffect.documentClass = documents.RyuutamaActiveEffect;
   CONFIG.ActiveEffect.dataModels.status = data.effect.StatusData;
 
@@ -71,6 +74,10 @@ Hooks.once("init", () => {
     foundry.documents.Item, ryuutama.id, applications.sheets.RyuutamaItemSheet,
     { label: "RYUUTAMA.SHEETS.ItemSheet", makeDefault: true },
   );
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.Actor, ryuutama.id, applications.sheets.RyuutamaActorSheet,
+    { label: "RYUUTAMA.SHEETS.ActorSheet", makeDefault: true },
+  );
 
   // Register status effects.
   // TODO: This becomes a Record in v14.
@@ -92,6 +99,10 @@ Hooks.once("i18nInit", () => {
 
 Hooks.once("setup", () => {
   CONFIG.Actor.defaultType = game.user.isGM ? "ryuujin" : "traveler";
+
+  Handlebars.registerHelper({
+    "inventory-element": applications.elements.InventoryElement.handlebarsHelper,
+  });
 });
 
 /* -------------------------------------------------- */

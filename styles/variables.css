@@ -4,9 +4,11 @@
 
   .themed.theme-light {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-gold);
+    --ryuutama-inventory-hover-color: rgba(0, 0, 0, 0.1);
   }
 
   .themed.theme-dark {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-purple);
+    --ryuutama-inventory-hover-color: rgba(255, 255, 255, 0.1);
   }
 }

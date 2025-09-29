@@ -36,7 +36,14 @@
     }
   },
   "RYUUTAMA": {
-    "ACTOR": {},
+    "ACTOR": {
+      "TABS": {
+        "attributes": "Attributes",
+        "details": "Details",
+        "inventory": "Inventory",
+        "notes": "Notes"
+      }
+    },
     "MONSTER": {
       "FIELDS": {}
     },
@@ -47,12 +54,32 @@
       "FIELDS": {}
     },
     "TRAVELER": {
-      "FIELDS": {},
+      "FIELDS": {
+        "abilities.strength.value.label": "Strength",
+        "abilities.dexterity.value.label": "Dexterity",
+        "abilities.intelligence.value.label": "Intelligence",
+        "abilities.spirit.value.label": "Spirit",
+        "condition.value.label": "Condition",
+        "exp.value.label": "EXP",
+        "fumbles.value.label": "Fumble Points",
+        "gold.value.label": "Gold",
+        "resources.stamina.spent.label": "Spent",
+        "resources.stamina.max.label": "Max",
+        "resources.mental.spent.label": "Spent",
+        "resources.mental.max.label": "Max",
+        "details.color.label": "Image Color",
+        "background.hometown.label": "Hometown / Reason for Travel",
+        "background.appearance.label": "Appearance",
+        "background.notes.label": "Notes",
+        "mastered.weapons.label": "Mastered Weapons"
+      },
       "TYPES": {
         "attack": "Attack",
         "magic": "Magic",
         "technical": "Technical"
-      }
+      },
+      "abilities": "Abilities",
+      "type": "Type"
     },
 
     "ABILITIES": {
@@ -70,17 +97,6 @@
         "standard": "Standard Set",
         "specialized": "Specialized Set"
       }
-    },
-    "SKILLS": {
-      "exercise": "Hard Exercise",
-      "drinking": "Drinking",
-      "stealth": "Stealth",
-      "perception": "Perception",
-      "dodge": "Dodge",
-      "delicateWork": "Delicate Work",
-      "negotiation": "Negotiation",
-      "sense": "Sense",
-      "job": "Job Knowledge"
     },
     "JOURNEY": {
       "TYPES": {
@@ -189,8 +205,7 @@
         "condition": "Condition Check",
         "damage": "Damage Check",
         "initiative": "Initiative Check",
-        "journey": "Journey Check",
-        "skill": "Skill Check"
+        "journey": "Journey Check"
       },
       "title": "Configure {type}: {name}",
       "situationalBonus": "Situational Bonus",
@@ -208,6 +223,7 @@
     },
 
     "SHEETS": {
+      "ActorSheet": "Ryuutama Actor Sheet",
       "ItemSheet": "Ryuutama Item Sheet"
     },
 
@@ -256,20 +272,17 @@
     },
 
     "WEATHER": {
-      "rain": "Rain",
-      "hardRain": "Hard Rain",
-      "storm": "Storm",
-      "snow": "Snow",
       "blizzard": "Blizzard",
-      "strongWind": "Strong Wind",
       "cold": "Cold",
-      "hot": "Hot",
-      "clear": "Clear Skies",
-      "cloudy": "Cloudy",
-      "fog": "Fog",
+      "darkness": "Darkness",
       "deepFog": "Deep Fog",
-      "night": "Night",
+      "fog": "Fog",
+      "hardRain": "Hard Rain",
+      "hot": "Hot",
       "hurricane": "Hurricane",
+      "rain": "Rain",
+      "snow": "Snow",
+      "strongWind": "Strong Wind",
 
       "CATEGORY": {
         "rain": "Rain",

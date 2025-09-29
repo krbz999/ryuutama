@@ -2,7 +2,6 @@
  * @typedef CheckRollConfig
  * @property {string[]} [abilities]
  * @property {string} [type]
- * @property {string} [skillId]                             If a skill check, the type of skill from `skillCheckTypes`.
  * @property {"travel"|"direction"|"camping"} [journeyId]   If a journey check, the type of check from `journeyCheckTypes`.
  * @property {number} [modifier]                            A modifier to the roll that cannot be changed via the UI,
  *                                                          e.g., the accuracy or damage modifier from a weapon.

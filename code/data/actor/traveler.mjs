@@ -34,6 +34,11 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         intelligence: makeAbility(),
         spirit: makeAbility(),
       }),
+      background: new SchemaField({
+        appearance: new HTMLField(),
+        hometown: new HTMLField(),
+        notes: new HTMLField(),
+      }),
       bonuses: new SchemaField({
         accuracy: new NumberField({ integer: true }),
         damage: new NumberField({ integer: true }),
@@ -43,16 +48,8 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         value: new NumberField({ nullable: true, initial: null, integer: true }),
       }),
       details: new SchemaField({
-        age: new NumberField({ integer: true, nullable: false, initial: 20, min: 1 }),
-        background: new HTMLField(),
-        color: new SchemaField({
-          value: new ColorField(),
-        }),
-        gender: new SchemaField({
-          value: new StringField({ required: true, blank: true, choices: () => ryuutama.config.genders }),
-          custom: new StringField({ required: true, blank: true }),
-        }),
-        level: new NumberField({ nullable: false, integer: true, initial: 1, max: 10 }),
+        color: new ColorField(),
+        level: new NumberField({ nullable: false, integer: true, initial: 1, min: 1, max: 10 }),
       }),
       equipped: new SchemaField({
         weapon: new LocalDocumentField(foundry.documents.Item, { subtype: "weapon" }),
@@ -74,6 +71,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
       }),
       mastered: new SchemaField({
+        habitats: new SetField(new StringField()),
         weapons: new SetField(new StringField({ choices: () => ryuutama.config.weaponCategories })),
       }),
       resources: new SchemaField({
@@ -133,7 +131,6 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     super.prepareBaseData();
 
     this.capacity = { bonus: 0 };
-    this.mastered.max = 1;
     this.habitats = { weather: new Set(), terrain: new Set() };
   }
 
@@ -143,9 +140,6 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    if (this.mastered.weapons.size > this.mastered.max)
-      this.mastered.weapons = new Set(Array.from(this.mastered.weapons).slice(0, this.mastered.max));
-
     const { stamina: hp, mental: mp } = this.resources;
 
     hp.spent = Math.min(hp.spent, hp.max);
@@ -153,13 +147,17 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     mp.spent = Math.min(mp.spent, mp.max);
     mp.value = mp.max - mp.spent;
 
-    this.capacity.max = this.abilities.strength.value + 3 + this.capacity.bonus;
-    this.capacity.penalty = Math.max(0, this.capacity.value - this.capacity.max);
-
-    const gender = this.details.gender;
-    gender.label = gender.custom ? gender.custom : ryuutama.config.genders[gender.value]?.label ?? "";
-
+    // Remove shield if using 2-handed weapon.
     if (this.equipped.weapon?.system.grip === 2) Object.defineProperty(this.equipped, "shield", { value: null });
+
+    this.capacity.max = this.abilities.strength.value + 3 + this.capacity.bonus + (this.details.level - 1);
+    this.capacity.value = 0;
+    this.parent.items.forEach(item => {
+      if (this.equipped[item.type] === item) return;
+      const size = item.system.size?.total ?? 0;
+      this.capacity.value += size;
+    });
+    this.capacity.penalty = Math.max(0, this.capacity.value - this.capacity.max);
 
     // Apply changes from status effects.
     const con = this.condition.value;
@@ -313,14 +311,6 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         roll.concentration = false;
         break;
 
-      case "skill":
-        if (!(rollConfig.skillId in ryuutama.config.skillCheckTypes)) {
-          throw new Error(`Invalid skillId '${rollConfig.skillId}' for a skill check.`);
-        }
-        roll.abilities = [...ryuutama.config.skillCheckTypes[rollConfig.skillId].abilities];
-        dialog.selectAbilities = true;
-        break;
-
       case "check":
         roll.abilities = ["strength", "strength"];
         dialog.selectAbilities = true;
@@ -406,11 +396,12 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   _constructCheckRoll(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     let bonus = 0;
 
+    const isTech = this.isTechnical;
+
     // Concentration
     const c = rollConfig.concentration ?? {};
-    if (c.consumeFumble) bonus++;
-    if (c.consumeMental) bonus++;
-    if (this.isTechnical && (c.consumeFumble || c.consumeMental)) bonus++;
+    if (c.consumeFumble) bonus += isTech ? 2 : 1;
+    if (c.consumeMental) bonus += isTech ? 2 : 1;
 
     // Situational bonus.
     if (rollConfig.situationalBonus) bonus += rollConfig.situationalBonus;

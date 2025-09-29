@@ -7,14 +7,6 @@
 /* -------------------------------------------------- */
 
 /**
- * @typedef CheckConfig
- * @property {string} label         Human-readable label.
- * @property {string[]} abilities   One or two abilities commonly used for this check.
- */
-
-/* -------------------------------------------------- */
-
-/**
  * @typedef GenderConfig
  * @property {string} label   Human-readable label.
  */

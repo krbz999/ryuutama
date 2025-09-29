@@ -1,0 +1,32 @@
+<section data-tab="{{tabs.inventory.id}}" class="{{tabs.inventory.cssClass}}" data-group="{{tabs.inventory.group}}">
+  <div class="form-group">
+    <div class="form-fields">
+      {{#each equipped as |eqp key|}}
+      <div class="form-group stacked">
+        <label>{{label}}</label>
+        <div class="form-fields">
+          <select name="system.equipped.{{key}}" {{disabled (or @root.disabled (not eqp.options.length))}}>
+            {{selectOptions eqp.options selected=eqp.value blank=""}}
+          </select>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <section>
+    {{document.system.capacity.value}} / {{document.system.capacity.max}}
+  </section>
+
+  {{> "templates/generic/tab-navigation.hbs" tabs=inventoryTabs}}
+
+  {{#each itemTypes}}
+  <section data-tab="{{type}}" class="tab {{cssClass}}" data-group="inventory">
+    {{!-- <h4>{{section}}</h4> --}}
+    {{#if items.length}}
+    {{inventory-element documents=items action="renderItem"}}
+    {{/if}}
+  </section>
+  {{/each}}
+
+</section>
