@@ -1,19 +1,17 @@
 <form class="standard-form">
-  <fieldset>
-    <legend>{{localize "RYUUTAMA.ROLL.abilities"}}</legend>
-    <div class="form-group">
-      <div class="form-fields">
-        <select name="abilities.0" {{#unless configurations.dialogConfig.selectAbilities}}disabled{{/unless}}>
-          {{selectOptions abilityOptions selected=abilities.abi1}}
-        </select>
-        {{#if abilities.abi2}}
-        <select name="abilities.1" {{#unless configurations.dialogConfig.selectAbilities}}disabled{{/unless}}>
-          {{selectOptions abilityOptions selected=abilities.abi2}}
-        </select>
-        {{/if}}
-      </div>
+  <div class="form-group">
+    <label>{{localize "RYUUTAMA.ROLL.abilities"}}</label>
+    <div class="form-fields">
+      <select name="abilities.0" {{#unless configurations.dialogConfig.selectAbilities}}disabled{{/unless}}>
+        {{selectOptions abilityOptions selected=abilities.abi1}}
+      </select>
+      {{#if abilities.abi2}}
+      <select name="abilities.1" {{#unless configurations.dialogConfig.selectAbilities}}disabled{{/unless}}>
+        {{selectOptions abilityOptions selected=abilities.abi2}}
+      </select>
+      {{/if}}
     </div>
-  </fieldset>
+  </div>
 
   <div class="form-group">
     <label for="{{partId}}-situationalBonus">{{localize "RYUUTAMA.ROLL.situationalBonus"}}</label>
@@ -58,5 +56,21 @@
       </div>
     </div>
   </fieldset>
+  {{/if}}
+
+  {{#if showCondition}}
+  <div class="form-group slim">
+    <label for="{{partId}}-condition.updateScore">{{localize "RYUUTAMA.ROLL.conditionUpdateScore"}}</label>
+    <div class="form-fields">
+      <input type="checkbox" name="condition.updateScore" id="{{partId}}-condition.updateScore" {{checked configurations.rollConfig.condition.updateScore}}>
+    </div>
+  </div>
+  <div class="form-group slim">
+    <label for="{{partId}}-condition.removeStatuses">{{localize "RYUUTAMA.ROLL.conditionRemoveStatuses"}}</label>
+    <div class="form-fields">
+      <input type="checkbox" name="condition.removeStatuses" id="{{partId}}-condition.removeStatuses" {{checked configurations.rollConfig.condition.removeStatuses}} {{disabled (not configurations.rollConfig.condition.updateScore)}}>
+    </div>
+    <p class="hint">{{localize "RYUUTAMA.ROLL.conditionRemoveStatusesHint"}}</p>
+  </div>
   {{/if}}
 </form>

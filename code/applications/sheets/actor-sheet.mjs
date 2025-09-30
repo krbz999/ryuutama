@@ -5,6 +5,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   static DEFAULT_OPTIONS = {
     actions: {
       renderItem: RyuutamaActorSheet.#renderItem,
+      rollCheck: RyuutamaActorSheet.#rollCheck,
     },
   };
 
@@ -168,5 +169,15 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   static #renderItem(event, target) {
     const item = this.document.items.get(target.dataset.itemId, { strict: true });
     item.sheet.render({ force: true, mode: 0 });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   */
+  static #rollCheck(event, target) {
+    const type = target.dataset.check;
+    this.document.system.rollCheck({ type });
   }
 }

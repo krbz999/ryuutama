@@ -223,8 +223,12 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     }
 
     if (messageConfig.create !== false) {
-      const speaker = foundry.documents.ChatMessage.implementation.getSpeaker({ actor: this.parent });
-      roll.toMessage({ speaker });
+      messageConfig.data ??= {};
+      messageConfig.data.flavor ??= game.i18n.format("RYUUTAMA.ROLL.messageFlavor", {
+        type: game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`),
+        abilities: game.i18n.getListFormatter().format(rollConfig.abilities.map(abi => ryuutama.config.abilityScores[abi].label)),
+      }),
+      roll.toMessage(messageConfig.data);
     }
 
     if (roll.isFumble) {
@@ -246,9 +250,11 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   #constructCheckConfigs(rollConfig, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
 
-    let roll = {};
+    let roll = { condition: {}, concentration: {}, critical: {} };
     let dialog = { configure: true };
-    let message = { create: true };
+    let message = { create: true, data: {
+      speaker: getDocumentClass("ChatMessage").getSpeaker({ actor: this.parent }),
+    } };
 
     switch (rollConfig.type) {
       case "journey":
@@ -264,7 +270,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
       case "condition":
         roll.abilities = ["strength", "spirit"];
         dialog.selectAbilities = false;
-        roll.concentration = false;
+        roll.concentration.allowed = false;
         roll.condition = { updateScore: true, removeStatuses: true };
         break;
 
@@ -272,7 +278,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         const w = this.equipped.weapon;
         let abi;
         let bon;
-        if (w) ({ ability: abi, bonus: bon } = weapon.system.damage);
+        if (w) ({ ability: abi, bonus: bon } = w.system.damage);
         else {
           // Unarmed
           abi = "strength";
@@ -281,7 +287,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         roll.abilities = [abi];
         roll.modifer = bon;
         dialog.selectAbilities = false;
-        roll.concentration = false;
+        roll.concentration.allowed = false;
         roll.critical = { allowed: true };
         break;
       }
@@ -308,7 +314,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
       case "initiative":
         roll.abilities = ["dexterity", "intelligence"];
         dialog.selectAbilities = false;
-        roll.concentration = false;
+        roll.concentration.allowed = false;
         break;
 
       case "check":
@@ -342,7 +348,8 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
 
     // Consume a fumble point and MP due to concentration.
     const c = rollConfig.concentration ?? {};
-    if (c.consumeFumble) {
+    const cAllowed = c.allowed !== false;
+    if (cAllowed && c.consumeFumble) {
       const value = this.fumbles.value - 1;
       if (value < 0) {
         ui.notifications.warn("RYUUTAMA.ROLL.WARNING.fumblesUnavailable", { format: { name: this.parent.name } });
@@ -351,7 +358,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
       update["system.fumbles.value"] = value;
     }
 
-    if (c.consumeMental) {
+    if (cAllowed && c.consumeMental) {
       const value = this.resources.mental.value;
       if (!value) {
         ui.notifications.warn("RYUUTAMA.ROLL.WARNING.mentalUnavailable", { format: { name: this.parent.name } });

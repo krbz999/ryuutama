@@ -1,12 +1,12 @@
 /**
  * @import { ApplicationConfiguration } from "@client/applications/_types.mjs";
- * @import Actor from "@client/documents/actor.mjs";
+ * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../../data/actor/_types.mjs";
  * @import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
  */
 
 /**
- * @typedef {ApplicationConfiguration & { document: Actor, rollConfig: CheckRollConfig, dialogConfig: CheckDialogConfig, messageConfig: CheckMessageConfig }} CheckConfigurationDialogConfiguration
+ * @typedef {ApplicationConfiguration & { document: RyuutamaActor, rollConfig: CheckRollConfig, dialogConfig: CheckDialogConfig, messageConfig: CheckMessageConfig }} CheckConfigurationDialogConfiguration
  */
 
 const { HandlebarsApplicationMixin, Application } = foundry.applications.api;
@@ -51,7 +51,6 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
       template: "systems/ryuutama/templates/apps/check-configuration-dialog/formula.hbs",
     },
     inputs: {
-      // abilities, situationalBonus, critical, concentration, accuracy
       template: "systems/ryuutama/templates/apps/check-configuration-dialog/inputs.hbs",
       forms: {
         form: {
@@ -71,11 +70,11 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
   /**
    * @param {CheckConfigurationDialogConfiguration} options
    */
-  constructor(options) {
+  constructor({ rollConfig, dialogConfig, messageConfig, ...options }) {
     super(options);
-    this.#configurations.rollConfig = options.rollConfig;
-    this.#configurations.dialogConfig = options.dialogConfig;
-    this.#configurations.messageConfig = options.messageConfig;
+    this.#configurations.rollConfig = rollConfig;
+    this.#configurations.dialogConfig = dialogConfig;
+    this.#configurations.messageConfig = messageConfig;
   }
 
   /* -------------------------------------------------- */
@@ -102,8 +101,34 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
   get title() {
     return game.i18n.format("RYUUTAMA.ROLL.title", {
       type: game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${this.#configurations.rollConfig.type}`),
-      name: this.options.document.name,
+      name: this.actor.name,
     });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The traveler performing the check.
+   * @type {RyuutamaActor}
+   */
+  get actor() {
+    return this.options.document;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options);
+    this.actor.apps[this.id] = this;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onClose(options) {
+    super._onClose(options);
+    delete this.actor.apps[this.id];
   }
 
   /* -------------------------------------------------- */
@@ -118,23 +143,22 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     context.abilities = { abi1, abi2 };
 
     context.buttons = [{ label: "Confirm", type: "submit", icon: "fa-solid fa-check" }];
-
-    context.formula = this.options.document.system._constructCheckRoll(
+    context.roll = this.actor.system._constructCheckRoll(
       this.#configurations.rollConfig,
       this.#configurations.dialogConfig,
       this.#configurations.messageConfig,
-    ).formula;
+    );
 
     const roll = this.#configurations.rollConfig;
-    context.showConcentration = roll.concentration !== false;
+    context.showConcentration = roll.concentration?.allowed !== false;
     context.showAccuracy = (roll.accuracy?.weapon?.system.isMastered === false) || (roll.accuracy?.consumeStamina);
+    context.showCondition = roll.type === "condition";
 
-    const wCats = ryuutama.config.weaponCategories;
     switch (this.#configurations.rollConfig.type) {
       case "damage":
       case "accuracy":
         context.subtitle =
-          this.options.document.system.equipped.weapon?.name ?? game.i18n.localize("RYUUTAMA.WEAPON.CATEGORIES.unarmed");
+          this.actor.system.equipped.weapon?.name ?? game.i18n.localize("RYUUTAMA.WEAPON.CATEGORIES.unarmed");
         break;
       case "journey":
         context.subtitle = ryuutama.config.journeyCheckTypes[this.#configurations.rollConfig.journeyId].label;

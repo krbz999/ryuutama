@@ -9,7 +9,8 @@
  * @property {object} [critical]
  * @property {boolean} [critical.allowed]                   Can the roll be critical?
  * @property {boolean} [critical.isCritical]                Roll double the dice?
- * @property {object|false} [concentration]                 If explicitly `false`, options are not shown in the dialog.
+ * @property {object} [concentration]
+ * @property {boolean} [concentration.allowed]              If explicitly `false`, options are not shown.
  * @property {boolean} [concentration.consumeMental]        Consume half the traveler's current MP (rounded up)?
  * @property {boolean} [concentration.consumeFumble]        Consume a Fumble point?
  * @property {object} [condition]
@@ -35,4 +36,5 @@
 /**
  * @typedef CheckMessageConfig
  * @property {boolean} [create]   Should a chat message be created?
+ * @property {object} [data]      Data to be used for the chat message. This does not include `rolls` or `content`.
  */

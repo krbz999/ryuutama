@@ -215,7 +215,11 @@
       "abilities": "Abilities",
       "critical": "Critical",
       "consumeStamina": "Consume Stamina",
-      "unmasteredWeaponHint": "An accuracy check with an unmastered weapon costs 1 HP."
+      "unmasteredWeaponHint": "An accuracy check with an unmastered weapon costs 1 HP.",
+      "messageFlavor": "{type} ({abilities})",
+      "conditionUpdateScore": "Update Condition",
+      "conditionRemoveStatuses": "Remove Statuses",
+      "conditionRemoveStatusesHint": "After updating your condition, remove status effects that no longer apply?"
     },
 
     "SHEET": {
