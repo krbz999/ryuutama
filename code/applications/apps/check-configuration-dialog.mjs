@@ -1,20 +1,21 @@
 /**
- * @import { ApplicationConfiguration } from "@client/applications/_types.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../../data/actor/_types.mjs";
  * @import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
- */
-
-/**
- * @typedef {ApplicationConfiguration & { document: RyuutamaActor, rollConfig: CheckRollConfig, dialogConfig: CheckDialogConfig, messageConfig: CheckMessageConfig }} CheckConfigurationDialogConfiguration
+ * @import { CheckConfigurationDialogConfiguration } from "./_types.mjs";
  */
 
 const { HandlebarsApplicationMixin, Application } = foundry.applications.api;
 
+/**
+ * @extends Application
+ * @mixes HandlebarsApplicationMixin
+ */
 export default class CheckConfigurationDialog extends HandlebarsApplicationMixin(Application) {
   /**
    * Factory method for asynchronous behavior.
    * @param {CheckConfigurationDialogConfiguration} options
+   * @returns {Promise<boolean>}    A promise that resolves once the dialog has been closed.
    */
   static async create(options) {
     const { promise, resolve } = Promise.withResolvers();

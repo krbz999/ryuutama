@@ -1,5 +1,10 @@
 const { HandlebarsApplicationMixin, DocumentSheet } = foundry.applications.api;
 
+/**
+ * Base document sheet.
+ * @extends DocumentSheet
+ * @mixes HandlebarsApplicationMixin
+ */
 export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(DocumentSheet) {
   /** @override */
   static DEFAULT_OPTIONS = {

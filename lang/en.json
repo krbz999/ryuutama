@@ -42,6 +42,17 @@
         "details": "Details",
         "inventory": "Inventory",
         "notes": "Notes"
+      },
+      "INVENTORY_TABS": {
+        "arsenal": "Weapons & Armor",
+        "gear": "Traveling Gear"
+      },
+      "CONTEXT": {
+        "ITEM": {
+          "view": "View Item",
+          "edit": "Edit Item",
+          "delete": "Delete Item"
+        }
       }
     },
     "MONSTER": {
@@ -55,23 +66,24 @@
     },
     "TRAVELER": {
       "FIELDS": {
-        "abilities.strength.value.label": "Strength",
         "abilities.dexterity.value.label": "Dexterity",
         "abilities.intelligence.value.label": "Intelligence",
         "abilities.spirit.value.label": "Spirit",
+        "abilities.strength.value.label": "Strength",
+        "background.appearance.label": "Appearance",
+        "background.hometown.label": "Hometown / Reason for Travel",
+        "background.notes.label": "Notes",
         "condition.value.label": "Condition",
+        "details.color.label": "Image Color",
+        "details.level.label": "Level",
         "exp.value.label": "EXP",
         "fumbles.value.label": "Fumble Points",
         "gold.value.label": "Gold",
-        "resources.stamina.spent.label": "Spent",
-        "resources.stamina.max.label": "Max",
-        "resources.mental.spent.label": "Spent",
+        "mastered.weapons.label": "Mastered Weapons",
         "resources.mental.max.label": "Max",
-        "details.color.label": "Image Color",
-        "background.hometown.label": "Hometown / Reason for Travel",
-        "background.appearance.label": "Appearance",
-        "background.notes.label": "Notes",
-        "mastered.weapons.label": "Mastered Weapons"
+        "resources.mental.spent.label": "Spent",
+        "resources.stamina.max.label": "Max",
+        "resources.stamina.spent.label": "Spent"
       },
       "TYPES": {
         "attack": "Attack",

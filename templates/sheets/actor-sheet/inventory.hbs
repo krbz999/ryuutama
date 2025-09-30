@@ -20,12 +20,14 @@
 
   {{> "templates/generic/tab-navigation.hbs" tabs=inventoryTabs}}
 
-  {{#each itemTypes}}
-  <section data-tab="{{type}}" class="tab {{cssClass}}" data-group="inventory">
-    {{!-- <h4>{{section}}</h4> --}}
+  {{#each inventorySections}}
+  <section data-tab="{{id}}" class="tab {{cssClass}}" data-group="inventory">
+    {{#each groups}}
+    <h4>{{label}}</h4>
     {{#if items.length}}
     {{inventory-element documents=items action="renderItem"}}
     {{/if}}
+    {{/each}}
   </section>
   {{/each}}
 
