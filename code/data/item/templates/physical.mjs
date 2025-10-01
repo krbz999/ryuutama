@@ -33,38 +33,66 @@ export default class PhysicalData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
+    this.#prepareSize();
+    this.#prepareDurability();
 
+    // An item is broken if it has no durability remaining. This property is required for the price calculation.
+    if (!this.durability.value) this.modifiers.add("broken");
+    this.#preparePrice();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare the size category.
+   */
+  #prepareSize() {
     this.size.total = this.size.value;
-    if (this.modifiers.has("mythril")) {
-      this.size.total = Math.max(1, this.size.total - 2);
-      this.durability.max = 5;
-    } else {
-      this.durability.max = this.size.total;
-    }
+    if (this.modifiers.has("mythril")) this.size.total = Math.max(1, this.size.total - 2);
+  }
 
-    if (this.modifiers.has("sturdy")) this.durability.max *= 2;
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare durability data.
+   */
+  #prepareDurability() {
+    const max = this.modifiers.has("mythril") ? 5 : this.size.total;
+    let multiplier = 1;
+
+    if (this.modifiers.has("sturdy")) multiplier = 2;
+    if (this.modifiers.has("used")) multiplier *= ryuutama.config.itemModifiers.used.cost;
+
+    this.durability.max = Math.max(1, Math.floor(max * multiplier));
+    this.durability.multiplier = multiplier;
 
     this.durability.spent = Math.min(this.durability.max, this.durability.spent);
     this.durability.value = this.modifiers.has("orichalcum")
       ? this.durability.max
       : this.durability.max - this.durability.spent;
+  }
 
-    if (!this.durability.value) this.modifiers.add("broken");
-    if (this.durability.spent > 0) this.modifiers.add("used");
+  /* -------------------------------------------------- */
 
-    this.price.magical = 0;
-    this.price.total = this.price.value;
+  /**
+   * Prepare the gold value.
+   */
+  #preparePrice() {
+    const p = this.price;
+    p.magical = 0;
+    p.multiplier = 1;
+    p.total = p.value;
+
     for (const mod of this.modifiers) {
       const config = ryuutama.config.itemModifiers[mod];
       if (!config) continue;
       const { cost, magical } = config;
-      if (magical) this.price.magical += cost;
-      else this.price.total *= cost;
+      if (magical) p.magical += cost;
+      else p.multiplier *= cost;
     }
-    this.price.total = Math.floor(this.price.total + this.price.magical);
 
-    // Selling price.
-    this.price.sell = Math.floor(this.price.total / 2);
-    this.price.saleable = !this.modifiers.has("broken");
+    p.total = Math.floor(p.total * p.multiplier + p.magical);
+    p.sell = Math.floor(p.total / 2);
+    p.saleable = (p.sell > 0) && !this.modifiers.has("broken");
   }
 }

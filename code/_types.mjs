@@ -28,7 +28,6 @@
 /**
  * @typedef ItemSizeConfig
  * @property {string} label   Human-readable label.
- * @property {number} grip    Number of hands needed to wield the item.
  */
 
 /* -------------------------------------------------- */

@@ -132,7 +132,6 @@ export const itemModifiers = {
   used: {
     label: "RYUUTAMA.ITEM.MODIFIERS.used",
     cost: 4 / 5,
-    hidden: true,
   },
   walking: {
     label: "RYUUTAMA.ITEM.MODIFIERS.walking",
@@ -150,15 +149,12 @@ Prelocalization.prelocalize(itemModifiers);
 export const itemSizes = {
   1: {
     label: "RYUUTAMA.ITEM.SIZES.size1",
-    grip: 0,
   },
   3: {
     label: "RYUUTAMA.ITEM.SIZES.size3",
-    grip: 1,
   },
   5: {
     label: "RYUUTAMA.ITEM.SIZES.size5",
-    grip: 2,
   },
 };
 Prelocalization.prelocalize(itemSizes);
@@ -180,6 +176,42 @@ export const journeyCheckTypes = {
   },
 };
 Prelocalization.prelocalize(journeyCheckTypes);
+
+/* -------------------------------------------------- */
+
+export const monsterCategories = {
+  demonstone: {
+    label: "RYUUTAMA.MONSTER.CATEGORIES.demonstone",
+    statusImmunities: new Set(["body"]),
+  },
+  demon: {
+    label: "RYUUTAMA.MONSTER.CATEGORIES.demon",
+  },
+  dragon: {
+    label: "RYUUTAMA.MONSTER.CATEGORIES.dragon",
+  },
+  egg: {
+    label: "RYUUTAMA.MONSTER.CATEGORIES.egg",
+  },
+  intelligent: {
+    label: "RYUUTAMA.MONSTER.CATEGORIES.intelligent",
+  },
+  magical: {
+    label: "RYUUTAMA.MONSTER.CATEGORIES.magical",
+    statusImmunities: new Set(["mind"]),
+  },
+  phantomBeast: {
+    label: "RYUUTAMA.MONSTER.CATEGORIES.phantomBeast",
+  },
+  phantomPlant: {
+    label: "RYUUTAMA.MONSTER.CATEGORIES.phantomPlant",
+  },
+  undead: {
+    label: "RYUUTAMA.MONSTER.CATEGORIES.undead",
+    statusImmunities: new Set(["ALL"]),
+    armorBypasses: new Set(["mythril", "orichalcum"]),
+  },
+};
 
 /* -------------------------------------------------- */
 
