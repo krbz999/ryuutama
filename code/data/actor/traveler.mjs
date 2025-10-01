@@ -68,6 +68,20 @@ export default class TravelerData extends CreatureData {
 
   /* -------------------------------------------------- */
 
+  /**
+   * The number of cursed equipment the character has equipped.
+   * @type {number}
+   */
+  get cursePenalty() {
+    let penalty = 0;
+    for (const key of Object.keys(this._source.equipped)) {
+      if (this.equipped[key]?.system.modifiers.has("cursed")) penalty++;
+    }
+    return penalty;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
@@ -99,9 +113,8 @@ export default class TravelerData extends CreatureData {
 
   /** @inheritdoc */
   prepareDerivedData() {
-    // Equipped items are prepared first to add a `gear` bonus
-    // to resources, which are prepared in `super`, as well as
-    // to ignore shields (depending) prior to `capacity`.
+    // Equipped items are prepared first to add a `gear` bonus to resources, which are prepared
+    // in `super`, as well as to ignore shields (depending) prior to `capacity`.
     this.#prepareEquipped();
 
     super.prepareDerivedData();

@@ -173,6 +173,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         dialog.selectAbilities = false;
         roll.concentration.allowed = false;
         roll.condition = { updateScore: true, removeStatuses: true };
+        roll.modifier = (this.cursePenalty ?? 0) * -1;
         break;
 
       case "damage": {
