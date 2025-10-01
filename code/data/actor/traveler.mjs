@@ -1,51 +1,16 @@
 import LocalDocumentField from "../fields/local-document-field.mjs";
-
-/**
- * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "./_types.mjs";
- * @import CheckRoll from "../../dice/check-roll.mjs";
- */
+import CreatureData from "./templates/creature.mjs";
 
 const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
-export default class TravelerData extends foundry.abstract.TypeDataModel {
+export default class TravelerData extends CreatureData {
   /** @override */
   static defineSchema() {
-    const makeAbility = () => {
-      return new SchemaField({
-        value: new NumberField({ step: 2, min: 4, max: 12, nullable: false, initial: 4 }),
-      });
-    };
-
-    const makeResource = () => {
-      return new SchemaField({
-        bonuses: new SchemaField({
-          flat: new NumberField({ integer: true, initial: null }),
-          level: new NumberField({ integer: true, initial: null }),
-        }),
-        max: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
-        spent: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
-      });
-    };
-
-    return {
-      abilities: new SchemaField({
-        strength: makeAbility(),
-        dexterity: makeAbility(),
-        intelligence: makeAbility(),
-        spirit: makeAbility(),
-      }),
+    return Object.assign(super.defineSchema(), {
       background: new SchemaField({
         appearance: new HTMLField(),
         hometown: new HTMLField(),
         notes: new HTMLField(),
-      }),
-      bonuses: new SchemaField({
-        accuracy: new NumberField({ integer: true }),
-        damage: new NumberField({ integer: true }),
-        initiative: new NumberField({ integer: true }),
-      }),
-      condition: new SchemaField({
-        value: new NumberField({ nullable: true, initial: null, integer: true }),
       }),
       details: new SchemaField({
         color: new ColorField(),
@@ -74,15 +39,11 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
         habitats: new SetField(new StringField()),
         weapons: new SetField(new StringField({ choices: () => ryuutama.config.weaponCategories })),
       }),
-      resources: new SchemaField({
-        mental: makeResource(),
-        stamina: makeResource(),
-      }),
       type: new SchemaField({
         value: new StringField({ choices: () => ryuutama.config.travelerTypes, blank: true, required: true }),
         additional: new StringField({ choices: () => ryuutama.config.travelerTypes, blank: true, required: true }),
       }),
-    };
+    });
   }
 
   /* -------------------------------------------------- */
@@ -131,7 +92,7 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
     super.prepareBaseData();
 
     this.capacity = { bonus: 0 };
-    this.habitats = { weather: new Set(), terrain: new Set() };
+    this.habitats = { weather: new Set(), terrain: new Set() }; // TODO: derive from equipped items.
   }
 
   /* -------------------------------------------------- */
@@ -140,308 +101,34 @@ export default class TravelerData extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    const { stamina: hp, mental: mp } = this.resources;
+    this.#prepareEquipped();
+    this.#prepareCapacity();
+  }
 
-    hp.spent = Math.min(hp.spent, hp.max);
-    hp.value = hp.max - hp.spent;
-    mp.spent = Math.min(mp.spent, mp.max);
-    mp.value = mp.max - mp.spent;
+  /* -------------------------------------------------- */
 
+  /**
+   * Prepare equipped items.
+   */
+  #prepareEquipped() {
     // Remove shield if using 2-handed weapon.
     if (this.equipped.weapon?.system.grip === 2) Object.defineProperty(this.equipped, "shield", { value: null });
+  }
 
-    this.capacity.max = this.abilities.strength.value + 3 + this.capacity.bonus + (this.details.level - 1);
-    this.capacity.value = 0;
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare capacity.
+   */
+  #prepareCapacity() {
+    const { capacity, abilities, details, equipped } = this;
+    capacity.max = abilities.strength.value + 3 + capacity.bonus + (details.level - 1);
+    capacity.value = 0;
     this.parent.items.forEach(item => {
-      if (this.equipped[item.type] === item) return;
+      if (equipped[item.type] === item) return; // Equipped items do not add to capacity.
       const size = item.system.size?.total ?? 0;
-      this.capacity.value += size;
+      capacity.value += size;
     });
-    this.capacity.penalty = Math.max(0, this.capacity.value - this.capacity.max);
-
-    // Apply changes from status effects.
-    const con = this.condition.value;
-    this.condition.statuses = {};
-    for (const status of this.parent.effects.documentsByType.status) {
-      const id = status.statuses.first();
-      const str = status.system.strength.value;
-      if ((str < con) || (id in this.condition.statuses)) continue;
-      let abilities;
-      switch (id) {
-        case "injury": abilities = ["dexterity"]; break;
-        case "poison": abilities = ["strength"]; break;
-        case "exhaustion": abilities = ["spirit"]; break;
-        case "muddled": abilities = ["intelligence"]; break;
-        case "shock":
-        case "sickness": abilities = ["strength", "dexterity", "intelligence", "spirit"]; break;
-      }
-      if (!abilities) continue;
-      for (const abi of abilities) {
-        this.abilities[abi].value = Math.max(4, this.abilities[abi].value - 2);
-      }
-      this.condition.statuses[id] = status.system.strength.value;
-    }
-  }
-
-  /* -------------------------------------------------- */
-  /*   Checks                                           */
-  /* -------------------------------------------------- */
-
-  /**
-   * Perform a check.
-   * @param {CheckRollConfig} [rollConfig={}]
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<CheckRoll|null>}
-   */
-  async #rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    ({ rollConfig, dialogConfig, messageConfig } = this.#constructCheckConfigs(rollConfig, dialogConfig, messageConfig));
-
-    if (dialogConfig.configure !== false) {
-      // The dialog modifies the three configurations inplace.
-      const configured = await ryuutama.applications.apps.CheckConfigurationDialog.create({
-        rollConfig, dialogConfig, messageConfig,
-        document: this.parent,
-      });
-      if (!configured) return null;
-    }
-
-    const roll = this._constructCheckRoll(rollConfig, dialogConfig, messageConfig);
-    await roll.evaluate();
-
-    const consumed = await this.#performCheckUpdates(roll, rollConfig, dialogConfig, messageConfig);
-    if (consumed === false) return null;
-
-    if (rollConfig.condition?.removeStatuses) {
-      const score = this.parent.system.condition.value;
-      const deleteIds = [];
-      for (const status of this.parent.effects.documentsByType.status) {
-        const str = status.system.strength.value;
-        if (str < score) deleteIds.push(status.id);
-      }
-      await this.parent.deleteEmbeddedDocuments("ActiveEffect", deleteIds);
-    }
-
-    if (messageConfig.create !== false) {
-      messageConfig.data ??= {};
-      messageConfig.data.flavor ??= game.i18n.format("RYUUTAMA.ROLL.messageFlavor", {
-        type: game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`),
-        abilities: game.i18n.getListFormatter().format(rollConfig.abilities.map(abi => ryuutama.config.abilityScores[abi].label)),
-      }),
-      roll.toMessage(messageConfig.data);
-    }
-
-    if (roll.isFumble) {
-      // TODO: items lose durability
-    }
-
-    return roll;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Construct the configuration objects for a check.
-   * @param {CheckRollConfig} rollConfig
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {{ rollConfig: CheckRollConfig, dialogConfig: CheckDialogConfig, messageConfig: CheckMessageConfig }}
-   */
-  #constructCheckConfigs(rollConfig, dialogConfig = {}, messageConfig = {}) {
-    ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
-
-    let roll = { condition: {}, concentration: {}, critical: {} };
-    let dialog = { configure: true };
-    let message = { create: true, data: {
-      speaker: getDocumentClass("ChatMessage").getSpeaker({ actor: this.parent }),
-    } };
-
-    switch (rollConfig.type) {
-      case "journey":
-        switch (rollConfig.journeyId) {
-          case "travel": roll.abilities = ["strength", "dexterity"]; break;
-          case "camping": roll.abilities = ["intelligence", "intelligence"]; break;
-          case "direction": roll.abilities = ["dexterity", "intelligence"]; break;
-          default: throw new Error(`Invalid journeyId '${rollConfig.journeyId}' for a journey check.`);
-        }
-        dialog.selectAbilities = false;
-        break;
-
-      case "condition":
-        roll.abilities = ["strength", "spirit"];
-        dialog.selectAbilities = false;
-        roll.concentration.allowed = false;
-        roll.condition = { updateScore: true, removeStatuses: true };
-        break;
-
-      case "damage": {
-        const w = this.equipped.weapon;
-        let abi;
-        let bon;
-        if (w) ({ ability: abi, bonus: bon } = w.system.damage);
-        else {
-          // Unarmed
-          abi = "strength";
-          bon = -2;
-        }
-        roll.abilities = [abi];
-        roll.modifer = bon;
-        dialog.selectAbilities = false;
-        roll.concentration.allowed = false;
-        roll.critical = { allowed: true };
-        break;
-      }
-
-      case "accuracy": {
-        let abilities;
-        let bonus;
-        const w = this.equipped.weapon;
-        if (w) {
-          abilities = [...w.system.accuracy.abilities];
-          bonus = w.system.accuracy.bonus;
-          roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
-        } else {
-          abilities = ["dexterity", "strength"]; // unarmed
-          bonus = -2; // unarmed has -2, an improvised weapon has -1
-        }
-
-        roll.abilities = abilities;
-        roll.modifier = bonus;
-        dialog.selectAbilities = false;
-        break;
-      }
-
-      case "initiative":
-        roll.abilities = ["dexterity", "intelligence"];
-        dialog.selectAbilities = false;
-        roll.concentration.allowed = false;
-        break;
-
-      case "check":
-        roll.abilities = ["strength", "strength"];
-        dialog.selectAbilities = true;
-        break;
-
-      default:
-        throw new Error(`Invalid check type '${rollConfig.type}' passed to rollConfig parameter.`);
-    }
-
-    return {
-      rollConfig: foundry.utils.mergeObject(roll, rollConfig),
-      dialogConfig: foundry.utils.mergeObject(dialog, dialogConfig),
-      messageConfig: foundry.utils.mergeObject(message, messageConfig),
-    };
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Perform the updates related to a check.
-   * @param {CheckRoll} roll    The evaluated check.
-   * @param {CheckRollConfig} [rollConfig={}]
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<boolean|void>}    Explicitly returning false if consumption was not possible.
-   */
-  async #performCheckUpdates(roll, rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    const update = {};
-
-    // Consume a fumble point and MP due to concentration.
-    const c = rollConfig.concentration ?? {};
-    const cAllowed = c.allowed !== false;
-    if (cAllowed && c.consumeFumble) {
-      const value = this.fumbles.value - 1;
-      if (value < 0) {
-        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.fumblesUnavailable", { format: { name: this.parent.name } });
-        return false;
-      }
-      update["system.fumbles.value"] = value;
-    }
-
-    if (cAllowed && c.consumeMental) {
-      const value = this.resources.mental.value;
-      if (!value) {
-        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.mentalUnavailable", { format: { name: this.parent.name } });
-        return false;
-      }
-      const toSpend = Math.ceil(value / 2);
-      update["system.resources.mental.spent"] = this.resources.mental.spent + toSpend;
-    }
-
-    // Update condition score.
-    if (rollConfig.condition?.updateScore) {
-      update["system.condition.value"] = roll.total;
-    }
-
-    // Consume HP due to unmastered weapon.
-    if (rollConfig.accuracy?.consumeStamina) {
-      const value = this.resources.stamina.value;
-      if (!value) {
-        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.staminaUnavailable", { format: { name: this.parent.name } });
-        return false;
-      }
-      update["system.resources.stamina.spent"] = this.resources.stamina.spent + 1;
-    }
-
-    // Deduct durability.
-    if (roll.isFumble) {
-      // iterate over rollConfig.items and deduct durability.
-    }
-
-    await this.parent.update(update);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Create a check roll.
-   * @param {CheckRollConfig} [rollConfig={}]
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {CheckRoll}
-   */
-  _constructCheckRoll(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    let bonus = 0;
-
-    const isTech = this.isTechnical;
-
-    // Concentration
-    const c = rollConfig.concentration ?? {};
-    if (c.consumeFumble) bonus += isTech ? 2 : 1;
-    if (c.consumeMental) bonus += isTech ? 2 : 1;
-
-    // Situational bonus.
-    if (rollConfig.situationalBonus) bonus += rollConfig.situationalBonus;
-
-    const formula = [
-      "1d@ability1",
-      (rollConfig.abilities.length > 1) ? "1d@ability2" : null,
-      rollConfig.modifier ? "@modifier" : null,
-      bonus ? "@bonus" : null,
-    ].filterJoin(" + ");
-    const rollData = {
-      bonus,
-      modifier: rollConfig.modifier,
-      ability1: this.abilities[rollConfig.abilities[0]].value,
-      ability2: this.abilities[rollConfig.abilities[1]]?.value,
-    };
-
-    /** @type {CheckRoll} */
-    const roll = new CONFIG.Dice.CheckRoll(formula, rollData);
-    if (rollConfig.critical?.allowed && rollConfig.critical.isCritical) roll.alter(2, 0);
-    return roll;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Roll a check.
-   * @param {CheckRollConfig} [rollConfig={}]
-   * @param {CheckDialogConfig} [dialogConfig={}]
-   * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<CheckRoll|null>}
-   */
-  async rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
+    capacity.penalty = Math.max(0, capacity.value - capacity.max);
   }
 }

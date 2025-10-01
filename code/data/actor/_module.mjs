@@ -1,3 +1,5 @@
+export * as templates from "./templates/_module.mjs";
+
 export { default as MonsterData } from "./monster.mjs";
 export { default as PartyData } from "./party.mjs";
 export { default as RyuujinData } from "./ryuujin.mjs";

@@ -1,7 +1,34 @@
-export default class MonsterData extends foundry.abstract.TypeDataModel {
+import CreatureData from "./templates/creature.mjs";
+
+const { ArrayField, HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+
+export default class MonsterData extends CreatureData {
   /** @override */
   static defineSchema() {
-    return {};
+    return Object.assign(super.defineSchema(), {
+      attack: new SchemaField({
+        accuracy: new ArrayField(new StringField(), { min: 2, max: 2, initial: ["dexterity", "strength"] }),
+        damage: new StringField(),
+      }),
+      armor: new SchemaField({
+        value: new NumberField(),
+      }),
+      biography: new SchemaField({
+        value: new HTMLField(),
+      }),
+      details: new SchemaField({
+        category: new StringField(),
+        dragonica: new NumberField(),
+        level: new NumberField(),
+      }),
+      environment: new SchemaField({
+        habitat: new SetField(new StringField()),
+        season: new StringField(),
+      }),
+      initiative: new SchemaField({
+        value: new NumberField(),
+      }),
+    });
   }
 
   /* -------------------------------------------------- */

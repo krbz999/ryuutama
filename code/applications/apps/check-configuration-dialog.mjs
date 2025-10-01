@@ -158,7 +158,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     switch (this.#configurations.rollConfig.type) {
       case "damage":
       case "accuracy":
-        context.subtitle =
+        if (this.actor.type === "traveler") context.subtitle =
           this.actor.system.equipped.weapon?.name ?? game.i18n.localize("RYUUTAMA.WEAPON.CATEGORIES.unarmed");
         break;
       case "journey":
