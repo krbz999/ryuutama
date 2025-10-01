@@ -338,10 +338,11 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
     const isTech = this.isTechnical;
 
-    // Concentration
+    // Concentration: Do this first to easily determine Technical Type bonus.
     const c = rollConfig.concentration ?? {};
-    if (c.consumeFumble) bonus += isTech ? 2 : 1;
-    if (c.consumeMental) bonus += isTech ? 2 : 1;
+    if (c.consumeFumble) bonus++;
+    if (c.consumeMental) bonus++;
+    if (bonus && isTech) bonus++;
 
     // Situational bonus.
     if (rollConfig.situationalBonus) bonus += rollConfig.situationalBonus;
