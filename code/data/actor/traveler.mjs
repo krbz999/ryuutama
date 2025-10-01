@@ -99,9 +99,12 @@ export default class TravelerData extends CreatureData {
 
   /** @inheritdoc */
   prepareDerivedData() {
-    super.prepareDerivedData();
-
+    // Equipped items are prepared first to add a `gear` bonus
+    // to resources, which are prepared in `super`, as well as
+    // to ignore shields (depending) prior to `capacity`.
     this.#prepareEquipped();
+
+    super.prepareDerivedData();
     this.#prepareCapacity();
   }
 
@@ -113,6 +116,14 @@ export default class TravelerData extends CreatureData {
   #prepareEquipped() {
     // Remove shield if using 2-handed weapon.
     if (this.equipped.weapon?.system.grip === 2) Object.defineProperty(this.equipped, "shield", { value: null });
+
+    // Orichalcum items grant +2 HP and MP.
+    let bonus = 0;
+    for (const key of Object.keys(this._source.equipped)) {
+      const item = this.equipped[key];
+      if (item?.system.modifiers.has("orichalcum")) bonus += 2;
+    }
+    this.resources.stamina.gear = this.resources.mental.gear = bonus;
   }
 
   /* -------------------------------------------------- */
@@ -125,7 +136,7 @@ export default class TravelerData extends CreatureData {
     capacity.max = abilities.strength.value + 3 + capacity.bonus + (details.level - 1);
     capacity.value = 0;
     this.parent.items.forEach(item => {
-      if (equipped[item.type] === item) return; // Equipped items do not add to capacity.
+      if (equipped[item.type] === item) return;
       const size = item.system.size?.total ?? 0;
       capacity.value += size;
     });

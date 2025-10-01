@@ -87,8 +87,13 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    */
   #prepareResources() {
     const { stamina: hp, mental: mp } = this.resources;
+    const src = this._source.resources;
+
+    hp.max = src.stamina.max + hp.bonuses.flat + (hp.gear ?? 0) + hp.bonuses.level * this.details.level;
     hp.spent = Math.min(hp.spent, hp.max);
     hp.value = hp.max - hp.spent;
+
+    mp.max = src.mental.max + mp.bonuses.flat + (mp.gear ?? 0) + mp.bonuses.level * this.details.level;
     mp.spent = Math.min(mp.spent, mp.max);
     mp.value = mp.max - mp.spent;
   }
