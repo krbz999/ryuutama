@@ -20,6 +20,7 @@
  * @property {AbilityData} abilities.intelligence
  * @property {AbilityData} abilities.spirit
  * @property {object} condition
+ * @property {string[]} condition.immunities    The status effects the creature is immune to.
  * @property {number} condition.value           The creature's current condition.
  * @property {object} resources
  * @property {ResourceData} resources.mental    The creature's MP.

@@ -3,7 +3,7 @@
  * @import CheckRoll from "../../../dice/check-roll.mjs";
  */
 
-const { NumberField, SchemaField } = foundry.data.fields;
+const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class CreatureData extends foundry.abstract.TypeDataModel {
   /** @override */
@@ -33,6 +33,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         spirit: makeAbility(),
       }),
       condition: new SchemaField({
+        immunities: new SetField(new StringField({ choices: () => ryuutama.config.statusEffects })),
         value: new NumberField({ nullable: true, initial: null, integer: true }),
       }),
       resources: new SchemaField({
@@ -58,11 +59,12 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    */
   #prepareAbilities() {
     const con = this.condition.value;
+    const imm = this.condition.immunities;
     const statuses = this.condition.statuses = {};
     for (const status of this.parent.effects.documentsByType.status) {
       const id = status.statuses.first();
       const str = status.system.strength.value;
-      if ((str < con) || (id in statuses)) continue;
+      if ((str < con) || (id in statuses) || imm.has(id)) continue;
       let abilities;
       switch (id) {
         case "injury": abilities = ["dexterity"]; break;
