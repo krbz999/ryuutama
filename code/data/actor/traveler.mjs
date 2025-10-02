@@ -107,6 +107,7 @@ export default class TravelerData extends CreatureData {
 
     this.capacity = { bonus: 0 };
     this.habitats = { weather: new Set(), terrain: new Set() }; // TODO: derive from equipped items.
+    this.defense = { base: 0 };
   }
 
   /* -------------------------------------------------- */
@@ -119,6 +120,10 @@ export default class TravelerData extends CreatureData {
 
     super.prepareDerivedData();
     this.#prepareCapacity();
+
+    this.defense.shieldDodge = this.parent.getFlag(ryuutama.id, "shieldDodge") ?? false;
+    this.defense.dodge = this.equipped.shield?.system.armor.dodge ?? null;
+    this.defense.total = Math.max(this.defense.base, this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
   }
 
   /* -------------------------------------------------- */
@@ -130,13 +135,19 @@ export default class TravelerData extends CreatureData {
     // Remove shield if using 2-handed weapon.
     if (this.equipped.weapon?.system.grip === 2) Object.defineProperty(this.equipped, "shield", { value: null });
 
-    // Orichalcum items grant +2 HP and MP.
     let bonus = 0;
+    this.defense.gear = 0;
     for (const key of Object.keys(this._source.equipped)) {
       const item = this.equipped[key];
+
+      // Orichalcum items grant +2 HP and MP.
       if (item?.system.modifiers.has("orichalcum")) bonus += 2;
+
+      // Set defense value from gear.
+      if (["armor", "shield"].includes(key) && item) this.defense.gear += item.system.armor.defense;
     }
     this.resources.stamina.gear = this.resources.mental.gear = bonus;
+
   }
 
   /* -------------------------------------------------- */

@@ -1,4 +1,5 @@
 import Prelocalization from "./helpers/prelocalization.mjs";
+import staticId from "./utils/static-id.mjs";
 
 /**
  * @import {
@@ -212,6 +213,15 @@ export const monsterCategories = {
     armorBypasses: new Set(["mythril", "orichalcum"]),
   },
 };
+
+/* -------------------------------------------------- */
+
+export const shieldDodgeData = {
+  _id: staticId("shielddodge"),
+  img: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
+  name: "RYUUTAMA.SHIELD.shieldDefense",
+};
+Prelocalization.prelocalize({ shieldDodgeData }, { properties: ["name"] });
 
 /* -------------------------------------------------- */
 

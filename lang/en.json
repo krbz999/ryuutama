@@ -194,7 +194,8 @@
         "armor.penalty.label": "Penalty",
         "armor.defense.label": "Defense Points",
         "armor.dodge.label": "Shield Dodge Value"
-      }
+      },
+      "shieldDefense": "Shield Defense"
     },
     "WEAPON": {
       "CATEGORIES": {

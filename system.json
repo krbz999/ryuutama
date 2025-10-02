@@ -31,7 +31,13 @@
       "path": "lang/en.json"
     }
   ],
-  "media": [],
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/ryuutama/assets/official/setup.webp"
+    }
+  ],
+  "background": "systems/ryuutama/assets/official/setup.webp",
   "grid": {},
   "url": "https://github.com/krbz999/ryuutama",
   "manifest": "https://github.com/krbz999/ryuutama/releases/latest/download/system.json",
@@ -60,36 +66,58 @@
       "party": {},
       "ryuujin": {},
       "traveler": {
-        "htmlFields": ["background.appearance", "background.hometown", "background.notes"]
+        "htmlFields": [
+          "background.appearance",
+          "background.hometown",
+          "background.notes"
+        ]
       }
     },
     "Item": {
       "accessory": {
-        "htmlFields": ["description.value"]
+        "htmlFields": [
+          "description.value"
+        ]
       },
       "armor": {
-        "htmlFields": ["description.value"]
+        "htmlFields": [
+          "description.value"
+        ]
       },
       "cape": {
-        "htmlFields": ["description.value"]
+        "htmlFields": [
+          "description.value"
+        ]
       },
       "hat": {
-        "htmlFields": ["description.value"]
+        "htmlFields": [
+          "description.value"
+        ]
       },
       "shield": {
-        "htmlFields": ["description.value"]
+        "htmlFields": [
+          "description.value"
+        ]
       },
       "shoes": {
-        "htmlFields": ["description.value"]
+        "htmlFields": [
+          "description.value"
+        ]
       },
       "skill": {
-        "htmlFields": ["description.value"]
+        "htmlFields": [
+          "description.value"
+        ]
       },
       "staff": {
-        "htmlFields": ["description.value"]
+        "htmlFields": [
+          "description.value"
+        ]
       },
       "weapon": {
-        "htmlFields": ["description.value"]
+        "htmlFields": [
+          "description.value"
+        ]
       }
     }
   },
@@ -101,9 +129,13 @@
       "banner": "systems/ryuutama/assets/official/banners/gear.webp"
     }
   ],
-  "packFolders": [{
-    "name": "Ryuutama",
-    "color": "#0089bd",
-    "packs": ["gear"]
-  }]
+  "packFolders": [
+    {
+      "name": "Ryuutama",
+      "color": "#0089bd",
+      "packs": [
+        "gear"
+      ]
+    }
+  ]
 }

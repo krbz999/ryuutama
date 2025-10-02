@@ -25,6 +25,9 @@
  * @property {object} [accuracy]
  * @property {boolean} [accuracy.weapon]                    The weapon being used for the check.
  * @property {boolean} [accuracy.consumeStamina]            Consume HP due to using a non-Mastered weapon?
+ * @property {object} [initiative]
+ * @property {boolean} [initiative.shield]                  If the rolled initiative value is lower than the actor's
+ *                                                          Shield Dodge Value, create the Shield Dodge effect?
  */
 
 /* -------------------------------------------------- */

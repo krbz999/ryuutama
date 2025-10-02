@@ -1,6 +1,7 @@
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
  * @import CheckRoll from "../../../dice/check-roll.mjs";
+ * @import Combat from "@client/documents/combat.mjs";
  */
 
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
@@ -311,6 +312,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   async #performCheckUpdates(roll, rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     const update = {};
     const effectIds = [];
+    const actor = this.parent;
 
     // Consume a fumble point and MP due to concentration.
     const c = rollConfig.concentration ?? {};
@@ -318,7 +320,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     if (cAllowed && c.consumeFumble) {
       const value = this.fumbles.value - 1;
       if (value < 0) {
-        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.fumblesUnavailable", { format: { name: this.parent.name } });
+        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.fumblesUnavailable", { format: { name: actor.name } });
         return false;
       }
       update["system.fumbles.value"] = value;
@@ -327,7 +329,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     if (cAllowed && c.consumeMental) {
       const value = this.resources.mental.value;
       if (!value) {
-        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.mentalUnavailable", { format: { name: this.parent.name } });
+        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.mentalUnavailable", { format: { name: actor.name } });
         return false;
       }
       const toSpend = Math.ceil(value / 2);
@@ -340,8 +342,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
       // Remove statuses.
       if (rollConfig.condition?.removeStatuses) {
-        const score = this.parent.system.condition.value;
-        for (const status of this.parent.effects.documentsByType.status) {
+        const score = actor.system.condition.value;
+        for (const status of actor.effects.documentsByType.status) {
           const str = status.system.strength.value;
           if (str < score) effectIds.push(status.id);
         }
@@ -352,7 +354,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     if (rollConfig.accuracy?.consumeStamina) {
       const value = this.resources.stamina.value;
       if (!value) {
-        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.staminaUnavailable", { format: { name: this.parent.name } });
+        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.staminaUnavailable", { format: { name: actor.name } });
         return false;
       }
       update["system.resources.stamina.spent"] = this.resources.stamina.spent + 1;
@@ -363,8 +365,16 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       // iterate over rollConfig.items and deduct durability.
     }
 
-    if (effectIds.length) await this.parent.deleteEmbeddedDocuments("ActiveEffect", effectIds);
-    if (!foundry.utils.isEmpty(update)) await this.parent.update(update);
+    const dodge = this.defense?.dodge ?? Infinity;
+    if (effectIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
+    if (!foundry.utils.isEmpty(update)) await actor.update(update);
+    if (rollConfig.initiative?.shield && (roll.total < dodge)) {
+      await actor.effects.get(ryuutama.config.shieldDodgeData._id)?.delete();
+      await getDocumentClass("ActiveEffect").create({
+        ...ryuutama.config.shieldDodgeData,
+        changes: [{ key: `flags.${ryuutama.id}.shieldDodge`, mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE, value: "true" }],
+      }, { keepId: true, parent: actor });
+    }
   }
 
   /* -------------------------------------------------- */
