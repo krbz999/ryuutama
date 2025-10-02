@@ -1,0 +1,49 @@
+{
+  "folder": "hats000000000000",
+  "name": "Sun Hat",
+  "type": "hat",
+  "_id": "sunhat0000000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A hat with a large brim to block sunlight. It is made from linen and thread for extra breathability.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 180
+    },
+    "size": {
+      "value": 1
+    },
+    "gear": {
+      "habitat": {
+        "terrain": [],
+        "weather": [
+          "hot"
+        ]
+      },
+      "strength": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823747,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!sunhat0000000000"
+}

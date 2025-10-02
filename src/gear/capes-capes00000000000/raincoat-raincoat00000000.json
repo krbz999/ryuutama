@@ -1,0 +1,51 @@
+{
+  "folder": "capes00000000000",
+  "name": "Raincoat",
+  "type": "cape",
+  "_id": "raincoat00000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A leather cape that has been finished with a water-resistant coating. It requires constant upkeep.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 400
+    },
+    "size": {
+      "value": 3
+    },
+    "gear": {
+      "habitat": {
+        "terrain": [],
+        "weather": [
+          "rain",
+          "hardRain",
+          "snow"
+        ]
+      },
+      "strength": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823759,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!raincoat00000000"
+}

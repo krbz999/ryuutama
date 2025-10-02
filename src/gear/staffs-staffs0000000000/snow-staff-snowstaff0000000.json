@@ -1,0 +1,49 @@
+{
+  "folder": "staffs0000000000",
+  "name": "Snow Staff",
+  "type": "staff",
+  "_id": "snowstaff0000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A staff used to dig through snow. The tip is reinforced with metal to help break through ice.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 280
+    },
+    "size": {
+      "value": 3
+    },
+    "gear": {
+      "habitat": {
+        "terrain": [],
+        "weather": [
+          "snow"
+        ]
+      },
+      "strength": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823847,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!snowstaff0000000"
+}

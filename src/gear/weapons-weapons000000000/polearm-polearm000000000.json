@@ -1,0 +1,54 @@
+{
+  "folder": "weapons000000000",
+  "name": "Polearm",
+  "type": "weapon",
+  "_id": "polearm000000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A weapon consisting of a long pole with a sharp point fastened at the end. As it can be used to stab with the tip or bash with the handle, it has a wide breadth of usefulness. Its price also makes it easy to obtain.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 350
+    },
+    "size": {
+      "value": 3
+    },
+    "accuracy": {
+      "abilities": [
+        "dexterity",
+        "strength"
+      ],
+      "bonus": null
+    },
+    "category": {
+      "value": "polearm"
+    },
+    "damage": {
+      "ability": "strength",
+      "bonus": 1
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823793,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!polearm000000000"
+}

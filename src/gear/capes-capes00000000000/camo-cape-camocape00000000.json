@@ -1,0 +1,47 @@
+{
+  "folder": "capes00000000000",
+  "name": "Camo Cape",
+  "type": "cape",
+  "_id": "camocape00000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>Choose a terrain when purchasing this item. This cape allows you to conceal your entire body by blending into the surrounding topography.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 400
+    },
+    "size": {
+      "value": 3
+    },
+    "gear": {
+      "habitat": {
+        "terrain": [],
+        "weather": []
+      },
+      "strength": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823733,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!camocape00000000"
+}

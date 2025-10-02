@@ -24,8 +24,6 @@
       "layer": "system"
     }
   ],
-  "packs": [],
-  "packFolders": [],
   "languages": [
     {
       "lang": "en",
@@ -35,7 +33,6 @@
   ],
   "media": [],
   "grid": {},
-  "socket": false,
   "url": "https://github.com/krbz999/ryuutama",
   "manifest": "https://github.com/krbz999/ryuutama/releases/latest/download/system.json",
   "license": "https://github.com/krbz999/ryuutama/blob/main/LICENSE",
@@ -95,5 +92,18 @@
         "htmlFields": ["description.value"]
       }
     }
-  }
+  },
+  "packs": [
+    {
+      "name": "gear",
+      "label": "RYUUTAMA.PACKS.GEAR",
+      "type": "Item",
+      "banner": "systems/ryuutama/assets/official/banners/gear.webp"
+    }
+  ],
+  "packFolders": [{
+    "name": "Ryuutama",
+    "color": "#0089bd",
+    "packs": ["gear"]
+  }]
 }

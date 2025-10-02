@@ -1,0 +1,49 @@
+{
+  "folder": "capes00000000000",
+  "name": "Warm Cape",
+  "type": "cape",
+  "_id": "warmcape00000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A cape made from the pelt of a thickly-furred animal. It can also be used as bedding or a blanket.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 160
+    },
+    "size": {
+      "value": 3
+    },
+    "gear": {
+      "habitat": {
+        "terrain": [],
+        "weather": [
+          "cold"
+        ]
+      },
+      "strength": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823720,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!warmcape00000000"
+}

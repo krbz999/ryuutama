@@ -1,0 +1,49 @@
+{
+  "folder": "capes00000000000",
+  "name": "Sun Cape",
+  "type": "cape",
+  "_id": "suncape000000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A cape made from a light, very breathable material that keeps heat from reaching inside.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 400
+    },
+    "size": {
+      "value": 3
+    },
+    "gear": {
+      "habitat": {
+        "terrain": [],
+        "weather": [
+          "hot"
+        ]
+      },
+      "strength": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823876,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!suncape000000000"
+}

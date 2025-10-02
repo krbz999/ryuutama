@@ -1,0 +1,45 @@
+{
+  "folder": "shields000000000",
+  "name": "Light Shield",
+  "type": "shield",
+  "_id": "lightshield00000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A shield that can be held in one hand. Made from wood and grass, its light weight keeps it from being a nuisance in battle.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 400
+    },
+    "size": {
+      "value": 3
+    },
+    "armor": {
+      "defense": 1,
+      "dodge": 7,
+      "penalty": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823870,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!lightshield00000"
+}

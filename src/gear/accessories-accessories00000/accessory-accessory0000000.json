@@ -1,0 +1,47 @@
+{
+  "folder": "accessories00000",
+  "name": "Accessory",
+  "type": "accessory",
+  "_id": "accessory0000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>Rings, earrings, bracelets, or any other decorative accessory. These can be created from metal, clam shells, seeds, or any other element that shows off the special colors of the land where it was created.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 100
+    },
+    "size": {
+      "value": 1
+    },
+    "gear": {
+      "habitat": {
+        "terrain": [],
+        "weather": []
+      },
+      "strength": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823764,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!accessory0000000"
+}

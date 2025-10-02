@@ -1,0 +1,54 @@
+{
+  "folder": "weapons000000000",
+  "name": "Light Blade",
+  "type": "weapon",
+  "_id": "lightblade000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A blade that can be held in the hand. It can be useful outside of combat in the preparation of food, harvesting herbs, and various other situations.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 400
+    },
+    "size": {
+      "value": 1
+    },
+    "accuracy": {
+      "abilities": [
+        "dexterity",
+        "intelligence"
+      ],
+      "bonus": 1
+    },
+    "category": {
+      "value": "lightBlade"
+    },
+    "damage": {
+      "ability": "intelligence",
+      "bonus": -1
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823832,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!lightblade000000"
+}

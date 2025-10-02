@@ -1,0 +1,52 @@
+{
+  "name": "Climbing Shoes",
+  "type": "shoes",
+  "system": {
+    "price": {
+      "value": 450
+    },
+    "size": {
+      "value": 1
+    },
+    "gear": {
+      "habitat": {
+        "terrain": [
+          "wasteland",
+          "rocky",
+          "mountain",
+          "alpine"
+        ],
+        "weather": []
+      },
+      "strength": null
+    },
+    "description": {
+      "value": "<p>These shoes have thick soles that allow walking across rocky terrain without hurting your feet. The soles also help to keep your feet from slipping.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": []
+  },
+  "_id": "climbingshoes000",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "shoes00000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823803,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!climbingshoes000"
+}

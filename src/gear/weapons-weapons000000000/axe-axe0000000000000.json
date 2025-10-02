@@ -1,0 +1,54 @@
+{
+  "folder": "weapons000000000",
+  "name": "Axe",
+  "type": "weapon",
+  "_id": "axe0000000000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A tool used to cut down trees. Due to its weight, it is powered with brute strength, and not effective with small swings.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 500
+    },
+    "size": {
+      "value": 3
+    },
+    "accuracy": {
+      "abilities": [
+        "strength",
+        "strength"
+      ],
+      "bonus": -1
+    },
+    "category": {
+      "value": "axe"
+    },
+    "damage": {
+      "ability": "strength",
+      "bonus": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823823,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!axe0000000000000"
+}

@@ -1,0 +1,45 @@
+{
+  "folder": "shields000000000",
+  "name": "Heavy Shield",
+  "type": "shield",
+  "_id": "heavyshield00000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A shield large enough to cast half of the body in shadow. Most of them are made from metal; its heavy weight makes it hard to carry.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 1200
+    },
+    "size": {
+      "value": 3
+    },
+    "armor": {
+      "defense": 2,
+      "dodge": 9,
+      "penalty": 1
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823839,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!heavyshield00000"
+}

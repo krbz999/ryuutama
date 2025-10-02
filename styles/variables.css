@@ -2,6 +2,12 @@
   --ryuutama-color-gold: rgb(159, 146, 117);
   --ryuutama-color-purple: rgb(146, 20, 146);
 
+  --ryuutama-color-statuses-mind: #b8006d;
+  --ryuutama-color-statuses-body: #0089bd;
+  --ryuutama-color-archetype: #87384d;
+  --ryuutama-color-stats: #87384d;
+  --ryuutama-color-sidebar-background: #f7f7d2;
+
   .themed.theme-light {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-gold);
     --ryuutama-inventory-hover-color: rgba(0, 0, 0, 0.1);

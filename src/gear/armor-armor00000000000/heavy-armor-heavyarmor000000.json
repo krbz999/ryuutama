@@ -1,0 +1,44 @@
+{
+  "folder": "armor00000000000",
+  "name": "Heavy Armor",
+  "type": "armor",
+  "_id": "heavyarmor000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>Heavy armor constructed from metal plates that completely covers the entire body. The body’s movement is restricted, so movement is hampered with the armor equipped.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 10000
+    },
+    "size": {
+      "value": 5
+    },
+    "armor": {
+      "defense": 3,
+      "penalty": 3
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823776,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!heavyarmor000000"
+}

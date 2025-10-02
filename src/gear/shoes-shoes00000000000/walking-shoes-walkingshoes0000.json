@@ -1,0 +1,49 @@
+{
+  "name": "Walking Shoes",
+  "type": "shoes",
+  "_id": "walkingshoes0000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>These shoes are made from soft leather that make it easy to walk on paved surfaces. They are very lightweight and do not impede the movement of your feet.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 350
+    },
+    "size": {
+      "value": 1
+    },
+    "gear": {
+      "habitat": {
+        "terrain": [
+          "road"
+        ],
+        "weather": []
+      },
+      "strength": null
+    }
+  },
+  "effects": [],
+  "folder": "shoes00000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823755,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!walkingshoes0000"
+}

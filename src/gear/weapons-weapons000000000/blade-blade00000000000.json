@@ -1,0 +1,54 @@
+{
+  "folder": "weapons000000000",
+  "name": "Blade",
+  "type": "weapon",
+  "_id": "blade00000000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>A weapon with a long, flat blade. Beloved around the world, a single-edged blade is called a “saber” while double-edged blade is called a “sword.”</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 700
+    },
+    "size": {
+      "value": 3
+    },
+    "accuracy": {
+      "abilities": [
+        "dexterity",
+        "strength"
+      ],
+      "bonus": null
+    },
+    "category": {
+      "value": "blade"
+    },
+    "damage": {
+      "ability": "strength",
+      "bonus": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823827,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!blade00000000000"
+}

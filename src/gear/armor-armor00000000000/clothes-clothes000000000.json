@@ -1,0 +1,44 @@
+{
+  "folder": "armor00000000000",
+  "name": "Clothes",
+  "type": "armor",
+  "_id": "clothes000000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>Normal clothes. Thick, tough clothing is preferred by travelers. Generally they are made from wool and thread.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 50
+    },
+    "size": {
+      "value": 3
+    },
+    "armor": {
+      "defense": null,
+      "penalty": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823812,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!clothes000000000"
+}

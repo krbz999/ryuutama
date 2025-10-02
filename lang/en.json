@@ -213,6 +213,10 @@
       "weaponDamage": "Damage"
     },
 
+    "PACKS": {
+      "GEAR": "Traveling Gear"
+    },
+
     "ROLL": {
       "WARNING": {
         "fumblesUnavailable": "{name} does not have any Fumble Point available.",

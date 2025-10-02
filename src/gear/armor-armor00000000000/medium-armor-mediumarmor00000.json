@@ -1,0 +1,44 @@
+{
+  "folder": "armor00000000000",
+  "name": "Medium Armor",
+  "type": "armor",
+  "_id": "mediumarmor00000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>Armor constructed from metal plates. The arms and legs are protected in addition to the chest area, but the weight increases proportionally.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 2000
+    },
+    "size": {
+      "value": 5
+    },
+    "armor": {
+      "defense": 2,
+      "penalty": 1
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823743,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!mediumarmor00000"
+}

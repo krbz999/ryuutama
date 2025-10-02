@@ -1,0 +1,44 @@
+{
+  "folder": "armor00000000000",
+  "name": "Light Armor",
+  "type": "armor",
+  "_id": "lightarmor000000",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>Armor constructed from the hide of animals, with metal plates covering vital points. Only the chest is protected, but because of its light weight it is easily worn.</p>"
+    },
+    "durability": {
+      "spent": 0
+    },
+    "modifiers": [],
+    "price": {
+      "value": 900
+    },
+    "size": {
+      "value": 3
+    },
+    "armor": {
+      "defense": 1,
+      "penalty": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759431823781,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!lightarmor000000"
+}
