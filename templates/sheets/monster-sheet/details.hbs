@@ -1,0 +1,9 @@
+<section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
+  {{formGroup fields.name value=(ifThen disabled document.name source.name) disabled=disabled}}
+  {{formGroup fields.img value=(ifThen disabled document.img source.img) disabled=disabled classes="slim"}}
+  {{formGroup systemFields.condition.fields.value value=(ifThen disabled document.system.condition.value source.system.condition.value) disabled=disabled placeholder="0" classes="slim"}}
+  {{formGroup systemFields.initiative.fields.value value=(ifThen disabled document.system.initiative.value source.system.initiative.value) disabled=disabled classes="slim"}}
+  {{formGroup systemFields.details.fields.level value=(ifThen disabled document.system.details.level source.system.details.level) disabled=disabled type="number" classes="slim"}}
+
+  {{formGroup systemFields.description.fields.value value=source.system.description.value enriched=enriched.description disabled=disabled toggled=disabled}}
+</section>

@@ -1,4 +1,6 @@
 <form class="standard-form">
+
+  {{#if showAbilities}}
   <div class="form-group">
     <label>{{localize "RYUUTAMA.ROLL.abilities"}}</label>
     <div class="form-fields">
@@ -12,6 +14,7 @@
       {{/if}}
     </div>
   </div>
+  {{/if}}
 
   <div class="form-group">
     <label for="{{partId}}-situationalBonus">{{localize "RYUUTAMA.ROLL.situationalBonus"}}</label>
@@ -49,12 +52,14 @@
       </div>
     </div>
 
+    {{#if allowConsumeFumble}}
     <div class="form-group slim">
       <label for="{{partId}}-concentration.consumeFumble">{{localize "RYUUTAMA.ROLL.consumeFumble"}}</label>
       <div class="form-fields">
         <input type="checkbox" name="concentration.consumeFumble" id="{{partId}}-concentration.consumeFumble" {{checked configurations.rollConfig.concentration.consumeFumble}}>
       </div>
     </div>
+    {{/if}}
   </fieldset>
   {{/if}}
 

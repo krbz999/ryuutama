@@ -10,15 +10,15 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const makeAbility = () => {
       return new SchemaField({
-        value: new NumberField({ step: 2, min: 4, max: 12, nullable: false, initial: 4 }),
+        value: new NumberField({ step: 2, min: this.MINIMUM_ABILITY, max: 12, nullable: false, initial: 4 }),
       });
     };
 
     const makeResource = () => {
       return new SchemaField({
         bonuses: new SchemaField({
-          flat: new NumberField({ integer: true, initial: null }),
-          level: new NumberField({ integer: true, initial: null }),
+          flat: new NumberField({ integer: true, initial: null, required: true }),
+          level: new NumberField({ integer: true, initial: null, required: true }),
         }),
         max: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
         spent: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
@@ -42,6 +42,22 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       }),
     };
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RYUUTAMA.CREATURE",
+  ];
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The minimum die size for abilities.
+   * @type {number}
+   */
+  static MINIMUM_ABILITY = 4;
 
   /* -------------------------------------------------- */
 
@@ -101,6 +117,21 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------------- */
+
+  /**
+   * Prepare roll data for this subtype.
+   * @returns {object}
+   */
+  getRollData() {
+    const rollData = { ...this };
+    rollData.str = `1d${this.abilities.strength.value}`;
+    rollData.dex = `1d${this.abilities.dexterity.value}`;
+    rollData.int = `1d${this.abilities.intelligence.value}`;
+    rollData.spi = `1d${this.abilities.spirit.value}`;
+    return rollData;
+  }
+
+  /* -------------------------------------------------- */
   /*   Checks                                           */
   /* -------------------------------------------------- */
 
@@ -131,10 +162,14 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
     if (messageConfig.create !== false) {
       messageConfig.data ??= {};
-      messageConfig.data.flavor ??= game.i18n.format("RYUUTAMA.ROLL.messageFlavor", {
-        type: game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`),
-        abilities: game.i18n.getListFormatter().format(rollConfig.abilities.map(abi => ryuutama.config.abilityScores[abi].label)),
-      }),
+      messageConfig.data.flavor ??= game.i18n.format(
+        `RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`,
+        {
+          type: game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`),
+          abilities: game.i18n
+            .getListFormatter()
+            .format(rollConfig.abilities?.map(abi => ryuutama.config.abilityScores[abi].label) ?? []),
+        }),
       roll.toMessage(messageConfig.data);
     }
 
@@ -179,27 +214,26 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         break;
 
       case "damage": {
-        let abi;
-        let bon;
         switch (this.parent.type) {
           case "traveler": {
             const w = this.equipped.weapon;
+            let abi;
+            let bon;
             if (w) ({ ability: abi, bonus: bon } = w.system.damage);
             else {
               // Unarmed
               abi = "strength";
               bon = -2;
             }
+            roll.abilities = [abi];
+            roll.modifier = bon;
             break;
           }
           case "monster": {
-            bon = 0;
-            abi = this.attack.damage;
+            roll.formula = this.attack.damage;
             break;
           }
         }
-        roll.abilities = [abi];
-        roll.modifer = bon;
         dialog.selectAbilities = false;
         roll.concentration.allowed = false;
         roll.critical = { allowed: true };
@@ -207,10 +241,10 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       }
 
       case "accuracy": {
-        let abilities;
-        let bonus;
         switch (this.parent.type) {
           case "traveler": {
+            let abilities;
+            let bonus;
             const w = this.equipped.weapon;
             if (w) {
               abilities = [...w.system.accuracy.abilities];
@@ -220,23 +254,30 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
               abilities = ["dexterity", "strength"]; // unarmed
               bonus = -2; // unarmed has -2, an improvised weapon has -1
             }
+            roll.abilities = abilities;
+            roll.modifier = bonus;
             break;
           }
           case "monster": {
-            abilities = [...this.attack.accuracy];
-            bonus = 0;
+            roll.formula = this.attack.accuracy;
             break;
           }
         }
-
-        roll.abilities = abilities;
-        roll.modifier = bonus;
         dialog.selectAbilities = false;
         break;
       }
 
       case "initiative":
-        roll.abilities = ["dexterity", "intelligence"];
+        switch (this.parent.type) {
+          case "traveler": {
+            roll.abilities = ["dexterity", "intelligence"];
+            break;
+          }
+          case "monster": {
+            roll.formula = "@initiative.value";
+            break;
+          }
+        }
         dialog.selectAbilities = false;
         roll.concentration.allowed = false;
         break;
@@ -349,21 +390,30 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     // Situational bonus.
     if (rollConfig.situationalBonus) bonus += rollConfig.situationalBonus;
 
-    const formula = [
-      "1d@ability1",
-      (rollConfig.abilities.length > 1) ? "1d@ability2" : null,
-      rollConfig.modifier ? "@modifier" : null,
-      bonus ? "@bonus" : null,
-    ].filterJoin(" + ");
-    const rollData = {
-      bonus,
-      modifier: rollConfig.modifier,
-      ability1: this.abilities[rollConfig.abilities[0]].value,
-      ability2: this.abilities[rollConfig.abilities[1]]?.value,
-    };
+    const formula = [];
+    const rollData = this.parent.getRollData();
+
+    if (rollConfig.formula) {
+      formula.push(rollConfig.formula);
+    } else {
+      formula.push(
+        `1d@abilities.${rollConfig.abilities[0]}.value`,
+        (rollConfig.abilities.length > 1) ? `1d@abilities.${rollConfig.abilities[1]}.value` : null,
+      );
+    }
+
+    if (rollConfig.modifier) {
+      formula.push("@modifier");
+      rollData.modifier = rollConfig.modifier;
+    }
+
+    if (bonus) {
+      formula.push("@bonus");
+      rollData.bonus = bonus;
+    }
 
     /** @type {CheckRoll} */
-    const roll = new CONFIG.Dice.CheckRoll(formula, rollData);
+    const roll = new CONFIG.Dice.CheckRoll(formula.join(" + "), rollData);
     if (rollConfig.critical?.allowed && rollConfig.critical.isCritical) roll.alter(2, 0);
     return roll;
   }

@@ -1,26 +1,26 @@
 <section data-tab="{{tabs.attributes.id}}" class="{{tabs.attributes.cssClass}}" data-group="{{tabs.attributes.group}}">
   <fieldset style="display: grid; grid-template-columns: repeat(5, 1fr);">
-    <button type="button" data-action="rollCheck" data-check="check">
+    <button type="button" data-action="rollCheck" data-check="check" {{disabled (not editable)}}>
       <i class="fa-solid fa-burst"></i>
       <span>Roll check</span>
     </button>
 
-    <button type="button" data-action="rollCheck" data-check="accuracy">
+    <button type="button" data-action="rollCheck" data-check="accuracy" {{disabled (not editable)}}>
       <i class="fa-solid fa-burst"></i>
       <span>Roll accurcy</span>
     </button>
 
-    <button type="button" data-action="rollCheck" data-check="damage">
+    <button type="button" data-action="rollCheck" data-check="damage" {{disabled (not editable)}}>
       <i class="fa-solid fa-burst"></i>
       <span>rol dmg</span>
     </button>
 
-    <button type="button" data-action="rollCheck" data-check="initiative">
+    <button type="button" data-action="rollCheck" data-check="initiative" {{disabled (not editable)}}>
       <i class="fa-solid fa-burst"></i>
       <span>roll intiaitive</span>
     </button>
 
-    <button type="button" data-action="rollCheck" data-check="condition">
+    <button type="button" data-action="rollCheck" data-check="condition" {{disabled (not editable)}}>
       <i class="fa-solid fa-burst"></i>
       <span>roll condition</span>
     </button>

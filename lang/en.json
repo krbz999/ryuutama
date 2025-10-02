@@ -55,8 +55,25 @@
         }
       }
     },
+    "CREATURE": {
+      "FIELDS": {
+        "abilities.dexterity.value.label": "Dexterity",
+        "abilities.intelligence.value.label": "Intelligence",
+        "abilities.spirit.value.label": "Spirit",
+        "abilities.strength.value.label": "Strength",
+        "condition.value.label": "Condition",
+        "resources.mental.max.label": "Max",
+        "resources.mental.spent.label": "Spent",
+        "resources.stamina.max.label": "Max",
+        "resources.stamina.spent.label": "Spent"
+      }
+    },
     "MONSTER": {
-      "FIELDS": {}
+      "FIELDS": {
+        "description.value.label": "Description",
+        "details.level.label": "Level",
+        "initiative.value.label": "Initiative"
+      }
     },
     "PARTY": {
       "FIELDS": {}
@@ -66,24 +83,15 @@
     },
     "TRAVELER": {
       "FIELDS": {
-        "abilities.dexterity.value.label": "Dexterity",
-        "abilities.intelligence.value.label": "Intelligence",
-        "abilities.spirit.value.label": "Spirit",
-        "abilities.strength.value.label": "Strength",
         "background.appearance.label": "Appearance",
         "background.hometown.label": "Hometown / Reason for Travel",
         "background.notes.label": "Notes",
-        "condition.value.label": "Condition",
         "details.color.label": "Image Color",
         "details.level.label": "Level",
         "exp.value.label": "EXP",
         "fumbles.value.label": "Fumble Points",
         "gold.value.label": "Gold",
-        "mastered.weapons.label": "Mastered Weapons",
-        "resources.mental.max.label": "Max",
-        "resources.mental.spent.label": "Spent",
-        "resources.stamina.max.label": "Max",
-        "resources.stamina.spent.label": "Spent"
+        "mastered.weapons.label": "Mastered Weapons"
       },
       "TYPES": {
         "attack": "Attack",
@@ -228,7 +236,8 @@
       "critical": "Critical",
       "consumeStamina": "Consume Stamina",
       "unmasteredWeaponHint": "An accuracy check with an unmastered weapon costs 1 HP.",
-      "messageFlavor": "{type} ({abilities})",
+      "messageFlavor": "{type}",
+      "messageFlavorAbilities": "{type} ({abilities})",
       "conditionUpdateScore": "Update Condition",
       "conditionRemoveStatuses": "Remove Statuses",
       "conditionRemoveStatusesHint": "After updating your condition, remove status effects that no longer apply?"
@@ -240,7 +249,8 @@
 
     "SHEETS": {
       "ActorSheet": "Ryuutama Actor Sheet",
-      "ItemSheet": "Ryuutama Item Sheet"
+      "ItemSheet": "Ryuutama Item Sheet",
+      "MonsterSheet": "Ryuutama Monster Sheet"
     },
 
     "SIDEBAR": {

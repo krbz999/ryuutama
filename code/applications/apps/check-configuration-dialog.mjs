@@ -152,8 +152,10 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
 
     const roll = this.#configurations.rollConfig;
     context.showConcentration = roll.concentration?.allowed !== false;
+    context.allowConsumeFumble = this.actor.system.schema.has("fumbles");
     context.showAccuracy = (roll.accuracy?.weapon?.system.isMastered === false) || (roll.accuracy?.consumeStamina);
     context.showCondition = roll.type === "condition";
+    context.showAbilities = !roll.formula;
 
     switch (this.#configurations.rollConfig.type) {
       case "damage":

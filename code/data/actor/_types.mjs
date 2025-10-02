@@ -1,6 +1,10 @@
 /**
  * @typedef CheckRollConfig
  * @property {string[]} [abilities]
+ * @property {string} [formula]                             An explicit formula can be provided, in which case
+ *                                                          abilities are ignored for the formula creation. Modifiers
+ *                                                          are still added on top, but the `selectAbilities` property
+ *                                                          is forcefully ignored.
  * @property {string} [type]
  * @property {"travel"|"direction"|"camping"} [journeyId]   If a journey check, the type of check from `journeyCheckTypes`.
  * @property {number} [modifier]                            A modifier to the roll that cannot be changed via the UI,

@@ -1,0 +1,65 @@
+<section data-tab="{{tabs.attributes.id}}" class="{{tabs.attributes.cssClass}}" data-group="{{tabs.attributes.group}}">
+  <fieldset style="display: grid; grid-template-columns: repeat(4, 1fr);">
+    <button type="button" data-action="rollCheck" data-check="check" {{disabled (not editable)}}>
+      <i class="fa-solid fa-burst"></i>
+      <span>Roll check</span>
+    </button>
+
+    <button type="button" data-action="rollCheck" data-check="initiative" {{disabled (not editable)}}>
+      <i class="fa-solid fa-burst"></i>
+      <span>roll intiaitive</span>
+    </button>
+  </fieldset>
+
+  <div class="form-group">
+    {{!-- <label> --}}
+      <button type="button" data-action="rollCheck" data-check="accuracy" {{disabled (not editable)}}>
+        <i class="fa-solid fa-burst"></i>
+        <span>Roll accurcy</span>
+      </button>
+      {{!-- </label> --}}
+    <div class="form-fields">
+      {{formInput systemFields.attack.fields.accuracy value=(ifThen disabled document.system.attack.accuracy source.system.attack.accuracy) disabled=disabled placeholder="@dex + @str"}}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button type="button" data-action="rollCheck" data-check="damage" {{disabled (not editable)}}>
+      <i class="fa-solid fa-burst"></i>
+      <span>rol dmg</span>
+    </button>
+    <div class="form-fields">
+      {{formInput systemFields.attack.fields.damage value=(ifThen disabled document.system.attack.damage source.system.attack.damage) disabled=disabled placeholder="@str"}}
+    </div>
+  </div>
+
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.TRAVELER.abilities"}}</legend>
+    <div class="form-group">
+      <div class="form-fields">
+        {{#each abilities}}
+        {{formGroup field value=value disabled=disabled options=options classes="stacked"}}
+        {{/each}}
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>hp/mp</legend>
+    <div class="form-group">
+      <label>hp ({{document.system.resources.stamina.value}}/{{document.system.resources.stamina.max}})</label>
+      <div class="form-fields">
+        {{formGroup systemFields.resources.fields.stamina.fields.spent value=(ifThen disabled document.system.resources.stamina.spent source.system.resources.stamina.spent) disabled=(not editable)}}
+        {{formGroup systemFields.resources.fields.stamina.fields.max value=(ifThen disabled document.system.resources.stamina.max source.system.resources.stamina.max) disabled=disabled}}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>mp ({{document.system.resources.mental.value}}/{{document.system.resources.mental.max}})</label>
+      <div class="form-fields">
+        {{formGroup systemFields.resources.fields.mental.fields.spent value=(ifThen disabled document.system.resources.mental.spent source.system.resources.mental.spent) disabled=(not editable)}}
+        {{formGroup systemFields.resources.fields.mental.fields.max value=(ifThen disabled document.system.resources.mental.max source.system.resources.mental.max) disabled=disabled}}
+      </div>
+    </div>
+  </fieldset>
+</section>

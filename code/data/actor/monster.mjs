@@ -7,26 +7,29 @@ export default class MonsterData extends CreatureData {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       attack: new SchemaField({
-        accuracy: new ArrayField(new StringField(), { min: 2, max: 2, initial: ["dexterity", "strength"] }),
-        damage: new StringField(),
+        accuracy: new StringField({ required: true, initial: "" }),
+        damage: new StringField({ required: true, initial: "" }),
       }),
       armor: new SchemaField({
-        value: new NumberField(),
+        value: new NumberField({ required: true, min: 0, initial: 0, integer: true, nullable: false }),
       }),
-      biography: new SchemaField({
+      description: new SchemaField({
         value: new HTMLField(),
       }),
       details: new SchemaField({
-        category: new StringField(),
-        dragonica: new NumberField(),
-        level: new NumberField(),
+        category: new StringField({
+          required: true, blank: true, initial: "",
+          choices: () => ryuutama.config.monsterCategories,
+        }),
+        dragonica: new NumberField({ required: true, min: 0, initial: null, integer: true, nullable: true }),
+        level: new NumberField({ required: true, min: 0, initial: 0, integer: true, nullable: false }),
       }),
       environment: new SchemaField({
         habitat: new SetField(new StringField()),
         season: new StringField(),
       }),
       initiative: new SchemaField({
-        value: new NumberField(),
+        value: new NumberField({ required: true, min: 0, initial: 0, integer: true, nullable: false }),
       }),
     });
   }
@@ -38,6 +41,11 @@ export default class MonsterData extends CreatureData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.MONSTER",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static MINIMUM_ABILITY = 2;
 
   /* -------------------------------------------------- */
 
@@ -56,5 +64,15 @@ export default class MonsterData extends CreatureData {
       foundry.utils.setProperty(update, "prototypeToken.disposition", CONST.TOKEN_DISPOSITIONS.HOSTILE);
 
     if (!foundry.utils.isEmpty(update)) this.parent.updateSource(update);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    this.attack.accuracy ||= "@dex + @str";
+    this.attack.damage ||= "@str";
   }
 }

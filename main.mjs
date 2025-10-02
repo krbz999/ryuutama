@@ -76,7 +76,11 @@ Hooks.once("init", () => {
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Actor, ryuutama.id, applications.sheets.RyuutamaActorSheet,
-    { label: "RYUUTAMA.SHEETS.ActorSheet", makeDefault: true },
+    { label: "RYUUTAMA.SHEETS.ActorSheet", makeDefault: true, types: ["traveler"] },
+  );
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.Actor, ryuutama.id, applications.sheets.RyuutamaMonsterSheet,
+    { label: "RYUUTAMA.SHEETS.MonsterSheet", makeDefault: true, types: ["monster"] },
   );
 
   // Register status effects.

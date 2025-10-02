@@ -30,16 +30,18 @@
 /**
  * @typedef {CreatureModel} MonsterModel
  * @property {object} attack
- * @property {string[]} attack.accuracy         The two abilities used for accuracy checks.
- * @property {string} attack.damage             The ability used for damage checks.
+ * @property {string} attack.accuracy         The formula used for accuracy checks.
+ * @property {string} attack.damage           The formula used for damage checks.
  * @property {object} armor
- * @property {number} armor.value               Armor value.
+ * @property {number} armor.value             Armor value.
+ * @property {object} description
+ * @property {string} description.value       Monster description.
  * @property {object} details
- * @property {string} details.category          The monster category.
- * @property {number} details.dragonica         The monster's entry number in the magical monster encyclopedia.
- * @property {number} details.level             The monster level.
+ * @property {string} details.category        The monster category.
+ * @property {number} details.dragonica       The monster's entry number in the magical monster encyclopedia.
+ * @property {number} details.level           The monster level.
  * @property {object} environment
- * @property {string[]} environment.habitat     The terrain where the species is commonly found.
+ * @property {string[]} environment.habitat   The terrain where the species is commonly found.
  * @property {string} environment.season        The time of year during which the monster is most active.
  * @property {object} initiative
  * @property {number} initiative.value
