@@ -3,7 +3,7 @@
   "name": "Bow",
   "type": "weapon",
   "_id": "bow0000000000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/weapons/bows/longbow-recurve-leather-brown.webp",
   "system": {
     "description": {
       "value": "<p>A projectile tool used by hunters and the like. Since it can attack from afar, it is popular with nobles and soldiers.</p><p><em>*Players don’t need to keep track of arrows.</em></p>"

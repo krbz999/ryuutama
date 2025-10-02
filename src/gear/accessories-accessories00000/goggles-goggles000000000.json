@@ -3,7 +3,7 @@
   "name": "Goggles",
   "type": "accessory",
   "_id": "goggles000000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/head/goggles-leather-grey.webp",
   "system": {
     "description": {
       "value": "<p>A tool used to protect your eyes during rain, wind, snow, or other extreme weather. Since numerous techniques are required to create a single pair, the cost can be prohibitive.</p>"

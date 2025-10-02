@@ -3,7 +3,7 @@
   "name": "Clothes",
   "type": "armor",
   "_id": "clothes000000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/chest/shirt-collared-yellow.webp",
   "system": {
     "description": {
       "value": "<p>Normal clothes. Thick, tough clothing is preferred by travelers. Generally they are made from wool and thread.</p>"

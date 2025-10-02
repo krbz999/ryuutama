@@ -3,7 +3,7 @@
   "name": "Medium Armor",
   "type": "armor",
   "_id": "mediumarmor00000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
   "system": {
     "description": {
       "value": "<p>Armor constructed from metal plates. The arms and legs are protected in addition to the chest area, but the weight increases proportionally.</p>"

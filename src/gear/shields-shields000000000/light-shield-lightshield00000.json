@@ -3,7 +3,7 @@
   "name": "Light Shield",
   "type": "shield",
   "_id": "lightshield00000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/shield/buckler-wooden-boss-brown.webp",
   "system": {
     "description": {
       "value": "<p>A shield that can be held in one hand. Made from wood and grass, its light weight keeps it from being a nuisance in battle.</p>"

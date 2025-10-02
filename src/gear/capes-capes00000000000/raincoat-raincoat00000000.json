@@ -3,7 +3,7 @@
   "name": "Raincoat",
   "type": "cape",
   "_id": "raincoat00000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/back/mantle-collared-white.webp",
   "system": {
     "description": {
       "value": "<p>A leather cape that has been finished with a water-resistant coating. It requires constant upkeep.</p>"

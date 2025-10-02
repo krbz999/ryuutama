@@ -2,7 +2,7 @@
   "name": "Rain Boots",
   "type": "shoes",
   "_id": "rainboots0000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/feet/shoes-rounded-leather-blue.webp",
   "system": {
     "durability": {
       "spent": 0

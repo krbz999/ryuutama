@@ -3,7 +3,7 @@
   "name": "Light Blade",
   "type": "weapon",
   "_id": "lightblade000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/weapons/daggers/knife-green.webp",
   "system": {
     "description": {
       "value": "<p>A blade that can be held in the hand. It can be useful outside of combat in the preparation of food, harvesting herbs, and various other situations.</p>"

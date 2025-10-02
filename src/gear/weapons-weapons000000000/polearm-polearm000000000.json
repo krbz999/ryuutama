@@ -3,7 +3,7 @@
   "name": "Polearm",
   "type": "weapon",
   "_id": "polearm000000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/weapons/polearms/pike-flared-red.webp",
   "system": {
     "description": {
       "value": "<p>A weapon consisting of a long pole with a sharp point fastened at the end. As it can be used to stab with the tip or bash with the handle, it has a wide breadth of usefulness. Its price also makes it easy to obtain.</p>"

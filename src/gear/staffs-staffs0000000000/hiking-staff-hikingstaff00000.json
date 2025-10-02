@@ -3,7 +3,7 @@
   "name": "Hiking Staff",
   "type": "staff",
   "_id": "hikingstaff00000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/weapons/staves/staff-simple-carved.webp",
   "system": {
     "description": {
       "value": "<p>A staff that helps you keep your footing when climbing in high places. You can adjust the length.</p>"

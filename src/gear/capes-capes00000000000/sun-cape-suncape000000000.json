@@ -3,7 +3,7 @@
   "name": "Sun Cape",
   "type": "cape",
   "_id": "suncape000000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/back/cloak-collared-grey-gold.webp",
   "system": {
     "description": {
       "value": "<p>A cape made from a light, very breathable material that keeps heat from reaching inside.</p>"

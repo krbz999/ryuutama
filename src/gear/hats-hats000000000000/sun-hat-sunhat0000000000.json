@@ -3,7 +3,7 @@
   "name": "Sun Hat",
   "type": "hat",
   "_id": "sunhat0000000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/head/hat-belted-simple-grey.webp",
   "system": {
     "description": {
       "value": "<p>A hat with a large brim to block sunlight. It is made from linen and thread for extra breathability.</p>"

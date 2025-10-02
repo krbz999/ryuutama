@@ -3,7 +3,7 @@
   "name": "Walking Stick",
   "type": "staff",
   "_id": "walkingstick0000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/weapons/staves/staff-mended.webp",
   "system": {
     "description": {
       "value": "<p>A staff that is used by frail travelers. It is also useful when you have heavy bags. Its bonus only applies to weaker characters with STR of 4.</p>"

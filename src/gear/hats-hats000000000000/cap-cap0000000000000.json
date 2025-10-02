@@ -3,7 +3,7 @@
   "name": "Cap",
   "type": "hat",
   "_id": "cap0000000000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/head/hat-belted-simple-brown.webp",
   "system": {
     "description": {
       "value": "<p>A normal hat. Hats and caps are believed to offer protection from evil. There are a variety of colors and shapes.</p>"

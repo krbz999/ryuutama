@@ -3,7 +3,7 @@
   "name": "Camo Cape",
   "type": "cape",
   "_id": "camocape00000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/back/cloak-collared-leaves-green.webp",
   "system": {
     "description": {
       "value": "<p>Choose a terrain when purchasing this item. This cape allows you to conceal your entire body by blending into the surrounding topography.</p>"

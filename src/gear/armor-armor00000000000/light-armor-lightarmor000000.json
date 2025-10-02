@@ -3,7 +3,7 @@
   "name": "Light Armor",
   "type": "armor",
   "_id": "lightarmor000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/chest/breastplate-quilted-brown.webp",
   "system": {
     "description": {
       "value": "<p>Armor constructed from the hide of animals, with metal plates covering vital points. Only the chest is protected, but because of its light weight it is easily worn.</p>"

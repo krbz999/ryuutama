@@ -3,7 +3,7 @@
   "name": "Fire Cape",
   "type": "cape",
   "_id": "firecape00000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/back/cloak-collared-red-silver.webp",
   "system": {
     "description": {
       "value": "<p>A cape made from the fur of a fire-resistant monster. It is weak to water: If it gets wet, it will be ruined.</p>"

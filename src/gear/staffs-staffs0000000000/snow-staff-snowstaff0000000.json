@@ -3,7 +3,7 @@
   "name": "Snow Staff",
   "type": "staff",
   "_id": "snowstaff0000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/weapons/staves/staff-ornate-hook.webp",
   "system": {
     "description": {
       "value": "<p>A staff used to dig through snow. The tip is reinforced with metal to help break through ice.</p>"

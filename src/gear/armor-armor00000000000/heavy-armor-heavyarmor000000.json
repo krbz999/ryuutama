@@ -3,7 +3,7 @@
   "name": "Heavy Armor",
   "type": "armor",
   "_id": "heavyarmor000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/chest/breastplate-banded-steel-grey.webp",
   "system": {
     "description": {
       "value": "<p>Heavy armor constructed from metal plates that completely covers the entire body. The body’s movement is restricted, so movement is hampered with the armor equipped.</p>"

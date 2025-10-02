@@ -3,7 +3,7 @@
   "name": "Sand Hood",
   "type": "hat",
   "_id": "sandhood00000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/head/hood-ringed-leather-red.webp",
   "system": {
     "description": {
       "value": "<p>A hood that keeps wind and sandstorms from obscuring your vision. The material is thick and heavy but does not let direct sunlight through.</p>"

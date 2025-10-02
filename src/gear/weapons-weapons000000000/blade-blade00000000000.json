@@ -3,7 +3,7 @@
   "name": "Blade",
   "type": "weapon",
   "_id": "blade00000000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/weapons/swords/greatsword-blue.webp",
   "system": {
     "description": {
       "value": "<p>A weapon with a long, flat blade. Beloved around the world, a single-edged blade is called a “saber” while double-edged blade is called a “sword.”</p>"

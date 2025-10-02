@@ -2,7 +2,7 @@
   "name": "Walking Shoes",
   "type": "shoes",
   "_id": "walkingshoes0000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/feet/shoes-rounded-pink.webp",
   "system": {
     "description": {
       "value": "<p>These shoes are made from soft leather that make it easy to walk on paved surfaces. They are very lightweight and do not impede the movement of your feet.</p>"

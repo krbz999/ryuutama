@@ -3,7 +3,7 @@
   "name": "Warm Cape",
   "type": "cape",
   "_id": "warmcape00000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/back/cloak-fur-brown.webp",
   "system": {
     "description": {
       "value": "<p>A cape made from the pelt of a thickly-furred animal. It can also be used as bedding or a blanket.</p>"

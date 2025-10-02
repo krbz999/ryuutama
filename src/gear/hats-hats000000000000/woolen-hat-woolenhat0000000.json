@@ -3,7 +3,7 @@
   "name": "Woolen Hat",
   "type": "hat",
   "_id": "woolenhat0000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/head/hat-furred-brown.webp",
   "system": {
     "description": {
       "value": "<p>A hat made from the pelt of a thickly-furred animal. It has ear covers to protect from frostbite.</p>"

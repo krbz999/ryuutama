@@ -3,7 +3,7 @@
   "name": "Axe",
   "type": "weapon",
   "_id": "axe0000000000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/weapons/axes/axe-battle-black.webp",
   "system": {
     "description": {
       "value": "<p>A tool used to cut down trees. Due to its weight, it is powered with brute strength, and not effective with small swings.</p>"

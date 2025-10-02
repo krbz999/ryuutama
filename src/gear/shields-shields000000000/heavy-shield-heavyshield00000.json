@@ -3,7 +3,7 @@
   "name": "Heavy Shield",
   "type": "shield",
   "_id": "heavyshield00000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/shield/Scutum-steel-worn.webp",
   "system": {
     "description": {
       "value": "<p>A shield large enough to cast half of the body in shadow. Most of them are made from metal; its heavy weight makes it hard to carry.</p>"

@@ -3,7 +3,7 @@
   "name": "Accessory",
   "type": "accessory",
   "_id": "accessory0000000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/finger/ring-inlay-gold.webp",
   "system": {
     "description": {
       "value": "<p>Rings, earrings, bracelets, or any other decorative accessory. These can be created from metal, clam shells, seeds, or any other element that shows off the special colors of the land where it was created.</p>"

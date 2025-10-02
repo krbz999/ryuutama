@@ -3,7 +3,7 @@
   "name": "Windbreaker",
   "type": "cape",
   "_id": "windbreaker00000",
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/equipment/back/cloak-hooded-jewels-green.webp",
   "system": {
     "description": {
       "value": "<p>A cape with a hood that covers the entire body. Weights are stitched into the cape to keep it from flapping around in the wind.</p>"
