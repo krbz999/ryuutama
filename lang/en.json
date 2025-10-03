@@ -120,9 +120,9 @@
     },
     "JOURNEY": {
       "TYPES": {
-        "travel": "Travel",
-        "direction": "Direction",
-        "camping": "Camping"
+        "travel": "Travel Check",
+        "direction": "Direction Check",
+        "camping": "Camping Check"
       }
     },
     "GENDERS": {

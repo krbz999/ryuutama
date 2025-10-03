@@ -164,7 +164,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
           this.actor.system.equipped.weapon?.name ?? game.i18n.localize("RYUUTAMA.WEAPON.CATEGORIES.unarmed");
         break;
       case "journey":
-        context.subtitle = ryuutama.config.journeyCheckTypes[this.#configurations.rollConfig.journeyId].label;
+        context.subtitle = ryuutama.config.checkTypes.journey.subtypes[this.#configurations.rollConfig.journeyId].label;
         break;
     }
 

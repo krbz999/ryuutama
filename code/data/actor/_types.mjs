@@ -6,7 +6,7 @@
  *                                                          are still added on top, but the `selectAbilities` property
  *                                                          is forcefully ignored.
  * @property {string} [type]
- * @property {"travel"|"direction"|"camping"} [journeyId]   If a journey check, the type of check from `journeyCheckTypes`.
+ * @property {"travel"|"direction"|"camping"} [journeyId]   If a journey check, the type of check.
  * @property {number} [modifier]                            A modifier to the roll that cannot be changed via the UI,
  *                                                          e.g., the accuracy or damage modifier from a weapon.
  * @property {number} [situationalBonus]

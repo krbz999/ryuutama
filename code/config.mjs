@@ -36,6 +36,42 @@ Prelocalization.prelocalize(abilityScores, { properties: ["label", "abbreviation
 
 /* -------------------------------------------------- */
 
+export const checkTypes = {
+  accuracy: {
+    label: "RYUUTAMA.ROLL.TYPES.accuracy",
+  },
+  check: {
+    label: "RYUUTAMA.ROLL.TYPES.check",
+  },
+  condition: {
+    label: "RYUUTAMA.ROLL.TYPES.condition",
+  },
+  damage: {
+    label: "RYUUTAMA.ROLL.TYPES.damage",
+  },
+  initiative: {
+    label: "RYUUTAMA.ROLL.TYPES.initiative",
+  },
+  journey: {
+    label: "RYUUTAMA.ROLL.TYPES.journey",
+    subtypes: {
+      travel: {
+        label: "RYUUTAMA.JOURNEY.TYPES.travel",
+      },
+      direction: {
+        label: "RYUUTAMA.JOURNEY.TYPES.direction",
+      },
+      camping: {
+        label: "RYUUTAMA.JOURNEY.TYPES.camping",
+      },
+    },
+  },
+};
+Prelocalization.prelocalize(checkTypes);
+Prelocalization.prelocalize(checkTypes.journey.subtypes);
+
+/* -------------------------------------------------- */
+
 /** @type {number[]} */
 export const experienceLevels = [
   100,
@@ -159,24 +195,6 @@ export const itemSizes = {
   },
 };
 Prelocalization.prelocalize(itemSizes);
-
-/* -------------------------------------------------- */
-
-/**
- * @type {Record<string, JourneyCheckTypeConfig>}
- */
-export const journeyCheckTypes = {
-  travel: {
-    label: "RYUUTAMA.JOURNEY.TYPES.travel",
-  },
-  direction: {
-    label: "RYUUTAMA.JOURNEY.TYPES.direction",
-  },
-  camping: {
-    label: "RYUUTAMA.JOURNEY.TYPES.camping",
-  },
-};
-Prelocalization.prelocalize(journeyCheckTypes);
 
 /* -------------------------------------------------- */
 

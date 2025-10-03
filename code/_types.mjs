@@ -33,13 +33,6 @@
 /* -------------------------------------------------- */
 
 /**
- * @typedef JourneyCheckTypeConfig
- * @property {string} label   Human-readable label.
- */
-
-/* -------------------------------------------------- */
-
-/**
  * @typedef StartingScoreConfig
  * @property {string} label       Human-readable label.
  * @property {number[]} values    Array of starting scores, of length 4.
