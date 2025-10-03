@@ -279,7 +279,8 @@
         "title": "Configure Strength",
         "label": "Strength",
         "hint": "The strength of the status effect determines how likely a character is to succumb to it."
-      }
+      },
+      "noActors": "No controlled tokens' actors were valid for application of this status."
     },
 
     "TERRAIN": {

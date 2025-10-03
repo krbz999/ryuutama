@@ -2,7 +2,7 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
   /** @inheritdoc */
   static async _fromStatusEffect(statusId, effectData, options) {
     // Select the strength of the status.
-    if (!foundry.utils.hasProperty(effectData, "system.strength.value")) {
+    if (!("strength" in options)) {
       const result = await foundry.applications.api.Dialog.input({
         window: {
           title: `${game.i18n.localize("RYUUTAMA.STATUS.HUD_APPLY.title")}: ${effectData.name}`,
@@ -22,6 +22,8 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
       });
       if (!result) throw new Error("No status effect strength was selected.");
       foundry.utils.mergeObject(effectData, result);
+    } else {
+      foundry.utils.setProperty(effectData, "system.strength.value", options.strength);
     }
 
     effectData.type = "status";

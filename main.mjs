@@ -25,6 +25,7 @@ globalThis.ryuutama = {
 
 Hooks.once("init", () => {
   registerSettings();
+  helpers.Enrichers.registerEnrichers();
 
   // Define custom elements.
   window.customElements.define(applications.elements.InventoryElement.tagName, applications.elements.InventoryElement);
