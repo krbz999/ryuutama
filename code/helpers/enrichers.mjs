@@ -21,7 +21,7 @@ export default class Enrichers {
       onRender: element => {
         element = element.querySelector("[data-status-id]");
         const { statusId, strength } = element.dataset;
-        element.addEventListener("click", () => ryuutama.utils.applyStatus(statusId, strength));
+        element.addEventListener("click", () => ryuutama.utils.applyStatus(statusId, Number(strength)));
       },
     });
   }
@@ -72,7 +72,6 @@ export default class Enrichers {
       if (!strength) return null;
       config.strength = strength;
     }
-    config.strength = Number(config.strength);
 
     const anchor = document.createElement("A");
     anchor.classList.add(ryuutama.id, "enricher");
