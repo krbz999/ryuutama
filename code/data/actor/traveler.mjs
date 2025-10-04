@@ -57,18 +57,6 @@ export default class TravelerData extends CreatureData {
   /* -------------------------------------------------- */
 
   /**
-   * Is this character Technical and receives an additional +1 bonus when concentrating?
-   * @type {boolean}
-   */
-  get isTechnical() {
-    if (this.type.value === "technical") return true;
-    if ((this.details.level >= 6) && (this.type.additional === "technical")) return true;
-    return false;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
    * The number of cursed equipment the character has equipped.
    * @type {number}
    */
@@ -114,6 +102,8 @@ export default class TravelerData extends CreatureData {
 
   /** @inheritdoc */
   prepareDerivedData() {
+    this.#prepareTypes();
+
     // Equipped items are prepared first to add a `gear` bonus to resources, which are prepared
     // in `super`, as well as to ignore shields (depending) prior to `capacity`.
     this.#prepareEquipped();
@@ -124,6 +114,21 @@ export default class TravelerData extends CreatureData {
     this.defense.shieldDodge = this.parent.getFlag(ryuutama.id, "shieldDodge") ?? false;
     this.defense.dodge = this.equipped.shield?.system.armor.dodge ?? null;
     this.defense.total = Math.max(this.defense.base, this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare traveler archetypes data.
+   */
+  #prepareTypes() {
+    const hasTwo = this.details.level >= 6;
+    const types = this.type.types = {};
+    for (const type in ryuutama.config.travelerTypes) {
+      types[type] ??= 0;
+      if (this.type.value === type) types[type]++;
+      if (hasTwo && (this.type.additional === type)) types[type]++;
+    }
   }
 
   /* -------------------------------------------------- */
@@ -157,7 +162,8 @@ export default class TravelerData extends CreatureData {
    */
   #prepareCapacity() {
     const { capacity, abilities, details, equipped } = this;
-    capacity.max = abilities.strength.value + 3 + capacity.bonus + (details.level - 1);
+    const techBonus = this.type.types.technical;
+    capacity.max = abilities.strength.value + 3 + capacity.bonus + (details.level - 1) + techBonus * 3;
     capacity.value = 0;
     this.parent.items.forEach(item => {
       if (equipped[item.type] === item) return;

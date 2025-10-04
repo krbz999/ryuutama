@@ -107,11 +107,13 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     const { stamina: hp, mental: mp } = this.resources;
     const src = this._source.resources;
 
-    hp.max = src.stamina.max + hp.bonuses.flat + (hp.gear ?? 0) + hp.bonuses.level * this.details.level;
+    const hpTypeBonus = this.type?.types.attack ?? 0;
+    hp.max = src.stamina.max + hp.bonuses.flat + (hp.gear ?? 0) + hp.bonuses.level * this.details.level + hpTypeBonus * 4;
     hp.spent = Math.min(hp.spent, hp.max);
     hp.value = hp.max - hp.spent;
 
-    mp.max = src.mental.max + mp.bonuses.flat + (mp.gear ?? 0) + mp.bonuses.level * this.details.level;
+    const mpTypeBonus = this.type?.types.magic ?? 0;
+    mp.max = src.mental.max + mp.bonuses.flat + (mp.gear ?? 0) + mp.bonuses.level * this.details.level + mpTypeBonus * 4;
     mp.spent = Math.min(mp.spent, mp.max);
     mp.value = mp.max - mp.spent;
   }
@@ -228,6 +230,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
               abi = "strength";
               bon = -2;
             }
+            bon ??= 0;
+            bon += this.type.types.attack;
             roll.abilities = [abi];
             roll.modifier = bon;
             break;
@@ -274,6 +278,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         switch (this.parent.type) {
           case "traveler": {
             roll.abilities = ["dexterity", "intelligence"];
+            roll.modifier = this.type.types.technical;
             break;
           }
           case "monster": {
@@ -399,13 +404,11 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   _constructCheckRoll(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     let bonus = 0;
 
-    const isTech = this.isTechnical;
-
     // Concentration: Do this first to easily determine Technical Type bonus.
     const c = rollConfig.concentration ?? {};
     if (c.consumeFumble) bonus++;
     if (c.consumeMental) bonus++;
-    if (bonus && isTech) bonus++;
+    if (bonus && this.type?.types.technical) bonus++;
 
     // Situational bonus.
     if (rollConfig.situationalBonus) bonus += rollConfig.situationalBonus;
@@ -433,7 +436,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     }
 
     /** @type {CheckRoll} */
-    const roll = new CONFIG.Dice.CheckRoll(formula.join(" + "), rollData);
+    const roll = new CONFIG.Dice.CheckRoll(formula.filterJoin(" + "), rollData);
     if (rollConfig.critical?.allowed && rollConfig.critical.isCritical) roll.alter(2, 0);
     return roll;
   }
