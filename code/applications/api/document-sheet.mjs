@@ -61,6 +61,19 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  _initializeApplicationOptions(options) {
+    options = super._initializeApplicationOptions(options);
+    options.classes.push(ryuutama.id);
+    switch (options.document.documentName) {
+      case "Actor": options.classes.push("actor"); break;
+      case "Item": options.classes.push("item"); break;
+    }
+    return options;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   async _renderFrame(options) {
     const frame = await super._renderFrame(options);
     this.window.controls.insertAdjacentHTML("afterend", `
