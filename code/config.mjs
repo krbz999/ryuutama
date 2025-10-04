@@ -269,37 +269,37 @@ Prelocalization.prelocalize(startingScores);
 export const statusEffects = {
   injury: {
     name: "RYUUTAMA.STATUSES.injury",
-    img: "icons/svg/leg.svg",
+    img: "systems/ryuutama/assets/official/icons/statuses/injury.svg",
     _id: "injury0000000000",
     category: "body",
   },
   poison: {
     name: "RYUUTAMA.STATUSES.poison",
-    img: "icons/svg/biohazard.svg",
+    img: "systems/ryuutama/assets/official/icons/statuses/poison.svg",
     _id: "poison0000000000",
     category: "body",
   },
   sickness: {
     name: "RYUUTAMA.STATUSES.sickness",
-    img: "icons/svg/pill.svg",
+    img: "systems/ryuutama/assets/official/icons/statuses/sickness.svg",
     _id: "sickness00000000",
     category: "body",
   },
   exhaustion: {
     name: "RYUUTAMA.STATUSES.exhaustion",
-    img: "icons/svg/walk.svg",
+    img: "systems/ryuutama/assets/official/icons/statuses/exhaustion.svg",
     _id: "exhaustion000000",
     category: "mind",
   },
   muddled: {
     name: "RYUUTAMA.STATUSES.muddled",
-    img: "icons/svg/stoned.svg",
+    img: "systems/ryuutama/assets/official/icons/statuses/muddled.svg",
     _id: "muddled000000000",
     category: "mind",
   },
   shock: {
     name: "RYUUTAMA.STATUSES.shock",
-    img: "icons/svg/ice-aura.svg",
+    img: "systems/ryuutama/assets/official/icons/statuses/shock.svg",
     _id: "shock00000000000",
     category: "mind",
   },
