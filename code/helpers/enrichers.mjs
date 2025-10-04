@@ -35,11 +35,12 @@ export default class Enrichers {
       enricher: this.enrichCheck,
       onRender: element => {
         element = element.querySelector("[data-type]");
-        const { type, subtype } = element.dataset;
+        const { type, subtype, formula } = element.dataset;
         const rollConfig = { type };
         if ((type === "journey") && (subtype in ryuutama.config.checkTypes.journey.subtypes)) {
           rollConfig.journeyId = subtype;
         }
+        if (formula) rollConfig.formula = formula;
 
         element.addEventListener("click", async (event) => {
           const actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
@@ -129,6 +130,11 @@ export default class Enrichers {
       if (subtype) config.subtype = subtype;
     }
 
+    if (!("formula" in config)) {
+      const formula = config.values.find(k => !!k && foundry.dice.Roll.validate(k));
+      if (formula) config.formula = formula;
+    }
+
     const anchor = document.createElement("A");
     anchor.classList.add(ryuutama.id, "enricher");
 
@@ -138,6 +144,7 @@ export default class Enrichers {
 
     anchor.dataset.type = config.type;
     if (config.subtype) anchor.dataset.subtype = config.subtype;
+    if (config.formula) anchor.dataset.formula = config.formula;
 
     return anchor;
   }

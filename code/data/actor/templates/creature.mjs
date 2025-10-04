@@ -1,7 +1,6 @@
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
  * @import CheckRoll from "../../../dice/check-roll.mjs";
- * @import Combat from "@client/documents/combat.mjs";
  */
 
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
@@ -292,11 +291,19 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         throw new Error(`Invalid check type '${rollConfig.type}' passed to rollConfig parameter.`);
     }
 
-    return {
+    const result = {
       rollConfig: foundry.utils.mergeObject(roll, rollConfig),
       dialogConfig: foundry.utils.mergeObject(dialog, dialogConfig),
       messageConfig: foundry.utils.mergeObject(message, messageConfig),
     };
+
+    // Final step: cleanup.
+    if (result.rollConfig.formula) {
+      result.dialogConfig.chooseAbilities = false;
+      delete result.rollConfig.abilities;
+    }
+
+    return result;
   }
 
   /* -------------------------------------------------- */

@@ -3,9 +3,8 @@ import staticId from "./utils/static-id.mjs";
 
 /**
  * @import {
- * AbilityScoreConfig, GenderConfig, ItemModifierConfig, ItemSizeConfig,
- * JourneyCheckTypeConfig, StartingScoreConfig, StatusEffectConfig, TerrainTypeConfig,
- * TravelerTypeConfig, WeaponCategoryConfig, WeatherCategoryConfig, WeatherTypeConfig,
+ * AbilityScoreConfig, GenderConfig, ItemModifierConfig, ItemSizeConfig, StartingScoreConfig, StatusEffectConfig,
+ * TerrainTypeConfig, TravelerTypeConfig, WeaponCategoryConfig, WeatherCategoryConfig, WeatherTypeConfig,
  * } from "./_types.mjs";
  */
 
