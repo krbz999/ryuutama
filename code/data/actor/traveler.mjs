@@ -30,7 +30,7 @@ export default class TravelerData extends CreatureData {
         value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
       }),
       fumbles: new SchemaField({
-        value: new NumberField({ nullable: false, min: 0, integer: true, initial: 0 }),
+        value: new NumberField({ nullable: true, min: 0, integer: true, initial: null }),
       }),
       gold: new SchemaField({
         value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
@@ -171,5 +171,6 @@ export default class TravelerData extends CreatureData {
       capacity.value += size;
     });
     capacity.penalty = Math.max(0, capacity.value - capacity.max);
+    capacity.pct = Math.clamp(Math.round(capacity.value / capacity.max * 100), 0, 100);
   }
 }

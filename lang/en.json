@@ -53,18 +53,34 @@
           "edit": "Edit Item",
           "delete": "Delete Item"
         }
-      }
+      },
+      "HP": "HP",
+      "MP": "MP",
+      "rollAccuracy": "Roll Accuracy",
+      "rollDamage": "Roll Damage",
+      "rollCheck": "Roll Check",
+      "condition": "Condition",
+      "capacityPenalty": "penalty",
+      "statusImmune": "Immune",
+      "statusSuppressed": "Suppressed ({strength})"
     },
     "CREATURE": {
       "FIELDS": {
-        "abilities.dexterity.value.label": "Dexterity",
-        "abilities.intelligence.value.label": "Intelligence",
-        "abilities.spirit.value.label": "Spirit",
-        "abilities.strength.value.label": "Strength",
-        "condition.value.label": "Condition",
-        "resources.mental.max.label": "Max",
+        "condition.immunities.label": "Status Immunities",
+        "condition.value.label": "Current Condition",
+        "resources.mental.bonuses.flat.hint": "This bonus is added to the maximum MP after all other modifiers.",
+        "resources.mental.bonuses.flat.label": "Overall Bonus",
+        "resources.mental.bonuses.level.hint": "This bonus is added to the maximum MP for every level the actor has attained.",
+        "resources.mental.bonuses.level.label": "Per Level Bonus",
+        "resources.mental.max.hint": "The base MP maximum prior to any modifiers or advancements.",
+        "resources.mental.max.label": "Base Maximum",
         "resources.mental.spent.label": "Spent",
-        "resources.stamina.max.label": "Max",
+        "resources.stamina.bonuses.flat.hint": "This bonus is added to the maximum HP after all other modifiers.",
+        "resources.stamina.bonuses.flat.label": "Overall Bonus",
+        "resources.stamina.bonuses.level.hint": "This bonus is added to the maximum HP for every level the actor has attained.",
+        "resources.stamina.bonuses.level.label": "Per Level Bonus",
+        "resources.stamina.max.hint": "The base HP maximum prior to any modifiers or advancements.",
+        "resources.stamina.max.label": "Base Maximum",
         "resources.stamina.spent.label": "Spent"
       }
     },
@@ -112,11 +128,20 @@
       "spirit": "Spirit",
       "spiritAbbr": "SPI",
 
+      "CONFIG": {
+        "title": "Configure {ability}: {name}",
+        "base": "Base Value"
+      },
+
       "SETS": {
         "average": "Average Set",
         "standard": "Standard Set",
         "specialized": "Specialized Set"
       }
+    },
+    "CONDITION": {
+      "title": "Configure Condition: {name}",
+      "current": "Current Condition"
     },
     "JOURNEY": {
       "TYPES": {
@@ -128,6 +153,13 @@
     "GENDERS": {
       "man": "Man",
       "woman": "Woman"
+    },
+
+    "RESOURCE": {
+      "title": "Configure {resource}: {name}",
+      "bonuses": "Bonuses",
+      "stamina": "HP",
+      "mental": "MP"
     },
 
     "ITEM": {

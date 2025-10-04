@@ -16,6 +16,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
     actions: {
       renderItem: RyuutamaActorSheet.#renderItem,
       rollCheck: RyuutamaActorSheet.#rollCheck,
+      configure: RyuutamaActorSheet.#configure,
+      toggleStatus: RyuutamaActorSheet.#toggleStatus,
     },
   };
 
@@ -113,15 +115,12 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
     ];
 
     // Options for abilities.
-    const abilityOptions = [4, 6, 8, 10, 12].map(n => ({ value: n, label: `d${n}` }));
     context.abilities = Object.keys(ryuutama.config.abilityScores).map(abi => {
       return {
-        field: this.document.system.schema.getField(`abilities.${abi}.value`),
-        disabled: context.disabled,
-        options: abilityOptions,
-        value: context.disabled
-          ? this.document.system.abilities[abi].value
-          : this.document.system._source.abilities[abi].value,
+        ability: abi,
+        icon: ryuutama.config.abilityScores[abi].icon,
+        label: ryuutama.config.abilityScores[abi].abbreviation,
+        value: this.document.system.abilities[abi],
       };
     });
 
@@ -142,6 +141,27 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       };
     }
     if (this.document.system.equipped.weapon?.system.grip === 2) delete context.equipped.shield;
+    context.weaponImage = this.document.system.equipped.weapon?.img ?? ryuutama.config.unarmedConfiguration.icon;
+
+    // Status effects.
+    const immunities = this.document.system.condition.immunities;
+    const affected = this.document.system.condition.statuses;
+    context.statuses = Object.entries(ryuutama.config.statusEffects).map(([status, data]) => {
+      const { img, name, _id } = data;
+      const immune = immunities.has(status);
+      const effect = this.document.effects.get(_id);
+      const strength = affected[status] ?? 0;
+      const suppressed = !!effect && !strength;
+      return {
+        img, name, status, immune, effect, strength, suppressed,
+        active: strength > 0,
+        label: suppressed
+          ? game.i18n.format("RYUUTAMA.ACTOR.statusSuppressed", { strength: effect.system.strength.value })
+          : immune
+            ? game.i18n.localize("RYUUTAMA.ACTOR.statusImmune")
+            : strength,
+      };
+    });
 
     return context;
   }
@@ -152,6 +172,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   async _onFirstRender(context, options) {
     await super._onFirstRender(context, options);
 
+    // Manage items.
     this._createContextMenu(RyuutamaActorSheet.#createItemContextOptions.bind(this), "inventory-element .entry", {
       hookName: "get{}ItemContextOptions",
       parentClassHooks: false,
@@ -178,6 +199,23 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       },
     });
     this.#dragDrop.bind(this.element);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _processFormData(event, form, formData) {
+    formData = super._processFormData(event, form, formData);
+
+    for (const resource of ["stamina", "mental"]) {
+      if (foundry.utils.hasProperty(formData, `system.resources.${resource}.value`)) {
+        const value = foundry.utils.getProperty(formData, `system.resources.${resource}.value`);
+        const { max } = this.document.system.resources[resource];
+        foundry.utils.setProperty(formData, `system.resources.${resource}.spent`, max - value);
+      }
+    }
+
+    return formData;
   }
 
   /* -------------------------------------------------- */
@@ -280,5 +318,40 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   static #rollCheck(event, target) {
     const type = target.dataset.check;
     this.document.system.rollCheck({ type });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   */
+  static #configure(event, target) {
+    const options = { document: this.document };
+    let application;
+    switch (target.dataset.config) {
+      case "ability":
+        options.ability = target.dataset.ability;
+        application = new ryuutama.applications.apps.AbilityConfig(options);
+        break;
+      case "condition":
+        application = new ryuutama.applications.apps.ConditionConfig(options);
+        break;
+      case "resource":
+        options.resource = target.dataset.resource;
+        application = new ryuutama.applications.apps.ResourceConfig(options);
+        break;
+    }
+    if (!application) return;
+    application.render({ force: true });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   */
+  static #toggleStatus(event, target) {
+    const status = target.dataset.status;
+    this.document.toggleStatusEffect(status);
   }
 }

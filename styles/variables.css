@@ -1,6 +1,11 @@
 :root {
   --ryuutama-color-gold: rgb(159, 146, 117);
+  --ryuutama-color-gold-dark: rgb(85, 74, 49);
   --ryuutama-color-purple: rgb(146, 20, 146);
+
+  --ryuutama-color-resource-stamina: rgb(76, 173, 47);
+  --ryuutama-color-resource-mental: rgb(85, 47, 189);
+  --ryuutama-color-resource-default: black;
 
   --ryuutama-color-statuses-body: #b8006d;
   --ryuutama-color-statuses-mind: #0089bd;
@@ -8,13 +13,19 @@
   --ryuutama-color-stats: #87384d;
   --ryuutama-color-sidebar-background: #f7f7d2;
 
-  .themed.theme-light {
+
+
+  .theme-light, .themed.theme-light {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-gold);
     --ryuutama-inventory-hover-color: rgba(0, 0, 0, 0.1);
+    --ryuutama-color-value-location: black;
+    --ryuutama-color-disabled: var(--ryuutama-color-gold-dark);
   }
 
-  .themed.theme-dark {
+  .theme-dark, .themed.theme-dark {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-purple);
     --ryuutama-inventory-hover-color: rgba(255, 255, 255, 0.1);
+    --ryuutama-color-value-location: white;
+    --ryuutama-color-disabled: var(--ryuutama-color-gold);
   }
 }

@@ -2,6 +2,7 @@
  * @typedef AbilityScoreConfig
  * @property {string} label           Human-readable label.
  * @property {string} abbreviation    Short-form of the label.
+ * @property {string} icon            File path to the ability's icon.
  */
 
 /* -------------------------------------------------- */

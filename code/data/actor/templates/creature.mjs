@@ -77,10 +77,10 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     const con = this.condition.value;
     const imm = this.condition.immunities;
     const statuses = this.condition.statuses = {};
-    for (const status of this.parent.effects.documentsByType.status) {
-      const id = status.statuses.first();
-      const str = status.system.strength.value;
-      if ((str < con) || (id in statuses) || imm.has(id)) continue;
+    for (const [id, { _id }] of Object.entries(ryuutama.config.statusEffects)) {
+      const effect = this.parent.effects.get(_id);
+      const str = effect?.system.strength.value;
+      if (!effect || (str < con) || (id in statuses) || imm.has(id)) continue;
       let abilities;
       switch (id) {
         case "injury": abilities = ["dexterity"]; break;
@@ -91,10 +91,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         case "sickness": abilities = ["strength", "dexterity", "intelligence", "spirit"]; break;
       }
       if (!abilities) continue;
-      for (const abi of abilities) {
-        this.abilities[abi].value = Math.max(4, this.abilities[abi].value - 2);
-      }
-      statuses[id] = status.system.strength.value;
+      for (const abi of abilities) this.abilities[abi].decreases++;
+      statuses[id] = effect.system.strength.value;
     }
   }
 
@@ -111,11 +109,13 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     hp.max = src.stamina.max + hp.bonuses.flat + (hp.gear ?? 0) + hp.bonuses.level * this.details.level + hpTypeBonus * 4;
     hp.spent = Math.min(hp.spent, hp.max);
     hp.value = hp.max - hp.spent;
+    hp.pct = Math.clamp(Math.round(hp.value / hp.max * 100), 0, 100) || 0;
 
     const mpTypeBonus = this.type?.types.magic ?? 0;
     mp.max = src.mental.max + mp.bonuses.flat + (mp.gear ?? 0) + mp.bonuses.level * this.details.level + mpTypeBonus * 4;
     mp.spent = Math.min(mp.spent, mp.max);
     mp.value = mp.max - mp.spent;
+    mp.pct = Math.clamp(Math.round(mp.value / mp.max * 100), 0, 100) || 0;
   }
 
   /* -------------------------------------------------- */
@@ -215,7 +215,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         dialog.selectAbilities = false;
         roll.concentration.allowed = false;
         roll.condition = { updateScore: true, removeStatuses: true };
-        roll.modifier = (this.cursePenalty ?? 0) * -1;
         break;
 
       case "damage": {
@@ -227,8 +226,9 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
             if (w) ({ ability: abi, bonus: bon } = w.system.damage);
             else {
               // Unarmed
-              abi = "strength";
-              bon = -2;
+              abi = ryuutama.config.unarmedConfiguration.damage.ability;
+              // unarmed has -2, an improvised weapon has -1
+              bon = ryuutama.config.unarmedConfiguration.damage.bonus;
             }
             bon ??= 0;
             bon += this.type.types.attack;
@@ -258,8 +258,9 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
               bonus = w.system.accuracy.bonus;
               roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
             } else {
-              abilities = ["dexterity", "strength"]; // unarmed
-              bonus = -2; // unarmed has -2, an improvised weapon has -1
+              // unarmed
+              abilities = [...ryuutama.config.unarmedConfiguration.accuracy.abilities];
+              bonus = ryuutama.config.unarmedConfiguration.accuracy.bonus;
             }
             roll.abilities = abilities;
             roll.modifier = bonus;
@@ -304,6 +305,16 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       dialogConfig: foundry.utils.mergeObject(dialog, dialogConfig),
       messageConfig: foundry.utils.mergeObject(message, messageConfig),
     };
+
+    if (this.capacity?.penalty) {
+      result.rollConfig.modifier ??= 0;
+      result.rollConfig.modifier -= this.capacity.penalty;
+    }
+
+    if (result.rollConfig.type === "condition") {
+      result.rollConfig.modifier ??= 0;
+      result.rollConfig.modifier -= (this.cursePenalty ?? 0);
+    }
 
     // Final step: cleanup.
     if (result.rollConfig.formula) {
@@ -357,7 +368,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
       // Remove statuses.
       if (rollConfig.condition?.removeStatuses) {
-        const score = actor.system.condition.value;
+        const score = roll.total;
         for (const status of actor.effects.documentsByType.status) {
           const str = status.system.strength.value;
           if (str < score) effectIds.push(status.id);

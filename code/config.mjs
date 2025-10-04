@@ -17,18 +17,22 @@ export const abilityScores = {
   strength: {
     label: "RYUUTAMA.ABILITIES.strength",
     abbreviation: "RYUUTAMA.ABILITIES.strengthAbbr",
+    icon: "systems/ryuutama/assets/official/icons/stats/strength.svg",
   },
   dexterity: {
     label: "RYUUTAMA.ABILITIES.dexterity",
     abbreviation: "RYUUTAMA.ABILITIES.dexterityAbbr",
+    icon: "systems/ryuutama/assets/official/icons/stats/dexterity.svg",
   },
   intelligence: {
     label: "RYUUTAMA.ABILITIES.intelligence",
     abbreviation: "RYUUTAMA.ABILITIES.intelligenceAbbr",
+    icon: "systems/ryuutama/assets/official/icons/stats/intelligence.svg",
   },
   spirit: {
     label: "RYUUTAMA.ABILITIES.spirit",
     abbreviation: "RYUUTAMA.ABILITIES.spiritAbbr",
+    icon: "systems/ryuutama/assets/official/icons/stats/spirit.svg",
   },
 };
 Prelocalization.prelocalize(abilityScores, { properties: ["label", "abbreviation"] });
@@ -393,6 +397,21 @@ export const travelerTypes = {
   },
 };
 Prelocalization.prelocalize(travelerTypes);
+
+/* -------------------------------------------------- */
+
+export const unarmedConfiguration = {
+  label: "RYUUTAMA.WEAPON.CATEGORIES.unarmed",
+  icon: "icons/skills/melee/unarmed-punch-fist-white.webp",
+  accuracy: {
+    abilities: ["dexterity", "strength"],
+    bonus: 0,
+  },
+  damage: {
+    ability: "strength",
+    bonus: -2,
+  },
+};
 
 /* -------------------------------------------------- */
 

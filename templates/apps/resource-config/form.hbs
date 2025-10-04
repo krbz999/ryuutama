@@ -1,0 +1,10 @@
+<section>
+  {{formGroup resource.fields.spent value=resource.source.spent placeholder="0" classes="slim"}}
+  {{formGroup resource.fields.max value=resource.source.max placeholder="0" classes="slim"}}
+
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.RESOURCE.bonuses"}}</legend>
+    {{formGroup resource.fields.bonuses.fields.flat value=resource.source.bonuses.flat placeholder="0" classes="slim"}}
+    {{formGroup resource.fields.bonuses.fields.level value=resource.source.bonuses.level placeholder="0" classes="slim"}}
+  </fieldset>
+</section>

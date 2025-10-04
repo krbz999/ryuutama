@@ -8,7 +8,7 @@ export default class DocumentConfig extends HandlebarsApplicationMixin(DocumentS
       closeOnSubmit: false,
     },
     position: {
-      width: 420,
+      width: 480,
       height: "auto",
     },
     sheetConfig: false,
@@ -25,5 +25,28 @@ export default class DocumentConfig extends HandlebarsApplicationMixin(DocumentS
       fields: this.document.schema.fields,
       systemFields: this.document.system.schema.fields,
     };
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _initializeApplicationOptions(options) {
+    options = super._initializeApplicationOptions(options);
+    options.classes.push(ryuutama.id);
+    return options;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+
+    for (const input of this.element.querySelectorAll("input[type=number], input[type=text].delta")) {
+      input.addEventListener("focus", () => input.select());
+      if (input.classList.contains("delta")) {
+        input.addEventListener("change", () => ryuutama.utils.parseInputDelta(input, this.document));
+      }
+    }
   }
 }

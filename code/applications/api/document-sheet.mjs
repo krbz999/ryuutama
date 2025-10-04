@@ -98,6 +98,20 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+
+    for (const input of this.element.querySelectorAll("input[type=number], input[type=text].delta")) {
+      input.addEventListener("focus", () => input.select());
+      if (input.classList.contains("delta")) {
+        input.addEventListener("change", () => ryuutama.utils.parseInputDelta(input, this.document));
+      }
+    }
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * @this RyuutamaDocumentSheet
    */

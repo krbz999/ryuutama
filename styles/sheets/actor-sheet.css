@@ -1,4 +1,4 @@
-.application.sheet inventory-element {
+.ryuutama.application.sheet.actor inventory-element {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
@@ -12,6 +12,139 @@
 
     &:hover {
       background-color: var(--ryuutama-inventory-hover-color);
+    }
+  }
+}
+
+.ryuutama.application.sheet.actor resource-bar {
+  position: relative;
+  height: calc(1.2rem + var(--border-width));
+  display: flex;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: var(--cursor-pointer);
+  border: var(--border-width) solid black;
+  --color: var(--ryuutama-color-resource-default);
+  --border-width: 1px;
+
+  &.stamina {
+    --color: var(--ryuutama-color-resource-stamina);
+  }
+  &.mental {
+    --color: var(--ryuutama-color-resource-mental);
+  }
+
+  .bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: calc(100% - var(--fill));
+    background-color: hsl(from var(--color) h s l / 0.5);
+  }
+
+  .display {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    align-content: center;
+  }
+
+  input {
+    width: 100%;
+    max-height: 100%;
+    text-align: center;
+    z-index: 1;
+    background: none;
+  }
+}
+
+.ryuutama.application.sheet.actor {
+  [data-tab] {
+    padding-bottom: 0.35rem;
+  }
+
+  .icon-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+    gap: 1rem;
+
+    &.column-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .icon-field {
+      max-width: 250px;
+      display: grid;
+      grid-template-columns: 45px 1fr;
+      gap: .5rem;
+
+      [data-status] > ryuutama-icon:not(.active) {
+        opacity: 0.5;
+      }
+
+      .stacked {
+        gap: 0;
+        --input-height: 1.2rem;
+
+        span.value {
+          color: var(--ryuutama-color-disabled);
+        }
+
+        .value {
+          border-radius: 3px;
+          background-color: hsl(from var(--ryuutama-color-value-location) h s l / 0.1);
+        }
+
+        * {
+          text-align: center;
+        }
+      }
+
+      .attack {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        button {
+          height: unset;
+          min-height: unset;
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  .capacity {
+    position: relative;
+    height: 1.5rem;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    border: var(--border-width) solid black;
+    --color: black;
+    --border-width: 1px;
+
+    .bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: calc(100% - var(--fill));
+      background-color: hsl(from red h s l / 0.5);
+    }
+
+    .display {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      text-align: center;
+      align-content: center;
     }
   }
 }

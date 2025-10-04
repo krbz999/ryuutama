@@ -2,12 +2,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.68 22.68">
   <defs>
     <style>
-      .cls-bg {
+      .cls-bg-condition {
         fill: #b9578c;
       }
 
-
-      .cls-subject {
+      .cls-subject-condition {
         fill: #fff;
       }
 
@@ -21,18 +20,18 @@
         stroke-width: .8px;
       }
     </style>
-    <mask id="maskpath">
+    <mask id="ryuutama-maskpath-condition">
       <!-- PERSON -->
-      <path class="cls-subject" d="M12.78,4.32c0,.83-.67,1.51-1.5,1.51s-1.51-.67-1.51-1.51.67-1.5,1.51-1.5,1.5.67,1.5,1.5Z"/>
-      <path class="cls-subject" d="M13.6,13.85c0,.43-.3.78-.68.78h-3.28c-.37,0-.68-.35-.68-.78v-6.49c0-.43.3-.78.68-.78h3.28c.37,0,.68.35.68.78v6.49Z"/>
-      <path class="cls-subject" d="M10.8,20.32c0,.52-.41.94-.92.94h0c-.51,0-.92-.42-.92-.94v-6.5c0-.52.41-.94.92-.94h0c.51,0,.92.42.92.94v6.5Z"/>
-      <path class="cls-subject" d="M15.24,12.45c0,.41-.3.74-.67.74h0c-.37,0-.67-.33-.67-.74v-5.13c0-.41.05-.74.42-.74h0c.71,0,.92.74.92,1.15v4.72Z"/>
-      <path class="cls-subject" d="M7.35,12.45c0,.41.3.74.67.74h0c.37,0,.67-.33.67-.74v-5.13c0-.41-.05-.74-.42-.74h0c-.71,0-.92.74-.92,1.15v4.72Z"/>
-      <path class="cls-subject" d="M13.59,20.32c0,.52-.41.94-.92.94h0c-.51,0-.92-.42-.92-.94v-6.5c0-.52.41-.94.92-.94h0c.51,0,.92.42.92.94v6.5Z"/>
-      <path class="cls-subject" d="M10.68,15.16s.51-.72,1.26.08l-.03-.86-1.4-.16.16.94Z"/>
-      <polygon class="cls-subject" points="14.32 7.23 7.81 7.23 8.23 6.58 14.32 6.58 14.32 7.23"/>
-      <path class="cls-subject" d="M13.37,8.38s.32-.34.79.1l.02-1.35-.97-.08.16,1.33Z"/>
-      <path class="cls-subject" d="M8.5,8.38s.32-.34.79.1l.02-1.35-.97-.08.16,1.33Z"/>
+      <path class="cls-subject-condition" d="M12.78,4.32c0,.83-.67,1.51-1.5,1.51s-1.51-.67-1.51-1.51.67-1.5,1.51-1.5,1.5.67,1.5,1.5Z"/>
+      <path class="cls-subject-condition" d="M13.6,13.85c0,.43-.3.78-.68.78h-3.28c-.37,0-.68-.35-.68-.78v-6.49c0-.43.3-.78.68-.78h3.28c.37,0,.68.35.68.78v6.49Z"/>
+      <path class="cls-subject-condition" d="M10.8,20.32c0,.52-.41.94-.92.94h0c-.51,0-.92-.42-.92-.94v-6.5c0-.52.41-.94.92-.94h0c.51,0,.92.42.92.94v6.5Z"/>
+      <path class="cls-subject-condition" d="M15.24,12.45c0,.41-.3.74-.67.74h0c-.37,0-.67-.33-.67-.74v-5.13c0-.41.05-.74.42-.74h0c.71,0,.92.74.92,1.15v4.72Z"/>
+      <path class="cls-subject-condition" d="M7.35,12.45c0,.41.3.74.67.74h0c.37,0,.67-.33.67-.74v-5.13c0-.41-.05-.74-.42-.74h0c-.71,0-.92.74-.92,1.15v4.72Z"/>
+      <path class="cls-subject-condition" d="M13.59,20.32c0,.52-.41.94-.92.94h0c-.51,0-.92-.42-.92-.94v-6.5c0-.52.41-.94.92-.94h0c.51,0,.92.42.92.94v6.5Z"/>
+      <path class="cls-subject-condition" d="M10.68,15.16s.51-.72,1.26.08l-.03-.86-1.4-.16.16.94Z"/>
+      <polygon class="cls-subject-condition" points="14.32 7.23 7.81 7.23 8.23 6.58 14.32 6.58 14.32 7.23"/>
+      <path class="cls-subject-condition" d="M13.37,8.38s.32-.34.79.1l.02-1.35-.97-.08.16,1.33Z"/>
+      <path class="cls-subject-condition" d="M8.5,8.38s.32-.34.79.1l.02-1.35-.97-.08.16,1.33Z"/>
 
       <!-- WAVES -->
       <path class="cls-waves" d="M15.09,4.86c1.62,0,2.93,1.3,2.93,2.9"/>
@@ -46,8 +45,8 @@
     </mask>
   </defs>
 
-  <rect class="cls-bg" rx="5" x="0" y="0" width="100%" height="100%" />
-  <rect class="cls-subject" rx="5" x="0" y="0" width="100%" height="100%" mask="url(#maskpath)" />
+  <rect class="cls-bg-condition" rx="5" x="0" y="0" width="100%" height="100%" />
+  <rect class="cls-subject-condition" rx="5" x="0" y="0" width="100%" height="100%" mask="url(#ryuutama-maskpath-condition)" />
 
   <!-- HEART -->
   <path class="cls-heart" d="M12.83,8.58c.54,0,.55.58.55.58,0,.85-1.12,1.29-1.12,1.29,0,0-1.1-.44-1.1-1.29,0,0,.01-.58.56-.58.33,0,.54.37.54.37,0,0,.23-.37.56-.37Z" />

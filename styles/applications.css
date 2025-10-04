@@ -1,3 +1,25 @@
 @import url("./hud/_styles.css");
 @import url("./sidebar/_styles.css");
 @import url("./sheets/_styles.css");
+
+ryuutama-icon {
+  height: 100%;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.form-group.wide label {
+  flex: none;
+}
+
+.ryuutama.application button.heightened {
+  height: 100%;
+  --buttons-size: 100%;
+}
+
+.ryuutama.application .italics {
+  font-style: italic;
+}
