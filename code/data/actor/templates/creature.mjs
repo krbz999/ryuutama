@@ -1,17 +1,17 @@
+import AbilityModel from "../../ability-model.mjs";
+
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
  * @import CheckRoll from "../../../dice/check-roll.mjs";
  */
 
-const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { EmbeddedDataField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class CreatureData extends foundry.abstract.TypeDataModel {
   /** @override */
   static defineSchema() {
     const makeAbility = () => {
-      return new SchemaField({
-        value: new NumberField({ step: 2, min: this.MINIMUM_ABILITY, max: 12, nullable: false, initial: 4 }),
-      });
+      return new EmbeddedDataField(AbilityModel);
     };
 
     const makeResource = () => {
@@ -124,10 +124,13 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    */
   getRollData() {
     const rollData = { ...this };
-    rollData.str = `1d${this.abilities.strength.value}`;
-    rollData.dex = `1d${this.abilities.dexterity.value}`;
-    rollData.int = `1d${this.abilities.intelligence.value}`;
-    rollData.spi = `1d${this.abilities.spirit.value}`;
+
+    rollData.stats = new Proxy(this.abilities, {
+      get: function(target, prop, receiver) {
+        return Reflect.get(target, prop, receiver);
+      },
+    });
+
     return rollData;
   }
 
@@ -414,8 +417,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       formula.push(rollConfig.formula);
     } else {
       formula.push(
-        `1d@abilities.${rollConfig.abilities[0]}.value`,
-        (rollConfig.abilities.length > 1) ? `1d@abilities.${rollConfig.abilities[1]}.value` : null,
+        `@stats.${rollConfig.abilities[0]}`,
+        (rollConfig.abilities.length > 1) ? `@stats.${rollConfig.abilities[1]}` : null,
       );
     }
 

@@ -72,7 +72,7 @@ export default class MonsterData extends CreatureData {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    this.attack.accuracy ||= "@dex + @str";
-    this.attack.damage ||= "@str";
+    this.attack.accuracy ||= "@stats.dexterity + @stats.strength";
+    this.attack.damage ||= "@stats.strength";
   }
 }

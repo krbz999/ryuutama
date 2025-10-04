@@ -19,7 +19,7 @@
       </button>
       {{!-- </label> --}}
     <div class="form-fields">
-      {{formInput systemFields.attack.fields.accuracy value=(ifThen disabled document.system.attack.accuracy source.system.attack.accuracy) disabled=disabled placeholder="@dex + @str"}}
+      {{formInput systemFields.attack.fields.accuracy value=(ifThen disabled document.system.attack.accuracy source.system.attack.accuracy) disabled=disabled placeholder="@stats.dexterity + @stats.strength"}}
     </div>
   </div>
 
@@ -29,7 +29,7 @@
       <span>rol dmg</span>
     </button>
     <div class="form-fields">
-      {{formInput systemFields.attack.fields.damage value=(ifThen disabled document.system.attack.damage source.system.attack.damage) disabled=disabled placeholder="@str"}}
+      {{formInput systemFields.attack.fields.damage value=(ifThen disabled document.system.attack.damage source.system.attack.damage) disabled=disabled placeholder="@stats.strength"}}
     </div>
   </div>
 
