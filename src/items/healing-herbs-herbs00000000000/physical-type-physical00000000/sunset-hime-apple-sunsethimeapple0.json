@@ -1,0 +1,38 @@
+{
+  "name": "Sunset Hime Apple",
+  "_id": "sunsethimeapple0",
+  "folder": "physical00000000",
+  "type": "herb",
+  "system": {
+    "level": 1,
+    "description": {
+      "effect": "<p>Recover 2 HP</p>",
+      "value": "<p>A fruit that resembles an apple. Hime Apples become rich with nourishment as their colors deepen like the sunset.</p>"
+    },
+    "price": {
+      "value": null
+    },
+    "category": {
+      "value": "physical"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688295424,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!sunsethimeapple0"
+}

@@ -1,0 +1,38 @@
+{
+  "name": "Black Temple Melon",
+  "_id": "blacktemplemelon",
+  "folder": "enhance000000000",
+  "type": "herb",
+  "system": {
+    "level": 4,
+    "category": {
+      "value": "enhance"
+    },
+    "description": {
+      "effect": "<p>May use “1 area” or “all area” spells without harming allies in the area.</p>",
+      "value": "<p>A type of melon that thrives in grottos of dried wood. From its leaves to its roots, even its fruit is well known for being jet black. It has the distinct odor of cheese. Really stinky cheese.</p>"
+    },
+    "price": {
+      "value": null
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688477779,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!blacktemplemelon"
+}

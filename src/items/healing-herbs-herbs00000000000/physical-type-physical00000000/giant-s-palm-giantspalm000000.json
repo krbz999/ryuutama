@@ -1,0 +1,38 @@
+{
+  "name": "Giant’s Palm",
+  "_id": "giantspalm000000",
+  "folder": "physical00000000",
+  "type": "herb",
+  "system": {
+    "level": 2,
+    "description": {
+      "effect": "<p>Used to help ease foot pain. Used after a taking damage from a Movement Check: recover that damage.</p>",
+      "value": "<p>An annual that produces light green leaves covered in mucuous. It prefers wet climates.</p>"
+    },
+    "price": {
+      "value": null
+    },
+    "category": {
+      "value": "physical"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688321018,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!giantspalm000000"
+}

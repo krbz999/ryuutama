@@ -1,0 +1,38 @@
+{
+  "name": "Windcrying Tulip",
+  "_id": "windcryingtulip0",
+  "folder": "enhance000000000",
+  "type": "herb",
+  "system": {
+    "level": 4,
+    "category": {
+      "value": "enhance"
+    },
+    "description": {
+      "effect": "<p>1 additional target may be chosen. Only effects “single” target spells</p>",
+      "value": "<p>A type of tulip that can only put down roots in an area with strong winds. The jade petals of its flowers are blown by the wind to disperse pollen.</p>"
+    },
+    "price": {
+      "value": null
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688468807,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!windcryingtulip0"
+}

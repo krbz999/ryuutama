@@ -1,12 +1,12 @@
 {
+  "_id": "herbs00000000000",
+  "name": "Healing Herbs",
   "type": "Item",
-  "name": "Shields",
-  "_id": "shields000000000",
   "description": "",
   "folder": null,
   "sorting": "a",
-  "sort": 0,
-  "color": "#a53c7a",
+  "sort": 500000,
+  "color": "#197307",
   "flags": {},
   "_stats": {
     "compendiumSource": null,
@@ -15,9 +15,9 @@
     "coreVersion": "13.350",
     "systemId": "ryuutama",
     "systemVersion": "DEVELOP",
-    "createdTime": 1759433104151,
+    "createdTime": 1759687289336,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
-  "_key": "!folders!shields000000000"
+  "_key": "!folders!herbs00000000000"
 }

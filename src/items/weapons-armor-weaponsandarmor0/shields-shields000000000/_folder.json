@@ -1,12 +1,12 @@
 {
   "type": "Item",
-  "name": "Hats",
-  "_id": "hats000000000000",
+  "name": "Shields",
+  "_id": "shields000000000",
   "description": "",
-  "folder": null,
+  "folder": "weaponsandarmor0",
   "sorting": "a",
-  "sort": 0,
-  "color": "#9d3b6f",
+  "sort": 200000,
+  "color": "#361f61",
   "flags": {},
   "_stats": {
     "compendiumSource": null,
@@ -15,9 +15,9 @@
     "coreVersion": "13.350",
     "systemId": "ryuutama",
     "systemVersion": "DEVELOP",
-    "createdTime": 1759433016103,
+    "createdTime": 1759433104151,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
-  "_key": "!folders!hats000000000000"
+  "_key": "!folders!shields000000000"
 }

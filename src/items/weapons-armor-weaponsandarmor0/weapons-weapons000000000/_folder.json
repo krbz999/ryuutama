@@ -1,12 +1,12 @@
 {
   "type": "Item",
-  "name": "Shoes",
-  "_id": "shoes00000000000",
+  "name": "Weapons",
+  "_id": "weapons000000000",
   "description": "",
-  "folder": null,
+  "folder": "weaponsandarmor0",
   "sorting": "a",
-  "sort": 0,
-  "color": "#ad3d85",
+  "sort": 100000,
+  "color": "#2e1c4f",
   "flags": {},
   "_stats": {
     "compendiumSource": null,
@@ -15,9 +15,9 @@
     "coreVersion": "13.350",
     "systemId": "ryuutama",
     "systemVersion": "DEVELOP",
-    "createdTime": 1759433016067,
+    "createdTime": 1759433016083,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
-  "_key": "!folders!shoes00000000000"
+  "_key": "!folders!weapons000000000"
 }

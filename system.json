@@ -94,6 +94,12 @@
           "description.value"
         ]
       },
+      "herb": {
+        "htmlFields": [
+          "description.effect",
+          "description.value"
+        ]
+      },
       "shield": {
         "htmlFields": [
           "description.value"
@@ -123,10 +129,10 @@
   },
   "packs": [
     {
-      "name": "gear",
-      "label": "RYUUTAMA.PACKS.GEAR",
+      "name": "items",
+      "label": "RYUUTAMA.PACKS.ITEMS",
       "type": "Item",
-      "banner": "systems/ryuutama/assets/official/banners/gear.webp"
+      "banner": "systems/ryuutama/assets/official/banners/items.webp"
     }
   ],
   "packFolders": [
@@ -134,7 +140,7 @@
       "name": "Ryuutama",
       "color": "#0089bd",
       "packs": [
-        "gear"
+        "items"
       ]
     }
   ]

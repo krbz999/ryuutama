@@ -1,0 +1,23 @@
+{
+  "_id": "weaponsandarmor0",
+  "name": "Weapons & Armor",
+  "type": "Item",
+  "description": "",
+  "folder": null,
+  "sorting": "a",
+  "sort": 1000000,
+  "color": "#411c87",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688599141,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!folders!weaponsandarmor0"
+}

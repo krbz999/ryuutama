@@ -1,0 +1,38 @@
+{
+  "name": "Barrierwood Stalk",
+  "_id": "barrierwoodstalk",
+  "folder": "enhance000000000",
+  "type": "herb",
+  "system": {
+    "level": 5,
+    "category": {
+      "value": "enhance"
+    },
+    "description": {
+      "effect": "<p>May use “invocation” spell as a “ritual” spell. Targets become all nearby companions and duration becomes 12 hours. No effect on spells with “instant” duration and only effects spells with “single” targets.</p>",
+      "value": "<p>A subspecies of Barrierwood, also known as the Guardsman of the Woods. It thrives in the alpine heights and its hardness is said to be comparable to orichalcum.</p>"
+    },
+    "price": {
+      "value": null
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688486851,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!barrierwoodstalk"
+}

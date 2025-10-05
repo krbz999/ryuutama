@@ -1,12 +1,12 @@
 {
+  "_id": "travelinggear000",
+  "name": "Traveling Gear",
   "type": "Item",
-  "name": "Weapons",
-  "_id": "weapons000000000",
   "description": "",
   "folder": null,
   "sorting": "a",
   "sort": 0,
-  "color": "#bc3f9c",
+  "color": "#855614",
   "flags": {},
   "_stats": {
     "compendiumSource": null,
@@ -15,9 +15,9 @@
     "coreVersion": "13.350",
     "systemId": "ryuutama",
     "systemVersion": "DEVELOP",
-    "createdTime": 1759433016083,
+    "createdTime": 1759688655814,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
-  "_key": "!folders!weapons000000000"
+  "_key": "!folders!travelinggear000"
 }

@@ -1,0 +1,38 @@
+{
+  "name": "Crowned Morning Glory",
+  "_id": "crownedmorninggl",
+  "folder": "physical00000000",
+  "type": "herb",
+  "system": {
+    "level": 1,
+    "description": {
+      "effect": "<p>Used to help ease sleep. Next day’s Condition will be 6.</p>",
+      "value": "<p>An annual that blooms into several gorgeous flowers. The colors of the flowers can vary between white, violet, crimson, and indigo, depending on the weather.</p>"
+    },
+    "price": {
+      "value": null
+    },
+    "category": {
+      "value": "physical"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688311948,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!crownedmorninggl"
+}

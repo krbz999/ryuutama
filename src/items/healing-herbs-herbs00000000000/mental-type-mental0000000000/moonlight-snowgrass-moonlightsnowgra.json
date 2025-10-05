@@ -1,0 +1,38 @@
+{
+  "name": "Moonlight Snowgrass",
+  "_id": "moonlightsnowgra",
+  "folder": "mental0000000000",
+  "type": "herb",
+  "system": {
+    "level": 3,
+    "category": {
+      "value": "mental"
+    },
+    "description": {
+      "effect": "<p>Anytime MP is used, 1 less MP is spent. Has no effect when spending 1 MP.</p>",
+      "value": "<p>A diminutive species of grass that only flourishes in moonlight. It is said that it takes an entire year to grow even a single centimeter. The juice squeezed from this grass is used to arouse one's spirit.</p>"
+    },
+    "price": {
+      "value": null
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688411147,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!moonlightsnowgra"
+}

@@ -23,6 +23,8 @@
       "capePl": "Capes",
       "hat": "Hat",
       "hatPl": "Hats",
+      "herb": "Herb",
+      "herbPl": "Herbs",
       "shield": "Shield",
       "shieldPl": "Shields",
       "shoes": "Shoes",
@@ -248,6 +250,19 @@
       }
     },
     "CAPE": {},
+    "HERB": {
+      "FIELDS": {
+        "category.value.label": "Type",
+        "description.effect.label": "Use",
+        "level.label": "Level",
+        "price.value.label": "Gold Value"
+      },
+      "CATEGORIES": {
+        "enhance": "Enhance Type",
+        "mental": "Mental Type",
+        "physical": "Physical Type"
+      }
+    },
     "SHIELD": {
       "FIELDS": {
         "armor.penalty.label": "Penalty",
@@ -274,12 +289,12 @@
     },
 
     "PACKS": {
-      "GEAR": "Traveling Gear"
+      "ITEMS": "Items"
     },
 
     "ROLL": {
       "WARNING": {
-        "fumblesUnavailable": "{name} does not have any Fumble Point available.",
+        "fumblesUnavailable": "{name} does not have any Fumble Points available.",
         "mentalUnavailable": "{name} does not have any MP available.",
         "staminaUnavailable": "{name} does not have any HP available."
       },

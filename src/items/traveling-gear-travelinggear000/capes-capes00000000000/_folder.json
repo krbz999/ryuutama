@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "name": "Capes",
+  "_id": "capes00000000000",
+  "description": "",
+  "folder": "travelinggear000",
+  "sorting": "a",
+  "sort": 400000,
+  "color": "#613f0f",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759433016058,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!folders!capes00000000000"
+}

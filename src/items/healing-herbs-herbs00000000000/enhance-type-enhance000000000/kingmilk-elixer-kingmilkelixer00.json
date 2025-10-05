@@ -1,0 +1,38 @@
+{
+  "name": "Kingmilk Elixer",
+  "_id": "kingmilkelixer00",
+  "folder": "enhance000000000",
+  "type": "herb",
+  "system": {
+    "level": 4,
+    "category": {
+      "value": "enhance"
+    },
+    "description": {
+      "effect": "<p>Duration of magic spell is doubled; no effect on “instant” duration spells</p>",
+      "value": "<p>A bee's nest made of mud and dirt resembling an ant's hive, found deep in the jungle.</p>"
+    },
+    "price": {
+      "value": null
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688458969,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!kingmilkelixer00"
+}

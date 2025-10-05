@@ -3,10 +3,10 @@
   "name": "Accessories",
   "_id": "accessories00000",
   "description": "",
-  "folder": null,
+  "folder": "travelinggear000",
   "sorting": "a",
-  "sort": 0,
-  "color": "#87384d",
+  "sort": 500000,
+  "color": "#744b11",
   "flags": {},
   "_stats": {
     "compendiumSource": null,

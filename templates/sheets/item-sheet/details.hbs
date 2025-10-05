@@ -5,10 +5,16 @@
     {{formGroup fields.img value=(ifThen disabled document.img source.img) disabled=disabled}}
 
     {{!-- PRICE --}}
-    {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.total source.system.price.value) disabled=disabled classes="slim"}}
+    {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.total source.system.price.value) disabled=disabled classes="slim" placeholder=document.system.price.total}}
+
+    {{#if isHerb}}
+    {{> "systems/ryuutama/templates/sheets/item-sheet/herb.hbs"}}
+    {{/if}}
 
     {{!-- MODIFIERS --}}
+    {{#if hasModifiers}}
     {{formGroup systemFields.modifiers value=(ifThen disabled document.system.modifiers source.system.modifiers) type="checkboxes" classes="stacked" disabled=disabled options=modifierOptions}}
+    {{/if}}
 
     {{!-- DURABILITY & SIZE --}}
     {{#if hasDurability}}
@@ -22,7 +28,8 @@
     {{/if}}
   </fieldset>
 
-  {{formInput systemFields.description.fields.value enriched=enriched value=source.system.description.value disabled=disabled toggled=disabled height=300}}
+  {{!-- DESCRIPTION --}}
+  {{formInput systemFields.description.fields.value enriched=enriched.description value=source.system.description.value disabled=disabled toggled=disabled height=300}}
 
   {{#if isWeapon}}
   {{> "systems/ryuutama/templates/sheets/item-sheet/weapon.hbs"}}

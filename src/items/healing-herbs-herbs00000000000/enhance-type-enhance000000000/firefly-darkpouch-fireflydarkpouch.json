@@ -1,0 +1,38 @@
+{
+  "name": "Firefly Darkpouch",
+  "_id": "fireflydarkpouch",
+  "folder": "enhance000000000",
+  "type": "herb",
+  "system": {
+    "level": 3,
+    "category": {
+      "value": "enhance"
+    },
+    "description": {
+      "effect": "<p>Damage dealing or HP recovery effects are given bonus equal to Caster’s Level</p>",
+      "value": "<p>An annual that blooms only at night. The light-purple flowers resembles a pouch and glows in total darkness.</p>"
+    },
+    "price": {
+      "value": null
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688449299,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!fireflydarkpouch"
+}

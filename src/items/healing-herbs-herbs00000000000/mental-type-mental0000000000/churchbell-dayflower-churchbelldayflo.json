@@ -1,0 +1,38 @@
+{
+  "name": "Churchbell Dayflower",
+  "_id": "churchbelldayflo",
+  "folder": "mental0000000000",
+  "type": "herb",
+  "system": {
+    "level": 2,
+    "category": {
+      "value": "mental"
+    },
+    "description": {
+      "effect": "<p>Next check using {SPI} gets +1 bonus</p>",
+      "value": "<p>A cousin of the dayflower that blooms flowers reaching over 3 feet in size. They prefer to grow on hills and bloom only when sunlight is at its strongest.</p>"
+    },
+    "price": {
+      "value": null
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688397123,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!churchbelldayflo"
+}

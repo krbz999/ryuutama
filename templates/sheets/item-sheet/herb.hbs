@@ -1,0 +1,8 @@
+{{!-- LEVEL --}}
+{{formGroup systemFields.level value=(ifThen disabled document.system.level source.system.level) disabled=disabled type="number" classes="slim"}}
+
+{{!-- SUBTYPE --}}
+{{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim"}}
+
+{{!-- EFFECT DESCRIPTION --}}
+{{formGroup systemFields.description.fields.effect value=source.system.description.effect disabled=disabled toggled=disabled enriched=enriched.effect}}

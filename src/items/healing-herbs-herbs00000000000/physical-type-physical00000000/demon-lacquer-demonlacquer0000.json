@@ -1,0 +1,38 @@
+{
+  "name": "Demon Lacquer",
+  "_id": "demonlacquer0000",
+  "folder": "physical00000000",
+  "type": "herb",
+  "system": {
+    "level": 2,
+    "description": {
+      "effect": "<p>Enough for 1 poison arrow: add 2 damage to 1 bow attack.</p>",
+      "value": "<p>A decidious tree that grows to about 12 feet tall with ash-white bark. A dark sap oozes from cuts in the bark.</p>"
+    },
+    "price": {
+      "value": null
+    },
+    "category": {
+      "value": "physical"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688332925,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!demonlacquer0000"
+}

@@ -105,6 +105,21 @@ Prelocalization.prelocalize(genders);
 
 /* -------------------------------------------------- */
 
+export const herbTypes = {
+  enhance: {
+    label: "RYUUTAMA.HERB.CATEGORIES.enhance",
+  },
+  mental: {
+    label: "RYUUTAMA.HERB.CATEGORIES.mental",
+  },
+  physical: {
+    label: "RYUUTAMA.HERB.CATEGORIES.physical",
+  },
+};
+Prelocalization.prelocalize(herbTypes);
+
+/* -------------------------------------------------- */
+
 /**
  * @type {Record<string, ItemModifierConfig>}
  */

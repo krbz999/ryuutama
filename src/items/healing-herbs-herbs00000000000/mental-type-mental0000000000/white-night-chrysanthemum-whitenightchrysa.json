@@ -1,0 +1,38 @@
+{
+  "name": "White Night Chrysanthemum",
+  "_id": "whitenightchrysa",
+  "folder": "mental0000000000",
+  "type": "herb",
+  "system": {
+    "level": 3,
+    "category": {
+      "value": "mental"
+    },
+    "description": {
+      "effect": "<p>May be used to reroll a Condition Check in order to cure a mental status ailment with +1 bonus.</p>",
+      "value": "<p>A chrysanthemum with a deep violet hue. It only grows in frigid climes and blooms only during the arctic white night.</p>"
+    },
+    "price": {
+      "value": null
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759688418284,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!whitenightchrysa"
+}
