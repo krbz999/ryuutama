@@ -2,7 +2,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.68 22.68">
 
   <g fill="var(--ryuutama-color-archetype, #87384d)">
-    <rect rx="5" x="0" y="0" width="100%" height="100%" />
+    <rect rx="20%" x="0" y="0" width="100%" height="100%" />
 
     <g fill="#fff">
       <path class="cls-subject-attack" d="M3.78,5.11s.03-.25-.41-2.32c0,0,1.61.42,2.41.67l9.51,11.09s-.32,1.16-1.5,1.17L3.78,5.11Z"/>

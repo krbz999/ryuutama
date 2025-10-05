@@ -3,7 +3,7 @@
 
   <g style="--color: var(--ryuutama-color-archetype, #87384d)">
     <g fill="var(--color)">
-      <rect rx="5" x="0" y="0" width="100%" height="100%" />
+      <rect rx="20%" x="0" y="0" width="100%" height="100%" />
 
       <!-- This one is annoying cus the elements have to alternate in color and fill for best effect. -->
       <path fill="#fff" d="M10.04,16.03s-.5,0-.6.2c-.07.15,0,.66,1.14.6,0,0-.21.46-.02.43.19-.03.08.73.08.73,0,0,1.2.06,1.48-.32l.23-1.22-2.27-.43"/>

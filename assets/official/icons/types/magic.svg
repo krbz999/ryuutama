@@ -3,7 +3,7 @@
 
   <g style="--color: var(--ryuutama-color-archetype, #87384d)">
     <g fill="var(--color)">
-      <rect rx="5" x="0" y="0" width="100%" height="100%" />
+      <rect rx="20%" x="0" y="0" width="100%" height="100%" />
 
       <g fill="#fff">
         <!-- BOOK -->
