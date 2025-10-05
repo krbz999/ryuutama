@@ -254,8 +254,8 @@ export const seasons = {
   summer: {
     label: "RYUUTAMA.SEASONS.summer",
   },
-  fall: {
-    label: "RYUUTAMA.SEASONS.fall",
+  autumn: {
+    label: "RYUUTAMA.SEASONS.autumn",
   },
   winter: {
     label: "RYUUTAMA.SEASONS.winter",

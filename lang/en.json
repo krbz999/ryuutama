@@ -192,10 +192,10 @@
       "mental": "MP"
     },
     "SEASONS": {
-      "winter": "Winter",
       "spring": "Spring",
       "summer": "Summer",
-      "fall": "Fall"
+      "autumn": "Autumn",
+      "winter": "Winter"
     },
 
     "ITEM": {
