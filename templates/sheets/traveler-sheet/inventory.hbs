@@ -1,19 +1,5 @@
 <section data-tab="{{tabs.inventory.id}}" class="{{tabs.inventory.cssClass}}" data-group="{{tabs.inventory.group}}">
-  <div class="form-group">
-    <div class="form-fields">
-      {{#each equipped as |eqp key|}}
-      <div class="form-group stacked">
-        <label>{{label}}</label>
-        <div class="form-fields">
-          <select name="system.equipped.{{key}}" {{disabled (or @root.disabled (not eqp.options.length))}}>
-            {{selectOptions eqp.options selected=eqp.value blank=""}}
-          </select>
-        </div>
-      </div>
-      {{/each}}
-    </div>
-  </div>
-
+  {{!-- CAPACITY BAR --}}
   <div class="capacity">
     <span class="bar" style="--fill: {{document.system.capacity.pct}}%"></span>
     <span class="display">
@@ -24,10 +10,29 @@
     </span>
   </div>
 
+  {{!-- EQUIPPED ITEMS --}}
+  <section class="equipped">
+    {{#each equipped as |eqp key|}}
+    <div class="item">
+      <label>{{label}}</label>
+      {{#if item}}
+      <a data-action="renderItem" data-item-id="{{item.id}}" data-tooltip-text="{{item.name}}" data-tooltip-direction="UP">
+        <img src="{{img}}" alt="{{item.name}}">
+      </a>
+      {{else}}
+      <div class="empty-slot"></div>
+      {{/if}}
+    </div>
+    {{/each}}
+  </section>
+
+  {{!-- GOLD --}}
   {{formGroup systemFields.gold.fields.value value=(ifThen disabled document.system.gold.value source.system.gold.value) disabled=disabled classes="slim"}}
 
+  {{!-- TABS --}}
   {{> "templates/generic/tab-navigation.hbs" tabs=inventoryTabs}}
 
+  {{!-- INVENTORY SECTIONS --}}
   {{#each inventorySections}}
   <section data-tab="{{id}}" class="tab {{cssClass}}" data-group="inventory">
     {{#each groups}}

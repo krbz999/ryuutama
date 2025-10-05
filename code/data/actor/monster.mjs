@@ -11,10 +11,14 @@ export default class MonsterData extends CreatureData {
         damage: new StringField({ required: true, initial: "" }),
       }),
       armor: new SchemaField({
-        value: new NumberField({ required: true, min: 0, initial: 0, integer: true, nullable: false }),
+        value: new NumberField({ min: 0, initial: null, integer: true, nullable: true }),
       }),
       description: new SchemaField({
         value: new HTMLField(),
+        special: new SchemaField({
+          value: new HTMLField(),
+          name: new StringField({ required: true }),
+        }),
       }),
       details: new SchemaField({
         category: new StringField({

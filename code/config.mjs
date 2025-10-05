@@ -209,12 +209,6 @@ export const monsterCategories = {
   demon: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.demon",
   },
-  dragon: {
-    label: "RYUUTAMA.MONSTER.CATEGORIES.dragon",
-  },
-  egg: {
-    label: "RYUUTAMA.MONSTER.CATEGORIES.egg",
-  },
   intelligent: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.intelligent",
   },
@@ -234,6 +228,25 @@ export const monsterCategories = {
     armorBypasses: new Set(["mythril", "orichalcum"]),
   },
 };
+Prelocalization.prelocalize(monsterCategories);
+
+/* -------------------------------------------------- */
+
+export const seasons = {
+  spring: {
+    label: "RYUUTAMA.SEASONS.spring",
+  },
+  summer: {
+    label: "RYUUTAMA.SEASONS.summer",
+  },
+  fall: {
+    label: "RYUUTAMA.SEASONS.fall",
+  },
+  winter: {
+    label: "RYUUTAMA.SEASONS.winter",
+  },
+};
+Prelocalization.prelocalize(seasons);
 
 /* -------------------------------------------------- */
 

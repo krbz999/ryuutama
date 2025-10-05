@@ -96,7 +96,7 @@
 
         .value {
           border-radius: 3px;
-          background-color: hsl(from var(--ryuutama-color-value-location) h s l / 0.1);
+          background-color: hsl(from var(--ryuutama-color-value-location) h s l / 0.05);
         }
 
         * {
@@ -121,6 +121,7 @@
   .capacity {
     position: relative;
     height: 1.5rem;
+    min-height: 1.5rem;
     display: flex;
     border-radius: 5px;
     overflow: hidden;
@@ -134,7 +135,7 @@
       left: 0;
       bottom: 0;
       right: calc(100% - var(--fill));
-      background-color: hsl(from red h s l / 0.5);
+      background-color: hsl(from var(--ryuutama-color-capacity-bar) h s l / 0.5);
     }
 
     .display {
@@ -145,6 +146,23 @@
       right: 0;
       text-align: center;
       align-content: center;
+    }
+  }
+
+  .equipped {
+    display: flex;
+    gap: 2px;
+
+    .item {
+      display: flex;
+      flex: 1;
+      text-align: center;
+      flex-direction: column-reverse;
+    }
+
+    .empty-slot {
+      border: 1px solid var(--ryuutama-color-gold);
+      aspect-ratio: 1;
     }
   }
 }

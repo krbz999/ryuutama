@@ -1,0 +1,5 @@
+<section>
+  {{formGroup systemFields.attack.fields.accuracy value=(ifThen disabled document.system.attack.accuracy source.system.attack.accuracy) disabled=disabled placeholder="@stats.dexterity + @stats.strength"}}
+
+  {{formGroup systemFields.attack.fields.damage value=(ifThen disabled document.system.attack.damage source.system.attack.damage) disabled=disabled placeholder="@stats.strength"}}
+</section>

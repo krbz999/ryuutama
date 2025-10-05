@@ -57,6 +57,18 @@ export default class TravelerData extends CreatureData {
   /* -------------------------------------------------- */
 
   /**
+   * Can the character equip and make use of a shield?
+   * @type {boolean}
+   */
+  get canEquipShield() {
+    const weapon = this.equipped.weapon;
+    if (!weapon) return true;
+    return weapon.system.grip !== 2;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * The number of cursed equipment the character has equipped.
    * @type {number}
    */

@@ -78,7 +78,7 @@ Hooks.once("init", () => {
     { label: "RYUUTAMA.SHEETS.ItemSheet", makeDefault: true },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
-    foundry.documents.Actor, ryuutama.id, applications.sheets.RyuutamaActorSheet,
+    foundry.documents.Actor, ryuutama.id, applications.sheets.RyuutamaTravelerSheet,
     { label: "RYUUTAMA.SHEETS.ActorSheet", makeDefault: true, types: ["traveler"] },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(

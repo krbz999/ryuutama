@@ -21,6 +21,7 @@
     --ryuutama-inventory-hover-color: rgba(0, 0, 0, 0.1);
     --ryuutama-color-value-location: black;
     --ryuutama-color-disabled: var(--ryuutama-color-gold-dark);
+    --ryuutama-color-capacity-bar: rgb(219, 124, 16);
   }
 
   .theme-dark, .themed.theme-dark {
@@ -28,5 +29,6 @@
     --ryuutama-inventory-hover-color: rgba(255, 255, 255, 0.1);
     --ryuutama-color-value-location: white;
     --ryuutama-color-disabled: var(--ryuutama-color-gold);
+    --ryuutama-color-capacity-bar: rgb(218, 143, 59);
   }
 }

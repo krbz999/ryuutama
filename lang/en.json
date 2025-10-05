@@ -51,7 +51,9 @@
         "ITEM": {
           "view": "View Item",
           "edit": "Edit Item",
-          "delete": "Delete Item"
+          "delete": "Delete Item",
+          "equip": "Equip Item",
+          "unequip": "Unequip Item"
         }
       },
       "HP": "HP",
@@ -62,7 +64,8 @@
       "condition": "Condition",
       "capacityPenalty": "penalty",
       "statusImmune": "Immune",
-      "statusSuppressed": "Suppressed ({strength})"
+      "statusSuppressed": "Suppressed ({strength})",
+      "specialAbility": "Special Ability"
     },
     "CREATURE": {
       "FIELDS": {
@@ -86,9 +89,25 @@
     },
     "MONSTER": {
       "FIELDS": {
+        "armor.value.label": "Armor",
+        "attack.accuracy.label": "Accuracy Formula",
+        "attack.damage.label": "Damage Formula",
+        "description.special.name.label": "Special Ability",
         "description.value.label": "Description",
+        "details.category.label": "Monster Category",
+        "details.dragonica.label": "Dragonica No.",
         "details.level.label": "Level",
+        "environment.season.label": "Season",
         "initiative.value.label": "Initiative"
+      },
+      "CATEGORIES": {
+        "demonstone": "Demonstone",
+        "demon": "Demon",
+        "intelligent": "Intelligent Race",
+        "magical": "Magical Creature",
+        "phantomBeast": "Phantom Beast",
+        "phantomPlant": "Phantom Plant",
+        "undead": "Undead"
       }
     },
     "PARTY": {
@@ -139,6 +158,9 @@
         "specialized": "Specialized Set"
       }
     },
+    "ATTACK": {
+      "title": "Configure Attack: {name}"
+    },
     "CONDITION": {
       "title": "Configure Condition: {name}",
       "current": "Current Condition"
@@ -154,12 +176,17 @@
       "man": "Man",
       "woman": "Woman"
     },
-
     "RESOURCE": {
       "title": "Configure {resource}: {name}",
       "bonuses": "Bonuses",
       "stamina": "HP",
       "mental": "MP"
+    },
+    "SEASONS": {
+      "winter": "Winter",
+      "spring": "Spring",
+      "summer": "Summer",
+      "fall": "Fall"
     },
 
     "ITEM": {

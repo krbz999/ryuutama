@@ -1,10 +1,10 @@
+import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
+
 /**
  * @import RyuutamaItem from "../../documents/item.mjs";
  * @import DragDrop from "@client/applications/ux/drag-drop.mjs";
  * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
  */
-
-import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 
 /**
  * Base actor sheet.
@@ -23,55 +23,6 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
-  static PARTS = {
-    navigation: {
-      template: "templates/generic/tab-navigation.hbs",
-    },
-    attributes: {
-      template: "systems/ryuutama/templates/sheets/actor-sheet/attributes.hbs",
-      classes: ["tab", "standard-form", "scrollable"],
-    },
-    details: {
-      template: "systems/ryuutama/templates/sheets/actor-sheet/details.hbs",
-      classes: ["tab", "standard-form", "scrollable"],
-    },
-    inventory: {
-      template: "systems/ryuutama/templates/sheets/actor-sheet/inventory.hbs",
-      classes: ["tab", "standard-form", "scrollable"],
-    },
-    notes: {
-      template: "systems/ryuutama/templates/sheets/actor-sheet/notes.hbs",
-      classes: ["tab", "standard-form", "scrollable"],
-    },
-  };
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static TABS = {
-    primary: {
-      tabs: [
-        { id: "attributes" },
-        { id: "details" },
-        { id: "inventory" },
-        { id: "notes" },
-      ],
-      initial: "attributes",
-      labelPrefix: "RYUUTAMA.ACTOR.TABS",
-    },
-    inventory: {
-      tabs: [
-        { id: "arsenal" },
-        { id: "gear" },
-      ],
-      initial: "arsenal",
-      labelPrefix: "RYUUTAMA.ACTOR.INVENTORY_TABS",
-    },
-  };
-
-  /* -------------------------------------------------- */
-
   /**
    * A reference to the DragDrop instance, reused across re-renders.
    * @type {DragDrop}
@@ -84,37 +35,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
-    context.tabs = this._prepareTabs("primary");
-    context.inventoryTabs = this._prepareTabs("inventory");
-
-    // Subsections on the inventory tab
-    const inventorySection = (...types) => {
-      const groups = [];
-      for (const type of types) {
-        const items = this.document.items.documentsByType[type];
-        if (!items.length) continue;
-        groups.push({
-          label: game.i18n.localize(`TYPES.Item.${type}Pl`),
-          items: items.map(item => ({ document: item })),
-        });
-      }
-      return groups;
-    };
-
-    context.inventorySections = [
-      {
-        id: "arsenal",
-        cssClass: context.inventoryTabs.arsenal.cssClass,
-        groups: inventorySection("weapon", "shield", "armor"),
-      },
-      {
-        id: "gear",
-        cssClass: context.inventoryTabs.gear.cssClass,
-        groups: inventorySection("hat", "cape", "shoes", "accessory", "staff"),
-      },
-    ];
-
-    // Options for abilities.
+    // Abilities.
     context.abilities = Object.keys(ryuutama.config.abilityScores).map(abi => {
       return {
         ability: abi,
@@ -123,25 +44,6 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
         value: this.document.system.abilities[abi],
       };
     });
-
-    const rollData = this.document.getRollData();
-    const enrichment = { relativeTo: this.document, rollData };
-    context.enriched = {
-      appearance: await CONFIG.ux.TextEditor.enrichHTML(this.document.system.background.appearance, enrichment),
-      hometown: await CONFIG.ux.TextEditor.enrichHTML(this.document.system.background.hometown, enrichment),
-      notes: await CONFIG.ux.TextEditor.enrichHTML(this.document.system.background.notes, enrichment),
-    };
-
-    context.equipped = {};
-    for (const type of ["weapon", "shield", "armor", "hat", "cape", "shoes", "accessory", "staff"]) {
-      context.equipped[type] = {
-        label: game.i18n.localize(`TYPES.Item.${type}`),
-        options: this.document.items.documentsByType[type].map(item => ({ value: item.id, label: item.name })),
-        value: this.document.system._source.equipped[type],
-      };
-    }
-    if (this.document.system.equipped.weapon?.system.grip === 2) delete context.equipped.shield;
-    context.weaponImage = this.document.system.equipped.weapon?.img ?? ryuutama.config.unarmedConfiguration.icon;
 
     // Status effects.
     const immunities = this.document.system.condition.immunities;
@@ -173,11 +75,11 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
     await super._onFirstRender(context, options);
 
     // Manage items.
-    this._createContextMenu(RyuutamaActorSheet.#createItemContextOptions.bind(this), "inventory-element .entry", {
-      hookName: "get{}ItemContextOptions",
-      parentClassHooks: false,
-      fixed: true,
-    });
+    this._createContextMenu(
+      RyuutamaActorSheet.#createItemContextOptions.bind(this),
+      "inventory-element .entry, .equipped [data-item-id]",
+      { hookName: "get{}ItemContextOptions", parentClassHooks: false, fixed: true },
+    );
   }
 
   /* -------------------------------------------------- */
@@ -226,23 +128,55 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    * @returns {ContextMenuEntry[]}
    */
   static #createItemContextOptions() {
+    const getItem = target => this.document.items.get(target.dataset.itemId);
+
     /** @type {ContextMenuEntry[]} */
     const options = [
       {
         name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.view",
         icon: "fa-solid fa-fw fa-eye",
-        callback: target => this.document.items.get(target.dataset.itemId).sheet.render({ force: true, mode: 1 }),
+        callback: target => getItem(target).sheet.render({ force: true, mode: 1 }),
       },
       {
         name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.edit",
         icon: "fa-solid fa-fw fa-edit",
-        callback: target => this.document.items.get(target.dataset.itemId).sheet.render({ force: true, mode: 0 }),
+        callback: target => getItem(target).sheet.render({ force: true, mode: 0 }),
       },
       {
         name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.delete",
         icon: "fa-solid fa-fw fa-trash",
-        callback: target => this.document.items.get(target.dataset.itemId).deleteDialog(),
+        callback: target => getItem(target).deleteDialog(),
         condition: () => this.isEditable,
+      },
+      {
+        group: "system",
+        name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.equip",
+        icon: "fa-solid fa-fw fa-shield",
+        condition: target => {
+          if (!this.isEditable || (this.document.type !== "traveler")) return false;
+          const item = getItem(target);
+          if ((item.type === "shield") && !this.document.system.canEquipShield) return false;
+          const equipped = this.document.system.equipped[item.type];
+          return equipped !== item;
+        },
+        callback: target => {
+          const item = getItem(target);
+          this.document.update({ [`system.equipped.${item.type}`]: item.id });
+        },
+      },
+      {
+        group: "system",
+        name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.unequip",
+        icon: "fa-solid fa-fw fa-shield-alt",
+        condition: target => {
+          const item = getItem(target);
+          return this.isEditable && (this.document.type === "traveler")
+            && (this.document.system.equipped[item.type] === item);
+        },
+        callback: target => {
+          const item = getItem(target);
+          this.document.update({ [`system.equipped.${item.type}`]: null });
+        },
       },
     ];
 
@@ -307,7 +241,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    */
   static #renderItem(event, target) {
     const item = this.document.items.get(target.dataset.itemId, { strict: true });
-    item.sheet.render({ force: true, mode: 0 });
+    item.sheet.render({ force: true, mode: 1 });
   }
 
   /* -------------------------------------------------- */
@@ -339,6 +273,9 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       case "resource":
         options.resource = target.dataset.resource;
         application = new ryuutama.applications.apps.ResourceConfig(options);
+        break;
+      case "attack":
+        application = new ryuutama.applications.apps.AttackConfig(options);
         break;
     }
     if (!application) return;

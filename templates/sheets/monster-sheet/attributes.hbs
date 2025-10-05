@@ -1,65 +1,110 @@
 <section data-tab="{{tabs.attributes.id}}" class="{{tabs.attributes.cssClass}}" data-group="{{tabs.attributes.group}}">
-  <fieldset style="display: grid; grid-template-columns: repeat(4, 1fr);">
-    <button type="button" data-action="rollCheck" data-check="check" {{disabled (not editable)}}>
-      <i class="fa-solid fa-burst"></i>
-      <span>Roll check</span>
-    </button>
 
-    <button type="button" data-action="rollCheck" data-check="initiative" {{disabled (not editable)}}>
-      <i class="fa-solid fa-burst"></i>
-      <span>roll intiaitive</span>
-    </button>
-  </fieldset>
+  {{!-- ABILITIES --}}
+  <div class="icon-fields">
+    {{#each abilities}}
+    <div class="icon-field">
+      {{#if @root.isEditable}}
+      <button type="button" data-action="configure" data-config="ability" data-ability="{{ability}}" class="icon fa-solid fa-cog"></button>
+      {{else}}
+      <ryuutama-icon src="{{icon}}"></ryuutama-icon>
+      {{/if}}
+      <div class="form-group stacked">
+        <label>{{label}}</label>
+        <div class="form-fields">
+          <span class="value">{{value.die}}</span>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 
-  <div class="form-group">
-    {{!-- <label> --}}
-      <button type="button" data-action="rollCheck" data-check="accuracy" {{disabled (not editable)}}>
-        <i class="fa-solid fa-burst"></i>
-        <span>Roll accurcy</span>
-      </button>
-      {{!-- </label> --}}
+  {{!-- HP & MP --}}
+  <div class="form-group wide">
+    <label>{{localize "RYUUTAMA.ACTOR.HP"}}</label>
     <div class="form-fields">
-      {{formInput systemFields.attack.fields.accuracy value=(ifThen disabled document.system.attack.accuracy source.system.attack.accuracy) disabled=disabled placeholder="@stats.dexterity + @stats.strength"}}
+      <resource-bar name="system.resources.stamina.value" class="stamina"></resource-bar>
+      {{#unless disabled}}
+      <button type="button" data-action="configure" data-config="resource" data-resource="stamina" class="icon fa-solid fa-cog"></button>
+      {{/unless}}
+    </div>
+  </div>
+  <div class="form-group wide">
+    <label>{{localize "RYUUTAMA.ACTOR.MP"}}</label>
+    <div class="form-fields">
+      <resource-bar name="system.resources.mental.value" class="mental"></resource-bar>
+      {{#unless disabled}}
+      <button type="button" data-action="configure" data-config="resource" data-resource="mental" class="icon fa-solid fa-cog"></button>
+      {{/unless}}
     </div>
   </div>
 
-  <div class="form-group">
-    <button type="button" data-action="rollCheck" data-check="damage" {{disabled (not editable)}}>
+  {{!-- ATTACK & CHECK --}}
+  <div class="icon-fields">
+    <div class="icon-field">
+      {{#if isEditable}}
+      <button type="button" data-action="configure" data-config="attack" class="icon fa-solid fa-cog"></button>
+      {{else}}
+      <img src="{{attackImage}}" alt="">
+      {{/if}}
+      <div class="attack">
+        <button type="button" data-action="rollCheck" data-check="accuracy" {{disabled (not editable)}}>{{localize "RYUUTAMA.ACTOR.rollAccuracy"}}</button>
+        <button type="button" data-action="rollCheck" data-check="damage" {{disabled (not editable)}}>{{localize "RYUUTAMA.ACTOR.rollDamage"}}</button>
+      </div>
+    </div>
+
+    <button type="button" class="heightened" data-action="rollCheck" data-check="check" {{disabled (not editable)}}>
       <i class="fa-solid fa-burst"></i>
-      <span>rol dmg</span>
+      <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
     </button>
-    <div class="form-fields">
-      {{formInput systemFields.attack.fields.damage value=(ifThen disabled document.system.attack.damage source.system.attack.damage) disabled=disabled placeholder="@stats.strength"}}
+  </div>
+
+  {{!-- STATUSES --}}
+  <div class="icon-fields column-3">
+    {{#each statuses}}
+    <div class="icon-field">
+      <a data-action="toggleStatus" data-status="{{status}}">
+        <ryuutama-icon src="{{img}}" {{#if active}} class="active" {{/if}}></ryuutama-icon>
+      </a>
+      <div class="form-group stacked">
+        <label>{{name}}</label>
+        <div class="form-fields">
+          <span class="value italics">{{label}}</span>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  <div class="icon-fields">
+    {{!-- CONDITION --}}
+    <div class="icon-field">
+      {{#if isEditable}}
+      <button type="button" data-action="configure" data-config="condition" class="icon fa-solid fa-cog"></button>
+      {{else}}
+      <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/condition.svg"></ryuutama-icon>
+      {{/if}}
+      <div class="form-group stacked">
+        <label>{{localize "RYUUTAMA.ACTOR.condition"}}</label>
+        <div class="form-fields">
+          <span class="value">{{ifThen document.system.condition.value document.system.condition.value 0}}</span>
+        </div>
+      </div>
+    </div>
+
+    {{!-- ARMOR --}}
+    <div class="icon-field">
+      <ryuutama-icon src=""></ryuutama-icon>
+      {{formGroup systemFields.armor.fields.value value=(ifThen disabled document.system.armor.value source.system.armor.value) disabled=disabled classes="stacked" placeholder="-"}}
     </div>
   </div>
 
-  <fieldset>
-    <legend>{{localize "RYUUTAMA.TRAVELER.abilities"}}</legend>
-    <div class="form-group">
-      <div class="form-fields">
-        {{#each abilities}}
-        {{formGroup field value=value disabled=disabled options=options classes="stacked"}}
-        {{/each}}
-      </div>
-    </div>
-  </fieldset>
+  {{!-- SPECIAL ABILITY --}}
+  {{#if (or isEditable enriched.special)}}
+  {{#unless disabled}}
+  {{formGroup systemFields.description.fields.special.fields.name value=(ifThen disabled document.system.description.special.name source.system.description.special.name) placeholder=(localize "RYUUTAMA.ACTOR.specialAbility") disabled=disabled}}
+  {{/unless}}
+  {{formGroup systemFields.description.fields.special.fields.value value=source.system.description.special.value enriched=enriched.special disabled=disabled toggled=disabled label=(ifThen disabled specialAbility "")}}
+  {{/if}}
 
-  <fieldset>
-    <legend>hp/mp</legend>
-    <div class="form-group">
-      <label>hp ({{document.system.resources.stamina.value}}/{{document.system.resources.stamina.max}})</label>
-      <div class="form-fields">
-        {{formGroup systemFields.resources.fields.stamina.fields.spent value=(ifThen disabled document.system.resources.stamina.spent source.system.resources.stamina.spent) disabled=(not editable)}}
-        {{formGroup systemFields.resources.fields.stamina.fields.max value=(ifThen disabled document.system.resources.stamina.max source.system.resources.stamina.max) disabled=disabled}}
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>mp ({{document.system.resources.mental.value}}/{{document.system.resources.mental.max}})</label>
-      <div class="form-fields">
-        {{formGroup systemFields.resources.fields.mental.fields.spent value=(ifThen disabled document.system.resources.mental.spent source.system.resources.mental.spent) disabled=(not editable)}}
-        {{formGroup systemFields.resources.fields.mental.fields.max value=(ifThen disabled document.system.resources.mental.max source.system.resources.mental.max) disabled=disabled}}
-      </div>
-    </div>
-  </fieldset>
 </section>
