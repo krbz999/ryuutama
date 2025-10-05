@@ -66,8 +66,7 @@
       "condition": "Condition",
       "capacityPenalty": "penalty",
       "statusImmune": "Immune",
-      "statusSuppressed": "Suppressed ({strength})",
-      "specialAbility": "Special Ability"
+      "statusSuppressed": "Suppressed ({strength})"
     },
     "CREATURE": {
       "FIELDS": {
@@ -110,7 +109,15 @@
         "phantomBeast": "Phantom Beast",
         "phantomPlant": "Phantom Plant",
         "undead": "Undead"
-      }
+      },
+      "HABITAT": {
+        "all": "All",
+        "title": "Configure Habitat"
+      },
+      "habitat": "Habitat",
+      "allHabitats": "This monster can be found in all habitats.",
+      "noHabitats": "No known habitats.",
+      "specialAbility": "Special Ability"
     },
     "PARTY": {
       "FIELDS": {}
@@ -371,6 +378,9 @@
       "desert": "Desert",
       "grassland": "Grassland",
       "highland": "Highland",
+      "sea": "Sea",
+      "pond": "Pond",
+      "low": "Low",
 
       "CATEGORY": {
         "all": "All terrain types",

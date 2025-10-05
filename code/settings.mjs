@@ -1,4 +1,4 @@
-const { ForeignDocumentField, SchemaField, StringField } = foundry.data.fields;
+const { ForeignDocumentField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default function registerSettings() {
   // Storing the primary party's id.
@@ -18,10 +18,10 @@ export default function registerSettings() {
     scope: "world",
     requiresReload: false,
     type: new SchemaField({
-      terrain: new StringField({ required: true, blank: true, choices: () => ryuutama.config.terrainTypes }),
-      weather: new StringField({ required: true, blank: true, choices: () => ryuutama.config.weatherTypes }),
+      terrain: new SetField(new StringField({ choices: () => ryuutama.config.terrainTypes })),
+      weather: new SetField(new StringField({ choices: () => ryuutama.config.weatherTypes })),
     }),
-    default: { terrain: "", weather: "" },
+    default: { terrain: [], weather: [] },
     config: false,
     onChange: value => onChangeHabitat(value),
   });
@@ -74,7 +74,7 @@ async function configureHabitat() {
   const fields = [];
   const current = game.settings.get(ryuutama.id, "currentHabitat");
   for (const field of game.settings.settings.get("ryuutama.currentHabitat").type) {
-    fields.push(field.toFormGroup({}, { value: current[field.name] }));
+    fields.push(field.toFormGroup({}, { value: current[field.name], type: "checkboxes" }));
   }
 
   let habitat = await foundry.applications.api.Dialog.input({
@@ -100,14 +100,13 @@ function onChangeHabitat(value, button = null) {
   let { terrain, weather } = value;
 
   let text = `<span>${game.i18n.localize("RYUUTAMA.HABITAT.currentHabitat")}</span>`;
-  let current = [];
+  const formatter = game.i18n.getListFormatter();
 
-  terrain = ryuutama.config.terrainTypes[terrain]?.label;
-  if (terrain) current.push(terrain);
+  terrain = terrain.map(key => ryuutama.config.terrainTypes[key]?.label).filter(_ => _);
+  if (terrain.size) text += `<span>${formatter.format(terrain)}</span>`;
 
-  weather = ryuutama.config.weatherTypes[weather]?.label;
-  if (weather) current.push(weather);
+  weather = weather.map(key => ryuutama.config.weatherTypes[key]?.label).filter(_ => _);
+  if (weather.size) text += `<span>${formatter.format(weather)}</span>`;
 
-  if (current.length) text += `<span>${current.join(" + ")}</span>`;
   button.innerHTML = text;
 }

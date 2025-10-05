@@ -49,8 +49,6 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
     };
 
     context.attackImage = ryuutama.config.unarmedConfiguration.icon;
-    context.specialAbility = context.source.system.description.special.name
-      || game.i18n.localize("RYUUTAMA.ACTOR.specialAbility");
 
     context.seasonOptions = Object.entries(ryuutama.config.seasons).map(([k, v]) => {
       return { value: k, label: v.label };

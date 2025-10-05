@@ -6,6 +6,13 @@
 
   {{!-- ENVIRONMENT --}}
   {{formGroup systemFields.environment.fields.season value=(ifThen disabled document.system.environment.season source.system.environment.season) options=seasonOptions disabled=disabled classes="slim"}}
+  <div class="form-group">
+    <label>{{localize "RYUUTAMA.MONSTER.habitat"}}</label>
+    <div class="form-fields">
+      <button type="button" data-action="configure" data-config="habitat" class="icon fa-solid fa-cog" {{disabled disabled}}></button>
+    </div>
+    <p class="hint">{{document.system.environment.habitatLabel}}</p>
+  </div>
 
   {{!-- DETAILS --}}
   {{formGroup systemFields.details.fields.dragonica value=(ifThen disabled document.system.details.dragonica source.system.details.dragonica) disabled=disabled classes="slim"}}

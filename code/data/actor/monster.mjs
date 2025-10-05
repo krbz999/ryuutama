@@ -78,5 +78,11 @@ export default class MonsterData extends CreatureData {
 
     this.attack.accuracy ||= "@stats.dexterity + @stats.strength";
     this.attack.damage ||= "@stats.strength";
+
+    const habitat = this.environment.habitat;
+    const habitats = habitat.map(h => ryuutama.config.monsterTerrains[h]?.label).filter(_ => _);
+    if (habitat.has("ALL")) this.environment.habitatLabel = game.i18n.localize("RYUUTAMA.MONSTER.allHabitats");
+    else if (!habitats.size) this.environment.habitatLabel = game.i18n.localize("RYUUTAMA.MONSTER.noHabitats");
+    else this.environment.habitatLabel = game.i18n.getListFormatter().format(habitats);
   }
 }

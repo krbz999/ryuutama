@@ -1,0 +1,13 @@
+<section>
+  <label class="checkbox">
+    <span>{{localize "RYUUTAMA.MONSTER.HABITAT.all"}}</span>
+    <input type="checkbox" name="habitat" value="ALL" {{checked hasAll}}>
+  </label>
+
+  {{#each terrainOptions}}
+  <label class="checkbox">
+    <span>{{label}}</span>
+    <input type="checkbox" name="habitat" value="{{value}}" {{checked checked}} {{disabled disabled}}>
+  </label>
+  {{/each}}
+</section>

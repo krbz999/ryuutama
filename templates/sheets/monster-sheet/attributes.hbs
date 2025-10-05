@@ -102,9 +102,16 @@
   {{!-- SPECIAL ABILITY --}}
   {{#if (or isEditable enriched.special)}}
   {{#unless disabled}}
-  {{formGroup systemFields.description.fields.special.fields.name value=(ifThen disabled document.system.description.special.name source.system.description.special.name) placeholder=(localize "RYUUTAMA.ACTOR.specialAbility") disabled=disabled}}
+  {{formGroup systemFields.description.fields.special.fields.name value=(ifThen disabled document.system.description.special.name source.system.description.special.name) placeholder=(localize "RYUUTAMA.MONSTER.specialAbility") disabled=disabled}}
   {{/unless}}
-  {{formGroup systemFields.description.fields.special.fields.value value=source.system.description.special.value enriched=enriched.special disabled=disabled toggled=disabled label=(ifThen disabled specialAbility "")}}
+  <section>
+    {{#if disabled}}
+    <p>
+      <strong>{{localize "RYUUTAMA.MONSTER.specialAbility"}}: {{document.system.description.special.name}}</strong>
+    </p>
+    {{/if}}
+    {{formInput systemFields.description.fields.special.fields.value value=source.system.description.special.value enriched=enriched.special disabled=disabled toggled=disabled}}
+  </section>
   {{/if}}
 
 </section>

@@ -3,8 +3,10 @@
   width: var(--players-width, 200px);
   background: var(--background-color);
   border: 1px solid var(--color-border);
-  height: 60px;
+  min-height: 60px;
+  height: fit-content;
   display: grid;
+  padding: 0.5rem;
 
   &:hover {
     box-shadow: 0 0 10px var(--color-shadow-highlight);

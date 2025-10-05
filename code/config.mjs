@@ -410,6 +410,22 @@ Prelocalization.prelocalize(terrainTypes);
 
 /* -------------------------------------------------- */
 
+export const monsterTerrains = {
+  ...foundry.utils.deepClone(terrainTypes),
+  sea: {
+    label: "RYUUTAMA.TERRAIN.sea",
+  },
+  pond: {
+    label: "RYUUTAMA.TERRAIN.pond",
+  },
+  low: {
+    label: "RYUUTAMA.TERRAIN.low",
+  },
+};
+Prelocalization.prelocalize(monsterTerrains);
+
+/* -------------------------------------------------- */
+
 /**
  * @type {Record<string, TravelerTypeConfig>}
  */

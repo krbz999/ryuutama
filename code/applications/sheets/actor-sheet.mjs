@@ -277,6 +277,9 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       case "attack":
         application = new ryuutama.applications.apps.AttackConfig(options);
         break;
+      case "habitat":
+        application = new ryuutama.applications.apps.MonsterHabitatConfig(options);
+        break;
     }
     if (!application) return;
     application.render({ force: true });
