@@ -1,0 +1,27 @@
+#ryuutama-current-habitat {
+  pointer-events: all;
+  width: var(--players-width, 200px);
+  background: var(--background-color);
+  border: 1px solid var(--color-border);
+  height: 60px;
+  display: grid;
+
+  &:hover {
+    box-shadow: 0 0 10px var(--color-shadow-highlight);
+  }
+
+  .themed.theme-light & {
+    --background-color: rgba(255, 255, 255, 0.6);
+    --color-border: white;
+
+    &:hover {
+      color: black;
+    }
+  }
+
+  .themed.theme-dark & {
+    --background-color: var(--color-cool-5);
+    --color-border: black;
+    color: var(--color-text-light-hightlight);
+  }
+}

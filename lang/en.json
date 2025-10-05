@@ -230,7 +230,8 @@
       "CONFIG": {
         "uncategorized": "Uncategorized",
         "title": "Configure Terrain & Weather Conditions"
-      }
+      },
+      "currentHabitat": "Current Habitat"
     },
     "PHYSICAL": {
       "FIELDS": {
