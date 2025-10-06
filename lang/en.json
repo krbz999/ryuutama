@@ -298,6 +298,7 @@
     },
 
     "PACKS": {
+      "ACTORS": "Actors",
       "ITEMS": "Items"
     },
 

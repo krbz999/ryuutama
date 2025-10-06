@@ -1,0 +1,186 @@
+{
+  "name": "Walking Egg",
+  "type": "monster",
+  "_id": "walkingegg000000",
+  "img": "",
+  "system": {
+    "description": {
+      "value": "<p>A mysterious thirty-centimeter tall egg with human-like arms and legs that can be seen walking around the world. Many people have tried to solve the mystery of where they came from and what they're going to become, but so far none have.</p>",
+      "special": {
+        "value": "<p>It is said that if a Walking Egg is defeated by reducing its HP to exactly 0, a blessing occurs. All members of a party so blessed will receive 100 XP.</p>",
+        "name": "Travelers' Blessing"
+      }
+    },
+    "condition": {
+      "value": 6,
+      "immunities": []
+    },
+    "initiative": {
+      "value": 9
+    },
+    "details": {
+      "level": 1,
+      "category": "",
+      "dragonica": 2
+    },
+    "resources": {
+      "stamina": {
+        "max": 4,
+        "bonuses": {
+          "flat": null,
+          "level": null
+        },
+        "spent": 0
+      },
+      "mental": {
+        "max": 4,
+        "spent": 0,
+        "bonuses": {
+          "flat": null,
+          "level": null
+        }
+      }
+    },
+    "abilities": {
+      "dexterity": {
+        "value": 8
+      },
+      "strength": {
+        "value": 2
+      },
+      "intelligence": {
+        "value": 2
+      },
+      "spirit": {
+        "value": 2
+      }
+    },
+    "attack": {
+      "accuracy": "",
+      "damage": ""
+    },
+    "armor": {
+      "value": null
+    },
+    "environment": {
+      "habitat": [
+        "ALL"
+      ],
+      "season": "spring"
+    }
+  },
+  "prototypeToken": {
+    "name": "Walking Egg",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": null
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": ""
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [],
+  "effects": [],
+  "folder": "eggs000000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759790688989,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!actors!walkingegg000000"
+}

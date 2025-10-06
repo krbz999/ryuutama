@@ -129,6 +129,12 @@
   },
   "packs": [
     {
+      "name": "actors",
+      "label": "RYUUTAMA.PACKS.ACTORS",
+      "type": "Actor",
+      "banner": "systems/ryuutama/assets/official/banners/actors.webp"
+    },
+    {
       "name": "items",
       "label": "RYUUTAMA.PACKS.ITEMS",
       "type": "Item",
@@ -140,6 +146,7 @@
       "name": "Ryuutama",
       "color": "#0089bd",
       "packs": [
+        "actors",
         "items"
       ]
     }
