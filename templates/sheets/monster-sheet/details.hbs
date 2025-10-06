@@ -1,22 +1,35 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
   {{formGroup fields.name value=(ifThen disabled document.name source.name) disabled=disabled}}
   {{formGroup fields.img value=(ifThen disabled document.img source.img) disabled=disabled classes="slim"}}
+
+  {{!-- INITIATIVE --}}
   {{formGroup systemFields.initiative.fields.value value=(ifThen disabled document.system.initiative.value source.system.initiative.value) disabled=disabled classes="slim"}}
+
+  {{!-- LEVEL --}}
   {{formGroup systemFields.details.fields.level value=(ifThen disabled document.system.details.level source.system.details.level) disabled=disabled type="number" classes="slim"}}
 
-  {{!-- ENVIRONMENT --}}
-  {{formGroup systemFields.environment.fields.season value=(ifThen disabled document.system.environment.season source.system.environment.season) options=seasonOptions disabled=disabled classes="slim"}}
-  <div class="form-group">
-    <label>{{localize "RYUUTAMA.MONSTER.habitat"}}</label>
-    <div class="form-fields">
-      <button type="button" data-action="configure" data-config="habitat" class="icon fa-solid fa-cog" {{disabled disabled}}></button>
-    </div>
-    <p class="hint">{{document.system.environment.habitatLabel}}</p>
-  </div>
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.MONSTER.monsterDetails"}}</legend>
 
-  {{!-- DETAILS --}}
-  {{formGroup systemFields.details.fields.dragonica value=(ifThen disabled document.system.details.dragonica source.system.details.dragonica) disabled=disabled classes="slim"}}
-  {{formGroup systemFields.details.fields.category value=(ifThen disabled document.system.details.category source.system.details.category) disabled=disabled classes="slim"}}
+    {{!-- CATEGORY --}}
+    {{formGroup systemFields.details.fields.category value=(ifThen disabled document.system.details.category source.system.details.category) disabled=disabled classes="slim"}}
+
+    {{!-- ENVIRONMENT --}}
+    <div class="form-group">
+      <label>{{localize "RYUUTAMA.MONSTER.habitat"}}</label>
+      <div class="form-fields">
+        <button type="button" data-action="configure" data-config="habitat" class="icon fa-solid fa-cog" {{disabled disabled}}></button>
+      </div>
+      <p class="hint">{{document.system.environment.habitatLabel}}</p>
+    </div>
+
+    {{!-- SEASON --}}
+    {{formGroup systemFields.environment.fields.season value=(ifThen disabled document.system.environment.season source.system.environment.season) options=seasonOptions disabled=disabled classes="slim"}}
+
+    {{!-- DRAGONICA NO. --}}
+    {{formGroup systemFields.details.fields.dragonica value=(ifThen disabled document.system.details.dragonica source.system.details.dragonica) disabled=disabled classes="slim"}}
+
+  </fieldset>
 
   {{!-- DESCRIPTION --}}
   {{formGroup systemFields.description.fields.value value=source.system.description.value enriched=enriched.description disabled=disabled toggled=disabled}}

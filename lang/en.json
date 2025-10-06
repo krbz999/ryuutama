@@ -117,7 +117,8 @@
       "habitat": "Habitat",
       "allHabitats": "This monster can be found in all habitats.",
       "noHabitats": "No known habitats.",
-      "specialAbility": "Special Ability"
+      "specialAbility": "Special Ability",
+      "monsterDetails": "Monster Details"
     },
     "PARTY": {
       "FIELDS": {}
