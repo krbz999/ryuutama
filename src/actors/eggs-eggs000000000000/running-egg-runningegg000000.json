@@ -1,27 +1,27 @@
 {
-  "name": "Walking Egg",
+  "name": "Running Egg",
   "type": "monster",
-  "_id": "walkingegg000000",
+  "_id": "runningegg000000",
   "img": "",
   "system": {
     "description": {
-      "value": "<p>A mysterious thirty-centimeter tall egg with human-like arms and legs that can be seen walking around the world. Many people have tried to solve the mystery of where they came from and what they're going to become, but so far none have.</p>",
+      "value": "<p>A mysterious fifty-centimeter tall egg with human-like arms and muscular legs that can be seen running around the world. Running eggs can move with such speed that it is said that none can catch them. Defeating a Running Egg will bring even more luck than a Walking Egg.</p>",
       "special": {
-        "value": "<p>It is said that if a Walking Egg is defeated by reducing its HP to exactly 0, a blessing occurs. All members of a party so blessed will receive 100 XP.</p>",
+        "value": "<p>It is said that if a Running Egg is defeated by reducing its HP to exactly 0, a blessing occurs. All members of a party so blessed will receive 200 XP.</p>",
         "name": "Travelers' Blessing"
       }
     },
     "condition": {
-      "value": 6,
+      "value": 7,
       "immunities": []
     },
     "initiative": {
-      "value": 9
+      "value": 10
     },
     "details": {
-      "level": 1,
+      "level": 3,
       "category": "",
-      "dragonica": 2
+      "dragonica": 3
     },
     "resources": {
       "stamina": {
@@ -33,7 +33,7 @@
         "spent": 0
       },
       "mental": {
-        "max": 4,
+        "max": 8,
         "spent": 0,
         "bonuses": {
           "flat": null,
@@ -43,7 +43,7 @@
     },
     "abilities": {
       "dexterity": {
-        "value": 8
+        "value": 10
       },
       "strength": {
         "value": 2
@@ -52,7 +52,7 @@
         "value": 2
       },
       "spirit": {
-        "value": 2
+        "value": 4
       }
     },
     "attack": {
@@ -64,13 +64,15 @@
     },
     "environment": {
       "habitat": [
-        "ALL"
+        "wasteland",
+        "woods",
+        "rocky"
       ],
-      "season": "spring"
+      "season": "winter"
     }
   },
   "prototypeToken": {
-    "name": "Walking Egg",
+    "name": "Running Egg",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
@@ -178,9 +180,9 @@
     "coreVersion": "13.350",
     "systemId": "ryuutama",
     "systemVersion": "DEVELOP",
-    "createdTime": 1759790688989,
+    "createdTime": 1759791937802,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
-  "_key": "!actors!walkingegg000000"
+  "_key": "!actors!runningegg000000"
 }

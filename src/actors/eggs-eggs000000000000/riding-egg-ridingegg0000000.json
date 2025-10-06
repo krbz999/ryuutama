@@ -1,31 +1,31 @@
 {
-  "name": "Walking Egg",
+  "name": "Riding Egg",
   "type": "monster",
-  "_id": "walkingegg000000",
+  "_id": "ridingegg0000000",
   "img": "",
   "system": {
     "description": {
-      "value": "<p>A mysterious thirty-centimeter tall egg with human-like arms and legs that can be seen walking around the world. Many people have tried to solve the mystery of where they came from and what they're going to become, but so far none have.</p>",
+      "value": "<p>A mysterious seventy-centimeter tall egg with human-like arms and legs that can be seen riding around the world. The arms and legs of the Riding Egg are pale and slender and allow the Riding Egg to ride various swift-footed animals such as black swans or even unicorns.</p>",
       "special": {
-        "value": "<p>It is said that if a Walking Egg is defeated by reducing its HP to exactly 0, a blessing occurs. All members of a party so blessed will receive 100 XP.</p>",
+        "value": "<p>It is said that if a Riding Egg is defeated by reducing its HP to exactly 0, a blessing occurs. All members of a party so blessed will receive 300 XP.</p>",
         "name": "Travelers' Blessing"
       }
     },
     "condition": {
-      "value": 6,
+      "value": 8,
       "immunities": []
     },
     "initiative": {
-      "value": 9
+      "value": 12
     },
     "details": {
-      "level": 1,
+      "level": 5,
       "category": "",
-      "dragonica": 2
+      "dragonica": 6
     },
     "resources": {
       "stamina": {
-        "max": 4,
+        "max": 8,
         "bonuses": {
           "flat": null,
           "level": null
@@ -33,7 +33,7 @@
         "spent": 0
       },
       "mental": {
-        "max": 4,
+        "max": 8,
         "spent": 0,
         "bonuses": {
           "flat": null,
@@ -43,16 +43,16 @@
     },
     "abilities": {
       "dexterity": {
-        "value": 8
+        "value": 12
       },
       "strength": {
-        "value": 2
+        "value": 4
       },
       "intelligence": {
-        "value": 2
+        "value": 4
       },
       "spirit": {
-        "value": 2
+        "value": 4
       }
     },
     "attack": {
@@ -64,13 +64,14 @@
     },
     "environment": {
       "habitat": [
-        "ALL"
+        "grassland",
+        "desert"
       ],
-      "season": "spring"
+      "season": "autumn"
     }
   },
   "prototypeToken": {
-    "name": "Walking Egg",
+    "name": "Riding Egg",
     "displayName": 0,
     "actorLink": false,
     "width": 1,
@@ -178,9 +179,9 @@
     "coreVersion": "13.350",
     "systemId": "ryuutama",
     "systemVersion": "DEVELOP",
-    "createdTime": 1759790688989,
+    "createdTime": 1759792062905,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
-  "_key": "!actors!walkingegg000000"
+  "_key": "!actors!ridingegg0000000"
 }
