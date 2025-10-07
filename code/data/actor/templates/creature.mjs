@@ -312,9 +312,9 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       result.rollConfig.modifier -= this.capacity.penalty;
     }
 
-    if (result.rollConfig.type === "condition") {
+    if ((this.parent.type === "traveler") && (result.rollConfig.type === "condition")) {
       result.rollConfig.modifier ??= 0;
-      result.rollConfig.modifier -= (this.cursePenalty ?? 0);
+      result.rollConfig.modifier -= this.cursePenalty;
     }
 
     // Final step: cleanup.
