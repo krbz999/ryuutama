@@ -42,10 +42,17 @@ export default class AbilityConfig extends DocumentConfig {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
+    const abilityOptions = [2, 4, 6, 8, 10, 12, 20];
+    if (this.document.type === "traveler") {
+      abilityOptions.pop();
+      abilityOptions.shift();
+    }
+
     context.ability = {
       source: context.source.system.abilities[this.ability],
       fields: this.document.system.schema.getField(`abilities.${this.ability}`).fields,
       ability: this.ability,
+      options: abilityOptions.map(n => ({ value: n, label: `d${n}` })),
     };
 
     return context;

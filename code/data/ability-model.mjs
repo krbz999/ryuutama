@@ -4,7 +4,7 @@ export default class AbilityModel extends foundry.abstract.DataModel {
   /** @override */
   static defineSchema() {
     return {
-      value: new NumberField({ step: 2, min: 2, max: 12, nullable: false, initial: 4 }),
+      value: new NumberField({ integer: true, nullable: false, initial: 4, min: 2, max: 20 }),
     };
   }
 
@@ -36,8 +36,7 @@ export default class AbilityModel extends foundry.abstract.DataModel {
     if (delta) {
       for (let i = 0; i < Math.abs(delta); i++) value = this.#next(value, delta < 0);
     }
-    const min = this.parent.parent.type === "monster" ? 2 : 4;
-    return Math.max(min, value);
+    return value;
   }
 
   /* -------------------------------------------------- */
@@ -48,6 +47,21 @@ export default class AbilityModel extends foundry.abstract.DataModel {
    */
   get die() {
     return `d${this.faces}`;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The die size choices available.
+   * @type {number[]}
+   */
+  get choices() {
+    const values = [2, 4, 6, 8, 10, 12, 20];
+    if (this.parent.parent.type === "traveler") {
+      values.shift(); // disallow 2
+      values.pop(); // disallow 20
+    }
+    return values;
   }
 
   /* -------------------------------------------------- */
@@ -66,7 +80,7 @@ export default class AbilityModel extends foundry.abstract.DataModel {
    * @returns {number}          Next die size.
    */
   #next(v, down = false) {
-    const values = [2, 4, 6, 8, 10, 12];
+    const values = this.choices;
     if (down) values.reverse();
     const idx = values.indexOf(v);
     return values[idx + 1] ?? values.at(-1);

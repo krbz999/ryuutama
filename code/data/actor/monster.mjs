@@ -30,7 +30,7 @@ export default class MonsterData extends CreatureData {
       }),
       environment: new SchemaField({
         habitat: new SetField(new StringField()),
-        season: new StringField(),
+        season: new StringField({ required: true, blank: true, initial: "", choices: () => ryuutama.config.seasons }),
       }),
       initiative: new SchemaField({
         value: new NumberField({ required: true, min: 0, initial: 0, integer: true, nullable: false }),
@@ -45,11 +45,6 @@ export default class MonsterData extends CreatureData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.MONSTER",
   ];
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static MINIMUM_ABILITY = 2;
 
   /* -------------------------------------------------- */
 
@@ -76,7 +71,7 @@ export default class MonsterData extends CreatureData {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    this.attack.accuracy ||= "@stats.dexterity + @stats.strength";
+    this.attack.accuracy ||= "@stats.strength + @stats.dexterity";
     this.attack.damage ||= "@stats.strength";
 
     const habitat = this.environment.habitat;

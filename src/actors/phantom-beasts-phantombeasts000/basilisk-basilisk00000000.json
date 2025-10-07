@@ -1,0 +1,189 @@
+{
+  "system": {
+    "details": {
+      "category": "phantomBeast",
+      "level": 7,
+      "dragonica": 35
+    },
+    "environment": {
+      "habitat": [
+        "desert",
+        "wasteland",
+        "mountain",
+        "rocky"
+      ],
+      "season": "autumn"
+    },
+    "resources": {
+      "stamina": {
+        "max": 31,
+        "bonuses": {
+          "flat": null,
+          "level": null
+        },
+        "spent": 0
+      },
+      "mental": {
+        "max": 16,
+        "bonuses": {
+          "flat": null,
+          "level": null
+        },
+        "spent": 0
+      }
+    },
+    "initiative": {
+      "value": 8
+    },
+    "condition": {
+      "value": 10,
+      "immunities": []
+    },
+    "abilities": {
+      "strength": {
+        "value": 12
+      },
+      "dexterity": {
+        "value": 8
+      },
+      "intelligence": {
+        "value": 4
+      },
+      "spirit": {
+        "value": 8
+      }
+    },
+    "attack": {
+      "accuracy": "",
+      "damage": ""
+    },
+    "armor": {
+      "value": 1
+    },
+    "description": {
+      "value": "<p>A humongous lizard that can grow up to twenty meters in length, basilisks are covered in brown scales with scattered dark green spots. Though they are slow and plodding predators, they possess the ability to turn living things to stone with their gaze alone. Hunters that make their living off harvesting basilisk eyes are called “basiliterns” and use veils and robes to avoid the basilisk's stare.</p>",
+      "special": {
+        "name": "Petrifying Glance",
+        "value": "<p>Characters with a Condition of less than 7 who are not wearing veils or other protection, are turned to stone.</p>"
+      }
+    }
+  },
+  "name": "Basilisk",
+  "_id": "basilisk00000000",
+  "folder": "phantombeasts000",
+  "type": "monster",
+  "prototypeToken": {
+    "name": "Basilisk",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": null
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": ""
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "img": "",
+  "items": [],
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1759797338591,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!actors!basilisk00000000"
+}

@@ -53,14 +53,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /**
-   * The minimum die size for abilities.
-   * @type {number}
-   */
-  static MINIMUM_ABILITY = 4;
-
-  /* -------------------------------------------------- */
-
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();

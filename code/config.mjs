@@ -359,8 +359,8 @@ export const terrainTypes = {
     level: 2,
     difficulty: 8,
   },
-  highland: {
-    label: "RYUUTAMA.TERRAIN.highland",
+  highlands: {
+    label: "RYUUTAMA.TERRAIN.highlands",
     level: 2,
     difficulty: 8,
   },
@@ -414,6 +414,9 @@ export const monsterTerrains = {
   ...foundry.utils.deepClone(terrainTypes),
   sea: {
     label: "RYUUTAMA.TERRAIN.sea",
+  },
+  river: {
+    label: "RYUUTAMA.TERRAIN.river",
   },
   pond: {
     label: "RYUUTAMA.TERRAIN.pond",
