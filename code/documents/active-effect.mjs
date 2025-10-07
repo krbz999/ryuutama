@@ -3,6 +3,8 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
   static async _fromStatusEffect(statusId, effectData, options) {
     // Select the strength of the status.
     if (!("strength" in options)) {
+      const fields = CONFIG.ActiveEffect.dataModels.status.schema.fields.strength.fields;
+
       const result = await foundry.applications.api.Dialog.input({
         window: {
           title: `${game.i18n.localize("RYUUTAMA.STATUS.HUD_APPLY.title")}: ${effectData.name}`,
@@ -10,15 +12,10 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
         position: {
           width: 420,
         },
-        content: foundry.applications.fields.createFormGroup({
-          label: game.i18n.localize("RYUUTAMA.STATUS.HUD_APPLY.label"),
-          hint: game.i18n.localize("RYUUTAMA.STATUS.HUD_APPLY.hint"),
-          input: foundry.applications.elements.HTMLRangePickerElement.create({
-            name: "system.strength.value",
-            value: 4, min: 1, max: 20, step: 1,
-            autofocus: true,
-          }),
-        }).outerHTML,
+        content: [
+          fields.value.toFormGroup({}, { autofocus: true, value: 4, placeholder: "4" }).outerHTML,
+          fields.bypass.toFormGroup({}, {}).outerHTML,
+        ].join(""),
       });
       if (!result) throw new Error("No status effect strength was selected.");
       foundry.utils.mergeObject(effectData, result);

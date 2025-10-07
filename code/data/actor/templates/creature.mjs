@@ -81,7 +81,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     for (const [id, { _id }] of Object.entries(ryuutama.config.statusEffects)) {
       const effect = this.parent.effects.get(_id);
       const str = effect?.system.strength.value;
-      if (!effect || (str < con) || (id in statuses) || imm.has(id)) continue;
+      const bypass = effect?.system.strength.bypass;
+      if (!effect || (!bypass && (str < con)) || (id in statuses) || imm.has(id)) continue;
       let abilities;
       switch (id) {
         case "injury": abilities = ["dexterity"]; break;
