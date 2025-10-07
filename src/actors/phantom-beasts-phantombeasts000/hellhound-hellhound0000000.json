@@ -56,15 +56,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 1
-    },
     "description": {
       "value": "<p>A huge black dog, weighing about 500 kg, with glowing red eyes and razor sharp claws. They are violently territorial and mark their territories with a sulfuric smell that permeates the area. The stench of rotten eggs is nearly unbearable as far away as ten kilometers.</p>",
       "special": {
         "name": "Double Attack",
         "value": "<p>This monster can attack two times in one turn.</p>"
       }
+    },
+    "defense": {
+      "armor": 1
     }
   },
   "name": "Hellhound",

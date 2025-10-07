@@ -90,6 +90,10 @@
         gap: 0;
         --input-height: 1.2rem;
 
+        .form-fields {
+          flex-direction: column;
+        }
+
         span.value {
           color: var(--ryuutama-color-disabled);
         }
@@ -97,6 +101,21 @@
         .value {
           border-radius: 3px;
           background-color: hsl(from var(--ryuutama-color-value-location) h s l / 0.05);
+          width: 100%;
+        }
+
+        .tags {
+          color: var(--ryuutama-color-disabled);
+          font-size: 11px;
+          display: inherit;
+          justify-content: space-around;
+          width: 100%;
+
+          .tag {
+            border: 1px dotted var(--ryuutama-color-disabled);
+            border-radius: 5px;
+            padding: 2px 4px;
+          }
         }
 
         * {

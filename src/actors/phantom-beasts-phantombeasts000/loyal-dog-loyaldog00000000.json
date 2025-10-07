@@ -54,15 +54,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>One in ten thousand dogs is born with a special gift. Though they look like any other dog, these dogs are incredibly smart. It is said that these dogs understand and may even speak human languages. Their loyalty drives them to keep their owners from danger. Are you sure your faithful companion there isn't one of these Loyal Dogs?</p>",
       "special": {
         "name": "Bond",
         "value": "<p>When the Loyal Dog's master takes damage, the Loyal Dog can reduce the damage taken to 0, once per combat.</p>"
       }
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "name": "Loyal Dog",

@@ -56,15 +56,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 3
-    },
     "description": {
       "value": "<p>The largest carnivorous animal in the world, the Ghost Beast measures tens of meters in length (though its exact dimensions are unknown). Its exact form and details have never been confirmed. Due to its size, it does not hunt humans, but it is extremely sensitive to imbalances in the natural order. It has been known to appear near advanced human civilizations, and when it appears... humans can only flee.</p>",
       "special": {
         "name": "Angry Riot",
         "value": "<p>Attacks from this beast are so strong that even the mountains crack and dragons run. Anytime this creature attacks, it attacks all areas. Also, any Fumbles it rolls automatically become criticals.</p>"
       }
+    },
+    "defense": {
+      "armor": 3
     }
   },
   "name": "Ghost Beast",

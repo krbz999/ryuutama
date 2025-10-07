@@ -57,15 +57,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 1
-    },
     "description": {
       "value": "<p>A curious beast with the heads of a lion, ram and a snake. They are cruel, and will hunt and kill prey even when not hungry. It was initially thought that they were created by sorcery, but modern studies indicate that they are, in fact, just another species of animal.</p>",
       "special": {
         "name": "Fire Breath",
         "value": "<p>The lion head breathes a blue-hot flame, with Accuracy [d10+d10] and Damage [d10], targeting an entire area.</p>"
       }
+    },
+    "defense": {
+      "armor": 1
     }
   },
   "name": "Chimaera",

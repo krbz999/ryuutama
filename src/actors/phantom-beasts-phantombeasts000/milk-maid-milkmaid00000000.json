@@ -54,15 +54,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>A cow that lives at the shallows of the sea. As no males of their species exist, sometimes a Milk Maid will take human form to visit human villages, thinking to leave a child in town. Their milk is said to be highly valuable for treating various illnesses.</p>",
       "special": {
         "name": "Wishcow",
         "value": "<p>A Milk Maid can take the form of a human female, but must bathe in sea water at least once per day.</p>"
       }
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "name": "Milk Maid",

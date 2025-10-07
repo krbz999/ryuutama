@@ -55,15 +55,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 1
-    },
     "description": {
       "value": "<p>A large fish in the shape of a sword. They grow larger the longer they live, up to eight meters long.</p>",
       "special": {
         "name": "Cut in 2",
         "value": "<p>Attacks made by Zordfish ignore Defense Points and always do full damage.</p>"
       }
+    },
+    "defense": {
+      "armor": 1
     }
   },
   "name": "Zordfish",

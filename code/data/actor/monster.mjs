@@ -10,9 +10,6 @@ export default class MonsterData extends CreatureData {
         accuracy: new StringField({ required: true, initial: "" }),
         damage: new StringField({ required: true, initial: "" }),
       }),
-      armor: new SchemaField({
-        value: new NumberField({ min: 0, initial: null, integer: true, nullable: true }),
-      }),
       description: new SchemaField({
         value: new HTMLField(),
         special: new SchemaField({
@@ -79,5 +76,8 @@ export default class MonsterData extends CreatureData {
     if (habitat.has("ALL")) this.environment.habitatLabel = game.i18n.localize("RYUUTAMA.MONSTER.allHabitats");
     else if (!habitats.size) this.environment.habitatLabel = game.i18n.localize("RYUUTAMA.MONSTER.noHabitats");
     else this.environment.habitatLabel = game.i18n.getListFormatter().format(habitats);
+
+    // Prepare defense.
+    this.defense.total = this.defense.armor ?? 0;
   }
 }

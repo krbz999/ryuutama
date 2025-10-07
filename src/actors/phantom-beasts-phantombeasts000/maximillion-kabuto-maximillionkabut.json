@@ -56,15 +56,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 3
-    },
     "description": {
       "value": "<p>A huge horned beetle with a thick shell. Kabuto beetle shells are prized for their beauty and command a steep price.</p>",
       "special": {
         "name": "",
         "value": ""
       }
+    },
+    "defense": {
+      "armor": 3
     }
   },
   "name": "Maximillion Kabuto",

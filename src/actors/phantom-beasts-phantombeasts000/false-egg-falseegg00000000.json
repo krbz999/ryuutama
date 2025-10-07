@@ -57,15 +57,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>A crab that can disguise itself as a large egg. It tends to stay still for long periods of time, but hunts its prey by putting its large claws together over its body, creating a smooth egg-like shape. If you find an unattended egg, you should approach with extreme caution.</p>",
       "special": {
         "name": "Egg-like",
         "value": "<p>If you aren't careful, a false egg will catch you unawares with its attack. At the beginning of combat, characters must roll a [INT + INT] check. Any character that fails receives a -2 penalty to Initiative.</p>"
       }
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "name": "False Egg",

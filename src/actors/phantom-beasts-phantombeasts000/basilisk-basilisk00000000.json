@@ -57,15 +57,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 1
-    },
     "description": {
       "value": "<p>A humongous lizard that can grow up to twenty meters in length, basilisks are covered in brown scales with scattered dark green spots. Though they are slow and plodding predators, they possess the ability to turn living things to stone with their gaze alone. Hunters that make their living off harvesting basilisk eyes are called “basiliterns” and use veils and robes to avoid the basilisk's stare.</p>",
       "special": {
         "name": "Petrifying Glance",
         "value": "<p>Characters with a Condition of less than 7 who are not wearing veils or other protection, are turned to stone.</p>"
       }
+    },
+    "defense": {
+      "armor": 1
     }
   },
   "name": "Basilisk",

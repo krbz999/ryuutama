@@ -58,15 +58,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>A huge snake ranging from two to ten meters in length. It likes to attack at night, so care must be taken when camping in anaconda territory.</p>",
       "special": {
         "name": "Coil",
         "value": "<p>When an anaconda succeeds on an attack on a character, it automatically coils around the character's body. On that character's next turn, they must beat the anaconda at a contested [STR + STR] check or lose their action. Every turn that an anaconda starts coiled around a character, the anaconda automatically deals d6 damage.</p>"
       }
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "name": "Anaconda",

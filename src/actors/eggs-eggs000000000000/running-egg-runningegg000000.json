@@ -59,9 +59,6 @@
       "accuracy": "@stats.dexterity + @stats.dexterity",
       "damage": "1d6"
     },
-    "armor": {
-      "value": null
-    },
     "environment": {
       "habitat": [
         "wasteland",
@@ -69,6 +66,9 @@
         "rocky"
       ],
       "season": "winter"
+    },
+    "defense": {
+      "armor": null
     }
   },
   "prototypeToken": {

@@ -44,9 +44,6 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>These beasts look like wild chickens, but have beaks with the power to turn things to stone. They can only eat the henluda plant, so keep your guard up when you come across it in the wild.</p>",
       "special": {
@@ -69,6 +66,9 @@
     },
     "initiative": {
       "value": 5
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "prototypeToken": {

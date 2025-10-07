@@ -44,9 +44,6 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>It is said that a kamaitachi is actually three weasels with sickle-like claws that have joined together to harass travelers. In this form, they look like a single giant weasel with huge claws. Kamaitachi are known to be wily pranksters. They chase, cut, and heal those they come across, leaving bewildered but unharmed hikers in their wake. If they are angered, however, the three weasels will simply attack.</p>",
       "special": {
@@ -69,6 +66,9 @@
     },
     "initiative": {
       "value": 6
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "prototypeToken": {

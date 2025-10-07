@@ -42,9 +42,6 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>These bees can grow to be as large as a human and live in hives dug into rocky ground. Their honey is so highly prized that some hunters specialize in procuring it. It is incredibly dangerous to do so, but a single harvest of their honey is worth enough for an entire family to live off of for an entire year.</p>",
       "special": {
@@ -65,6 +62,9 @@
       "spirit": {
         "value": 2
       }
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "name": "Speckled Bee",

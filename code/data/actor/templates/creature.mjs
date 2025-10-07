@@ -3,6 +3,8 @@ import AbilityModel from "../../ability-model.mjs";
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
  * @import CheckRoll from "../../../dice/check-roll.mjs";
+ * @import { DamageConfiguration } from "./_types.mjs";
+ * @import RyuutamaActor from "../../../documents/actor.mjs";
  */
 
 const { EmbeddedDataField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
@@ -35,6 +37,13 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       condition: new SchemaField({
         immunities: new SetField(new StringField({ choices: () => ryuutama.config.statusEffects })),
         value: new NumberField({ nullable: true, initial: null, integer: true }),
+      }),
+      defense: new SchemaField({
+        armor: new NumberField({ min: 0, initial: null, integer: true, nullable: true }),
+        modifiers: new SchemaField({
+          magical: new NumberField({ nullable: true, integer: true, initial: null }),
+          physical: new NumberField({ nullable: true, integer: true, initial: null }),
+        }),
       }),
       resources: new SchemaField({
         mental: makeResource(),
@@ -455,5 +464,48 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    */
   async rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
+  }
+
+  /* -------------------------------------------------- */
+  /*   Damage Application                               */
+  /* -------------------------------------------------- */
+
+  /**
+   * Calculate the damage an actor will take.
+   * @param {DamageConfiguration[]} [damages=[]]
+   * @returns {number}
+   */
+  calculateDamage(damages = []) {
+    damages = foundry.utils.deepClone(damages);
+
+    const { modifiers } = this.defense;
+    for (const damage of damages) {
+      if (damage.magical) damage.value += modifiers.magical;
+      else {
+        damage.value += modifiers.physical;
+        damage.value -= this.defense.total;
+      }
+      damage.value = Math.max(0, damage.value);
+    }
+
+    return damages.reduce((acc, damage) => acc + damage.value, 0);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Apply damage to the actor.
+   * @param {DamageConfiguration[]} [damages=[]]
+   * @returns {Promise<RyuutamaActor>}
+   */
+  async applyDamage(damages = []) {
+    const total = this.calculateDamage(damages);
+
+    const { value, spent } = this.resources.stamina;
+    const damage = Math.min(value, total);
+
+    const actor = this.parent;
+    await actor.update({ "system.resources.stamina.spent": spent + damage });
+    return actor;
   }
 }

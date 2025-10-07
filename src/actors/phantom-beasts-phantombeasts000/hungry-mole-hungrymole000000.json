@@ -56,15 +56,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>A large mole (up to 4 meters long) that lives underground. This black and silver creature must eat its weight in food everyday, and will die if it goes half a day without food.</p>",
       "special": {
         "name": "Burrow",
         "value": "<p>When a Hungry Mole attacks from underground, its target receives -1 to Initiative.</p>"
       }
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "name": "Hungry Mole",

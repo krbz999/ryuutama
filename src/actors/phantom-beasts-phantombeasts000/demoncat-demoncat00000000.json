@@ -57,15 +57,15 @@
       "accuracy": "@stats.strength + 1d10",
       "damage": ""
     },
-    "armor": {
-      "value": 3
-    },
     "description": {
       "value": "<p>A large grey cat (up to three meters long) with two tails and possessed of a burning hatred for humans; it is said that long ago, they were placed by a god to guard a certain artifact, but when a man stole it, they turned against humans forever.</p>",
       "special": {
         "name": "Boisterous Dance",
         "value": "<p>Due to their multitude of tails, fangs and claws, Demoncats roll damage on successful attacks two times, taking the best result. Also, they may use two objects at once.</p>"
       }
+    },
+    "defense": {
+      "armor": 3
     }
   },
   "name": "Demoncat",

@@ -44,9 +44,6 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>At two meters tall, this is the fastest running bird in the world. It has the ability to run at 60 km/hour for more than an hour at a time. Their population explodes during the Spring months.</p>",
       "special": {
@@ -69,6 +66,9 @@
     },
     "initiative": {
       "value": 7
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "prototypeToken": {

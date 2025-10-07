@@ -56,15 +56,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>A beast with the head and wings of a hawk and the body of a lion.</p>",
       "special": {
         "name": "Double Attack",
         "value": "<p>This monster can attack two times in one turn.</p>"
       }
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "name": "Griffon",

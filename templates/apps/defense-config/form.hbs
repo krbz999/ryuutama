@@ -1,0 +1,10 @@
+<section>
+  {{formGroup systemFields.defense.fields.armor value=source.system.defense.armor classes="slim" placeholder="0"}}
+
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.DEFENSE.modifiers"}}</legend>
+    <p class="hint">{{localize "RYUUTAMA.DEFENSE.modifiersHint"}}</p>
+    {{formGroup systemFields.defense.fields.modifiers.fields.physical value=source.system.defense.modifiers.physical classes="slim" placeholder="0"}}
+    {{formGroup systemFields.defense.fields.modifiers.fields.magical value=source.system.defense.modifiers.magical classes="slim" placeholder="0"}}
+  </fieldset>
+</section>

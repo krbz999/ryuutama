@@ -44,9 +44,6 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>Beasts the size and shape of a small jackal. They are fairly weak alone, but are almost always encountered in large groups. It is said that hordes of tens of thousands of mob beasts have reduced cities to rubble.</p>",
       "special": {
@@ -69,6 +66,9 @@
     },
     "initiative": {
       "value": 5
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "prototypeToken": {

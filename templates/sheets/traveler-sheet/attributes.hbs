@@ -1,42 +1,4 @@
 <section data-tab="{{tabs.attributes.id}}" class="{{tabs.attributes.cssClass}}" data-group="{{tabs.attributes.group}}">
-  <div class="icon-fields">
-    <div class="icon-field">
-      {{#if isEditable}}
-      <button type="button" data-action="configure" data-config="condition" class="icon fa-solid fa-cog"></button>
-      {{else}}
-      <a data-action="rollCheck" data-check="condition">
-        <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/condition.svg"></ryuutama-icon>
-      </a>
-      {{/if}}
-      <div class="form-group stacked">
-        <label>{{localize "RYUUTAMA.ACTOR.condition"}}</label>
-        <div class="form-fields">
-          <span class="value">{{ifThen document.system.condition.value document.system.condition.value 0}}</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="icon-field">
-      <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg"></ryuutama-icon>
-      <div class="form-group stacked">
-        <label for="{{rootId}}-system.fumbles.value">{{systemFields.fumbles.fields.value.label}}</label>
-        <div class="form-fields">
-          <input type="text" name="system.fumbles.value" class="delta" value="{{ifThen disabled document.system.fumbles.value source.system.fumbles.value}}" {{disabled (not editable)}} placeholder="0" id="{{rootId}}-system.fumbles.value">
-        </div>
-      </div>
-    </div>
-
-    <div class="icon-field">
-      <ryuutama-icon src="icons/svg/coins.svg"></ryuutama-icon>
-      <div class="form-group stacked">
-        <label for="{{rootId}}-system.exp.value">{{systemFields.exp.fields.value.label}}</label>
-        <div class="form-fields">
-          <input type="text" name="system.exp.value" id="{{rootId}}-system.exp.value" class="delta" value="{{ifThen disabled document.system.exp.value source.system.exp.value}}">
-        </div>
-      </div>
-    </div>
-  </div>
-
   {{!-- ABILITIES --}}
   <div class="icon-fields">
     {{#each abilities}}
@@ -76,6 +38,30 @@
     </div>
   </div>
 
+  {{!-- FUMBLES & EXP --}}
+  <div class="icon-fields">
+    <div class="icon-field">
+      <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg"></ryuutama-icon>
+      <div class="form-group stacked">
+        <label for="{{rootId}}-system.fumbles.value">{{systemFields.fumbles.fields.value.label}}</label>
+        <div class="form-fields">
+          <input type="text" name="system.fumbles.value" class="delta" value="{{ifThen disabled document.system.fumbles.value source.system.fumbles.value}}" {{disabled (not editable)}} placeholder="0" id="{{rootId}}-system.fumbles.value">
+        </div>
+      </div>
+    </div>
+
+    <div class="icon-field">
+      <ryuutama-icon src="icons/svg/coins.svg"></ryuutama-icon>
+      <div class="form-group stacked">
+        <label for="{{rootId}}-system.exp.value">{{systemFields.exp.fields.value.label}}</label>
+        <div class="form-fields">
+          <input type="text" name="system.exp.value" id="{{rootId}}-system.exp.value" class="delta" value="{{ifThen disabled document.system.exp.value source.system.exp.value}}">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{!-- ATTACKS & CHECKS --}}
   <div class="icon-fields">
     <div class="icon-field">
       <img src="{{weaponImage}}" alt="">
@@ -106,6 +92,54 @@
       </div>
     </div>
     {{/each}}
+  </div>
+
+  {{!-- CONDITION & ARMOR --}}
+  <div class="icon-fields">
+    <div class="icon-field">
+      {{#if isEditable}}
+      <button type="button" data-action="configure" data-config="condition" class="icon fa-solid fa-cog"></button>
+      {{else}}
+      <a data-action="rollCheck" data-check="condition">
+        <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/condition.svg"></ryuutama-icon>
+      </a>
+      {{/if}}
+      <div class="form-group stacked">
+        <label>{{localize "RYUUTAMA.ACTOR.condition"}}</label>
+        <div class="form-fields">
+          <span class="value italics">{{ifThen document.system.condition.value document.system.condition.value 0}}</span>
+        </div>
+      </div>
+    </div>
+
+    {{!-- ARMOR --}}
+    <div class="icon-field">
+      {{#if isEditable}}
+      <button type="button" data-action="configure" data-config="defense" class="icon fa-solid fa-cog"></button>
+      {{else}}
+      <ryuutama src=""></ryuutama>
+      {{/if}}
+      <div class="form-group stacked">
+        <label>{{localize "RYUUTAMA.ACTOR.armor"}}</label>
+        <div class="form-fields">
+          {{#if disabled}}
+          <span class="value italics">{{document.system.defense.total}}</span>
+          {{else}}
+          {{formInput systemFields.defense.fields.armor value=source.system.defense.armor placeholder="0"}}
+          {{/if}}
+          {{#if armor.hasTags}}
+          <div class="tags">
+            {{#if armor.tags.physical}}
+            <span class="tag">{{localize "RYUUTAMA.ACTOR.physical"}}: {{armor.tags.physical}}</span>
+            {{/if}}
+            {{#if armor.tags.magical}}
+            <span class="tag">{{localize "RYUUTAMA.ACTOR.magical"}}: {{armor.tags.magical}}</span>
+            {{/if}}
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
   </div>
 
 </section>

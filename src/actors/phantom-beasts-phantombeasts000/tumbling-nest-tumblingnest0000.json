@@ -56,15 +56,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 1
-    },
     "description": {
       "value": "<p>Though it appears as a large rolling ball of bits of plant matter, these several-meter-large spheres are actually created by and filled with a large number of small rats. Because the rats can't see from within the ball, they will attack the source of any loud noises.</p>",
       "special": {
         "name": "Rolling Attack",
         "value": "<p>When attacking, the Tumbling Nest randomly attacks one character in the Front Area and one character in the Back Area.</p>"
       }
+    },
+    "defense": {
+      "armor": 1
     }
   },
   "name": "Tumbling Nest",

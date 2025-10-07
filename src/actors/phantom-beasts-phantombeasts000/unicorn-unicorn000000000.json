@@ -56,15 +56,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "",
       "special": {
         "name": "Healing Horn",
         "value": "<p>It is said that a unicorn's horn has the ability to cure any illness. However, a unicorn must expend an incredible amount of energy to do so, and using this ability too much places the unicorn's life in danger.</p>"
       }
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "name": "Unicorn",

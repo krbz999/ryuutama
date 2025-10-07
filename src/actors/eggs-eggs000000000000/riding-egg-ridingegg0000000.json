@@ -59,15 +59,15 @@
       "accuracy": "@stats.dexterity + @stats.dexterity",
       "damage": "1d6"
     },
-    "armor": {
-      "value": null
-    },
     "environment": {
       "habitat": [
         "grassland",
         "desert"
       ],
       "season": "autumn"
+    },
+    "defense": {
+      "armor": null
     }
   },
   "prototypeToken": {

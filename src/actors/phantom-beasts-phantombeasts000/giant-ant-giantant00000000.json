@@ -44,9 +44,6 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 1
-    },
     "description": {
       "value": "<p>These ants are usually found near their hive and can range in size from half a meter to a full three meters in length. Their pincers are typically the length of half their body and are incredibly powerful, able to slice a man in half.</p>",
       "special": {
@@ -69,6 +66,9 @@
     },
     "initiative": {
       "value": 6
+    },
+    "defense": {
+      "armor": 1
     }
   },
   "prototypeToken": {

@@ -65,6 +65,17 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       };
     });
 
+    // Armor.
+    const modifiers = this.document.system.defense.modifiers;
+    context.armor = {
+      total: this.document.system.defense.total,
+      hasTags: !!modifiers.physical || !!modifiers.magical,
+      tags: {
+        physical: modifiers.physical ? modifiers.physical.signedString() : null,
+        magical: modifiers.magical ? modifiers.magical.signedString() : null,
+      },
+    };
+
     return context;
   }
 
@@ -267,18 +278,21 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
         options.ability = target.dataset.ability;
         application = new ryuutama.applications.apps.AbilityConfig(options);
         break;
+      case "attack":
+        application = new ryuutama.applications.apps.AttackConfig(options);
+        break;
       case "condition":
         application = new ryuutama.applications.apps.ConditionConfig(options);
+        break;
+      case "defense":
+        application = new ryuutama.applications.apps.DefenseConfig(options);
+        break;
+      case "habitat":
+        application = new ryuutama.applications.apps.MonsterHabitatConfig(options);
         break;
       case "resource":
         options.resource = target.dataset.resource;
         application = new ryuutama.applications.apps.ResourceConfig(options);
-        break;
-      case "attack":
-        application = new ryuutama.applications.apps.AttackConfig(options);
-        break;
-      case "habitat":
-        application = new ryuutama.applications.apps.MonsterHabitatConfig(options);
         break;
     }
     if (!application) return;

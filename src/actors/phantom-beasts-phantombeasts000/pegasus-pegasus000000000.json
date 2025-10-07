@@ -57,15 +57,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 0
-    },
     "description": {
       "value": "<p>A horse with bid-like wings that allow it to fly freely through the skies. Pegasi share the same temperament as a normal horse and grow to the same size. They are picky eaters, preferring fresh grass and herds will travel long distances to find it. When pegasi migrate during the fall and winter months, they look like nothing more than shooting stars as thousands dart across the skies gracefully.</p>",
       "special": {
         "name": "",
         "value": ""
       }
+    },
+    "defense": {
+      "armor": 0
     }
   },
   "name": "Pegasus",

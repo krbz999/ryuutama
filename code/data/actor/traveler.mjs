@@ -107,7 +107,6 @@ export default class TravelerData extends CreatureData {
 
     this.capacity = { bonus: 0 };
     this.habitats = { weather: new Set(), terrain: new Set() }; // TODO: derive from equipped items.
-    this.defense = { base: 0 };
   }
 
   /* -------------------------------------------------- */
@@ -123,9 +122,10 @@ export default class TravelerData extends CreatureData {
     super.prepareDerivedData();
     this.#prepareCapacity();
 
+    // Prepare defense.
     this.defense.shieldDodge = this.parent.getFlag(ryuutama.id, "shieldDodge") ?? false;
     this.defense.dodge = this.equipped.shield?.system.armor.dodge ?? null;
-    this.defense.total = Math.max(this.defense.base, this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
+    this.defense.total = Math.max(this.defense.armor + this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
   }
 
   /* -------------------------------------------------- */

@@ -66,12 +66,18 @@
       "condition": "Condition",
       "capacityPenalty": "penalty",
       "statusImmune": "Immune",
-      "statusSuppressed": "Suppressed ({strength})"
+      "statusSuppressed": "Suppressed ({strength})",
+      "armor": "Armor",
+      "physical": "Physical",
+      "magical": "Magical"
     },
     "CREATURE": {
       "FIELDS": {
         "condition.immunities.label": "Status Immunities",
         "condition.value.label": "Current Condition",
+        "defense.armor.label": "Base Armor",
+        "defense.modifiers.magical.label": "Magical",
+        "defense.modifiers.physical.label": "Physical",
         "resources.mental.bonuses.flat.hint": "This bonus is added to the maximum MP after all other modifiers.",
         "resources.mental.bonuses.flat.label": "Overall Bonus",
         "resources.mental.bonuses.level.hint": "This bonus is added to the maximum MP for every level the actor has attained.",
@@ -90,7 +96,6 @@
     },
     "MONSTER": {
       "FIELDS": {
-        "armor.value.label": "Armor",
         "attack.accuracy.label": "Accuracy Formula",
         "attack.damage.label": "Damage Formula",
         "description.special.name.label": "Special Ability",
@@ -175,6 +180,11 @@
       "title": "Configure Condition: {name}",
       "current": "Current Condition"
     },
+    "DEFENSE": {
+      "title": "Configure Defense: {name}",
+      "modifiers": "Damage Modifers",
+      "modifiersHint": "Modifiers are added to any damage this actor will receive."
+    },
     "JOURNEY": {
       "TYPES": {
         "travel": "Travel Check",
@@ -223,6 +233,7 @@
         "size3": "Size 3",
         "size5": "Size 5"
       },
+      "defenses": "Defenses",
       "details": "Details",
       "durability": "Durability ({value}/{max})"
     },
@@ -248,9 +259,7 @@
         "durability.spent.label": "Spent"
       }
     },
-    "DEFENSE": {
-      "defenses": "Defenses"
-    },
+
     "ACCESSORY": {},
     "ARMOR": {
       "FIELDS": {

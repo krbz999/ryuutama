@@ -78,3 +78,11 @@
  * @property {string} type.value            The traveler's type.
  * @property {string} type.additional       An additional type chosen at later levels.
  */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef DamageConfiguration
+ * @property {number} value         The damage total.
+ * @property {boolean} [magical]    Is this magical damage, e.g., from a spell?
+ */

@@ -57,15 +57,15 @@
       "accuracy": "",
       "damage": ""
     },
-    "armor": {
-      "value": 5
-    },
     "description": {
       "value": "<p>A gigantic tortoise that prefers warm areas that can grow twenty meters large. This beast spends its time in sunny areas, nourishing the numerous plants that grow atop its shell. As the tortoise ages, its shell grows along with the number of plants and eventually becomes large enough to support its own ecosystem.</p>",
       "special": {
         "name": "Herb Treasure Trove",
         "value": "<p>One each of each type of Healing Herb grows atop the Garden Tortoise's shell.</p>"
       }
+    },
+    "defense": {
+      "armor": 5
     }
   },
   "name": "Garden Tortoise",
