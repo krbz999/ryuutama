@@ -76,6 +76,8 @@
     "CREATURE": {
       "FIELDS": {
         "condition.immunities.label": "Status Immunities",
+        "condition.shape.high.hint": "This ability has its die increased by 1 size (to a maximum of 12) when the actor's Condition is 10 or higher.",
+        "condition.shape.high.label": "Tip-Top Shape",
         "condition.value.label": "Current Condition",
         "defense.armor.label": "Base Armor",
         "defense.modifiers.magical.label": "Magical",
@@ -138,8 +140,6 @@
         "background.appearance.label": "Appearance",
         "background.hometown.label": "Hometown / Reason for Travel",
         "background.notes.label": "Notes",
-        "condition.shape.high.label": "Tip-Top Shape",
-        "condition.shape.high.hint": "This ability has its die increased by 1 size (to a maximum of 12) when the actor's Condition is 10 or higher.",
         "details.color.label": "Image Color",
         "details.level.label": "Level",
         "exp.value.label": "EXP",
@@ -155,7 +155,8 @@
       "abilities": "Abilities",
       "type": "Type",
       "conditionShapeNoneSelected": "Select Ability",
-      "shape": "Shape"
+      "shape": "Shape",
+      "conditionShapeOutOfShape": "Out of Shape"
     },
 
     "ABILITIES": {

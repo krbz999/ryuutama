@@ -109,12 +109,16 @@
         <label>{{localize "RYUUTAMA.ACTOR.condition"}}</label>
         <div class="form-fields">
           <span class="value italics">{{ifThen document.system.condition.value document.system.condition.value 0}}</span>
-          {{#if conditionShape}}
+          {{#if conditionShape.active}}
           <div class="tags">
+            {{#if conditionShape.high}}
             {{#if disabled}}
-            <span class="tag">{{conditionShape.field.label}}: {{conditionShape.ability}}</span>
+            <span class="tag">{{systemFields.condition.fields.shape.fields.high.label}}: {{conditionShape.ability}}</span>
             {{else}}
-            {{formGroup conditionShape.field value=conditionShape.src blank=(localize "RYUUTAMA.TRAVELER.conditionShapeNoneSelected") hint=false}}
+            {{formGroup systemFields.condition.fields.shape.fields.high value=source.system.condition.shape.high blank=(localize "RYUUTAMA.TRAVELER.conditionShapeNoneSelected") hint=false}}
+            {{/if}}
+            {{else if conditionShape.low}}
+            <span class="tag">{{localize "RYUUTAMA.TRAVELER.conditionShapeOutOfShape"}}</span>
             {{/if}}
           </div>
           {{/if}}
