@@ -152,6 +152,9 @@ export default class ResourceBar extends HTMLElement {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Animate the change when the element is replaced.
+   */
   #animateConnection() {
     const id = this.id;
     if (!id) return;
@@ -162,7 +165,7 @@ export default class ResourceBar extends HTMLElement {
     ResourceBar.storage.set(id, value);
 
     if (stored === null) return;
-    bar.animate([{ right: `${stored}%` }, { right: `${value}%` }], { duration: 500 });
+    bar.animate([{ right: `${stored}%` }, { right: `${value}%` }], { duration: 500, easing: "ease-in-out" });
   }
 
   /* -------------------------------------------------- */
@@ -171,7 +174,7 @@ export default class ResourceBar extends HTMLElement {
    * @this ResourceBar
    */
   static #onClick(event) {
-    if (!this.app.isEditable) return;
+    if (!this.app?.isEditable) return;
 
     this.#display.classList.add("hidden");
     this.#input.classList.remove("hidden");
