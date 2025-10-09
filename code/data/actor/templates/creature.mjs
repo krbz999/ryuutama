@@ -36,6 +36,9 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       }),
       condition: new SchemaField({
         immunities: new SetField(new StringField({ choices: () => ryuutama.config.statusEffects })),
+        shape: new SchemaField({
+          high: new StringField({ required: true, blank: true, choices: () => ryuutama.config.abilityScores }),
+        }),
         value: new NumberField({ nullable: true, initial: null, integer: true }),
       }),
       defense: new SchemaField({

@@ -96,6 +96,7 @@
 
   {{!-- CONDITION & ARMOR --}}
   <div class="icon-fields">
+    {{!-- CONDITION --}}
     <div class="icon-field">
       {{#if isEditable}}
       <button type="button" data-action="configure" data-config="condition" class="icon fa-solid fa-cog"></button>
@@ -108,6 +109,15 @@
         <label>{{localize "RYUUTAMA.ACTOR.condition"}}</label>
         <div class="form-fields">
           <span class="value italics">{{ifThen document.system.condition.value document.system.condition.value 0}}</span>
+          {{#if conditionShape}}
+          <div class="tags">
+            {{#if disabled}}
+            <span class="tag">{{conditionShape.field.label}}: {{conditionShape.ability}}</span>
+            {{else}}
+            {{formGroup conditionShape.field value=conditionShape.src blank=(localize "RYUUTAMA.TRAVELER.conditionShapeNoneSelected") hint=false}}
+            {{/if}}
+          </div>
+          {{/if}}
         </div>
       </div>
     </div>

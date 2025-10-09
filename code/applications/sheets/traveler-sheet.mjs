@@ -110,6 +110,15 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     if (this.document.system.equipped.weapon?.system.grip === 2) delete context.equipped.shield;
     context.weaponImage = this.document.system.equipped.weapon?.img ?? ryuutama.config.unarmedConfiguration.icon;
 
+    // Tip-top shape / out of shape.
+    context.conditionShape = this.document.system.condition.value >= 10
+      ? {
+        field: context.systemFields.condition.fields.shape.fields.high,
+        ability: ryuutama.config.abilityScores[this.document.system.condition.shape.high]?.label ?? "",
+        src: this.document.system._source.condition.shape.high,
+      }
+      : false;
+
     return context;
   }
 }

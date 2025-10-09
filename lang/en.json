@@ -138,6 +138,8 @@
         "background.appearance.label": "Appearance",
         "background.hometown.label": "Hometown / Reason for Travel",
         "background.notes.label": "Notes",
+        "condition.shape.high.label": "Tip-Top Shape",
+        "condition.shape.high.hint": "This ability has its die increased by 1 size (to a maximum of 12) when the actor's Condition is 10 or higher.",
         "details.color.label": "Image Color",
         "details.level.label": "Level",
         "exp.value.label": "EXP",
@@ -151,7 +153,9 @@
         "technical": "Technical"
       },
       "abilities": "Abilities",
-      "type": "Type"
+      "type": "Type",
+      "conditionShapeNoneSelected": "Select Ability",
+      "shape": "Shape"
     },
 
     "ABILITIES": {
