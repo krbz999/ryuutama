@@ -1,6 +1,8 @@
 {
   "TYPES": {
     "ActiveEffect": {
+      "standard": "Standard Effect",
+      "standardPl": "Standard Effects",
       "status": "Status Effect",
       "statusPl": "Status Effects"
     },
@@ -209,6 +211,24 @@
       "winter": "Winter"
     },
 
+    "EFFECT": {
+      "STATUS": {
+        "FIELDS": {
+          "strength.bypass.hint": "Whether this status effect applies its changes regardless of the Actor's Condition.",
+          "strength.bypass.label": "Bypass",
+          "strength.value.hint": "The strength of the status effect determines how likely a character is to succumb to it.",
+          "strength.value.label": "Strength"
+        },
+        "HUD_APPLY": {
+          "title": "Configure Strength"
+        },
+        "noActors": "No controlled tokens' actors were valid for application of this status."
+      },
+      "EXPIRATION": {
+        "combatEnd": "When combat ends"
+      }
+    },
+
     "ITEM": {
       "MODIFIERS": {
         "beautiful": "Beautiful",
@@ -365,19 +385,6 @@
       "exhaustion": "Exhaustion",
       "muddled": "Muddled",
       "shock": "Shock"
-    },
-
-    "STATUS": {
-      "FIELDS": {
-        "strength.bypass.hint": "Whether this status effect applies its changes regardless of the Actor's Condition.",
-        "strength.bypass.label": "Bypass",
-        "strength.value.hint": "The strength of the status effect determines how likely a character is to succumb to it.",
-        "strength.value.label": "Strength"
-      },
-      "HUD_APPLY": {
-        "title": "Configure Strength"
-      },
-      "noActors": "No controlled tokens' actors were valid for application of this status."
     },
 
     "TERRAIN": {

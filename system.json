@@ -59,6 +59,7 @@
   },
   "documentTypes": {
     "ActiveEffect": {
+      "standard": {},
       "status": {}
     },
     "Actor": {

@@ -18,7 +18,7 @@ export default async function applyStatus(statusId, strength) {
   );
 
   if (!actors.size) {
-    ui.notifications.warn("RYUUTAMA.STATUS.noActors", { localize: true });
+    ui.notifications.warn("RYUUTAMA.EFFECT.STATUS.noActors", { localize: true });
     return;
   }
 

@@ -1,14 +1,16 @@
+import StandardData from "./standard.mjs";
+
 const { BooleanField, NumberField, SchemaField } = foundry.data.fields;
 
-export default class StatusData extends foundry.abstract.TypeDataModel {
+export default class StatusData extends StandardData {
   /** @override */
   static defineSchema() {
-    return {
+    return Object.assign(super.defineSchema(), {
       strength: new SchemaField({
         bypass: new BooleanField(),
         value: new NumberField({ integer: true, nullable: false, min: 2, initial: 2, max: 20 }),
       }),
-    };
+    });
   }
 
   /* -------------------------------------------------- */
@@ -16,7 +18,7 @@ export default class StatusData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.STATUS",
+    "RYUUTAMA.EFFECT.STATUS",
   ];
 
   /* -------------------------------------------------- */

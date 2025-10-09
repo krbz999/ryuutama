@@ -7,7 +7,7 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
 
       const result = await foundry.applications.api.Dialog.input({
         window: {
-          title: `${game.i18n.localize("RYUUTAMA.STATUS.HUD_APPLY.title")}: ${effectData.name}`,
+          title: `${game.i18n.localize("RYUUTAMA.EFFECT.STATUS.HUD_APPLY.title")}: ${effectData.name}`,
         },
         position: {
           width: 420,
@@ -25,5 +25,13 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
 
     effectData.type = "status";
     return super._fromStatusEffect(statusId, effectData, options);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _initializeSource(data = {}, options = {}) {
+    if (!data.type || (data.type === "base")) data.type = "standard";
+    return super._initializeSource(data, options);
   }
 }

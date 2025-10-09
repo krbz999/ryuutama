@@ -33,6 +33,7 @@ Hooks.once("init", () => {
   window.customElements.define(applications.elements.ResourceBar.tagName, applications.elements.ResourceBar);
 
   CONFIG.ActiveEffect.documentClass = documents.RyuutamaActiveEffect;
+  CONFIG.ActiveEffect.dataModels.standard = data.effect.StandardData;
   CONFIG.ActiveEffect.dataModels.status = data.effect.StatusData;
 
   CONFIG.Actor.collection = documents.collections.RyuutamaActors;

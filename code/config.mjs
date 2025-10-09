@@ -75,6 +75,15 @@ Prelocalization.prelocalize(checkTypes.journey.subtypes);
 
 /* -------------------------------------------------- */
 
+export const effectExpirationTypes = {
+  combatEnd: {
+    label: "RYUUTAMA.EFFECT.EXPIRATION.combatEnd",
+  },
+};
+Prelocalization.prelocalize(effectExpirationTypes);
+
+/* -------------------------------------------------- */
+
 /** @type {number[]} */
 export const experienceLevels = [
   100,
@@ -269,6 +278,7 @@ export const shieldDodgeData = {
   _id: staticId("shielddodge"),
   img: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
   name: "RYUUTAMA.SHIELD.shieldDefense",
+  system: { expiration: { type: "combatEnd" } },
 };
 Prelocalization.prelocalize({ shieldDodgeData }, { properties: ["name"] });
 
