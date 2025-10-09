@@ -3,6 +3,14 @@
  */
 
 export default class ResourceBar extends HTMLElement {
+  /**
+   * A store of resource bars from which to read values when they are replaced.
+   * @type {Map<string, number>}
+   */
+  static storage = new Map();
+
+  /* -------------------------------------------------- */
+
   /** @override */
   static tagName = "resource-bar";
 
@@ -131,6 +139,30 @@ export default class ResourceBar extends HTMLElement {
     this.#input.name = this.name;
     this.insertAdjacentElement("beforeend", this.#input);
     this.#input.addEventListener("blur", ResourceBar.#onBlur.bind(this));
+
+    this.#animateConnection();
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  disconnectedCallback() {
+    if (this.app?.state <= 0) ResourceBar.storage.delete(this.id);
+  }
+
+  /* -------------------------------------------------- */
+
+  #animateConnection() {
+    const id = this.id;
+    if (!id) return;
+
+    const stored = ResourceBar.storage.get(id) ?? null;
+    const bar = this.#bar;
+    const value = bar.computedStyleMap().get("right").value;
+    ResourceBar.storage.set(id, value);
+
+    if (stored === null) return;
+    bar.animate([{ right: `${stored}%` }, { right: `${value}%` }], { duration: 500 });
   }
 
   /* -------------------------------------------------- */
