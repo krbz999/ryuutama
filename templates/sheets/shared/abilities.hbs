@@ -1,0 +1,17 @@
+<div class="icon-fields">
+  {{#each abilities}}
+  <div class="icon-field">
+    {{#if @root.isEditable}}
+    <button type="button" data-action="configure" data-config="ability" data-ability="{{ability}}" class="icon fa-solid fa-cog"></button>
+    {{else}}
+    <ryuutama-icon src="{{icon}}"></ryuutama-icon>
+    {{/if}}
+    <div class="form-group stacked">
+      <label>{{label}}</label>
+      <div class="form-fields">
+        <span class="value">{{value.die}}</span>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>

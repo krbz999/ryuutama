@@ -1,43 +1,10 @@
 <section data-tab="{{tabs.attributes.id}}" class="{{tabs.attributes.cssClass}}" data-group="{{tabs.attributes.group}}">
 
   {{!-- ABILITIES --}}
-  <div class="icon-fields">
-    {{#each abilities}}
-    <div class="icon-field">
-      {{#if @root.isEditable}}
-      <button type="button" data-action="configure" data-config="ability" data-ability="{{ability}}" class="icon fa-solid fa-cog"></button>
-      {{else}}
-      <ryuutama-icon src="{{icon}}"></ryuutama-icon>
-      {{/if}}
-      <div class="form-group stacked">
-        <label>{{label}}</label>
-        <div class="form-fields">
-          <span class="value">{{value.die}}</span>
-        </div>
-      </div>
-    </div>
-    {{/each}}
-  </div>
+  {{> abilities}}
 
   {{!-- HP & MP --}}
-  <div class="form-group wide">
-    <label>{{localize "RYUUTAMA.ACTOR.HP"}}</label>
-    <div class="form-fields">
-      <resource-bar name="system.resources.stamina.value" class="stamina"></resource-bar>
-      {{#unless disabled}}
-      <button type="button" data-action="configure" data-config="resource" data-resource="stamina" class="icon fa-solid fa-cog"></button>
-      {{/unless}}
-    </div>
-  </div>
-  <div class="form-group wide">
-    <label>{{localize "RYUUTAMA.ACTOR.MP"}}</label>
-    <div class="form-fields">
-      <resource-bar name="system.resources.mental.value" class="mental"></resource-bar>
-      {{#unless disabled}}
-      <button type="button" data-action="configure" data-config="resource" data-resource="mental" class="icon fa-solid fa-cog"></button>
-      {{/unless}}
-    </div>
-  </div>
+  {{> resources}}
 
   {{!-- ATTACK & CHECK --}}
   <div class="icon-fields">
@@ -60,21 +27,7 @@
   </div>
 
   {{!-- STATUSES --}}
-  <div class="icon-fields column-3">
-    {{#each statuses}}
-    <div class="icon-field">
-      <a data-action="toggleStatus" data-status="{{status}}">
-        <ryuutama-icon src="{{img}}" {{#if active}} class="active" {{/if}}></ryuutama-icon>
-      </a>
-      <div class="form-group stacked">
-        <label>{{name}}</label>
-        <div class="form-fields">
-          <span class="value italics">{{label}}</span>
-        </div>
-      </div>
-    </div>
-    {{/each}}
-  </div>
+  {{> statuses}}
 
   <div class="icon-fields">
     {{!-- CONDITION --}}
@@ -93,33 +46,7 @@
     </div>
 
     {{!-- ARMOR --}}
-    <div class="icon-field">
-      {{#if isEditable}}
-      <button type="button" data-action="configure" data-config="defense" class="icon fa-solid fa-cog"></button>
-      {{else}}
-      <ryuutama src=""></ryuutama>
-      {{/if}}
-      <div class="form-group stacked">
-        <label>{{localize "RYUUTAMA.ACTOR.armor"}}</label>
-        <div class="form-fields">
-          {{#if disabled}}
-          <span class="value italics">{{document.system.defense.total}}</span>
-          {{else}}
-          {{formInput systemFields.defense.fields.armor value=source.system.defense.armor placeholder="0"}}
-          {{/if}}
-          {{#if armor.hasTags}}
-          <div class="tags">
-            {{#if armor.tags.physical}}
-            <span class="tag">{{localize "RYUUTAMA.ACTOR.physical"}}: {{armor.tags.physical}}</span>
-            {{/if}}
-            {{#if armor.tags.magical}}
-            <span class="tag">{{localize "RYUUTAMA.ACTOR.magical"}}: {{armor.tags.magical}}</span>
-            {{/if}}
-          </div>
-          {{/if}}
-        </div>
-      </div>
-    </div>
+    {{> defense}}
   </div>
 
   {{!-- SPECIAL ABILITY --}}

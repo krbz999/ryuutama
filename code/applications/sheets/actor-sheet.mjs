@@ -32,6 +32,20 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  async _preFirstRender(context, options) {
+    await super._preFirstRender(context, options);
+
+    await foundry.applications.handlebars.loadTemplates({
+      abilities: "systems/ryuutama/templates/sheets/shared/abilities.hbs",
+      defense: "systems/ryuutama/templates/sheets/shared/defense.hbs",
+      resources: "systems/ryuutama/templates/sheets/shared/resources.hbs",
+      statuses: "systems/ryuutama/templates/sheets/shared/statuses.hbs",
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
