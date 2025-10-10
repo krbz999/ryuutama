@@ -336,7 +336,9 @@
 
     "PACKS": {
       "ACTORS": "Actors",
-      "ITEMS": "Items"
+      "ITEMS": "Items",
+      "SPELLS": "Spells",
+      "TABLES": "Tables"
     },
 
     "ROLL": {

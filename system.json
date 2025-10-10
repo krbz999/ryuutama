@@ -145,6 +145,18 @@
       "label": "RYUUTAMA.PACKS.ITEMS",
       "type": "Item",
       "banner": "systems/ryuutama/assets/official/banners/items.webp"
+    },
+    {
+      "name": "spells",
+      "label": "RYUUTAMA.PACKS.SPELLS",
+      "type": "Item",
+      "banner": "systems/ryuutama/assets/official/banners/spells.webp"
+    },
+    {
+      "name": "tables",
+      "label": "RYUUTAMA.PACKS.TABLES",
+      "type": "RollTable",
+      "banner": "systems/ryuutama/assets/official/banners/tables.webp"
     }
   ],
   "packFolders": [
@@ -153,7 +165,9 @@
       "color": "#0089bd",
       "packs": [
         "actors",
-        "items"
+        "items",
+        "spells",
+        "tables"
       ]
     }
   ]
