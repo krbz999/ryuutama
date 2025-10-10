@@ -47,6 +47,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
         { id: "arsenal" },
         { id: "gear" },
         { id: "herbs" },
+        { id: "containers" },
       ],
       initial: "arsenal",
       labelPrefix: "RYUUTAMA.ACTOR.INVENTORY_TABS",
@@ -92,11 +93,11 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
         cssClass: context.inventoryTabs.herbs.cssClass,
         groups: inventorySection("herb"),
       },
-      // {
-      //   id: "containers",
-      //   cssClass: context.inventoryTabs.containers.cssClass,
-      //   groups: inventorySection("container"),
-      // },
+      {
+        id: "containers",
+        cssClass: context.inventoryTabs.containers.cssClass,
+        groups: inventorySection("container"),
+      },
     ];
 
     const rollData = this.document.getRollData();

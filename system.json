@@ -90,6 +90,11 @@
           "description.value"
         ]
       },
+      "container": {
+        "htmlFields": [
+          "description.value"
+        ]
+      },
       "hat": {
         "htmlFields": [
           "description.value"

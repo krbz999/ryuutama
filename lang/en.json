@@ -23,6 +23,8 @@
       "armorPl": "Armor",
       "cape": "Cape",
       "capePl": "Capes",
+      "container": "Container",
+      "containerPl": "Containers",
       "hat": "Hat",
       "hatPl": "Hats",
       "herb": "Herb",
@@ -50,7 +52,8 @@
       "INVENTORY_TABS": {
         "arsenal": "Weapons & Armor",
         "gear": "Traveling Gear",
-        "herbs": "Herbs"
+        "herbs": "Herbs",
+        "containers": "Containers"
       },
       "CONTEXT": {
         "ITEM": {
@@ -261,7 +264,14 @@
       },
       "defenses": "Defenses",
       "details": "Details",
-      "durability": "Durability ({value}/{max})"
+      "durability": "Durability ({value}/{max})",
+
+      "CONTAINER": {
+        "FIELDS": {
+          "capacity.max.label": "Can Hold"
+        },
+        "capacity": "Capacity"
+      }
     },
     "GEAR": {
       "FIELDS": {

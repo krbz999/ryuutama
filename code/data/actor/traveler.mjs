@@ -175,13 +175,27 @@ export default class TravelerData extends CreatureData {
   #prepareCapacity() {
     const { capacity, abilities, details, equipped } = this;
     const techBonus = this.type.types.technical;
-    capacity.max = abilities.strength.value + 3 + capacity.bonus + (details.level - 1) + techBonus * 3;
+
     capacity.value = 0;
+    capacity.container = 0;
     this.parent.items.forEach(item => {
       if (equipped[item.type] === item) return;
       const size = item.system.weight ?? 0;
       capacity.value += size;
+
+      if (item.type === "container") {
+        capacity.container += item.system.capacity.max;
+      }
     });
+
+    capacity.max =
+      abilities.strength.value
+      + 3
+      + capacity.bonus
+      + (details.level - 1)
+      + techBonus * 3
+      + capacity.container;
+
     capacity.penalty = Math.max(0, capacity.value - capacity.max);
     capacity.pct = Math.clamp(Math.round(capacity.value / capacity.max * 100), 0, 100);
   }

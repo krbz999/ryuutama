@@ -53,6 +53,7 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels.accessory = data.item.AccessoryData;
   CONFIG.Item.dataModels.armor = data.item.ArmorData;
   CONFIG.Item.dataModels.cape = data.item.CapeData;
+  CONFIG.Item.dataModels.container = data.item.ContainerData;
   CONFIG.Item.dataModels.hat = data.item.HatData;
   CONFIG.Item.dataModels.herb = data.item.HerbData;
   CONFIG.Item.dataModels.shield = data.item.ShieldData;

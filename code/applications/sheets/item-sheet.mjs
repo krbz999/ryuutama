@@ -10,6 +10,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         "systems/ryuutama/templates/sheets/item-sheet/gear.hbs",
         "systems/ryuutama/templates/sheets/item-sheet/defense.hbs",
         "systems/ryuutama/templates/sheets/item-sheet/herb.hbs",
+        "systems/ryuutama/templates/sheets/item-sheet/container.hbs",
       ],
       classes: ["scrollable", "standard-form"],
       scrollable: [""],
@@ -37,6 +38,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     }
 
     Object.assign(context, {
+      isContainer: this.document._source.type === "container",
       isHerb: this.document._source.type === "herb",
       hasDurability: this.document.system.schema.has("durability"),
       hasModifiers,

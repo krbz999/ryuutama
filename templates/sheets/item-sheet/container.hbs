@@ -1,0 +1,8 @@
+<section>
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ITEM.CONTAINER.capacity"}}</legend>
+
+    {{formGroup systemFields.capacity.fields.max value=(ifThen disabled document.system.capacity.max source.system.capacity.max) disabled=disabled placeholder="-" classes="slim"}}
+
+  </fieldset>
+</section>

@@ -26,6 +26,11 @@
       </div>
     </div>
     {{/if}}
+
+    {{!-- CONTAINER SIZE --}}
+    {{#if isContainer}}
+    {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.total source.system.size.value) disabled=disabled classes="slim"}}
+    {{/if}}
   </fieldset>
 
   {{!-- DESCRIPTION --}}
@@ -41,5 +46,9 @@
 
   {{#if hasArmor}}
   {{> "systems/ryuutama/templates/sheets/item-sheet/defense.hbs"}}
+  {{/if}}
+
+  {{#if isContainer}}
+  {{> "systems/ryuutama/templates/sheets/item-sheet/container.hbs"}}
   {{/if}}
 </section>
