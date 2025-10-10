@@ -10,14 +10,7 @@
       "value": 1
     },
     "gear": {
-      "habitat": {
-        "weather": [
-          "snow",
-          "blizzard"
-        ],
-        "terrain": []
-      },
-      "strength": null
+      "custom": "Snow/Blizzard"
     },
     "description": {
       "value": "<p>These shoes are specially finished to protect toes from frostbite.</p>"

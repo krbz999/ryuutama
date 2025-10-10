@@ -9,16 +9,7 @@
       "value": 1
     },
     "gear": {
-      "habitat": {
-        "terrain": [
-          "wasteland",
-          "rocky",
-          "mountain",
-          "alpine"
-        ],
-        "weather": []
-      },
-      "strength": null
+      "custom": "Wasteland/Rocky Terrain/Mountain/Alpine"
     },
     "description": {
       "value": "<p>These shoes have thick soles that allow walking across rocky terrain without hurting your feet. The soles also help to keep your feet from slipping.</p>"

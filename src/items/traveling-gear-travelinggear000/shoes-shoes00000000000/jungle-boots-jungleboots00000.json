@@ -10,15 +10,7 @@
       "value": 1
     },
     "gear": {
-      "habitat": {
-        "terrain": [
-          "woods",
-          "deepForest",
-          "jungle"
-        ],
-        "weather": []
-      },
-      "strength": null
+      "custom": "Woods/Deep Forest/Jungle"
     },
     "description": {
       "value": "<p>These boots are made to help you traverse overgrown jungles. They offer complete protection for your feet and are extremely sturdy.</p>"

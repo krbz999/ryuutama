@@ -19,15 +19,7 @@
       "value": 1
     },
     "gear": {
-      "habitat": {
-        "terrain": [],
-        "weather": [
-          "ALL:wind",
-          "ALL:rain",
-          "ALL:snow"
-        ]
-      },
-      "strength": null
+      "custom": "All Rain, Wind, and Snow related conditions"
     }
   },
   "effects": [],

@@ -18,15 +18,7 @@
       "value": "<p>These boots have been finished with a coating that makes them resistant to water. They do a good job of keeping your feet dry.</p>"
     },
     "gear": {
-      "habitat": {
-        "terrain": [],
-        "weather": [
-          "rain",
-          "hardRain",
-          "storm"
-        ]
-      },
-      "strength": null
+      "custom": "Rain/Hard Rain/Storm"
     }
   },
   "effects": [],

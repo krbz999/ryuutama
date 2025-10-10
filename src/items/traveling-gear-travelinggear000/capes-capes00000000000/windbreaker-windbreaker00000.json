@@ -19,13 +19,7 @@
       "value": 3
     },
     "gear": {
-      "habitat": {
-        "terrain": [],
-        "weather": [
-          "strongWind"
-        ]
-      },
-      "strength": null
+      "custom": "Strong wind"
     }
   },
   "effects": [],

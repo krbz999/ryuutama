@@ -19,11 +19,7 @@
       "value": 3
     },
     "gear": {
-      "habitat": {
-        "terrain": [],
-        "weather": []
-      },
-      "strength": null
+      "custom": "-1 fire damage"
     }
   },
   "effects": [],

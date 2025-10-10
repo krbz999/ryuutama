@@ -19,14 +19,7 @@
       "value": 3
     },
     "gear": {
-      "habitat": {
-        "terrain": [
-          "rocky",
-          "mountain"
-        ],
-        "weather": []
-      },
-      "strength": null
+      "custom": "Rocky terrain/Mountain"
     }
   },
   "effects": [],

@@ -19,13 +19,7 @@
       "value": 3
     },
     "gear": {
-      "habitat": {
-        "terrain": [],
-        "weather": [
-          "snow"
-        ]
-      },
-      "strength": null
+      "custom": "Snow"
     }
   },
   "effects": [],

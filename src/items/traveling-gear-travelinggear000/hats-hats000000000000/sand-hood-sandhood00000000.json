@@ -19,13 +19,7 @@
       "value": 1
     },
     "gear": {
-      "habitat": {
-        "terrain": [
-          "desert"
-        ],
-        "weather": []
-      },
-      "strength": null
+      "custom": "Desert"
     }
   },
   "effects": [],

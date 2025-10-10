@@ -19,11 +19,7 @@
       "value": 3
     },
     "gear": {
-      "habitat": {
-        "terrain": [],
-        "weather": []
-      },
-      "strength": null
+      "custom": "Hide check +1 for chosen Terrain"
     }
   },
   "effects": [],

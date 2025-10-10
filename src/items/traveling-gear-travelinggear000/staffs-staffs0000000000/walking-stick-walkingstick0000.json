@@ -19,16 +19,7 @@
       "value": 3
     },
     "gear": {
-      "habitat": {
-        "terrain": [
-          "ALL:0",
-          "ALL:1",
-          "ALL:2",
-          "ALL:3"
-        ],
-        "weather": []
-      },
-      "strength": 4
+      "custom": "Level 3 or lower Terrain"
     }
   },
   "effects": [],

@@ -262,19 +262,14 @@
       "details": "Details",
       "durability": "Durability ({value}/{max})"
     },
-    "HABITAT": {
+    "GEAR": {
       "FIELDS": {
-        "gear.strength.label": "Max Strength",
-        "gear.strength.hint": "A traveler will not receive a benefit from this equipment if their Strength is higher than this value."
-      },
-      "configureHabitat": "Configure Terrain and Weather conditions",
-      "habitatBonuses": "Habitat Bonuses",
-      "terrainAndWeather": "Terrain & Weather Conditions",
-      "noTerrainWeather": "No bonuses",
-      "CONFIG": {
-        "uncategorized": "Uncategorized",
-        "title": "Configure Terrain & Weather Conditions"
-      },
+        "gear.custom.label": "Requirements",
+        "gear.custom.hint": "When the check bonus from this item applies."
+      }
+    },
+    "HABITAT": {
+      "checkBonuses": "Check Bonuses",
       "currentHabitat": "Current Habitat"
     },
     "PHYSICAL": {

@@ -19,11 +19,7 @@
       "value": 1
     },
     "gear": {
-      "habitat": {
-        "terrain": [],
-        "weather": []
-      },
-      "strength": null
+      "custom": ""
     }
   },
   "effects": [],

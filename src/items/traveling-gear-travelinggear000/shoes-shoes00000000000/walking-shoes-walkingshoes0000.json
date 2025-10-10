@@ -18,13 +18,7 @@
       "value": 1
     },
     "gear": {
-      "habitat": {
-        "terrain": [
-          "road"
-        ],
-        "weather": []
-      },
-      "strength": null
+      "custom": "On a road"
     }
   },
   "effects": [],

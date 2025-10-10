@@ -2,15 +2,6 @@ import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 
 export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /** @override */
-  static DEFAULT_OPTIONS = {
-    actions: {
-      configureHabitat: RyuutamaItemSheet.#configureHabitat,
-    },
-  };
-
-  /* -------------------------------------------------- */
-
-  /** @override */
   static PARTS = {
     details: {
       template: "systems/ryuutama/templates/sheets/item-sheet/details.hbs",
@@ -69,15 +60,5 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     }
 
     return context;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * @this RyuutamaItemSheet
-   */
-  static #configureHabitat(event, target) {
-    const application = new ryuutama.applications.apps.HabitatConfig({ document: this.document });
-    application.render({ force: true });
   }
 }

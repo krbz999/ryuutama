@@ -10,13 +10,7 @@
       "value": 1
     },
     "gear": {
-      "habitat": {
-        "terrain": [
-          "swamp"
-        ],
-        "weather": []
-      },
-      "strength": null
+      "custom": "Swamp"
     },
     "description": {
       "value": "<p>These boots have wide soles that keep your feet from sinking into mud. They allow you to glide across the surface of the mud.</p>"
