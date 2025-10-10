@@ -28,6 +28,16 @@ export default class HerbData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
+  /**
+   * The amount this adds to the capacity.
+   * @type {number}
+   */
+  get weight() {
+    return 1;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();

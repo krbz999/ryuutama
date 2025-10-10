@@ -30,6 +30,16 @@ export default class PhysicalData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
+  /**
+   * The amount this adds to the capacity.
+   * @type {number}
+   */
+  get weight() {
+    return this.size.total;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();

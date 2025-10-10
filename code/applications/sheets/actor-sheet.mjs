@@ -181,6 +181,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
           if (!this.isEditable || (this.document.type !== "traveler")) return false;
           const item = getItem(target);
           if ((item.type === "shield") && !this.document.system.canEquipShield) return false;
+          else if (!this.document.system.schema.fields.equipped.has(item.type)) return false;
           const equipped = this.document.system.equipped[item.type];
           return equipped !== item;
         },

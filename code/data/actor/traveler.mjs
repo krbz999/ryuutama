@@ -179,7 +179,7 @@ export default class TravelerData extends CreatureData {
     capacity.value = 0;
     this.parent.items.forEach(item => {
       if (equipped[item.type] === item) return;
-      const size = item.system.size?.total ?? 0;
+      const size = item.system.weight ?? 0;
       capacity.value += size;
     });
     capacity.penalty = Math.max(0, capacity.value - capacity.max);
