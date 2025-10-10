@@ -6,10 +6,25 @@
   min-height: 60px;
   height: fit-content;
   display: grid;
-  padding: 0.5rem;
+  grid-template-columns: 1fr;
+  padding: .5rem;
 
   &:hover {
     box-shadow: 0 0 10px var(--color-shadow-highlight);
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  .topography {
+    font-size: 17px;
+  }
+
+  .terrain, .weather {
+    text-align: left;
+    font-size: 12px;
+    margin: .1rem 0;
   }
 
   .themed.theme-light & {

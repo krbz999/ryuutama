@@ -277,11 +277,8 @@
       "FIELDS": {
         "gear.custom.label": "Requirements",
         "gear.custom.hint": "When the check bonus from this item applies."
-      }
-    },
-    "HABITAT": {
-      "checkBonuses": "Check Bonuses",
-      "currentHabitat": "Current Habitat"
+      },
+      "checkBonuses": "Check Bonuses"
     },
     "PHYSICAL": {
       "FIELDS": {
@@ -370,6 +367,16 @@
       "conditionUpdateScore": "Update Condition",
       "conditionRemoveStatuses": "Remove Statuses",
       "conditionRemoveStatusesHint": "After updating your condition, remove status effects that no longer apply?"
+    },
+
+    "SETTINGS": {
+      "CURRENT_HABITAT": {
+        "terrain": "Terrain",
+        "weather": "Weather",
+        "title": "Configure Current Habitat",
+        "current": "Current Habitat",
+        "targetNumber": "Target Number: {number}"
+      }
     },
 
     "SHEET": {
