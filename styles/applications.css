@@ -23,3 +23,11 @@ ryuutama-icon {
 .ryuutama.application .italics {
   font-style: italic;
 }
+
+.ryuutama.application button.unsize {
+  --button-size: unset;
+}
+
+.ryuutama.application .form-group > label {
+  white-space: nowrap;
+}

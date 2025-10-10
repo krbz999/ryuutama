@@ -2,7 +2,7 @@
   {{#each abilities}}
   <div class="icon-field">
     {{#if @root.isEditable}}
-    <button type="button" data-action="configure" data-config="ability" data-ability="{{ability}}" class="icon fa-solid fa-cog"></button>
+    <button type="button" data-action="configure" data-config="ability" data-ability="{{ability}}" class="unsize icon fa-solid fa-cog"></button>
     {{else}}
     <ryuutama-icon src="{{icon}}"></ryuutama-icon>
     {{/if}}

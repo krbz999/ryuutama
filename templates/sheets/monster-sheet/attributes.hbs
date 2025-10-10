@@ -10,7 +10,7 @@
   <div class="icon-fields">
     <div class="icon-field">
       {{#if isEditable}}
-      <button type="button" data-action="configure" data-config="attack" class="icon fa-solid fa-cog"></button>
+      <button type="button" data-action="configure" data-config="attack" class="unsize icon fa-solid fa-cog"></button>
       {{else}}
       <img src="{{attackImage}}" alt="">
       {{/if}}
@@ -33,14 +33,14 @@
     {{!-- CONDITION --}}
     <div class="icon-field">
       {{#if isEditable}}
-      <button type="button" data-action="configure" data-config="condition" class="icon fa-solid fa-cog"></button>
+      <button type="button" data-action="configure" data-config="condition" class="unsize icon fa-solid fa-cog"></button>
       {{else}}
       <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/condition.svg"></ryuutama-icon>
       {{/if}}
       <div class="form-group stacked">
         <label>{{localize "RYUUTAMA.ACTOR.condition"}}</label>
         <div class="form-fields">
-          <span class="value">{{ifThen document.system.condition.value document.system.condition.value 0}}</span>
+          <span class="value italics">{{ifThen document.system.condition.value document.system.condition.value 0}}</span>
         </div>
       </div>
     </div>

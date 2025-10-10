@@ -89,6 +89,10 @@
       grid-template-columns: 45px 1fr;
       gap: .5rem;
 
+      > :first-child {
+        height: 45px;
+      }
+
       [data-status] > ryuutama-icon:not(.active) {
         opacity: 0.5;
       }
