@@ -1,13 +1,10 @@
 <section data-tab="{{tabs.inventory.id}}" class="{{tabs.inventory.cssClass}}" data-group="{{tabs.inventory.group}}">
   {{!-- CAPACITY BAR --}}
   <div class="capacity">
-    <span class="bar" style="--fill: {{document.system.capacity.pct}}%"></span>
-    <span class="display">
-      {{document.system.capacity.value}} / {{document.system.capacity.max}}
-      {{#if document.system.capacity.penalty}}
-      (&ndash;{{document.system.capacity.penalty}} {{localize "RYUUTAMA.ACTOR.capacityPenalty"}})
-      {{/if}}
-    </span>
+    <progress-bar resource="system.capacity" class="capacity {{#if capacityOverflow}} overflow {{/if}}" id="{{rootId}}-capacity"></progress-bar>
+    {{#if document.system.capacity.penalty}}
+    <span class="tag">({{{capacityPenalty}}})</span>
+    {{/if}}
   </div>
 
   {{!-- EQUIPPED ITEMS --}}

@@ -1,7 +1,7 @@
 <div class="form-group wide">
   <label>{{localize "RYUUTAMA.ACTOR.HP"}}</label>
   <div class="form-fields">
-    <resource-bar name="system.resources.stamina.value" class="stamina" id="{{rootId}}-stamina"></resource-bar>
+    <resource-bar resource="system.resources.stamina" class="stamina" id="{{rootId}}-stamina"></resource-bar>
     {{#unless disabled}}
     <button type="button" data-action="configure" data-config="resource" data-resource="stamina" class="icon fa-solid fa-cog"></button>
     {{/unless}}
@@ -10,7 +10,7 @@
 <div class="form-group wide">
   <label>{{localize "RYUUTAMA.ACTOR.MP"}}</label>
   <div class="form-fields">
-    <resource-bar name="system.resources.mental.value" class="mental" id="{{rootId}}-mental"></resource-bar>
+    <resource-bar resource="system.resources.mental" class="mental" id="{{rootId}}-mental"></resource-bar>
     {{#unless disabled}}
     <button type="button" data-action="configure" data-config="resource" data-resource="mental" class="icon fa-solid fa-cog"></button>
     {{/unless}}

@@ -22,6 +22,7 @@
     --ryuutama-color-value-location: black;
     --ryuutama-color-disabled: var(--ryuutama-color-gold-dark);
     --ryuutama-color-capacity-bar: rgb(219, 124, 16);
+    --ryuutama-color-capacity-bar-overflow: rgb(249, 23, 16);
   }
 
   .theme-dark, .themed.theme-dark {
@@ -30,5 +31,6 @@
     --ryuutama-color-value-location: white;
     --ryuutama-color-disabled: var(--ryuutama-color-gold);
     --ryuutama-color-capacity-bar: rgb(218, 143, 59);
+    --ryuutama-color-capacity-bar-overflow: rgb(219, 63, 16);
   }
 }

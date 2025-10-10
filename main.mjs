@@ -30,6 +30,7 @@ Hooks.once("init", () => {
   // Define custom elements.
   window.customElements.define(applications.elements.IconElement.tagName, applications.elements.IconElement);
   window.customElements.define(applications.elements.InventoryElement.tagName, applications.elements.InventoryElement);
+  window.customElements.define(applications.elements.ProgressBar.tagName, applications.elements.ProgressBar);
   window.customElements.define(applications.elements.ResourceBar.tagName, applications.elements.ResourceBar);
 
   CONFIG.ActiveEffect.documentClass = documents.RyuutamaActiveEffect;

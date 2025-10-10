@@ -110,6 +110,12 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     if (this.document.system.equipped.weapon?.system.grip === 2) delete context.equipped.shield;
     context.weaponImage = this.document.system.equipped.weapon?.img ?? ryuutama.config.unarmedConfiguration.icon;
 
+    // Capacity
+    context.capacityPenalty = game.i18n.format("RYUUTAMA.ACTOR.capacityPenalty", {
+      penalty: `&ndash;${this.document.system.capacity.penalty}`,
+    });
+    context.capacityOverflow = this.document.system.capacity.penalty > 0;
+
     // Tip-top shape / out of shape.
     const condition = this.document.system.condition.value;
     context.conditionShape = {
