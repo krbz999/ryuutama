@@ -44,6 +44,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       isSpell: this.document._source.type === "spell",
       isWeapon: this.document._source.type === "weapon",
       hasDurability: this.document.system.schema.has("durability"),
+      hasPrice: this.document.system.schema.has("price"),
       hasModifiers,
       isGear: this.document.system.schema.has("gear"),
       hasArmor: this.document.system.schema.has("armor"),
