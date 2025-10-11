@@ -79,6 +79,9 @@
         ]
       }
     },
+    "ChatMessage": {
+      "damage": {}
+    },
     "Item": {
       "accessory": {
         "htmlFields": [

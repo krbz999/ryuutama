@@ -28,6 +28,7 @@ Hooks.once("init", () => {
   helpers.Enrichers.registerEnrichers();
 
   // Define custom elements.
+  window.customElements.define(applications.elements.DamageTray.tagName, applications.elements.DamageTray);
   window.customElements.define(applications.elements.IconElement.tagName, applications.elements.IconElement);
   window.customElements.define(applications.elements.InventoryElement.tagName, applications.elements.InventoryElement);
   window.customElements.define(applications.elements.ProgressBar.tagName, applications.elements.ProgressBar);
@@ -45,6 +46,8 @@ Hooks.once("init", () => {
   CONFIG.Actor.dataModels.traveler = data.actor.TravelerData;
 
   CONFIG.ChatMessage.documentClass = documents.RyuutamaChatMessage;
+  CONFIG.ChatMessage.dataModels.damage = data.message.DamageData;
+
   CONFIG.Combat.documentClass = documents.RyuutamaCombat;
   CONFIG.Combatant.documentClass = documents.RyuutamaCombatant;
   CONFIG.CombatantGroup.documentClass = documents.RyuutamaCombatantGroup;
@@ -72,9 +75,11 @@ Hooks.once("init", () => {
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
 
   // Assign rolls.
+  CONFIG.Dice.rolls.unshift(dice.DamageRoll);
   CONFIG.Dice.rolls.unshift(dice.CheckRoll);
   Object.assign(CONFIG.Dice, {
     CheckRoll: dice.CheckRoll,
+    DamageRoll: dice.DamageRoll,
   });
 
   // Register sheets.

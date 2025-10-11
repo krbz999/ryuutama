@@ -223,6 +223,13 @@
       "winter": "Winter"
     },
 
+    "CHAT": {
+      "DAMAGE": {
+        "FIELDS": {},
+        "applyDamage": "Apply Damage"
+      }
+    },
+
     "EFFECT": {
       "STATUS": {
         "FIELDS": {

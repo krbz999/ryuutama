@@ -1,0 +1,28 @@
+.chat-message.damage [data-message-part=damageTray] {
+  damage-tray {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    margin: 0.5rem 0;
+    border: 1px inset gray;
+    border-radius: 3px;
+
+    [data-actor-uuid] {
+      display: grid;
+      grid-template-columns: 35px 1fr 35px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+      gap: 0.5rem;
+
+      img {
+        aspect-ratio: 1;
+        object-fit: contain;
+      }
+    }
+
+    + button[data-action=applyDamage] {
+      width: 100%;
+    }
+  }
+}

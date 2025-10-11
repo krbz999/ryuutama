@@ -1,0 +1,9 @@
+<section>
+  {{#if user.isGM}}
+  <damage-tray></damage-tray>
+  <button type="button" data-action="applyDamage">
+    <i class="fa-solid fa-burst" inert></i>
+    <span>{{localize "RYUUTAMA.CHAT.DAMAGE.applyDamage"}}</span>
+  </button>
+  {{/if}}
+</section>

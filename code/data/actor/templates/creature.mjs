@@ -223,6 +223,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         break;
 
       case "damage": {
+        message.data.type = "damage";
         switch (this.parent.type) {
           case "traveler": {
             const w = this.equipped.weapon;
