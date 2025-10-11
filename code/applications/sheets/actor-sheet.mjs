@@ -18,6 +18,15 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       rollCheck: RyuutamaActorSheet.#rollCheck,
       configure: RyuutamaActorSheet.#configure,
       toggleStatus: RyuutamaActorSheet.#toggleStatus,
+      configurePrototypeToken: RyuutamaActorSheet.#configurePrototypeToken,
+    },
+    window: {
+      controls: [{
+        action: "configurePrototypeToken",
+        icon: "fa-solid fa-circle-user",
+        label: "TOKEN.TitlePrototype",
+        ownership: "OWNER",
+      }],
     },
   };
 
@@ -28,6 +37,17 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    * @type {DragDrop}
    */
   #dragDrop;
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _getHeaderControls() {
+    const controls = super._getHeaderControls();
+    if (!this.isEditable || this.document.isToken) {
+      controls.findSplice(c => c.action === "configurePrototypeToken");
+    }
+    return controls;
+  }
 
   /* -------------------------------------------------- */
 
@@ -322,5 +342,20 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   static #toggleStatus(event, target) {
     const status = target.dataset.status;
     this.document.toggleStatusEffect(status);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   */
+  static #configurePrototypeToken(event, target) {
+    new CONFIG.Token.prototypeSheetClass({
+      prototype: this.document.prototypeToken,
+      position: {
+        left: Math.max(this.position.left - 560 - 10, 10),
+        top: this.position.top,
+      },
+    }).render({ force: true });
   }
 }

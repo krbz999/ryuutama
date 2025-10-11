@@ -99,6 +99,7 @@
 
       .stacked {
         gap: 0;
+        align-content: flex-start;
         --input-height: 1.2rem;
 
         .form-fields {
