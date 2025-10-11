@@ -9,5 +9,6 @@ export { default as HerbData } from "./herb.mjs";
 export { default as ShieldData } from "./shield.mjs";
 export { default as ShoesData } from "./shoes.mjs";
 export { default as SkillData } from "./skill.mjs";
+export { default as SpellData } from "./spell.mjs";
 export { default as StaffData } from "./staff.mjs";
 export { default as WeaponData } from "./weapon.mjs";

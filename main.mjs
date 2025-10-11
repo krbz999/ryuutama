@@ -59,6 +59,7 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels.shield = data.item.ShieldData;
   CONFIG.Item.dataModels.shoes = data.item.ShoesData;
   CONFIG.Item.dataModels.skill = data.item.SkillData;
+  CONFIG.Item.dataModels.spell = data.item.SpellData;
   CONFIG.Item.dataModels.staff = data.item.StaffData;
   CONFIG.Item.dataModels.weapon = data.item.WeaponData;
 

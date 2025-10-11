@@ -31,3 +31,17 @@ ryuutama-icon {
 .ryuutama.application .form-group > label {
   white-space: nowrap;
 }
+
+.ryuutama.application .form-group.slim-wide {
+  > .form-fields > :first-child,
+  > .form-fields > :first-child input {
+    flex: 0 0 50px;
+    padding: 0;
+    text-align: center;
+  }
+}
+
+.ryuutama.application .form-group.stacked label {
+  width: 100%;
+  text-align: center;
+}

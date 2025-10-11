@@ -33,6 +33,10 @@
     {{/if}}
   </fieldset>
 
+  {{#if isSpell}}
+  {{> "systems/ryuutama/templates/sheets/item-sheet/spell.hbs"}}
+  {{/if}}
+
   {{!-- DESCRIPTION --}}
   {{formInput systemFields.description.fields.value enriched=enriched.description value=source.system.description.value disabled=disabled toggled=disabled height=300}}
 

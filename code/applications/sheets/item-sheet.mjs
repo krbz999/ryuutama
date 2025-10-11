@@ -11,6 +11,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         "systems/ryuutama/templates/sheets/item-sheet/defense.hbs",
         "systems/ryuutama/templates/sheets/item-sheet/herb.hbs",
         "systems/ryuutama/templates/sheets/item-sheet/container.hbs",
+        "systems/ryuutama/templates/sheets/item-sheet/spell.hbs",
       ],
       classes: ["scrollable", "standard-form"],
       scrollable: [""],
@@ -40,10 +41,11 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     Object.assign(context, {
       isContainer: this.document._source.type === "container",
       isHerb: this.document._source.type === "herb",
+      isSpell: this.document._source.type === "spell",
+      isWeapon: this.document._source.type === "weapon",
       hasDurability: this.document.system.schema.has("durability"),
       hasModifiers,
       isGear: this.document.system.schema.has("gear"),
-      isWeapon: this.document._source.type === "weapon",
       hasArmor: this.document.system.schema.has("armor"),
       modifierOptions: Object.values(modifierOptions),
       enriched: {
@@ -59,6 +61,16 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         this.document.system.description.effect,
         { rollData: this.document.getRollData(), relativeTo: this.document },
       );
+    }
+
+    if (context.isSpell) {
+      context.spell = {};
+      const duration = context.spell.duration = {};
+      duration.type = context.disabled
+        ? context.document.system.spell.duration.type
+        : context.source.system.spell.duration.type;
+      duration.units = !!ryuutama.config.spellDurationTypes[context.spell.duration.type]?.units;
+      duration.special = duration.type === "special";
     }
 
     return context;

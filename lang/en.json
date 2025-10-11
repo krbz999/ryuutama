@@ -35,6 +35,8 @@
       "shoesPl": "Shoes",
       "skill": "Skill",
       "skillPl": "Skills",
+      "spell": "Spell",
+      "spellPl": "Spells",
       "staff": "Staff",
       "staffPl": "Staffs",
       "weapon": "Weapon",
@@ -46,6 +48,7 @@
       "TABS": {
         "attributes": "Attributes",
         "details": "Details",
+        "spells": "Magic",
         "inventory": "Inventory",
         "notes": "Notes"
       },
@@ -271,6 +274,56 @@
           "capacity.max.label": "Can Hold"
         },
         "capacity": "Capacity"
+      },
+
+      "SPELL": {
+        "FIELDS": {
+          "category.season.label": "Magic Season",
+          "category.value.label": "Type",
+          "description.value.label": "Description",
+          "spell.activation.cast.label": "Casting Time",
+          "spell.activation.mental.label": "MP Cost",
+          "spell.level.label": "Spell Level",
+          "spell.range.value.label": "Range",
+          "spell.target.custom.label": "Targets"
+        },
+        "ACTIVATION": {
+          "normal": "Normal Spell",
+          "ritual": "Ritual"
+        },
+        "CATEGORIES": {
+          "incantation": "Incantation",
+          "seasonal": "Seasonal"
+        },
+        "DURATION": {
+          "days": "Days",
+          "hours": "Hours",
+          "instant": "Instant",
+          "minutes": "Minutes",
+          "permanent": "Permanent",
+          "ritual": "Ritual length",
+          "rounds": "Rounds",
+          "special": "Special"
+        },
+        "LEVEL": {
+          "low": "Low Level Spell",
+          "mid": "Mid Level Spell",
+          "high": "High Level Spell"
+        },
+        "RANGE": {
+          "allAreas": "All area",
+          "any": "Any",
+          "caster": "Caster",
+          "closeArea": "Close area",
+          "touch": "Touch",
+          "special": "Special"
+        },
+        "activation": "Activation",
+        "configuration": "Spell Configuration",
+        "duration": "Duration",
+        "specialDuration": "Special duration",
+        "targetPlaceholder": "E.g. '1 person'",
+        "timing": "Spell Timing"
       }
     },
     "GEAR": {

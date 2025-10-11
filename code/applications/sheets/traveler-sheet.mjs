@@ -18,6 +18,10 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/details.hbs",
       classes: ["tab", "standard-form", "scrollable"],
     },
+    spells: {
+      template: "systems/ryuutama/templates/sheets/traveler-sheet/spells.hbs",
+      classes: ["tab", "standard-form", "scrollable"],
+    },
     inventory: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/inventory.hbs",
       classes: ["tab", "standard-form", "scrollable"],
@@ -36,6 +40,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       tabs: [
         { id: "attributes" },
         { id: "details" },
+        { id: "spells" },
         { id: "inventory" },
         { id: "notes" },
       ],
@@ -53,6 +58,32 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       labelPrefix: "RYUUTAMA.ACTOR.INVENTORY_TABS",
     },
   };
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _getTabsConfig(group) {
+    const config = foundry.utils.deepClone(super._getTabsConfig(group)) ?? null;
+    const actor = this.document;
+    if ((group === "primary") && !actor.items.documentsByType.spell.length && !actor.system.type.types.magic) {
+      config.tabs.findSplice(tab => tab.id === "spells");
+    }
+    return config;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _configureRenderParts(options) {
+    const parts = super._configureRenderParts(options);
+
+    const actor = this.document;
+    if (!actor.items.documentsByType.spell.length && !actor.system.type.types.magic) {
+      delete parts.spells;
+    }
+
+    return parts;
+  }
 
   /* -------------------------------------------------- */
 
@@ -137,6 +168,12 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     if (condition >= 10) context.conditionShape.high = true;
     else if (condition <= 2) context.conditionShape.low = true;
     else context.conditionShape.active = false;
+
+    // Spells.
+    context.spells = {};
+    if (options.parts.includes("spells")) {
+      context.spells.items = this.document.items.documentsByType.spell.map(spell => ({ document: spell }));
+    }
 
     return context;
   }

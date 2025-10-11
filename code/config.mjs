@@ -283,6 +283,105 @@ export const shieldDodgeData = {
 Prelocalization.prelocalize({ shieldDodgeData }, { properties: ["name"] });
 
 /* -------------------------------------------------- */
+/*   SPELLS                                           */
+/* -------------------------------------------------- */
+
+export const spellCategories = {
+  incantation: {
+    label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.incantation",
+  },
+  seasonal: {
+    label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.seasonal",
+  },
+};
+Prelocalization.prelocalize(spellCategories);
+
+/* -------------------------------------------------- */
+
+export const spellActivationTypes = {
+  normal: {
+    label: "RYUUTAMA.ITEM.SPELL.ACTIVATION.normal",
+  },
+  ritual: {
+    label: "RYUUTAMA.ITEM.SPELL.ACTIVATION.ritual",
+  },
+};
+Prelocalization.prelocalize(spellActivationTypes);
+
+/* -------------------------------------------------- */
+
+export const spellDurationTypes = {
+  hours: {
+    label: "RYUUTAMA.ITEM.SPELL.DURATION.hours",
+    units: true,
+  },
+  rounds: {
+    label: "RYUUTAMA.ITEM.SPELL.DURATION.rounds",
+    units: true,
+  },
+  instant: {
+    label: "RYUUTAMA.ITEM.SPELL.DURATION.instant",
+  },
+  minutes: {
+    label: "RYUUTAMA.ITEM.SPELL.DURATION.minutes",
+    units: true,
+  },
+  days: {
+    label: "RYUUTAMA.ITEM.SPELL.DURATION.days",
+    units: true,
+  },
+  ritual: {
+    label: "RYUUTAMA.ITEM.SPELL.DURATION.ritual", // length of ritual
+  },
+  permanent: {
+    label: "RYUUTAMA.ITEM.SPELL.DURATION.permanent",
+  },
+  special: {
+    label: "RYUUTAMA.ITEM.SPELL.DURATION.special",
+  },
+};
+Prelocalization.prelocalize(spellDurationTypes);
+
+/* -------------------------------------------------- */
+
+export const spellLevels = {
+  low: {
+    label: "RYUUTAMA.ITEM.SPELL.LEVEL.low",
+  },
+  mid: {
+    label: "RYUUTAMA.ITEM.SPELL.LEVEL.mid",
+  },
+  high: {
+    label: "RYUUTAMA.ITEM.SPELL.LEVEL.high",
+  },
+};
+Prelocalization.prelocalize(spellLevels);
+
+/* -------------------------------------------------- */
+
+export const spellRangeTypes = {
+  touch: {
+    label: "RYUUTAMA.ITEM.SPELL.RANGE.touch",
+  },
+  caster: {
+    label: "RYUUTAMA.ITEM.SPELL.RANGE.caster",
+  },
+  closeArea: {
+    label: "RYUUTAMA.ITEM.SPELL.RANGE.closeArea",
+  },
+  allAreas: {
+    label: "RYUUTAMA.ITEM.SPELL.RANGE.allAreas",
+  },
+  any: {
+    label: "RYUUTAMA.ITEM.SPELL.RANGE.any",
+  },
+  special: {
+    label: "RYUUTAMA.ITEM.SPELL.RANGE.special",
+  },
+};
+Prelocalization.prelocalize(spellRangeTypes);
+
+/* -------------------------------------------------- */
 
 /**
  * @type {Record<string, StartingScoreConfig>}

@@ -63,7 +63,12 @@
       "status": {}
     },
     "Actor": {
-      "monster": {},
+      "monster": {
+        "htmlFields": [
+          "description.value",
+          "description.special.value"
+        ]
+      },
       "party": {},
       "ryuujin": {},
       "traveler": {
@@ -117,6 +122,11 @@
         ]
       },
       "skill": {
+        "htmlFields": [
+          "description.value"
+        ]
+      },
+      "spell": {
         "htmlFields": [
           "description.value"
         ]

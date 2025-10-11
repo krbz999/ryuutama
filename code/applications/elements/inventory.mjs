@@ -15,9 +15,10 @@ export default class InventoryElement extends HTMLElement {
       element.classList.add(...InventoryElement.#classesFromOption(options.classes));
     }
 
-    if (!options.documents?.length) {
+    if (!options.documents) {
       throw new Error("An InventoryElement cannot be constructed without any documents to render.");
     }
+
     for (const [i, entryData] of options.documents.entries()) {
       const entry = element.#createEntry(entryData, options, i);
       if (options.action) entry.dataset.action = options.action;

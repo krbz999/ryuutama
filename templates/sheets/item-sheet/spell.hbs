@@ -1,0 +1,56 @@
+<fieldset>
+  <legend>{{localize "RYUUTAMA.ITEM.SPELL.configuration"}}</legend>
+
+  {{!-- CATEGORY --}}
+  <div class="form-group">
+    <div class="form-fields">
+      {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled}}
+
+      {{#if (eq document.system.category.value "seasonal")}}
+      {{formGroup systemFields.category.fields.season value=(ifThen disabled document.system.category.season source.system.category.season) disabled=disabled}}
+      {{/if}}
+    </div>
+  </div>
+
+  {{!-- LEVEL --}}
+  {{formGroup systemFields.spell.fields.level value=(ifThen disabled document.system.spell.level source.system.spell.level) disabled=disabled}}
+
+  <div class="form-group">
+    <div class="form-fields">
+      {{!-- TARGET --}}
+      {{formGroup systemFields.spell.fields.target.fields.custom value=(ifThen disabled document.system.spell.target.custom source.system.spell.target.custom) disabled=disabled placeholder=(localize "RYUUTAMA.ITEM.SPELL.targetPlaceholder")}}
+
+      {{!-- RANGE --}}
+      {{formGroup systemFields.spell.fields.range.fields.value value=(ifThen disabled document.system.spell.range.value source.system.spell.range.value) disabled=disabled}}
+    </div>
+  </div>
+
+</fieldset>
+
+<fieldset>
+  <legend>{{localize "RYUUTAMA.ITEM.SPELL.timing"}}</legend>
+
+  {{!-- ACTIVATION --}}
+  <div class="form-group slim-wide">
+    <label>{{localize "RYUUTAMA.ITEM.SPELL.activation"}}</label>
+    <div class="form-fields">
+      {{formGroup systemFields.spell.fields.activation.fields.mental value=(ifThen disabled document.system.spell.activation.mental source.system.spell.activation.mental) disabled=disabled classes="stacked" placeholder="0"}}
+      {{formGroup systemFields.spell.fields.activation.fields.cast value=(ifThen disabled document.system.spell.activation.cast source.system.spell.activation.cast) disabled=disabled classes="stacked"}}
+    </div>
+  </div>
+
+  {{!-- DURATION --}}
+  <div class="form-group {{#if spell.duration.units}} slim-wide {{/if}}">
+    <label>{{localize "RYUUTAMA.ITEM.SPELL.duration"}}</label>
+    <div class="form-fields">
+      {{#if spell.duration.units}}
+      {{formInput systemFields.spell.fields.duration.fields.value value=(ifThen disabled document.system.spell.duration.value source.system.spell.duration.value) disabled=disabled placeholder="1"}}
+      {{/if}}
+
+      {{formInput systemFields.spell.fields.duration.fields.type value=(ifThen disabled document.system.spell.duration.type source.system.spell.duration.type) disabled=disabled}}
+    </div>
+  </div>
+  {{#if spell.duration.special}}
+  {{formInput systemFields.spell.fields.duration.fields.custom value=(ifThen disabled document.system.spell.duration.custom source.system.spell.duration.custom) disabled=disabled placeholder=(localize "RYUUTAMA.ITEM.SPELL.specialDuration")}}
+  {{/if}}
+</fieldset>
