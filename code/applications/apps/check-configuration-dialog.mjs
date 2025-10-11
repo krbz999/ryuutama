@@ -185,7 +185,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     if (foundry.utils.getType(this.#configurations.rollConfig.abilities) === "Object") {
       this.#configurations.rollConfig.abilities = Object.values(this.#configurations.rollConfig.abilities);
     }
-    this.render();
+    this.render({ parts: ["formula", "inputs"] });
   }
 
   /* -------------------------------------------------- */
