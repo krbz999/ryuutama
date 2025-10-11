@@ -1,0 +1,52 @@
+{
+  "name": "Lightning Bug Net",
+  "system": {
+    "category": {
+      "value": "summer"
+    },
+    "description": {
+      "value": "<p>Summons a tent of magical mosquito netting that zaps approaching bugs. Grants a +2 bonus to Camp Checks in areas with flying insects.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 4
+      },
+      "duration": {
+        "value": 12,
+        "type": "hours",
+        "custom": ""
+      },
+      "level": "mid",
+      "range": {
+        "value": "caster"
+      },
+      "target": {
+        "custom": "5 sqm"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "lightningbugnet0",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "summermid0000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760193913024,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!lightningbugnet0"
+}

@@ -1,0 +1,52 @@
+{
+  "name": "Round Reflection",
+  "system": {
+    "category": {
+      "value": "incantation"
+    },
+    "description": {
+      "value": "<p>A round pale barrier appears and protects the target. The target receives the benefit of 3 defense points (-3 damage from enemy attacks).</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 10
+      },
+      "duration": {
+        "value": 12,
+        "type": "hours",
+        "custom": ""
+      },
+      "level": "low",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "roundreflection0",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "incantationlow00",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760192567054,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!roundreflection0"
+}

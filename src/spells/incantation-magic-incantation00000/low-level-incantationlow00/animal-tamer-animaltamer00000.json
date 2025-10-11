@@ -1,0 +1,52 @@
+{
+  "name": "Animal Tamer",
+  "system": {
+    "category": {
+      "value": "incantation"
+    },
+    "description": {
+      "value": "<p>For the duration of the spell, the caster may tame a number of wild animals that are within sight at the end of the ritual. They may be used as either riding or pack animals. In order to cast the spell, the caster must capture or detain the target animals. Caster rolls [SPI] (1 die): a number of animals equal to that result are tamed. The spell has no effect on monsters.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 10
+      },
+      "duration": {
+        "value": 12,
+        "type": "hours",
+        "custom": ""
+      },
+      "level": "low",
+      "range": {
+        "value": "any"
+      },
+      "target": {
+        "custom": "Up to 7 animals"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "animaltamer00000",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "incantationlow00",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760192538784,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!animaltamer00000"
+}

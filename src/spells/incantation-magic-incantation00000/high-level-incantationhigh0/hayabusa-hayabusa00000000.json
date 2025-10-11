@@ -1,0 +1,52 @@
+{
+  "name": "Hayabusa",
+  "system": {
+    "category": {
+      "value": "incantation"
+    },
+    "description": {
+      "value": "<p>The target is imbued with the speed of a hawk. The target may attack twice each round for the spell’s duration. After the spell wears off, the target is exhausted and receives [Injury: 10]</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 4
+      },
+      "duration": {
+        "value": 6,
+        "type": "rounds",
+        "custom": ""
+      },
+      "level": "high",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "hayabusa00000000",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "incantationhigh0",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760192905892,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!hayabusa00000000"
+}

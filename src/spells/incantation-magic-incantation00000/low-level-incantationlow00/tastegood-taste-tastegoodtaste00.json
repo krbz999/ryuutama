@@ -1,0 +1,52 @@
+{
+  "name": "Tastegood Taste",
+  "system": {
+    "category": {
+      "value": "incantation"
+    },
+    "description": {
+      "value": "<p>Caster rolls [SPI] (1 die): that many rations are now “Delicious.” The caster decides exactly what flavor. Any affected rations not eaten within an hour rot and are destroyed.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 10
+      },
+      "duration": {
+        "value": 1,
+        "type": "hours",
+        "custom": ""
+      },
+      "level": "low",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "Rations"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "tastegoodtaste00",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "incantationlow00",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760192588167,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!tastegoodtaste00"
+}

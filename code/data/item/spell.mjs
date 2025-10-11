@@ -5,8 +5,10 @@ export default class SpellData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       category: new SchemaField({
-        value: new StringField({ required: true, initial: "incantation", choices: () => ryuutama.config.spellCategories }),
-        season: new StringField({ required: true, initial: "spring", choices: () => ryuutama.config.seasons }),
+        value: new StringField({
+          required: true, initial: "incantation",
+          choices: () => ryuutama.config.spellCategories,
+        }),
       }),
       description: new SchemaField({
         value: new HTMLField(),
@@ -41,4 +43,12 @@ export default class SpellData extends foundry.abstract.TypeDataModel {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ITEM.SPELL",
   ];
+
+  static migrateData(source) {
+    if (source.category?.value === "seasonal") {
+      source.category.value = source.category.season;
+      delete source.category.season;
+    }
+    return super.migrateData(source);
+  }
 }

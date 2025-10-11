@@ -1,0 +1,52 @@
+{
+  "name": "Snowball Storm",
+  "system": {
+    "category": {
+      "value": "winter"
+    },
+    "description": {
+      "value": "<p>A barrage of snowballs is hurled at the area, inflicting [SPI] (1 die) damage to enemies, while allies in the area receive half damage.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 4
+      },
+      "duration": {
+        "value": 1,
+        "type": "instant",
+        "custom": ""
+      },
+      "level": "low",
+      "range": {
+        "value": "closeArea"
+      },
+      "target": {
+        "custom": "1 area"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "snowballstorm000",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "winterlow0000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760194727171,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!snowballstorm000"
+}

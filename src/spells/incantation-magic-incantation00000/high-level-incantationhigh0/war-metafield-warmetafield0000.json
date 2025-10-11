@@ -1,0 +1,52 @@
+{
+  "name": "War Metafield",
+  "system": {
+    "category": {
+      "value": "incantation"
+    },
+    "description": {
+      "value": "<p>Erects a barrier around the battlefield, trapping friend and foe alike. Within the field, damage rolls made by allies gain a +1 bonus, and damage they receive is reduced by 1. However, all objects in the battlefield disappear. Nobody may leave or enter the field while the spell is active.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 10
+      },
+      "duration": {
+        "value": 6,
+        "type": "rounds",
+        "custom": ""
+      },
+      "level": "high",
+      "range": {
+        "value": "caster"
+      },
+      "target": {
+        "custom": "All areas"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "warmetafield0000",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "incantationhigh0",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760192936952,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!warmetafield0000"
+}

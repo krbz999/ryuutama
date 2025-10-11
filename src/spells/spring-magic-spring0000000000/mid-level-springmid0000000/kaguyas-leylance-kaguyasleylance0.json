@@ -1,0 +1,52 @@
+{
+  "name": "Kaguya's Leylance",
+  "system": {
+    "category": {
+      "value": "spring"
+    },
+    "description": {
+      "value": "<p>Beams of light as thick as bamboo shoots skewer the enemy. Deals [SPI] (1 die) damage to target. If it is night and the moon is visible increase the damage by 1d6.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 4
+      },
+      "duration": {
+        "value": 1,
+        "type": "instant",
+        "custom": ""
+      },
+      "level": "mid",
+      "range": {
+        "value": "allAreas"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "kaguyasleylance0",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "springmid0000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760193465205,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!kaguyasleylance0"
+}

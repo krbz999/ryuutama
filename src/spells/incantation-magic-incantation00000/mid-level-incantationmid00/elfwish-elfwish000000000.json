@@ -1,0 +1,52 @@
+{
+  "name": "Elfwish",
+  "system": {
+    "category": {
+      "value": "incantation"
+    },
+    "description": {
+      "value": "<p>After the ritual is complete, little elves appear while the caster is sleeping to work on a simple project of the caster’s choice. They will do work equal to what a 6 year old child can do.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 4
+      },
+      "duration": {
+        "value": 1,
+        "type": "special",
+        "custom": "Overnight"
+      },
+      "level": "mid",
+      "range": {
+        "value": "caster"
+      },
+      "target": {
+        "custom": "1 work in progress"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "elfwish000000000",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "incantationmid00",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760192799378,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!elfwish000000000"
+}

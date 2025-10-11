@@ -1,0 +1,52 @@
+{
+  "name": "Fallen Leaves",
+  "system": {
+    "category": {
+      "value": "autumn"
+    },
+    "description": {
+      "value": "<p>A cubic meter of dead leaves appears.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 2
+      },
+      "duration": {
+        "value": 1,
+        "type": "permanent",
+        "custom": ""
+      },
+      "level": "low",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "Ground"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "fallenleaves0000",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "falllow000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760194125128,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!fallenleaves0000"
+}

@@ -1,0 +1,52 @@
+{
+  "name": "Cat's Drive",
+  "system": {
+    "category": {
+      "value": "incantation"
+    },
+    "description": {
+      "value": "<p>While walking through a forest, the trees will move out of your way. While moving through a forest, movement is no longer halved and the party may move as normal.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 10
+      },
+      "duration": {
+        "value": 12,
+        "type": "hours",
+        "custom": ""
+      },
+      "level": "mid",
+      "range": {
+        "value": "caster"
+      },
+      "target": {
+        "custom": "5 sqm from caster"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "catsdrive0000000",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "incantationmid00",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760192824288,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!catsdrive0000000"
+}

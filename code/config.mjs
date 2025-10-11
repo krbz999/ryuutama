@@ -290,8 +290,17 @@ export const spellCategories = {
   incantation: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.incantation",
   },
-  seasonal: {
-    label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.seasonal",
+  spring: {
+    label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.spring",
+  },
+  summer: {
+    label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.summer",
+  },
+  autumn: {
+    label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.autumn",
+  },
+  winter: {
+    label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.winter",
   },
 };
 Prelocalization.prelocalize(spellCategories);

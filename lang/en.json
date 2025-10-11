@@ -292,8 +292,12 @@
           "ritual": "Ritual"
         },
         "CATEGORIES": {
-          "incantation": "Incantation",
-          "seasonal": "Seasonal"
+          "incantation": "Incantation Magic",
+          "spring": "Spring Magic",
+          "summer": "Summer Magic",
+          "autumn": "Autumn Magic",
+          "winter": "Winter Magic",
+          "seasonal": "Seasonal Magic"
         },
         "DURATION": {
           "days": "Days",

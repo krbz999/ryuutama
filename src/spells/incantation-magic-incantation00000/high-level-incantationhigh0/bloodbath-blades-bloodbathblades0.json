@@ -1,0 +1,52 @@
+{
+  "name": "Bloodbath Blades",
+  "system": {
+    "category": {
+      "value": "incantation"
+    },
+    "description": {
+      "value": "<p>Summons countless magical spinning blades that slash through the air. All characters and all monsters take damage equal to [INT + SPI]. The caster alone is unaffected by this spell.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 10
+      },
+      "duration": {
+        "value": 1,
+        "type": "instant",
+        "custom": ""
+      },
+      "level": "high",
+      "range": {
+        "value": "caster"
+      },
+      "target": {
+        "custom": "All areas"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "bloodbathblades0",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "incantationhigh0",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760192968393,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!bloodbathblades0"
+}

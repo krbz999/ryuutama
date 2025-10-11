@@ -1,0 +1,52 @@
+{
+  "name": "Autumn Sky",
+  "system": {
+    "category": {
+      "value": "autumn"
+    },
+    "description": {
+      "value": "<p>Completely destroys a target’s willpower, as they gaze longingly at the autumn sky. Regardless of what they had resolved to do previously, they become lost in thought or second guess themselves and just give up. If used in combat, the target loses their next action.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 4
+      },
+      "duration": {
+        "value": 1,
+        "type": "rounds",
+        "custom": ""
+      },
+      "level": "high",
+      "range": {
+        "value": "allAreas"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "autumnsky0000000",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "fallhigh00000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760194562691,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!autumnsky0000000"
+}

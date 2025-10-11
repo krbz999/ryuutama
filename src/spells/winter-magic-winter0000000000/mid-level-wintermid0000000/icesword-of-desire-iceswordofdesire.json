@@ -1,0 +1,52 @@
+{
+  "name": "Icesword of Desire",
+  "system": {
+    "category": {
+      "value": "winter"
+    },
+    "description": {
+      "value": "<p>A weapon of ice is created in the hand of the target. This weapon can be of any type, and has a +2 bonus to damage. If the wielder of the Icesword of Desire is attacked and reduced to 0 HP or less, the attacker automatically acquires this weapon.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 4
+      },
+      "duration": {
+        "value": 1,
+        "type": "hours",
+        "custom": ""
+      },
+      "level": "mid",
+      "range": {
+        "value": "closeArea"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "iceswordofdesire",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "wintermid0000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760194867507,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!iceswordofdesire"
+}

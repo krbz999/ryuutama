@@ -1,0 +1,21 @@
+{
+  "_id": "wintermid0000000",
+  "name": "Mid Level",
+  "folder": "winter0000000000",
+  "type": "Item",
+  "sort": 10000,
+  "description": "",
+  "sorting": "a",
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!wintermid0000000"
+}

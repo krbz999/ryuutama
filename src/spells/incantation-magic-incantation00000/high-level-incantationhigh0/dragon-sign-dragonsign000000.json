@@ -1,0 +1,52 @@
+{
+  "name": "Dragon Sign",
+  "system": {
+    "category": {
+      "value": "incantation"
+    },
+    "description": {
+      "value": "<p>A brightly lit signal shines in the sky. The signal may contain up to 140 characters and may be made visible only to any one chosen person if the caster wishes. The chosen person can “sense” that the message exists in the sky but cannot know the contents until they read it.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 4
+      },
+      "duration": {
+        "value": 1,
+        "type": "hours",
+        "custom": ""
+      },
+      "level": "high",
+      "range": {
+        "value": "any"
+      },
+      "target": {
+        "custom": "Chosen person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "dragonsign000000",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "incantationhigh0",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760193021653,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!dragonsign000000"
+}

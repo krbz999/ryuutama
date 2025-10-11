@@ -1,0 +1,52 @@
+{
+  "name": "Detect Loveheart",
+  "system": {
+    "category": {
+      "value": "spring"
+    },
+    "description": {
+      "value": "<p>This spell reveals to the caster any “hearts in love” within sight. This knowledge comes softly to the caster, and is revealed to no one else. However, the spell does not reveal the object of the person’s affections. Obviously, this spell only affects beings that are capable of love.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 2
+      },
+      "duration": {
+        "value": 1,
+        "type": "instant",
+        "custom": ""
+      },
+      "level": "mid",
+      "range": {
+        "value": "any"
+      },
+      "target": {
+        "custom": "Loving heart"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "detectloveheart0",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "springmid0000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760193394504,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!detectloveheart0"
+}

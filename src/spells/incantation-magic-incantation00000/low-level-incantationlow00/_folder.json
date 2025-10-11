@@ -1,0 +1,21 @@
+{
+  "_id": "incantationlow00",
+  "name": "Low Level",
+  "folder": "incantation00000",
+  "type": "Item",
+  "sort": 0,
+  "description": "",
+  "sorting": "a",
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!incantationlow00"
+}

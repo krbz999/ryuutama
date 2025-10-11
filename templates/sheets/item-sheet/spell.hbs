@@ -4,16 +4,12 @@
   {{!-- CATEGORY --}}
   <div class="form-group">
     <div class="form-fields">
-      {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled}}
-
-      {{#if (eq document.system.category.value "seasonal")}}
-      {{formGroup systemFields.category.fields.season value=(ifThen disabled document.system.category.season source.system.category.season) disabled=disabled}}
-      {{/if}}
+      {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim"}}
     </div>
   </div>
 
   {{!-- LEVEL --}}
-  {{formGroup systemFields.spell.fields.level value=(ifThen disabled document.system.spell.level source.system.spell.level) disabled=disabled}}
+  {{formGroup systemFields.spell.fields.level value=(ifThen disabled document.system.spell.level source.system.spell.level) disabled=disabled classes="slim"}}
 
   <div class="form-group">
     <div class="form-fields">

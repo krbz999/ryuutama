@@ -1,0 +1,52 @@
+{
+  "name": "Knights of Cleaning",
+  "system": {
+    "category": {
+      "value": "incantation"
+    },
+    "description": {
+      "value": "<p>Dirty clothing flies away at the start of the ritual to be cleaned by the mysterious Knights of Cleaning. At the end of the ritual, the clothes are returned with no loss of color or quality. Items that cannot be cleaned (up to the GM) are returned unchanged.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 4
+      },
+      "duration": {
+        "value": 1,
+        "type": "ritual",
+        "custom": ""
+      },
+      "level": "mid",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "Dirty clothes"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "knightsofcleanin",
+  "type": "spell",
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "incantationmid00",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760192768088,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!knightsofcleanin"
+}
