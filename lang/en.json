@@ -148,8 +148,8 @@
         "background.hometown.label": "Hometown / Reason for Travel",
         "background.notes.label": "Notes",
         "details.color.label": "Image Color",
+        "details.exp.label": "EXP",
         "details.level.label": "Level",
-        "exp.value.label": "EXP",
         "fumbles.value.label": "Fumble Points",
         "gold.value.label": "Gold",
         "mastered.weapons.label": "Mastered Weapons"
@@ -160,6 +160,7 @@
         "technical": "Technical"
       },
       "abilities": "Abilities",
+      "advancement": "Advancement",
       "type": "Type",
       "conditionShapeNoneSelected": "Select Ability",
       "shape": "Shape",

@@ -14,6 +14,7 @@ export default class TravelerData extends CreatureData {
       }),
       details: new SchemaField({
         color: new ColorField(),
+        exp: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
         level: new NumberField({ nullable: false, integer: true, initial: 1, min: 1, max: 10 }),
       }),
       equipped: new SchemaField({
@@ -25,9 +26,6 @@ export default class TravelerData extends CreatureData {
         staff: new LocalDocumentField(foundry.documents.Item, { subtype: "staff" }),
         hat: new LocalDocumentField(foundry.documents.Item, { subtype: "hat" }),
         accessory: new LocalDocumentField(foundry.documents.Item, { subtype: "accessory" }),
-      }),
-      exp: new SchemaField({
-        value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
       }),
       fumbles: new SchemaField({
         value: new NumberField({ nullable: true, min: 0, integer: true, initial: null }),

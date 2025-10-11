@@ -55,6 +55,7 @@
  * @property {string} background.notes
  * @property {object} details
  * @property {string|null} details.color    The character's image color.
+ * @property {number} details.exp           Accumulated experience points.
  * @property {number} details.level         The character's level.
  * @property {object} equipped              Equipped items.
  * @property {string|null} equipped.weapon
@@ -65,8 +66,6 @@
  * @property {string|null} equipped.staff
  * @property {string|null} equipped.hat
  * @property {string|null} equipped.accessory
- * @property {object} exp
- * @property {number} exp.value             Accumulated experience points.
  * @property {object} fumbles
  * @property {number} fumbles.value         Accumulated fumble points.
  * @property {object} gold

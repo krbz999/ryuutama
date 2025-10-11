@@ -14,5 +14,10 @@
 
   {{formGroup systemFields.mastered.fields.weapons value=(ifThen disabled document.system.mastered.weapons source.system.mastered.weapons) disabled=disabled classes="slim"}}
 
-  {{formGroup systemFields.details.fields.level value=(ifThen disabled document.system.details.level source.system.details.level) disabled=disabled classes="slim" type="number"}}
+  {{!-- EXP & LEVEL --}}
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.TRAVELER.advancement"}}</legend>
+    {{formGroup systemFields.details.fields.exp value=(ifThen disabled document.system.details.exp source.system.details.exp) disabled=disabled classes="slim"}}
+    {{formGroup systemFields.details.fields.level value=(ifThen disabled document.system.details.level source.system.details.level) disabled=disabled classes="slim" type="number"}}
+  </fieldset>
 </section>
