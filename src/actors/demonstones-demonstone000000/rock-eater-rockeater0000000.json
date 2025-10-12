@@ -6,12 +6,6 @@
       "dragonica": 123
     },
     "environment": {
-      "habitat": [
-        "wasteland",
-        "rocky",
-        "mountain",
-        "desert"
-      ],
       "season": ""
     },
     "resources": {

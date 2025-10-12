@@ -6,11 +6,6 @@
       "dragonica": 13
     },
     "environment": {
-      "habitat": [
-        "alpine",
-        "desert",
-        "sea"
-      ],
       "season": "spring"
     },
     "resources": {

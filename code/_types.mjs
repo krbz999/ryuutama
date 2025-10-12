@@ -8,7 +8,22 @@
 /* -------------------------------------------------- */
 
 /**
- * @typedef GenderConfig
+ * @typedef CheckTypeConfig
+ * @property {string} label                                   Human-readable label.
+ * @property {Record<string, { string: label }>} [subtypes]   Subtypes of this kind of check.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef EffectExpirationTypeConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef HerbTypeConfig
  * @property {string} label   Human-readable label.
  */
 
@@ -34,9 +49,51 @@
 /* -------------------------------------------------- */
 
 /**
- * @typedef StartingScoreConfig
+ * @typedef MonsterCategoryConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef SeasonConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef {SpellCategoryConfig}
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef {SpellActivationTypeConfig}
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef {SpellDurationTypeConfig}
  * @property {string} label       Human-readable label.
- * @property {number[]} values    Array of starting scores, of length 4.
+ * @property {boolean} [units]    Does this display units?
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {SpellLevelConfig}
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {SpellRangeTypeConfig}
+ * @property {string} label   Human-readable label.
  */
 
 /* -------------------------------------------------- */
@@ -63,18 +120,38 @@
 
 /**
  * @typedef TravelerTypeConfig
- * The general loadout of a traveler.
  * @property {string} label   Human-readable label.
  */
 
 /* -------------------------------------------------- */
 
 /**
+ * @typedef UnarmedConfiguration
+ * @property {string} label   Human-readable label.
+ * @property {string} icon    Icon displayed when unarmed.
+ * @property {object} accuracy
+ * @property {string[]} accuracy.abilities    Default abilities used for accuracy checks of unarmed attacks.
+ * @property {number} accuracy.bonus          Default bonus for accuracy checks of unarmed attacks.
+ * @property {object} damage
+ * @property {string} damage.ability          Default ability used for damage checks of unarmed attacks.
+ * @property {number} damage.bonus            Default bonus for damage checks of unarmed attacks.
+ */
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef WeaponCategoryConfig
- * Configuration for a weapon category.
- * @property {string} label       Human-readable label.
- * @property {0|1|2} grip         The number of hands needed to wield.
- * @property {boolean} [ranged]   Can this weapon attack from long range?
+ * @property {string} label         Human-readable label.
+ * @property {string} labelPlural   Pluralized human-readable label.
+ * @property {0|1|2} grip           The number of hands needed to wield.
+ * @property {boolean} [ranged]     Can this weapon attack from long range?
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef WeaponMasteryLevelConfig
+ * @property {string} label   Human-readable label.
  */
 
 /* -------------------------------------------------- */
@@ -90,5 +167,4 @@
  * @typedef WeatherTypeConfig
  * @property {string} label         Human-readable label.
  * @property {number} [modifier]    The weather modifier for a journey check.
- * @property {string} [category]    The weather category, for use with features such as 'all rain related conditions'.
  */

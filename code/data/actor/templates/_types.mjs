@@ -21,7 +21,14 @@
  * @property {AbilityData} abilities.spirit
  * @property {object} condition
  * @property {string[]} condition.immunities    The status effects the creature is immune to.
+ * @property {object} condition.shape
+ * @property {string} condition.shape.high      The ability that is improved when in Top Shape.
  * @property {number} condition.value           The creature's current condition.
+ * @property {object} defense
+ * @property {number|null} defense.armor      Baseline defense/armor.
+ * @property {object} defense.modifiers
+ * @property {number|null} defense.modifiers.magical    Damage modification to magical damage received.
+ * @property {number|null} defense.modifiers.physical    Damage modification to physical damage received.
  * @property {object} resources
  * @property {ResourceData} resources.mental    The creature's MP.
  * @property {ResourceData} resources.stamina   The creature's HP.
@@ -32,17 +39,17 @@
  * @property {object} attack
  * @property {string} attack.accuracy         The formula used for accuracy checks.
  * @property {string} attack.damage           The formula used for damage checks.
- * @property {object} armor
- * @property {number} armor.value             Armor value.
  * @property {object} description
  * @property {string} description.value       Monster description.
+ * @property {object} description.special     Special ability data.
+ * @property {string} description.special.name    Name of the special ability.
+ * @property {string} description.special.value   Description of the special ability.
  * @property {object} details
  * @property {string} details.category        The monster category.
  * @property {number} details.dragonica       The monster's entry number in the magical monster encyclopedia.
  * @property {number} details.level           The monster level.
  * @property {object} environment
- * @property {string[]} environment.habitat   The terrain where the species is commonly found.
- * @property {string} environment.season        The time of year during which the monster is most active.
+ * @property {string} environment.season      The time of year during which the monster is most active.
  * @property {object} initiative
  * @property {number} initiative.value
  */
@@ -71,7 +78,6 @@
  * @property {object} gold
  * @property {number} gold.value            Accumulated gold.
  * @property {object} mastered
- * @property {string[]} mastered.habitats   Habitats in which this character receive a bonus to checks.
  * @property {Record<string, 0|1|2>} mastered.weapons   Mastered weapon types.
  * @property {object} type
  * @property {string} type.value            The traveler's type.

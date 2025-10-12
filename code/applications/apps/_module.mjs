@@ -4,5 +4,4 @@ export { default as CheckConfigurationDialog } from "./check-configuration-dialo
 export { default as ConditionConfig } from "./condition-config.mjs";
 export { default as DefenseConfig } from "./defense-config.mjs";
 export { default as MasteredWeaponsConfig } from "./mastered-weapons-config.mjs";
-export { default as MonsterHabitatConfig } from "./monster-habitat-config.mjs";
 export { default as ResourceConfig } from "./resource-config.mjs";

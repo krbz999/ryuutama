@@ -26,7 +26,6 @@ export default class MonsterData extends CreatureData {
         level: new NumberField({ required: true, min: 0, initial: 0, integer: true, nullable: false }),
       }),
       environment: new SchemaField({
-        habitat: new SetField(new StringField()),
         season: new StringField({ required: true, blank: true, initial: "", choices: () => ryuutama.config.seasons }),
       }),
       initiative: new SchemaField({
@@ -70,12 +69,6 @@ export default class MonsterData extends CreatureData {
 
     this.attack.accuracy ||= "@stats.strength + @stats.dexterity";
     this.attack.damage ||= "@stats.strength";
-
-    const habitat = this.environment.habitat;
-    const habitats = habitat.map(h => ryuutama.config.monsterTerrains[h]?.label).filter(_ => _);
-    if (habitat.has("ALL")) this.environment.habitatLabel = game.i18n.localize("RYUUTAMA.MONSTER.allHabitats");
-    else if (!habitats.size) this.environment.habitatLabel = game.i18n.localize("RYUUTAMA.MONSTER.noHabitats");
-    else this.environment.habitatLabel = game.i18n.getListFormatter().format(habitats);
 
     // Prepare defense.
     this.defense.total = this.defense.armor ?? 0;

@@ -58,7 +58,7 @@
             {{#if disabled}}
             <span class="tag">{{systemFields.condition.fields.shape.fields.high.label}}: {{conditionShape.ability}}</span>
             {{else}}
-            {{formGroup systemFields.condition.fields.shape.fields.high value=source.system.condition.shape.high blank=(localize "RYUUTAMA.TRAVELER.conditionShapeNoneSelected") hint=false}}
+            {{formGroup systemFields.condition.fields.shape.fields.high value=source.system.condition.shape.high blank=(localize "RYUUTAMA.TRAVELER.conditionShapeSelectAbility") hint=false}}
             {{/if}}
             {{else if conditionShape.low}}
             <span class="tag">{{localize "RYUUTAMA.TRAVELER.conditionShapeOutOfShape"}}</span>

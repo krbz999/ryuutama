@@ -405,10 +405,21 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     if (effectIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
     if (!foundry.utils.isEmpty(update)) await actor.update(update);
     if (rollConfig.initiative?.shield && (roll.total < dodge)) {
-      await actor.effects.get(ryuutama.config.shieldDodgeData._id)?.delete();
+      const _id = ryuutama.utils.staticId("shielddodge");
+
+      await actor.effects.get(_id)?.delete();
       await getDocumentClass("ActiveEffect").create({
-        ...ryuutama.config.shieldDodgeData,
-        changes: [{ key: `flags.${ryuutama.id}.shieldDodge`, mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE, value: "true" }],
+        _id,
+        img: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
+        name: game.i18n.localize("RYUUTAMA.SHIELD.shieldDefense"),
+        system: {
+          expiration: {
+            type: "combatEnd",
+          },
+        },
+        changes: [
+          { key: `flags.${ryuutama.id}.shieldDodge`, mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE, value: "true" },
+        ],
       }, { keepId: true, parent: actor });
     }
   }

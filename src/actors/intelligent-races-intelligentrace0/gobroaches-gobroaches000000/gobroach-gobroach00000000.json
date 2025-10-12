@@ -6,9 +6,6 @@
       "dragonica": null
     },
     "environment": {
-      "habitat": [
-        "ALL"
-      ],
       "season": "summer"
     },
     "resources": {

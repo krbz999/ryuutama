@@ -34,7 +34,6 @@ export default class TravelerData extends CreatureData {
         value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
       }),
       mastered: new SchemaField({
-        habitats: new SetField(new StringField()),
         weapons: new TypedObjectField(
           new NumberField({ initial: 0, choices: () => ryuutama.config.weaponMasteryLevels }),
           { validateKeys: key => key in ryuutama.config.weaponCategories },
@@ -107,7 +106,6 @@ export default class TravelerData extends CreatureData {
     super.prepareBaseData();
 
     this.capacity = { bonus: 0 };
-    this.habitats = { weather: new Set(), terrain: new Set() }; // TODO: derive from equipped items.
   }
 
   /* -------------------------------------------------- */

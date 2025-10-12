@@ -60,9 +60,6 @@
       "damage": "1d6"
     },
     "environment": {
-      "habitat": [
-        "ALL"
-      ],
       "season": "spring"
     },
     "defense": {

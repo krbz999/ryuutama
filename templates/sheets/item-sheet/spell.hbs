@@ -4,7 +4,7 @@
   {{!-- CATEGORY --}}
   <div class="form-group">
     <div class="form-fields">
-      {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim"}}
+      {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim" options=spell.magicOptions}}
     </div>
   </div>
 

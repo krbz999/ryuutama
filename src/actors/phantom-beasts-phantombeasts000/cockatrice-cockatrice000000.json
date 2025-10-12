@@ -57,11 +57,6 @@
       "level": 2
     },
     "environment": {
-      "habitat": [
-        "grassland",
-        "woods",
-        "deepForest"
-      ],
       "season": "autumn"
     },
     "initiative": {

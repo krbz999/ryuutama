@@ -133,13 +133,6 @@
         "phantomPlant": "Phantom Plant",
         "undead": "Undead"
       },
-      "HABITAT": {
-        "all": "All",
-        "title": "Configure Habitat"
-      },
-      "habitat": "Habitat",
-      "allHabitats": "This monster can be found in all habitats.",
-      "noHabitats": "No known habitats.",
       "specialAbility": "Special Ability",
       "monsterDetails": "Monster Details"
     },
@@ -172,11 +165,11 @@
       },
       "abilities": "Abilities",
       "advancement": "Advancement",
-      "type": "Type",
-      "conditionShapeNoneSelected": "Select Ability",
-      "shape": "Shape",
       "conditionShapeOutOfShape": "Out of Shape",
-      "masteredWeapons": "Mastered Weapons"
+      "conditionShapeSelectAbility": "Select Ability",
+      "masteredWeapons": "Mastered Weapons",
+      "shape": "Shape",
+      "type": "Type"
     },
 
     "ABILITIES": {
@@ -192,12 +185,6 @@
       "CONFIG": {
         "title": "Configure {ability}: {name}",
         "base": "Base Value"
-      },
-
-      "SETS": {
-        "average": "Average Set",
-        "standard": "Standard Set",
-        "specialized": "Specialized Set"
       }
     },
     "ATTACK": {
@@ -218,10 +205,6 @@
         "direction": "Direction Check",
         "camping": "Camping Check"
       }
-    },
-    "GENDERS": {
-      "man": "Man",
-      "woman": "Woman"
     },
     "RESOURCE": {
       "title": "Configure {resource}: {name}",
@@ -491,7 +474,6 @@
     },
 
     "TERRAIN": {
-      "road": "On the road",
       "wasteland": "Wasteland",
       "rocky": "Rocky Terrain",
       "mountain": "Mountain",
@@ -502,16 +484,7 @@
       "jungle": "Jungle",
       "desert": "Desert",
       "grassland": "Grassland",
-      "highlands": "Highlands",
-      "river": "River",
-      "sea": "Sea",
-      "pond": "Pond",
-      "lowMountain": "Low Mountain",
-
-      "CATEGORY": {
-        "all": "All terrain types",
-        "allLevel": "All level {level} terrain types"
-      }
+      "highlands": "Highlands"
     },
 
     "WEAPONS": {
@@ -529,15 +502,7 @@
       "hurricane": "Hurricane",
       "rain": "Rain",
       "snow": "Snow",
-      "strongWind": "Strong Wind",
-
-      "CATEGORY": {
-        "rain": "Rain",
-        "snow": "Snow",
-        "wind": "Wind",
-        "all": "All weather conditions",
-        "allType": "All {type} related conditions"
-      }
+      "strongWind": "Strong Wind"
     }
   }
 }

@@ -6,12 +6,6 @@
       "dragonica": 38
     },
     "environment": {
-      "habitat": [
-        "grassland",
-        "desert",
-        "wasteland",
-        "woods"
-      ],
       "season": "autumn"
     },
     "resources": {

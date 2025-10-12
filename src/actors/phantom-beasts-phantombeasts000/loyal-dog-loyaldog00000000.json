@@ -6,9 +6,6 @@
       "dragonica": 40
     },
     "environment": {
-      "habitat": [
-        "ALL"
-      ],
       "season": "spring"
     },
     "resources": {

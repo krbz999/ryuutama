@@ -60,10 +60,6 @@
       "damage": "1d6"
     },
     "environment": {
-      "habitat": [
-        "grassland",
-        "desert"
-      ],
       "season": "autumn"
     },
     "defense": {

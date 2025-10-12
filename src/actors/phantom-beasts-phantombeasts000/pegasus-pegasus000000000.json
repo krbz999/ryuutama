@@ -6,12 +6,6 @@
       "level": 3
     },
     "environment": {
-      "habitat": [
-        "grassland",
-        "woods",
-        "highlands",
-        "mountain"
-      ],
       "season": "spring"
     },
     "resources": {

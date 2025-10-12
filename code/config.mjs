@@ -1,10 +1,11 @@
 import Prelocalization from "./helpers/prelocalization.mjs";
-import staticId from "./utils/static-id.mjs";
 
 /**
  * @import {
- * AbilityScoreConfig, GenderConfig, ItemModifierConfig, ItemSizeConfig, StartingScoreConfig, StatusEffectConfig,
- * TerrainTypeConfig, TravelerTypeConfig, WeaponCategoryConfig, WeatherCategoryConfig, WeatherTypeConfig,
+ * AbilityScoreConfig, CheckTypeConfig, EffectExpirationTypeConfig, HerbTypeConfig, ItemModifierConfig, ItemSizeConfig,
+ * MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig, SpellDurationTypeConfig,
+ * SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig, TravelerTypeConfig, UnarmedConfiguration,
+ * WeaponCategoryConfig, WeaponMasteryLevelConfig, WeatherTypeConfig
  * } from "./_types.mjs";
  */
 
@@ -39,6 +40,9 @@ Prelocalization.prelocalize(abilityScores, { properties: ["label", "abbreviation
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, CheckTypeConfig>}
+ */
 export const checkTypes = {
   accuracy: {
     label: "RYUUTAMA.ROLL.TYPES.accuracy",
@@ -75,6 +79,9 @@ Prelocalization.prelocalize(checkTypes.journey.subtypes);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, EffectExpirationTypeConfig>}
+ */
 export const effectExpirationTypes = {
   combatEnd: {
     label: "RYUUTAMA.EFFECT.EXPIRATION.combatEnd",
@@ -100,20 +107,8 @@ export const experienceLevels = [
 /* -------------------------------------------------- */
 
 /**
- * @type {Record<string, GenderConfig>}
+ * @type {Record<string, HerbTypeConfig>}
  */
-export const genders = {
-  man: {
-    label: "RYUUTAMA.GENDERS.man",
-  },
-  woman: {
-    label: "RYUUTAMA.GENDERS.woman",
-  },
-};
-Prelocalization.prelocalize(genders);
-
-/* -------------------------------------------------- */
-
 export const herbTypes = {
   enhance: {
     label: "RYUUTAMA.HERB.CATEGORIES.enhance",
@@ -225,10 +220,12 @@ Prelocalization.prelocalize(itemSizes);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, MonsterCategoryConfig>}
+ */
 export const monsterCategories = {
   demonstone: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.demonstone",
-    statusImmunities: new Set(["body"]),
   },
   demon: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.demon",
@@ -238,7 +235,6 @@ export const monsterCategories = {
   },
   magical: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.magical",
-    statusImmunities: new Set(["mind"]),
   },
   phantomBeast: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.phantomBeast",
@@ -248,14 +244,15 @@ export const monsterCategories = {
   },
   undead: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.undead",
-    statusImmunities: new Set(["ALL"]),
-    armorBypasses: new Set(["mythril", "orichalcum"]),
   },
 };
 Prelocalization.prelocalize(monsterCategories);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, SeasonConfig>}
+ */
 export const seasons = {
   spring: {
     label: "RYUUTAMA.SEASONS.spring",
@@ -273,19 +270,12 @@ export const seasons = {
 Prelocalization.prelocalize(seasons);
 
 /* -------------------------------------------------- */
-
-export const shieldDodgeData = {
-  _id: staticId("shielddodge"),
-  img: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
-  name: "RYUUTAMA.SHIELD.shieldDefense",
-  system: { expiration: { type: "combatEnd" } },
-};
-Prelocalization.prelocalize({ shieldDodgeData }, { properties: ["name"] });
-
-/* -------------------------------------------------- */
 /*   SPELLS                                           */
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, SpellCategoryConfig>}
+ */
 export const spellCategories = {
   incantation: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.incantation",
@@ -307,6 +297,9 @@ Prelocalization.prelocalize(spellCategories);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, SpellActivationTypeConfig>}
+ */
 export const spellActivationTypes = {
   normal: {
     label: "RYUUTAMA.ITEM.SPELL.ACTIVATION.normal",
@@ -319,6 +312,9 @@ Prelocalization.prelocalize(spellActivationTypes);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, SpellDurationTypeConfig>}
+ */
 export const spellDurationTypes = {
   hours: {
     label: "RYUUTAMA.ITEM.SPELL.DURATION.hours",
@@ -340,7 +336,7 @@ export const spellDurationTypes = {
     units: true,
   },
   ritual: {
-    label: "RYUUTAMA.ITEM.SPELL.DURATION.ritual", // length of ritual
+    label: "RYUUTAMA.ITEM.SPELL.DURATION.ritual",
   },
   permanent: {
     label: "RYUUTAMA.ITEM.SPELL.DURATION.permanent",
@@ -353,6 +349,9 @@ Prelocalization.prelocalize(spellDurationTypes);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, SpellLevelConfig>}
+ */
 export const spellLevels = {
   low: {
     label: "RYUUTAMA.ITEM.SPELL.LEVEL.low",
@@ -368,6 +367,9 @@ Prelocalization.prelocalize(spellLevels);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<string, SpellRangeTypeConfig>}
+ */
 export const spellRangeTypes = {
   touch: {
     label: "RYUUTAMA.ITEM.SPELL.RANGE.touch",
@@ -389,27 +391,6 @@ export const spellRangeTypes = {
   },
 };
 Prelocalization.prelocalize(spellRangeTypes);
-
-/* -------------------------------------------------- */
-
-/**
- * @type {Record<string, StartingScoreConfig>}
- */
-export const startingScores = {
-  average: {
-    label: "RYUUTAMA.ABILITIES.SETS.average",
-    values: [6, 6, 6, 6],
-  },
-  standard: {
-    label: "RYUUTAMA.ABILITIES.SETS.standard",
-    values: [4, 6, 6, 8],
-  },
-  specialized: {
-    label: "RYUUTAMA.ABILITIES.SETS.specialized",
-    values: [4, 4, 8, 8],
-  },
-};
-Prelocalization.prelocalize(startingScores);
 
 /* -------------------------------------------------- */
 
@@ -528,25 +509,6 @@ Prelocalization.prelocalize(terrainTypes);
 
 /* -------------------------------------------------- */
 
-export const monsterTerrains = {
-  ...foundry.utils.deepClone(terrainTypes),
-  sea: {
-    label: "RYUUTAMA.TERRAIN.sea",
-  },
-  river: {
-    label: "RYUUTAMA.TERRAIN.river",
-  },
-  pond: {
-    label: "RYUUTAMA.TERRAIN.pond",
-  },
-  lowMountain: {
-    label: "RYUUTAMA.TERRAIN.lowMountain",
-  },
-};
-Prelocalization.prelocalize(monsterTerrains);
-
-/* -------------------------------------------------- */
-
 /**
  * @type {Record<string, TravelerTypeConfig>}
  */
@@ -565,6 +527,9 @@ Prelocalization.prelocalize(travelerTypes);
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {UnarmedConfiguration}
+ */
 export const unarmedConfiguration = {
   label: "RYUUTAMA.WEAPON.CATEGORIES.unarmed",
   icon: "icons/skills/melee/unarmed-punch-fist-white.webp",
@@ -615,6 +580,9 @@ Prelocalization.prelocalize(weaponCategories, { properties: ["label", "labelPlur
 
 /* -------------------------------------------------- */
 
+/**
+ * @type {Record<number, WeaponMasteryLevelConfig>}
+ */
 export const weaponMasteryLevels = {
   0: {
     label: "RYUUTAMA.TRAVELER.WEAPONS.masteryLevel0",
@@ -631,36 +599,16 @@ Prelocalization.prelocalize(weaponMasteryLevels);
 /* -------------------------------------------------- */
 
 /**
- * @type {Record<string, WeatherCategoryConfig>}
- */
-export const weatherCategories = {
-  rain: {
-    label: "RYUUTAMA.WEATHER.CATEGORY.rain",
-  },
-  snow: {
-    label: "RYUUTAMA.WEATHER.CATEGORY.snow",
-  },
-  wind: {
-    label: "RYUUTAMA.WEATHER.CATEGORY.wind",
-  },
-};
-Prelocalization.prelocalize(weatherCategories);
-
-/* -------------------------------------------------- */
-
-/**
  * @type {Record<string, WeatherTypeConfig>}
  */
 export const weatherTypes = {
   rain: {
     label: "RYUUTAMA.WEATHER.rain",
     modifier: 1,
-    category: "rain",
   },
   strongWind: {
     label: "RYUUTAMA.WEATHER.strongWind",
     modifier: 1,
-    category: "wind",
   },
   fog: {
     label: "RYUUTAMA.WEATHER.fog",
@@ -677,12 +625,10 @@ export const weatherTypes = {
   hardRain: {
     label: "RYUUTAMA.WEATHER.hardRain",
     modifier: 3,
-    category: "rain",
   },
   snow: {
     label: "RYUUTAMA.WEATHER.snow",
     modifier: 3,
-    category: "snow",
   },
   deepFog: {
     label: "RYUUTAMA.WEATHER.deepFog",
@@ -695,12 +641,10 @@ export const weatherTypes = {
   hurricane: {
     label: "RYUUTAMA.WEATHER.hurricane",
     modifier: 5,
-    category: "wind",
   },
   blizzard: {
     label: "RYUUTAMA.WEATHER.blizzard",
     modifier: 5,
-    category: "snow",
   },
 };
 Prelocalization.prelocalize(weatherTypes);

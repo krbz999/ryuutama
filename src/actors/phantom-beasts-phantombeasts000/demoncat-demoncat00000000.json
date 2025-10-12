@@ -6,12 +6,6 @@
       "dragonica": 14
     },
     "environment": {
-      "habitat": [
-        "woods",
-        "deepForest",
-        "jungle",
-        "mountain"
-      ],
       "season": "winter"
     },
     "resources": {

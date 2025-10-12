@@ -6,11 +6,6 @@
       "level": 3
     },
     "environment": {
-      "habitat": [
-        "wasteland",
-        "woods",
-        "deepForest"
-      ],
       "season": "summer"
     },
     "resources": {

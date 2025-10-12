@@ -60,11 +60,6 @@
       "damage": "1d6"
     },
     "environment": {
-      "habitat": [
-        "wasteland",
-        "woods",
-        "rocky"
-      ],
       "season": "winter"
     },
     "defense": {

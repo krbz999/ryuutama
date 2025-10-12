@@ -6,10 +6,6 @@
       "dragonica": 75
     },
     "environment": {
-      "habitat": [
-        "grassland",
-        "swamp"
-      ],
       "season": "spring"
     },
     "resources": {

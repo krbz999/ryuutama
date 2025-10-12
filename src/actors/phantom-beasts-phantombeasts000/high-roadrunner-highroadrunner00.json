@@ -57,11 +57,6 @@
       "level": 3
     },
     "environment": {
-      "habitat": [
-        "grassland",
-        "wasteland",
-        "desert"
-      ],
       "season": "spring"
     },
     "initiative": {

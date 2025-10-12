@@ -72,6 +72,11 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         : context.source.system.spell.duration.type;
       duration.units = !!ryuutama.config.spellDurationTypes[context.spell.duration.type]?.units;
       duration.special = duration.type === "special";
+
+      const seasonal = game.i18n.localize("RYUUTAMA.ITEM.SPELL.CATEGORIES.seasonal");
+      context.spell.magicOptions = Object.entries(ryuutama.config.spellCategories).map(([k, v]) => {
+        return { value: k, label: v.label, group: k === "incantation" ? undefined : seasonal };
+      });
     }
 
     return context;

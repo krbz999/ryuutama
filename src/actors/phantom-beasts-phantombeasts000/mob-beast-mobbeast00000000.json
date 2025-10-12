@@ -57,11 +57,6 @@
       "level": 1
     },
     "environment": {
-      "habitat": [
-        "grassland",
-        "wasteland",
-        "deepForest"
-      ],
       "season": "spring"
     },
     "initiative": {

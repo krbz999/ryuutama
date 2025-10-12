@@ -6,10 +6,6 @@
       "dragonica": 30
     },
     "environment": {
-      "habitat": [
-        "river",
-        "swamp"
-      ],
       "season": "autumn"
     },
     "resources": {
