@@ -1,18 +1,4 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
-  {{formGroup fields.name value=(ifThen disabled document.name source.name) disabled=disabled}}
-  {{formGroup fields.img value=(ifThen disabled document.img source.img) disabled=disabled classes="slim"}}
-
-  <div class="form-group slim">
-    <label>{{localize "RYUUTAMA.TRAVELER.type"}}</label>
-    <div class="form-fields">
-      {{formInput systemFields.type.fields.value value=(ifThen disabled document.system.type.value source.system.type.value) disabled=disabled}}
-      {{#if (gte source.system.details.level 6)}}
-      {{formInput systemFields.type.fields.additional value=(ifThen disabled document.system.type.additional source.system.type.additional) disabled=disabled}}
-      {{/if}}
-    </div>
-  </div>
-
-  {{formGroup systemFields.mastered.fields.weapons value=(ifThen disabled document.system.mastered.weapons source.system.mastered.weapons) disabled=disabled classes="slim"}}
 
   {{!-- EXP & LEVEL --}}
   <fieldset>

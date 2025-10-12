@@ -1,0 +1,43 @@
+<section class="header {{#if disabled}} play {{else}} standard-form {{/if}}">
+  {{#if disabled}}
+  <aside class="avatar">
+    <img src="{{document.img}}" alt="{{document.name}}">
+  </aside>
+  <h3 class="title">
+    <span>{{document.name}}</span>
+    <div class="tags">
+      {{#each tags}}
+      <div class="tag" data-tooltip-text="{{{tooltip}}}">{{{tag}}}</div>
+      {{/each}}
+    </div>
+  </h3>
+  {{> "templates/generic/tab-navigation.hbs"}}
+  {{else}}
+  {{formGroup fields.name value=source.name}}
+  {{formGroup fields.img value=source.img}}
+
+  {{!-- TRAVELER --}}
+  {{#if (eq document.type "traveler")}}
+  <div class="form-group slim">
+    <label>{{localize "RYUUTAMA.TRAVELER.type"}}</label>
+    <div class="form-fields">
+      {{formInput systemFields.type.fields.value value=(ifThen disabled document.system.type.value source.system.type.value) disabled=disabled}}
+      {{#if (gte source.system.details.level 6)}}
+      {{formInput systemFields.type.fields.additional value=(ifThen disabled document.system.type.additional source.system.type.additional) disabled=disabled}}
+      {{/if}}
+    </div>
+  </div>
+
+  {{formGroup systemFields.mastered.fields.weapons value=(ifThen disabled document.system.mastered.weapons source.system.mastered.weapons) disabled=disabled type="checkboxes"}}
+  {{/if}}
+
+  {{!-- MONSTER --}}
+  {{#if (eq document.type "monster")}}
+  {{formGroup systemFields.details.fields.category value=(ifThen disabled document.system.details.category source.system.details.category) disabled=disabled classes="slim"}}
+
+  {{formGroup systemFields.details.fields.level value=(ifThen disabled document.system.details.level source.system.details.level) disabled=disabled type="number" classes="slim"}}
+  {{/if}}
+
+  {{> "templates/generic/tab-navigation.hbs"}}
+  {{/if}}
+</section>

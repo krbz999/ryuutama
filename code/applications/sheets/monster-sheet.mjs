@@ -7,8 +7,9 @@ import RyuutamaActorSheet from "./actor-sheet.mjs";
 export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
   /** @override */
   static PARTS = {
-    navigation: {
-      template: "templates/generic/tab-navigation.hbs",
+    header: {
+      template: "systems/ryuutama/templates/sheets/shared/header.hbs",
+      templates: ["templates/generic/tab-navigation.hbs"],
     },
     attributes: {
       template: "systems/ryuutama/templates/sheets/monster-sheet/attributes.hbs",
@@ -54,6 +55,39 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
       return { value: k, label: v.label };
     });
 
+    // Tags.
+    context.tags = this.#prepareTags();
+
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare tags.
+   * @returns {{ tag: string, tooltip: string }[]}
+   */
+  #prepareTags() {
+    const tags = [];
+
+    if (this.document.system.details.category in ryuutama.config.monsterCategories) {
+      const tag = ryuutama.config.monsterCategories[this.document.system.details.category].label;
+      tags.push({
+        tag,
+        tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.category", { category: tag }),
+      });
+    }
+
+    let level = this.document.system.details.level;
+    level = game.i18n.format("RYUUTAMA.ACTOR.TAGS.level", { level });
+    tags.push({ tag: level, tooltip: level });
+
+    if (this.document.system.details.dragonica) {
+      const tag = `#${this.document.system.details.dragonica.paddedString(3)}`;
+      const tooltip = game.i18n.format("RYUUTAMA.ACTOR.TAGS.dragonica", { number: tag });
+      tags.push({ tag, tooltip });
+    }
+
+    return tags;
   }
 }

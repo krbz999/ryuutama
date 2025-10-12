@@ -67,6 +67,13 @@
           "unequip": "Unequip Item"
         }
       },
+      "TAGS": {
+        "category": "Category: {category}",
+        "dragonica": "Dragonica No. {number}",
+        "level": "Level {level}",
+        "masteredWeapon": "Mastered Weapon: {weapon}",
+        "type": "Type: {type}"
+      },
       "HP": "HP",
       "MP": "MP",
       "rollAccuracy": "Roll Accuracy",
@@ -155,9 +162,9 @@
         "mastered.weapons.label": "Mastered Weapons"
       },
       "TYPES": {
-        "attack": "Attack",
-        "magic": "Magic",
-        "technical": "Technical"
+        "attack": "Attack Type",
+        "magic": "Magic Type",
+        "technical": "Technical Type"
       },
       "abilities": "Abilities",
       "advancement": "Advancement",
@@ -385,10 +392,15 @@
     "WEAPON": {
       "CATEGORIES": {
         "axe": "Axe",
+        "axePl": "Axes",
         "blade": "Blade",
+        "bladePl": "Blades",
         "bow": "Bow",
+        "bowPl": "Bows",
         "lightBlade": "Light Blade",
+        "lightBladePl": "Light Blades",
         "polearm": "Polearm",
+        "polearmPl": "Polearms",
         "unarmed": "Unarmed"
       },
       "FIELDS": {

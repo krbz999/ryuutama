@@ -1,4 +1,39 @@
 .ryuutama.application.sheet.actor {
+  .sheet-tabs [data-action=tab] {
+    padding: 0;
+    line-height: normal;
+    flex: 1;
+  }
+
+  .header.play {
+    grid: "avatar name" "avatar nav" / 7.5rem 1fr;
+    display: grid;
+    align-items: start;
+
+    .avatar {
+      grid-area: avatar;
+      margin-right: .5rem;
+
+      img {
+        object-fit: contain;
+        aspect-ratio: 1;
+      }
+    }
+
+    .title {
+      grid-area: name;
+      margin: .5rem;
+
+      .tags {
+        margin-top: 2px;
+      }
+    }
+
+    .sheet-tabs {
+      grid-area: nav;
+    }
+  }
+
   .inventory-group {
     h4 {
       font-size: 18px;
@@ -128,20 +163,6 @@
           width: 100%;
         }
 
-        .tags {
-          color: var(--ryuutama-color-disabled);
-          font-size: 11px;
-          display: inherit;
-          justify-content: space-around;
-          width: 100%;
-
-          .tag {
-            border: 1px dotted var(--ryuutama-color-disabled);
-            border-radius: 5px;
-            padding: 2px 4px;
-          }
-        }
-
         * {
           text-align: center;
         }
@@ -186,6 +207,27 @@
     .empty-slot {
       border: 1px solid var(--ryuutama-color-border);
       aspect-ratio: 1;
+    }
+  }
+
+  .tags {
+    color: var(--ryuutama-color-disabled);
+    font-size: 11px;
+    width: 100%;
+    display: flex;
+    gap: 3px;
+    font-family: Amiri;
+    flex-wrap: wrap;
+
+    &.center {
+      justify-content: space-around;
+    }
+
+    .tag {
+      border: 1px dotted var(--ryuutama-color-disabled);
+      border-radius: 5px;
+      padding: 2px 4px;
+      white-space: nowrap;
     }
   }
 }

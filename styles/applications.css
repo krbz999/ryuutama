@@ -42,7 +42,7 @@ ryuutama-icon {
   }
 }
 
-.ryuutama.application .form-group.stacked label {
+.ryuutama.application .form-group.stacked.center label {
   width: 100%;
   text-align: center;
 }

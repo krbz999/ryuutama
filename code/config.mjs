@@ -586,27 +586,32 @@ export const unarmedConfiguration = {
 export const weaponCategories = {
   axe: {
     label: "RYUUTAMA.WEAPON.CATEGORIES.axe",
+    labelPlural: "RYUUTAMA.WEAPON.CATEGORIES.axePl",
     grip: 2,
   },
   blade: {
     label: "RYUUTAMA.WEAPON.CATEGORIES.blade",
+    labelPlural: "RYUUTAMA.WEAPON.CATEGORIES.bladePl",
     grip: 1,
   },
   bow: {
     label: "RYUUTAMA.WEAPON.CATEGORIES.bow",
+    labelPlural: "RYUUTAMA.WEAPON.CATEGORIES.bowPl",
     grip: 2,
     ranged: true,
   },
   lightBlade: {
     label: "RYUUTAMA.WEAPON.CATEGORIES.lightBlade",
+    labelPlural: "RYUUTAMA.WEAPON.CATEGORIES.lightBladePl",
     grip: 1,
   },
   polearm: {
     label: "RYUUTAMA.WEAPON.CATEGORIES.polearm",
+    labelPlural: "RYUUTAMA.WEAPON.CATEGORIES.polearmPl",
     grip: 2,
   },
 };
-Prelocalization.prelocalize(weaponCategories);
+Prelocalization.prelocalize(weaponCategories, { properties: ["label", "labelPlural"] });
 
 /* -------------------------------------------------- */
 

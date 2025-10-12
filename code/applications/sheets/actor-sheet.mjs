@@ -40,6 +40,13 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /* -------------------------------------------------- */
 
+  /** @override */
+  get title() {
+    return this.document.name;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   _getHeaderControls() {
     const controls = super._getHeaderControls();
@@ -47,20 +54,6 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       controls.findSplice(c => c.action === "configurePrototypeToken");
     }
     return controls;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _preFirstRender(context, options) {
-    await super._preFirstRender(context, options);
-
-    await foundry.applications.handlebars.loadTemplates({
-      abilities: "systems/ryuutama/templates/sheets/shared/abilities.hbs",
-      defense: "systems/ryuutama/templates/sheets/shared/defense.hbs",
-      resources: "systems/ryuutama/templates/sheets/shared/resources.hbs",
-      statuses: "systems/ryuutama/templates/sheets/shared/statuses.hbs",
-    });
   }
 
   /* -------------------------------------------------- */
@@ -111,6 +104,20 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
     };
 
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preFirstRender(context, options) {
+    await super._preFirstRender(context, options);
+
+    await foundry.applications.handlebars.loadTemplates({
+      abilities: "systems/ryuutama/templates/sheets/shared/abilities.hbs",
+      defense: "systems/ryuutama/templates/sheets/shared/defense.hbs",
+      resources: "systems/ryuutama/templates/sheets/shared/resources.hbs",
+      statuses: "systems/ryuutama/templates/sheets/shared/statuses.hbs",
+    });
   }
 
   /* -------------------------------------------------- */

@@ -7,8 +7,9 @@ import RyuutamaActorSheet from "./actor-sheet.mjs";
 export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
   /** @override */
   static PARTS = {
-    navigation: {
-      template: "templates/generic/tab-navigation.hbs",
+    header: {
+      template: "systems/ryuutama/templates/sheets/shared/header.hbs",
+      templates: ["templates/generic/tab-navigation.hbs"],
     },
     attributes: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/attributes.hbs",
@@ -174,6 +175,27 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     if (options.parts.includes("spells")) {
       context.spells.items = this.document.items.documentsByType.spell.map(spell => ({ document: spell }));
     }
+
+    // Header tags.
+    context.tags = [];
+    for (const [k, v] of Object.entries(this.document.system.type.types)) {
+      const label = ryuutama.config.travelerTypes[k]?.label;
+      if (!v || !label) continue;
+      const tag = label + (v > 1 ? " &times; 2" : "");
+      context.tags.push({
+        tag,
+        tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.type", { type: label }),
+      });
+    }
+    for (const k of this.document.system.mastered.weapons) {
+      const label = ryuutama.config.weaponCategories[k]?.labelPlural;
+      if (label) context.tags.push({
+        tag: label,
+        tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.masteredWeapon", { weapon: label }),
+      });
+    }
+    const levelTag = game.i18n.format("RYUUTAMA.ACTOR.TAGS.level", { level: this.document.system.details.level });
+    context.tags.unshift({ tag: levelTag, tooltip: levelTag });
 
     return context;
   }
