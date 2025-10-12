@@ -5,7 +5,7 @@
       "value": "incantation"
     },
     "description": {
-      "value": "<p>The target’s main weapon hand glows red. It confers strength and skill and guides the weapon to its target. Grants +1 to Accuracy Checks.</p>"
+      "value": "<p>The target's main weapon hand glows red. It confers strength and skill and guides the weapon to its target. Grants +1 to Accuracy Checks.</p>"
     },
     "spell": {
       "activation": {

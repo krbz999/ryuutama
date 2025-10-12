@@ -5,7 +5,7 @@
       "value": "incantation"
     },
     "description": {
-      "value": "<p>Shoots a blast of heat from the caster’s palm that slams into the target. Caster rolls [SPI] (1 die) and deals damage to target equal to that amount.</p>"
+      "value": "<p>Shoots a blast of heat from the caster's palm that slams into the target. Caster rolls [SPI] (1 die) and deals damage to target equal to that amount.</p>"
     },
     "spell": {
       "activation": {

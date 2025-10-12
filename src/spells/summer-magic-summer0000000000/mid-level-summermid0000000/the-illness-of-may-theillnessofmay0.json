@@ -5,7 +5,7 @@
       "value": "summer"
     },
     "description": {
-      "value": "<p>This spell brings upon enemies the magical force known as “Gogatsubyo”, or “May Sickness”, which saps one’s will to do anything other than mope. Though the normal Magic Check is required, the target suffers [Tired: 6], no matter what their Condition is.</p>"
+      "value": "<p>This spell brings upon enemies the magical force known as “Gogatsubyo”, or “May Sickness”, which saps one's will to do anything other than mope. Though the normal Magic Check is required, the target suffers [Tired: 6], no matter what their Condition is.</p>"
     },
     "spell": {
       "activation": {

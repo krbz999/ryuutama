@@ -5,7 +5,7 @@
       "value": "spring"
     },
     "description": {
-      "value": "<p>Allergenic pollen is scattered through the air, causing eyes to water and noses to run. All creatures within the same target area receive [Poison: 6] no matter how high their Condition is, as long as the caster doesn’t fumble the Casting Check.</p>"
+      "value": "<p>Allergenic pollen is scattered through the air, causing eyes to water and noses to run. All creatures within the same target area receive [Poison: 6] no matter how high their Condition is, as long as the caster doesn't fumble the Casting Check.</p>"
     },
     "spell": {
       "activation": {

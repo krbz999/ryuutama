@@ -1,0 +1,30 @@
+{
+  "name": "Hunting",
+  "_id": "hunting000000000",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>You are able to catch small wild animals for food. This skill is used just before the camp check is made, however, if you decide to go hunting, you cannot also help set up camp. The higher the result of the check, the more food you catch.</p>\n<p><strong>Skill Effect:</strong> Receive a number of rations equal to Check result – target number, but cannot participate in the camp check. Critical: All food is Delicious. Fumble: Afflicted by [Injury: 6] status effect</p>\n<p><strong>Usable Circumstances:</strong> Before camp check, once per day</p>\n<p><strong>Stat Used:</strong> [DEX + INT]</p>\n<p><strong>TN:</strong> Topography</p>"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "hunter0000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760283688497,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!hunting000000000"
+}

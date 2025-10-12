@@ -5,7 +5,7 @@
       "value": "incantation"
     },
     "description": {
-      "value": "<p>The target’s heart is shrouded in light. One time when the target takes damage that would take its HP to 0 or below, the target is instead left with 1 HP. This spell cannot be cast multiple times on the same person.</p>"
+      "value": "<p>The target's heart is shrouded in light. One time when the target takes damage that would take its HP to 0 or below, the target is instead left with 1 HP. This spell cannot be cast multiple times on the same person.</p>"
     },
     "spell": {
       "activation": {

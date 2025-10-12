@@ -5,7 +5,7 @@
       "value": "summer"
     },
     "description": {
-      "value": "<p>The target’s health and cheer rise, as if they had just returned from a long, refreshing vacation. Target receives a +2 bonus to Condition.</p>"
+      "value": "<p>The target's health and cheer rise, as if they had just returned from a long, refreshing vacation. Target receives a +2 bonus to Condition.</p>"
     },
     "spell": {
       "activation": {

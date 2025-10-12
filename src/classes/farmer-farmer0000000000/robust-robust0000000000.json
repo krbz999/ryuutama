@@ -1,0 +1,30 @@
+{
+  "name": "Robust",
+  "_id": "robust0000000000",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>Thanks to your healthy lifestyle, your body is sturdy, and you are in tune with its natural rhythm. You are naturally resistant to ill effects and can carry more items.</p>\n<p><strong>Skill Effect:</strong> +1 bonus to Condition Checks. +3 bonus to Carrying Capacity</p>\n<p><strong>Usable Circumstances:</strong> -</p>\n<p><strong>Stat Used:</strong> -</p>\n<p><strong>TN:</strong> -</p>"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "farmer0000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760283836382,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!robust0000000000"
+}

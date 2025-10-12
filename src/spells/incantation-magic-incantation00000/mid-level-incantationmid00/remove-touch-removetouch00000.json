@@ -5,7 +5,7 @@
       "value": "incantation"
     },
     "description": {
-      "value": "<p>Restores the target’s body and mind to a state of equilibrium. A target suffering a status effect may reroll their Condition Check and use the new one if it is higher.</p>"
+      "value": "<p>Restores the target's body and mind to a state of equilibrium. A target suffering a status effect may reroll their Condition Check and use the new one if it is higher.</p>"
     },
     "spell": {
       "activation": {

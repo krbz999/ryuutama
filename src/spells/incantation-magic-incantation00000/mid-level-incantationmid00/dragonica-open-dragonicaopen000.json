@@ -5,7 +5,7 @@
       "value": "incantation"
     },
     "description": {
-      "value": "<p>Summons the monster compendium, Dragonica. The target monster’s page automatically opens and displays its data.</p>"
+      "value": "<p>Summons the monster compendium, Dragonica. The target monster's page automatically opens and displays its data.</p>"
     },
     "spell": {
       "activation": {

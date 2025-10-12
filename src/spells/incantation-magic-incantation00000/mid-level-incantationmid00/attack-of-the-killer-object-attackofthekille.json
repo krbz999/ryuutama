@@ -5,7 +5,7 @@
       "value": "incantation"
     },
     "description": {
-      "value": "<p>An object on the battlefield strikes the target for 1d6 damage. As long as the Magic Check is not a Fumble, the magic will take effect no matter the target’s Condition. The object used disappears.</p>"
+      "value": "<p>An object on the battlefield strikes the target for 1d6 damage. As long as the Magic Check is not a Fumble, the magic will take effect no matter the target's Condition. The object used disappears.</p>"
     },
     "spell": {
       "activation": {

@@ -1,0 +1,30 @@
+{
+  "name": "Well-Spoken",
+  "_id": "wellspoken000000",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>As a merchant who earns her keep by trading, your communication skills are top notch.</p>\n<p><strong>Skill Effect:</strong> Negotiation Check [INT + SPI] gets +1, always in effect</p>\n<p><strong>Usable Circumstances:</strong> Any Negotiation Check</p>\n<p><strong>Stat Used:</strong> -</p>\n<p><strong>TN:</strong> -</p>"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "merchant00000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760283410044,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!wellspoken000000"
+}

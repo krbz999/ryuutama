@@ -1,0 +1,30 @@
+{
+  "name": "First Aid",
+  "_id": "firstaid00000000",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>You can relieve a character's status effect for one hour. This also reduces the strength of the status ailment by your current level. If this reduces the strength of the status ailment to 0 or below, the status effect is immediately cured. A character may only receive First Aid once per day, regardless of whether or not the check is successful.</p>\n<p><strong>Skill Effect:</strong> Relieve a character's status effect for 1 hour. Then, reduce that status effect's strength permanently by a number equal to the Healer's level.</p>\n<p><strong>Usable Circumstances:</strong> A character with a status effect who has not yet received first aid today</p>\n<p><strong>Stat Used:</strong> [INT + SPI]</p>\n<p><strong>TN:</strong> Status effect's strength</p>"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "healer0000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760283764911,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!firstaid00000000"
+}

@@ -5,7 +5,7 @@
       "value": "incantation"
     },
     "description": {
-      "value": "<p>Heals a wound in an instant. Caster rolls [INT] (1 die) and heals a target’s HP for that amount.</p>"
+      "value": "<p>Heals a wound in an instant. Caster rolls [INT] (1 die) and heals a target's HP for that amount.</p>"
     },
     "spell": {
       "activation": {

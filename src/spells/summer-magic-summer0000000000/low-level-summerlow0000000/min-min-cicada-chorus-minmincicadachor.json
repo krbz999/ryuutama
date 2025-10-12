@@ -5,7 +5,7 @@
       "value": "summer"
     },
     "description": {
-      "value": "<p>The loud cries of cicadas (which make a sound like “MIN MIN MIN MIN MIN”) fill the area, disrupting concentration. For the duration of the spell, anyone who attempts to cast a spell must first beat the caster in a contested [SPI + SPI] check. If the person attempting to cast a new spell loses, their spell automatically fails. Because the sound is loudest near the caster, the caster may not cast any other spells while this spell is active. Plugging one’s ears does not stop the effect.</p>"
+      "value": "<p>The loud cries of cicadas (which make a sound like “MIN MIN MIN MIN MIN”) fill the area, disrupting concentration. For the duration of the spell, anyone who attempts to cast a spell must first beat the caster in a contested [SPI + SPI] check. If the person attempting to cast a new spell loses, their spell automatically fails. Because the sound is loudest near the caster, the caster may not cast any other spells while this spell is active. Plugging one's ears does not stop the effect.</p>"
     },
     "spell": {
       "activation": {

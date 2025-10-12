@@ -5,7 +5,7 @@
       "value": "autumn"
     },
     "description": {
-      "value": "<p>Creates a cocoon-like hanging sleeping bag, that maintains a constant temperature whatever its surroundings. Sleeping in this bag grants a +1 bonus to the next day’s Condition, but this spell may only be used if there is a ceiling or something for the ‘cocoon’ to hang from.</p>"
+      "value": "<p>Creates a cocoon-like hanging sleeping bag, that maintains a constant temperature whatever its surroundings. Sleeping in this bag grants a +1 bonus to the next day's Condition, but this spell may only be used if there is a ceiling or something for the ‘cocoon' to hang from.</p>"
     },
     "spell": {
       "activation": {

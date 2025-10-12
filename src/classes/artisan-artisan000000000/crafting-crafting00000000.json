@@ -1,0 +1,30 @@
+{
+  "name": "Crafting",
+  "_id": "crafting00000000",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>You can use this skill to make handy, cute, beautiful or delicious things. If you have time and tools, you can make things during your Journey. Each craft is different, and so are the things each character can make. When choosing the Artisan class, choose a single category from this list: Weapons, Armor, Shoes, Capes, Staves, Hats, Accessories, Food, Sundries, Camping Equipment, or Containers. If you choose “Shoes”, for example, you can make any item in the Shoes category. If you fail this skill check, you may try again; the materials won't be lost, but the time will.</p><p><strong>Skill Effect:</strong> Make an item from your specialization. Choose the specialization category when choosing this class.</p><p><strong>Usable Circumstances:</strong> Anytime you have the time (1 day per size) and materials (1/2 the gold cost)</p><p><strong>Stat Used:</strong> [STR + DEX]</p><p><strong>TN:</strong> See table</p><table><thead><tr><th>Item Price</th><th>100G or less</th><th>1000G or less</th><th>10,000G or less</th><th>100,000G or less</th><th>More</th></tr></thead><tbody><tr><td>TN</td><td>6</td><td>8</td><td>10</td><td>14</td><td>18</td></tr></tbody></table>"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "artisan000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760283961368,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!crafting00000000"
+}

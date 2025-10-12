@@ -5,7 +5,7 @@
       "value": "winter"
     },
     "description": {
-      "value": "<p>The target’s countenance is frozen in place like a mask. The target does not suffer any mind-based status effects while the spell is in effect. Once the spell expires, any previous status effects return.</p>"
+      "value": "<p>The target's countenance is frozen in place like a mask. The target does not suffer any mind-based status effects while the spell is in effect. Once the spell expires, any previous status effects return.</p>"
     },
     "spell": {
       "activation": {

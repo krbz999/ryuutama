@@ -5,7 +5,7 @@
       "value": "autumn"
     },
     "description": {
-      "value": "<p>A scarecrow appears and draws an enemy’s attacks. The target has a 50% chance of targeting the dummy scarecrow with all magic, attacks, and special attacks, but area attacks are not affected. Though the dummy is virtually indestructible, if hit with a fire attack, it becomes a “Flaming Scarecrow.”</p>"
+      "value": "<p>A scarecrow appears and draws an enemy's attacks. The target has a 50% chance of targeting the dummy scarecrow with all magic, attacks, and special attacks, but area attacks are not affected. Though the dummy is virtually indestructible, if hit with a fire attack, it becomes a “Flaming Scarecrow.”</p>"
     },
     "spell": {
       "activation": {

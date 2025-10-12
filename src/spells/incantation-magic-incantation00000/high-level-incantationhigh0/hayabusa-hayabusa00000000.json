@@ -5,7 +5,7 @@
       "value": "incantation"
     },
     "description": {
-      "value": "<p>The target is imbued with the speed of a hawk. The target may attack twice each round for the spell’s duration. After the spell wears off, the target is exhausted and receives [Injury: 10]</p>"
+      "value": "<p>The target is imbued with the speed of a hawk. The target may attack twice each round for the spell's duration. After the spell wears off, the target is exhausted and receives [Injury: 10]</p>"
     },
     "spell": {
       "activation": {

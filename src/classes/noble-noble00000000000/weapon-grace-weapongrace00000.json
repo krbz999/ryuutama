@@ -1,0 +1,30 @@
+{
+  "name": "Weapon Grace",
+  "_id": "weapongrace00000",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>After long years of practice and extensive training under a master-at-arms, you have learned to be graceful when wielding a certain weapon. When creating your character, choose either Blade, Polearm or Bow. You receive this weapon as a Mastered Weapon. If you already have this chosen category as a Mastered Weapon, you receive a +1 bonus to your Accuracy checks when using a weapon from that category.</p>\n<p><strong>Skill Effect:</strong> Choose Blade/Polearm/Bow; it becomes an additional Mastered Weapon. If chosen category is already a Mastered Weapon, gain +1 bonus to Accuracy checks.</p>\n<p><strong>Usable Circumstances:</strong> -</p>\n<p><strong>Stat Used:</strong> -</p>\n<p><strong>TN:</strong> -</p>"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "noble00000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760284202415,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!weapongrace00000"
+}

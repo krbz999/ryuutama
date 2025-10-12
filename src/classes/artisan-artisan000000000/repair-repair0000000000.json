@@ -1,0 +1,30 @@
+{
+  "name": "Repair",
+  "_id": "repair0000000000",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>You can repair damaged items, restoring their durability to full. Use the table below to determine the Repair Check target number. This costs 10% of the item's value, regardless of success or failure. You may retry a failed skill check, but you must pay the cost again.</p><p><strong>Skill Effect:</strong> Repair an item and return its durability to its original value</p><p><strong>Usable Circumstances:</strong> Anytime you have the time (1 day per size) and materials (10% the gold cost)</p><p><strong>Stat Used:</strong> [STR + DEX]</p><p><strong>TN:</strong> See table</p><table><thead><tr><th>Item Price</th><th>100G or less</th><th>1000G or less</th><th>10,000G or less</th><th>100,000G or less</th><th>More</th></tr></thead><tbody><tr><td>TN</td><td>6</td><td>8</td><td>10</td><td>14</td><td>18</td></tr></tbody></table>"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "artisan000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760284088522,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!repair0000000000"
+}

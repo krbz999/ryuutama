@@ -154,6 +154,12 @@
       "banner": "systems/ryuutama/assets/official/banners/actors.webp"
     },
     {
+      "name": "classes",
+      "label": "RYUUTAMA.PACKS.CLASSES",
+      "type": "Item",
+      "banner": ""
+    },
+    {
       "name": "items",
       "label": "RYUUTAMA.PACKS.ITEMS",
       "type": "Item",
@@ -178,6 +184,7 @@
       "color": "#0089bd",
       "packs": [
         "actors",
+        "classes",
         "items",
         "spells",
         "tables"

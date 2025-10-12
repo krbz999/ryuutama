@@ -1,0 +1,30 @@
+{
+  "name": "Refined Education",
+  "_id": "refinededucation",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>After years of study under a learned tutor, you have memorized facts and trivia about many aspects of the world. You know more than the average person about history, famous people and well-traveled places.</p>\n<p><strong>Skill Effect:</strong> Know detailed information about the things you see or hear.</p>\n<p><strong>Usable Circumstances:</strong> Seeing or hearing something.</p>\n<p><strong>Stat Used:</strong> [INT + INT]</p>\n<p><strong>TN:</strong> GM's discretion</p>"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "noble00000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760284180438,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!refinededucation"
+}

@@ -5,7 +5,7 @@
       "value": "spring"
     },
     "description": {
-      "value": "<p>Awakens a person’s dormant power. It changes one (and only one) of the target’s stats from 12 to 20. Targets with no stat of 12 are unaffected.</p>"
+      "value": "<p>Awakens a person's dormant power. It changes one (and only one) of the target's stats from 12 to 20. Targets with no stat of 12 are unaffected.</p>"
     },
     "spell": {
       "activation": {

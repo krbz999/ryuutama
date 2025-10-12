@@ -5,7 +5,7 @@
       "value": "winter"
     },
     "description": {
-      "value": "<p>This spell summons an illness which causes headache, fever, coughing, and all other symptoms of a bad cold. The target suffers [Sick: 6], no matter their Condition, as long as the caster doesn’t fumble the Magic Check. In the world of Ryuutama, when someone catches a cold, some people say “Oh dear! An evil wind snuck up on you!”</p>"
+      "value": "<p>This spell summons an illness which causes headache, fever, coughing, and all other symptoms of a bad cold. The target suffers [Sick: 6], no matter their Condition, as long as the caster doesn't fumble the Magic Check. In the world of Ryuutama, when someone catches a cold, some people say “Oh dear! An evil wind snuck up on you!”</p>"
     },
     "spell": {
       "activation": {

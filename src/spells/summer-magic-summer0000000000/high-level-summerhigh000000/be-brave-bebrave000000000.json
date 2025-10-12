@@ -5,7 +5,7 @@
       "value": "summer"
     },
     "description": {
-      "value": "<p>Summons an incredibly terrifying being (of the player’s choice) for a split second. Assuming the Magic Check succeeds, all characters suffer [Shock: 10]. Covering one’s eyes or hiding one’s face will not stop the terror from seeping into your hearts.</p>"
+      "value": "<p>Summons an incredibly terrifying being (of the player's choice) for a split second. Assuming the Magic Check succeeds, all characters suffer [Shock: 10]. Covering one's eyes or hiding one's face will not stop the terror from seeping into your hearts.</p>"
     },
     "spell": {
       "activation": {

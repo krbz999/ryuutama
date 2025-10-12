@@ -1,0 +1,30 @@
+{
+  "name": "Etiquette",
+  "_id": "etiquette0000000",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>Due to your long years of tutelage and experience in noble society, you are aware of the importance of proper etiquette. When speaking to someone of rank or status, you are able to leave them with a positive impression of you when you win a contested Etiquette check.</p>\n<p><strong>Skill Effect:</strong> Leave a positive impression on someone of high rank or status.</p>\n<p><strong>Usable Circumstances:</strong> Conversing with someone of rank or status</p>\n<p><strong>Stat Used:</strong> [DEX + INT]</p>\n<p><strong>TN:</strong> contested</p>"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "noble00000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760284153063,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!etiquette0000000"
+}

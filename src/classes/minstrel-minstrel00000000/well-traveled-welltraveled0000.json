@@ -1,0 +1,30 @@
+{
+  "name": "Well-Traveled",
+  "_id": "welltraveled0000",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>As a minstrel who makes his earning by constant travel, you've learned how to travel safely.</p>\n<p><strong>Skill Effect:</strong> +1 to Journey Checks (Travel/Direction/Camping Checks; always in effect)</p>\n<p><strong>Usable Circumstances:</strong> -</p>\n<p><strong>Stat Used:</strong> -</p>\n<p><strong>TN:</strong> -</p>"
+    }
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "minstrel00000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760283267808,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!welltraveled0000"
+}

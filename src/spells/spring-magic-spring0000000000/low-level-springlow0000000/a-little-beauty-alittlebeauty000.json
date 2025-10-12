@@ -5,7 +5,7 @@
       "value": "spring"
     },
     "description": {
-      "value": "<p>The target’s hairstyle and hair color are changed, and makeup is applied to fit a desired image. This hairstyle and makeup will not change until the end of the spell’s duration. This spell cannot actually change a person’s features.</p>"
+      "value": "<p>The target's hairstyle and hair color are changed, and makeup is applied to fit a desired image. This hairstyle and makeup will not change until the end of the spell's duration. This spell cannot actually change a person's features.</p>"
     },
     "spell": {
       "activation": {
