@@ -45,6 +45,16 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
   /* -------------------------------------------------- */
 
   /**
+   * Is the user able to perform actions such as rolls?
+   * @type {boolean}
+   */
+  get isInteractive() {
+    return this.isEditable && !this.document.inCompendium;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * The current sheet mode.
    * @type {0|1}
    */
@@ -89,6 +99,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
     const isEditable = context.editable && this.isEditMode;
     return Object.assign(context, {
       isEditable,
+      isInteractive: this.isInteractive,
       disabled: !isEditable,
       document: this.document,
       systemFields: this.document.system.schema.fields,

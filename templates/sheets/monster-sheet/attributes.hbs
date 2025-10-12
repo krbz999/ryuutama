@@ -15,12 +15,12 @@
       <img src="{{attackImage}}" alt="">
       {{/if}}
       <div class="attack">
-        <button type="button" data-action="rollCheck" data-check="accuracy" {{disabled (not editable)}}>{{localize "RYUUTAMA.ACTOR.rollAccuracy"}}</button>
-        <button type="button" data-action="rollCheck" data-check="damage" {{disabled (not editable)}}>{{localize "RYUUTAMA.ACTOR.rollDamage"}}</button>
+        <button type="button" data-action="rollCheck" data-check="accuracy" {{disabled (not isInteractive)}}>{{localize "RYUUTAMA.ACTOR.rollAccuracy"}}</button>
+        <button type="button" data-action="rollCheck" data-check="damage" {{disabled (not isInteractive)}}>{{localize "RYUUTAMA.ACTOR.rollDamage"}}</button>
       </div>
     </div>
 
-    <button type="button" class="heightened" data-action="rollCheck" data-check="check" {{disabled (not editable)}}>
+    <button type="button" class="heightened" data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
       <i class="fa-solid fa-burst"></i>
       <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
     </button>
