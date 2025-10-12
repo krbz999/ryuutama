@@ -115,7 +115,7 @@ Hooks.once("i18nInit", () => {
 /* -------------------------------------------------- */
 
 Hooks.once("setup", () => {
-  CONFIG.Actor.defaultType = game.user.isGM ? "ryuujin" : "traveler";
+  CONFIG.Actor.defaultType = game.user.isGM ? "monster" : "traveler";
 
   Handlebars.registerHelper({
     "inventory-element": applications.elements.InventoryElement.handlebarsHelper,
