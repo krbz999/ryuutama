@@ -506,7 +506,7 @@
       "river": "River",
       "sea": "Sea",
       "pond": "Pond",
-      "low": "Low",
+      "lowMountain": "Low Mountain",
 
       "CATEGORY": {
         "all": "All terrain types",

@@ -539,8 +539,8 @@ export const monsterTerrains = {
   pond: {
     label: "RYUUTAMA.TERRAIN.pond",
   },
-  low: {
-    label: "RYUUTAMA.TERRAIN.low",
+  lowMountain: {
+    label: "RYUUTAMA.TERRAIN.lowMountain",
   },
 };
 Prelocalization.prelocalize(monsterTerrains);

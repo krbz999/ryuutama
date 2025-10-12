@@ -7,7 +7,7 @@
     },
     "environment": {
       "habitat": [
-        "low",
+        "lowMountain",
         "alpine",
         "deepForest"
       ],
