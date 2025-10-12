@@ -1,36 +1,61 @@
 :root {
-  --ryuutama-color-gold: rgb(159, 146, 117);
-  --ryuutama-color-gold-dark: rgb(85, 74, 49);
-  --ryuutama-color-purple: rgb(146, 20, 146);
+  /* COLORS */
+  --ryuutama-color-tan: #9F9175;
+  --ryuutama-color-dimgray: #544A31;
+  --ryuutama-color-palevioletred: #b9578c;
+  --ryuutama-color-darkorange: #e0861a;
+  --ryuutama-color-bisque: #f7dfc5;
+  --ryuutama-color-oldlace: #fbedde;
+  --ryuutama-color-indianred: #87384d;
+  --ryuutama-color-limegreen: #4BA72F;
+  --ryuutama-color-darkblue: #4F2EBD;
+  --ryuutama-color-black: black;
+  --ryuutama-color-mediumvioletred: #b8006d;
+  --ryuutama-color-steelblue: #45619e;
+  --ryuutama-color-steelblue-light: #0089bd;
+  --ryuutama-color-firebrick: #c4151c;
 
-  --ryuutama-color-resource-stamina: rgb(76, 173, 47);
-  --ryuutama-color-resource-mental: rgb(85, 47, 189);
-  --ryuutama-color-resource-default: black;
+  /* VARIABLES */
+  --ryuutama-color-resource-stamina: var(--ryuutama-color-limegreen);
+  --ryuutama-color-resource-mental: var(--ryuutama-color-darkblue);
+  --ryuutama-color-resource-default: var(--ryuutama-color-black);
 
-  --ryuutama-color-statuses-body: #b8006d;
-  --ryuutama-color-statuses-mind: #0089bd;
-  --ryuutama-color-archetype: #87384d;
-  --ryuutama-color-stats: #87384d;
-  --ryuutama-color-sidebar-background: #f7f7d2;
-  --ryuutama-color-check-fumble: #c4151c;
-  --ryuutama-color-check-critical: #45619e;
-  --ryuutama-color-check-condition: #b9578c;
+  --ryuutama-color-statuses-body: var(--ryuutama-color-mediumvioletred);
+  --ryuutama-color-statuses-mind: var(--ryuutama-color-steelblue-light);
+  --ryuutama-color-archetype: var(--ryuutama-color-indianred);
+  --ryuutama-color-stats: var(--ryuutama-color-indianred);
+  --ryuutama-color-check-fumble: var(--ryuutama-color-firebrick);
+  --ryuutama-color-check-critical: var(--ryuutama-color-steelblue);
+  --ryuutama-color-check-condition: var(--ryuutama-color-palevioletred);
+
+  /* The border on empty equipment slots. */
+  --ryuutama-color-border: var(--ryuutama-color-dimgray);
 
   .theme-light, .themed.theme-light {
-    --ryuutama-sidebar-primary-party: var(--ryuutama-color-gold);
+    --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
     --ryuutama-inventory-hover-color: rgba(0, 0, 0, 0.1);
     --ryuutama-color-value-location: black;
-    --ryuutama-color-disabled: var(--ryuutama-color-gold-dark);
-    --ryuutama-color-capacity-bar: rgb(219, 124, 16);
-    --ryuutama-color-capacity-bar-overflow: rgb(249, 23, 16);
+    --ryuutama-color-disabled: var(--ryuutama-color-dimgray);
+    --ryuutama-color-capacity-bar: var(--ryuutama-color-darkorange);
+    --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
+
+    --ryuutama-color-table-header: var(--ryuutama-color-darkorange);
+    --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
+    --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
+    --ryuutama-table-text-color: var(--ryuutama-color-black);
   }
 
   .theme-dark, .themed.theme-dark {
-    --ryuutama-sidebar-primary-party: var(--ryuutama-color-purple);
+    --ryuutama-sidebar-primary-party: var(--ryuutama-color-palevioletred);
     --ryuutama-inventory-hover-color: rgba(255, 255, 255, 0.1);
     --ryuutama-color-value-location: white;
-    --ryuutama-color-disabled: var(--ryuutama-color-gold);
-    --ryuutama-color-capacity-bar: rgb(218, 143, 59);
-    --ryuutama-color-capacity-bar-overflow: rgb(219, 63, 16);
+    --ryuutama-color-disabled: var(--ryuutama-color-tan);
+    --ryuutama-color-capacity-bar: var(--ryuutama-color-darkorange);
+    --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
+
+    --ryuutama-color-table-header: var(--ryuutama-color-darkorange);
+    --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
+    --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
+    --ryuutama-table-text-color: var(--ryuutama-color-black);
   }
 }

@@ -1,0 +1,39 @@
+.ryuutama table.roll-table-rollable {
+  border-radius: 3px;
+
+  thead th:first-child button {
+    border: none;
+    background-color: inherit;
+  }
+
+  tr > :first-child {
+    width: 0;
+    white-space: nowrap;
+  }
+
+  td {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  thead th {
+    padding-top: .35rem;
+    padding-bottom: .35rem;
+    font-weight: normal;
+  }
+
+  /* COLORS */
+  thead {
+    background-color: var(--ryuutama-color-table-header);
+    border: none;
+  }
+  tbody tr {
+    background-color: var(--ryuutama-color-table-row-odd);
+  }
+  tbody tr:nth-child(even) {
+    background-color: var(--ryuutama-color-table-row-even);
+  }
+  tr * {
+    color: var(--ryuutama-table-text-color);
+  }
+}

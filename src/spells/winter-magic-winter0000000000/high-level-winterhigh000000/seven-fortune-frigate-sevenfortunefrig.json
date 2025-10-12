@@ -5,7 +5,7 @@
       "value": "winter"
     },
     "description": {
-      "value": "<p>A treasure-laden boat bearing seven legendary heroes arrives from the East to bless the caster and his companions. While the spell lasts, any character that is blessed turns any Fumbles into Criticals. Roll a d8 to see what class is blessed. If a class is blessed but the party lacks characters of that class, the heroes bless nobody and leave disappointed.</p><p>1: Merchant 2: Farmer 3: Minstrel 4: Hunter 5: Artisan 6: Healer 7: Noble 8: All Classes</p>"
+      "value": "<p>A treasure-laden boat bearing seven legendary heroes arrives from the East to bless the caster and his companions. While the spell lasts, any character that is blessed turns any Fumbles into Criticals. Roll a d8 to see what class is blessed. If a class is blessed but the party lacks characters of that class, the heroes bless nobody and leave disappointed.</p><p>@Embed[Compendium.ryuutama.tables.RollTable.sevenfortunefrig rollable=true caption=false resultLabel=\"Class\"]</p>"
     },
     "spell": {
       "activation": {

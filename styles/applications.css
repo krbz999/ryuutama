@@ -1,6 +1,7 @@
 @import url("./hud/_styles.css");
 @import url("./sidebar/_styles.css");
 @import url("./sheets/_styles.css");
+@import url("./tables.css");
 
 ryuutama-icon {
   height: 100%;
