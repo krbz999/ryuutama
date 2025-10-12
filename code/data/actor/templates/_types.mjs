@@ -72,7 +72,7 @@
  * @property {number} gold.value            Accumulated gold.
  * @property {object} mastered
  * @property {string[]} mastered.habitats   Habitats in which this character receive a bonus to checks.
- * @property {string[]} mastered.weapons    Mastered weapon types.
+ * @property {Record<string, 0|1|2>} mastered.weapons   Mastered weapon types.
  * @property {object} type
  * @property {string} type.value            The traveler's type.
  * @property {string} type.additional       An additional type chosen at later levels.

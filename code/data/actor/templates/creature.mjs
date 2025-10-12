@@ -263,10 +263,14 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
               abilities = [...w.system.accuracy.abilities];
               bonus = w.system.accuracy.bonus;
               roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
+              if (w.system.isMastered && (this.mastered.weapons[w.system.category.value] > 1)) {
+                bonus++;
+              }
             } else {
               // unarmed
               abilities = [...ryuutama.config.unarmedConfiguration.accuracy.abilities];
               bonus = ryuutama.config.unarmedConfiguration.accuracy.bonus;
+              roll.accuracy = { consumeStamina: true }; // TODO: unless mastered
             }
             roll.abilities = abilities;
             roll.modifier = bonus;

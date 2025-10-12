@@ -46,7 +46,7 @@ export default class WeaponData extends PhysicalData {
   get isMastered() {
     if (!this.parent.isEmbedded) return null;
     const weapons = this.parent.actor.system.mastered?.weapons;
-    return weapons ? weapons.has(this.category.value) : null;
+    return weapons ? (weapons[this.category.value] > 0) : null;
   }
 
   /* -------------------------------------------------- */

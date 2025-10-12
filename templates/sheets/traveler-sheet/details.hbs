@@ -6,4 +6,12 @@
     {{formGroup systemFields.details.fields.exp value=(ifThen disabled document.system.details.exp source.system.details.exp) disabled=disabled classes="slim"}}
     {{formGroup systemFields.details.fields.level value=(ifThen disabled document.system.details.level source.system.details.level) disabled=disabled classes="slim" type="number"}}
   </fieldset>
+
+  {{!-- MASTERED WEAPONS --}}
+  <div class="form-group">
+    <label for="">{{localize "RYUUTAMA.TRAVELER.masteredWeapons"}}</label>
+    <div class="form-fields">
+      <button type="button" data-action="configure" data-config="weapons" class="icon fa-solid fa-cog" {{disabled (not editable)}}></button>
+    </div>
+  </div>
 </section>

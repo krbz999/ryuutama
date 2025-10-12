@@ -1,0 +1,12 @@
+<section>
+  {{#each mastered}}
+  <div class="form-group">
+    <label for="{{rootId}}-{{key}}">{{label}}</label>
+    <div class="form-fields">
+      <select name="system.mastered.weapons.{{key}}" id="{{rootId}}-{{key}}">
+        {{selectOptions options selected=level}}
+      </select>
+    </div>
+  </div>
+  {{/each}}
+</section>

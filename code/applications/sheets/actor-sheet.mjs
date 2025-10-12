@@ -336,6 +336,9 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
         options.resource = target.dataset.resource;
         application = new ryuutama.applications.apps.ResourceConfig(options);
         break;
+      case "weapons":
+        application = new ryuutama.applications.apps.MasteredWeaponsConfig(options);
+        break;
     }
     if (!application) return;
     application.render({ force: true });

@@ -158,20 +158,25 @@
         "details.exp.label": "EXP",
         "details.level.label": "Level",
         "fumbles.value.label": "Fumble Points",
-        "gold.value.label": "Gold",
-        "mastered.weapons.label": "Mastered Weapons"
+        "gold.value.label": "Gold"
       },
       "TYPES": {
         "attack": "Attack Type",
         "magic": "Magic Type",
         "technical": "Technical Type"
       },
+      "WEAPONS": {
+        "masteryLevel0": "Not Mastered",
+        "masteryLevel1": "Mastered",
+        "masteryLevel2": "Mastered Twice"
+      },
       "abilities": "Abilities",
       "advancement": "Advancement",
       "type": "Type",
       "conditionShapeNoneSelected": "Select Ability",
       "shape": "Shape",
-      "conditionShapeOutOfShape": "Out of Shape"
+      "conditionShapeOutOfShape": "Out of Shape",
+      "masteredWeapons": "Mastered Weapons"
     },
 
     "ABILITIES": {
@@ -506,6 +511,10 @@
         "all": "All terrain types",
         "allLevel": "All level {level} terrain types"
       }
+    },
+
+    "WEAPONS": {
+      "title": "Configure Mastered Weapons: {name}"
     },
 
     "WEATHER": {

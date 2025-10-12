@@ -615,6 +615,21 @@ Prelocalization.prelocalize(weaponCategories, { properties: ["label", "labelPlur
 
 /* -------------------------------------------------- */
 
+export const weaponMasteryLevels = {
+  0: {
+    label: "RYUUTAMA.TRAVELER.WEAPONS.masteryLevel0",
+  },
+  1: {
+    label: "RYUUTAMA.TRAVELER.WEAPONS.masteryLevel1",
+  },
+  2: {
+    label: "RYUUTAMA.TRAVELER.WEAPONS.masteryLevel2",
+  },
+};
+Prelocalization.prelocalize(weaponMasteryLevels);
+
+/* -------------------------------------------------- */
+
 /**
  * @type {Record<string, WeatherCategoryConfig>}
  */

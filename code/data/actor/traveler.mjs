@@ -1,7 +1,7 @@
 import LocalDocumentField from "../fields/local-document-field.mjs";
 import CreatureData from "./templates/creature.mjs";
 
-const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField, TypedObjectField } = foundry.data.fields;
 
 export default class TravelerData extends CreatureData {
   /** @override */
@@ -35,7 +35,10 @@ export default class TravelerData extends CreatureData {
       }),
       mastered: new SchemaField({
         habitats: new SetField(new StringField()),
-        weapons: new SetField(new StringField({ choices: () => ryuutama.config.weaponCategories })),
+        weapons: new TypedObjectField(
+          new NumberField({ initial: 0, choices: () => ryuutama.config.weaponMasteryLevels }),
+          { validateKeys: key => key in ryuutama.config.weaponCategories },
+        ),
       }),
       type: new SchemaField({
         value: new StringField({ choices: () => ryuutama.config.travelerTypes, blank: true, required: true }),

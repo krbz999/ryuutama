@@ -187,9 +187,9 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
         tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.type", { type: label }),
       });
     }
-    for (const k of this.document.system.mastered.weapons) {
+    for (const [k, v] of Object.entries(this.document.system.mastered.weapons)) {
       const label = ryuutama.config.weaponCategories[k]?.labelPlural;
-      if (label) context.tags.push({
+      if (label && v) context.tags.push({
         tag: label,
         tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.masteredWeapon", { weapon: label }),
       });

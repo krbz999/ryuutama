@@ -153,18 +153,19 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     const roll = this.#configurations.rollConfig;
     context.showConcentration = roll.concentration?.allowed !== false;
     context.allowConsumeFumble = this.actor.system.schema.has("fumbles");
-    context.showAccuracy = (roll.accuracy?.weapon?.system.isMastered === false) || (roll.accuracy?.consumeStamina);
+
+    context.showAccuracy = (roll.type === "accuracy") && !roll.accuracy?.weapon?.system.isMastered;
     context.showCondition = roll.type === "condition";
     context.showAbilities = !roll.formula;
 
-    switch (this.#configurations.rollConfig.type) {
+    switch (roll.type) {
       case "damage":
       case "accuracy":
         if (this.actor.type === "traveler") context.subtitle =
           this.actor.system.equipped.weapon?.name ?? game.i18n.localize("RYUUTAMA.WEAPON.CATEGORIES.unarmed");
         break;
       case "journey":
-        context.subtitle = ryuutama.config.checkTypes.journey.subtypes[this.#configurations.rollConfig.journeyId].label;
+        context.subtitle = ryuutama.config.checkTypes.journey.subtypes[roll.journeyId].label;
         break;
     }
 
