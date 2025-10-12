@@ -1,0 +1,193 @@
+{
+  "system": {
+    "details": {
+      "category": "undead",
+      "level": 10,
+      "dragonica": 150
+    },
+    "environment": {
+      "habitat": [
+        "ALL"
+      ],
+      "season": "autumn"
+    },
+    "resources": {
+      "stamina": {
+        "max": 50,
+        "bonuses": {
+          "flat": null,
+          "level": null
+        },
+        "spent": 0
+      },
+      "mental": {
+        "max": 16,
+        "bonuses": {
+          "flat": null,
+          "level": null
+        },
+        "spent": 0
+      }
+    },
+    "initiative": {
+      "value": 7
+    },
+    "condition": {
+      "value": 15,
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
+    },
+    "abilities": {
+      "strength": {
+        "value": 20
+      },
+      "dexterity": {
+        "value": 8
+      },
+      "intelligence": {
+        "value": 4
+      },
+      "spirit": {
+        "value": 8
+      }
+    },
+    "attack": {
+      "accuracy": "",
+      "damage": ""
+    },
+    "description": {
+      "value": "<p>Though treated as a single monster, the Halloween March is actually a large number of zombies, skeletons, and other undead monsters moving together to upbeat music. It is said that anyone who sees this parade of the undead in the pale moonlight is drawn to join them. The march continues until it reaches a place the undead have strong memories of. It is known and feared in the East, known as the “Night of 100 demons.”</p>",
+      "special": {
+        "name": "Night of 100 Demons",
+        "value": "<p>The Halloween March may, once per round, use 1 special ability of any other undead monster.</p>"
+      }
+    },
+    "defense": {
+      "armor": null,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
+    }
+  },
+  "name": "Halloween March",
+  "_id": "halloweenmarch00",
+  "folder": "undead0000000000",
+  "type": "monster",
+  "prototypeToken": {
+    "name": "Halloween March",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": null
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": ""
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "img": "",
+  "items": [],
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760292570916,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!actors!halloweenmarch00"
+}
