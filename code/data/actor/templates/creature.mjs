@@ -110,13 +110,13 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     const { stamina: hp, mental: mp } = this.resources;
     const src = this._source.resources;
 
-    const hpTypeBonus = this.type?.types.attack ?? 0;
+    const hpTypeBonus = this.details.type?.attack ?? 0;
     hp.max = src.stamina.max + hp.bonuses.flat + (hp.gear ?? 0) + hp.bonuses.level * this.details.level + hpTypeBonus * 4;
     hp.spent = Math.min(hp.spent, hp.max);
     hp.value = hp.max - hp.spent;
     hp.pct = Math.clamp(Math.round(hp.value / hp.max * 100), 0, 100) || 0;
 
-    const mpTypeBonus = this.type?.types.magic ?? 0;
+    const mpTypeBonus = this.details.type?.magic ?? 0;
     mp.max = src.mental.max + mp.bonuses.flat + (mp.gear ?? 0) + mp.bonuses.level * this.details.level + mpTypeBonus * 4;
     mp.spent = Math.min(mp.spent, mp.max);
     mp.value = mp.max - mp.spent;
@@ -237,7 +237,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
               bon = ryuutama.config.unarmedConfiguration.damage.bonus;
             }
             bon ??= 0;
-            bon += this.type.types.attack;
+            bon += this.details.type.attack ?? 0;
             roll.abilities = [abi];
             roll.modifier = bon;
             break;
@@ -289,7 +289,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         switch (this.parent.type) {
           case "traveler": {
             roll.abilities = ["dexterity", "intelligence"];
-            roll.modifier = this.type.types.technical;
+            roll.modifier = this.details.type.technical ?? 0;
             break;
           }
           case "monster": {
@@ -440,7 +440,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     const c = rollConfig.concentration ?? {};
     if (c.consumeFumble) bonus++;
     if (c.consumeMental) bonus++;
-    if (bonus && this.type?.types.technical) bonus++;
+    if (bonus && this.details.type?.technical) bonus++;
 
     // Situational bonus.
     if (rollConfig.situationalBonus) bonus += rollConfig.situationalBonus;

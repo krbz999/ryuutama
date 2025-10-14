@@ -1,0 +1,12 @@
+<section>
+  {{#each types}}
+  <div class="form-group slim">
+    <label for="{{@root.rootId}}-{{type}}">{{label}}</label>
+    <div class="form-fields">
+      <select name="system.details.type.{{type}}" id="{{@root.rootId}}-{{type}}">
+        {{selectOptions options selected=value}}
+      </select>
+    </div>
+  </div>
+  {{/each}}
+</section>

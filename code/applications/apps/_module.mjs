@@ -5,3 +5,4 @@ export { default as ConditionConfig } from "./condition-config.mjs";
 export { default as DefenseConfig } from "./defense-config.mjs";
 export { default as MasteredWeaponsConfig } from "./mastered-weapons-config.mjs";
 export { default as ResourceConfig } from "./resource-config.mjs";
+export { default as TravelerTypeConfig } from "./traveler-type-config.mjs";

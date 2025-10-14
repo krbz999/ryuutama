@@ -150,13 +150,6 @@
 /* -------------------------------------------------- */
 
 /**
- * @typedef WeaponMasteryLevelConfig
- * @property {string} label   Human-readable label.
- */
-
-/* -------------------------------------------------- */
-
-/**
  * @typedef WeatherCategoryConfig
  * @property {string} label   Human-readable label.
  */

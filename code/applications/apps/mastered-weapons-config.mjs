@@ -23,7 +23,11 @@ export default class MasteredWeaponsConfig extends DocumentConfig {
     const context = await super._prepareContext(options);
 
     context.mastered = [];
-    const levelOptions = foundry.utils.deepClone(ryuutama.config.weaponMasteryLevels);
+    const levelOptions = {
+      0: game.i18n.localize("RYUUTAMA.TRAVELER.WEAPONS.masteryLevel0"),
+      1: game.i18n.localize("RYUUTAMA.TRAVELER.WEAPONS.masteryLevel1"),
+      2: game.i18n.localize("RYUUTAMA.TRAVELER.WEAPONS.masteryLevel2"),
+    };
 
     for (const weaponType in ryuutama.config.weaponCategories) {
       const mastered = weaponType in this.document.system._source.mastered.weapons;
@@ -32,7 +36,7 @@ export default class MasteredWeaponsConfig extends DocumentConfig {
       context.mastered.push({
         mastered, label, level,
         key: weaponType,
-        options: levelOptions,
+        options: { ...levelOptions },
       });
     }
 

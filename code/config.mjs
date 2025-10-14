@@ -5,7 +5,7 @@ import Prelocalization from "./helpers/prelocalization.mjs";
  * AbilityScoreConfig, CheckTypeConfig, EffectExpirationTypeConfig, HerbTypeConfig, ItemModifierConfig, ItemSizeConfig,
  * MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig, SpellDurationTypeConfig,
  * SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig, TravelerTypeConfig, UnarmedConfiguration,
- * WeaponCategoryConfig, WeaponMasteryLevelConfig, WeatherTypeConfig
+ * WeaponCategoryConfig, WeatherTypeConfig
  * } from "./_types.mjs";
  */
 
@@ -577,24 +577,6 @@ export const weaponCategories = {
   },
 };
 Prelocalization.prelocalize(weaponCategories, { properties: ["label", "labelPlural"] });
-
-/* -------------------------------------------------- */
-
-/**
- * @type {Record<number, WeaponMasteryLevelConfig>}
- */
-export const weaponMasteryLevels = {
-  0: {
-    label: "RYUUTAMA.TRAVELER.WEAPONS.masteryLevel0",
-  },
-  1: {
-    label: "RYUUTAMA.TRAVELER.WEAPONS.masteryLevel1",
-  },
-  2: {
-    label: "RYUUTAMA.TRAVELER.WEAPONS.masteryLevel2",
-  },
-};
-Prelocalization.prelocalize(weaponMasteryLevels);
 
 /* -------------------------------------------------- */
 

@@ -61,9 +61,10 @@
  * @property {string} background.hometown
  * @property {string} background.notes
  * @property {object} details
- * @property {string|null} details.color    The character's image color.
- * @property {number} details.exp           Accumulated experience points.
- * @property {number} details.level         The character's level.
+ * @property {string|null} details.color            The character's image color.
+ * @property {number} details.exp                   Accumulated experience points.
+ * @property {number} details.level                 The character's level.
+ * @property {Record<string, 0|1|2>} details.type   The traveler's type.
  * @property {object} equipped              Equipped items.
  * @property {string|null} equipped.weapon
  * @property {string|null} equipped.armor
@@ -79,9 +80,6 @@
  * @property {number} gold.value            Accumulated gold.
  * @property {object} mastered
  * @property {Record<string, 0|1|2>} mastered.weapons   Mastered weapon types.
- * @property {object} type
- * @property {string} type.value            The traveler's type.
- * @property {string} type.additional       An additional type chosen at later levels.
  */
 
 /* -------------------------------------------------- */

@@ -16,19 +16,6 @@
   {{formGroup fields.name value=source.name}}
   {{formGroup fields.img value=source.img}}
 
-  {{!-- TRAVELER --}}
-  {{#if (eq document.type "traveler")}}
-  <div class="form-group slim">
-    <label>{{localize "RYUUTAMA.TRAVELER.type"}}</label>
-    <div class="form-fields">
-      {{formInput systemFields.type.fields.value value=(ifThen disabled document.system.type.value source.system.type.value) disabled=disabled}}
-      {{#if (gte source.system.details.level 6)}}
-      {{formInput systemFields.type.fields.additional value=(ifThen disabled document.system.type.additional source.system.type.additional) disabled=disabled}}
-      {{/if}}
-    </div>
-  </div>
-  {{/if}}
-
   {{!-- MONSTER --}}
   {{#if (eq document.type "monster")}}
   {{formGroup systemFields.details.fields.category value=(ifThen disabled document.system.details.category source.system.details.category) disabled=disabled classes="slim"}}

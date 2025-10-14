@@ -16,6 +16,10 @@ export default class TravelerData extends CreatureData {
         color: new ColorField(),
         exp: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
         level: new NumberField({ nullable: false, integer: true, initial: 1, min: 1, max: 10 }),
+        type: new TypedObjectField(
+          new NumberField({ nullable: false, initial: 0, min: 0, max: 2, integer: true }),
+          { validateKey: key => key in ryuutama.config.travelerTypes },
+        ),
       }),
       equipped: new SchemaField({
         weapon: new LocalDocumentField(foundry.documents.Item, { subtype: "weapon" }),
@@ -35,13 +39,9 @@ export default class TravelerData extends CreatureData {
       }),
       mastered: new SchemaField({
         weapons: new TypedObjectField(
-          new NumberField({ initial: 0, choices: () => ryuutama.config.weaponMasteryLevels }),
-          { validateKeys: key => key in ryuutama.config.weaponCategories },
+          new NumberField({ nullable: false, initial: 0, min: 0, max: 2, integer: true }),
+          { validateKey: key => key in ryuutama.config.weaponCategories },
         ),
-      }),
-      type: new SchemaField({
-        value: new StringField({ choices: () => ryuutama.config.travelerTypes, blank: true, required: true }),
-        additional: new StringField({ choices: () => ryuutama.config.travelerTypes, blank: true, required: true }),
       }),
     });
   }
@@ -112,8 +112,6 @@ export default class TravelerData extends CreatureData {
 
   /** @inheritdoc */
   prepareDerivedData() {
-    this.#prepareTypes();
-
     // Equipped items are prepared first to add a `gear` bonus to resources, which are prepared
     // in `super`, as well as to ignore shields (depending) prior to `capacity`.
     this.#prepareEquipped();
@@ -125,21 +123,6 @@ export default class TravelerData extends CreatureData {
     this.defense.shieldDodge = this.parent.getFlag(ryuutama.id, "shieldDodge") ?? false;
     this.defense.dodge = this.equipped.shield?.system.armor.dodge ?? null;
     this.defense.total = Math.max(this.defense.armor + this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare traveler archetypes data.
-   */
-  #prepareTypes() {
-    const hasTwo = this.details.level >= 6;
-    const types = this.type.types = {};
-    for (const type in ryuutama.config.travelerTypes) {
-      types[type] ??= 0;
-      if (this.type.value === type) types[type]++;
-      if (hasTwo && (this.type.additional === type)) types[type]++;
-    }
   }
 
   /* -------------------------------------------------- */
@@ -173,7 +156,7 @@ export default class TravelerData extends CreatureData {
    */
   #prepareCapacity() {
     const { capacity, abilities, details, equipped } = this;
-    const techBonus = this.type.types.technical;
+    const techBonus = this.details.type.technical ?? 0;
 
     capacity.value = 0;
     capacity.container = 0;

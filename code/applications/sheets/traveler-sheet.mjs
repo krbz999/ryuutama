@@ -66,7 +66,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
   _getTabsConfig(group) {
     const config = foundry.utils.deepClone(super._getTabsConfig(group)) ?? null;
     const actor = this.document;
-    if ((group === "primary") && !actor.items.documentsByType.spell.length && !actor.system.type.types.magic) {
+    if ((group === "primary") && !actor.items.documentsByType.spell.length && !actor.system.details.type.magic) {
       config.tabs.findSplice(tab => tab.id === "spells");
     }
     return config;
@@ -79,7 +79,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     const parts = super._configureRenderParts(options);
 
     const actor = this.document;
-    if (!actor.items.documentsByType.spell.length && !actor.system.type.types.magic) {
+    if (!actor.items.documentsByType.spell.length && !actor.system.details.type.magic) {
       delete parts.spells;
     }
 
@@ -178,7 +178,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
 
     // Header tags.
     context.tags = [];
-    for (const [k, v] of Object.entries(this.document.system.type.types)) {
+    for (const [k, v] of Object.entries(this.document.system.details.type)) {
       const label = ryuutama.config.travelerTypes[k]?.label;
       if (!v || !label) continue;
       const tag = label + (v > 1 ? " &times; 2" : "");

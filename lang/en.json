@@ -156,7 +156,12 @@
       "TYPES": {
         "attack": "Attack Type",
         "magic": "Magic Type",
-        "technical": "Technical Type"
+        "technical": "Technical Type",
+
+        "title": "Configure Type: {name}",
+        "option0": "Unselected",
+        "option1": "Selected",
+        "option2": "Twice Selected"
       },
       "WEAPONS": {
         "masteryLevel0": "Not Mastered",
@@ -169,7 +174,7 @@
       "conditionShapeSelectAbility": "Select Ability",
       "masteredWeapons": "Mastered Weapons",
       "shape": "Shape",
-      "type": "Type"
+      "type": "Traveler Type"
     },
 
     "ABILITIES": {
