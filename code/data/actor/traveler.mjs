@@ -1,12 +1,14 @@
+import Advancement from "../advancement/advancement.mjs";
 import LocalDocumentField from "../fields/local-document-field.mjs";
 import CreatureData from "./templates/creature.mjs";
 
-const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField, TypedObjectField } = foundry.data.fields;
+const { ColorField, HTMLField, NumberField, SchemaField, TypedObjectField } = foundry.data.fields;
 
 export default class TravelerData extends CreatureData {
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
+      advancements: new ryuutama.data.fields.PseudoDocumentCollectionField(Advancement),
       background: new SchemaField({
         appearance: new HTMLField(),
         hometown: new HTMLField(),

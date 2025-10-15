@@ -1,4 +1,8 @@
 {
+  "DOCUMENT": {
+    "Advancement": "Advancement",
+    "AdvancementPl": "Advancements"
+  },
   "TYPES": {
     "ActiveEffect": {
       "standard": "Standard Effect",
@@ -15,6 +19,10 @@
       "ryuujinPl": "Ryuujin",
       "traveler": "Traveler",
       "travelerPl": "Travelers"
+    },
+    "Advancement": {
+      "base": "Base Advancement",
+      "basePl": "Base Advancements"
     },
     "Item": {
       "accessory": "Accessory",
@@ -352,7 +360,6 @@
         "durability.spent.label": "Spent"
       }
     },
-
     "ACCESSORY": {},
     "ARMOR": {
       "FIELDS": {
@@ -402,6 +409,14 @@
       "weaponConfiguration": "Weapon Configuration",
       "weaponAccuracy": "Accuracy",
       "weaponDamage": "Damage"
+    },
+
+    "PSEUDO": {
+      "FIELDS": {},
+
+      "ADVANCEMENT": {
+        "FIELDS": {}
+      }
     },
 
     "PACKS": {
