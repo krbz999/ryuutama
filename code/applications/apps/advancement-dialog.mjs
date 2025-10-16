@@ -54,16 +54,13 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
    * @type {Record<string, typeof Advancement>}
    */
   get advancementClasses() {
-    const level = this.options.level;
-    const types = ryuutama.config.advancement[level];
-
+    const types = ryuutama.config.advancement[this.options.level];
     const classes = {};
     for (const type of types) {
       const Cls = ryuutama.data.advancement.Advancement.documentConfig[type];
       if (Cls) classes[type] = Cls;
       else console.warn(`The type '${type}' is not a valid Advancement subclass.`);
     }
-
     return classes;
   }
 
@@ -91,10 +88,10 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------------- */
 
   /**
-   * For each rendered part, whether the configuration is valid.
+   * For each rendered part, the configured result and whether it is valid.
    * @type {Map<string, AdvancementApplicationPartResult>}
    */
-  #validity = new Map();
+  #configuredResults = new Map();
 
   /* -------------------------------------------------- */
 
@@ -180,7 +177,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     const formData = new foundry.applications.ux.FormDataExtended(htmlElement);
     const valid = advancementClass._determineValidity(formData);
     const result = advancementClass._determineResult(this.actor, formData);
-    this.#validity.set(partId, { advancementClass, valid, result });
+    this.#configuredResults.set(partId, { advancementClass, valid, result });
     advancementClass._attachPartListeners.call(this, partId, htmlElement, options);
   }
 
@@ -190,7 +187,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
    * Refresh the disabled state of the submit button.
    */
   #toggleSubmitButton() {
-    this.element.querySelector("[type=submit]").disabled = Array.from(this.#validity.values()).some(v => !v.valid);
+    this.element.querySelector("[type=submit]").disabled = Array.from(this.#configuredResults.values()).some(v => !v.valid);
   }
 
   /* -------------------------------------------------- */
@@ -206,7 +203,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     const formData = new foundry.applications.ux.FormDataExtended(form);
     const valid = advancementClass._determineValidity(formData);
     const result = advancementClass._determineResult(this.actor, formData);
-    this.#validity.set(partId, { advancementClass, valid, result });
+    this.#configuredResults.set(partId, { advancementClass, valid, result });
     this.#toggleSubmitButton();
   }
 
@@ -214,10 +211,11 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /**
    * Create an instance of this application the result of which can be awaited.
-   * @param {RyuutamaActor} actor
+   * @param {RyuutamaActor} actor         The actor advancing.
    * @param {object} [options={}]
-   * @param {number} [options.level]
-   * @returns {Promise}
+   * @param {number} [options.level]      The level to which the actor is advancing.
+   * @returns {Promise<object[]|null>}    A promise that resolves to data used for advancement injection,
+   *                                      or `null` if the dialog was cancelled.
    */
   static async create(actor, { level } = {}) {
     level ??= actor.system.details.level + 1;
@@ -234,9 +232,9 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
    * Submit the form.
    * @this AdvancementDialog
    */
-  static #onSubmit(event, form, formData) {
+  static #onSubmit() {
     this.#config = [];
-    for (let [partId, { valid, advancementClass, result }] of this.#validity.entries()) {
+    for (let [partId, { valid, advancementClass, result }] of this.#configuredResults.entries()) {
       if (!valid) {
         this.#config = null;
         return;
