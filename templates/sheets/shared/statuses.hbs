@@ -1,7 +1,7 @@
 <div class="icon-fields column-3">
   {{#each statuses}}
   <div class="icon-field">
-    <a data-action="toggleStatus" data-status="{{status}}" {{disabled (not editable)}}>
+    <a data-action="toggleStatus" data-status="{{status}}" {{disabled (not @root.editable)}}>
       <ryuutama-icon src="{{img}}" {{#if active}} class="active" {{/if}}></ryuutama-icon>
     </a>
     <div class="form-group stacked">

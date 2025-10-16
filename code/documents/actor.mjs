@@ -25,26 +25,6 @@ export default class RyuutamaActor extends foundry.documents.Actor {
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
-  prepareBaseData() {
-    super.prepareBaseData();
-
-    for (const collection of Object.values(this.pseudoCollections))
-      for (const pseudo of collection) pseudo.prepareBaseData();
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  prepareDerivedData() {
-    super.prepareDerivedData();
-
-    for (const collection of Object.values(this.pseudoCollections))
-      for (const pseudo of collection) pseudo.prepareDerivedData();
-  }
-
-  /* -------------------------------------------------- */
-
   /** @override */
   getRollData() {
     const rollData = this.system.getRollData?.() ?? { ...this.system };

@@ -21,8 +21,20 @@
       "travelerPl": "Travelers"
     },
     "Advancement": {
-      "base": "Base Advancement",
-      "basePl": "Base Advancements"
+      "habitat": "Terrain / Weather Specialty",
+      "habitatPl": "Terrain / Weather Specialties",
+      "resource": "Resource Increase",
+      "resourcePl": "Resource Increases",
+      "type": "Type",
+      "typePl": "Types",
+      "statIncrease": "Stat Increase",
+      "statIncreasePl": "Stat Increases",
+      "stats": "Starting Stats",
+      "statsPl": "Starting Stats",
+      "statusImmunity": "Status Immunity",
+      "statusImmunityPl": "Status Immunities",
+      "weapon": "Mastered Weapon",
+      "weaponPl": "Mastered Weapons"
     },
     "Item": {
       "accessory": "Accessory",
@@ -78,6 +90,7 @@
       "TAGS": {
         "category": "Category: {category}",
         "dragonica": "Dragonica No. {number}",
+        "habitatSpecialty": "Terrain / Weather Specialty: {habitat}",
         "level": "Level {level}",
         "masteredWeapon": "Mastered Weapon: {weapon}",
         "type": "Type: {type}"
@@ -108,14 +121,14 @@
         "resources.mental.bonuses.flat.label": "Overall Bonus",
         "resources.mental.bonuses.level.hint": "This bonus is added to the maximum MP for every level the actor has attained.",
         "resources.mental.bonuses.level.label": "Per Level Bonus",
-        "resources.mental.max.hint": "The base MP maximum prior to any modifiers or advancements.",
+        "resources.mental.max.hint": "The base MP maximum prior to any modifiers.",
         "resources.mental.max.label": "Base Maximum",
         "resources.mental.spent.label": "Spent",
         "resources.stamina.bonuses.flat.hint": "This bonus is added to the maximum HP after all other modifiers.",
         "resources.stamina.bonuses.flat.label": "Overall Bonus",
         "resources.stamina.bonuses.level.hint": "This bonus is added to the maximum HP for every level the actor has attained.",
         "resources.stamina.bonuses.level.label": "Per Level Bonus",
-        "resources.stamina.max.hint": "The base HP maximum prior to any modifiers or advancements.",
+        "resources.stamina.max.hint": "The base HP maximum prior to any modifiers.",
         "resources.stamina.max.label": "Base Maximum",
         "resources.stamina.spent.label": "Spent"
       }
@@ -164,25 +177,12 @@
       "TYPES": {
         "attack": "Attack Type",
         "magic": "Magic Type",
-        "technical": "Technical Type",
-
-        "title": "Configure Type: {name}",
-        "option0": "Unselected",
-        "option1": "Selected",
-        "option2": "Twice Selected"
-      },
-      "WEAPONS": {
-        "masteryLevel0": "Not Mastered",
-        "masteryLevel1": "Mastered",
-        "masteryLevel2": "Mastered Twice"
+        "technical": "Technical Type"
       },
       "abilities": "Abilities",
-      "advancement": "Advancement",
       "conditionShapeOutOfShape": "Out of Shape",
       "conditionShapeSelectAbility": "Select Ability",
-      "masteredWeapons": "Mastered Weapons",
-      "shape": "Shape",
-      "type": "Traveler Type"
+      "shape": "Shape"
     },
 
     "ABILITIES": {
@@ -412,10 +412,76 @@
     },
 
     "PSEUDO": {
-      "FIELDS": {},
+      "FIELDS": {
+        "name.label": "Name",
+        "img.label": "Image Path"
+      },
 
       "ADVANCEMENT": {
-        "FIELDS": {}
+        "FIELDS": {},
+        "configureTitle": "Configure {name}",
+        "title": "Level Up: {name} - {nth} Level",
+
+        "HABITAT": {
+          "FIELDS": {
+            "choice.chosen.terrain.label": "Terrain Type",
+            "choice.chosen.weather.label": "Weather Pattern",
+            "choice.type.label": "Subtype"
+          },
+          "optionTerrain": "Terrain",
+          "optionWeather": "Weather",
+          "hint": "Choose 1 from the twenty-two types of terrain and weather patterns. You gain a +2 bonus to any rolls involving that terrain or weather."
+        },
+
+        "INCREASE": {
+          "FIELDS": {
+            "choice.chosen.label": "Chosen Ability"
+          },
+          "hint": "Every even level, you can choose one ability from [STR], [DEX], [INT], and [SPI] to increase by 1 die size (to a maximum of d12)."
+        },
+
+        "RESOURCE": {
+          "FIELDS": {
+            "choice.chosen.stamina.label": "HP",
+            "choice.chosen.mental.label": "MP"
+          },
+          "hint": "Each level, you gain three points to divide between HP and MP."
+        },
+
+        "STATS": {
+          "FIELDS": {
+            "choice.type.label": "Ability Score Set",
+            "choice.chosen.strength.label": "Strength",
+            "choice.chosen.dexterity.label": "Dexterity",
+            "choice.chosen.intelligence.label": "Intelligence",
+            "choice.chosen.spirit.label": "Spirit"
+          },
+          "average": "Average (6, 6, 6, 6)",
+          "standard": "Standard (4, 6, 6, 8)",
+          "specialized": "Specialized (4, 4, 8, 8)",
+          "hint": "Choose your starting ability scores from one of the three sets, arranged the way you prefer between the four abilities."
+        },
+
+        "STATUS": {
+          "FIELDS": {
+            "choice.chosen.label": "Chosen Status Effect"
+          },
+          "hint": "Choose one of the six status effects. You are immune to that effect from now on."
+        },
+
+        "TYPE": {
+          "FIELDS": {
+            "choice.chosen.label": "Chosen Type"
+          },
+          "hint": "Choose one of the three character types. If you choose one that you already have, the abilities are cumulative."
+        },
+
+        "WEAPON": {
+          "FIELDS": {
+            "choice.chosen.label": "Chosen Weapon"
+          },
+          "hint": "Choose a weapon type to master. Making an attack with a weapon type that you have not mastered incurs a 1 HP penalty. If you choose a weapon type you have already mastered, you gain a +1 bonus to accuracy checks with that type."
+        }
       }
     },
 
@@ -505,10 +571,6 @@
       "desert": "Desert",
       "grassland": "Grassland",
       "highlands": "Highlands"
-    },
-
-    "WEAPONS": {
-      "title": "Configure Mastered Weapons: {name}"
     },
 
     "WEATHER": {

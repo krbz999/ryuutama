@@ -227,7 +227,9 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
       throw new Error(`The id '${id}' already exists in the embedded ${this.embedded} collection.`);
     }
 
-    const update = { [`${fieldPath}.${id}`]: { ...data, _id: id } };
+    data = { ...data, _id: id };
+    const pseudo = new this.documentConfig[data.type](data, { parent });
+    const update = { [`${fieldPath}.${id}`]: pseudo.toObject() };
     await parent.update(update, operation);
     const created = parent.getEmbeddedDocument(this.documentName, id);
     if (renderSheet) created.sheet?.render({ force: true });
@@ -312,9 +314,14 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
     if (!this.isSource) {
       throw new Error(`The pseudo-document '${this.id}' does not exist in the pseudo-document collection!`);
     }
+
+    change = foundry.utils.deepClone(foundry.utils.expandObject(change));
+    this.validate({ changes: change });
+
     const path = [this.fieldPath, this.id].join(".");
     const update = { [path]: change };
-    await this.document.update(update, operation);
+
+    await this.document.update(foundry.utils.expandObject(update), operation);
     return this;
   }
 

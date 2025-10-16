@@ -2,7 +2,11 @@ import Advancement from "../advancement/advancement.mjs";
 import LocalDocumentField from "../fields/local-document-field.mjs";
 import CreatureData from "./templates/creature.mjs";
 
-const { ColorField, HTMLField, NumberField, SchemaField, TypedObjectField } = foundry.data.fields;
+/**
+ * @import RyuutamaActor from "../../documents/actor.mjs";
+ */
+
+const { ColorField, HTMLField, NumberField, SchemaField } = foundry.data.fields;
 
 export default class TravelerData extends CreatureData {
   /** @override */
@@ -16,12 +20,10 @@ export default class TravelerData extends CreatureData {
       }),
       details: new SchemaField({
         color: new ColorField(),
-        exp: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
-        level: new NumberField({ nullable: false, integer: true, initial: 1, min: 1, max: 10 }),
-        type: new TypedObjectField(
-          new NumberField({ nullable: false, initial: 0, min: 0, max: 2, integer: true }),
-          { validateKey: key => key in ryuutama.config.travelerTypes },
-        ),
+        exp: new SchemaField({
+          value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
+        }),
+        level: new NumberField({ nullable: false, integer: true, initial: 0, min: 0, max: 10 }),
       }),
       equipped: new SchemaField({
         weapon: new LocalDocumentField(foundry.documents.Item, { subtype: "weapon" }),
@@ -38,12 +40,6 @@ export default class TravelerData extends CreatureData {
       }),
       gold: new SchemaField({
         value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
-      }),
-      mastered: new SchemaField({
-        weapons: new TypedObjectField(
-          new NumberField({ nullable: false, initial: 0, min: 0, max: 2, integer: true }),
-          { validateKey: key => key in ryuutama.config.weaponCategories },
-        ),
       }),
     });
   }
@@ -106,25 +102,47 @@ export default class TravelerData extends CreatureData {
   /** @inheritdoc */
   prepareBaseData() {
     super.prepareBaseData();
-
     this.capacity = { bonus: 0 };
+    this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
+    this.mastered = {
+      weapons: Object.fromEntries(Object.keys(ryuutama.config.weaponCategories).map(k => [k, 0])),
+      terrain: new Set(), weather: new Set(),
+    };
+
+    // Types, Status Immunities, and Mastered Weapons.
+    const { habitat, weapon, statusImmunity, type } = this.advancements.documentsByType;
+    for (const a of weapon) a.prepareBaseData();
+    for (const a of statusImmunity) a.prepareBaseData();
+    for (const a of type) a.prepareBaseData();
+    for (const a of habitat) a.prepareBaseData();
   }
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
   prepareDerivedData() {
-    // Equipped items are prepared first to add a `gear` bonus to resources, which are prepared
-    // in `super`, as well as to ignore shields (depending) prior to `capacity`.
-    this.#prepareEquipped();
-
     super.prepareDerivedData();
-    this.#prepareCapacity();
 
-    // Prepare defense.
-    this.defense.shieldDodge = this.parent.getFlag(ryuutama.id, "shieldDodge") ?? false;
-    this.defense.dodge = this.equipped.shield?.system.armor.dodge ?? null;
-    this.defense.total = Math.max(this.defense.armor + this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
+    // Equipped items are prepared first to ignore shields (depending) prior to `capacity`, `resources`, and `defense`.
+    this.#prepareEquipped();
+    this.#prepareDefense();
+    this.#prepareResources();
+    this.#prepareCapacity();
+    this.#prepareExp();
+
+    for (const advancement of this.advancements) advancement.prepareDerivedData();
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareAbilities() {
+    super._prepareAbilities();
+
+    if (this.condition.value >= 10) {
+      const ability = this.condition.shape.high;
+      if (ability in this.abilities) this.abilities[ability].increases++;
+    }
   }
 
   /* -------------------------------------------------- */
@@ -134,21 +152,52 @@ export default class TravelerData extends CreatureData {
    */
   #prepareEquipped() {
     // Remove shield if using 2-handed weapon.
-    if (this.equipped.weapon?.system.grip === 2) Object.defineProperty(this.equipped, "shield", { value: null });
+    if (!this.canEquipShield) Object.defineProperty(this.equipped, "shield", { value: null });
+  }
 
-    let bonus = 0;
-    this.defense.gear = 0;
-    for (const key of Object.keys(this._source.equipped)) {
-      const item = this.equipped[key];
+  /* -------------------------------------------------- */
 
-      // Orichalcum items grant +2 HP and MP.
-      if (item?.system.modifiers.has("orichalcum")) bonus += 2;
+  /**
+   * Prepare defense.
+   */
+  #prepareDefense() {
+    const { armor, shield } = this.equipped;
+    this.defense.gear = (armor?.system.armor.defense ?? 0) + (shield?.system.armor.defense ?? 0);
 
-      // Set defense value from gear.
-      if (["armor", "shield"].includes(key) && item) this.defense.gear += item.system.armor.defense;
-    }
-    this.resources.stamina.gear = this.resources.mental.gear = bonus;
+    this.defense.shieldDodge = this.parent.getFlag(ryuutama.id, "shieldDodge") ?? false;
+    this.defense.dodge = shield?.system.armor.dodge ?? null;
+    this.defense.total = Math.max(this.defense.armor + this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
+  }
 
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare resources.
+   */
+  #prepareResources() {
+    const { stamina: hp, mental: mp } = this.resources;
+    const orichalcum = Object.keys(this._source.equipped)
+      .map(key => this.equipped[key])
+      .filter(item => item?.system.modifiers.has("orichalcum"))
+      .length;
+    hp.gear = mp.gear = orichalcum * 2;
+
+    const setupResource = (key, typeBonus) => {
+      const resource = this.resources[key];
+      const src = this._source.resources[key];
+
+      resource.max = src.max
+        + resource.bonuses.flat
+        + resource.gear
+        + resource.bonuses.level * this.details.level
+        + typeBonus;
+      resource.spent = Math.min(resource.spent, resource.max);
+      resource.value = resource.max - resource.spent;
+      resource.pct = Math.clamp(Math.round(resource.value / resource.max * 100), 0, 100) || 0;
+    };
+
+    setupResource("stamina", 4 * this.details.type.attack);
+    setupResource("mental", 4 * this.details.type.magic);
   }
 
   /* -------------------------------------------------- */
@@ -158,7 +207,7 @@ export default class TravelerData extends CreatureData {
    */
   #prepareCapacity() {
     const { capacity, abilities, details, equipped } = this;
-    const techBonus = this.details.type.technical ?? 0;
+    const techBonus = this.details.type.technical;
 
     capacity.value = 0;
     capacity.container = 0;
@@ -173,7 +222,7 @@ export default class TravelerData extends CreatureData {
     });
 
     capacity.max =
-      abilities.strength.value
+      abilities.strength.faces
       + 3
       + capacity.bonus
       + (details.level - 1)
@@ -182,5 +231,76 @@ export default class TravelerData extends CreatureData {
 
     capacity.penalty = Math.max(0, capacity.value - capacity.max);
     capacity.pct = Math.clamp(Math.round(capacity.value / capacity.max * 100), 0, 100);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare EXP.
+   */
+  #prepareExp() {
+    const { exp, level } = this.details;
+
+    const prev = ryuutama.config.experienceLevels[level - 1] ?? 0;
+    const next = ryuutama.config.experienceLevels[level] ?? ryuutama.config.experienceLevels.at(-1);
+
+    exp.max = next;
+    exp.value = Math.min(this._source.details.exp.value, ryuutama.config.experienceLevels.at(-1));
+    // if (exp.value < prev) exp.pct = Math.clamp(Math.round(exp.value / next * 100), 0, 100);
+    exp.pct = Math.clamp(Math.round((exp.value - prev) / (next - prev) * 100), 0, 100);
+    if (isNaN(exp.pct) || !prev || !ryuutama.config.experienceLevels[level]) exp.pct = 100;
+  }
+
+  /* -------------------------------------------------- */
+  /*   Advancement                                      */
+  /* -------------------------------------------------- */
+
+  /**
+   * Advance to the next level.
+   * @returns {Promise<RyuutamaActor|null>}   A promie that resolves to the advanced actor.
+   */
+  async advance() {
+    const level = this.details.level;
+    if (level >= 10) {
+      throw new Error("You cannot advance beyond 10th level.");
+    }
+
+    const actor = this.parent;
+    if (actor._advancing) {
+      throw new Error("Actor is already in the process of advancing!");
+    }
+    actor._advancing = true;
+
+    const results = await ryuutama.applications.apps.AdvancementDialog.create(actor, { level: level + 1 });
+    if (!results) {
+      delete actor._advancing;
+      return null;
+    }
+
+    const actorUpdate = {};
+    const itemData = [];
+    for (const { result, type } of results) {
+      switch (type) {
+        case "advancement":
+          await ryuutama.data.advancement.Advancement.create(result.toObject(), { parent: actor });
+          break;
+        case "actor":
+          foundry.utils.mergeObject(actorUpdate, result);
+          break;
+        case "items":
+          for (const item of result) {
+            const keepId = !actor.items.has(item.id);
+            itemData.push(game.items.fromCompendium(item, { keepId }));
+          }
+          break;
+      }
+    }
+
+    foundry.utils.setProperty(actorUpdate, "system.details.level", level + 1);
+    await actor.update(actorUpdate);
+    await actor.createEmbeddedDocuments("Item", itemData, { keepId: true });
+
+    delete actor._advancing;
+    return actor;
   }
 }

@@ -32,12 +32,7 @@ export default class AbilityModel extends foundry.abstract.DataModel {
    */
   get faces() {
     let value = this._source.value;
-
-    const conditionIncrease = (this.parent.parent.type === "traveler")
-      && (this.parent.parent.system.condition.value >= 10)
-      && (this.parent.parent.system.condition.shape.high === this.schema.name);
-
-    const delta = this.increases + Number(conditionIncrease) - this.decreases;
+    const delta = this.increases - this.decreases;
     if (delta) {
       for (let i = 0; i < Math.abs(delta); i++) value = this.#next(value, delta < 0);
     }

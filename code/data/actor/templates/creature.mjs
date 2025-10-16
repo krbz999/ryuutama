@@ -68,24 +68,35 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    this.#prepareAbilities();
-    this.#prepareResources();
+
+    this.#prepareStatuses();
+    this._prepareAbilities();
   }
 
   /* -------------------------------------------------- */
 
   /**
-   * Prepare statuses and apply changes to abilities.
+   * Prepare condition and statuses.
    */
-  #prepareAbilities() {
-    const con = this.condition.value;
-    const imm = this.condition.immunities;
+  #prepareStatuses() {
+    const { value: condition, immunities } = this.condition;
     const statuses = this.condition.statuses = {};
+
     for (const [id, { _id }] of Object.entries(ryuutama.config.statusEffects)) {
       const effect = this.parent.effects.get(_id);
-      const str = effect?.system.strength.value;
-      const bypass = effect?.system.strength.bypass;
-      if (!effect || (!bypass && (str < con)) || (id in statuses) || imm.has(id)) continue;
+      const { value: strength, bypass } = effect?.system.strength ?? {};
+      if (!effect || (!bypass && (strength < condition)) || (id in statuses) || immunities.has(id)) continue;
+      statuses[id] = strength;
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare abilities.
+   */
+  _prepareAbilities() {
+    for (const id in this.condition.statuses) {
       let abilities;
       switch (id) {
         case "injury": abilities = ["dexterity"]; break;
@@ -96,31 +107,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         case "sickness": abilities = ["strength", "dexterity", "intelligence", "spirit"]; break;
       }
       if (!abilities) continue;
-      for (const abi of abilities) this.abilities[abi].decreases++;
-      statuses[id] = effect.system.strength.value;
+      for (const ability of abilities) this.abilities[ability].decreases++;
     }
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare stamina and mental resources.
-   */
-  #prepareResources() {
-    const { stamina: hp, mental: mp } = this.resources;
-    const src = this._source.resources;
-
-    const hpTypeBonus = this.details.type?.attack ?? 0;
-    hp.max = src.stamina.max + hp.bonuses.flat + (hp.gear ?? 0) + hp.bonuses.level * this.details.level + hpTypeBonus * 4;
-    hp.spent = Math.min(hp.spent, hp.max);
-    hp.value = hp.max - hp.spent;
-    hp.pct = Math.clamp(Math.round(hp.value / hp.max * 100), 0, 100) || 0;
-
-    const mpTypeBonus = this.details.type?.magic ?? 0;
-    mp.max = src.mental.max + mp.bonuses.flat + (mp.gear ?? 0) + mp.bonuses.level * this.details.level + mpTypeBonus * 4;
-    mp.spent = Math.min(mp.spent, mp.max);
-    mp.value = mp.max - mp.spent;
-    mp.pct = Math.clamp(Math.round(mp.value / mp.max * 100), 0, 100) || 0;
   }
 
   /* -------------------------------------------------- */

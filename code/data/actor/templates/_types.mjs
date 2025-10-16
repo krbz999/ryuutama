@@ -57,29 +57,27 @@
 /**
  * @typedef {CreatureModel} TravelerModel
  * @property {object} background
- * @property {string} background.appearance
- * @property {string} background.hometown
- * @property {string} background.notes
+ * @property {string} background.appearance   Character's appearance.
+ * @property {string} background.hometown     Character's hometown details.
+ * @property {string} background.notes        Other assorted notes.
  * @property {object} details
- * @property {string|null} details.color            The character's image color.
- * @property {number} details.exp                   Accumulated experience points.
- * @property {number} details.level                 The character's level.
- * @property {Record<string, 0|1|2>} details.type   The traveler's type.
- * @property {object} equipped              Equipped items.
- * @property {string|null} equipped.weapon
- * @property {string|null} equipped.armor
- * @property {string|null} equipped.shield
- * @property {string|null} equipped.shoes
- * @property {string|null} equipped.cape
- * @property {string|null} equipped.staff
- * @property {string|null} equipped.hat
- * @property {string|null} equipped.accessory
+ * @property {string|null} details.color    The character's image color.
+ * @property {object} details.exp
+ * @property {number} details.exp.value     Accumulated experience points.
+ * @property {number} details.level         The character's level.
+ * @property {object} equipped
+ * @property {string|null} equipped.weapon      Equipped weapon.
+ * @property {string|null} equipped.armor       Equipped armor.
+ * @property {string|null} equipped.shield      Equipped shield.
+ * @property {string|null} equipped.shoes       Equipped shoes.
+ * @property {string|null} equipped.cape        Equipped cape.
+ * @property {string|null} equipped.staff       Equipped staff.
+ * @property {string|null} equipped.hat         Equipped hat.
+ * @property {string|null} equipped.accessory   Equipped accessory.
  * @property {object} fumbles
- * @property {number} fumbles.value         Accumulated fumble points.
+ * @property {number} fumbles.value   Accumulated fumble points.
  * @property {object} gold
- * @property {number} gold.value            Accumulated gold.
- * @property {object} mastered
- * @property {Record<string, 0|1|2>} mastered.weapons   Mastered weapon types.
+ * @property {number} gold.value    Accumulated gold.
  */
 
 /* -------------------------------------------------- */

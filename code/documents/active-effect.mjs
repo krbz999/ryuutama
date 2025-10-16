@@ -5,6 +5,8 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
     if (!("strength" in options)) {
       const fields = CONFIG.ActiveEffect.dataModels.status.schema.fields.strength.fields;
 
+      const rootId = [foundry.utils.randomID(), statusId].join("-");
+
       const result = await foundry.applications.api.Dialog.input({
         window: {
           title: `${game.i18n.localize("RYUUTAMA.EFFECT.STATUS.HUD_APPLY.title")}: ${effectData.name}`,
@@ -13,8 +15,8 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
           width: 420,
         },
         content: [
-          fields.value.toFormGroup({}, { autofocus: true, value: 4, placeholder: "4" }).outerHTML,
-          fields.bypass.toFormGroup({}, {}).outerHTML,
+          fields.value.toFormGroup({ rootId }, { autofocus: true, value: 4, placeholder: "4" }).outerHTML,
+          fields.bypass.toFormGroup({ rootId }, {}).outerHTML,
         ].join(""),
       });
       if (!result) throw new Error("No status effect strength was selected.");

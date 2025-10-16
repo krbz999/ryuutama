@@ -1,0 +1,252 @@
+/**
+ * @import RyuutamaActor from "../../documents/actor.mjs";
+ * @import Advancement from "../../data/advancement/advancement.mjs";
+ */
+
+/**
+ * @typedef AdvancementApplicationPartResult
+ * @property {boolean} valid
+ * @property {typeof Advancement} advancementClass
+ * @property {object} [result]
+ */
+
+const { Application, HandlebarsApplicationMixin } = foundry.applications.api;
+
+export default class AdvancementDialog extends HandlebarsApplicationMixin(Application) {
+  /** @override */
+  static DEFAULT_OPTIONS = {
+    tag: "form",
+    form: {
+      submitOnChange: false,
+      closeOnSubmit: true,
+      handler: AdvancementDialog.#onSubmit,
+    },
+    window: {
+      contentClasses: ["standard-form"],
+    },
+    position: {
+      width: 580,
+      height: "auto",
+    },
+    actions: {},
+    level: null,
+    actor: null,
+  };
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static PARTS = {};
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The actor advancing.
+   * @type {RyuutamaActor}
+   */
+  get actor() {
+    return this.options.actor;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @type {Record<string, typeof Advancement>}
+   */
+  get advancementClasses() {
+    const types = ryuutama.config.advancement[this.options.level];
+    const classes = {};
+    for (const type of types) {
+      const Cls = ryuutama.data.advancement.Advancement.documentConfig[type];
+      if (Cls) classes[type] = Cls;
+      else console.warn(`The type '${type}' is not a valid Advancement subclass.`);
+    }
+    return classes;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The data that will be submitted.
+   * @type {object[]|null}
+   */
+  #config = null;
+  get config() {
+    return this.#config;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  get title() {
+    return game.i18n.format("RYUUTAMA.PSEUDO.ADVANCEMENT.title", {
+      name: this.actor.name,
+      nth: this.options.level.ordinalString(),
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * For each rendered part, the configured result and whether it is valid.
+   * @type {Map<string, AdvancementApplicationPartResult>}
+   */
+  #configuredResults = new Map();
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    context.actor = this.actor;
+    context.buttons = [{ label: "Confirm", icon: "fa-solid fa-check", type: "submit" }];
+    return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preparePartContext(partId, context, options) {
+    context = await super._preparePartContext(partId, context, options);
+    await this.advancementClasses[partId]?._prepareAdvancementContext(context, options);
+    context.rootId = [this.id, partId].join("-");
+    return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  _configureRenderParts(options) {
+    const parts = {};
+
+    for (const advancementClass of Object.values(this.advancementClasses)) {
+      parts[advancementClass.TYPE] = {
+        template: advancementClass.CONFIGURE_TEMPLATE,
+        templates: [],
+        classes: ["standard-form"],
+        id: advancementClass.TYPE,
+        forms: {
+          form: {
+            submitOnChange: true,
+            closeOnSubmit: false,
+          },
+        },
+      };
+    }
+
+    parts.footer = {
+      template: "templates/generic/form-footer.hbs",
+    };
+
+    return parts;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _initializeApplicationOptions(options) {
+    options = super._initializeApplicationOptions(options);
+    options.classes.push(ryuutama.id);
+    return options;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+
+    for (const input of this.element.querySelectorAll("input[type=number], input[type=text].delta")) {
+      input.addEventListener("focus", () => input.select());
+      if (input.classList.contains("delta")) {
+        input.addEventListener("change", () => ryuutama.utils.parseInputDelta(input, this.document));
+      }
+    }
+
+    this.#toggleSubmitButton();
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _attachPartListeners(partId, htmlElement, options) {
+    super._attachPartListeners(partId, htmlElement, options);
+    if (partId === "footer") return;
+
+    const advancementClass = this.advancementClasses[partId];
+    const formData = new foundry.applications.ux.FormDataExtended(htmlElement);
+    const valid = advancementClass._determineValidity(formData);
+    const result = advancementClass._determineResult(this.actor, formData);
+    this.#configuredResults.set(partId, { advancementClass, valid, result });
+    advancementClass._attachPartListeners.call(this, partId, htmlElement, options);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Refresh the disabled state of the submit button.
+   */
+  #toggleSubmitButton() {
+    this.element.querySelector("[type=submit]").disabled = Array.from(this.#configuredResults.values()).some(v => !v.valid);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onChangeForm(formConfig, event) {
+    super._onChangeForm(formConfig, event);
+    if (event.currentTarget.id === this.element.id) return;
+
+    const form = event.currentTarget;
+    const partId = form.dataset.applicationPart;
+    const advancementClass = this.advancementClasses[partId];
+    const formData = new foundry.applications.ux.FormDataExtended(form);
+    const valid = advancementClass._determineValidity(formData);
+    const result = advancementClass._determineResult(this.actor, formData);
+    this.#configuredResults.set(partId, { advancementClass, valid, result });
+    this.#toggleSubmitButton();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Create an instance of this application the result of which can be awaited.
+   * @param {RyuutamaActor} actor         The actor advancing.
+   * @param {object} [options={}]
+   * @param {number} [options.level]      The level to which the actor is advancing.
+   * @returns {Promise<object[]|null>}    A promise that resolves to data used for advancement injection,
+   *                                      or `null` if the dialog was cancelled.
+   */
+  static async create(actor, { level } = {}) {
+    level ??= actor.system.details.level + 1;
+    const { promise, resolve } = Promise.withResolvers();
+    const application = new this({ actor, level });
+    application.addEventListener("close", () => resolve(application.config), { once: true });
+    application.render({ force: true });
+    return promise;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Submit the form.
+   * @this AdvancementDialog
+   */
+  static #onSubmit() {
+    this.#config = [];
+    for (let [partId, { valid, advancementClass, result }] of this.#configuredResults.entries()) {
+      if (!valid) {
+        this.#config = null;
+        return;
+      }
+
+      if (!result) {
+        const element = this.querySelector(`form[id="${partId}"]`);
+        const formData = new foundry.applications.ux.FormDataExtended(element);
+        result = advancementClass._determineResult(this.actor, formData);
+      }
+
+      this.#config.push(result);
+    }
+  }
+}

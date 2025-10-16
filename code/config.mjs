@@ -41,6 +41,24 @@ Prelocalization.prelocalize(abilityScores, { properties: ["label", "abbreviation
 /* -------------------------------------------------- */
 
 /**
+ * @type {Record<number, Set<string>>}
+ */
+export const advancement = {
+  1: new Set(["stats", "weapon", "type"]),
+  2: new Set(["resource", "statIncrease"]),
+  3: new Set(["resource", "habitat"]),
+  4: new Set(["resource", "statIncrease", "statusImmunity"]),
+  5: new Set(["resource"]),
+  6: new Set(["resource", "statIncrease", "type"]),
+  7: new Set(["resource", "habitat"]),
+  8: new Set(["resource", "statIncrease"]),
+  9: new Set(["resource"]),
+  10: new Set(["resource", "statIncrease"]),
+};
+
+/* -------------------------------------------------- */
+
+/**
  * @type {Record<string, CheckTypeConfig>}
  */
 export const checkTypes = {
@@ -93,6 +111,7 @@ Prelocalization.prelocalize(effectExpirationTypes);
 
 /** @type {number[]} */
 export const experienceLevels = [
+  0,
   100,
   600,
   1_200,
