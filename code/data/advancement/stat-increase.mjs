@@ -19,6 +19,11 @@ export default class StatIncreaseAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
+  /** @override */
+  static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/stat-increase.hbs";
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
@@ -28,17 +33,36 @@ export default class StatIncreaseAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  prepareBaseData() {
-    super.prepareBaseData();
+  static async _prepareAdvancementContext(context, options) {
+    await super._prepareAdvancementContext(context, options);
 
-    const document = this.document;
-    if (document && this.choice.chosen) document.system.abilities[this.choice.chosen].increases++;
+    const getScore = ability => {
+      const base = context.actor.system._source.abilities[ability].value;
+      return base;
+    };
+
+    context.abilityOptions = Object.entries(ryuutama.config.abilityScores)
+      .filter(([k, v]) => getScore(k) < 12)
+      .map(([k, v]) => ({ value: k, label: v.label }));
   }
 
   /* -------------------------------------------------- */
 
   /** @override */
-  static async configure(actor) {
-    return ryuutama.applications.apps.advancement.StatIncreaseAdvancementDialog.create({ advancementClass: this, actor });
+  static _determineResult(actor, formData) {
+    formData = foundry.utils.expandObject(formData.object);
+    const ability = formData.choice.chosen;
+    const update = { [`system.abilities.${ability}.value`]: actor.system._source.abilities[ability].value + 2 };
+    return { result: update, type: "actor" };
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareBaseData() {
+    super.prepareBaseData();
+
+    const document = this.document;
+    if (document && this.choice.chosen) document.system.abilities[this.choice.chosen].increases++;
   }
 }

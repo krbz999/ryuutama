@@ -248,17 +248,10 @@ export default class TravelerData extends CreatureData {
     }
     actor._advancing = true;
 
-    const advancementTypes = ryuutama.config.advancement[level + 1] ?? new Set();
-    const advancementClasses = advancementTypes.map(type => ryuutama.data.advancement.Advancement.documentConfig[type]);
-    const results = [];
-
-    for (const advancementClass of advancementClasses) {
-      const result = await advancementClass.configure(actor);
-      if (!result) {
-        actor._advancing = false;
-        return null;
-      }
-      results.push(result);
+    const results = await ryuutama.applications.apps.AdvancementDialog.create(actor, { level: level + 1 });
+    if (!results) {
+      delete actor._advancing;
+      return null;
     }
 
     const actorUpdate = {};
@@ -284,7 +277,7 @@ export default class TravelerData extends CreatureData {
     await actor.update(actorUpdate);
     await actor.createEmbeddedDocuments("Item", itemData, { keepId: true });
 
-    actor._advancing = false;
+    delete actor._advancing;
     return actor;
   }
 }

@@ -418,6 +418,7 @@
       "ADVANCEMENT": {
         "FIELDS": {},
         "configureTitle": "Configure {name}",
+        "title": "Level Up: {name} - {nth} Level",
 
         "INCREASE": {
           "FIELDS": {

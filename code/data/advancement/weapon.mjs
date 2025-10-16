@@ -19,11 +19,24 @@ export default class WeaponAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
+  /** @override */
+  static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/weapon.hbs";
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.PSEUDO.ADVANCEMENT.WEAPON",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static _determineResult(actor, formData) {
+    const data = foundry.utils.expandObject(formData.object);
+    return { result: new this({ type: this.TYPE, ...data }, { parent: actor }), type: "advancement" };
+  }
 
   /* -------------------------------------------------- */
 
@@ -33,12 +46,5 @@ export default class WeaponAdvancement extends Advancement {
 
     const document = this.document;
     if (document && this.choice.chosen) document.system.mastered.weapons[this.choice.chosen]++;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static async configure(actor) {
-    return ryuutama.applications.apps.advancement.WeaponAdvancementDialog.create({ advancementClass: this, actor });
   }
 }

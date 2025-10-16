@@ -3,6 +3,7 @@ import PseudoDocument from "../pseudo-document.mjs";
 
 /**
  * @import RyuutamaActor from "../../documents/actor.mjs";
+ * @import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
  */
 
 export default class Advancement extends PseudoDocument {
@@ -45,6 +46,14 @@ export default class Advancement extends PseudoDocument {
 
   /* -------------------------------------------------- */
 
+  /**
+   * A handlebars template used for rendering this advancement when leveling up.
+   * @type {string}
+   */
+  static CONFIGURE_TEMPLATE = "";
+
+  /* -------------------------------------------------- */
+
   /** @override */
   static get sheetClass() {
     return AdvancementSheet;
@@ -53,12 +62,38 @@ export default class Advancement extends PseudoDocument {
   /* -------------------------------------------------- */
 
   /**
-   * Present a user interface for configuring an advancement of this type,
-   * the result of which is later created on the actor.
-   * @param {RyuutamaActor} actor
-   * @returns {Promise<{ result: any, type: string }|null>}
+   * Prepare data when this advancement is presented when leveling up.
+   * @param {object} context    Current context. **will be mutated**
+   * @param {object} options    Rendering options.
+   * @returns {Promise<void>}
    */
-  static async configure(actor) {
-    return null;
+  static async _prepareAdvancementContext(context, options) {
+    context.fields = this.schema.fields;
+    context.title = game.i18n.format("RYUUTAMA.PSEUDO.ADVANCEMENT.configureTitle", {
+      name: game.i18n.localize(`TYPES.Advancement.${this.TYPE}`),
+    });
+    context.valid = true;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Determine whether the form configuration is valid.
+   * @param {FormDataExtended} formData
+   */
+  static _determineValidity(formData) {
+    return true;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Determine the result of this advancement.
+   * @param {FormDataExtended} formData
+   * @returns {object}
+   * @abstract
+   */
+  static _determineResult(formData) {
+    throw new Error("A subclass of Advancement must override _determineResult.");
   }
 }

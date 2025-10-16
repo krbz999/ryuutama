@@ -19,11 +19,24 @@ export default class TypeAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
+  /** @override */
+  static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/type.hbs";
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.PSEUDO.ADVANCEMENT.TYPE",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static _determineResult(actor, formData) {
+    const data = foundry.utils.expandObject(formData.object);
+    return { result: new this({ type: this.TYPE, ...data }, { parent: actor }), type: "advancement" };
+  }
 
   /* -------------------------------------------------- */
 
@@ -33,12 +46,5 @@ export default class TypeAdvancement extends Advancement {
 
     const document = this.document;
     if (document && this.choice.chosen) document.system.details.type[this.choice.chosen]++;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static async configure(actor) {
-    return ryuutama.applications.apps.advancement.TypeAdvancementDialog.create({ advancementClass: this, actor });
   }
 }

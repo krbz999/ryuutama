@@ -28,6 +28,11 @@ export default class StatsAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
+  /** @override */
+  static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/stats.hbs";
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
@@ -57,8 +62,41 @@ export default class StatsAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  static async _prepareAdvancementContext(context, options) {
+    await super._prepareAdvancementContext(context, options);
+    context.typeOptions = Object.entries(StatsAdvancement.STARTING_SCORES).map(([k, v]) => {
+      return { value: k, label: game.i18n.localize(v.label) };
+    });
+    context.valid = false;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @override */
-  static async configure(actor) {
-    return ryuutama.applications.apps.advancement.StatsAdvancementDialog.create({ advancementClass: this, actor });
+  static _determineValidity(formData) {
+    formData = foundry.utils.expandObject(formData.object);
+    const type = formData.choice.type;
+    const set = [...StatsAdvancement.STARTING_SCORES[type].stats];
+    for (const k in ryuutama.config.abilityScores) {
+      const value = formData.choice.chosen[k];
+      set.findSplice(v => v === value);
+    }
+    return set.length === 0;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static _determineResult(actor, formData) {
+    formData = foundry.utils.expandObject(formData.object);
+    const update = {};
+    for (const k in ryuutama.config.abilityScores) {
+      update[`system.abilities.${k}.value`] = formData.choice.chosen[k];
+    }
+
+    update["system.resources.stamina.max"] = 2 * update["system.abilities.strength.value"];
+    update["system.resources.mental.max"] = 2 * update["system.abilities.spirit.value"];
+    return { result: update, type: "actor" };
   }
 }
