@@ -242,6 +242,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * @this RyuutamaActorSheet
+   * @param {string} selector   The css selector on which the drag event is targeted.
+   * @returns {boolean}         Whether the user may initiate a drag event from this element.
    */
   static #canDragstart(selector) {
     return true;
@@ -251,6 +253,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * @this RyuutamaActorSheet
+   * @param {string} selector   The css selector on which the drag event is targeted.
+   * @returns {boolean}         Whether the user may finalize a drag event onto this element.
    */
   static #canDrop(selector) {
     if (!this.isEditable) return false;
@@ -261,6 +265,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * @this RyuutamaActorSheet
+   * @param {DragEvent} event   The initiating drag event.
    */
   static #onDragstart(event) {
     const target = event.currentTarget;
@@ -276,6 +281,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * @this RyuutamaActorSheet
+   * @param {DragEvent} event   The initiating drag event.
    */
   static async #onDrop(event) {
     const { type, uuid } = CONFIG.ux.TextEditor.getDragEventData(event);
@@ -292,6 +298,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static #renderItem(event, target) {
     const item = this.document.items.get(target.dataset.itemId, { strict: true });
@@ -302,6 +310,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static #rollCheck(event, target) {
     const type = target.dataset.check;
@@ -312,6 +322,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static #configure(event, target) {
     const options = { document: this.document };
@@ -343,6 +355,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static #toggleStatus(event, target) {
     const status = target.dataset.status;
@@ -353,6 +367,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static #configurePrototypeToken(event, target) {
     new CONFIG.Token.prototypeSheetClass({
@@ -368,6 +384,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static #advance(event, target) {
     this.document.system.advance();

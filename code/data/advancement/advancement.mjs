@@ -1,8 +1,6 @@
-import AdvancementSheet from "../../applications/sheets/advancement-sheet.mjs";
 import PseudoDocument from "../pseudo-document.mjs";
 
 /**
- * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
  */
 
@@ -52,13 +50,6 @@ export default class Advancement extends PseudoDocument {
    * @type {string}
    */
   static CONFIGURE_TEMPLATE = "";
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static get sheetClass() {
-    return AdvancementSheet;
-  }
 
   /* -------------------------------------------------- */
 
