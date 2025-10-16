@@ -62,7 +62,8 @@
  * @property {string} background.notes        Other assorted notes.
  * @property {object} details
  * @property {string|null} details.color    The character's image color.
- * @property {number} details.exp           Accumulated experience points.
+ * @property {object} details.exp
+ * @property {number} details.exp.value     Accumulated experience points.
  * @property {number} details.level         The character's level.
  * @property {object} equipped
  * @property {string|null} equipped.weapon      Equipped weapon.

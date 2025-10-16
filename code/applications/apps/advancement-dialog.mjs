@@ -51,14 +51,20 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------------- */
 
   /**
-   * @type {Array<typeof Advancement>}
+   * @type {Record<string, typeof Advancement>}
    */
   get advancementClasses() {
     const level = this.options.level;
     const types = ryuutama.config.advancement[level];
-    return Array.from(types)
-      .map(type => ryuutama.data.advancement.Advancement.documentConfig[type])
-      .filter(_ => _);
+
+    const classes = {};
+    for (const type of types) {
+      const Cls = ryuutama.data.advancement.Advancement.documentConfig[type];
+      if (Cls) classes[type] = Cls;
+      else console.warn(`The type '${type}' is not a valid Advancement subclass.`);
+    }
+
+    return classes;
   }
 
   /* -------------------------------------------------- */
@@ -105,18 +111,18 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   /** @inheritdoc */
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
-    await this.advancementClasses.find(cls => cls.TYPE === partId)?._prepareAdvancementContext(context, options);
+    await this.advancementClasses[partId]?._prepareAdvancementContext(context, options);
     context.rootId = [this.id, partId].join("-");
     return context;
   }
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
+  /** @override */
   _configureRenderParts(options) {
     const parts = {};
 
-    for (const advancementClass of this.advancementClasses) {
+    for (const advancementClass of Object.values(this.advancementClasses)) {
       parts[advancementClass.TYPE] = {
         template: advancementClass.CONFIGURE_TEMPLATE,
         templates: [],
@@ -160,7 +166,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
       }
     }
 
-    this._toggleSubmitButton();
+    this.#toggleSubmitButton();
   }
 
   /* -------------------------------------------------- */
@@ -170,7 +176,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     super._attachPartListeners(partId, htmlElement, options);
     if (partId === "footer") return;
 
-    const advancementClass = this.advancementClasses.find(Cls => Cls.TYPE === partId);
+    const advancementClass = this.advancementClasses[partId];
     const formData = new foundry.applications.ux.FormDataExtended(htmlElement);
     const valid = advancementClass._determineValidity(formData);
     const result = advancementClass._determineResult(this.actor, formData);
@@ -183,7 +189,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   /**
    * Refresh the disabled state of the submit button.
    */
-  _toggleSubmitButton() {
+  #toggleSubmitButton() {
     this.element.querySelector("[type=submit]").disabled = Array.from(this.#validity.values()).some(v => !v.valid);
   }
 
@@ -196,12 +202,12 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
     const form = event.currentTarget;
     const partId = form.dataset.applicationPart;
-    const advancementClass = this.advancementClasses.find(Cls => Cls.TYPE === partId);
+    const advancementClass = this.advancementClasses[partId];
     const formData = new foundry.applications.ux.FormDataExtended(form);
     const valid = advancementClass._determineValidity(formData);
     const result = advancementClass._determineResult(this.actor, formData);
     this.#validity.set(partId, { advancementClass, valid, result });
-    this._toggleSubmitButton();
+    this.#toggleSubmitButton();
   }
 
   /* -------------------------------------------------- */
