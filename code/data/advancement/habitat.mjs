@@ -76,7 +76,7 @@ export default class HabitatAdvancement extends Advancement {
     const document = this.document;
     if (!document) return;
 
-    if (this.choice.type === "terrain") document.system.mastered.terrains[this.choice.chosen.terrain] = true;
-    else if (this.choice.type === "weather") document.system.mastered.weathers[this.choice.chosen.weather] = true;
+    if (this.choice.type === "terrain") document.system.mastered.terrain.add(this.choice.chosen.terrain);
+    else if (this.choice.type === "weather") document.system.mastered.weather.add(this.choice.chosen.weather);
   }
 }

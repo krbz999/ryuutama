@@ -194,17 +194,17 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
         tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.masteredWeapon", { weapon: label }),
       });
     }
-    for (const [k, v] of Object.entries(this.document.system.mastered.terrains)) {
+    for (const k of this.document.system.mastered.terrain) {
       const label = ryuutama.config.terrainTypes[k]?.label;
-      if (!v || !label) continue;
+      if (!label) continue;
       context.tags.push({
         tag: label,
         tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.habitatSpecialty", { habitat: label }),
       });
     }
-    for (const [k, v] of Object.entries(this.document.system.mastered.weathers)) {
+    for (const k of this.document.system.mastered.weather) {
       const label = ryuutama.config.weatherTypes[k]?.label;
-      if (!v || !label) continue;
+      if (!label) continue;
       context.tags.push({
         tag: label,
         tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.habitatSpecialty", { habitat: label }),

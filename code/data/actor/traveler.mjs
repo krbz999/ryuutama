@@ -106,7 +106,7 @@ export default class TravelerData extends CreatureData {
     this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
     this.mastered = {
       weapons: Object.fromEntries(Object.keys(ryuutama.config.weaponCategories).map(k => [k, 0])),
-      terrains: {}, weathers: {},
+      terrain: new Set(), weather: new Set(),
     };
 
     // Types, Status Immunities, and Mastered Weapons.
