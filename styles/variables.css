@@ -28,6 +28,8 @@
   --ryuutama-color-check-critical: var(--ryuutama-color-steelblue);
   --ryuutama-color-check-condition: var(--ryuutama-color-palevioletred);
 
+  --ryuutama-color-exp-bar: var(--ryuutama-color-steelblue);
+
   /* The border on empty equipment slots. */
   --ryuutama-color-border: var(--ryuutama-color-dimgray);
 

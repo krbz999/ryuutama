@@ -14,11 +14,12 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /** @override */
   static DEFAULT_OPTIONS = {
     actions: {
+      advance: RyuutamaActorSheet.#advance,
+      configure: RyuutamaActorSheet.#configure,
+      configurePrototypeToken: RyuutamaActorSheet.#configurePrototypeToken,
       renderItem: RyuutamaActorSheet.#renderItem,
       rollCheck: RyuutamaActorSheet.#rollCheck,
-      configure: RyuutamaActorSheet.#configure,
       toggleStatus: RyuutamaActorSheet.#toggleStatus,
-      configurePrototypeToken: RyuutamaActorSheet.#configurePrototypeToken,
     },
     window: {
       controls: [{
@@ -361,5 +362,14 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
         top: this.position.top,
       },
     }).render({ force: true });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   */
+  static #advance(event, target) {
+    this.document.system.advance();
   }
 }

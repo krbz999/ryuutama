@@ -194,8 +194,15 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
         tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.masteredWeapon", { weapon: label }),
       });
     }
+
+    // Level up button.
     const levelTag = game.i18n.format("RYUUTAMA.ACTOR.TAGS.level", { level: this.document.system.details.level });
-    context.tags.unshift({ tag: levelTag, tooltip: levelTag });
+    if (this.document.system.details.level < 10) {
+      context.levelUp = { tag: levelTag, tooltip: levelTag };
+      if (this.document.system.details.exp.pct === 100) context.levelUp.glow = true;
+    } else {
+      context.tags.unshift({ tag: levelTag, tooltip: levelTag });
+    }
 
     return context;
   }

@@ -20,7 +20,9 @@ export default class TravelerData extends CreatureData {
       }),
       details: new SchemaField({
         color: new ColorField(),
-        exp: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
+        exp: new SchemaField({
+          value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
+        }),
         level: new NumberField({ nullable: false, integer: true, initial: 0, min: 0, max: 10 }),
       }),
       equipped: new SchemaField({
@@ -124,6 +126,7 @@ export default class TravelerData extends CreatureData {
     this.#prepareDefense();
     this.#prepareResources();
     this.#prepareCapacity();
+    this.#prepareExp();
 
     for (const advancement of this.advancements) advancement.prepareDerivedData();
   }
@@ -226,6 +229,24 @@ export default class TravelerData extends CreatureData {
 
     capacity.penalty = Math.max(0, capacity.value - capacity.max);
     capacity.pct = Math.clamp(Math.round(capacity.value / capacity.max * 100), 0, 100);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare EXP.
+   */
+  #prepareExp() {
+    const { exp, level } = this.details;
+
+    const prev = ryuutama.config.experienceLevels[level - 1] ?? 0;
+    const next = ryuutama.config.experienceLevels[level] ?? ryuutama.config.experienceLevels.at(-1);
+
+    exp.max = next;
+    exp.value = Math.min(this._source.details.exp.value, ryuutama.config.experienceLevels.at(-1));
+    // if (exp.value < prev) exp.pct = Math.clamp(Math.round(exp.value / next * 100), 0, 100);
+    exp.pct = Math.clamp(Math.round((exp.value - prev) / (next - prev) * 100), 0, 100);
+    if (isNaN(exp.pct)) exp.pct = 100;
   }
 
   /* -------------------------------------------------- */

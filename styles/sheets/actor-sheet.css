@@ -25,7 +25,7 @@
       margin: .5rem;
 
       .tags {
-        margin-top: 2px;
+        margin: 6px 0;
       }
     }
 
@@ -64,14 +64,19 @@
 .ryuutama.application.sheet.actor {
   font-family: Amiri;
 
+  resource-bar {
+    cursor: var(--cursor-pointer);
+  }
+
   resource-bar, progress-bar {
     position: relative;
     height: calc(1.2rem + var(--border-width));
     display: flex;
     border-radius: 5px;
     overflow: hidden;
-    cursor: var(--cursor-pointer);
-    border: var(--border-width) solid black;
+    font-size: 14px;
+    font-family: Amiri;
+    border: var(--border-width) solid hsl(from var(--color) h s l);
     --color: var(--ryuutama-color-resource-default);
     --border-width: 1px;
 
@@ -87,6 +92,9 @@
       &.overflow {
         --color: var(--ryuutama-color-capacity-bar-overflow);
       }
+    }
+    &.exp {
+      --color: var(--ryuutama-color-exp-bar);
     }
 
     .bar {
@@ -212,10 +220,10 @@
 
   .tags {
     color: var(--ryuutama-color-disabled);
-    font-size: 11px;
+    font-size: 14px;
     width: 100%;
     display: flex;
-    gap: 3px;
+    gap: 6px;
     font-family: Amiri;
     flex-wrap: wrap;
 
@@ -228,6 +236,20 @@
       border-radius: 5px;
       padding: 2px 4px;
       white-space: nowrap;
+
+      &.glow {
+        animation: tag-glow 2s infinite;
+        box-shadow: 0 0 12px red;
+      }
     }
+  }
+}
+
+@keyframes tag-glow {
+  0% {
+    box-shadow: 0 0 12px red;
+  }
+  100% {
+    box-shadow: 0 0 1px red;
   }
 }

@@ -111,6 +111,7 @@ Prelocalization.prelocalize(effectExpirationTypes);
 
 /** @type {number[]} */
 export const experienceLevels = [
+  0,
   100,
   600,
   1_200,
