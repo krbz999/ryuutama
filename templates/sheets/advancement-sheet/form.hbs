@@ -1,0 +1,9 @@
+<section>
+  {{formGroup fields.name value=(ifThen disabled document.name source.name) disabled=disabled placeholder=document.name rootId=rootId}}
+  {{formGroup fields.img value=(ifThen disabled document.ing source.img) disabled=disabled rootId=rootId}}
+
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.PSEUDO.ADVANCEMENT.details"}}</legend>
+    {{formGroup fields.choice.fields.chosen value=(ifThen disabled document.choice.chosen source.choice.chosen) disabled=disabled classes="slim" rootId=rootId}}
+  </fieldset>
+</section>

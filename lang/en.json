@@ -21,8 +21,18 @@
       "travelerPl": "Travelers"
     },
     "Advancement": {
-      "base": "Base Advancement",
-      "basePl": "Base Advancements"
+      "resource": "Resource Increase",
+      "resourcePl": "Resource Increases",
+      "type": "Type",
+      "typePl": "Types",
+      "statIncrease": "Stat Increase",
+      "statIncreasePl": "Stat Increases",
+      "stats": "Starting Stats",
+      "statsPl": "Starting Stats",
+      "statusImmunity": "Status Immunity",
+      "statusImmunityPl": "Status Immunities",
+      "weapon": "Mastered Weapon",
+      "weaponPl": "Mastered Weapons"
     },
     "Item": {
       "accessory": "Accessory",
@@ -108,14 +118,14 @@
         "resources.mental.bonuses.flat.label": "Overall Bonus",
         "resources.mental.bonuses.level.hint": "This bonus is added to the maximum MP for every level the actor has attained.",
         "resources.mental.bonuses.level.label": "Per Level Bonus",
-        "resources.mental.max.hint": "The base MP maximum prior to any modifiers or advancements.",
+        "resources.mental.max.hint": "The base MP maximum prior to any modifiers.",
         "resources.mental.max.label": "Base Maximum",
         "resources.mental.spent.label": "Spent",
         "resources.stamina.bonuses.flat.hint": "This bonus is added to the maximum HP after all other modifiers.",
         "resources.stamina.bonuses.flat.label": "Overall Bonus",
         "resources.stamina.bonuses.level.hint": "This bonus is added to the maximum HP for every level the actor has attained.",
         "resources.stamina.bonuses.level.label": "Per Level Bonus",
-        "resources.stamina.max.hint": "The base HP maximum prior to any modifiers or advancements.",
+        "resources.stamina.max.hint": "The base HP maximum prior to any modifiers.",
         "resources.stamina.max.label": "Base Maximum",
         "resources.stamina.spent.label": "Spent"
       }
@@ -164,25 +174,13 @@
       "TYPES": {
         "attack": "Attack Type",
         "magic": "Magic Type",
-        "technical": "Technical Type",
-
-        "title": "Configure Type: {name}",
-        "option0": "Unselected",
-        "option1": "Selected",
-        "option2": "Twice Selected"
-      },
-      "WEAPONS": {
-        "masteryLevel0": "Not Mastered",
-        "masteryLevel1": "Mastered",
-        "masteryLevel2": "Mastered Twice"
+        "technical": "Technical Type"
       },
       "abilities": "Abilities",
       "advancement": "Advancement",
       "conditionShapeOutOfShape": "Out of Shape",
       "conditionShapeSelectAbility": "Select Ability",
-      "masteredWeapons": "Mastered Weapons",
-      "shape": "Shape",
-      "type": "Traveler Type"
+      "shape": "Shape"
     },
 
     "ABILITIES": {
@@ -412,10 +410,58 @@
     },
 
     "PSEUDO": {
-      "FIELDS": {},
+      "FIELDS": {
+        "name.label": "Name",
+        "img.label": "Image Path"
+      },
 
       "ADVANCEMENT": {
-        "FIELDS": {}
+        "FIELDS": {},
+        "configureTitle": "Configure {name}",
+
+        "INCREASE": {
+          "FIELDS": {
+            "choice.chosen.label": "Chosen Ability"
+          }
+        },
+
+        "RESOURCE": {
+          "FIELDS": {
+            "choice.chosen.stamina.label": "HP",
+            "choice.chosen.mental.label": "MP"
+          }
+        },
+
+        "STATS": {
+          "FIELDS": {
+            "choice.type.label": "Ability Score Set",
+            "choice.chosen.strength.label": "Strength",
+            "choice.chosen.dexterity.label": "Dexterity",
+            "choice.chosen.intelligence.label": "Intelligence",
+            "choice.chosen.spirit.label": "Spirit"
+          },
+          "average": "Average (6, 6, 6, 6)",
+          "standard": "Standard (4, 6, 6, 8)",
+          "specialized": "Specialized (4, 4, 8, 8)"
+        },
+
+        "STATUS": {
+          "FIELDS": {
+            "choice.chosen.label": "Chosen Status Effect"
+          }
+        },
+
+        "TYPE": {
+          "FIELDS": {
+            "choice.chosen.label": "Chosen Type"
+          }
+        },
+
+        "WEAPON": {
+          "FIELDS": {
+            "choice.chosen.label": "Chosen Weapon"
+          }
+        }
       }
     },
 
@@ -505,10 +551,6 @@
       "desert": "Desert",
       "grassland": "Grassland",
       "highlands": "Highlands"
-    },
-
-    "WEAPONS": {
-      "title": "Configure Mastered Weapons: {name}"
     },
 
     "WEATHER": {

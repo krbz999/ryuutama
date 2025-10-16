@@ -2,7 +2,11 @@ import Advancement from "../advancement/advancement.mjs";
 import LocalDocumentField from "../fields/local-document-field.mjs";
 import CreatureData from "./templates/creature.mjs";
 
-const { ColorField, HTMLField, NumberField, SchemaField, TypedObjectField } = foundry.data.fields;
+/**
+ * @import RyuutamaActor from "../../documents/actor.mjs";
+ */
+
+const { ColorField, HTMLField, NumberField, SchemaField } = foundry.data.fields;
 
 export default class TravelerData extends CreatureData {
   /** @override */
@@ -17,11 +21,7 @@ export default class TravelerData extends CreatureData {
       details: new SchemaField({
         color: new ColorField(),
         exp: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
-        level: new NumberField({ nullable: false, integer: true, initial: 1, min: 1, max: 10 }),
-        type: new TypedObjectField(
-          new NumberField({ nullable: false, initial: 0, min: 0, max: 2, integer: true }),
-          { validateKey: key => key in ryuutama.config.travelerTypes },
-        ),
+        level: new NumberField({ nullable: false, integer: true, initial: 0, min: 0, max: 10 }),
       }),
       equipped: new SchemaField({
         weapon: new LocalDocumentField(foundry.documents.Item, { subtype: "weapon" }),
@@ -38,12 +38,6 @@ export default class TravelerData extends CreatureData {
       }),
       gold: new SchemaField({
         value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
-      }),
-      mastered: new SchemaField({
-        weapons: new TypedObjectField(
-          new NumberField({ nullable: false, initial: 0, min: 0, max: 2, integer: true }),
-          { validateKey: key => key in ryuutama.config.weaponCategories },
-        ),
       }),
     });
   }
@@ -106,8 +100,24 @@ export default class TravelerData extends CreatureData {
   /** @inheritdoc */
   prepareBaseData() {
     super.prepareBaseData();
-
     this.capacity = { bonus: 0 };
+    this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
+    this.mastered = {
+      weapons: Object.fromEntries(Object.keys(ryuutama.config.weaponCategories).map(k => [k, 0])),
+    };
+
+    this.#prepareAdvancements();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare advancements.
+   */
+  #prepareAdvancements() {
+    for (const advancement of this.advancements) {
+      advancement.prepareBaseData();
+    }
   }
 
   /* -------------------------------------------------- */
@@ -125,6 +135,8 @@ export default class TravelerData extends CreatureData {
     this.defense.shieldDodge = this.parent.getFlag(ryuutama.id, "shieldDodge") ?? false;
     this.defense.dodge = this.equipped.shield?.system.armor.dodge ?? null;
     this.defense.total = Math.max(this.defense.armor + this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
+
+    for (const advancement of this.advancements) advancement.prepareDerivedData();
   }
 
   /* -------------------------------------------------- */
@@ -173,7 +185,7 @@ export default class TravelerData extends CreatureData {
     });
 
     capacity.max =
-      abilities.strength.value
+      abilities.strength.faces
       + 3
       + capacity.bonus
       + (details.level - 1)
@@ -182,5 +194,65 @@ export default class TravelerData extends CreatureData {
 
     capacity.penalty = Math.max(0, capacity.value - capacity.max);
     capacity.pct = Math.clamp(Math.round(capacity.value / capacity.max * 100), 0, 100);
+  }
+
+  /* -------------------------------------------------- */
+  /*   Advancement                                      */
+  /* -------------------------------------------------- */
+
+  /**
+   * Advance to the next level.
+   * @returns {Promise<RyuutamaActor|null>}   A promie that resolves to the advanced actor.
+   */
+  async advance() {
+    const level = this.details.level;
+    if (level >= 10) {
+      throw new Error("You cannot advance beyond 10th level.");
+    }
+
+    const actor = this.parent;
+    if (actor._advancing) {
+      throw new Error("Actor is already in the process of advancing!");
+    }
+    actor._advancing = true;
+
+    const advancementTypes = ryuutama.config.advancement[level + 1] ?? new Set();
+    const advancementClasses = advancementTypes.map(type => ryuutama.data.advancement.Advancement.documentConfig[type]);
+    const results = [];
+
+    for (const advancementClass of advancementClasses) {
+      const result = await advancementClass.configure(actor);
+      if (!result) {
+        actor._advancing = false;
+        return null;
+      }
+      results.push(result);
+    }
+
+    const actorUpdate = {};
+    const itemData = [];
+    for (const { result, type } of results) {
+      switch (type) {
+        case "advancement":
+          await ryuutama.data.advancement.Advancement.create(result.toObject(), { parent: actor });
+          break;
+        case "actor":
+          foundry.utils.mergeObject(actorUpdate, result);
+          break;
+        case "items":
+          for (const item of result) {
+            const keepId = !actor.items.has(item.id);
+            itemData.push(game.items.fromCompendium(item, { keepId }));
+          }
+          break;
+      }
+    }
+
+    foundry.utils.setProperty(actorUpdate, "system.details.level", level + 1);
+    await actor.update(actorUpdate);
+    await actor.createEmbeddedDocuments("Item", itemData, { keepId: true });
+
+    actor._advancing = false;
+    return actor;
   }
 }
