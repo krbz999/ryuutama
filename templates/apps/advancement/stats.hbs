@@ -1,11 +1,13 @@
 <form>
   <fieldset>
     <legend>{{title}}</legend>
-    {{formGroup fields.choice.fields.type options=typeOptions value="standard" autofocus=true}}
+    {{formGroup fields.choice.fields.type options=typeOptions value="standard" rootId=rootId classes="slim"}}
 
-    {{formGroup fields.choice.fields.chosen.fields.strength}}
-    {{formGroup fields.choice.fields.chosen.fields.dexterity}}
-    {{formGroup fields.choice.fields.chosen.fields.intelligence}}
-    {{formGroup fields.choice.fields.chosen.fields.spirit}}
+    {{formGroup fields.choice.fields.chosen.fields.strength rootId=rootId}}
+    {{formGroup fields.choice.fields.chosen.fields.dexterity rootId=rootId}}
+    {{formGroup fields.choice.fields.chosen.fields.intelligence rootId=rootId}}
+    {{formGroup fields.choice.fields.chosen.fields.spirit rootId=rootId}}
+
+    <p class="hint">{{localize "RYUUTAMA.PSEUDO.ADVANCEMENT.STATS.hint"}}</p>
   </fieldset>
 </form>

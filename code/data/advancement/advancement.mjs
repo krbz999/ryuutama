@@ -25,6 +25,7 @@ export default class Advancement extends PseudoDocument {
   /** @override */
   static get documentConfig() {
     return {
+      [ryuutama.data.advancement.HabitatAdvancement.TYPE]: ryuutama.data.advancement.HabitatAdvancement,
       [ryuutama.data.advancement.ResourceAdvancement.TYPE]: ryuutama.data.advancement.ResourceAdvancement,
       [ryuutama.data.advancement.StatIncreaseAdvancement.TYPE]: ryuutama.data.advancement.StatIncreaseAdvancement,
       [ryuutama.data.advancement.StatsAdvancement.TYPE]: ryuutama.data.advancement.StatsAdvancement,
@@ -72,8 +73,18 @@ export default class Advancement extends PseudoDocument {
     context.title = game.i18n.format("RYUUTAMA.PSEUDO.ADVANCEMENT.configureTitle", {
       name: game.i18n.localize(`TYPES.Advancement.${this.TYPE}`),
     });
-    context.valid = true;
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Provide any part listeners.
+   * @this AdvancementDialog
+   * @param {string} partId                 The unique part id.
+   * @param {HTMLFormElement} htmlElement   The rendered form element.
+   * @param {object} options                Rendering options.
+   */
+  static _attachPartListeners(partId, htmlElement, options) {}
 
   /* -------------------------------------------------- */
 

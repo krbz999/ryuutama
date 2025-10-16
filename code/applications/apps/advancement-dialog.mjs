@@ -106,6 +106,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
     await this.advancementClasses.find(cls => cls.TYPE === partId)?._prepareAdvancementContext(context, options);
+    context.rootId = [this.id, partId].join("-");
     return context;
   }
 
@@ -174,6 +175,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     const valid = advancementClass._determineValidity(formData);
     const result = advancementClass._determineResult(this.actor, formData);
     this.#validity.set(partId, { advancementClass, valid, result });
+    advancementClass._attachPartListeners.call(this, partId, htmlElement, options);
   }
 
   /* -------------------------------------------------- */
@@ -229,7 +231,6 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   static #onSubmit(event, form, formData) {
     this.#config = [];
     for (let [partId, { valid, advancementClass, result }] of this.#validity.entries()) {
-      console.warn({ partId, valid, advancementClass, result });
       if (!valid) {
         this.#config = null;
         return;

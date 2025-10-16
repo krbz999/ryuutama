@@ -106,13 +106,15 @@ export default class TravelerData extends CreatureData {
     this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
     this.mastered = {
       weapons: Object.fromEntries(Object.keys(ryuutama.config.weaponCategories).map(k => [k, 0])),
+      terrains: {}, weathers: {},
     };
 
     // Types, Status Immunities, and Mastered Weapons.
-    const { weapon, statusImmunity, type } = this.advancements.documentsByType;
+    const { habitat, weapon, statusImmunity, type } = this.advancements.documentsByType;
     for (const a of weapon) a.prepareBaseData();
     for (const a of statusImmunity) a.prepareBaseData();
     for (const a of type) a.prepareBaseData();
+    for (const a of habitat) a.prepareBaseData();
   }
 
   /* -------------------------------------------------- */
@@ -246,7 +248,7 @@ export default class TravelerData extends CreatureData {
     exp.value = Math.min(this._source.details.exp.value, ryuutama.config.experienceLevels.at(-1));
     // if (exp.value < prev) exp.pct = Math.clamp(Math.round(exp.value / next * 100), 0, 100);
     exp.pct = Math.clamp(Math.round((exp.value - prev) / (next - prev) * 100), 0, 100);
-    if (isNaN(exp.pct)) exp.pct = 100;
+    if (isNaN(exp.pct) || !prev || !ryuutama.config.experienceLevels[level]) exp.pct = 100;
   }
 
   /* -------------------------------------------------- */

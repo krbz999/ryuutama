@@ -1,5 +1,6 @@
 export { default as Advancement } from "./advancement.mjs";
 
+export { default as HabitatAdvancement } from "./habitat.mjs";
 export { default as ResourceAdvancement } from "./resource.mjs";
 export { default as StatIncreaseAdvancement } from "./stat-increase.mjs";
 export { default as StatsAdvancement } from "./stats.mjs";

@@ -1,0 +1,9 @@
+<form>
+  <fieldset>
+    <legend>{{title}}</legend>
+    {{formGroup fields.choice.fields.type options=typeOptions value="terrain" rootId=rootId}}
+    {{formGroup fields.choice.fields.chosen.fields.terrain rootId=rootId classes="slim"}}
+    {{formGroup fields.choice.fields.chosen.fields.weather rootId=rootId classes="slim hidden"}}
+    <p class="hint">{{localize "RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.hint"}}</p>
+  </fieldset>
+</form>

@@ -21,6 +21,8 @@
       "travelerPl": "Travelers"
     },
     "Advancement": {
+      "habitat": "Terrain / Weather Specialty",
+      "habitatPl": "Terrain / Weather Specialties",
       "resource": "Resource Increase",
       "resourcePl": "Resource Increases",
       "type": "Type",
@@ -88,6 +90,7 @@
       "TAGS": {
         "category": "Category: {category}",
         "dragonica": "Dragonica No. {number}",
+        "habitatSpecialty": "Terrain / Weather Specialty: {habitat}",
         "level": "Level {level}",
         "masteredWeapon": "Mastered Weapon: {weapon}",
         "type": "Type: {type}"
@@ -419,17 +422,30 @@
         "configureTitle": "Configure {name}",
         "title": "Level Up: {name} - {nth} Level",
 
+        "HABITAT": {
+          "FIELDS": {
+            "choice.chosen.terrain.label": "Terrain Type",
+            "choice.chosen.weather.label": "Weather Pattern",
+            "choice.type.label": "Subtype"
+          },
+          "optionTerrain": "Terrain",
+          "optionWeather": "Weather",
+          "hint": "Choose 1 from the twenty-two types of terrain and weather patterns. You gain a +2 bonus to any rolls involving that terrain or weather."
+        },
+
         "INCREASE": {
           "FIELDS": {
             "choice.chosen.label": "Chosen Ability"
-          }
+          },
+          "hint": "Every even level, you can choose one ability from [STR], [DEX], [INT], and [SPI] to increase by 1 die size (to a maximum of d12)."
         },
 
         "RESOURCE": {
           "FIELDS": {
             "choice.chosen.stamina.label": "HP",
             "choice.chosen.mental.label": "MP"
-          }
+          },
+          "hint": "Each level, you gain three points to divide between HP and MP."
         },
 
         "STATS": {
@@ -442,25 +458,29 @@
           },
           "average": "Average (6, 6, 6, 6)",
           "standard": "Standard (4, 6, 6, 8)",
-          "specialized": "Specialized (4, 4, 8, 8)"
+          "specialized": "Specialized (4, 4, 8, 8)",
+          "hint": "Choose your starting ability scores from one of the three sets, arranged the way you prefer between the four abilities."
         },
 
         "STATUS": {
           "FIELDS": {
             "choice.chosen.label": "Chosen Status Effect"
-          }
+          },
+          "hint": "Choose one of the six status effects. You are immune to that effect from now on."
         },
 
         "TYPE": {
           "FIELDS": {
             "choice.chosen.label": "Chosen Type"
-          }
+          },
+          "hint": "Choose one of the three character types. If you choose one that you already have, the abilities are cumulative."
         },
 
         "WEAPON": {
           "FIELDS": {
             "choice.chosen.label": "Chosen Weapon"
-          }
+          },
+          "hint": "Choose a weapon type to master. Making an attack with a weapon type that you have not mastered incurs a 1 HP penalty. If you choose a weapon type you have already mastered, you gain a +1 bonus to accuracy checks with that type."
         }
       }
     },
