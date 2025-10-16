@@ -66,11 +66,49 @@ export default class MonsterData extends CreatureData {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
+    this.#prepareAttack();
+    this.#prepareDefense();
+    this.#prepareResources();
+  }
 
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare accuracy and damage.
+   */
+  #prepareAttack() {
     this.attack.accuracy ||= "@stats.strength + @stats.dexterity";
     this.attack.damage ||= "@stats.strength";
+  }
 
-    // Prepare defense.
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare defense.
+   */
+  #prepareDefense() {
     this.defense.total = this.defense.armor ?? 0;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare resources.
+   */
+  #prepareResources() {
+    const setupResource = key => {
+      const resource = this.resources[key];
+      const src = this._source.resources[key];
+
+      resource.max = src.max
+        + resource.bonuses.flat
+        + resource.bonuses.level * this.details.level;
+      resource.spent = Math.min(resource.spent, resource.max);
+      resource.value = resource.max - resource.spent;
+      resource.pct = Math.clamp(Math.round(resource.value / resource.max * 100), 0, 100) || 0;
+    };
+
+    setupResource("stamina");
+    setupResource("mental");
   }
 }

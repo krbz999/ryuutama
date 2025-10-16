@@ -106,37 +106,38 @@ export default class TravelerData extends CreatureData {
       weapons: Object.fromEntries(Object.keys(ryuutama.config.weaponCategories).map(k => [k, 0])),
     };
 
-    this.#prepareAdvancements();
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare advancements.
-   */
-  #prepareAdvancements() {
-    for (const advancement of this.advancements) {
-      advancement.prepareBaseData();
-    }
+    // Types, Status Immunities, and Mastered Weapons.
+    const { weapon, statusImmunity, type } = this.advancements.documentsByType;
+    for (const a of weapon) a.prepareBaseData();
+    for (const a of statusImmunity) a.prepareBaseData();
+    for (const a of type) a.prepareBaseData();
   }
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
   prepareDerivedData() {
-    // Equipped items are prepared first to add a `gear` bonus to resources, which are prepared
-    // in `super`, as well as to ignore shields (depending) prior to `capacity`.
-    this.#prepareEquipped();
-
     super.prepareDerivedData();
+
+    // Equipped items are prepared first to ignore shields (depending) prior to `capacity`, `resources`, and `defense`.
+    this.#prepareEquipped();
+    this.#prepareDefense();
+    this.#prepareResources();
     this.#prepareCapacity();
 
-    // Prepare defense.
-    this.defense.shieldDodge = this.parent.getFlag(ryuutama.id, "shieldDodge") ?? false;
-    this.defense.dodge = this.equipped.shield?.system.armor.dodge ?? null;
-    this.defense.total = Math.max(this.defense.armor + this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
-
     for (const advancement of this.advancements) advancement.prepareDerivedData();
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareAbilities() {
+    super._prepareAbilities();
+
+    if (this.condition.value >= 10) {
+      const ability = this.condition.shape.high;
+      if (ability in this.abilities) this.abilities[ability].increases++;
+    }
   }
 
   /* -------------------------------------------------- */
@@ -146,21 +147,52 @@ export default class TravelerData extends CreatureData {
    */
   #prepareEquipped() {
     // Remove shield if using 2-handed weapon.
-    if (this.equipped.weapon?.system.grip === 2) Object.defineProperty(this.equipped, "shield", { value: null });
+    if (!this.canEquipShield) Object.defineProperty(this.equipped, "shield", { value: null });
+  }
 
-    let bonus = 0;
-    this.defense.gear = 0;
-    for (const key of Object.keys(this._source.equipped)) {
-      const item = this.equipped[key];
+  /* -------------------------------------------------- */
 
-      // Orichalcum items grant +2 HP and MP.
-      if (item?.system.modifiers.has("orichalcum")) bonus += 2;
+  /**
+   * Prepare defense.
+   */
+  #prepareDefense() {
+    const { armor, shield } = this.equipped;
+    this.defense.gear = (armor?.system.armor.defense ?? 0) + (shield?.system.armor.defense ?? 0);
 
-      // Set defense value from gear.
-      if (["armor", "shield"].includes(key) && item) this.defense.gear += item.system.armor.defense;
-    }
-    this.resources.stamina.gear = this.resources.mental.gear = bonus;
+    this.defense.shieldDodge = this.parent.getFlag(ryuutama.id, "shieldDodge") ?? false;
+    this.defense.dodge = shield?.system.armor.dodge ?? null;
+    this.defense.total = Math.max(this.defense.armor + this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
+  }
 
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare resources.
+   */
+  #prepareResources() {
+    const { stamina: hp, mental: mp } = this.resources;
+    const orichalcum = Object.keys(this._source.equipped)
+      .map(key => this.equipped[key])
+      .filter(item => item?.system.modifiers.has("orichalcum"))
+      .length;
+    hp.gear = mp.gear = orichalcum * 2;
+
+    const setupResource = (key, typeBonus) => {
+      const resource = this.resources[key];
+      const src = this._source.resources[key];
+
+      resource.max = src.max
+        + resource.bonuses.flat
+        + resource.gear
+        + resource.bonuses.level * this.details.level
+        + typeBonus;
+      resource.spent = Math.min(resource.spent, resource.max);
+      resource.value = resource.max - resource.spent;
+      resource.pct = Math.clamp(Math.round(resource.value / resource.max * 100), 0, 100) || 0;
+    };
+
+    setupResource("stamina", 4 * this.details.type.attack);
+    setupResource("mental", 4 * this.details.type.magic);
   }
 
   /* -------------------------------------------------- */
@@ -170,7 +202,7 @@ export default class TravelerData extends CreatureData {
    */
   #prepareCapacity() {
     const { capacity, abilities, details, equipped } = this;
-    const techBonus = this.details.type.technical ?? 0;
+    const techBonus = this.details.type.technical;
 
     capacity.value = 0;
     capacity.container = 0;
