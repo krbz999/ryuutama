@@ -5,5 +5,13 @@
  */
 
 /**
- * @typedef {ApplicationConfiguration & { document: RyuutamaActor, rollConfig: CheckRollConfig, dialogConfig: CheckDialogConfig, messageConfig: CheckMessageConfig }} CheckConfigurationDialogConfiguration
+ * @typedef _CheckConfigurationDialogConfiguration
+ * @property {CheckRollConfig} rollConfig
+ * @property {CheckDialogConfig} dialogConfig
+ * @property {CheckMessageConfig} messageConfig
+ * @property {RyuutamaActor} document
+ */
+
+/**
+ * @typedef {ApplicationConfiguration & _CheckConfigurationDialogConfiguration} CheckConfigurationDialogConfiguration
  */

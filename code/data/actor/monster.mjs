@@ -7,8 +7,8 @@ export default class MonsterData extends CreatureData {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       attack: new SchemaField({
-        accuracy: new StringField({ required: true, initial: "" }),
-        damage: new StringField({ required: true, initial: "" }),
+        accuracy: new ryuutama.data.fields.FormulaField(),
+        damage: new ryuutama.data.fields.FormulaField(),
       }),
       description: new SchemaField({
         value: new HTMLField(),
