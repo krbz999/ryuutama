@@ -170,7 +170,7 @@
       "_id": "petrifyingbeak00",
       "system": {
         "description": {
-          "value": "<p>When a character is hit by a cockatrice's attack, they suffer [Injury 6] as a part of their body is turned to stone.</p>"
+          "value": "<p>When a character is hit by a cockatrice's attack, they suffer [[/status injury 6]] as a part of their body is turned to stone.</p>"
         }
       },
       "img": "icons/svg/item-bag.svg",

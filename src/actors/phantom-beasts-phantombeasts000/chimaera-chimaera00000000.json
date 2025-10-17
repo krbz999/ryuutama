@@ -171,7 +171,7 @@
       "_id": "firebreath000000",
       "system": {
         "description": {
-          "value": "<p>The lion head breathes a blue-hot flame, with Accuracy [d10+d10] and Damage [d10], targeting an entire area.</p>"
+          "value": "<p>The lion head breathes a blue-hot flame, with Accuracy [[/check accuracy formula=\"d10 + d10\"]] and Damage [[/check damage d10]], targeting an entire area.</p>"
         }
       },
       "img": "icons/svg/item-bag.svg",

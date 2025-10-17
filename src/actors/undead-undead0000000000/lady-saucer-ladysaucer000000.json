@@ -171,7 +171,7 @@
       "_id": "9saucers00000000",
       "system": {
         "description": {
-          "value": "<p>The Lady Saucer can attack nine times at once. However, those attacks become Accuracy [d6+d6] and damage [d6]. If a character is hit by one of these attacks, they suffer a -1 cumulative penalty to their Condition.</p>"
+          "value": "<p>The Lady Saucer can attack nine times at once. However, those attacks become Accuracy [[/check accuracy formula=\"d6 + d6\"]] and damage [[/check damage d6]]. If a character is hit by one of these attacks, they suffer a -1 cumulative penalty to their Condition.</p>"
         }
       },
       "img": "icons/svg/item-bag.svg",

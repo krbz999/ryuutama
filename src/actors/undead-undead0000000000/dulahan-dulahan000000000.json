@@ -171,7 +171,7 @@
       "_id": "bladeofmagic0000",
       "system": {
         "description": {
-          "value": "<p>A Dulahan can attack 3 opponents at once with a single accuracy roll. Also, anyone hit by a Dulahan suffers [Sick:8]. This effect can't be cured until the Dulahan is defeated.</p>"
+          "value": "<p>A Dulahan can attack 3 opponents at once with a single accuracy roll. Also, anyone hit by a Dulahan suffers [[/status sickness 8]]. This effect can't be cured until the Dulahan is defeated.</p>"
         }
       },
       "img": "icons/svg/item-bag.svg",

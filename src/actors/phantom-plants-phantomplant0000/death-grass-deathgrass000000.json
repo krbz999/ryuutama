@@ -171,7 +171,7 @@
       "_id": "bladetrap0000000",
       "system": {
         "description": {
-          "value": "<p>Death Grass attacks anything in range (all characters in the Front Area in battle). This attack deals d6 damage, is impossible to dodge and needs no Accuracy Check.</p>"
+          "value": "<p>Death Grass attacks anything in range (all characters in the Front Area in battle). This attack deals [[/check damage d6]] damage, is impossible to dodge and needs no Accuracy Check.</p>"
         }
       },
       "img": "icons/svg/item-bag.svg",

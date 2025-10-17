@@ -171,7 +171,7 @@
       "_id": "watervampirism00",
       "system": {
         "description": {
-          "value": "<p>Any characters that are successfully hit by an Earth Tiger attack lose d6 rations of water from water skins or barrels in the area.</p>"
+          "value": "<p>Any characters that are successfully hit by an Earth Tiger attack lose [[/r d6]] rations of water from water skins or barrels in the area.</p>"
         }
       },
       "img": "icons/svg/item-bag.svg",

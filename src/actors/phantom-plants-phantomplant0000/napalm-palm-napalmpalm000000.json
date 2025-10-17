@@ -171,7 +171,7 @@
       "_id": "seedshooter00000",
       "system": {
         "description": {
-          "value": "<p>This monster can attack either the Front Area or the Back Area with Accuracy [d6+d6] and damage [d6].</p>"
+          "value": "<p>This monster can attack either the Front Area or the Back Area with Accuracy [[/check accuracy formula=\"d6 + d6\"]] and damage [[/check damage formula=\"d6\"]].</p>"
         }
       },
       "img": "icons/svg/item-bag.svg",

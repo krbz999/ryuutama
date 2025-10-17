@@ -34,7 +34,6 @@ export default class Enrichers {
       pattern: this.PATTERNS.check,
       enricher: this.enrichCheck,
       onRender: element => {
-        element = element.querySelector("[data-type]");
         const { type, subtype, formula } = element.dataset;
         const rollConfig = { type };
         if ((type === "journey") && (subtype in ryuutama.config.checkTypes.journey.subtypes)) {
@@ -42,11 +41,18 @@ export default class Enrichers {
         }
         if (formula) rollConfig.formula = formula;
 
-        element.addEventListener("click", async (event) => {
-          const actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
+        element.querySelector(".enricher").addEventListener("click", async (event) => {
+          const application = foundry.applications.instances.get(event.currentTarget.closest(".application")?.id);
+          let actors = [];
+          if (application?.document instanceof foundry.documents.Actor) actors = [application.document];
+          else actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
           for (const actor of actors) {
             await actor.system.rollCheck(rollConfig);
           }
+        });
+
+        element.querySelector(".request")?.addEventListener("click", event => {
+          // TODO: request roll.
         });
       },
     });
@@ -135,17 +141,36 @@ export default class Enrichers {
       if (formula) config.formula = formula;
     }
 
+    // Show request.
+    config.request ??= config.values.includes("request");
+
+    const wrapper = new foundry.applications.elements.HTMLEnrichedContentElement();
+    wrapper.classList.add(ryuutama.id);
+    const elements = [];
+
     const anchor = document.createElement("A");
-    anchor.classList.add(ryuutama.id, "enricher");
+    elements.push(anchor);
+    anchor.classList.add("enricher");
+    if (!label && !!config.formula) label = `[${config.formula}]`;
 
     if (label) anchor.innerHTML = label.trim();
     else if (config.subtype) anchor.innerHTML = typeConfig.subtypes[config.subtype].label;
     else anchor.innerHTML = typeConfig.label;
 
-    anchor.dataset.type = config.type;
-    if (config.subtype) anchor.dataset.subtype = config.subtype;
-    if (config.formula) anchor.dataset.formula = config.formula;
+    wrapper.dataset.type = config.type;
+    if (config.subtype) wrapper.dataset.subtype = config.subtype;
+    if (config.formula) wrapper.dataset.formula = config.formula;
+    anchor.dataset.tooltipText = game.i18n.localize("RYUUTAMA.ROLL.TYPES." + config.type);
 
-    return anchor;
+    if (config.request) {
+      const request = document.createElement("A");
+      request.innerHTML = "<i class=\"fa-solid fa-bullhorn\"></i>";
+      request.classList.add("request");
+      elements.push(request);
+    }
+
+    wrapper.innerHTML = elements.map(element => element.outerHTML).join("");
+
+    return wrapper;
   }
 }

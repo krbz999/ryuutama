@@ -171,7 +171,7 @@
       "_id": "bambooofanger000",
       "system": {
         "description": {
-          "value": "<p>The Brave Bamboo may, in addition to its normal attacks, also cast the magic spell Kaguya Leylance (from the Spring magic list) twice per combat.</p>"
+          "value": "<p>The Brave Bamboo may, in addition to its normal attacks, also cast the magic spell @UUID[Compendium.ryuutama.spells.Item.kaguyasleylance0] (from the Spring magic list) twice per combat.</p>"
         }
       },
       "img": "icons/svg/item-bag.svg",

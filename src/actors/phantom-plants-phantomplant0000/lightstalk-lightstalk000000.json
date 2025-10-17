@@ -171,7 +171,7 @@
       "_id": "laserbeam0000000",
       "system": {
         "description": {
-          "value": "<p>This monster may attack using its laser beam with Accuracy [d10+d10] and damage [d12], ignoring Defense Points.</p>"
+          "value": "<p>This monster may attack using its laser beam with Accuracy [[/check accuracy formula=\"d10 + d10\"]] and damage [[/check damage d12]], ignoring Defense Points.</p>"
         }
       },
       "img": "icons/svg/item-bag.svg",

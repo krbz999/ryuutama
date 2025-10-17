@@ -171,7 +171,7 @@
       "_id": "magicalicestorm0",
       "system": {
         "description": {
-          "value": "<p>Any characters killed by this attack are encased in ice. This attack targets all areas with Accuracy [d8+d8] damage [d8].</p>"
+          "value": "<p>Any characters killed by this attack are encased in ice. This attack targets all areas with Accuracy [[/check accuracy formula=\"d8 + d8\"]] damage [[/check damage d8]].</p>"
         }
       },
       "img": "icons/svg/item-bag.svg",
