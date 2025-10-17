@@ -2,7 +2,7 @@ const { ForeignDocumentField, SchemaField, SetField, StringField } = foundry.dat
 
 export default function registerSettings() {
   // Storing the primary party's id.
-  game.settings.register(ryuutama.id, "primaryParty", {
+  game.settings.register(ryuutama.id, "PRIMARY_PARTY", {
     name: "Primary Party",
     scope: "world",
     requiresReload: false,
@@ -30,6 +30,15 @@ export default function registerSettings() {
     default: { terrain: [], weather: [] },
     config: false,
     onChange: value => onChangeHabitat(value),
+  });
+
+  // Migration version.
+  game.settings.register(ryuutama.id, "MIGRATION_VERSION", {
+    name: "Migration Version",
+    scope: "world",
+    requiresReload: false,
+    type: new StringField({ required: true, blank: true }),
+    config: false,
   });
 }
 
@@ -134,3 +143,15 @@ function onChangeHabitat(value, button = null) {
 
   button.innerHTML = text;
 }
+
+/* -------------------------------------------------- */
+
+/**
+ * Set migration version.
+ * If there is a migration in the future, this can be removed,
+ * and instead checked against a flag in the system manifest.
+ */
+Hooks.once("ready", () => {
+  if (!game.user.isActiveGM) return;
+  game.settings.set(ryuutama.id, "MIGRATION_VERSION", game.system.version);
+});

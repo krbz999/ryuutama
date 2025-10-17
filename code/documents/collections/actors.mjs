@@ -4,7 +4,7 @@ export default class RyuutamaActors extends foundry.documents.collections.Actors
    * @type {RyuutamaActor|null}
    */
   get party() {
-    return game.settings.get(game.system.id, "primaryParty")?.actor ?? null;
+    return game.settings.get(game.system.id, "PRIMARY_PARTY")?.actor ?? null;
   }
 
   /* -------------------------------------------------- */
@@ -19,7 +19,7 @@ export default class RyuutamaActors extends foundry.documents.collections.Actors
     }
 
     if (!this.party) return false;
-    await game.settings.set(game.system.id, "primaryParty", { actor: null });
+    await game.settings.set(game.system.id, "PRIMARY_PARTY", { actor: null });
     return true;
   }
 
@@ -38,7 +38,7 @@ export default class RyuutamaActors extends foundry.documents.collections.Actors
     if (!actor || (actor.type !== "party")) return false;
     if (actor === this.party) return false;
 
-    await game.settings.set(game.system.id, "primaryParty", { actor: actor.id });
+    await game.settings.set(game.system.id, "PRIMARY_PARTY", { actor: actor.id });
     return true;
   }
 }
