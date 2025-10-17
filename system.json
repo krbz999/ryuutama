@@ -2,9 +2,9 @@
   "id": "ryuutama",
   "title": "Ryuutama",
   "description": "A Foundry VTT implementation of the Ryuutama Natural Fantasy RPG.",
-  "version": "DEVELOP",
+  "version": "1.0.0",
   "compatibility": {
-    "minimum": "13",
+    "minimum": "13.350",
     "verified": "13",
     "maximum": "13"
   },
