@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 6,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A large fish in the shape of a sword. They grow larger the longer they live, up to eight meters long.</p>",
-      "special": {
-        "name": "Cut in 2",
-        "value": "<p>Attacks made by Zordfish ignore Defense Points and always do full damage.</p>"
-      }
+      "value": "<p>A large fish in the shape of a sword. They grow larger the longer they live, up to eight meters long.</p>"
     },
     "defense": {
-      "armor": 1
+      "armor": 1,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Zordfish",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Cut in 2",
+      "type": "skill",
+      "_id": "cutin20000000000",
+      "system": {
+        "description": {
+          "value": "<p>Attacks made by Zordfish ignore Defense Points and always do full damage.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081721,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!zordfish00000000.cutin20000000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

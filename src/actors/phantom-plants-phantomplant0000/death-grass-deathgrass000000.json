@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>The most dangerous plant in the grasslands, Death Grass looks like normal grass, but all the stalks in a ten meter radius around its central bud are all part of the same organism. When an animal enters this area, the Death Grass uses its blade-like leaves to kill the target, nourishing itself with the corpse. The only way to destroy this treacherous plant is by destroying the central bud.</p>",
-      "special": {
-        "name": "Blade Trap",
-        "value": "<p>Death Grass attacks anything in range (all characters in the Front Area in battle). This attack deals d6 damage, is impossible to dodge and needs no Accuracy Check.</p>"
-      }
+      "value": "<p>The most dangerous plant in the grasslands, Death Grass looks like normal grass, but all the stalks in a ten meter radius around its central bud are all part of the same organism. When an animal enters this area, the Death Grass uses its blade-like leaves to kill the target, nourishing itself with the corpse. The only way to destroy this treacherous plant is by destroying the central bud.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Blade Trap",
+      "type": "skill",
+      "_id": "bladetrap0000000",
+      "system": {
+        "description": {
+          "value": "<p>Death Grass attacks anything in range (all characters in the Front Area in battle). This attack deals d6 damage, is impossible to dodge and needs no Accuracy Check.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081635,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!deathgrass000000.bladetrap0000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

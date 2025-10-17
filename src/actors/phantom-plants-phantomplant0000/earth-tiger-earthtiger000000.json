@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A type of mold that lives in very arid terrain. It reacts violently to moisture, and seems to grow exponentially on contact with water. When it dries out, it lays dormant until exposed to water again. If the desiccated remains of a traveler are found, chances are that an Earth Tiger is sleeping nearby.</p>",
-      "special": {
-        "name": "Water Vampirism",
-        "value": "<p>Any characters that are successfully hit by an Earth Tiger attack lose d6 rations of water from water skins or barrels in the area.</p>"
-      }
+      "value": "<p>A type of mold that lives in very arid terrain. It reacts violently to moisture, and seems to grow exponentially on contact with water. When it dries out, it lays dormant until exposed to water again. If the desiccated remains of a traveler are found, chances are that an Earth Tiger is sleeping nearby.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Water Vampirism",
+      "type": "skill",
+      "_id": "watervampirism00",
+      "system": {
+        "description": {
+          "value": "<p>Any characters that are successfully hit by an Earth Tiger attack lose d6 rations of water from water skins or barrels in the area.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081641,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!earthtiger000000.watervampirism00"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

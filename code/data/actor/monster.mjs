@@ -1,6 +1,6 @@
 import CreatureData from "./templates/creature.mjs";
 
-const { HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
 export default class MonsterData extends CreatureData {
   /** @override */
@@ -12,10 +12,6 @@ export default class MonsterData extends CreatureData {
       }),
       description: new SchemaField({
         value: new HTMLField(),
-        special: new SchemaField({
-          value: new HTMLField(),
-          name: new StringField({ required: true }),
-        }),
       }),
       details: new SchemaField({
         category: new StringField({

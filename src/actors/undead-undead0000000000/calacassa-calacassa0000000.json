@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>When someone throws away an item that has been used for a long time, the item may awaken with a mind of its own. One of the more common of these undead creatures is the Calacassa, an awakened umbrella. It is said that there are 919 gods that inhabit items that have been carelessly and disrespectfully discarded.</p>",
-      "special": {
-        "name": "",
-        "value": ""
-      }
+      "value": "<p>When someone throws away an item that has been used for a long time, the item may awaken with a mind of its own. One of the more common of these undead creatures is the Calacassa, an awakened umbrella. It is said that there are 919 gods that inhabit items that have been carelessly and disrespectfully discarded.</p>"
     },
     "defense": {
       "armor": null,

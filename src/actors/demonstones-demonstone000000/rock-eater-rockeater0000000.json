@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A large, rock-eating giant. Because it does not eat flesh, it poses no direct threat to humans, but travelers may be put at risk by the violence of their movements while feeding.</p>",
-      "special": {
-        "name": "",
-        "value": ""
-      }
+      "value": "<p>A large, rock-eating giant. Because it does not eat flesh, it poses no direct threat to humans, but travelers may be put at risk by the violence of their movements while feeding.</p>"
     },
     "defense": {
       "armor": null,

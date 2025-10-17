@@ -55,11 +55,7 @@
       "damage": "@stats.spirit"
     },
     "description": {
-      "value": "<p>A sliver of rock that fell from a place beyond the moon and stars. At first it looks just like a normal hunk of iron, but actually it has a powerful intellect and can communicate with humans via telepathy. Used to make incredible weapons and armor, the weapons used by famous heroes are invariably made of meteoric iron.</p>",
-      "special": {
-        "name": "Star’s Blessing",
-        "value": "<p>Meteoric Iron always receives a +1 bonus to both Initiative and Condition (included in its stats); any item made of this iron receives the same. Any armor made from this becomes a “plus 1” armor.</p>"
-      }
+      "value": "<p>A sliver of rock that fell from a place beyond the moon and stars. At first it looks just like a normal hunk of iron, but actually it has a powerful intellect and can communicate with humans via telepathy. Used to make incredible weapons and armor, the weapons used by famous heroes are invariably made of meteoric iron.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Star's Blessing",
+      "type": "skill",
+      "_id": "starsblessing000",
+      "system": {
+        "description": {
+          "value": "<p>Meteoric Iron always receives a +1 bonus to both Initiative and Condition (included in its stats); any item made of this iron receives the same. Any armor made from this becomes a “plus 1” armor.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081679,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!meteoriciron0000.starsblessing000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

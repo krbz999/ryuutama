@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 8,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A curious beast with the heads of a lion, ram and a snake. They are cruel, and will hunt and kill prey even when not hungry. It was initially thought that they were created by sorcery, but modern studies indicate that they are, in fact, just another species of animal.</p>",
-      "special": {
-        "name": "Fire Breath",
-        "value": "<p>The lion head breathes a blue-hot flame, with Accuracy [d10+d10] and Damage [d10], targeting an entire area.</p>"
-      }
+      "value": "<p>A curious beast with the heads of a lion, ram and a snake. They are cruel, and will hunt and kill prey even when not hungry. It was initially thought that they were created by sorcery, but modern studies indicate that they are, in fact, just another species of animal.</p>"
     },
     "defense": {
-      "armor": 1
+      "armor": 1,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Chimaera",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Fire Breath",
+      "type": "skill",
+      "_id": "firebreath000000",
+      "system": {
+        "description": {
+          "value": "<p>The lion head breathes a blue-hot flame, with Accuracy [d10+d10] and Damage [d10], targeting an entire area.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081631,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!chimaera00000000.firebreath000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

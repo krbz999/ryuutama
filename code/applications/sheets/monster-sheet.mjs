@@ -15,6 +15,10 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
       template: "systems/ryuutama/templates/sheets/monster-sheet/attributes.hbs",
       classes: ["tab", "standard-form", "scrollable"],
     },
+    skills: {
+      template: "systems/ryuutama/templates/sheets/monster-sheet/skills.hbs",
+      classes: ["tab", "standard-form", "scrollable"],
+    },
     details: {
       template: "systems/ryuutama/templates/sheets/monster-sheet/details.hbs",
       classes: ["tab", "standard-form", "scrollable"],
@@ -28,6 +32,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
     primary: {
       tabs: [
         { id: "attributes" },
+        { id: "skills" },
         { id: "details" },
       ],
       initial: "attributes",
@@ -57,6 +62,24 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
 
     // Tags.
     context.tags = this.#prepareTags();
+
+    // Skills (Special Abilities).
+    context.skills = [];
+    for (const skill of this.document.items.documentsByType.skill) {
+      context.skills.push({ document: skill });
+    }
+    context.specialAbility = {
+      item: this.document.items
+        .get(this.document.getFlag(ryuutama.id, "specialAbility"))
+        ?? context.skills[0]?.document,
+    };
+    if (context.specialAbility.item) {
+      const item = context.specialAbility.item;
+      context.specialAbility.description = await CONFIG.ux.TextEditor.enrichHTML(
+        item.system.description.value,
+        { rollData: item.getRollData(), relativeTo: item },
+      );
+    }
 
     return context;
   }

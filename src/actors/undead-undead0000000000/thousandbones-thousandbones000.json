@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>These monsters are born on scenes of great carnage or misery, battlefields where countless bodies have been buried. They are composed of thousands of bones that come together to form a 4-legged beast. It is said that hundreds of suffering souls animate and bind the bones to some evil purpose, destroying anything in its path.</p>",
-      "special": {
-        "name": "Double Attack",
-        "value": "<p>This monster can attack two times in one turn.</p>"
-      }
+      "value": "<p>These monsters are born on scenes of great carnage or misery, battlefields where countless bodies have been buried. They are composed of thousands of bones that come together to form a 4-legged beast. It is said that hundreds of suffering souls animate and bind the bones to some evil purpose, destroying anything in its path.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Double Attack",
+      "type": "skill",
+      "_id": "doubleattack0000",
+      "system": {
+        "description": {
+          "value": "<p>This monster can attack two times in one turn.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081709,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!thousandbones000.doubleattack0000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>Koneko-goblins are used as underlings by Neko-goblins. They look much the same as Neko-goblins, but are smaller and weaker, and are thus often bullied by the larger species. They usually grow to a height of about one meter. They are often much more docile then their larger cousins and sometimes live in and around human settlements. They always keep a small pot on their heads to carry items, called a top-pot. They have an annoying habit of ending their sentences with “Gobunya~!”</p>",
-      "special": {
-        "name": "Cat People",
-        "value": "<p>They are born hunters, with eyes that can see at night and noses that never forget a scent. They can use and equip items, too.</p>"
-      }
+      "value": "<p>Koneko-goblins are used as underlings by Neko-goblins. They look much the same as Neko-goblins, but are smaller and weaker, and are thus often bullied by the larger species. They usually grow to a height of about one meter. They are often much more docile then their larger cousins and sometimes live in and around human settlements. They always keep a small pot on their heads to carry items, called a top-pot. They have an annoying habit of ending their sentences with “Gobunya~!”</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Cat People",
+      "type": "skill",
+      "_id": "catpeople0000000",
+      "system": {
+        "description": {
+          "value": "<p>They are born hunters, with eyes that can see at night and noses that never forget a scent. They can use and equip items, too.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081668,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!konekogoblin0000.catpeople0000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

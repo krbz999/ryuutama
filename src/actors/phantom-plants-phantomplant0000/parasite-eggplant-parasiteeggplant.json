@@ -55,11 +55,7 @@
       "damage": "1d10"
     },
     "description": {
-      "value": "<p>A parasitic eggplant that draws nutrients from its host animal. The host, in turn, benefits from a boost in their abilities, causing some people to go out of their way to become infested. The plant’s seed is exceedingly rare, so many soldiers go out of their way to hunt it down.</p>",
-      "special": {
-        "name": "Parasite",
-        "value": "<p>The being that is hosting the parasite eggplant gains Max HP and MP +10, as well as a +1 bonus to Initiative, Condition, and Defense Points for as long as the eggplant is attached.</p>"
-      }
+      "value": "<p>A parasitic eggplant that draws nutrients from its host animal. The host, in turn, benefits from a boost in their abilities, causing some people to go out of their way to become infested. The plant's seed is exceedingly rare, so many soldiers go out of their way to hunt it down.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Parasite",
+      "type": "skill",
+      "_id": "parasite00000000",
+      "system": {
+        "description": {
+          "value": "<p>The being that is hosting the parasite eggplant gains Max HP and MP +10, as well as a +1 bonus to Initiative, Condition, and Defense Points for as long as the eggplant is attached.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081691,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!parasiteeggplant.parasite00000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

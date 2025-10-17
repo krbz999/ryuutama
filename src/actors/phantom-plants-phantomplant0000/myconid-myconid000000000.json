@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A type of sapient mushroom that is able to move around on its own. It looks like a giant mushroom with an umbrella-like cap that can grow a meter wide. Myconid live in humid climes, in and around trees. They communicate telepathically and sometimes trade with travelers.</p>",
-      "special": {
-        "name": "",
-        "value": ""
-      }
+      "value": "<p>A type of sapient mushroom that is able to move around on its own. It looks like a giant mushroom with an umbrella-like cap that can grow a meter wide. Myconid live in humid climes, in and around trees. They communicate telepathically and sometimes trade with travelers.</p>"
     },
     "defense": {
       "armor": null,

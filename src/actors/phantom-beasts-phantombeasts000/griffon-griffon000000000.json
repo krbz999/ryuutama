@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 5,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A beast with the head and wings of a hawk and the body of a lion.</p>",
-      "special": {
-        "name": "Double Attack",
-        "value": "<p>This monster can attack two times in one turn.</p>"
-      }
+      "value": "<p>A beast with the head and wings of a hawk and the body of a lion.</p>"
     },
     "defense": {
-      "armor": 0
+      "armor": 0,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Griffon",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Double Attack",
+      "type": "skill",
+      "_id": "doubleattack0000",
+      "system": {
+        "description": {
+          "value": "<p>This monster can attack two times in one turn.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081655,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!griffon000000000.doubleattack0000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

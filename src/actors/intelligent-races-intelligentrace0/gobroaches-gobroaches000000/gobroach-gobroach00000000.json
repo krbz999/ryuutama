@@ -55,11 +55,7 @@
       "damage": "@stats.strength + 1"
     },
     "description": {
-      "value": "<p>The only thing that gobroaches enjoy is filth, so they are consumed with corrupting the world. They usually live underground but may venture above ground to attack a human settlement, in order to dirty it up. Though they look like disgusting black-carapaced insects, powerful gobroaches are said to have the power to change into human form, so that they can enter and pollute human cities.</p>",
-      "special": {
-        "name": "Double Attack",
-        "value": "<p>This monster can attack two times in 1 round.</p>"
-      }
+      "value": "<p>The only thing that gobroaches enjoy is filth, so they are consumed with corrupting the world. They usually live underground but may venture above ground to attack a human settlement, in order to dirty it up. Though they look like disgusting black-carapaced insects, powerful gobroaches are said to have the power to change into human form, so that they can enter and pollute human cities.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Double Attack",
+      "type": "skill",
+      "_id": "doubleattack0000",
+      "system": {
+        "description": {
+          "value": "<p>This monster can attack two times in 1 round.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081653,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!gobroach00000000.doubleattack0000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

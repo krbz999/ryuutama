@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>The animated corpse of an otherwise dead creature, given unlife by a curse, black magic, or some other necromantic energy. Shambling corpses with most of their flesh intact are known as “zombies”, while corpses that have been stripped to the bone are called “skeletons”. Skeletons are much more nimble than zombies and are able to use swords and shields. Their intellect, though dim, makes them a fearsome opponent.</p>",
-      "special": {
-        "name": "",
-        "value": ""
-      }
+      "value": "<p>The animated corpse of an otherwise dead creature, given unlife by a curse, black magic, or some other necromantic energy. Shambling corpses with most of their flesh intact are known as “zombies”, while corpses that have been stripped to the bone are called “skeletons”. Skeletons are much more nimble than zombies and are able to use swords and shields. Their intellect, though dim, makes them a fearsome opponent.</p>"
     },
     "defense": {
       "armor": null,

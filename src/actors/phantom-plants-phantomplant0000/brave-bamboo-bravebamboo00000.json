@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>In large bamboo deep forests, one in several tens of thousands of bamboo develop into a Brave Bamboo. These mysterious bamboo trees become mobile and move around bamboo groves on their own. It is said that Brave Bamboo have different items inside them, depending on who defeats them. Due to this legend, there is no end to those who would hunt Brave Bamboo. It is said that a barren couple that wanted a child very badly found a treasure inside one--a baby who went on to be a legend.</p>",
-      "special": {
-        "name": "Bamboo of Anger",
-        "value": "<p>The Brave Bamboo may, in addition to its normal attacks, also cast the magic spell Kaguya Leylance (from the Spring magic list) twice per combat.</p>"
-      }
+      "value": "<p>In large bamboo deep forests, one in several tens of thousands of bamboo develop into a Brave Bamboo. These mysterious bamboo trees become mobile and move around bamboo groves on their own. It is said that Brave Bamboo have different items inside them, depending on who defeats them. Due to this legend, there is no end to those who would hunt Brave Bamboo. It is said that a barren couple that wanted a child very badly found a treasure inside one--a baby who went on to be a legend.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Bamboo of Anger",
+      "type": "skill",
+      "_id": "bambooofanger000",
+      "system": {
+        "description": {
+          "value": "<p>The Brave Bamboo may, in addition to its normal attacks, also cast the magic spell Kaguya Leylance (from the Spring magic list) twice per combat.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081626,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!bravebamboo00000.bambooofanger000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A large plant with huge flowers that thrives in hot, humid areas. It secretes an intoxicating scent that draws prey into its flower, which then closes on its prey, trapping it. The Charming Rafflesia digests its victim slowly, drawing nutrients from its flesh, but cannot digest metallic objects, which it instead spits out after the rest of the victim is digested.</p>",
-      "special": {
-        "name": "Charming Aroma",
-        "value": "<p>At the beginning of battle, everybody involved in the battle except the Charming Rafflesia must succeed on a [SPI+SPI] with a target number of 7, or suffer [Muddled: 6].</p>"
-      }
+      "value": "<p>A large plant with huge flowers that thrives in hot, humid areas. It secretes an intoxicating scent that draws prey into its flower, which then closes on its prey, trapping it. The Charming Rafflesia digests its victim slowly, drawing nutrients from its flesh, but cannot digest metallic objects, which it instead spits out after the rest of the victim is digested.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Charming Aroma",
+      "type": "skill",
+      "_id": "charmingaroma000",
+      "system": {
+        "description": {
+          "value": "<p>At the beginning of battle, everybody involved in the battle except the Charming Rafflesia must succeed on a [SPI+SPI] with a target number of 7, or suffer [Muddled: 6].</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081629,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!charmingrafflesi.charmingaroma000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

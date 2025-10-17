@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>Armor-clad wandering souls of ancient warriors. Most Dulahans are headless, having lost them in battle. It is said that Dulahans do not realize that they have already died, and thus they continue their fight, forever... though it seems that this is not always true.</p>",
-      "special": {
-        "name": "Blade of Magic",
-        "value": "<p>A Dulahan can attack 3 opponents at once with a single accuracy roll. Also, anyone hit by a Dulahan suffers [Sick:8]. This effect can’t be cured until the Dulahan is defeated.</p>"
-      }
+      "value": "<p>Armor-clad wandering souls of ancient warriors. Most Dulahans are headless, having lost them in battle. It is said that Dulahans do not realize that they have already died, and thus they continue their fight, forever... though it seems that this is not always true.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Blade of Magic",
+      "type": "skill",
+      "_id": "bladeofmagic0000",
+      "system": {
+        "description": {
+          "value": "<p>A Dulahan can attack 3 opponents at once with a single accuracy roll. Also, anyone hit by a Dulahan suffers [Sick:8]. This effect can't be cured until the Dulahan is defeated.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081639,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!dulahan000000000.bladeofmagic0000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

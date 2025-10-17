@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 8,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>Though it appears as a large rolling ball of bits of plant matter, these several-meter-large spheres are actually created by and filled with a large number of small rats. Because the rats can't see from within the ball, they will attack the source of any loud noises.</p>",
-      "special": {
-        "name": "Rolling Attack",
-        "value": "<p>When attacking, the Tumbling Nest randomly attacks one character in the Front Area and one character in the Back Area.</p>"
-      }
+      "value": "<p>Though it appears as a large rolling ball of bits of plant matter, these several-meter-large spheres are actually created by and filled with a large number of small rats. Because the rats can't see from within the ball, they will attack the source of any loud noises.</p>"
     },
     "defense": {
-      "armor": 1
+      "armor": 1,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Tumbling Nest",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Rolling Attack",
+      "type": "skill",
+      "_id": "rollingattack000",
+      "system": {
+        "description": {
+          "value": "<p>When attacking, the Tumbling Nest randomly attacks one character in the Front Area and one character in the Back Area.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081711,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!tumblingnest0000.rollingattack000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

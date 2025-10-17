@@ -55,11 +55,7 @@
       "damage": "@stats.strength + 2"
     },
     "description": {
-      "value": "<p>The most powerful of all gobroaches. These gobroaches love filth so much that they exposed themselves to contaminated materials, causing a sudden change in their bodies and granting them immense power. These radioactive gobroaches have concealed the source of their contaminated power, allowing them to rule over all of gobroach kind.</p>",
-      "special": {
-        "name": "Nuclear Summer",
-        "value": "<p>Radioactive Gobroaches are able magicians and have access to all Summer magic.</p>"
-      }
+      "value": "<p>The most powerful of all gobroaches. These gobroaches love filth so much that they exposed themselves to contaminated materials, causing a sudden change in their bodies and granting them immense power. These radioactive gobroaches have concealed the source of their contaminated power, allowing them to rule over all of gobroach kind.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Nuclear Summer",
+      "type": "skill",
+      "_id": "nuclearsummer000",
+      "system": {
+        "description": {
+          "value": "<p>Radioactive Gobroaches are able magicians and have access to all Summer magic.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081697,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!radioactivegobro.nuclearsummer000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

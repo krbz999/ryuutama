@@ -55,11 +55,7 @@
       "damage": "@stats.spirit"
     },
     "description": {
-      "value": "<p>A crystal found deep in the back of caves that can be tens of meters high. Once every number of years, the entire crystal vibrates, producing an incredibly beautiful melody. It is said that this sound is the accumulation of all the sounds from things above ground over a long period of time. Those that hear the sound feel it resonate within, and swear that they themselves are becoming one with the world.</p>",
-      "special": {
-        "name": "Music of the Earth",
-        "value": "<p>All that hear the melody created by the Symphonic Crystal gain a permanent +1 to Condition.</p>"
-      }
+      "value": "<p>A crystal found deep in the back of caves that can be tens of meters high. Once every number of years, the entire crystal vibrates, producing an incredibly beautiful melody. It is said that this sound is the accumulation of all the sounds from things above ground over a long period of time. Those that hear the sound feel it resonate within, and swear that they themselves are becoming one with the world.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Music of the Earth",
+      "type": "skill",
+      "_id": "musicoftheearth0",
+      "system": {
+        "description": {
+          "value": "<p>All that hear the melody created by the Symphonic Crystal gain a permanent +1 to Condition.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081707,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!symphoniccrystal.musicoftheearth0"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

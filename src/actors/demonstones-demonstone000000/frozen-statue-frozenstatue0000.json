@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>Sometimes a living being may be frozen to death by a magical frost, creating a Frozen Statue, which looks like a sleeping creature encased in ice. Although they retain the intelligence and abilities of the original being, they are incapable of reason, making them incredibly dangerous.</p>",
-      "special": {
-        "name": "Magical Ice Storm",
-        "value": "<p>Any characters killed by this attack are encased in ice. This attack targets all areas with Accuracy [d8+d8] damage [d8].</p>"
-      }
+      "value": "<p>Sometimes a living being may be frozen to death by a magical frost, creating a Frozen Statue, which looks like a sleeping creature encased in ice. Although they retain the intelligence and abilities of the original being, they are incapable of reason, making them incredibly dangerous.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Magical Ice Storm",
+      "type": "skill",
+      "_id": "magicalicestorm0",
+      "system": {
+        "description": {
+          "value": "<p>Any characters killed by this attack are encased in ice. This attack targets all areas with Accuracy [d8+d8] damage [d8].</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081648,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!frozenstatue0000.magicalicestorm0"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

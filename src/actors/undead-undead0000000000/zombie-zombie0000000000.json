@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>The animated corpse of an otherwise dead creature, given unlife by a curse, black magic, or some other necromantic energy. Shambling corpses with most of their flesh intact are known as “zombies”, while corpses that have been stripped to the bone are called “skeletons”. Zombies are much clumsier than skeletons, but their ability to ignore pain and damage makes them a threat.</p>",
-      "special": {
-        "name": "",
-        "value": ""
-      }
+      "value": "<p>The animated corpse of an otherwise dead creature, given unlife by a curse, black magic, or some other necromantic energy. Shambling corpses with most of their flesh intact are known as “zombies”, while corpses that have been stripped to the bone are called “skeletons”. Zombies are much clumsier than skeletons, but their ability to ignore pain and damage makes them a threat.</p>"
     },
     "defense": {
       "armor": null,

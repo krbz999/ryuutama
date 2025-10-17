@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A large palm tree that primarily grows in arid areas. Its leaves and fronds are used to make many household goods, but it has a powerful defensive mechanism in the form of a number of egg-sized seeds that explode if touched.</p>",
-      "special": {
-        "name": "Seed Shooter",
-        "value": "<p>This monster can attack either the Front Area or the Back Area with Accuracy [d6+d6] and damage [d6].</p>"
-      }
+      "value": "<p>A large palm tree that primarily grows in arid areas. Its leaves and fronds are used to make many household goods, but it has a powerful defensive mechanism in the form of a number of egg-sized seeds that explode if touched.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Seed Shooter",
+      "type": "skill",
+      "_id": "seedshooter00000",
+      "system": {
+        "description": {
+          "value": "<p>This monster can attack either the Front Area or the Back Area with Accuracy [d6+d6] and damage [d6].</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081687,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!napalmpalm000000.seedshooter00000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

@@ -55,11 +55,7 @@
       "damage": "@stats.spirit"
     },
     "description": {
-      "value": "<p>A sorcerer who presumed to seek immortality in undeath. Stories say that the ritual used to return the soul to the spellcaster’s body does so imperfectly, damaging the soul in the process. A lich loses most of his living personality and becomes greedy and egotistical. Legends claim that the lich “Seleb” is the king of the undead.</p>",
-      "special": {
-        "name": "Magician of Hades",
-        "value": "<p>A lich has access to all Summer spells.</p>"
-      }
+      "value": "<p>A sorcerer who presumed to seek immortality in undeath. Stories say that the ritual used to return the soul to the spellcaster's body does so imperfectly, damaging the soul in the process. A lich loses most of his living personality and becomes greedy and egotistical. Legends claim that the lich “Seleb” is the king of the undead.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Magician of Hades",
+      "type": "skill",
+      "_id": "magicianofhades0",
+      "system": {
+        "description": {
+          "value": "<p>A lich has access to all Summer spells.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081672,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!lich000000000000.magicianofhades0"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

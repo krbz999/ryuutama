@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A type of man-made undead that is often found buried near ancient ruins. The corpse of the mummy has been treated with forgotten mix of herbs and potions, creating a type of eternal life but at the cost of eternal subservience to its creator. Unlike zombies and skeletons, mummies keep most of their intelligence. In ancient times, they were used as slaves and guards, but the rites used in their creation have long been forgotten.</p>",
-      "special": {
-        "name": "Cursed Palm",
-        "value": "<p>When a character is hit by a Mummy’s attack, any damage is applied to both HP and MP.</p>"
-      }
+      "value": "<p>A type of man-made undead that is often found buried near ancient ruins. The corpse of the mummy has been treated with forgotten mix of herbs and potions, creating a type of eternal life but at the cost of eternal subservience to its creator. Unlike zombies and skeletons, mummies keep most of their intelligence. In ancient times, they were used as slaves and guards, but the rites used in their creation have long been forgotten.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Cursed Palm",
+      "type": "skill",
+      "_id": "cursedpalm000000",
+      "system": {
+        "description": {
+          "value": "<p>When a character is hit by a Mummy's attack, any damage is applied to both HP and MP.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081685,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!mummy00000000000.cursedpalm000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

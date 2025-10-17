@@ -85,7 +85,8 @@
           "edit": "Edit Item",
           "delete": "Delete Item",
           "equip": "Equip Item",
-          "unequip": "Unequip Item"
+          "unequip": "Unequip Item",
+          "assignSpecialAbility": "Special Ability"
         }
       },
       "TAGS": {

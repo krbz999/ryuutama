@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A type of rose. In order to bloom, it requires the blood of animals, which it takes by wrapping its victims in its thorny brambles. It is said that if a Tyrant Rose manages to suck the blood of one hundred animals, the world’s most beautiful rose will blossom.</p>",
-      "special": {
-        "name": "Vampirism",
-        "value": "<p>Each time this monster successfully attacks a character, it gains 3 HP.</p>"
-      }
+      "value": "<p>A type of rose. In order to bloom, it requires the blood of animals, which it takes by wrapping its victims in its thorny brambles. It is said that if a Tyrant Rose manages to suck the blood of one hundred animals, the world's most beautiful rose will blossom.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Vampirism",
+      "type": "skill",
+      "_id": "vampirism0000000",
+      "system": {
+        "description": {
+          "value": "<p>Each time this monster successfully attacks a character, it gains 3 HP.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081713,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!tyrantrose000000.vampirism0000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

@@ -31,18 +31,17 @@
     },
     "condition": {
       "value": 4,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "attack": {
       "accuracy": "",
       "damage": ""
     },
     "description": {
-      "value": "<p>These bees can grow to be as large as a human and live in hives dug into rocky ground. Their honey is so highly prized that some hunters specialize in procuring it. It is incredibly dangerous to do so, but a single harvest of their honey is worth enough for an entire family to live off of for an entire year.</p>",
-      "special": {
-        "name": "Poison Stinger",
-        "value": "<p>When a character is damaged by a Speckled Bee attack, they take an additional d6 damage that is not mitigated by Defense Points.</p>"
-      }
+      "value": "<p>These bees can grow to be as large as a human and live in hives dug into rocky ground. Their honey is so highly prized that some hunters specialize in procuring it. It is incredibly dangerous to do so, but a single harvest of their honey is worth enough for an entire family to live off of for an entire year.</p>"
     },
     "abilities": {
       "strength": {
@@ -59,7 +58,11 @@
       }
     },
     "defense": {
-      "armor": 0
+      "armor": 0,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Speckled Bee",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Poison Stinger",
+      "type": "skill",
+      "_id": "poisonstinger000",
+      "system": {
+        "description": {
+          "value": "<p>When a character is damaged by a Speckled Bee attack, they take an additional d6 damage that is not mitigated by Defense Points.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081705,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!speckledbee00000.poisonstinger000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

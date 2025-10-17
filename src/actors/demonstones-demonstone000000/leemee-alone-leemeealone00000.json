@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A giant made completely of gold. The giant is said to be warm-hearted and willing to help troubled travelers in need, but over the years treasure-hungry adventurers have hunted it down for its gold. The giant now yearns for a solitary life.</p>",
-      "special": {
-        "name": "",
-        "value": ""
-      }
+      "value": "<p>A giant made completely of gold. The giant is said to be warm-hearted and willing to help troubled travelers in need, but over the years treasure-hungry adventurers have hunted it down for its gold. The giant now yearns for a solitary life.</p>"
     },
     "defense": {
       "armor": null,

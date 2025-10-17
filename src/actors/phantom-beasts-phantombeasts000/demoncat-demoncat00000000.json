@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 6,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A large grey cat (up to three meters long) with two tails and possessed of a burning hatred for humans; it is said that long ago, they were placed by a god to guard a certain artifact, but when a man stole it, they turned against humans forever.</p>",
-      "special": {
-        "name": "Boisterous Dance",
-        "value": "<p>Due to their multitude of tails, fangs and claws, Demoncats roll damage on successful attacks two times, taking the best result. Also, they may use two objects at once.</p>"
-      }
+      "value": "<p>A large grey cat (up to three meters long) with two tails and possessed of a burning hatred for humans; it is said that long ago, they were placed by a god to guard a certain artifact, but when a man stole it, they turned against humans forever.</p>"
     },
     "defense": {
-      "armor": 3
+      "armor": 3,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Demoncat",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Boisterous Dance",
+      "type": "skill",
+      "_id": "boisterousdance0",
+      "system": {
+        "description": {
+          "value": "<p>Due to their multitude of tails, fangs and claws, Demoncats roll damage on successful attacks two times, taking the best result. Also, they may use two objects at once.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081637,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!demoncat00000000.boisterousdance0"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

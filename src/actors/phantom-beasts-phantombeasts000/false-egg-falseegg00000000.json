@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 6,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A crab that can disguise itself as a large egg. It tends to stay still for long periods of time, but hunts its prey by putting its large claws together over its body, creating a smooth egg-like shape. If you find an unattended egg, you should approach with extreme caution.</p>",
-      "special": {
-        "name": "Egg-like",
-        "value": "<p>If you aren't careful, a false egg will catch you unawares with its attack. At the beginning of combat, characters must roll a [INT + INT] check. Any character that fails receives a -2 penalty to Initiative.</p>"
-      }
+      "value": "<p>A crab that can disguise itself as a large egg. It tends to stay still for long periods of time, but hunts its prey by putting its large claws together over its body, creating a smooth egg-like shape. If you find an unattended egg, you should approach with extreme caution.</p>"
     },
     "defense": {
-      "armor": 0
+      "armor": 0,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "False Egg",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Egg-like",
+      "type": "skill",
+      "_id": "egglike000000000",
+      "system": {
+        "description": {
+          "value": "<p>If you aren't careful, a false egg will catch you unawares with its attack. At the beginning of combat, characters must roll a [INT + INT] check. Any character that fails receives a -2 penalty to Initiative.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081643,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!falseegg00000000.egglike000000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>Though Neko-goblins (or Nekogoblins) have the word goblin in their name, they have nothing to do with the goblins of other universes. They resemble upright-walking cats, and have personalities to match. They grow to a height of one-hundred thirty centimeters. They keep a top-pot on their head at all times and fill it with important items as they travel the world. They sometimes meddle with and/or trade with humans. Depending on the region, they may wear things on their heads other than pots. They often cry “Gobunya!”</p>",
-      "special": {
-        "name": "Cat People",
-        "value": "<p>They are born hunters, with eyes that can see at night and noses that never forget a scent. They can use and equip items, too.</p>"
-      }
+      "value": "<p>Though Neko-goblins (or Nekogoblins) have the word goblin in their name, they have nothing to do with the goblins of other universes. They resemble upright-walking cats, and have personalities to match. They grow to a height of one-hundred thirty centimeters. They keep a top-pot on their head at all times and fill it with important items as they travel the world. They sometimes meddle with and/or trade with humans. Depending on the region, they may wear things on their heads other than pots. They often cry “Gobunya!”</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Cat People",
+      "type": "skill",
+      "_id": "catpeople0000000",
+      "system": {
+        "description": {
+          "value": "<p>They are born hunters, with eyes that can see at night and noses that never forget a scent. They can use and equip items, too.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081689,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!nekogoblin000000.catpeople0000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

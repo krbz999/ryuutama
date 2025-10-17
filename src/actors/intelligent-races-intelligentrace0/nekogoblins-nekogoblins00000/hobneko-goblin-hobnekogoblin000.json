@@ -55,11 +55,7 @@
       "damage": "@stats.strength + 1"
     },
     "description": {
-      "value": "<p>Hobneko-goblins are said to be a close cousin to the Neko-goblins. Though they are generally larger than Neko Goblins, they share the same easy-going attitude. However, they are said surpass humans at hunting and so are often used by warring nations as mercenaries. Their top-pots are larger than their smaller cousins and are often filled with weapons. They are often heard crying, “Hobunya!”</p>",
-      "special": {
-        "name": "Cat People",
-        "value": "<p>They are born hunters, with eyes that can see at night and noses that never forget a scent. They can use and equip items, too.</p>"
-      }
+      "value": "<p>Hobneko-goblins are said to be a close cousin to the Neko-goblins. Though they are generally larger than Neko Goblins, they share the same easy-going attitude. However, they are said surpass humans at hunting and so are often used by warring nations as mercenaries. Their top-pots are larger than their smaller cousins and are often filled with weapons. They are often heard crying, “Hobunya!”</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Cat People",
+      "type": "skill",
+      "_id": "catpeople0000000",
+      "system": {
+        "description": {
+          "value": "<p>They are born hunters, with eyes that can see at night and noses that never forget a scent. They can use and equip items, too.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081662,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!hobnekogoblin000.catpeople0000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

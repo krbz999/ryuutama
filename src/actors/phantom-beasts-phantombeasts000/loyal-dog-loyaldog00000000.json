@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 5,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>One in ten thousand dogs is born with a special gift. Though they look like any other dog, these dogs are incredibly smart. It is said that these dogs understand and may even speak human languages. Their loyalty drives them to keep their owners from danger. Are you sure your faithful companion there isn't one of these Loyal Dogs?</p>",
-      "special": {
-        "name": "Bond",
-        "value": "<p>When the Loyal Dog's master takes damage, the Loyal Dog can reduce the damage taken to 0, once per combat.</p>"
-      }
+      "value": "<p>One in ten thousand dogs is born with a special gift. Though they look like any other dog, these dogs are incredibly smart. It is said that these dogs understand and may even speak human languages. Their loyalty drives them to keep their owners from danger. Are you sure your faithful companion there isn't one of these Loyal Dogs?</p>"
     },
     "defense": {
-      "armor": 0
+      "armor": 0,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Loyal Dog",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Bond",
+      "type": "skill",
+      "_id": "bond000000000000",
+      "system": {
+        "description": {
+          "value": "<p>When the Loyal Dog's master takes damage, the Loyal Dog can reduce the damage taken to 0, once per combat.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081677,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!loyaldog00000000.bond000000000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

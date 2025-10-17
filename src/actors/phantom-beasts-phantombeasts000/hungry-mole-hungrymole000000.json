@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 6,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A large mole (up to 4 meters long) that lives underground. This black and silver creature must eat its weight in food everyday, and will die if it goes half a day without food.</p>",
-      "special": {
-        "name": "Burrow",
-        "value": "<p>When a Hungry Mole attacks from underground, its target receives -1 to Initiative.</p>"
-      }
+      "value": "<p>A large mole (up to 4 meters long) that lives underground. This black and silver creature must eat its weight in food everyday, and will die if it goes half a day without food.</p>"
     },
     "defense": {
-      "armor": 0
+      "armor": 0,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Hungry Mole",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Burrow",
+      "type": "skill",
+      "_id": "burrow0000000000",
+      "system": {
+        "description": {
+          "value": "<p>When a Hungry Mole attacks from underground, its target receives -1 to Initiative.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081664,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!hungrymole000000.burrow0000000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

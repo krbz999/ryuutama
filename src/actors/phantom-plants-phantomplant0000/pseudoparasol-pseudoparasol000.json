@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A type of giant pitcher plant. Unlike other pitcher plants, most of the plant is underground. It keeps itself closed until it rains, then opens itself up for prey to enter in search of protection from the rain. Once within the pitcher, the prey is rapidly dissolved by the plant’s potent digestive fluid. However, there is a type of insect that secretes a special substances that neutralizes the fluid, allowing the insect to live within the plant. It is said that certain tribes have learned to use this substance to live inside of PseudoParasols.</p>",
-      "special": {
-        "name": "Inner Prison",
-        "value": "<p>Any character hit by a PseudoParasol attack is sucked inside of its body. Once inside the body, they can’t be targeted by magic.</p>"
-      }
+      "value": "<p>A type of giant pitcher plant. Unlike other pitcher plants, most of the plant is underground. It keeps itself closed until it rains, then opens itself up for prey to enter in search of protection from the rain. Once within the pitcher, the prey is rapidly dissolved by the plant's potent digestive fluid. However, there is a type of insect that secretes a special substances that neutralizes the fluid, allowing the insect to live within the plant. It is said that certain tribes have learned to use this substance to live inside of PseudoParasols.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Inner Prison",
+      "type": "skill",
+      "_id": "innerprison00000",
+      "system": {
+        "description": {
+          "value": "<p>Any character hit by a PseudoParasol attack is sucked inside of its body. Once inside the body, they can't be targeted by magic.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081695,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!pseudoparasol000.innerprison00000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

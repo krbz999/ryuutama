@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A dead human that has been reanimated using foul, eldritch magic. Vampires keep the same form and intelligence as in life but are imbued with strength and a thirst for the blood of the living. Vampires fear the light of the sun, cannot cross running water, and waste away within days if they do not drink the blood of the living. They also have no reflection, making life among humans so difficult that many vampires choose to live in the form of a wolf. However, many tales speak of vampires that continue to live secretly in the same town they in which they dwelt in life.</p>",
-      "special": {
-        "name": "Undead Aristocracy",
-        "value": "<p>When a vampire successfully attacks a character, the vampire is healed an amount equal to the amount of damage dealt. When a vampire kills a human, the victim rises during the next night as a vampire, loyal to the vampire that killed them.</p>"
-      }
+      "value": "<p>A dead human that has been reanimated using foul, eldritch magic. Vampires keep the same form and intelligence as in life but are imbued with strength and a thirst for the blood of the living. Vampires fear the light of the sun, cannot cross running water, and waste away within days if they do not drink the blood of the living. They also have no reflection, making life among humans so difficult that many vampires choose to live in the form of a wolf. However, many tales speak of vampires that continue to live secretly in the same town they in which they dwelt in life.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Undead Aristocracy",
+      "type": "skill",
+      "_id": "undeadaristocrac",
+      "system": {
+        "description": {
+          "value": "<p>When a vampire successfully attacks a character, the vampire is healed an amount equal to the amount of damage dealt. When a vampire kills a human, the victim rises during the next night as a vampire, loyal to the vampire that killed them.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081717,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!vampire000000000.undeadaristocrac"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

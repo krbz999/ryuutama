@@ -20,7 +20,10 @@
     },
     "condition": {
       "immunities": [],
-      "value": 4
+      "value": 4,
+      "shape": {
+        "high": ""
+      }
     },
     "resources": {
       "mental": {
@@ -45,11 +48,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>These ants are usually found near their hive and can range in size from half a meter to a full three meters in length. Their pincers are typically the length of half their body and are incredibly powerful, able to slice a man in half.</p>",
-      "special": {
-        "value": "",
-        "name": ""
-      }
+      "value": "<p>These ants are usually found near their hive and can range in size from half a meter to a full three meters in length. Their pincers are typically the length of half their body and are incredibly powerful, able to slice a man in half.</p>"
     },
     "details": {
       "category": "phantomBeast",
@@ -63,7 +62,11 @@
       "value": 6
     },
     "defense": {
-      "armor": 1
+      "armor": 1,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "prototypeToken": {

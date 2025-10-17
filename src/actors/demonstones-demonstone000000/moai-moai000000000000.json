@@ -55,11 +55,7 @@
       "damage": "@stats.spirit"
     },
     "description": {
-      "value": "<p>A human face that seems to appear out of sand or rock. Due to their cowardice, they almost never show themselves before humans, but they are known to help travelers in need by moving rocks or sand. They are also known to fight people that destroy rocks. Some towns with many stone buildings revere them as guardian gods.</p>",
-      "special": {
-        "name": "Stoneheart",
-        "value": "<p>With their ability to control stones in its vicinity, Moai can make 3 new objects, but they must be made of sand or stone.</p>"
-      }
+      "value": "<p>A human face that seems to appear out of sand or rock. Due to their cowardice, they almost never show themselves before humans, but they are known to help travelers in need by moving rocks or sand. They are also known to fight people that destroy rocks. Some towns with many stone buildings revere them as guardian gods.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Stoneheart",
+      "type": "skill",
+      "_id": "stoneheart000000",
+      "system": {
+        "description": {
+          "value": "<p>With their ability to control stones in its vicinity, Moai can make 3 new objects, but they must be made of sand or stone.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081683,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!moai000000000000.stoneheart000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

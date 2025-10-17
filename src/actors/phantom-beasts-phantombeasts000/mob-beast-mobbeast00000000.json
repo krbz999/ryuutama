@@ -20,7 +20,10 @@
     },
     "condition": {
       "immunities": [],
-      "value": 3
+      "value": 3,
+      "shape": {
+        "high": ""
+      }
     },
     "resources": {
       "mental": {
@@ -45,11 +48,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>Beasts the size and shape of a small jackal. They are fairly weak alone, but are almost always encountered in large groups. It is said that hordes of tens of thousands of mob beasts have reduced cities to rubble.</p>",
-      "special": {
-        "value": "",
-        "name": ""
-      }
+      "value": "<p>Beasts the size and shape of a small jackal. They are fairly weak alone, but are almost always encountered in large groups. It is said that hordes of tens of thousands of mob beasts have reduced cities to rubble.</p>"
     },
     "details": {
       "category": "phantomBeast",
@@ -63,7 +62,11 @@
       "value": 5
     },
     "defense": {
-      "armor": 0
+      "armor": 0,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "prototypeToken": {

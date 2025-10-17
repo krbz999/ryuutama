@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>Though treated as a single monster, the Halloween March is actually a large number of zombies, skeletons, and other undead monsters moving together to upbeat music. It is said that anyone who sees this parade of the undead in the pale moonlight is drawn to join them. The march continues until it reaches a place the undead have strong memories of. It is known and feared in the East, known as the “Night of 100 demons.”</p>",
-      "special": {
-        "name": "Night of 100 Demons",
-        "value": "<p>The Halloween March may, once per round, use 1 special ability of any other undead monster.</p>"
-      }
+      "value": "<p>Though treated as a single monster, the Halloween March is actually a large number of zombies, skeletons, and other undead monsters moving together to upbeat music. It is said that anyone who sees this parade of the undead in the pale moonlight is drawn to join them. The march continues until it reaches a place the undead have strong memories of. It is known and feared in the East, known as the “Night of 100 demons.”</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Night of 100 Demons",
+      "type": "skill",
+      "_id": "nightof100demons",
+      "system": {
+        "description": {
+          "value": "<p>The Halloween March may, once per round, use 1 special ability of any other undead monster.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081658,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!halloweenmarch00.nightof100demons"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 7,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A cow that lives at the shallows of the sea. As no males of their species exist, sometimes a Milk Maid will take human form to visit human villages, thinking to leave a child in town. Their milk is said to be highly valuable for treating various illnesses.</p>",
-      "special": {
-        "name": "Wishcow",
-        "value": "<p>A Milk Maid can take the form of a human female, but must bathe in sea water at least once per day.</p>"
-      }
+      "value": "<p>A cow that lives at the shallows of the sea. As no males of their species exist, sometimes a Milk Maid will take human form to visit human villages, thinking to leave a child in town. Their milk is said to be highly valuable for treating various illnesses.</p>"
     },
     "defense": {
-      "armor": 0
+      "armor": 0,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Milk Maid",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Wishcow",
+      "type": "skill",
+      "_id": "wishcow000000000",
+      "system": {
+        "description": {
+          "value": "<p>A Milk Maid can take the form of a human female, but must bathe in sea water at least once per day.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081681,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!milkmaid00000000.wishcow000000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

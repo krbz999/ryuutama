@@ -55,11 +55,7 @@
       "damage": "1d12"
     },
     "description": {
-      "value": "<p>A monster that is said to be an amalgamation of souls of falsely accused innocents put to death. They look like pale, female ghosts with long black hair. Nine saucers seem to hover in the air around them, under their complete control. These are not real saucers, but are a spiritual manifestation with a sort of intelligence that allows them to throw themselves at their enemies.</p>",
-      "special": {
-        "name": "9 Saucers",
-        "value": "<p>The Lady Saucer can attack nine times at once. However, those attacks become Accuracy [d6+d6] and damage [d6]. If a character is hit by one of these attacks, they suffer a -1 cumulative penalty to their Condition.</p>"
-      }
+      "value": "<p>A monster that is said to be an amalgamation of souls of falsely accused innocents put to death. They look like pale, female ghosts with long black hair. Nine saucers seem to hover in the air around them, under their complete control. These are not real saucers, but are a spiritual manifestation with a sort of intelligence that allows them to throw themselves at their enemies.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "9 Saucers",
+      "type": "skill",
+      "_id": "9saucers00000000",
+      "system": {
+        "description": {
+          "value": "<p>The Lady Saucer can attack nine times at once. However, those attacks become Accuracy [d6+d6] and damage [d6]. If a character is hit by one of these attacks, they suffer a -1 cumulative penalty to their Condition.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081670,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!ladysaucer000000.9saucers00000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

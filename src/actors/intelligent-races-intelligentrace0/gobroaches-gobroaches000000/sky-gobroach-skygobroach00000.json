@@ -55,11 +55,7 @@
       "damage": "@stats.strength + 1"
     },
     "description": {
-      "value": "<p>A certain percentage of gobroaches grow large enough to grow wings that sprout from their carapace. The filth that spreads when they flap their wings gets into the eyes of those around them, forcing their opponents to freeze in their tracks. Like normal gobroaches, they are determined to make the world a dirty place, but they are more willing to use underhanded techniques.</p>",
-      "special": {
-        "name": "Wing Beat",
-        "value": "<p>During battle, if a Sky Gobroach flaps his wings, any character that doesn’t have eye protection must make a [SPI+SPI] check at difficulty 8. Those that fail may only Defend on their next action.</p>"
-      }
+      "value": "<p>A certain percentage of gobroaches grow large enough to grow wings that sprout from their carapace. The filth that spreads when they flap their wings gets into the eyes of those around them, forcing their opponents to freeze in their tracks. Like normal gobroaches, they are determined to make the world a dirty place, but they are more willing to use underhanded techniques.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Wing Beat",
+      "type": "skill",
+      "_id": "wingbeat00000000",
+      "system": {
+        "description": {
+          "value": "<p>During battle, if a Sky Gobroach flaps his wings, any character that doesn't have eye protection must make a [SPI+SPI] check at difficulty 8. Those that fail may only Defend on their next action.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081703,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!skygobroach00000.wingbeat00000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

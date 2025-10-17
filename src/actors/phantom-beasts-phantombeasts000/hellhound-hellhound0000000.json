@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 7,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A huge black dog, weighing about 500 kg, with glowing red eyes and razor sharp claws. They are violently territorial and mark their territories with a sulfuric smell that permeates the area. The stench of rotten eggs is nearly unbearable as far away as ten kilometers.</p>",
-      "special": {
-        "name": "Double Attack",
-        "value": "<p>This monster can attack two times in one turn.</p>"
-      }
+      "value": "<p>A huge black dog, weighing about 500 kg, with glowing red eyes and razor sharp claws. They are violently territorial and mark their territories with a sulfuric smell that permeates the area. The stench of rotten eggs is nearly unbearable as far away as ten kilometers.</p>"
     },
     "defense": {
-      "armor": 1
+      "armor": 1,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Hellhound",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Double Attack",
+      "type": "skill",
+      "_id": "doubleattack0000",
+      "system": {
+        "description": {
+          "value": "<p>This monster can attack two times in one turn.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081660,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!hellhound0000000.doubleattack0000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

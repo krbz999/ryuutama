@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 5,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "",
-      "special": {
-        "name": "Healing Horn",
-        "value": "<p>It is said that a unicorn's horn has the ability to cure any illness. However, a unicorn must expend an incredible amount of energy to do so, and using this ability too much places the unicorn's life in danger.</p>"
-      }
+      "value": ""
     },
     "defense": {
-      "armor": 0
+      "armor": 0,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Unicorn",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Healing Horn",
+      "type": "skill",
+      "_id": "healinghorn00000",
+      "system": {
+        "description": {
+          "value": "<p>It is said that a unicorn's horn has the ability to cure any illness. However, a unicorn must expend an incredible amount of energy to do so, and using this ability too much places the unicorn's life in danger.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081715,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!unicorn000000000.healinghorn00000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

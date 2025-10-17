@@ -25,10 +25,10 @@
  * @property {string} condition.shape.high      The ability that is improved when in Top Shape.
  * @property {number} condition.value           The creature's current condition.
  * @property {object} defense
- * @property {number|null} defense.armor      Baseline defense/armor.
+ * @property {number|null} defense.armor                Baseline defense/armor.
  * @property {object} defense.modifiers
  * @property {number|null} defense.modifiers.magical    Damage modification to magical damage received.
- * @property {number|null} defense.modifiers.physical    Damage modification to physical damage received.
+ * @property {number|null} defense.modifiers.physical   Damage modification to physical damage received.
  * @property {object} resources
  * @property {ResourceData} resources.mental    The creature's MP.
  * @property {ResourceData} resources.stamina   The creature's HP.
@@ -37,21 +37,18 @@
 /**
  * @typedef {CreatureModel} MonsterModel
  * @property {object} attack
- * @property {string} attack.accuracy         The formula used for accuracy checks.
- * @property {string} attack.damage           The formula used for damage checks.
+ * @property {string} attack.accuracy   The formula used for accuracy checks.
+ * @property {string} attack.damage     The formula used for damage checks.
  * @property {object} description
- * @property {string} description.value       Monster description.
- * @property {object} description.special     Special ability data.
- * @property {string} description.special.name    Name of the special ability.
- * @property {string} description.special.value   Description of the special ability.
+ * @property {string} description.value   Monster description.
  * @property {object} details
- * @property {string} details.category        The monster category.
- * @property {number} details.dragonica       The monster's entry number in the magical monster encyclopedia.
- * @property {number} details.level           The monster level.
+ * @property {string} details.category    The monster category.
+ * @property {number} details.dragonica   The monster's entry number in the magical monster encyclopedia.
+ * @property {number} details.level       The monster level.
  * @property {object} environment
- * @property {string} environment.season      The time of year during which the monster is most active.
+ * @property {string} environment.season    The time of year during which the monster is most active.
  * @property {object} initiative
- * @property {number} initiative.value
+ * @property {number} initiative.value    The monster's static initiative value.
  */
 
 /**

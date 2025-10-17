@@ -5,15 +5,14 @@
   "img": "",
   "system": {
     "description": {
-      "value": "<p>A mysterious fifty-centimeter tall egg with human-like arms and muscular legs that can be seen running around the world. Running eggs can move with such speed that it is said that none can catch them. Defeating a Running Egg will bring even more luck than a Walking Egg.</p>",
-      "special": {
-        "value": "<p>It is said that if a Running Egg is defeated by reducing its HP to exactly 0, a blessing occurs. All members of a party so blessed will receive 200 XP.</p>",
-        "name": "Travelers' Blessing"
-      }
+      "value": "<p>A mysterious fifty-centimeter tall egg with human-like arms and muscular legs that can be seen running around the world. Running eggs can move with such speed that it is said that none can catch them. Defeating a Running Egg will bring even more luck than a Walking Egg.</p>"
     },
     "condition": {
       "value": 7,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "initiative": {
       "value": 10
@@ -63,7 +62,11 @@
       "season": "winter"
     },
     "defense": {
-      "armor": null
+      "armor": null,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "prototypeToken": {
@@ -160,7 +163,38 @@
     "appendNumber": false,
     "prependAdjective": false
   },
-  "items": [],
+  "items": [
+    {
+      "name": "Travelers' Blessing",
+      "type": "skill",
+      "_id": "travelersblessin",
+      "system": {
+        "description": {
+          "value": "<p>It is said that if a Running Egg is defeated by reducing its HP to exactly 0, a blessing occurs. All members of a party so blessed will receive 200 XP.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081701,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!runningegg000000.travelersblessin"
+    }
+  ],
   "effects": [],
   "folder": "eggs000000000000",
   "sort": 0,

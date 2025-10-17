@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 5,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A huge snake ranging from two to ten meters in length. It likes to attack at night, so care must be taken when camping in anaconda territory.</p>",
-      "special": {
-        "name": "Coil",
-        "value": "<p>When an anaconda succeeds on an attack on a character, it automatically coils around the character's body. On that character's next turn, they must beat the anaconda at a contested [STR + STR] check or lose their action. Every turn that an anaconda starts coiled around a character, the anaconda automatically deals d6 damage.</p>"
-      }
+      "value": "<p>A huge snake ranging from two to ten meters in length. It likes to attack at night, so care must be taken when camping in anaconda territory.</p>"
     },
     "defense": {
-      "armor": 0
+      "armor": 0,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Anaconda",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Coil",
+      "type": "skill",
+      "_id": "coil000000000000",
+      "system": {
+        "description": {
+          "value": "<p>When an anaconda succeeds on an attack on a character, it automatically coils around the character's body. On that character's next turn, they must beat the anaconda at a contested [STR + STR] check or lose their action. Every turn that an anaconda starts coiled around a character, the anaconda automatically deals d6 damage.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081619,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!anaconda00000000.coil000000000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

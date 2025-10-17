@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 15,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A gigantic tortoise that prefers warm areas that can grow twenty meters large. This beast spends its time in sunny areas, nourishing the numerous plants that grow atop its shell. As the tortoise ages, its shell grows along with the number of plants and eventually becomes large enough to support its own ecosystem.</p>",
-      "special": {
-        "name": "Herb Treasure Trove",
-        "value": "<p>One each of each type of Healing Herb grows atop the Garden Tortoise's shell.</p>"
-      }
+      "value": "<p>A gigantic tortoise that prefers warm areas that can grow twenty meters large. This beast spends its time in sunny areas, nourishing the numerous plants that grow atop its shell. As the tortoise ages, its shell grows along with the number of plants and eventually becomes large enough to support its own ecosystem.</p>"
     },
     "defense": {
-      "armor": 5
+      "armor": 5,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Garden Tortoise",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Herb Treasure Trove",
+      "type": "skill",
+      "_id": "herbtreasuretrov",
+      "system": {
+        "description": {
+          "value": "<p>One each of each type of Healing Herb grows atop the Garden Tortoise's shell.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081649,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!gardentortoise00.herbtreasuretrov"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

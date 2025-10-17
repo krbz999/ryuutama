@@ -55,11 +55,7 @@
       "damage": "@stats.spirit"
     },
     "description": {
-      "value": "<p>A creature that had a heart full of envy in its dying moment may become a Foxphorous, a type of undead that resembles a huge purple flame in the shape of a fox. It is weak to water, but its flames will instantly explode back to full strength even after being doused with water. The only way to extinguish it is with rain or the water from a river.</p>",
-      "special": {
-        "name": "Flames of Envy",
-        "value": "<p>When a character is hit by a Foxphorous’s attack, if the character is in close combat, the character must make a [SPI+SPI] check with target number of 7. If the character fails, they must spend their next turn attacking a companion in the same area. This effect lasts until the character has attacked a companion.</p>"
-      }
+      "value": "<p>A creature that had a heart full of envy in its dying moment may become a Foxphorous, a type of undead that resembles a huge purple flame in the shape of a fox. It is weak to water, but its flames will instantly explode back to full strength even after being doused with water. The only way to extinguish it is with rain or the water from a river.</p>"
     },
     "defense": {
       "armor": null,
@@ -168,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Flames of Envy",
+      "type": "skill",
+      "_id": "flamesofenvy0000",
+      "system": {
+        "description": {
+          "value": "<p>When a character is hit by a Foxphorous's attack, if the character is in close combat, the character must make a [SPI+SPI] check with target number of 7. If the character fails, they must spend their next turn attacking a companion in the same area. This effect lasts until the character has attacked a companion.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081645,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!foxphorous000000.flamesofenvy0000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {

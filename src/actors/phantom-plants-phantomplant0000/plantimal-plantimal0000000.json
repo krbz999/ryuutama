@@ -55,11 +55,7 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>A strange plant that is able to move about using tentacle-like roots. It continues to grow throughout its lifespan, with some growing up to ten meters in diameter. It reacts to fluctuations of moisture in the air to entangle victims and drink their fluids. Scholars believe this creature is something between a plant and an animal.</p>",
-      "special": {
-        "name": "",
-        "value": ""
-      }
+      "value": "<p>A strange plant that is able to move about using tentacle-like roots. It continues to grow throughout its lifespan, with some growing up to ten meters in diameter. It reacts to fluctuations of moisture in the air to entangle victims and drink their fluids. Scholars believe this creature is something between a plant and an animal.</p>"
     },
     "defense": {
       "armor": null,

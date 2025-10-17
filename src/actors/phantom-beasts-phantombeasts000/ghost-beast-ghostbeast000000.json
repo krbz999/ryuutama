@@ -31,7 +31,10 @@
     },
     "condition": {
       "value": 12,
-      "immunities": []
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
     },
     "abilities": {
       "strength": {
@@ -52,14 +55,14 @@
       "damage": ""
     },
     "description": {
-      "value": "<p>The largest carnivorous animal in the world, the Ghost Beast measures tens of meters in length (though its exact dimensions are unknown). Its exact form and details have never been confirmed. Due to its size, it does not hunt humans, but it is extremely sensitive to imbalances in the natural order. It has been known to appear near advanced human civilizations, and when it appears... humans can only flee.</p>",
-      "special": {
-        "name": "Angry Riot",
-        "value": "<p>Attacks from this beast are so strong that even the mountains crack and dragons run. Anytime this creature attacks, it attacks all areas. Also, any Fumbles it rolls automatically become criticals.</p>"
-      }
+      "value": "<p>The largest carnivorous animal in the world, the Ghost Beast measures tens of meters in length (though its exact dimensions are unknown). Its exact form and details have never been confirmed. Due to its size, it does not hunt humans, but it is extremely sensitive to imbalances in the natural order. It has been known to appear near advanced human civilizations, and when it appears... humans can only flee.</p>"
     },
     "defense": {
-      "armor": 3
+      "armor": 3,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
     }
   },
   "name": "Ghost Beast",
@@ -161,7 +164,38 @@
     "prependAdjective": false
   },
   "img": "",
-  "items": [],
+  "items": [
+    {
+      "name": "Angry Riot",
+      "type": "skill",
+      "_id": "angryriot0000000",
+      "system": {
+        "description": {
+          "value": "<p>Attacks from this beast are so strong that even the mountains crack and dragons run. Anytime this creature attacks, it attacks all areas. Also, any Fumbles it rolls automatically become criticals.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "DEVELOP",
+        "createdTime": 1760662081651,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!ghostbeast000000.angryriot0000000"
+    }
+  ],
   "effects": [],
   "sort": 0,
   "ownership": {
