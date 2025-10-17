@@ -1,0 +1,52 @@
+{
+  "name": "Mignon Bivouac",
+  "system": {
+    "category": {
+      "value": "autumn"
+    },
+    "description": {
+      "value": "<p>Creates a cocoon-like hanging sleeping bag, that maintains a constant temperature whatever its surroundings. Sleeping in this bag grants a +1 bonus to the next day's Condition, but this spell may only be used if there is a ceiling or something for the ‘cocoon' to hang from.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 4
+      },
+      "duration": {
+        "value": 12,
+        "type": "hours",
+        "custom": ""
+      },
+      "level": "mid",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "mignonbivouac000",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-orange.webp",
+  "effects": [],
+  "folder": "fallmid000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760194534044,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!mignonbivouac000"
+}

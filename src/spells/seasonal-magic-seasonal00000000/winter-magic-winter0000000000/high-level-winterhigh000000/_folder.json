@@ -1,0 +1,22 @@
+{
+  "_id": "winterhigh000000",
+  "name": "High Level",
+  "folder": "winter0000000000",
+  "type": "Item",
+  "sort": 20000,
+  "description": "",
+  "sorting": "a",
+  "color": "#7c3e02",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "lastModifiedBy": "ryuutama00000000",
+    "modifiedTime": null
+  },
+  "_key": "!folders!winterhigh000000"
+}

@@ -1,0 +1,52 @@
+{
+  "name": "Grave Glacier",
+  "system": {
+    "category": {
+      "value": "winter"
+    },
+    "description": {
+      "value": "<p>The target is frozen in a glacier, trapped until the ice melts. Physical attacks have no effect on the glacier, though in sunny weather, it will melt in a day; in cold weather, however, the glacier may never melt.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 10
+      },
+      "duration": {
+        "value": 1,
+        "type": "special",
+        "custom": "Until thawed"
+      },
+      "level": "high",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "graveglacier0000",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
+  "effects": [],
+  "folder": "winterhigh000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760194965222,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!graveglacier0000"
+}

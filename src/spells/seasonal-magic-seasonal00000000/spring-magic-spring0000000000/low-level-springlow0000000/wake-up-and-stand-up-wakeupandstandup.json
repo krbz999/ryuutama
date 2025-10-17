@@ -1,0 +1,52 @@
+{
+  "name": "Wake Up and Stand Up",
+  "system": {
+    "category": {
+      "value": "spring"
+    },
+    "description": {
+      "value": "<p>Anyone sleeping in the area immediately awakens and stands up. Anyone awake but lying down will immediately stand up. This only affects living things with 2 legs.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 2
+      },
+      "duration": {
+        "value": 1,
+        "type": "instant",
+        "custom": ""
+      },
+      "level": "low",
+      "range": {
+        "value": "closeArea"
+      },
+      "target": {
+        "custom": "1 area"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "wakeupandstandup",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-green.webp",
+  "effects": [],
+  "folder": "springlow0000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760193192453,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!wakeupandstandup"
+}

@@ -6,7 +6,7 @@
   "sort": 20000,
   "description": "",
   "sorting": "a",
-  "color": null,
+  "color": "#9e248c",
   "flags": {},
   "_stats": {
     "compendiumSource": null,
@@ -15,7 +15,8 @@
     "coreVersion": "13.350",
     "systemId": "ryuutama",
     "systemVersion": "DEVELOP",
-    "lastModifiedBy": null
+    "lastModifiedBy": "ryuutama00000000",
+    "modifiedTime": null
   },
   "_key": "!folders!incantationhigh0"
 }

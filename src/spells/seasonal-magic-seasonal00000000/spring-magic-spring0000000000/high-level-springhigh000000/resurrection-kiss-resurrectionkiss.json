@@ -1,0 +1,52 @@
+{
+  "name": "Resurrection Kiss",
+  "system": {
+    "category": {
+      "value": "spring"
+    },
+    "description": {
+      "value": "<p>This spell has the power to resurrect anything that has died within the last 6 rounds (1 minute); in order to do so, the caster must kiss the target, which then revives them to half their maximum HP.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 10
+      },
+      "duration": {
+        "value": 1,
+        "type": "instant",
+        "custom": ""
+      },
+      "level": "high",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "resurrectionkiss",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-green.webp",
+  "effects": [],
+  "folder": "springhigh000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760193589382,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!resurrectionkiss"
+}

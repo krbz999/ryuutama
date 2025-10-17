@@ -1,0 +1,52 @@
+{
+  "name": "Seven Fortune Frigate",
+  "system": {
+    "category": {
+      "value": "winter"
+    },
+    "description": {
+      "value": "<p>A treasure-laden boat bearing seven legendary heroes arrives from the East to bless the caster and his companions. While the spell lasts, any character that is blessed turns any Fumbles into Criticals. Roll a d8 to see what class is blessed. If a class is blessed but the party lacks characters of that class, the heroes bless nobody and leave disappointed.</p><p>@Embed[Compendium.ryuutama.tables.RollTable.sevenfortunefrig rollable=true caption=false resultLabel=\"Class\"]</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 10
+      },
+      "duration": {
+        "value": 12,
+        "type": "hours",
+        "custom": ""
+      },
+      "level": "high",
+      "range": {
+        "value": "caster"
+      },
+      "target": {
+        "custom": "Various"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "sevenfortunefrig",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
+  "effects": [],
+  "folder": "winterhigh000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760195021398,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!sevenfortunefrig"
+}

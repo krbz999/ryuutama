@@ -1,0 +1,22 @@
+{
+  "_id": "springlow0000000",
+  "name": "Low Level",
+  "folder": "spring0000000000",
+  "type": "Item",
+  "sort": 0,
+  "description": "",
+  "sorting": "a",
+  "color": "#576803",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "lastModifiedBy": "ryuutama00000000",
+    "modifiedTime": null
+  },
+  "_key": "!folders!springlow0000000"
+}

@@ -1,0 +1,22 @@
+{
+  "_id": "springmid0000000",
+  "name": "Mid Level",
+  "folder": "spring0000000000",
+  "type": "Item",
+  "sort": 10000,
+  "description": "",
+  "sorting": "a",
+  "color": "#5f7104",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "lastModifiedBy": "ryuutama00000000",
+    "modifiedTime": null
+  },
+  "_key": "!folders!springmid0000000"
+}

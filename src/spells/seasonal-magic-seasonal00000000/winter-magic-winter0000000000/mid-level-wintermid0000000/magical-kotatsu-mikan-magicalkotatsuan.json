@@ -1,0 +1,52 @@
+{
+  "name": "Magical Kotatsu & Mikan",
+  "system": {
+    "category": {
+      "value": "winter"
+    },
+    "description": {
+      "value": "<p>A warm low-table with blankets and mandarin oranges suddenly appears. It provides a +2 bonus to Camping Checks while in “cold” weather. However, any character that Fumbles on the next day's Condition suffers [Sick: 4].</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 2
+      },
+      "duration": {
+        "value": 12,
+        "type": "hours",
+        "custom": ""
+      },
+      "level": "mid",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "Open space"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "magicalkotatsuan",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
+  "effects": [],
+  "folder": "wintermid0000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760194900190,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!magicalkotatsuan"
+}

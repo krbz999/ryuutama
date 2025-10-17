@@ -1,0 +1,23 @@
+{
+  "_id": "spring0000000000",
+  "name": "Spring Magic",
+  "type": "Item",
+  "sorting": "m",
+  "description": "",
+  "folder": "seasonal00000000",
+  "sort": 0,
+  "color": "#576803",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760195530353,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!folders!spring0000000000"
+}

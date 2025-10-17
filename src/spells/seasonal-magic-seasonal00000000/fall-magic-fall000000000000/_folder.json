@@ -1,0 +1,23 @@
+{
+  "_id": "fall000000000000",
+  "name": "Fall Magic",
+  "type": "Item",
+  "sorting": "m",
+  "description": "",
+  "folder": "seasonal00000000",
+  "sort": 100000,
+  "color": "#624502",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760195530353,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!folders!fall000000000000"
+}

@@ -1,0 +1,52 @@
+{
+  "name": "Emina Nonno",
+  "system": {
+    "category": {
+      "value": "spring"
+    },
+    "description": {
+      "value": "<p>The area touched will be covered with lots of tiny flowers. The caster decides the variety of flower. If the flower chosen is appropriate for the area touched, and is cared for, the flowers may last longer than the normal duration.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 2
+      },
+      "duration": {
+        "value": 1,
+        "type": "days",
+        "custom": ""
+      },
+      "level": "low",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "Touched area"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "eminanonno000000",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-green.webp",
+  "effects": [],
+  "folder": "springlow0000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760193313965,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!eminanonno000000"
+}

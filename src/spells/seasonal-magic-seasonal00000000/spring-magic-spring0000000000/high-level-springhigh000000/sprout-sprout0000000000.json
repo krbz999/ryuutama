@@ -1,0 +1,52 @@
+{
+  "name": "Sprout",
+  "system": {
+    "category": {
+      "value": "spring"
+    },
+    "description": {
+      "value": "<p>Awakens a person's dormant power. It changes one (and only one) of the target's stats from 12 to 20. Targets with no stat of 12 are unaffected.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 10
+      },
+      "duration": {
+        "value": 6,
+        "type": "rounds",
+        "custom": ""
+      },
+      "level": "high",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "sprout0000000000",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-green.webp",
+  "effects": [],
+  "folder": "springhigh000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760193569690,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!sprout0000000000"
+}

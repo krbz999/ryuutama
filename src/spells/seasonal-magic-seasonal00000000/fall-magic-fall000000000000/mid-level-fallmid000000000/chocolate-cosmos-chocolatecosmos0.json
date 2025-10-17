@@ -1,0 +1,52 @@
+{
+  "name": "Chocolate Cosmos",
+  "system": {
+    "category": {
+      "value": "autumn"
+    },
+    "description": {
+      "value": "<p>The target remembers or thinks of a past or recent heartbreak. The target suffers [Shock:6], no matter its Condition, though the normal Magic Check is still required. The target must have loved or must be in love, and the strength of their love may raise the Shock value (at the GM's discretion).</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "normal",
+        "mental": 4
+      },
+      "duration": {
+        "value": 1,
+        "type": "special",
+        "custom": "Until cured"
+      },
+      "level": "mid",
+      "range": {
+        "value": "closeArea"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "chocolatecosmos0",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-orange.webp",
+  "effects": [],
+  "folder": "fallmid000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760194514034,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!chocolatecosmos0"
+}

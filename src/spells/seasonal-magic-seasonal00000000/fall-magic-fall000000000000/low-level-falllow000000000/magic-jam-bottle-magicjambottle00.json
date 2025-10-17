@@ -1,0 +1,52 @@
+{
+  "name": "Magic Jam Bottle",
+  "system": {
+    "category": {
+      "value": "autumn"
+    },
+    "description": {
+      "value": "<p>Any edible item can be made into a long-lasting jam, keeping all its flavor, but preserved for one week. The amount of rations created is determined by a roll of [SPI] (1 die); Healing Herbs are unaffected.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 4
+      },
+      "duration": {
+        "value": 7,
+        "type": "days",
+        "custom": ""
+      },
+      "level": "low",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "Food"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "magicjambottle00",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-orange.webp",
+  "effects": [],
+  "folder": "falllow000000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760194228911,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!magicjambottle00"
+}

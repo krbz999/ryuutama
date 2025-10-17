@@ -1,0 +1,52 @@
+{
+  "name": "A Little Beauty",
+  "system": {
+    "category": {
+      "value": "spring"
+    },
+    "description": {
+      "value": "<p>The target's hairstyle and hair color are changed, and makeup is applied to fit a desired image. This hairstyle and makeup will not change until the end of the spell's duration. This spell cannot actually change a person's features.</p>"
+    },
+    "spell": {
+      "activation": {
+        "cast": "ritual",
+        "mental": 4
+      },
+      "duration": {
+        "value": 1,
+        "type": "days",
+        "custom": ""
+      },
+      "level": "low",
+      "range": {
+        "value": "touch"
+      },
+      "target": {
+        "custom": "1 person"
+      },
+      "effects": {}
+    }
+  },
+  "_id": "alittlebeauty000",
+  "type": "spell",
+  "img": "icons/magic/nature/leaf-glow-maple-green.webp",
+  "effects": [],
+  "folder": "springlow0000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "DEVELOP",
+    "createdTime": 1760193363973,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!alittlebeauty000"
+}
