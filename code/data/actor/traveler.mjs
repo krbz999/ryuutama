@@ -248,7 +248,7 @@ export default class TravelerData extends CreatureData {
     exp.value = Math.min(this._source.details.exp.value, ryuutama.config.experienceLevels.at(-1));
     // if (exp.value < prev) exp.pct = Math.clamp(Math.round(exp.value / next * 100), 0, 100);
     exp.pct = Math.clamp(Math.round((exp.value - prev) / (next - prev) * 100), 0, 100);
-    if (isNaN(exp.pct) || !prev || !ryuutama.config.experienceLevels[level]) exp.pct = 100;
+    if (isNaN(exp.pct) || !ryuutama.config.experienceLevels[level]) exp.pct = 100;
   }
 
   /* -------------------------------------------------- */
