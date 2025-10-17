@@ -2,14 +2,18 @@
   {{!-- INITIATIVE --}}
   {{formGroup systemFields.initiative.fields.value value=(ifThen disabled document.system.initiative.value source.system.initiative.value) disabled=disabled classes="slim"}}
 
+  {{formGroup systemFields.details.fields.level value=(ifThen disabled document.system.details.level source.system.details.level) disabled=disabled type="number" classes="slim"}}
+
   <fieldset>
     <legend>{{localize "RYUUTAMA.MONSTER.monsterDetails"}}</legend>
-    {{!-- SEASON --}}
-    {{formGroup systemFields.environment.fields.season value=(ifThen disabled document.system.environment.season source.system.environment.season) options=seasonOptions disabled=disabled classes="slim"}}
-
     {{!-- DRAGONICA NO. --}}
     {{formGroup systemFields.details.fields.dragonica value=(ifThen disabled document.system.details.dragonica source.system.details.dragonica) disabled=disabled classes="slim"}}
 
+    {{!-- SEASON --}}
+    {{formGroup systemFields.environment.fields.season value=(ifThen disabled document.system.environment.season source.system.environment.season) options=seasonOptions disabled=disabled classes="slim"}}
+
+    {{!-- CATEGORY --}}
+    {{formGroup systemFields.details.fields.category value=(ifThen disabled document.system.details.category source.system.details.category) disabled=disabled classes="slim"}}
   </fieldset>
 
   {{!-- DESCRIPTION --}}

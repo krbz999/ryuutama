@@ -51,7 +51,6 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
     const enrichment = { relativeTo: this.document, rollData };
     context.enriched = {
       description: await CONFIG.ux.TextEditor.enrichHTML(this.document.system.description.value, enrichment),
-      special: await CONFIG.ux.TextEditor.enrichHTML(this.document.system.description.special.value, enrichment),
     };
 
     context.attackImage = ryuutama.config.unarmedConfiguration.icon;
@@ -93,6 +92,12 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
   #prepareTags() {
     const tags = [];
 
+    // Level.
+    let level = this.document.system.details.level;
+    level = game.i18n.format("RYUUTAMA.ACTOR.TAGS.level", { level });
+    tags.push({ tag: level, tooltip: level });
+
+    // Category.
     if (this.document.system.details.category in ryuutama.config.monsterCategories) {
       const tag = ryuutama.config.monsterCategories[this.document.system.details.category].label;
       tags.push({
@@ -101,15 +106,19 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
       });
     }
 
-    let level = this.document.system.details.level;
-    level = game.i18n.format("RYUUTAMA.ACTOR.TAGS.level", { level });
-    tags.push({ tag: level, tooltip: level });
-
+    // Dragonica number.
     if (this.document.system.details.dragonica) {
       const tag = `#${this.document.system.details.dragonica.paddedString(3)}`;
       const tooltip = game.i18n.format("RYUUTAMA.ACTOR.TAGS.dragonica", { number: tag });
       tags.push({ tag, tooltip });
     }
+
+    // Season.
+    const label = ryuutama.config.seasons[this.document.system.environment.season]?.label;
+    if (label) tags.push({
+      tag: label,
+      tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.season", { season: label }),
+    });
 
     return tags;
   }

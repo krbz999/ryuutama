@@ -7,11 +7,7 @@
   <div class="form-group stacked">
     <label>{{localize "RYUUTAMA.ACTOR.armor"}}</label>
     <div class="form-fields">
-      {{#if disabled}}
       <span class="value italics">{{document.system.defense.total}}</span>
-      {{else}}
-      {{formInput systemFields.defense.fields.armor value=source.system.defense.armor placeholder="0"}}
-      {{/if}}
       {{#if armor.hasTags}}
       <div class="tags center">
         {{#if armor.tags.physical}}

@@ -95,6 +95,7 @@
         "habitatSpecialty": "Terrain / Weather Specialty: {habitat}",
         "level": "Level {level}",
         "masteredWeapon": "Mastered Weapon: {weapon}",
+        "season": "Season: {season}",
         "type": "Type: {type}"
       },
       "HP": "HP",
