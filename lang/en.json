@@ -68,6 +68,7 @@
       "TABS": {
         "attributes": "Attributes",
         "details": "Details",
+        "skills": "Skills",
         "spells": "Magic",
         "inventory": "Inventory",
         "notes": "Notes"

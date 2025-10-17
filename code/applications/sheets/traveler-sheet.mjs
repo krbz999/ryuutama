@@ -1,6 +1,10 @@
 import RyuutamaActorSheet from "./actor-sheet.mjs";
 
 /**
+ * @import { InventoryElementEntry } from "../elements/_types.mjs";
+ */
+
+/**
  * Ryuutama Traveler Sheet.
  * @extends RyuutamaActorSheet
  */
@@ -15,8 +19,8 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/attributes.hbs",
       classes: ["tab", "standard-form", "scrollable"],
     },
-    details: {
-      template: "systems/ryuutama/templates/sheets/traveler-sheet/details.hbs",
+    skills: {
+      template: "systems/ryuutama/templates/sheets/traveler-sheet/skills.hbs",
       classes: ["tab", "standard-form", "scrollable"],
     },
     spells: {
@@ -40,7 +44,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     primary: {
       tabs: [
         { id: "attributes" },
-        { id: "details" },
+        { id: "skills" },
         { id: "spells" },
         { id: "inventory" },
         { id: "notes" },
@@ -92,10 +96,27 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
+    // Skills.
+    /** @type {InventoryElementEntry[]} */
+    const skills = [];
+    for (const skill of this.document.items.documentsByType.skill) {
+      const text = await CONFIG.ux.TextEditor.enrichHTML(
+        skill.system.description.value,
+        { rollData: skill.getRollData(), relativeTo: skill },
+      );
+      skills.push({
+        document: skill,
+        dataset: {
+          tooltipHtml: `<p><strong>${skill.name}</strong></p>${text}`,
+        },
+      });
+    }
+    context.skills = skills;
+
     context.tabs = this._prepareTabs("primary");
     context.inventoryTabs = this._prepareTabs("inventory");
 
-    // Subsections on the inventory tab
+    // Subsections on the inventory tab.
     const inventorySection = (...types) => {
       const groups = [];
       for (const type of types) {
