@@ -59,7 +59,7 @@ export default class InventoryElement extends HTMLElement {
     if (config.classes) div.classList.add(...InventoryElement.#classesFromOption(config.classes));
 
     const name = config.label || config.document.name;
-    entry.dataset.itemId = config.document.id;
+    entry.dataset.uuid = config.document.uuid;
     entry.dataset.name = config.document.name;
     entry.dataset.documentName = config.document.documentName;
     entry.dataset.tooltipText = name;

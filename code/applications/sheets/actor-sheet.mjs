@@ -181,7 +181,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    * @returns {ContextMenuEntry[]}
    */
   static #createItemContextOptions() {
-    const getItem = target => this.document.items.get(target.dataset.itemId);
+    const getItem = target => this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
 
     /** @type {ContextMenuEntry[]} */
     const options = [
@@ -237,6 +237,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
         name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.assignSpecialAbility",
         icon: "fa-solid fa-fw fa-star",
         condition: target => {
+          if (this.document.type !== "monster") return false;
           const item = getItem(target);
           const isSpecial = this.document.getFlag(ryuutama.id, "specialAbility") === item.id;
           return (item.type === "skill") && !isSpecial;
@@ -286,7 +287,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
     if ("link" in event.target.dataset) return;
 
     /** @type {RyuutamaItem} */
-    const item = this.document.items.get(target.dataset.itemId);
+    const item = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
     const data = item.toDragData();
     event.dataTransfer.setData("text/plain", JSON.stringify(data));
   }
@@ -316,7 +317,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static #renderItem(event, target) {
-    const item = this.document.items.get(target.dataset.itemId, { strict: true });
+    const item = this.getEmbeddedDocument(target.dataset.uuid);
     item.sheet.render({ force: true, mode: 1 });
   }
 

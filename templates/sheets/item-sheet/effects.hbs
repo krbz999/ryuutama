@@ -1,0 +1,9 @@
+<section data-tab="{{tabs.effects.id}}" class="{{tabs.effects.cssClass}}" data-group="{{tabs.effects.group}}">
+  <section>
+    <h4>effects</h4>
+    <button type="button" data-action="createEffect" class="icon fa-solid fa-plus"></button>
+  </section>
+  <section>
+    {{inventory-element documents=effects action="renderEmbedded"}}
+  </section>
+</section>

@@ -3,6 +3,9 @@ import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /** @override */
   static PARTS = {
+    navigation: {
+      template: "templates/generic/tab-navigation.hbs",
+    },
     details: {
       template: "systems/ryuutama/templates/sheets/item-sheet/details.hbs",
       templates: [
@@ -13,8 +16,27 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         "systems/ryuutama/templates/sheets/item-sheet/container.hbs",
         "systems/ryuutama/templates/sheets/item-sheet/spell.hbs",
       ],
-      classes: ["scrollable", "standard-form"],
+      classes: ["tab", "scrollable", "standard-form"],
       scrollable: [""],
+    },
+    effects: {
+      template: "systems/ryuutama/templates/sheets/item-sheet/effects.hbs",
+      classes: ["tab", "scrollable", "standard-form"],
+      scrollable: [""],
+    },
+  };
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static TABS = {
+    primary: {
+      tabs: [
+        { id: "details" },
+        { id: "effects" },
+      ],
+      initial: "details",
+      labelPrefix: "RYUUTAMA.ITEM.TABS",
     },
   };
 
@@ -78,6 +100,9 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         return { value: k, label: v.label, group: k === "incantation" ? undefined : seasonal };
       });
     }
+
+    // Effects.
+    context.effects = this.document.effects.map(effect => ({ document: effect }));
 
     return context;
   }

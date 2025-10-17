@@ -1,4 +1,4 @@
-<section>
+<section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
   <fieldset>
     <legend>{{localize "RYUUTAMA.ITEM.details"}}</legend>
     {{formGroup fields.name value=(ifThen disabled document.name source.name) disabled=disabled}}

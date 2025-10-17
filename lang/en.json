@@ -284,6 +284,10 @@
         "size3": "Size 3",
         "size5": "Size 5"
       },
+      "TABS": {
+        "details": "Details",
+        "effects": "Effects"
+      },
       "defenses": "Defenses",
       "details": "Details",
       "durability": "Durability ({value}/{max})",
@@ -334,7 +338,7 @@
           "high": "High Level Spell"
         },
         "RANGE": {
-          "allAreas": "All area",
+          "allAreas": "All areas",
           "any": "Any",
           "caster": "Caster",
           "closeArea": "Close area",

@@ -21,6 +21,8 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
     mode: 1,
     actions: {
       toggleEditMode: RyuutamaDocumentSheet.#toggleEditMode,
+      createEffect: RyuutamaDocumentSheet.#createEffect,
+      renderEmbedded: RyuutamaDocumentSheet.#renderEmbedded,
     },
   };
 
@@ -124,11 +126,52 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
   /* -------------------------------------------------- */
 
   /**
+   * Retrieve embedded document via uuid.
+   * @param {string} uuid   The uuid of the embedded document.
+   * @returns {foundry.abstract.Document}
+   */
+  getEmbeddedDocument(uuid) {
+    const { collection, embedded, documentId } = foundry.utils.parseUuid(uuid);
+    let document = collection.get(documentId);
+    while (document && (embedded.length > 1)) {
+      const [embeddedName, embeddedId] = embedded.splice(0, 2);
+      document = document.getEmbeddedDocument(embeddedName, embeddedId);
+    }
+    return document;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * @this RyuutamaDocumentSheet
    */
   static #toggleEditMode(event, target) {
     const modes = RyuutamaDocumentSheet.SHEET_MODES;
     this._sheetMode = (this.isEditMode || !this.isEditable) ? modes.PLAY : modes.EDIT;
     this.render();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaDocumentSheet
+   */
+  static #createEffect(event, target) {
+    getDocumentClass("ActiveEffect").create({
+      name: this.document.name,
+      img: this.document.img,
+      transfer: false,
+      disabled: false,
+    }, { parent: this.document });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaDocumentSheet
+   */
+  static #renderEmbedded(event, target) {
+    const uuid = target.closest("[data-uuid]").dataset.uuid;
+    return this.getEmbeddedDocument(uuid).sheet.render({ force: true });
   }
 }
