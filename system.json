@@ -38,11 +38,11 @@
     }
   ],
   "background": "systems/ryuutama/assets/official/setup.webp",
-  "grid": {},
   "url": "https://github.com/krbz999/ryuutama",
   "manifest": "https://github.com/krbz999/ryuutama/releases/latest/download/system.json",
   "license": "https://github.com/krbz999/ryuutama/blob/main/LICENSE",
-  "changelog": "",
+  "download": "",
+  "changelog": "https://github.com/krbz999/ryuutama/releases",
   "flags": {
     "hotReload": {
       "extensions": [
