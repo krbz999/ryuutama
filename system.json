@@ -34,7 +34,8 @@
   "media": [
     {
       "type": "setup",
-      "url": "systems/ryuutama/assets/official/setup.webp"
+      "url": "systems/ryuutama/assets/official/setup.webp",
+      "thumbnail": "systems/ryuutama/assets/official/setup.webp"
     }
   ],
   "background": "systems/ryuutama/assets/official/login.webp",
