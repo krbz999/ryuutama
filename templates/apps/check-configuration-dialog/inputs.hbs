@@ -4,11 +4,11 @@
   <div class="form-group">
     <label>{{localize "RYUUTAMA.ROLL.abilities"}}</label>
     <div class="form-fields">
-      <select name="abilities.0" {{#unless configurations.dialogConfig.selectAbilities}}disabled{{/unless}}>
+      <select name="abilities.0">
         {{selectOptions abilityOptions selected=abilities.abi1}}
       </select>
       {{#if abilities.abi2}}
-      <select name="abilities.1" {{#unless configurations.dialogConfig.selectAbilities}}disabled{{/unless}}>
+      <select name="abilities.1">
         {{selectOptions abilityOptions selected=abilities.abi2}}
       </select>
       {{/if}}

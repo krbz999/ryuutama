@@ -199,12 +199,10 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
           case "direction": roll.abilities = ["dexterity", "intelligence"]; break;
           default: throw new Error(`Invalid journeyId '${rollConfig.journeyId}' for a journey check.`);
         }
-        dialog.selectAbilities = false;
         break;
 
       case "condition":
         roll.abilities = ["strength", "spirit"];
-        dialog.selectAbilities = false;
         roll.concentration.allowed = false;
         roll.condition = { updateScore: true, removeStatuses: true };
         break;
@@ -234,7 +232,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
             break;
           }
         }
-        dialog.selectAbilities = false;
         roll.concentration.allowed = false;
         roll.critical = { allowed: true };
         break;
@@ -268,7 +265,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
             break;
           }
         }
-        dialog.selectAbilities = false;
         break;
       }
 
@@ -284,13 +280,11 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
             break;
           }
         }
-        dialog.selectAbilities = false;
         roll.concentration.allowed = false;
         break;
 
       case "check":
         roll.abilities = ["strength", "strength"];
-        dialog.selectAbilities = true;
         break;
 
       default:
