@@ -2,6 +2,9 @@ import Advancement from "./advancement.mjs";
 
 const { SchemaField, StringField } = foundry.data.fields;
 
+/**
+ * A subclass of Advancement that is responsible for helping configure chosen types.
+ */
 export default class TypeAdvancement extends Advancement {
   /** @inheritdoc */
   static defineSchema() {

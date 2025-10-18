@@ -2,6 +2,9 @@ import Advancement from "./advancement.mjs";
 
 const { SchemaField, StringField } = foundry.data.fields;
 
+/**
+ * A subclass of Advancement that is responsible for helping configure terrain and weather condition specialties.
+ */
 export default class HabitatAdvancement extends Advancement {
   /** @inheritdoc */
   static defineSchema() {

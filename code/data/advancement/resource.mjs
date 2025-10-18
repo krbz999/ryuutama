@@ -3,7 +3,7 @@ import Advancement from "./advancement.mjs";
 const { NumberField, SchemaField } = foundry.data.fields;
 
 /**
- * A subclass of Advancement that is responsible for helping configure starting abilities.
+ * A subclass of Advancement that is responsible for helping configure increases to HP / MP.
  */
 export default class ResourceAdvancement extends Advancement {
   /** @inheritdoc */

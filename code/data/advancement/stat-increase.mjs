@@ -2,6 +2,9 @@ import Advancement from "./advancement.mjs";
 
 const { SchemaField, StringField } = foundry.data.fields;
 
+/**
+ * A subclass of Advancement that is responsible for helping configure increases to abilities.
+ */
 export default class StatIncreaseAdvancement extends Advancement {
   /** @inheritdoc */
   static defineSchema() {
@@ -54,15 +57,5 @@ export default class StatIncreaseAdvancement extends Advancement {
     const ability = formData.choice.chosen;
     const update = { [`system.abilities.${ability}.value`]: actor.system._source.abilities[ability].value + 2 };
     return { result: update, type: "actor" };
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  prepareBaseData() {
-    super.prepareBaseData();
-
-    const document = this.document;
-    if (document && this.choice.chosen) document.system.abilities[this.choice.chosen].increases++;
   }
 }
