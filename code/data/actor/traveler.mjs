@@ -12,6 +12,10 @@ export default class TravelerData extends CreatureData {
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
+      abilities: new SchemaField(Object.keys(ryuutama.config.abilityScores).reduce((acc, ability) => {
+        acc[ability] = new SchemaField({ value: new ryuutama.data.fields.AbilityScoreField({ restricted: true }) });
+        return acc;
+      }, {})),
       advancements: new ryuutama.data.fields.PseudoDocumentCollectionField(Advancement),
       background: new SchemaField({
         appearance: new HTMLField(),
@@ -150,7 +154,7 @@ export default class TravelerData extends CreatureData {
 
     if (this.condition.value >= 10) {
       const ability = this.condition.shape.high;
-      if (ability in this.abilities) this.abilities[ability].increases++;
+      if (ability in this.abilities) this.schema.getField(`abilities.${ability}.value`).increase(this.parent, 1);
     }
   }
 
