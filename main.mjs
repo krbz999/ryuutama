@@ -67,7 +67,9 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels.weapon = data.item.WeaponData;
 
   CONFIG.Scene.documentClass = documents.RyuutamaScene;
+
   CONFIG.Token.documentClass = documents.RyuutamaTokenDocument;
+  CONFIG.Token.objectClass = canvas.placeables.RyuutamaToken;
 
   CONFIG.time.roundTime = 10;
 
