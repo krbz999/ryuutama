@@ -41,8 +41,14 @@ export default class RyuutamaTokenDocument extends foundry.documents.TokenDocume
       editable = true;
     } else if (type === "bar") {
       editable = true;
+    } else {
+      // Due to various data preparation reasons, there are no good use cases for editable non-bar attributes.
+      editable = false;
     }
 
-    return { type, attribute, value, max, editable };
+    // Workaround: core later checks for `"max" in attr` and determines it is then a bar.
+    const result = { type, attribute, value, max, editable };
+    if (result.max === undefined) delete result.max;
+    return result;
   }
 }
