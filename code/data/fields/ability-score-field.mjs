@@ -12,6 +12,9 @@ export default class AbilityScoreField extends NumberField {
       required: true,
       initial: 4,
       restricted: false,
+      integer: true,
+      min: 2,
+      max: 20,
     });
   }
 
