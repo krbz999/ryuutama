@@ -22,7 +22,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
           flat: new NumberField({ integer: true, initial: null, required: true }),
           level: new NumberField({ integer: true, initial: null, required: true }),
         }),
-        max: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
+        max: new NumberField({ integer: true, nullable: true, initial: null, min: 0 }),
         spent: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
       });
     };

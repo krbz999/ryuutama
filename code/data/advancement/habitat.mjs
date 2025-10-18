@@ -66,17 +66,4 @@ export default class HabitatAdvancement extends Advancement {
     const data = foundry.utils.expandObject(formData.object);
     return { result: new this({ type: this.TYPE, ...data }, { parent: actor }), type: "advancement" };
   }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  prepareBaseData() {
-    super.prepareBaseData();
-
-    const document = this.document;
-    if (!document) return;
-
-    if (this.choice.type === "terrain") document.system.mastered.terrain.add(this.choice.chosen.terrain);
-    else if (this.choice.type === "weather") document.system.mastered.weather.add(this.choice.chosen.weather);
-  }
 }
