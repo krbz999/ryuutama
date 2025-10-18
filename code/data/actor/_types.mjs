@@ -3,8 +3,7 @@
  * @property {string[]} [abilities]
  * @property {string} [formula]                             An explicit formula can be provided, in which case
  *                                                          abilities are ignored for the formula creation. Modifiers
- *                                                          are still added on top, but the `selectAbilities` property
- *                                                          is forcefully ignored.
+ *                                                          are still added on top.
  * @property {string} [type]
  * @property {"travel"|"direction"|"camping"} [journeyId]   If a journey check, the type of check.
  * @property {number} [modifier]                            A modifier to the roll that cannot be changed via the UI,
@@ -34,8 +33,7 @@
 
 /**
  * @typedef CheckDialogConfig
- * @property {boolean} [configure]        Should a configuration dialog be created?
- * @property {boolean} [selectAbilities]  Allow for selecting the abilities?
+ * @property {boolean} [configure]    Should a configuration dialog be created?
  */
 
 /* -------------------------------------------------- */
