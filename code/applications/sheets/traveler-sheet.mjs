@@ -197,36 +197,58 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       context.spells.items = this.document.items.documentsByType.spell.map(spell => ({ document: spell }));
     }
 
-    // Header tags.
-    context.tags = [];
+    context.tags = this.#prepareTags(context);
+
+    return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare the header tags.
+   * @param {object} context    Rendering context. **will be mutated**
+   * @returns {{ tag: string, tooltip: string }[]}
+   */
+  #prepareTags(context) {
+    const tags = [];
+
+    // Traveler Types.
     for (const [k, v] of Object.entries(this.document.system.details.type)) {
       const label = ryuutama.config.travelerTypes[k]?.label;
       if (!v || !label) continue;
-      const tag = label + (v > 1 ? " &times; 2" : "");
-      context.tags.push({
+      const tag = label + (v > 1 ? ` &times; ${v}` : "");
+      tags.push({
         tag,
         tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.type", { type: label }),
       });
     }
+
+    // Mastered Weapons.
     for (const [k, v] of Object.entries(this.document.system.mastered.weapons)) {
       const label = ryuutama.config.weaponCategories[k]?.labelPlural;
-      if (label && v) context.tags.push({
-        tag: label,
+      if (!v || !label) continue;
+      const tag = label + (v > 1 ? ` &times; ${v}` : "");
+      tags.push({
+        tag,
         tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.masteredWeapon", { weapon: label }),
       });
     }
+
+    // Specialized Terrains.
     for (const k of this.document.system.mastered.terrain) {
       const label = ryuutama.config.terrainTypes[k]?.label;
       if (!label) continue;
-      context.tags.push({
+      tags.push({
         tag: label,
         tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.habitatSpecialty", { habitat: label }),
       });
     }
+
+    // Specialized Weather Conditions.
     for (const k of this.document.system.mastered.weather) {
       const label = ryuutama.config.weatherTypes[k]?.label;
       if (!label) continue;
-      context.tags.push({
+      tags.push({
         tag: label,
         tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.habitatSpecialty", { habitat: label }),
       });
@@ -238,9 +260,9 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       context.levelUp = { tag: levelTag, tooltip: levelTag };
       if (this.document.system.details.exp.pct === 100) context.levelUp.glow = true;
     } else {
-      context.tags.unshift({ tag: levelTag, tooltip: levelTag });
+      tags.unshift({ tag: levelTag, tooltip: levelTag });
     }
 
-    return context;
+    return tags;
   }
 }
