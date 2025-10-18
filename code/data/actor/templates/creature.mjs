@@ -1,5 +1,3 @@
-import AbilityModel from "../../ability-model.mjs";
-
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
  * @import CheckRoll from "../../../dice/check-roll.mjs";
@@ -7,15 +5,11 @@ import AbilityModel from "../../ability-model.mjs";
  * @import RyuutamaActor from "../../../documents/actor.mjs";
  */
 
-const { EmbeddedDataField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class CreatureData extends foundry.abstract.TypeDataModel {
   /** @override */
   static defineSchema() {
-    const makeAbility = () => {
-      return new EmbeddedDataField(AbilityModel);
-    };
-
     const makeResource = () => {
       return new SchemaField({
         bonuses: new SchemaField({
@@ -28,12 +22,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     };
 
     return {
-      abilities: new SchemaField({
-        strength: makeAbility(),
-        dexterity: makeAbility(),
-        intelligence: makeAbility(),
-        spirit: makeAbility(),
-      }),
       condition: new SchemaField({
         immunities: new SetField(new StringField({ choices: () => ryuutama.config.statusEffects })),
         shape: new SchemaField({
@@ -66,11 +54,19 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  prepareDerivedData() {
-    super.prepareDerivedData();
+  prepareBaseData() {
+    super.prepareBaseData();
 
     this.#prepareStatuses();
     this._prepareAbilities();
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    for (const k in this.abilities) this.abilities[k] = new ryuutama.data.Ability(this.abilities[k].value);
   }
 
   /* -------------------------------------------------- */
@@ -96,6 +92,9 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * Prepare abilities.
    */
   _prepareAbilities() {
+    // In case of doubled data prep, ensure the object is entirely source data. An error is otherwise thrown.
+    for (const k in this.abilities) this.abilities[k] = { ...this._source.abilities[k] };
+
     for (const id in this.condition.statuses) {
       let abilities;
       switch (id) {
@@ -107,7 +106,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         case "sickness": abilities = ["strength", "dexterity", "intelligence", "spirit"]; break;
       }
       if (!abilities) continue;
-      for (const ability of abilities) this.abilities[ability].decreases++;
+      for (const ability of abilities) this.schema.getField(`abilities.${ability}.value`).increase(this.parent, -1);
     }
   }
 

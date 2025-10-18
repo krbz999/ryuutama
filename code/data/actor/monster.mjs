@@ -6,6 +6,10 @@ export default class MonsterData extends CreatureData {
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
+      abilities: new SchemaField(Object.keys(ryuutama.config.abilityScores).reduce((acc, ability) => {
+        acc[ability] = new SchemaField({ value: new ryuutama.data.fields.AbilityScoreField({ restricted: false }) });
+        return acc;
+      }, {})),
       attack: new SchemaField({
         accuracy: new ryuutama.data.fields.FormulaField(),
         damage: new ryuutama.data.fields.FormulaField(),
