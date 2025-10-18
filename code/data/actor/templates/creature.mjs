@@ -53,6 +53,69 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Storage of previous HP values.
+   * @type {Map<string, number>}
+   */
+  static #staminaChange = new Map();
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Display scrolling numbers when damaged or healed.
+   * @param {RyuutamaActor} actor   The actor whose HP is modified.
+   * @param {number} delta          The change to HP.
+   */
+  static #displayScrollingDamageNumbers(actor, delta) {
+    if (!delta) return;
+
+    const color = delta > 0 ? "#4BA72F" : "#b8006d";
+    const tokens = actor.isToken ? [actor.token?.object] : actor.getActiveTokens(true);
+    const options = {
+      duration: 3000,
+      anchor: CONST.TEXT_ANCHOR_POINTS.CENTER,
+      direction: CONST.TEXT_ANCHOR_POINTS[delta > 0 ? "TOP" : "BOTTOM"],
+      stroke: 0x000000,
+      strokeThickness: 4,
+      jitter: 0,
+      fill: foundry.utils.Color.from(color),
+    };
+    const text = delta.signedString();
+
+    for (const token of tokens) if (token?.visible && !token.document.isSecret) {
+      const center = token.center;
+      canvas.interface.createScrollingText(center, text, options);
+      token.ring?.flashColor(options.fill);
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preUpdate(changes, options, user) {
+    if ((await super._preUpdate(changes, options, user)) === false) return false;
+
+    // Store current HP for later comparison.
+    if (foundry.utils.hasProperty(changes, "system.resources.stamina.spent")) {
+      CreatureData.#staminaChange.set(this.parent.uuid, this.resources.stamina.value);
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onUpdate(changed, options, userId) {
+    super._onUpdate(changed, options, userId);
+
+    if (CreatureData.#staminaChange.has(this.parent.uuid)) {
+      const delta = this.resources.stamina.value - CreatureData.#staminaChange.get(this.parent.uuid);
+      CreatureData.#staminaChange.delete(this.parent.uuid);
+      CreatureData.#displayScrollingDamageNumbers(this.parent, delta);
+    }
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   prepareBaseData() {
     super.prepareBaseData();
