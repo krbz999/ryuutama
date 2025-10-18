@@ -34,6 +34,30 @@ export default class RyuutamaActor extends foundry.documents.Actor {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  async modifyTokenAttribute(attribute, value, isDelta = false, isBar = true) {
+    if (!isBar) return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+
+    const schema = this.system.schema.getField(attribute);
+    const object = foundry.utils.getProperty(this.system, attribute);
+
+    const isSpent = !schema.has("value") && schema.has("spent");
+    const current = isSpent ? object.spent : object.value;
+    const update = isDelta
+      ? current + (isSpent ? -value : value)
+      : isSpent ? (object.max - value) : value;
+    if (update === current) return this;
+
+    const updates = {
+      [`system.${attribute}.${isSpent ? "spent" : "value"}`]: Math.clamp(update, 0, object.max),
+    };
+
+    const allowed = Hooks.call("modifyTokenAttribute", { attribute, value, isDelta, isBar }, updates, this);
+    return (allowed === false) ? this : this.update(updates);
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Removed in favor of a system implementation.
    * @override

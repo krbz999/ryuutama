@@ -44,6 +44,8 @@
   "license": "https://github.com/krbz999/ryuutama/blob/main/LICENSE",
   "download": "",
   "changelog": "https://github.com/krbz999/ryuutama/releases",
+  "primaryTokenAttribute": "resources.stamina",
+  "secondaryTokenAttribute": "resources.mental",
   "flags": {
     "hotReload": {
       "extensions": [
