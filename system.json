@@ -37,7 +37,7 @@
       "url": "systems/ryuutama/assets/official/setup.webp"
     }
   ],
-  "background": "systems/ryuutama/assets/official/setup.webp",
+  "background": "systems/ryuutama/assets/official/login.webp",
   "url": "https://github.com/krbz999/ryuutama",
   "manifest": "https://github.com/krbz999/ryuutama/releases/latest/download/system.json",
   "license": "https://github.com/krbz999/ryuutama/blob/main/LICENSE",
