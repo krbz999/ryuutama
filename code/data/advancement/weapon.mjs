@@ -37,14 +37,4 @@ export default class WeaponAdvancement extends Advancement {
     const data = foundry.utils.expandObject(formData.object);
     return { result: new this({ type: this.TYPE, ...data }, { parent: actor }), type: "advancement" };
   }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  prepareBaseData() {
-    super.prepareBaseData();
-
-    const document = this.document;
-    if (document && this.choice.chosen) document.system.mastered.weapons[this.choice.chosen]++;
-  }
 }

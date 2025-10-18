@@ -111,10 +111,19 @@ export default class TravelerData extends CreatureData {
 
     // Types, Status Immunities, and Mastered Weapons.
     const { habitat, weapon, statusImmunity, type } = this.advancements.documentsByType;
-    for (const a of weapon) a.prepareBaseData();
-    for (const a of statusImmunity) a.prepareBaseData();
-    for (const a of type) a.prepareBaseData();
-    for (const a of habitat) a.prepareBaseData();
+    for (const advancement of type) {
+      if (advancement.choice.chosen) this.details.type[advancement.choice.chosen]++;
+    }
+    for (const advancement of habitat) {
+      const type = advancement.choice.type;
+      this.mastered[type]?.add(advancement.choice.chosen[type]);
+    }
+    for (const advancement of statusImmunity) {
+      if (advancement.choice.chosen) this.condition.immunities.add(advancement.choice.chosen);
+    }
+    for (const advancement of weapon) {
+      if (advancement.choice.chosen) this.mastered.weapons[advancement.choice.chosen]++;
+    }
   }
 
   /* -------------------------------------------------- */
@@ -186,11 +195,15 @@ export default class TravelerData extends CreatureData {
       const resource = this.resources[key];
       const src = this._source.resources[key];
 
+      const advancementBonus = this.advancements.documentsByType.resource
+        .reduce((acc, advancement) => acc + advancement.choice.chosen[key], 0);
+
       resource.max = src.max
         + resource.bonuses.flat
         + resource.gear
         + resource.bonuses.level * this.details.level
-        + typeBonus;
+        + typeBonus
+        + advancementBonus;
       resource.spent = Math.min(resource.spent, resource.max);
       resource.value = resource.max - resource.spent;
       resource.pct = Math.clamp(Math.round(resource.value / resource.max * 100), 0, 100) || 0;

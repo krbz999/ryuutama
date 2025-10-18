@@ -57,11 +57,11 @@ export default class ResourceAdvancement extends Advancement {
   /** @override */
   static _determineResult(actor, formData) {
     formData = foundry.utils.expandObject(formData.object);
-    const source = actor.system._source.resources;
-    const update = {
-      "system.resources.stamina.max": source.stamina.max + formData.choice.chosen.stamina,
-      "system.resources.mental.max": source.mental.max + formData.choice.chosen.mental,
+    formData.type = this.TYPE;
+
+    return {
+      result: new this(formData, { parent: actor }),
+      type: "advancement",
     };
-    return { result: update, type: "actor" };
   }
 }
