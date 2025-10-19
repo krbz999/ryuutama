@@ -1,0 +1,15 @@
+<button type="button" data-action="configureHabitat">
+  <h4>{{localize "RYUUTAMA.SETTINGS.CURRENT_HABITAT.current"}}</h4>
+
+  {{#if targetNumber}}
+  <span class="topography">{{localize "RYUUTAMA.SETTINGS.CURRENT_HABITAT.targetNumber" number=targetNumber}}</span>
+  {{/if}}
+
+  {{#if terrain}}
+  <span class="terrain">{{terrain}}</span>
+  {{/if}}
+
+  {{#if weather}}
+  <span class="weather">{{weather}}</span>
+  {{/if}}
+</button>
