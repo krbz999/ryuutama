@@ -30,7 +30,6 @@ export default class CurrentHabitat extends HandlebarsApplicationMixin(Applicati
   /** @override */
   async _prepareContext(options) {
     const value = game.settings.get(ryuutama.id, "CURRENT_HABITAT");
-    // const fields = game.settings.settings.get(`${ryuutama.id}.CURRENT_HABITAT`).fields;
 
     const targetNumber =
       Math.max(0, ...[...value.terrain].map(v => ryuutama.config.terrainTypes[v]?.difficulty).filter(_ => _))
