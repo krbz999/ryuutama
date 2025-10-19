@@ -1,13 +1,11 @@
+import BaseData from "./templates/base.mjs";
+
 const { HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
-export default class HerbData extends foundry.abstract.TypeDataModel {
+export default class HerbData extends BaseData {
   /** @override */
   static defineSchema() {
-    return {
-      description: new SchemaField({
-        effect: new HTMLField(),
-        value: new HTMLField(),
-      }),
+    return Object.assign(super.defineSchema(), {
       level: new NumberField({ initial: 1, nullable: false, integer: true, min: 1, max: 5 }),
       price: new SchemaField({
         value: new NumberField({ nullable: true, initial: null, min: 0, integer: true }),
@@ -15,6 +13,16 @@ export default class HerbData extends foundry.abstract.TypeDataModel {
       category: new SchemaField({
         value: new StringField({ required: true, initial: "physical", choices: () => ryuutama.config.herbTypes }),
       }),
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static get HTMLFields() {
+    return {
+      ...super.HTMLFields,
+      effect: new HTMLField(),
     };
   }
 

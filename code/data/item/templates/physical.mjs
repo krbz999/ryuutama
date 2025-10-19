@@ -1,12 +1,11 @@
-const { HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+import BaseData from "./base.mjs";
 
-export default class PhysicalData extends foundry.abstract.TypeDataModel {
+const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+
+export default class PhysicalData extends BaseData {
   /** @override */
   static defineSchema() {
-    return {
-      description: new SchemaField({
-        value: new HTMLField(),
-      }),
+    return Object.assign(super.defineSchema(), {
       durability: new SchemaField({
         spent: new NumberField({ nullable: false, initial: 0, integer: true, min: 0 }),
       }),
@@ -17,7 +16,7 @@ export default class PhysicalData extends foundry.abstract.TypeDataModel {
       size: new SchemaField({
         value: new NumberField({ nullable: false, initial: 1, choices: () => ryuutama.config.itemSizes }),
       }),
-    };
+    });
   }
 
   /* -------------------------------------------------- */

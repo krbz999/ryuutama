@@ -13,7 +13,7 @@
     <div class="item">
       <label>{{label}}</label>
       {{#if item}}
-      <a data-action="renderItem" data-uuid="{{item.uuid}}" data-tooltip-text="{{item.name}}" data-tooltip-direction="UP">
+      <a data-action="renderItem" data-uuid="{{item.uuid}}" data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}">
         <img src="{{img}}" alt="{{item.name}}">
       </a>
       {{else}}
@@ -34,7 +34,7 @@
   <section data-tab="{{id}}" class="tab {{cssClass}}" data-group="inventory">
     {{#each groups}}
     {{#if items.length}}
-    {{inventory-element documents=items action="renderItem" inline=false label=label}}
+    {{inventory-element documents=items action="renderItem" inline=false label=label tooltips=true}}
     {{/if}}
     {{/each}}
   </section>

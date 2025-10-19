@@ -1,17 +1,16 @@
-const { HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
+import BaseData from "./templates/base.mjs";
 
-export default class SpellData extends foundry.abstract.TypeDataModel {
+const { NumberField, SchemaField, StringField } = foundry.data.fields;
+
+export default class SpellData extends BaseData {
   /** @override */
   static defineSchema() {
-    return {
+    return Object.assign(super.defineSchema(), {
       category: new SchemaField({
         value: new StringField({
           required: true, initial: "incantation",
           choices: () => ryuutama.config.spellCategories,
         }),
-      }),
-      description: new SchemaField({
-        value: new HTMLField(),
       }),
       spell: new SchemaField({
         activation: new SchemaField({
@@ -33,7 +32,7 @@ export default class SpellData extends foundry.abstract.TypeDataModel {
           custom: new StringField({ required: true }),
         }),
       }),
-    };
+    });
   }
 
   /* -------------------------------------------------- */

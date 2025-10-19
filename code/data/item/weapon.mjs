@@ -1,6 +1,6 @@
 import PhysicalData from "./templates/physical.mjs";
 
-const { ArrayField, BooleanField, NumberField, SchemaField, StringField } = foundry.data.fields;
+const { ArrayField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
 export default class WeaponData extends PhysicalData {
   /** @inheritdoc */
