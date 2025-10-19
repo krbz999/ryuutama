@@ -68,10 +68,11 @@
       "TABS": {
         "attributes": "Attributes",
         "details": "Details",
-        "skills": "Skills",
-        "spells": "Magic",
+        "effects": "Effects",
         "inventory": "Inventory",
-        "notes": "Notes"
+        "notes": "Notes",
+        "skills": "Skills",
+        "spells": "Magic"
       },
       "INVENTORY_TABS": {
         "arsenal": "Weapons & Armor",
@@ -80,6 +81,12 @@
         "containers": "Containers"
       },
       "CONTEXT": {
+        "EFFECT": {
+          "edit": "Edit Effect",
+          "delete": "Delete Effect",
+          "disable": "Disable Effect",
+          "enable": "Enable Effect"
+        },
         "ITEM": {
           "view": "View Item",
           "edit": "Edit Item",
@@ -109,7 +116,14 @@
       "statusSuppressed": "Suppressed ({strength})",
       "armor": "Armor",
       "physical": "Physical",
-      "magical": "Magical"
+      "magical": "Magical",
+      "disabledEffects": "Inactive",
+      "activeEffects": "Active",
+      "magicGroupIncantation": "Incantations",
+      "magicGroupSpring": "Spring Magic",
+      "magicGroupSummer": "Summer Magic",
+      "magicGroupAutumn": "Autumn Magic",
+      "magicGroupWinter": "Winter Magic"
     },
     "CREATURE": {
       "FIELDS": {
@@ -261,6 +275,14 @@
     },
 
     "ITEM": {
+      "CONTEXT": {
+        "EFFECT": {
+          "edit": "Edit Effect",
+          "delete": "Delete Effect",
+          "disable": "Disable Effect",
+          "enable":"Enable Effect"
+        }
+      },
       "MODIFIERS": {
         "beautiful": "Beautiful",
         "broken": "Broken",
@@ -291,6 +313,8 @@
       "defenses": "Defenses",
       "details": "Details",
       "durability": "Durability ({value}/{max})",
+      "activeEffects": "Active",
+      "disabledEffects": "Inactive",
 
       "CONTAINER": {
         "FIELDS": {

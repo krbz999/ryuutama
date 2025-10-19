@@ -1,17 +1,31 @@
-inventory-element {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+.ryuutama.application.sheet {
+  section.document-listing h4 {
+    font-size: 18px;
+    font-family: Amiri;
+    font-weight: normal;
+  }
 
-  .entry {
-    cursor: var(--cursor-pointer);
-    max-width: 40px;
-    border-radius: 3px;
-    padding: 2px;
-    transition: background-color 150ms ease;
+  inventory-element, effects-element {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
 
-    &:hover {
-      background-color: var(--ryuutama-inventory-hover-color);
+    .entry {
+      cursor: var(--cursor-pointer);
+      max-width: 40px;
+      border-radius: 3px;
+      padding: 2px;
+      transition: background-color 150ms ease;
+
+      &:hover {
+        background-color: var(--ryuutama-document-list-hover-color);
+      }
+    }
+  }
+
+  effects-element {
+    .entry.inactive {
+      opacity: 0.5;
     }
   }
 }

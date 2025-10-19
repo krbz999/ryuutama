@@ -1,3 +1,5 @@
 <section data-tab="{{tabs.spells.id}}" class="{{tabs.spells.cssClass}}" data-group="{{tabs.spells.group}}">
-  {{inventory-element documents=spells.items action="renderItem"}}
+  {{#each spells}}
+  {{inventory-element documents=documents label=label inline=false action="renderItem"}}
+  {{/each}}
 </section>

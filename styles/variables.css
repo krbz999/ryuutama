@@ -35,7 +35,7 @@
 
   .theme-light, .themed.theme-light {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
-    --ryuutama-inventory-hover-color: rgba(0, 0, 0, 0.1);
+    --ryuutama-document-list-hover-color: rgba(0, 0, 0, 0.1);
     --ryuutama-color-value-location: black;
     --ryuutama-color-disabled: var(--ryuutama-color-dimgray);
     --ryuutama-color-capacity-bar: var(--ryuutama-color-darkorange);
@@ -49,7 +49,7 @@
 
   .theme-dark, .themed.theme-dark {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-palevioletred);
-    --ryuutama-inventory-hover-color: rgba(255, 255, 255, 0.1);
+    --ryuutama-document-list-hover-color: rgba(255, 255, 255, 0.1);
     --ryuutama-color-value-location: white;
     --ryuutama-color-disabled: var(--ryuutama-color-tan);
     --ryuutama-color-capacity-bar: var(--ryuutama-color-darkorange);

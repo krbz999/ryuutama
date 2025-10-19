@@ -29,6 +29,7 @@ Hooks.once("init", () => {
 
   // Define custom elements.
   window.customElements.define(applications.elements.DamageTray.tagName, applications.elements.DamageTray);
+  window.customElements.define(applications.elements.EffectsElement.tagName, applications.elements.EffectsElement);
   window.customElements.define(applications.elements.IconElement.tagName, applications.elements.IconElement);
   window.customElements.define(applications.elements.InventoryElement.tagName, applications.elements.InventoryElement);
   window.customElements.define(applications.elements.ProgressBar.tagName, applications.elements.ProgressBar);
@@ -126,6 +127,7 @@ Hooks.once("setup", () => {
 
   Handlebars.registerHelper({
     "inventory-element": applications.elements.InventoryElement.handlebarsHelper,
+    "effects-element": applications.elements.EffectsElement.handlebarsHelper,
   });
 });
 
