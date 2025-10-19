@@ -42,12 +42,4 @@ export default class SpellData extends BaseData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ITEM.SPELL",
   ];
-
-  static migrateData(source) {
-    if (source.category?.value === "seasonal") {
-      source.category.value = source.category.season;
-      delete source.category.season;
-    }
-    return super.migrateData(source);
-  }
 }
