@@ -23,6 +23,10 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
       template: "systems/ryuutama/templates/sheets/monster-sheet/details.hbs",
       classes: ["tab", "standard-form", "scrollable"],
     },
+    effects: {
+      template: "systems/ryuutama/templates/sheets/shared/effects.hbs",
+      classes: ["tab", "standard-form", "scrollable"],
+    },
   };
 
   /* -------------------------------------------------- */
@@ -34,6 +38,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
         { id: "attributes" },
         { id: "skills" },
         { id: "details" },
+        { id: "effects" },
       ],
       initial: "attributes",
       labelPrefix: "RYUUTAMA.ACTOR.TABS",

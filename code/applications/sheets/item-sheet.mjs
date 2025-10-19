@@ -102,8 +102,82 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     }
 
     // Effects.
-    context.effects = this.document.effects.map(effect => ({ document: effect }));
+    context.effects = this.#prepareEffects(context);
 
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare effects.
+   * @param {object} context    Rendering context. **will be mutated**
+   * @returns {{ enabledEffects: object[], disabledEffects: object[] }}
+   */
+  #prepareEffects(context) {
+    const { enabled = [], disabled = [] } = Object.groupBy(this.document.effects.contents, effect => {
+      if (effect.type !== "standard") return "status";
+      return effect.disabled ? "disabled" : "enabled";
+    });
+
+    return {
+      enabledEffects: enabled.map(effect => ({ document: effect })),
+      disabledEffects: disabled.map(effect => ({ document: effect, classes: ["inactive"] })),
+    };
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options);
+
+    // Manage effects.
+    this._createContextMenu(
+      RyuutamaItemSheet.#createActiveEffectContextOptions.bind(this),
+      "effects-element .entry",
+      { hookName: "Get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
+    );
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Create context menu options for effects.
+   * @this RyuutamaItemSheet
+   * @returns {ContextMenuEntry[]}
+   */
+  static #createActiveEffectContextOptions() {
+    const getItem = target => this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
+
+    /** @type {ContextMenuEntry[]} */
+    const options = [
+      {
+        name: "RYUUTAMA.ITEM.CONTEXT.EFFECT.edit",
+        icon: "fa-solid fa-fw fa-edit",
+        callback: target => getItem(target).sheet.render({ force: true }),
+      },
+      {
+        name: "RYUUTAMA.ITEM.CONTEXT.EFFECT.delete",
+        icon: "fa-solid fa-fw fa-trash",
+        callback: target => getItem(target).deleteDialog(),
+        condition: () => this.isEditable,
+      },
+      {
+        name: "RYUUTAMA.ITEM.CONTEXT.EFFECT.disable",
+        icon: "fa-solid fa-fw fa-times",
+        callback: target => getItem(target).update({ disabled: true }),
+        condition: target => this.isEditable && !getItem(target).disabled,
+      },
+      {
+        name: "RYUUTAMA.ITEM.CONTEXT.EFFECT.enable",
+        icon: "fa-solid fa-fw fa-check",
+        callback: target => getItem(target).update({ disabled: false }),
+        condition: target => this.isEditable && getItem(target).disabled,
+      },
+    ];
+
+    if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));
+    return options;
   }
 }

@@ -33,14 +33,6 @@
       grid-area: nav;
     }
   }
-
-  .inventory-group {
-    h4 {
-      font-size: 18px;
-      font-family: Amiri;
-      font-weight: normal;
-    }
-  }
 }
 
 .ryuutama.application.sheet.actor {

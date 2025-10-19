@@ -1,9 +1,11 @@
 import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 
 /**
+ * @import RyuutamaActiveEffect from "../../documents/active-effect.mjs";
  * @import RyuutamaItem from "../../documents/item.mjs";
  * @import DragDrop from "@client/applications/ux/drag-drop.mjs";
  * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
+ * @import Document from "@common/abstract/document.mjs";
  */
 
 /**
@@ -104,7 +106,29 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       },
     };
 
+    // Effects.
+    context.effects = this.#prepareEffects(context);
+
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare effects.
+   * @param {object} context    Rendering context. **will be mutated**
+   * @returns {{ enabledEffects: object[], disabledEffects: object[] }}
+   */
+  #prepareEffects(context) {
+    const { enabled = [], disabled = [] } = Object.groupBy(this.document.effects.contents, effect => {
+      if (effect.type !== "standard") return "status";
+      return effect.disabled ? "disabled" : "enabled";
+    });
+
+    return {
+      enabledEffects: enabled.map(effect => ({ document: effect })),
+      disabledEffects: disabled.map(effect => ({ document: effect, classes: ["inactive"] })),
+    };
   }
 
   /* -------------------------------------------------- */
@@ -133,6 +157,13 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       "inventory-element .entry, .equipped [data-item-id]",
       { hookName: "get{}ItemContextOptions", parentClassHooks: false, fixed: true },
     );
+
+    // Manage effects.
+    this._createContextMenu(
+      RyuutamaActorSheet.#createActiveEffectContextOptions.bind(this),
+      "effects-element .entry",
+      { hookName: "Get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
+    );
   }
 
   /* -------------------------------------------------- */
@@ -142,7 +173,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
     await super._onRender(context, options);
 
     this.#dragDrop ??= new CONFIG.ux.DragDrop({
-      dragSelector: "inventory-element .entry",
+      dragSelector: "inventory-element .entry, effects-element .entry",
       dropSelector: null,
       permissions: {
         dragstart: RyuutamaActorSheet.#canDragstart.bind(this),
@@ -256,6 +287,47 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
+   * Create context menu options for effects.
+   * @this RyuutamaActorSheet
+   * @returns {ContextMenuEntry[]}
+   */
+  static #createActiveEffectContextOptions() {
+    const getItem = target => this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
+
+    /** @type {ContextMenuEntry[]} */
+    const options = [
+      {
+        name: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.edit",
+        icon: "fa-solid fa-fw fa-edit",
+        callback: target => getItem(target).sheet.render({ force: true }),
+      },
+      {
+        name: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.delete",
+        icon: "fa-solid fa-fw fa-trash",
+        callback: target => getItem(target).deleteDialog(),
+        condition: () => this.isEditable,
+      },
+      {
+        name: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.disable",
+        icon: "fa-solid fa-fw fa-times",
+        callback: target => getItem(target).update({ disabled: true }),
+        condition: target => this.isEditable && !getItem(target).disabled,
+      },
+      {
+        name: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.enable",
+        icon: "fa-solid fa-fw fa-check",
+        callback: target => getItem(target).update({ disabled: false }),
+        condition: target => this.isEditable && getItem(target).disabled,
+      },
+    ];
+
+    if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));
+    return options;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * @this RyuutamaActorSheet
    * @param {string} selector   The css selector on which the drag event is targeted.
    * @returns {boolean}         Whether the user may initiate a drag event from this element.
@@ -297,16 +369,51 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaActorSheet
    * @param {DragEvent} event   The initiating drag event.
+   * @returns {Promise<Document|null>}
    */
   static async #onDrop(event) {
-    const { type, uuid } = CONFIG.ux.TextEditor.getDragEventData(event);
-    if (type !== "Item") return;
-    const item = await fromUuid(uuid);
-    if (item.parent === this.document) return; // TODO: sort?
+    const { uuid } = CONFIG.ux.TextEditor.getDragEventData(event);
+    const document = await fromUuid(uuid);
+    if (!document) return null;
 
+    switch (document.documentName) {
+      case "Item": return (await this._onDropItem(document, event)) ?? null;
+      case "ActiveEffect": return (await this._onDropActiveEffect(document, event)) ?? null;
+    }
+
+    return null;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Handle dropping an item onto the actor sheet.
+   * @param {RyuutamaItem} item
+   * @param {DragEvent} event
+   * @returns {Promise<RyuutamaItem|null>}
+   */
+  async _onDropItem(item, event) {
+    if (item.parent === this.document) return null; // TODO: sort?
     const keepId = !this.document.items.has(item.id);
     const itemData = game.items.fromCompendium(item, { keepId });
-    getDocumentClass("Item").create(itemData, { parent: this.document, keepId });
+    return getDocumentClass("Item").create(itemData, { parent: this.document, keepId });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Handle dropping an effect onto the actor sheet.
+   * @param {RyuutamaActiveEffect} effect
+   * @param {DragEvent} event
+   * @returns {Promise<RyuutamaActiveEffect|null>}
+   */
+  async _onDropActiveEffect(effect, event) {
+    if (effect.parent === this.document) return null; // TODO: sort?
+    if (effect.parent?.parent === this.document) return null; // own grandchild effect
+    const keepId = !this.document.effects.has(effect.id);
+    const effectData = effect.toObject();
+    effectData.origin = effect.parent?.uuid;
+    return getDocumentClass("ActiveEffect").create(effectData, { parent: this.document, keepId });
   }
 
   /* -------------------------------------------------- */

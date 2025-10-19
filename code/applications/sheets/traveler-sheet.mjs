@@ -31,6 +31,10 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/inventory.hbs",
       classes: ["tab", "standard-form", "scrollable"],
     },
+    effects: {
+      template: "systems/ryuutama/templates/sheets/shared/effects.hbs",
+      classes: ["tab", "standard-form", "scrollable"],
+    },
     notes: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/notes.hbs",
       classes: ["tab", "standard-form", "scrollable"],
@@ -47,6 +51,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
         { id: "skills" },
         { id: "spells" },
         { id: "inventory" },
+        { id: "effects" },
         { id: "notes" },
       ],
       initial: "attributes",
@@ -192,14 +197,38 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     else context.conditionShape.active = false;
 
     // Spells.
-    context.spells = {};
-    if (options.parts.includes("spells")) {
-      context.spells.items = this.document.items.documentsByType.spell.map(spell => ({ document: spell }));
-    }
+    if (options.parts.includes("spells")) context.spells = this.#prepareSpells(context);
 
+    // Tags.
     context.tags = this.#prepareTags(context);
 
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare spells.
+   * @param {object} context    Rendering context. **will be mutated**
+   * @returns {object[]}
+   */
+  #prepareSpells(context) {
+    const {
+      incantation, spring, summer, autumn, winter,
+    } = Object.groupBy(this.document.items.documentsByType.spell, spell => {
+      return spell.system.category.value;
+    });
+
+    const groups = [];
+
+    for (const type of [incantation, spring, summer, autumn, winter]) {
+      if (!type?.length) continue;
+
+      const label = game.i18n.localize(`RYUUTAMA.ACTOR.magicGroup${type[0].system.category.value.capitalize()}`);
+      groups.push({ label, documents: type.map(spell => ({ document: spell })) });
+    }
+
+    return groups;
   }
 
   /* -------------------------------------------------- */
