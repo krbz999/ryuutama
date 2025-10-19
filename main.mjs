@@ -75,6 +75,7 @@ Hooks.once("init", () => {
 
   CONFIG.ui.actors = applications.sidebar.tabs.RyuutamaActorDirectory;
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
+  CONFIG.ui.habitat = applications.apps.CurrentHabitat;
 
   // Assign rolls.
   CONFIG.Dice.rolls.unshift(dice.DamageRoll);
@@ -131,3 +132,9 @@ Hooks.once("setup", () => {
 /* -------------------------------------------------- */
 
 Hooks.once("ready", () => {});
+
+/* -------------------------------------------------- */
+
+Hooks.once("renderPlayers", () => {
+  if (game.user.isGM) ui.habitat.render({ force: true });
+});
