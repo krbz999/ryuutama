@@ -102,21 +102,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     const context = await super._prepareContext(options);
 
     // Skills.
-    /** @type {InventoryElementEntry[]} */
-    const skills = [];
-    for (const skill of this.document.items.documentsByType.skill) {
-      const text = await CONFIG.ux.TextEditor.enrichHTML(
-        skill.system.description.value,
-        { rollData: skill.getRollData(), relativeTo: skill },
-      );
-      skills.push({
-        document: skill,
-        dataset: {
-          tooltipHtml: `<p><strong>${skill.name}</strong></p>${text}`,
-        },
-      });
-    }
-    context.skills = skills;
+    context.skills = this.document.items.documentsByType.skill.map(skill => ({ document: skill }));
 
     context.tabs = this._prepareTabs("primary");
     context.inventoryTabs = this._prepareTabs("inventory");

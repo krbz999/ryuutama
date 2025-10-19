@@ -1,0 +1,15 @@
+#tooltip.ryuutama,
+.ryuutama.locked-tooltip {
+  &:not(.locked-tooltip) {
+    box-shadow: 0 0 2px var(--ryuutama-enriched-tooltip-border);
+  }
+
+  > .tooltip.item {
+    text-align: initial;
+    font-family: Amiri;
+
+    .name {
+      font-family: Amiri;
+    }
+  }
+}

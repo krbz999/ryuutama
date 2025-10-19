@@ -17,4 +17,5 @@
  * @property {string|string[]} [classes]        Css classes to apply.
  * @property {boolean} [inline=true]            Render just the custom element?
  * @property {string} [label]                   The label for the header element of the listing's group.
+ * @property {boolean} [tooltips=false]         If true, assigns hoverable tooltips to the documents.
  */

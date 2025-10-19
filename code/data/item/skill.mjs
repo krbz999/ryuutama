@@ -1,12 +1,3 @@
-const { HTMLField, SchemaField } = foundry.data.fields;
+import BaseData from "./templates/base.mjs";
 
-export default class SkillData extends foundry.abstract.TypeDataModel {
-  /** @override */
-  static defineSchema() {
-    return {
-      description: new SchemaField({
-        value: new HTMLField(),
-      }),
-    };
-  }
-}
+export default class SkillData extends BaseData {}

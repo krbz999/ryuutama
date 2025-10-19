@@ -45,6 +45,8 @@
     --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
     --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
     --ryuutama-table-text-color: var(--ryuutama-color-black);
+
+    --ryuutama-enriched-tooltip-border: var(--ryuutama-color-darkblue);
   }
 
   .theme-dark, .themed.theme-dark {
@@ -59,5 +61,7 @@
     --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
     --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
     --ryuutama-table-text-color: var(--ryuutama-color-black);
+
+    --ryuutama-enriched-tooltip-border: var(--ryuutama-color-bisque);
   }
 }

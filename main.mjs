@@ -78,6 +78,8 @@ Hooks.once("init", () => {
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
   CONFIG.ui.habitat = applications.apps.CurrentHabitat;
 
+  CONFIG.ux.TooltipManager = helpers.interaction.RyuutamaTooltipManager;
+
   // Assign rolls.
   CONFIG.Dice.rolls.unshift(dice.DamageRoll);
   CONFIG.Dice.rolls.unshift(dice.CheckRoll);
@@ -128,12 +130,15 @@ Hooks.once("setup", () => {
   Handlebars.registerHelper({
     "inventory-element": applications.elements.InventoryElement.handlebarsHelper,
     "effects-element": applications.elements.EffectsElement.handlebarsHelper,
+    "ryuutama-tooltip": helpers.interaction.RyuutamaTooltipManager.handlebarsHelper,
   });
 });
 
 /* -------------------------------------------------- */
 
-Hooks.once("ready", () => {});
+Hooks.once("ready", () => {
+  game.tooltip.observe();
+});
 
 /* -------------------------------------------------- */
 

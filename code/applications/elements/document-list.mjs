@@ -52,9 +52,12 @@ export default class DocumentList extends HTMLElement {
       uuid: entry.document.uuid,
       name: entry.document.name,
       documentName: entry.document.documentName,
-      tooltipText: name,
+      tooltipText: options.tooltips ? null : name,
+      tooltipHtml: options.tooltips
+        ? ryuutama.helpers.interaction.RyuutamaTooltipManager.constructHTML({ uuid: entry.document.uuid })
+        : null,
     }, entry.dataset ?? {});
-    for (const [k, v] of Object.entries(dataset)) element.dataset[k] = v;
+    for (const [k, v] of Object.entries(dataset)) if (v) element.dataset[k] = v;
 
     return element;
   }

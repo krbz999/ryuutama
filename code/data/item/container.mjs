@@ -1,14 +1,13 @@
-const { HTMLField, NumberField, SchemaField } = foundry.data.fields;
+import BaseData from "./templates/base.mjs";
 
-export default class ContainerData extends foundry.abstract.TypeDataModel {
+const { NumberField, SchemaField } = foundry.data.fields;
+
+export default class ContainerData extends BaseData {
   /** @override */
   static defineSchema() {
-    return {
+    return Object.assign(super.defineSchema(), {
       capacity: new SchemaField({
         max: new NumberField({ nullable: true, initial: null, integer: true, min: 0 }),
-      }),
-      description: new SchemaField({
-        value: new HTMLField(),
       }),
       price: new SchemaField({
         value: new NumberField({ nullable: false, initial: 1, min: 0, integer: true }),
@@ -16,7 +15,7 @@ export default class ContainerData extends foundry.abstract.TypeDataModel {
       size: new SchemaField({
         value: new NumberField({ nullable: false, initial: 1, choices: () => ryuutama.config.itemSizes }),
       }),
-    };
+    });
   }
 
   /* -------------------------------------------------- */
