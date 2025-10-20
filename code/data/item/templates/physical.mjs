@@ -48,6 +48,8 @@ export default class PhysicalData extends BaseData {
     // An item is broken if it has no durability remaining. This property is required for the price calculation.
     if (!this.durability.value) this.modifiers.add("broken");
     this.#preparePrice();
+
+    this.#prepareModifierLabels();
   }
 
   /* -------------------------------------------------- */
@@ -103,5 +105,19 @@ export default class PhysicalData extends BaseData {
     p.total = Math.floor(p.total * p.multiplier + p.magical);
     p.sell = Math.floor(p.total / 2);
     p.saleable = (p.sell > 0) && !this.modifiers.has("broken");
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare labels for modifiers.
+   */
+  #prepareModifierLabels() {
+    this.modifierLabels = [];
+    for (const modifier of this.modifiers) {
+      const label = ryuutama.config.itemModifiers[modifier]?.label;
+      if (label) this.modifierLabels.push(label);
+    }
+    this.modifierLabels.sort((a, b) => a.localeCompare(b));
   }
 }

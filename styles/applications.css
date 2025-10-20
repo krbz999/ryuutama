@@ -47,3 +47,24 @@ ryuutama-icon {
   width: 100%;
   text-align: center;
 }
+
+.ryuutama .tags {
+  color: var(--ryuutama-color-disabled);
+  font-size: 14px;
+  width: 100%;
+  display: flex;
+  gap: 6px;
+  font-family: Amiri;
+  flex-wrap: wrap;
+
+  &.center {
+    justify-content: space-around;
+  }
+
+  .tag {
+    border: 1px dotted var(--ryuutama-color-disabled);
+    border-radius: 5px;
+    padding: 2px 4px;
+    white-space: nowrap;
+  }
+}

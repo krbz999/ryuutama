@@ -1,4 +1,11 @@
 <section class="tooltip item">
   <h4 class="name">{{item.name}}</h4>
   <section class="content">{{{enriched}}}</section>
+  {{#if item.system.modifierLabels.length}}
+  <section class="modifiers tags">
+    {{#each item.system.modifierLabels}}
+    <div class="tag">{{this}}</div>
+    {{/each}}
+  </section>
+  {{/if}}
 </section>
