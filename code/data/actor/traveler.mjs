@@ -175,10 +175,12 @@ export default class TravelerData extends CreatureData {
    */
   #prepareDefense() {
     const { armor, shield } = this.equipped;
-    this.defense.gear = (armor?.system.armor.defense ?? 0) + (shield?.system.armor.defense ?? 0);
+    this.defense.gear =
+      (armor?.system.isUsable ? armor.system.armor.defense : 0)
+      + (shield?.system.isUsable ? shield.system.armor.defense : 0);
 
     this.defense.shieldDodge = this.parent.getFlag(ryuutama.id, "shieldDodge") ?? false;
-    this.defense.dodge = shield?.system.armor.dodge ?? null;
+    this.defense.dodge = shield?.system.isUsable ? shield.system.armor.dodge : 0;
     this.defense.total = Math.max(this.defense.armor + this.defense.gear, this.defense.shieldDodge ? this.defense.dodge : 0);
   }
 
@@ -191,7 +193,7 @@ export default class TravelerData extends CreatureData {
     const { stamina: hp, mental: mp } = this.resources;
     const orichalcum = Object.keys(this._source.equipped)
       .map(key => this.equipped[key])
-      .filter(item => item?.system.modifiers.has("orichalcum"))
+      .filter(item => item?.system.modifiers.has("orichalcum") && item.system.isUsable)
       .length;
     hp.gear = mp.gear = orichalcum * 2;
 

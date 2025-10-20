@@ -158,11 +158,16 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     context.showCondition = roll.type === "condition";
     context.showAbilities = !roll.formula;
 
+    const weapon = this.actor.system.equipped?.weapon ?? null;
+
     switch (roll.type) {
       case "damage":
       case "accuracy":
-        if (this.actor.type === "traveler") context.subtitle =
-          this.actor.system.equipped.weapon?.name ?? game.i18n.localize("RYUUTAMA.WEAPON.CATEGORIES.unarmed");
+        if (this.actor.type === "traveler") {
+          if (weapon && weapon.system.isUsable) context.subtitle = weapon.name;
+          else if (weapon) context.subtitle = game.i18n.format("RYUUTAMA.ROLL.weaponBroken", { weapon: weapon.name });
+          else context.subtitle = game.i18n.localize("RYUUTAMA.WEAPON.CATEGORIES.unarmed");
+        }
         break;
       case "journey":
         context.subtitle = ryuutama.config.checkTypes.journey.subtypes[roll.journeyId].label;

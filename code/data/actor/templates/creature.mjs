@@ -277,7 +277,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
             const w = this.equipped.weapon;
             let abi;
             let bon;
-            if (w) ({ ability: abi, bonus: bon } = w.system.damage);
+            if (w?.system.isUsable) ({ ability: abi, bonus: bon } = w.system.damage);
             else {
               // Unarmed
               abi = ryuutama.config.unarmedConfiguration.damage.ability;
@@ -306,7 +306,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
             let abilities;
             let bonus;
             const w = this.equipped.weapon;
-            if (w) {
+            if (w?.system.isUsable) {
               abilities = [...w.system.accuracy.abilities];
               bonus = w.system.accuracy.bonus;
               roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
@@ -372,7 +372,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
     // Final step: cleanup.
     if (result.rollConfig.formula) {
-      result.dialogConfig.chooseAbilities = false;
       delete result.rollConfig.abilities;
     }
 

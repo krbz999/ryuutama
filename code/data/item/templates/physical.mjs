@@ -30,6 +30,16 @@ export default class PhysicalData extends BaseData {
   /* -------------------------------------------------- */
 
   /**
+   * Can this item be used?
+   * @type {boolean}
+   */
+  get isUsable() {
+    return !this.modifiers.has("broken");
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * The amount this adds to the capacity.
    * @type {number}
    */
