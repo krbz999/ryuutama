@@ -327,7 +327,6 @@
         "FIELDS": {
           "category.season.label": "Magic Season",
           "category.value.label": "Type",
-          "description.value.label": "Description",
           "spell.activation.cast.label": "Casting Time",
           "spell.activation.mental.label": "MP Cost",
           "spell.level.label": "Spell Level",
@@ -538,20 +537,21 @@
         "initiative": "Initiative Check",
         "journey": "Journey Check"
       },
-      "title": "Configure {type}: {name}",
-      "situationalBonus": "Situational Bonus",
-      "concentration": "Concentration",
-      "consumeMental": "Consume MP",
-      "consumeFumble": "Spend Fumble Point",
       "abilities": "Abilities",
-      "critical": "Critical",
+      "concentration": "Concentration",
+      "conditionRemoveStatuses": "Remove Statuses",
+      "conditionRemoveStatusesHint": "After updating your condition, remove status effects that no longer apply?",
+      "conditionUpdateScore": "Update Condition",
+      "consumeFumble": "Spend Fumble Point",
+      "consumeMental": "Consume MP",
       "consumeStamina": "Consume Stamina",
-      "unmasteredWeaponHint": "An accuracy check with an unmastered weapon costs 1 HP.",
+      "critical": "Critical",
       "messageFlavor": "{type}",
       "messageFlavorAbilities": "{type} ({abilities})",
-      "conditionUpdateScore": "Update Condition",
-      "conditionRemoveStatuses": "Remove Statuses",
-      "conditionRemoveStatusesHint": "After updating your condition, remove status effects that no longer apply?"
+      "situationalBonus": "Situational Bonus",
+      "title": "Configure {type}: {name}",
+      "unmasteredWeaponHint": "An accuracy check with an unmastered weapon costs 1 HP.",
+      "weaponBroken": "{weapon} (Broken)"
     },
 
     "SETTINGS": {
