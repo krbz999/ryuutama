@@ -6,12 +6,12 @@ export default class HerbData extends BaseData {
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
+      category: new SchemaField({
+        value: new StringField({ required: true, initial: "physical", choices: () => ryuutama.config.herbTypes }),
+      }),
       level: new NumberField({ initial: 1, nullable: false, integer: true, min: 1, max: 5 }),
       price: new SchemaField({
         value: new NumberField({ nullable: true, initial: null, min: 0, integer: true }),
-      }),
-      category: new SchemaField({
-        value: new StringField({ required: true, initial: "physical", choices: () => ryuutama.config.herbTypes }),
       }),
     });
   }
