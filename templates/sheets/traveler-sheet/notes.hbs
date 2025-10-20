@@ -1,9 +1,42 @@
 <section data-tab="{{tabs.notes.id}}" class="{{tabs.notes.cssClass}}" data-group="{{tabs.notes.group}}">
+
+  {{!-- COLOR --}}
   {{formGroup systemFields.details.fields.color value=(ifThen disabled document.system.details.color source.system.details.color) disabled=disabled}}
 
-  {{formGroup systemFields.background.fields.appearance value=source.system.background.appearance enriched=enriched.appearance disabled=disabled toggled=disabled}}
+  {{!-- APPEARANCE --}}
+  {{#if disabled}}
+  {{#if enriched.appearance}}
+  <section class="description">
+    <h6>{{systemFields.background.fields.appearance.label}}</h6>
+    {{{enriched.appearance}}}
+  </section>
+  {{/if}}
+  {{else}}
+  {{formGroup systemFields.background.fields.appearance value=source.system.background.appearance}}
+  {{/if}}
 
-  {{formGroup systemFields.background.fields.hometown value=source.system.background.hometown enriched=enriched.hometown disabled=disabled toggled=disabled}}
+  {{!-- HOMETOWN --}}
+  {{#if disabled}}
+  {{#if enriched.hometown}}
+  <section class="description">
+    <h6>{{systemFields.background.fields.hometown.label}}</h6>
+    {{{enriched.hometown}}}
+  </section>
+  {{/if}}
+  {{else}}
+  {{formGroup systemFields.background.fields.hometown value=source.system.background.hometown}}
+  {{/if}}
 
-  {{formGroup systemFields.background.fields.notes value=source.system.background.notes enriched=enriched.notes disabled=disabled toggled=disabled}}
+  {{!-- NOTES --}}
+  {{#if disabled}}
+  {{#if enriched.notes}}
+  <section class="description">
+    <h6>{{systemFields.background.fields.notes.label}}</h6>
+    {{{enriched.notes}}}
+  </section>
+  {{/if}}
+  {{else}}
+  {{formGroup systemFields.background.fields.notes value=source.system.background.notes}}
+  {{/if}}
+
 </section>

@@ -5,4 +5,13 @@
 {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim"}}
 
 {{!-- EFFECT DESCRIPTION --}}
-{{formGroup systemFields.description.fields.effect value=source.system.description.effect disabled=disabled toggled=disabled enriched=enriched.effect}}
+{{#if disabled}}
+{{#if enriched.effect}}
+<section class="description">
+  <h6>{{systemFields.description.fields.effect.label}}</h6>
+  {{{enriched.effect}}}
+</section>
+{{/if}}
+{{else}}
+{{formGroup systemFields.description.fields.effect value=source.system.description.effect height=300}}
+{{/if}}

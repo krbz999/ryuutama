@@ -39,9 +39,6 @@
   {{> "systems/ryuutama/templates/sheets/item-sheet/spell.hbs"}}
   {{/if}}
 
-  {{!-- DESCRIPTION --}}
-  {{formInput systemFields.description.fields.value enriched=enriched.description value=source.system.description.value disabled=disabled toggled=disabled height=300}}
-
   {{#if isWeapon}}
   {{> "systems/ryuutama/templates/sheets/item-sheet/weapon.hbs"}}
   {{/if}}
@@ -56,5 +53,17 @@
 
   {{#if isContainer}}
   {{> "systems/ryuutama/templates/sheets/item-sheet/container.hbs"}}
+  {{/if}}
+
+  {{!-- DESCRIPTION --}}
+  {{#if disabled}}
+  {{#if enriched.description}}
+  <section class="description">
+    <h4>{{localize "RYUUTAMA.ITEM.description"}}</h4>
+    {{{enriched.description}}}
+  </section>
+  {{/if}}
+  {{else}}
+  {{formInput systemFields.description.fields.value value=source.system.description.value height=300}}
   {{/if}}
 </section>

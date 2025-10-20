@@ -123,7 +123,8 @@
       "magicGroupSpring": "Spring Magic",
       "magicGroupSummer": "Summer Magic",
       "magicGroupAutumn": "Autumn Magic",
-      "magicGroupWinter": "Winter Magic"
+      "magicGroupWinter": "Winter Magic",
+      "description": "Description"
     },
     "CREATURE": {
       "FIELDS": {
@@ -310,11 +311,12 @@
         "details": "Details",
         "effects": "Effects"
       },
-      "defenses": "Defenses",
-      "details": "Details",
-      "durability": "Durability ({value}/{max})",
       "activeEffects": "Active",
+      "defenses": "Defenses",
+      "description": "Description",
+      "details": "Details",
       "disabledEffects": "Inactive",
+      "durability": "Durability ({value}/{max})",
 
       "CONTAINER": {
         "FIELDS": {

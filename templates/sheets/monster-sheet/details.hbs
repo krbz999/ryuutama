@@ -17,5 +17,14 @@
   </fieldset>
 
   {{!-- DESCRIPTION --}}
-  {{formGroup systemFields.description.fields.value value=source.system.description.value enriched=enriched.description disabled=disabled toggled=disabled}}
+  {{#if disabled}}
+  {{#if enriched.description}}
+  <section class="description">
+    <h6>{{systemFields.description.fields.value.label}}</h6>
+    {{{enriched.description}}}
+  </section>
+  {{/if}}
+  {{else}}
+  {{formGroup systemFields.description.fields.value value=source.system.description.value}}
+  {{/if}}
 </section>
