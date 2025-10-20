@@ -1,4 +1,4 @@
-<section class="tooltip item">
+<rich-tooltip class="tooltip item">
   <h4 class="name">{{item.name}}</h4>
   <section class="content">{{{enriched}}}</section>
   {{#if item.system.modifierLabels.length}}
@@ -8,4 +8,8 @@
     {{/each}}
   </section>
   {{/if}}
-</section>
+  {{#if item.system.durability}}
+  <section class="durability">{{item.system.durability.value}} / {{item.system.durability.max}}</section>
+  <button type="button" data-action="updateDur" class="icon fa-solid fa-arrow-up"></button>
+  {{/if}}
+</rich-tooltip>

@@ -34,6 +34,7 @@ Hooks.once("init", () => {
   window.customElements.define(applications.elements.InventoryElement.tagName, applications.elements.InventoryElement);
   window.customElements.define(applications.elements.ProgressBar.tagName, applications.elements.ProgressBar);
   window.customElements.define(applications.elements.ResourceBar.tagName, applications.elements.ResourceBar);
+  window.customElements.define(applications.elements.RichTooltip.tagName, applications.elements.RichTooltip);
 
   CONFIG.ActiveEffect.documentClass = documents.RyuutamaActiveEffect;
   CONFIG.ActiveEffect.dataModels.standard = data.effect.StandardData;
