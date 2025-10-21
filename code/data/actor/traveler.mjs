@@ -322,4 +322,79 @@ export default class TravelerData extends CreatureData {
     delete actor._advancing;
     return actor;
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareCheckModifiers(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    const { parts, rollData } = super._prepareCheckModifiers(rollConfig, dialogConfig, messageConfig);
+
+    // Penalties from capacity apply to all checks.
+    if (this.capacity.penalty) {
+      parts.push("@capacityPenalty");
+      rollData.capacityPenalty = -this.capacity.penalty;
+    }
+
+    // Penalties from cursed items apply to condition checks.
+    if ((rollConfig.type === "condition") && this.cursePenalty) {
+      parts.push("@cursePenalty");
+      rollData.cursePenalty = -this.cursePenalty;
+    }
+
+    // Technical types gain a +1 bonus to initiative.
+    if ((rollConfig.type === "initiative") && this.details.type.technical) {
+      parts.push("@details.type.technical");
+    }
+
+    // If consuming a fumble point or MP, add +1 for each, plus an additional +1 if Technical type.
+    let concentrationBonus = 0;
+    if (rollConfig.concentration?.consumeFumble) concentrationBonus++;
+    if (rollConfig.concentration?.consumeMental) concentrationBonus++;
+    if (concentrationBonus && this.details.type.technical) concentrationBonus++;
+    if (concentrationBonus && !["condition", "initiative", "damage"].includes(rollConfig.type)) {
+      parts.push("@concentrationBonus");
+      rollData.concentrationBonus = concentrationBonus;
+    }
+
+    const weapon = this.equipped.weapon;
+    const isUsable = weapon?.system.isUsable;
+    const unarmed = ryuutama.config.unarmedConfiguration;
+    let weaponBonus = 0;
+    if (rollConfig.type === "accuracy") {
+      if (isUsable) {
+        weaponBonus = weapon.system.accuracy.bonus;
+
+        // Mastering the same weapon twice (only possible via a class) grants a +1 to Accuracy checks with that weapon.
+        if (weapon.system.isMastered && (this.mastered.weapons[weapon.system.category.value] > 1)) weaponBonus++;
+      } else {
+        // Fall back to 'Unarmed'.
+        weaponBonus = unarmed.accuracy.bonus;
+        // TODO: Grant +1 if Unarmed is mastered twice?
+      }
+
+      if (weaponBonus) {
+        parts.push("@weaponBonus");
+        rollData.weaponBonus = weaponBonus;
+      }
+    }
+
+    if (rollConfig.type === "damage") {
+      if (isUsable) {
+        weaponBonus = weapon.system.damage.bonus;
+      } else {
+        // TODO: if using an improvised weapon, this should be -1 instead of -2.
+        weaponBonus = unarmed.damage.bonus;
+      }
+
+      if (weaponBonus) {
+        parts.push("@weaponBonus");
+        rollData.weaponBonus = weaponBonus;
+      }
+
+      // Attack type adds +1 to damage rolls during combat.
+      if (this.details.type.attack) parts.push("@details.type.attack");
+    }
+
+    return { parts, rollData };
+  }
 }

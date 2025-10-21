@@ -276,18 +276,9 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
           case "traveler": {
             const w = this.equipped.weapon;
             let abi;
-            let bon;
-            if (w?.system.isUsable) ({ ability: abi, bonus: bon } = w.system.damage);
-            else {
-              // Unarmed
-              abi = ryuutama.config.unarmedConfiguration.damage.ability;
-              // unarmed has -2, an improvised weapon has -1
-              bon = ryuutama.config.unarmedConfiguration.damage.bonus;
-            }
-            bon ??= 0;
-            bon += this.details.type.attack ?? 0;
+            if (w?.system.isUsable) abi = w.system.damage.ability;
+            else abi = ryuutama.config.unarmedConfiguration.damage.ability; // unarmed
             roll.abilities = [abi];
-            roll.modifier = bon;
             break;
           }
           case "monster": {
@@ -304,23 +295,16 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         switch (this.parent.type) {
           case "traveler": {
             let abilities;
-            let bonus;
             const w = this.equipped.weapon;
             if (w?.system.isUsable) {
               abilities = [...w.system.accuracy.abilities];
-              bonus = w.system.accuracy.bonus;
               roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
-              if (w.system.isMastered && (this.mastered.weapons[w.system.category.value] > 1)) {
-                bonus++;
-              }
             } else {
               // unarmed
               abilities = [...ryuutama.config.unarmedConfiguration.accuracy.abilities];
-              bonus = ryuutama.config.unarmedConfiguration.accuracy.bonus;
               roll.accuracy = { consumeStamina: true }; // TODO: unless mastered
             }
             roll.abilities = abilities;
-            roll.modifier = bonus;
             break;
           }
           case "monster": {
@@ -335,7 +319,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         switch (this.parent.type) {
           case "traveler": {
             roll.abilities = ["dexterity", "intelligence"];
-            roll.modifier = this.details.type.technical ?? 0;
             break;
           }
           case "monster": {
@@ -359,16 +342,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       dialogConfig: foundry.utils.mergeObject(dialog, dialogConfig),
       messageConfig: foundry.utils.mergeObject(message, messageConfig),
     };
-
-    if (this.capacity?.penalty) {
-      result.rollConfig.modifier ??= 0;
-      result.rollConfig.modifier -= this.capacity.penalty;
-    }
-
-    if ((this.parent.type === "traveler") && (result.rollConfig.type === "condition")) {
-      result.rollConfig.modifier ??= 0;
-      result.rollConfig.modifier -= this.cursePenalty;
-    }
 
     // Final step: cleanup.
     if (result.rollConfig.formula) {
@@ -477,43 +450,47 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * @returns {CheckRoll}
    */
   _constructCheckRoll(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    let bonus = 0;
-
-    // Concentration: Do this first to easily determine Technical Type bonus.
-    const c = rollConfig.concentration ?? {};
-    if (c.consumeFumble) bonus++;
-    if (c.consumeMental) bonus++;
-    if (bonus && this.details.type?.technical) bonus++;
-
-    // Situational bonus.
-    if (rollConfig.situationalBonus) bonus += rollConfig.situationalBonus;
-
-    const formula = [];
-    const rollData = this.parent.getRollData();
+    let { parts, rollData } = this._prepareCheckModifiers(rollConfig, dialogConfig, messageConfig);
 
     if (rollConfig.formula) {
-      formula.push(rollConfig.formula);
+      parts.unshift(rollConfig.formula);
     } else {
-      formula.push(
+      parts = [
         `@stats.${rollConfig.abilities[0]}`,
         (rollConfig.abilities.length > 1) ? `@stats.${rollConfig.abilities[1]}` : null,
-      );
-    }
-
-    if (rollConfig.modifier) {
-      formula.push("@modifier");
-      rollData.modifier = rollConfig.modifier;
-    }
-
-    if (bonus) {
-      formula.push("@bonus");
-      rollData.bonus = bonus;
+      ].concat(parts);
     }
 
     /** @type {CheckRoll} */
-    const roll = new CONFIG.Dice.CheckRoll(formula.filterJoin(" + "), rollData);
+    const roll = new CONFIG.Dice.CheckRoll(parts.filterJoin(" + "), rollData);
     if (rollConfig.critical?.allowed && rollConfig.critical.isCritical) roll.alter(2, 0);
     return roll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Construct additional bonuses and penalties for a check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {{ parts: Array<string|number>, rollData: object }}
+   */
+  _prepareCheckModifiers(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    const parts = [];
+    const rollData = this.parent.getRollData();
+
+    if (rollConfig.modifier) {
+      parts.push("@modifier");
+      rollData.modifier = rollConfig.modifier;
+    }
+
+    if (rollConfig.situationalBonus) {
+      parts.push("@situationalBonus");
+      rollData.situationalBonus = rollConfig.situationalBonus;
+    }
+
+    return { parts, rollData };
   }
 
   /* -------------------------------------------------- */
