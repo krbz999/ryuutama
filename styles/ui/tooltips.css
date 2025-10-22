@@ -1,1 +1,28 @@
 #tooltip .ryuutama.loading {}
+
+#tooltip.ryuutama,
+.ryuutama.locked-tooltip {
+  min-width: 350px;
+
+  &:not(.locked-tooltip) {
+    box-shadow: 0 0 2px var(--ryuutama-enriched-tooltip-border);
+  }
+
+  > .tooltip.item {
+    text-align: initial;
+    font-family: Amiri;
+
+    .name {
+      font-family: Amiri;
+    }
+  }
+
+  > .tooltip.effect {
+    text-align: initial;
+    font-family: Amiri;
+
+    .name {
+      font-family: Amiri;
+    }
+  }
+}

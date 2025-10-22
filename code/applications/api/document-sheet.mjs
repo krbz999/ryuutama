@@ -23,6 +23,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
       toggleEditMode: RyuutamaDocumentSheet.#toggleEditMode,
       createEffect: RyuutamaDocumentSheet.#createEffect,
       renderEmbedded: RyuutamaDocumentSheet.#renderEmbedded,
+      contextMenu: RyuutamaDocumentSheet.#contextMenu,
     },
   };
 
@@ -100,6 +101,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
     const context = await super._prepareContext(options);
     const isEditable = context.editable && this.isEditMode;
     return Object.assign(context, {
+      sheet: this,
       isEditable,
       isInteractive: this.isInteractive,
       disabled: !isEditable,
@@ -173,5 +175,23 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
   static #renderEmbedded(event, target) {
     const uuid = target.closest("[data-uuid]").dataset.uuid;
     return this.getEmbeddedDocument(uuid).sheet.render({ force: true });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaDocumentSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static #contextMenu(event, target) {
+    const { clientX, clientY } = event;
+    event.stopPropagation();
+    target.closest(".entry").dispatchEvent(new PointerEvent("contextmenu", {
+      clientX, clientY,
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    }));
   }
 }

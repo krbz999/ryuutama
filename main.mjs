@@ -29,9 +29,7 @@ Hooks.once("init", () => {
 
   // Define custom elements.
   window.customElements.define(applications.elements.DamageTray.tagName, applications.elements.DamageTray);
-  window.customElements.define(applications.elements.EffectsElement.tagName, applications.elements.EffectsElement);
   window.customElements.define(applications.elements.IconElement.tagName, applications.elements.IconElement);
-  window.customElements.define(applications.elements.InventoryElement.tagName, applications.elements.InventoryElement);
   window.customElements.define(applications.elements.ProgressBar.tagName, applications.elements.ProgressBar);
   window.customElements.define(applications.elements.ResourceBar.tagName, applications.elements.ResourceBar);
 
@@ -128,8 +126,6 @@ Hooks.once("setup", () => {
   CONFIG.Actor.defaultType = game.user.isGM ? "monster" : "traveler";
 
   Handlebars.registerHelper({
-    "inventory-element": applications.elements.InventoryElement.handlebarsHelper,
-    "effects-element": applications.elements.EffectsElement.handlebarsHelper,
     "ryuutama-tooltip": helpers.interaction.RyuutamaTooltipManager.handlebarsHelper,
   });
 });
@@ -138,6 +134,25 @@ Hooks.once("setup", () => {
 
 Hooks.once("ready", () => {
   game.tooltip.observe();
+
+  foundry.applications.handlebars.loadTemplates({
+    // ACTOR PARTIALS
+    "actor-abilities": "systems/ryuutama/templates/sheets/shared/abilities.hbs",
+    "actor-defense": "systems/ryuutama/templates/sheets/shared/defense.hbs",
+    "actor-resources": "systems/ryuutama/templates/sheets/shared/resources.hbs",
+    "actor-statuses": "systems/ryuutama/templates/sheets/shared/statuses.hbs",
+
+    // ITEM PARTIALS
+    "item-weapon": "systems/ryuutama/templates/sheets/item-sheet/weapon.hbs",
+    "item-gear": "systems/ryuutama/templates/sheets/item-sheet/gear.hbs",
+    "item-defense": "systems/ryuutama/templates/sheets/item-sheet/defense.hbs",
+    "item-herb": "systems/ryuutama/templates/sheets/item-sheet/herb.hbs",
+    "item-container": "systems/ryuutama/templates/sheets/item-sheet/container.hbs",
+    "item-spell": "systems/ryuutama/templates/sheets/item-sheet/spell.hbs",
+
+    // SHARED PARTIALS
+    "document-list": "systems/ryuutama/templates/sheets/shared/document-list.hbs",
+  });
 });
 
 /* -------------------------------------------------- */

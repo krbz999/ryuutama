@@ -10,7 +10,7 @@
     {{/if}}
 
     {{#if isHerb}}
-    {{> "systems/ryuutama/templates/sheets/item-sheet/herb.hbs"}}
+    {{> "item-herb"}}
     {{/if}}
 
     {{!-- MODIFIERS --}}
@@ -36,23 +36,23 @@
   </fieldset>
 
   {{#if isSpell}}
-  {{> "systems/ryuutama/templates/sheets/item-sheet/spell.hbs"}}
+  {{> "item-spell"}}
   {{/if}}
 
   {{#if isWeapon}}
-  {{> "systems/ryuutama/templates/sheets/item-sheet/weapon.hbs"}}
+  {{> "item-weapon"}}
   {{/if}}
 
   {{#if isGear}}
-  {{> "systems/ryuutama/templates/sheets/item-sheet/gear.hbs"}}
+  {{> "item-gear"}}
   {{/if}}
 
   {{#if hasArmor}}
-  {{> "systems/ryuutama/templates/sheets/item-sheet/defense.hbs"}}
+  {{> "item-defense"}}
   {{/if}}
 
   {{#if isContainer}}
-  {{> "systems/ryuutama/templates/sheets/item-sheet/container.hbs"}}
+  {{> "item-container"}}
   {{/if}}
 
   {{!-- DESCRIPTION --}}

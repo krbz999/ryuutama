@@ -1,31 +1,81 @@
 .ryuutama.application.sheet {
-  section.document-listing h4 {
-    font-size: 18px;
-    font-family: Amiri;
-    font-weight: normal;
-  }
+  .document-listing {
 
-  inventory-element, effects-element {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-
-    .entry {
-      cursor: var(--cursor-pointer);
-      max-width: 40px;
-      border-radius: 3px;
-      padding: 2px;
-      transition: background-color 150ms ease;
-
-      &:hover {
-        background-color: var(--ryuutama-document-list-hover-color);
-      }
+    h4 {
+      font-size: 18px;
+      font-family: Amiri;
+      font-weight: normal;
     }
-  }
 
-  effects-element {
-    .entry.inactive {
-      opacity: 0.5;
+    .document-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+
+      .entry {
+        height: 42px;
+        flex: 0 0 100%;
+        display: grid;
+        grid-template-columns: 40px 1fr 0fr;
+        transition: background-color 150ms ease;
+        padding: 1px;
+        align-items: center;
+
+        img {
+          height: 40px;
+        }
+
+        .attribute {
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          width: 75px;
+
+          .values {
+            white-space: nowrap;
+            display: grid;
+            grid-template-columns: 1fr 0fr 1fr;
+            align-items: center;
+            align-content: center;
+
+            input {
+              text-align: center;
+              background: inherit;
+            }
+          }
+        }
+
+        .controls a {
+          flex: 1;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          aspect-ratio: 1 / 2;
+        }
+
+        &.inactive {
+          opacity: 0.5;
+        }
+
+        &[data-action] {
+          cursor: var(--cursor-pointer);
+        }
+
+        &:hover {
+          background-color: var(--ryuutama-document-list-hover-color);
+        }
+      }
+
+      &.tiles {
+        .entry {
+          flex: 0 0 42px;
+
+          .attribute, .controls {
+            display: none;
+          }
+        }
+      }
     }
   }
 }

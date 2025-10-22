@@ -8,14 +8,6 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     },
     details: {
       template: "systems/ryuutama/templates/sheets/item-sheet/details.hbs",
-      templates: [
-        "systems/ryuutama/templates/sheets/item-sheet/weapon.hbs",
-        "systems/ryuutama/templates/sheets/item-sheet/gear.hbs",
-        "systems/ryuutama/templates/sheets/item-sheet/defense.hbs",
-        "systems/ryuutama/templates/sheets/item-sheet/herb.hbs",
-        "systems/ryuutama/templates/sheets/item-sheet/container.hbs",
-        "systems/ryuutama/templates/sheets/item-sheet/spell.hbs",
-      ],
       classes: ["tab", "scrollable", "standard-form"],
       scrollable: [""],
     },
@@ -135,7 +127,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     // Manage effects.
     this._createContextMenu(
       RyuutamaItemSheet.#createActiveEffectContextOptions.bind(this),
-      "effects-element .entry",
+      ".document-listing .document-list .entry[data-document-name=ActiveEffect]",
       { hookName: "Get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
     );
   }
