@@ -1,10 +1,6 @@
 import RyuutamaActorSheet from "./actor-sheet.mjs";
 
 /**
- * @import { InventoryElementEntry } from "../elements/_types.mjs";
- */
-
-/**
  * Ryuutama Traveler Sheet.
  * @extends RyuutamaActorSheet
  */
@@ -102,45 +98,39 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     const context = await super._prepareContext(options);
 
     // Skills.
-    context.skills = this.document.items.documentsByType.skill.map(skill => ({ document: skill }));
+    context.skills = this.document.items.documentsByType.skill.map(skill => {
+      return { document: skill };
+    });
 
     context.tabs = this._prepareTabs("primary");
     context.inventoryTabs = this._prepareTabs("inventory");
-
-    // Subsections on the inventory tab.
-    const inventorySection = (...types) => {
-      const groups = [];
-      for (const type of types) {
-        const items = this.document.items.documentsByType[type];
-        if (!items.length) continue;
-        groups.push({
-          label: game.i18n.localize(`TYPES.Item.${type}Pl`),
-          items: items.map(item => ({ document: item })),
-        });
-      }
-      return groups;
-    };
 
     context.inventorySections = [
       {
         id: "arsenal",
         cssClass: context.inventoryTabs.arsenal.cssClass,
-        groups: inventorySection("weapon", "shield", "armor"),
+        groups: ["weapon", "shield", "armor"]
+          .map(type => this.#prepareInventoryGroup(type, "system.durability.value"))
+          .filter(_ => _),
       },
       {
         id: "gear",
         cssClass: context.inventoryTabs.gear.cssClass,
-        groups: inventorySection("hat", "cape", "shoes", "accessory", "staff"),
+        groups: ["hat", "cape", "shoes", "accessory", "staff"]
+          .map(type => this.#prepareInventoryGroup(type, "system.durability.value"))
+          .filter(_ => _),
       },
       {
         id: "herbs",
         cssClass: context.inventoryTabs.herbs.cssClass,
-        groups: inventorySection("herb"),
+        groups: [this.#prepareInventoryGroup("herb")],
+        tiles: true,
       },
       {
         id: "containers",
         cssClass: context.inventoryTabs.containers.cssClass,
-        groups: inventorySection("container"),
+        groups: [this.#prepareInventoryGroup("container")],
+        tiles: true,
       },
     ];
 
@@ -152,18 +142,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       notes: await CONFIG.ux.TextEditor.enrichHTML(this.document.system.background.notes, enrichment),
     };
 
-    context.equipped = {};
-    for (const type of ["weapon", "shield", "armor", "hat", "cape", "shoes", "accessory", "staff"]) {
-      const item = this.document.system.equipped[type];
-      context.equipped[type] = {
-        item,
-        img: item ? item.img : foundry.documents.Item.implementation.DEFAULT_ICON,
-        label: game.i18n.localize(`TYPES.Item.${type}`),
-        options: this.document.items.documentsByType[type].map(item => ({ value: item.id, label: item.name })),
-        value: this.document.system._source.equipped[type],
-      };
-    }
-    if (this.document.system.equipped.weapon?.system.grip === 2) delete context.equipped.shield;
+    context.equipped = this.#prepareEquipped();
     context.weaponImage = this.document.system.equipped.weapon?.img ?? ryuutama.config.unarmedConfiguration.icon;
 
     // Capacity
@@ -172,6 +151,25 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     });
     context.capacityOverflow = this.document.system.capacity.penalty > 0;
 
+    // Condition & Shape.
+    this.#prepareCondition(context);
+
+    // Spells.
+    context.spells = this.#prepareSpells(context);
+
+    // Tags.
+    context.tags = this.#prepareTags(context);
+
+    return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare statuses and conditions.
+   * @param {object} context    Rendering context. **will be mutated**
+   */
+  #prepareCondition(context) {
     // Tip-top shape / out of shape.
     const condition = this.document.system.condition.value;
     context.conditionShape = {
@@ -181,14 +179,62 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     if (condition >= 10) context.conditionShape.high = true;
     else if (condition <= 2) context.conditionShape.low = true;
     else context.conditionShape.active = false;
+  }
 
-    // Spells.
-    if (options.parts.includes("spells")) context.spells = this.#prepareSpells(context);
+  /* -------------------------------------------------- */
 
-    // Tags.
-    context.tags = this.#prepareTags(context);
+  /**
+   * Prepare equipped items.
+   * @returns {object}
+   */
+  #prepareEquipped() {
+    const equipped = {};
+    for (const type of ["weapon", "shield", "armor", "hat", "cape", "shoes", "accessory", "staff"]) {
+      const item = this.document.system.equipped[type];
+      equipped[type] = {
+        item,
+        img: item ? item.img : foundry.documents.Item.implementation.DEFAULT_ICON,
+        label: game.i18n.localize(`TYPES.Item.${type}`),
+        options: this.document.items.documentsByType[type].map(item => ({ value: item.id, label: item.name })),
+        value: this.document.system._source.equipped[type],
+      };
+    }
+    if (!this.document.system.canEquipShield) delete equipped.shield;
+    return equipped;
+  }
 
-    return context;
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare inventory sections.
+   * @param {string} type         The item subtype.
+   * @param {string} [embedded]   Name of a value that can get updated via sheet interaction.
+   * @returns {object|null}
+   */
+  #prepareInventoryGroup(type, embedded) {
+    const items = this.document.items.documentsByType[type];
+    if (!items.length) return null;
+
+    const group = {
+      label: game.i18n.localize(`TYPES.Item.${type}Pl`),
+      items: [],
+    };
+
+    for (const item of items) {
+      const entry = { document: item };
+      if (embedded) {
+        const e = entry.embedded = {};
+        e.name = embedded;
+
+        const path = e.name.substring(0, e.name.lastIndexOf("."));
+        const { value, max } = foundry.utils.getProperty(item, path);
+        e.value = value;
+        e.max = max;
+      }
+      group.items.push(entry);
+    }
+
+    return group;
   }
 
   /* -------------------------------------------------- */
@@ -279,5 +325,24 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     }
 
     return tags;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+
+    for (const input of this.element.querySelectorAll("input.delta[data-name='system.durability.value']")) {
+      input.addEventListener("change", event => {
+        const item = this.getEmbeddedDocument(event.currentTarget.closest("[data-uuid]").dataset.uuid);
+        const value = ryuutama.utils.parseInputDelta(event.currentTarget, item);
+        if (value === undefined) return;
+
+        const dur = item.system.durability;
+        const spent = dur.max - parseInt(value);
+        item.update({ "system.durability.spent": spent });
+      });
+    }
   }
 }

@@ -34,7 +34,7 @@
   <section data-tab="{{id}}" class="tab {{cssClass}}" data-group="inventory">
     {{#each groups}}
     {{#if items.length}}
-    {{inventory-element documents=items action="renderItem" inline=false label=label tooltips=true}}
+    {{> "document-list" label=label entries=items tiles=../tiles}}
     {{/if}}
     {{/each}}
   </section>

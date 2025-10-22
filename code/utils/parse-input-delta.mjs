@@ -8,7 +8,7 @@ export default function parseInputDelta(input, target) {
   let value = input.value;
   if (["+", "-"].includes(value[0])) {
     const delta = parseFloat(value);
-    value = Number(foundry.utils.getProperty(target, input.dataset.property ?? input.name)) + delta;
+    value = Number(foundry.utils.getProperty(target, input.dataset.name ?? input.name)) + delta;
   }
   else if (value[0] === "=") value = Number(value.slice(1));
   if (Number.isNaN(value)) return;

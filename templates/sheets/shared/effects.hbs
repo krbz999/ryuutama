@@ -1,9 +1,9 @@
 <section data-tab="{{tabs.effects.id}}" class="{{tabs.effects.cssClass}}" data-group="{{tabs.effects.group}}">
   {{#if effects.enabledEffects.length}}
-  {{effects-element documents=effects.enabledEffects action="renderItem" inline=false label=(localize "RYUUTAMA.ACTOR.activeEffects")}}
+  {{> "document-list" label=(localize "RYUUTAMA.ACTOR.activeEffects") entries=effects.enabledEffects tiles=true}}
   {{/if}}
 
   {{#if effects.disabledEffects.length}}
-  {{effects-element documents=effects.disabledEffects action="renderItem" inline=false label=(localize "RYUUTAMA.ACTOR.disabledEffects")}}
+  {{> "document-list" label=(localize "RYUUTAMA.ACTOR.disabledEffects") entries=effects.disabledEffects tiles=true}}
   {{/if}}
 </section>

@@ -134,34 +134,20 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  async _preFirstRender(context, options) {
-    await super._preFirstRender(context, options);
-
-    await foundry.applications.handlebars.loadTemplates({
-      abilities: "systems/ryuutama/templates/sheets/shared/abilities.hbs",
-      defense: "systems/ryuutama/templates/sheets/shared/defense.hbs",
-      resources: "systems/ryuutama/templates/sheets/shared/resources.hbs",
-      statuses: "systems/ryuutama/templates/sheets/shared/statuses.hbs",
-    });
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
   async _onFirstRender(context, options) {
     await super._onFirstRender(context, options);
 
     // Manage items.
     this._createContextMenu(
       RyuutamaActorSheet.#createItemContextOptions.bind(this),
-      "inventory-element .entry, .equipped [data-item-id]",
+      ".document-listing .document-list .entry[data-document-name=Item], .equipped [data-uuid]",
       { hookName: "get{}ItemContextOptions", parentClassHooks: false, fixed: true },
     );
 
     // Manage effects.
     this._createContextMenu(
       RyuutamaActorSheet.#createActiveEffectContextOptions.bind(this),
-      "effects-element .entry",
+      ".document-listing .document-list .entry[data-document-name=ActiveEffect]",
       { hookName: "Get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
     );
   }

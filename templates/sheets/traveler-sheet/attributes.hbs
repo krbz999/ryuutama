@@ -1,9 +1,9 @@
 <section data-tab="{{tabs.attributes.id}}" class="{{tabs.attributes.cssClass}}" data-group="{{tabs.attributes.group}}">
   {{!-- ABILITIES --}}
-  {{> abilities}}
+  {{> "actor-abilities"}}
 
   {{!-- HP & MP --}}
-  {{> resources}}
+  {{> "actor-resources"}}
 
   {{!-- FUMBLES & EXP --}}
   <div class="icon-fields">
@@ -35,7 +35,7 @@
   </div>
 
   {{!-- STATUSES --}}
-  {{> statuses}}
+  {{> "actor-statuses"}}
 
   {{!-- CONDITION & ARMOR --}}
   <div class="icon-fields">
@@ -70,7 +70,7 @@
     </div>
 
     {{!-- ARMOR --}}
-    {{> defense}}
+    {{> "actor-defense"}}
   </div>
 
 </section>

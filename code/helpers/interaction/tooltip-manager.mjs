@@ -94,7 +94,7 @@ export default class RyuutamaTooltipManager extends foundry.helpers.interaction.
     if (!content?.length) return;
     this.tooltip.replaceChildren(...content);
     this.tooltip.classList.add(ryuutama.id);
-    requestAnimationFrame(() => this._positionItemTooltip("RIGHT"));
+    requestAnimationFrame(() => this._positionItemTooltip("UP"));
   }
 
   /* -------------------------------------------------- */
