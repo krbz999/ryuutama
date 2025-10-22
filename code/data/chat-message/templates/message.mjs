@@ -10,6 +10,17 @@ export default class MessageData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
+   * Is this message visible to the current user?
+   * Called by the document class to help determine visibility.
+   * @type {boolean}
+   */
+  get visible() {
+    return true;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Render the HTML for the ChatMessage which should be added to the log
    * @param {object} [options]             Additional options passed to the Handlebars template.
    * @param {boolean} [options.canDelete]  Render a delete button. By default, this is true for GM users.
