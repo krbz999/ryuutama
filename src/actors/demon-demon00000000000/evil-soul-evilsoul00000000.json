@@ -1,0 +1,217 @@
+{
+  "system": {
+    "details": {
+      "category": "demon",
+      "level": 1,
+      "dragonica": 170
+    },
+    "environment": {
+      "season": "spring"
+    },
+    "resources": {
+      "stamina": {
+        "max": 5,
+        "bonuses": {
+          "flat": null,
+          "level": null
+        },
+        "spent": 0
+      },
+      "mental": {
+        "max": 8,
+        "bonuses": {
+          "flat": null,
+          "level": null
+        },
+        "spent": 0
+      }
+    },
+    "initiative": {
+      "value": 4
+    },
+    "condition": {
+      "value": 6,
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
+    },
+    "abilities": {
+      "strength": {
+        "value": 2
+      },
+      "dexterity": {
+        "value": 2
+      },
+      "intelligence": {
+        "value": 4
+      },
+      "spirit": {
+        "value": 4
+      }
+    },
+    "attack": {
+      "accuracy": "@stats.intelligence + @stats.spirit",
+      "damage": "@stats.spirit"
+    },
+    "description": {
+      "value": "<p>The weakest demon in the entire world. They look like tiny people with strings holding them up - so tiny, in fact, that they can be blown into cities by heavy winds. While they aren't very dangerous directly, the tricks they play can have a negative long-term effect on people.</p>"
+    },
+    "defense": {
+      "armor": null,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
+    }
+  },
+  "name": "Evil Soul",
+  "_id": "evilsoul00000000",
+  "folder": "demon00000000000",
+  "type": "monster",
+  "prototypeToken": {
+    "name": "Evil Soul",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "resources.stamina"
+    },
+    "bar2": {
+      "attribute": "resources.mental"
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": ""
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "img": "",
+  "items": [
+    {
+      "name": "Evil Whispers",
+      "_id": "evilwhispers0000",
+      "type": "skill",
+      "system": {
+        "description": {
+          "value": "<p>Anyone that is hit by an Evil Soul's attack suffers [Exhaustion: 6].</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "1.0.0",
+        "createdTime": 1761252356710,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!evilsoul00000000.evilwhispers0000"
+    }
+  ],
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "1.0.0",
+    "createdTime": 1761252356700,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!actors!evilsoul00000000"
+}
