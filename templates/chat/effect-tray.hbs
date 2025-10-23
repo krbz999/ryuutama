@@ -1,0 +1,9 @@
+<section>
+  {{#if user.isGM}}
+  <effect-tray></effect-tray>
+  <button type="button" data-action="applyEffects">
+    <i class="fa-solid fa-burst" inert></i>
+    <span>{{localize "RYUUTAMA.CHAT.EFFECT.applyEffects"}}</span>
+  </button>
+  {{/if}}
+</section>

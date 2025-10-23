@@ -254,6 +254,10 @@
       "DAMAGE": {
         "FIELDS": {},
         "applyDamage": "Apply Damage"
+      },
+      "EFFECT": {
+        "FIELDS": {},
+        "applyEffects": "Apply Effects"
       }
     },
 

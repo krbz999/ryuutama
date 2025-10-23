@@ -29,6 +29,7 @@ Hooks.once("init", () => {
 
   // Define custom elements.
   window.customElements.define(applications.elements.DamageTray.tagName, applications.elements.DamageTray);
+  window.customElements.define(applications.elements.EffectTray.tagName, applications.elements.EffectTray);
   window.customElements.define(applications.elements.IconElement.tagName, applications.elements.IconElement);
   window.customElements.define(applications.elements.ProgressBar.tagName, applications.elements.ProgressBar);
   window.customElements.define(applications.elements.ResourceBar.tagName, applications.elements.ResourceBar);
@@ -46,6 +47,7 @@ Hooks.once("init", () => {
 
   CONFIG.ChatMessage.documentClass = documents.RyuutamaChatMessage;
   CONFIG.ChatMessage.dataModels.damage = data.message.DamageData;
+  CONFIG.ChatMessage.dataModels.effect = data.message.EffectData;
 
   CONFIG.Combat.documentClass = documents.RyuutamaCombat;
   CONFIG.Combatant.documentClass = documents.RyuutamaCombatant;
