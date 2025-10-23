@@ -1,0 +1,217 @@
+{
+  "system": {
+    "details": {
+      "category": "demon",
+      "level": 2,
+      "dragonica": 159
+    },
+    "environment": {
+      "season": "summer"
+    },
+    "resources": {
+      "stamina": {
+        "max": 10,
+        "bonuses": {
+          "flat": null,
+          "level": null
+        },
+        "spent": 0
+      },
+      "mental": {
+        "max": 8,
+        "bonuses": {
+          "flat": null,
+          "level": null
+        },
+        "spent": 0
+      }
+    },
+    "initiative": {
+      "value": 5
+    },
+    "condition": {
+      "value": 7,
+      "immunities": [],
+      "shape": {
+        "high": ""
+      }
+    },
+    "abilities": {
+      "strength": {
+        "value": 4
+      },
+      "dexterity": {
+        "value": 4
+      },
+      "intelligence": {
+        "value": 4
+      },
+      "spirit": {
+        "value": 4
+      }
+    },
+    "attack": {
+      "accuracy": "",
+      "damage": ""
+    },
+    "description": {
+      "value": "<p>A demon in the shape of a small black frog. They are usually about 20cm long, but they can double in size during the summer. Though they don't have much in the way of attack power, they can turn things - such as food - into poison. Anyone that eats food tainted by the Poison Toad gets food poisoning. It is said that these demons are spawned from a giant toad called the King Poison Toad.</p>"
+    },
+    "defense": {
+      "armor": null,
+      "modifiers": {
+        "magical": null,
+        "physical": null
+      }
+    }
+  },
+  "name": "Poison Toad",
+  "_id": "poisontoad000000",
+  "folder": "demons0000000000",
+  "type": "monster",
+  "prototypeToken": {
+    "name": "Poison Toad",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "resources.stamina"
+    },
+    "bar2": {
+      "attribute": "resources.mental"
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": ""
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "img": "",
+  "items": [
+    {
+      "name": "Change to Poison",
+      "_id": "changetopoison00",
+      "type": "skill",
+      "system": {
+        "description": {
+          "value": "<p>If a character eats or holds something poisoned by the Poison Toad, they suffer [Poison: 6]. This also occurs if a character is hit by a Poison Toad.</p>"
+        }
+      },
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "ryuutama",
+        "systemVersion": "1.0.0",
+        "createdTime": 1761252444625,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!actors.items!poisontoad000000.changetopoison00"
+    }
+  ],
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "1.0.0",
+    "createdTime": 1761252444613,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!actors!poisontoad000000"
+}
