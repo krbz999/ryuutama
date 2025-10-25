@@ -573,6 +573,7 @@
     "SHEETS": {
       "ActorSheet": "Ryuutama Actor Sheet",
       "ItemSheet": "Ryuutama Item Sheet",
+      "JournalEntrySheet": "Ryuutama JournalEntry Sheet",
       "MonsterSheet": "Ryuutama Monster Sheet"
     },
 
