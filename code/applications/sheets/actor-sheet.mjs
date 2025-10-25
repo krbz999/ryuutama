@@ -159,7 +159,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
     await super._onRender(context, options);
 
     this.#dragDrop ??= new CONFIG.ux.DragDrop({
-      dragSelector: "inventory-element .entry, effects-element .entry",
+      dragSelector: ".document-listing .document-list .entry",
       dropSelector: null,
       permissions: {
         dragstart: RyuutamaActorSheet.#canDragstart.bind(this),
