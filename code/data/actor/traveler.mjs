@@ -108,6 +108,7 @@ export default class TravelerData extends CreatureData {
     super.prepareBaseData();
     this.capacity = { bonus: 0 };
     this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
+    this.magic = { seasons: new Set() };
     this.mastered = {
       weapons: Object.fromEntries(Object.keys(ryuutama.config.weaponCategories).map(k => [k, 0])),
       terrain: new Set(), weather: new Set(),
@@ -117,16 +118,24 @@ export default class TravelerData extends CreatureData {
     const { habitat, weapon, statusImmunity, type } = this.advancements.documentsByType;
     for (const advancement of type) {
       if (advancement.choice.chosen) this.details.type[advancement.choice.chosen]++;
+      switch (advancement.choice.chosen) {
+        case "attack":
+          if (advancement.choice.attack in this.mastered.weapons) this.mastered.weapons[advancement.choice.attack] = 1;
+          break;
+        case "magic":
+          if (advancement.choice.magic in ryuutama.config.seasons) this.magic.seasons.add(advancement.choice.magic);
+      }
     }
     for (const advancement of habitat) {
       const type = advancement.choice.type;
-      this.mastered[type]?.add(advancement.choice.chosen[type]);
+      const chosen = advancement.choice.chosen[type];
+      if ((type in this.mastered) && !!chosen) this.mastered[type].add(chosen);
     }
     for (const advancement of statusImmunity) {
       if (advancement.choice.chosen) this.condition.immunities.add(advancement.choice.chosen);
     }
     for (const advancement of weapon) {
-      if (advancement.choice.chosen) this.mastered.weapons[advancement.choice.chosen]++;
+      if (advancement.choice.chosen) this.mastered.weapons[advancement.choice.chosen] = 1;
     }
   }
 

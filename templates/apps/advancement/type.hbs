@@ -3,5 +3,8 @@
     <legend>{{title}}</legend>
     {{formGroup fields.choice.fields.chosen rootId=rootId classes="slim"}}
     <p class="hint">{{localize "RYUUTAMA.PSEUDO.ADVANCEMENT.TYPE.hint"}}</p>
+
+    {{formGroup fields.choice.fields.attack rootId=rootId classes="slim hidden"}}
+    {{formGroup fields.choice.fields.magic rootId=rootId classes="slim hidden"}}
   </fieldset>
 </form>
