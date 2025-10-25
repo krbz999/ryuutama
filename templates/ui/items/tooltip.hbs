@@ -1,4 +1,4 @@
-<section class="tooltip item">
+<section class="tooltip item" {{#if item.actor}} data-actor-uuid="{{item.actor.uuid}}" {{/if}}>
   <h4 class="name">{{item.name}}</h4>
   <section class="content">{{{enriched}}}</section>
   {{#if item.system.modifierLabels.length}}

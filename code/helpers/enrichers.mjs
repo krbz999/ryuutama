@@ -41,11 +41,20 @@ export default class Enrichers {
         }
         if (formula) rollConfig.formula = formula;
 
-        element.querySelector(".enricher").addEventListener("click", async (event) => {
-          const application = foundry.applications.instances.get(event.currentTarget.closest(".application")?.id);
+        const enricher = element.querySelector(".enricher");
+        if (enricher._hasEvent) return;
+        enricher._hasEvent = true;
+
+        enricher.addEventListener("click", async (event) => {
+          const target = event.currentTarget;
+          const application = foundry.applications.instances.get(target.closest(".application")?.id);
+          const tooltipActor = fromUuidSync(target.closest(".locked-tooltip [data-actor-uuid]")?.dataset.actorUuid);
           let actors = [];
-          if (application?.document instanceof foundry.documents.Actor) actors = [application.document];
+          if (tooltipActor instanceof foundry.documents.Actor) actors = [tooltipActor];
+          else if (application?.document instanceof foundry.documents.Actor) actors = [application.document];
+          else if (application?.document?.actor instanceof foundry.documents.Actor) actors = [application.document.actor];
           else actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
+
           for (const actor of actors) {
             await actor.system.rollCheck(rollConfig);
           }
