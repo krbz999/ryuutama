@@ -25,6 +25,7 @@ globalThis.ryuutama = {
 
 Hooks.once("init", () => {
   registerSettings();
+  helpers.fonts.registerFonts();
   helpers.Enrichers.registerEnrichers();
 
   // Define custom elements.
@@ -105,6 +106,10 @@ Hooks.once("init", () => {
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Actor, ryuutama.id, applications.sheets.RyuutamaMonsterSheet,
     { label: "RYUUTAMA.SHEETS.MonsterSheet", makeDefault: true, types: ["monster"] },
+  );
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.JournalEntry, ryuutama.id, applications.sheets.RyuutamaJournalEntrySheet,
+    { label: "RYUUTAMA.SHEETS.JournalEntrySheet", makeDefault: true },
   );
 
   // Register status effects.

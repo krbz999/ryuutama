@@ -14,6 +14,11 @@
   --ryuutama-color-steelblue: #45619e;
   --ryuutama-color-steelblue-light: #0089bd;
   --ryuutama-color-firebrick: #c4151c;
+  --ryuutama-color-mexicanred: #a1224a;
+
+  --ryuutama-color-lightgoldenrodyellow: #f7f7d2;
+  --ryuutama-color-hillary: #aaa47c;
+  --ryuutama-color-shadow: #89874f;
 
   /* VARIABLES */
   --ryuutama-color-resource-stamina: var(--ryuutama-color-limegreen);
@@ -28,6 +33,12 @@
   --ryuutama-color-check-fumble: var(--ryuutama-color-firebrick);
   --ryuutama-color-check-critical: var(--ryuutama-color-steelblue);
   --ryuutama-color-check-condition: var(--ryuutama-color-palevioletred);
+
+  --ryuutama-color-aside: var(--ryuutama-color-lightgoldenrodyellow);
+  --ryuutama-color-aside-border: var(--ryuutama-color-hillary);
+  --ryuutama-color-aside-decorations: var(--ryuutama-color-shadow);
+
+  --ryuutama-color-header-2: var(--ryuutama-color-mexicanred);
 
   --ryuutama-color-exp-bar: var(--ryuutama-color-steelblue);
 
