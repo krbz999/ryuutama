@@ -206,7 +206,7 @@ export default class TravelerData extends CreatureData {
       .length;
     hp.gear = mp.gear = orichalcum * 2;
 
-    const setupResource = (key, typeBonus) => {
+    const setupResource = (key, typeBonus, allowNegative = false) => {
       const resource = this.resources[key];
       const src = this._source.resources[key];
 
@@ -219,12 +219,19 @@ export default class TravelerData extends CreatureData {
         + resource.bonuses.level * this.details.level
         + typeBonus
         + advancementBonus;
-      resource.spent = Math.min(resource.spent, resource.max);
+      resource.spent = allowNegative ? resource.spent : Math.min(resource.spent, resource.max);
       resource.value = resource.max - resource.spent;
-      resource.pct = Math.clamp(Math.round(resource.value / resource.max * 100), 0, 100) || 0;
+
+      if (allowNegative && (resource.value < 0)) {
+        resource.pct = Math.clamp(Math.round(Math.abs(resource.value) / this.condition.value * 100), 0, 100) || 0;
+        resource.negative = true;
+      } else {
+        resource.pct = Math.clamp(Math.round(resource.value / resource.max * 100), 0, 100) || 0;
+        resource.negative = false;
+      }
     };
 
-    setupResource("stamina", 4 * this.details.type.attack);
+    setupResource("stamina", 4 * this.details.type.attack, true);
     setupResource("mental", 4 * this.details.type.magic);
   }
 

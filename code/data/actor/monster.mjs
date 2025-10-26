@@ -96,19 +96,26 @@ export default class MonsterData extends CreatureData {
    * Prepare resources.
    */
   #prepareResources() {
-    const setupResource = key => {
+    const setupResource = (key, allowNegative = false) => {
       const resource = this.resources[key];
       const src = this._source.resources[key];
 
       resource.max = src.max
         + resource.bonuses.flat
         + resource.bonuses.level * this.details.level;
-      resource.spent = Math.min(resource.spent, resource.max);
+      resource.spent = allowNegative ? resource.spent : Math.min(resource.spent, resource.max);
       resource.value = resource.max - resource.spent;
-      resource.pct = Math.clamp(Math.round(resource.value / resource.max * 100), 0, 100) || 0;
+
+      if (allowNegative && (resource.value < 0)) {
+        resource.pct = Math.clamp(Math.round(Math.abs(resource.value) / this.condition.value * 100), 0, 100) || 0;
+        resource.negative = true;
+      } else {
+        resource.pct = Math.clamp(Math.round(resource.value / resource.max * 100), 0, 100) || 0;
+        resource.negative = false;
+      }
     };
 
-    setupResource("stamina");
+    setupResource("stamina", true);
     setupResource("mental");
   }
 }
