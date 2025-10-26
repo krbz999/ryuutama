@@ -4,7 +4,6 @@
   "folder": "physical00000000",
   "type": "herb",
   "system": {
-    "level": 3,
     "description": {
       "effect": "<p>May be used to reroll a Condition Check in order to cure a physical status ailment with +1 bonus.</p>",
       "value": "<p>A thistle that blooms blood red flowers. The stalk produces a powerful narcotic, so care must be taken when handled.</p>"
@@ -14,6 +13,11 @@
     },
     "category": {
       "value": "physical"
+    },
+    "terrain": {
+      "type": "swamp",
+      "level": 3,
+      "details": ""
     }
   },
   "img": "icons/commodities/flowers/buds-red.webp",
@@ -29,7 +33,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1759688351168,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

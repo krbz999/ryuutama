@@ -4,7 +4,6 @@
   "folder": "enhance000000000",
   "type": "herb",
   "system": {
-    "level": 5,
     "category": {
       "value": "enhance"
     },
@@ -14,6 +13,11 @@
     },
     "price": {
       "value": null
+    },
+    "terrain": {
+      "type": "alpine",
+      "level": 5,
+      "details": ""
     }
   },
   "img": "icons/magic/nature/tree-bare-glow-yellow.webp",
@@ -29,7 +33,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1759688486851,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

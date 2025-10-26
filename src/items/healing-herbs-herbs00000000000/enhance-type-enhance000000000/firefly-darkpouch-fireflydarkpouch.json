@@ -4,7 +4,6 @@
   "folder": "enhance000000000",
   "type": "herb",
   "system": {
-    "level": 3,
     "category": {
       "value": "enhance"
     },
@@ -14,6 +13,11 @@
     },
     "price": {
       "value": null
+    },
+    "terrain": {
+      "details": "Night only",
+      "level": 3,
+      "type": ""
     }
   },
   "img": "icons/commodities/flowers/blooms-purple.webp",
@@ -29,7 +33,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1759688449299,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

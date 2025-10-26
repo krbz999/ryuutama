@@ -4,7 +4,6 @@
   "folder": "mental0000000000",
   "type": "herb",
   "system": {
-    "level": 3,
     "category": {
       "value": "mental"
     },
@@ -14,6 +13,11 @@
     },
     "price": {
       "value": null
+    },
+    "terrain": {
+      "type": "mountain",
+      "level": 3,
+      "details": ""
     }
   },
   "img": "icons/commodities/flowers/clover-purple.webp",
@@ -29,7 +33,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1759688418284,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
