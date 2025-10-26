@@ -1,4 +1,4 @@
-<section class="tooltip effect">
+<section class="tooltip effect" {{#if actor}} data-actor-uuid="{{actor.uuid}}" {{/if}}>
   <h4 class="name">{{effect.name}}</h4>
   <section class="content">{{{enriched}}}</section>
 </section>

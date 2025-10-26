@@ -1,3 +1,7 @@
+/**
+ * @import RyuutamaActor from "../../documents/actor.mjs";
+ */
+
 const { SchemaField, StringField } = foundry.data.fields;
 
 export default class StandardData extends foundry.abstract.TypeDataModel {
@@ -21,6 +25,20 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
+   * Getter for the actor this effect lives on, if any.
+   * @type {RyuutamaActor|null}
+   */
+  get actor() {
+    const effect = this.parent;
+    if (!effect.parent) return null;
+    if (effect.parent instanceof foundry.documents.Actor) return effect.parent;
+    if (effect.parent.parent instanceof foundry.documents.Actor) return effect.parent.parent;
+    return null;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Create data for an enriched tooltip.
    * @returns {Promise<HTMLElement[]>}
    */
@@ -30,6 +48,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
     });
     const context = {
       effect: this.parent,
+      actor: this.actor,
       enriched,
     };
     const htmlString = await foundry.applications.handlebars.renderTemplate(
