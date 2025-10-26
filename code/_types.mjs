@@ -63,21 +63,21 @@
 /* -------------------------------------------------- */
 
 /**
- * @typedef {SpellCategoryConfig}
+ * @typedef SpellCategoryConfig
  * @property {string} label   Human-readable label.
  */
 
 /* -------------------------------------------------- */
 
 /**
- * @typedef {SpellActivationTypeConfig}
+ * @typedef SpellActivationTypeConfig
  * @property {string} label   Human-readable label.
  */
 
 /* -------------------------------------------------- */
 
 /**
- * @typedef {SpellDurationTypeConfig}
+ * @typedef SpellDurationTypeConfig
  * @property {string} label       Human-readable label.
  * @property {boolean} [units]    Does this display units?
  */
@@ -85,14 +85,14 @@
 /* -------------------------------------------------- */
 
 /**
- * @type {SpellLevelConfig}
+ * @typedef SpellLevelConfig
  * @property {string} label   Human-readable label.
  */
 
 /* -------------------------------------------------- */
 
 /**
- * @type {SpellRangeTypeConfig}
+ * @typedef SpellRangeTypeConfig
  * @property {string} label   Human-readable label.
  */
 

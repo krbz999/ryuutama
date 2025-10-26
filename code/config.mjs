@@ -4,7 +4,7 @@ import Prelocalization from "./helpers/prelocalization.mjs";
  * @import {
  * AbilityScoreConfig, CheckTypeConfig, EffectExpirationTypeConfig, HerbTypeConfig, ItemModifierConfig, ItemSizeConfig,
  * MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig, SpellDurationTypeConfig,
- * SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig, TravelerTypeConfig, UnarmedConfiguration,
+ * SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig, TravelerTypeConfig, UnarmedConfiguration,
  * WeaponCategoryConfig, WeatherTypeConfig
  * } from "./_types.mjs";
  */
