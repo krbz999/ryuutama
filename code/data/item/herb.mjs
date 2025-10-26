@@ -66,7 +66,7 @@ export default class HerbData extends BaseData {
     super.prepareDerivedData();
 
     if (this.price.value === null) {
-      switch (this.level) {
+      switch (this.terrain.level) {
         case 1: this.price.total = 100; break;
         case 2: this.price.total = 300; break;
         case 3: this.price.total = 800; break;
