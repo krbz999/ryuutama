@@ -53,6 +53,7 @@ Hooks.once("init", () => {
 
   CONFIG.Item.documentClass = documents.RyuutamaItem;
   CONFIG.Item.dataModels.accessory = data.item.AccessoryData;
+  CONFIG.Item.dataModels.animal = data.item.AnimalData;
   CONFIG.Item.dataModels.armor = data.item.ArmorData;
   CONFIG.Item.dataModels.cape = data.item.CapeData;
   CONFIG.Item.dataModels.container = data.item.ContainerData;
@@ -143,12 +144,13 @@ Hooks.once("ready", () => {
     "actor-statuses": "systems/ryuutama/templates/sheets/shared/statuses.hbs",
 
     // ITEM PARTIALS
-    "item-weapon": "systems/ryuutama/templates/sheets/item-sheet/weapon.hbs",
-    "item-gear": "systems/ryuutama/templates/sheets/item-sheet/gear.hbs",
-    "item-defense": "systems/ryuutama/templates/sheets/item-sheet/defense.hbs",
-    "item-herb": "systems/ryuutama/templates/sheets/item-sheet/herb.hbs",
+    "item-animal": "systems/ryuutama/templates/sheets/item-sheet/animal.hbs",
     "item-container": "systems/ryuutama/templates/sheets/item-sheet/container.hbs",
+    "item-defense": "systems/ryuutama/templates/sheets/item-sheet/defense.hbs",
+    "item-gear": "systems/ryuutama/templates/sheets/item-sheet/gear.hbs",
+    "item-herb": "systems/ryuutama/templates/sheets/item-sheet/herb.hbs",
     "item-spell": "systems/ryuutama/templates/sheets/item-sheet/spell.hbs",
+    "item-weapon": "systems/ryuutama/templates/sheets/item-sheet/weapon.hbs",
 
     // SHARED PARTIALS
     "document-list": "systems/ryuutama/templates/sheets/shared/document-list.hbs",

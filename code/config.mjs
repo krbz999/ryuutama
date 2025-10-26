@@ -2,10 +2,10 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 
 /**
  * @import {
- * AbilityScoreConfig, CheckTypeConfig, EffectExpirationTypeConfig, HerbTypeConfig, ItemModifierConfig, ItemSizeConfig,
- * MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig, SpellDurationTypeConfig,
- * SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig, TravelerTypeConfig, UnarmedConfiguration,
- * WeaponCategoryConfig, WeatherTypeConfig
+ * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, EffectExpirationTypeConfig, HerbTypeConfig,
+ * ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig,
+ * SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig,
+ * TravelerTypeConfig, UnarmedConfiguration, WeaponCategoryConfig, WeatherTypeConfig
  * } from "./_types.mjs";
  */
 
@@ -55,6 +55,80 @@ export const advancement = {
   9: new Set(["resource"]),
   10: new Set(["resource", "statIncrease"]),
 };
+
+/* -------------------------------------------------- */
+/*   Animals                                          */
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, AnimalModifierConfig>}
+ */
+export const animalModifiers = {
+  baby: {
+    label: "RYUUTAMA.ITEM.ANIMAL.MODIFIERS.baby",
+    cost: 3 / 10,
+  },
+  badAttitude: {
+    label: "RYUUTAMA.ITEM.ANIMAL.MODIFIERS.badAttitude",
+    cost: 7 / 10,
+  },
+  clever: {
+    label: "RYUUTAMA.ITEM.ANIMAL.MODIFIERS.clever",
+    cost: 3,
+  },
+  loud: {
+    label: "RYUUTAMA.ITEM.ANIMAL.MODIFIERS.loud",
+    cost: 7 / 10,
+  },
+  loyal: {
+    label: "RYUUTAMA.ITEM.ANIMAL.MODIFIERS.loyal",
+    cost: 1000,
+    additive: true,
+  },
+  tough: {
+    label: "RYUUTAMA.ITEM.ANIMAL.MODIFIERS.tough",
+    cost: 2,
+  },
+  wellTraveled: {
+    label: "RYUUTAMA.ITEM.ANIMAL.MODIFIERS.wellTraveled",
+    cost: 5000,
+    additive: true,
+  },
+};
+Prelocalization.prelocalize(animalModifiers);
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, AnimalTypeConfig>}
+ */
+export const animalTypes = {
+  riding: {
+    label: "RYUUTAMA.ITEM.ANIMAL.TYPES.riding",
+    price: 900,
+    ride: 1,
+  },
+  ridingLarge: {
+    label: "RYUUTAMA.ITEM.ANIMAL.TYPES.ridingLarge",
+    price: 3800,
+    ride: 4,
+  },
+  pack: {
+    label: "RYUUTAMA.ITEM.ANIMAL.TYPES.pack",
+    price: 500,
+    capacity: 15,
+  },
+  packLarge: {
+    label: "RYUUTAMA.ITEM.ANIMAL.TYPES.packLarge",
+    price: 2000,
+    capacity: 30,
+  },
+  pet: {
+    label: "RYUUTAMA.ITEM.ANIMAL.TYPES.pet",
+    price: 300,
+  },
+};
+Prelocalization.prelocalize(animalTypes);
 
 /* -------------------------------------------------- */
 
