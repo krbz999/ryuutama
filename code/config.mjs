@@ -130,13 +130,13 @@ export const experienceLevels = [
  */
 export const herbTypes = {
   enhance: {
-    label: "RYUUTAMA.HERB.CATEGORIES.enhance",
+    label: "RYUUTAMA.ITEM.HERB.CATEGORIES.enhance",
   },
   mental: {
-    label: "RYUUTAMA.HERB.CATEGORIES.mental",
+    label: "RYUUTAMA.ITEM.HERB.CATEGORIES.mental",
   },
   physical: {
-    label: "RYUUTAMA.HERB.CATEGORIES.physical",
+    label: "RYUUTAMA.ITEM.HERB.CATEGORIES.physical",
   },
 };
 Prelocalization.prelocalize(herbTypes);

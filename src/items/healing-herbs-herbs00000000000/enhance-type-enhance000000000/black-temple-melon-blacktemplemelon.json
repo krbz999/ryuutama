@@ -4,7 +4,6 @@
   "folder": "enhance000000000",
   "type": "herb",
   "system": {
-    "level": 4,
     "category": {
       "value": "enhance"
     },
@@ -14,6 +13,11 @@
     },
     "price": {
       "value": null
+    },
+    "terrain": {
+      "type": "desert",
+      "level": 4,
+      "details": ""
     }
   },
   "img": "icons/consumables/fruit/plum-ripe-purple.webp",
@@ -29,7 +33,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1759688477779,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

@@ -325,6 +325,33 @@
         "capacity": "Capacity"
       },
 
+      "HERB": {
+        "FIELDS": {
+          "category.value.label": "Type",
+          "description.effect.label": "Use",
+          "price.value.label": "Gold Value",
+          "terrain.level.label": "Terrain Level",
+          "terrain.type.label": "Specific Terrain",
+          "terrain.details.label": "Terrain Details"
+        },
+
+        "CATEGORIES": {
+          "enhance": "Enhance Type",
+          "mental": "Mental Type",
+          "physical": "Physical Type"
+        },
+
+        "terrainLevel1": "1st-level terrain",
+        "terrainLevel2": "2nd-level terrain",
+        "terrainLevel3": "3rd-level terrain",
+        "terrainLevel4": "4th-level terrain",
+        "terrainLevel5": "5th-level terrain",
+        "specificTerrain": "Specific Terrain",
+        "anyTerrain": "Any Terrain",
+
+        "configuration": "Herb Details"
+      },
+
       "SPELL": {
         "FIELDS": {
           "category.season.label": "Magic Season",
@@ -400,19 +427,6 @@
       }
     },
     "CAPE": {},
-    "HERB": {
-      "FIELDS": {
-        "category.value.label": "Type",
-        "description.effect.label": "Use",
-        "level.label": "Level",
-        "price.value.label": "Gold Value"
-      },
-      "CATEGORIES": {
-        "enhance": "Enhance Type",
-        "mental": "Mental Type",
-        "physical": "Physical Type"
-      }
-    },
     "SHIELD": {
       "FIELDS": {
         "armor.penalty.label": "Penalty",

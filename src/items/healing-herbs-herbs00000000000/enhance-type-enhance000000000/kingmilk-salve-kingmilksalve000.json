@@ -1,10 +1,9 @@
 {
-  "name": "Kingmilk Elixer",
-  "_id": "kingmilkelixer00",
+  "name": "Kingmilk Salve",
+  "_id": "kingmilksalve000",
   "folder": "enhance000000000",
   "type": "herb",
   "system": {
-    "level": 4,
     "category": {
       "value": "enhance"
     },
@@ -14,6 +13,11 @@
     },
     "price": {
       "value": null
+    },
+    "terrain": {
+      "type": "jungle",
+      "level": 4,
+      "details": ""
     }
   },
   "img": "icons/commodities/materials/slime-white.webp",
@@ -29,10 +33,10 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1759688458969,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
-  "_key": "!items!kingmilkelixer00"
+  "_key": "!items!kingmilksalve000"
 }

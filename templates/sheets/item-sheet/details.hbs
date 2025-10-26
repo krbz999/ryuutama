@@ -9,10 +9,6 @@
     {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.total source.system.price.value) disabled=disabled classes="slim" placeholder=document.system.price.total}}
     {{/if}}
 
-    {{#if isHerb}}
-    {{> "item-herb"}}
-    {{/if}}
-
     {{!-- MODIFIERS --}}
     {{#if hasModifiers}}
     {{formGroup systemFields.modifiers value=(ifThen disabled document.system.modifiers source.system.modifiers) type="checkboxes" classes="stacked" disabled=disabled options=modifierOptions}}
@@ -34,6 +30,10 @@
     {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.total source.system.size.value) disabled=disabled classes="slim"}}
     {{/if}}
   </fieldset>
+
+  {{#if isHerb}}
+  {{> "item-herb"}}
+  {{/if}}
 
   {{#if isSpell}}
   {{> "item-spell"}}

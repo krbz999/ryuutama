@@ -4,7 +4,6 @@
   "folder": "physical00000000",
   "type": "herb",
   "system": {
-    "level": 2,
     "description": {
       "effect": "<p>Used to help ease foot pain. Used after a taking damage from a Movement Check: recover that damage.</p>",
       "value": "<p>An annual that produces light green leaves covered in mucuous. It prefers wet climates.</p>"
@@ -14,6 +13,11 @@
     },
     "category": {
       "value": "physical"
+    },
+    "terrain": {
+      "type": "rocky",
+      "level": 2,
+      "details": ""
     }
   },
   "img": "icons/commodities/flowers/cornflower-gold.webp",
@@ -29,7 +33,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1759688321018,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

@@ -4,7 +4,6 @@
   "folder": "physical00000000",
   "type": "herb",
   "system": {
-    "level": 2,
     "description": {
       "effect": "<p>Enough for 1 poison arrow: add 2 damage to 1 bow attack.</p>",
       "value": "<p>A decidious tree that grows to about 12 feet tall with ash-white bark. A dark sap oozes from cuts in the bark.</p>"
@@ -14,6 +13,11 @@
     },
     "category": {
       "value": "physical"
+    },
+    "terrain": {
+      "type": "woods",
+      "level": 2,
+      "details": ""
     }
   },
   "img": "icons/commodities/wood/log-rough-petrified-white.webp",
@@ -29,7 +33,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1759688332925,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

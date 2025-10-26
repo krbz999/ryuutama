@@ -4,7 +4,6 @@
   "folder": "mental0000000000",
   "type": "herb",
   "system": {
-    "level": 2,
     "category": {
       "value": "mental"
     },
@@ -14,6 +13,11 @@
     },
     "price": {
       "value": null
+    },
+    "terrain": {
+      "type": "highlands",
+      "level": 2,
+      "details": ""
     }
   },
   "img": "icons/commodities/flowers/lily-bloom.webp",
@@ -29,7 +33,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1759688397123,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
