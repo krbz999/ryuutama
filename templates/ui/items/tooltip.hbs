@@ -10,9 +10,33 @@
   </section>
   {{/if}}
 
+  {{!-- WEAPON --}}
+  {{#if (eq item.type "weapon")}}
+  <section class="tags">
+    <div class="tag">{{item.system.accuracy.label}}</div>
+    <div class="tag">{{item.system.damage.label}}</div>
+  </section>
+  {{/if}}
+
+  {{!-- HERB --}}
   {{#if item.system.terrain.label}}
-  <section class="modifier tags">
+  <section class="tags">
     <div class="tag">{{item.system.terrain.label}}</div>
+  </section>
+  {{/if}}
+
+  {{!-- SPELL --}}
+  {{#if (eq item.type "spell")}}
+  <section class="tags">
+    {{#if item.system.spell.costLabel}}
+    <div class="tag">{{item.system.spell.costLabel}}</div>
+    {{/if}}
+    <div class="tag">{{item.system.spell.activation.label}}</div>
+    <div class="tag">{{item.system.spell.duration.label}}</div>
+    <div class="tag">{{item.system.spell.range.label}}</div>
+    {{#if item.system.spell.target.label}}
+    <div class="tag">{{item.system.spell.target.label}}</div>
+    {{/if}}
   </section>
   {{/if}}
 </section>

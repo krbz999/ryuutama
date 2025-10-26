@@ -2,7 +2,7 @@
 
 #tooltip.ryuutama,
 .ryuutama.locked-tooltip {
-  min-width: 350px;
+  min-width: 400px;
 
   &:not(.locked-tooltip) {
     box-shadow: 0 0 2px var(--ryuutama-enriched-tooltip-border);
@@ -24,5 +24,9 @@
     .name {
       font-family: Amiri;
     }
+  }
+
+  section.tags {
+    margin-bottom: 4px;
   }
 }

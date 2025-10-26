@@ -42,4 +42,30 @@ export default class SpellData extends BaseData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ITEM.SPELL",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    if (this.spell.activation.mental) {
+      this.spell.costLabel = game.i18n.format("RYUUTAMA.ITEM.SPELL.costLabel", { mp: this.spell.activation.mental });
+    }
+
+    this.spell.activation.label = ryuutama.config.spellActivationTypes[this.spell.activation.cast].label;
+
+    this.spell.duration.label = this.spell.duration.type === "special"
+      ? this.spell.duration.custom
+      : ryuutama.config.spellDurationTypes[this.spell.duration.type].units
+        ? game.i18n.format("RYUUTAMA.ITEM.SPELL.durationLabel", {
+          type: ryuutama.config.spellDurationTypes[this.spell.duration.type].label,
+          units: this.spell.duration.value,
+        })
+        : ryuutama.config.spellDurationTypes[this.spell.duration.type].label;
+
+    this.spell.range.label = ryuutama.config.spellRangeTypes[this.spell.range.value].label;
+
+    this.spell.target.label = this.spell.target.custom;
+  }
 }

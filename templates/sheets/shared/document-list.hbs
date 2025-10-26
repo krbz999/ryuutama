@@ -1,5 +1,7 @@
 <section class="document-listing">
+  {{#if label}}
   <h4>{{label}}</h4>
+  {{/if}}
 
   <section class="document-list {{#if tiles}} tiles {{/if}}">
     {{#each entries as |entry|}}

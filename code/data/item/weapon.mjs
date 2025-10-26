@@ -61,5 +61,12 @@ export default class WeaponData extends PhysicalData {
 
     if (this.modifiers.has("highQuality")) this.accuracy.bonus = (this._source.accuracy.bonus ?? 0) + 1;
     if (this.modifiers.has("plusOne")) this.damage.bonus = (this._source.damage.bonus ?? 0) + 1;
+
+    this.accuracy.label = this.accuracy.abilities
+      .map(ability => `${ryuutama.config.abilityScores[ability].abbreviation}`)
+      .filterJoin(" + ") + (this.accuracy.bonus ? ` ${this.accuracy.bonus.signedString()}` : "");
+    this.damage.label =
+      `${ryuutama.config.abilityScores[this.damage.ability].abbreviation}`
+         + (this.damage.bonus ? ` ${this.damage.bonus.signedString()}` : "");
   }
 }

@@ -22,6 +22,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     spells: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/spells.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
     inventory: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/inventory.hbs",
@@ -245,22 +246,32 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
    * @returns {object[]}
    */
   #prepareSpells(context) {
-    const {
-      incantation, spring, summer, autumn, winter,
-    } = Object.groupBy(this.document.items.documentsByType.spell, spell => {
+    const groupedBy = Object.groupBy(this.document.items.documentsByType.spell, spell => {
       return spell.system.category.value;
     });
 
-    const groups = [];
+    const sections = [];
 
-    for (const type of [incantation, spring, summer, autumn, winter]) {
-      if (!type?.length) continue;
+    for (const category of Object.keys(ryuutama.config.spellCategories)) {
+      const spells = groupedBy[category];
+      if (!spells) continue;
 
-      const label = game.i18n.localize(`RYUUTAMA.ACTOR.magicGroup${type[0].system.category.value.capitalize()}`);
-      groups.push({ label, documents: type.map(spell => ({ document: spell })) });
+      const { low, mid, high } = Object.groupBy(spells, spell => spell.system.spell.level);
+      const section = {
+        label: ryuutama.config.spellCategories[category].label,
+        groups: [],
+      };
+
+      for (const level of [low, mid, high]) {
+        if (!level) continue;
+        section.groups.push({
+          documents: level.map(spell => ({ document: spell })),
+        });
+      }
+      sections.push(section);
     }
 
-    return groups;
+    return sections;
   }
 
   /* -------------------------------------------------- */

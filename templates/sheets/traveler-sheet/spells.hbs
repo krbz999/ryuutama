@@ -1,5 +1,10 @@
 <section data-tab="{{tabs.spells.id}}" class="{{tabs.spells.cssClass}}" data-group="{{tabs.spells.group}}">
-  {{#each spells}}
-  {{> "document-list" label=label entries=documents}}
+  {{#each spells as |section|}}
+  <section class="document-listing">
+    <h4>{{section.label}}</h4>
+    {{#each section.groups as |group|}}
+    {{> "document-list" entries=group.documents tiles=true}}
+    {{/each}}
+  </section>
   {{/each}}
 </section>

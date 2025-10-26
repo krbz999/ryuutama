@@ -119,11 +119,6 @@
       "magical": "Magical",
       "disabledEffects": "Inactive",
       "activeEffects": "Active",
-      "magicGroupIncantation": "Incantations",
-      "magicGroupSpring": "Spring Magic",
-      "magicGroupSummer": "Summer Magic",
-      "magicGroupAutumn": "Autumn Magic",
-      "magicGroupWinter": "Winter Magic",
       "description": "Description"
     },
     "CREATURE": {
@@ -399,7 +394,9 @@
         },
         "activation": "Activation",
         "configuration": "Spell Configuration",
+        "costLabel": "{mp} MP",
         "duration": "Duration",
+        "durationLabel": "{units} {type}",
         "specialDuration": "Special duration",
         "targetPlaceholder": "E.g. '1 person'",
         "timing": "Spell Timing"
