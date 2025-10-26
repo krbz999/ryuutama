@@ -56,6 +56,9 @@
 
     &.stamina {
       --color: var(--ryuutama-color-resource-stamina);
+      &.negative {
+        --color: var(--ryuutama-color-resource-stamina-negative);
+      }
     }
     &.mental {
       --color: var(--ryuutama-color-resource-mental);

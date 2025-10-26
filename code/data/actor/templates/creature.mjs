@@ -27,7 +27,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         shape: new SchemaField({
           high: new StringField({ required: true, blank: true, choices: () => ryuutama.config.abilityScores }),
         }),
-        value: new NumberField({ nullable: true, initial: null, integer: true }),
+        value: new NumberField({ nullable: false, initial: 4, integer: true, min: 2 }),
       }),
       defense: new SchemaField({
         armor: new NumberField({ min: 0, initial: null, integer: true, nullable: true }),
@@ -97,7 +97,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
     // Store current HP for later comparison.
     if (foundry.utils.hasProperty(changes, "system.resources.stamina.spent")) {
-      CreatureData.#staminaChange.set(this.parent.uuid, this.resources.stamina.value);
+      CreatureData.#staminaChange.set(this.parent.uuid, this.resources.stamina.spent);
     }
   }
 
@@ -108,7 +108,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     super._onUpdate(changed, options, userId);
 
     if (CreatureData.#staminaChange.has(this.parent.uuid)) {
-      const delta = this.resources.stamina.value - CreatureData.#staminaChange.get(this.parent.uuid);
+      const delta = CreatureData.#staminaChange.get(this.parent.uuid) - this.resources.stamina.spent;
       CreatureData.#staminaChange.delete(this.parent.uuid);
       CreatureData.#displayScrollingDamageNumbers(this.parent, delta);
     }

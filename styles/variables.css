@@ -17,6 +17,7 @@
 
   /* VARIABLES */
   --ryuutama-color-resource-stamina: var(--ryuutama-color-limegreen);
+  --ryuutama-color-resource-stamina-negative: var(--ryuutama-color-indianred);
   --ryuutama-color-resource-mental: var(--ryuutama-color-darkblue);
   --ryuutama-color-resource-default: var(--ryuutama-color-black);
 

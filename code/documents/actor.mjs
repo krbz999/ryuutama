@@ -48,8 +48,9 @@ export default class RyuutamaActor extends foundry.documents.Actor {
       : isSpent ? (object.max - value) : value;
     if (update === current) return this;
 
+    const allowNegative = attribute === "resources.stamina";
     const updates = {
-      [`system.${attribute}.${isSpent ? "spent" : "value"}`]: Math.clamp(update, 0, object.max),
+      [`system.${attribute}.${isSpent ? "spent" : "value"}`]: Math.clamp(update, 0, allowNegative ? Infinity : object.max),
     };
 
     const allowed = Hooks.call("modifyTokenAttribute", { attribute, value, isDelta, isBar }, updates, this);
