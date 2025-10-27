@@ -362,6 +362,22 @@ export default class TravelerData extends CreatureData {
       parts.push("@details.type.technical");
     }
 
+    // Heavier armors and shields add penalties to initiative and travel checks.
+    if ((rollConfig.type === "initiative") || ((rollConfig.type === "journey") && (rollConfig.journeyId === "travel"))) {
+      const armorPenalty = this.equipped.armor?.system.armor.penalty;
+      const shieldPenalty = this.equipped.shield?.system.armor.penalty;
+
+      if (armorPenalty) {
+        parts.push("@armorPenalty");
+        rollData.armorPenalty = -armorPenalty;
+      }
+
+      if (shieldPenalty) {
+        parts.push("@shieldPenalty");
+        rollData.shieldPenalty = -shieldPenalty;
+      }
+    }
+
     // If consuming a fumble point or MP, add +1 for each, plus an additional +1 if Technical type.
     let concentrationBonus = 0;
     if (rollConfig.concentration?.consumeFumble) concentrationBonus++;
