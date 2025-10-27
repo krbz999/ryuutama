@@ -2,11 +2,11 @@
   <fieldset>
     <legend>{{localize "RYUUTAMA.ITEM.defenses"}}</legend>
 
-    {{formGroup systemFields.armor.fields.defense value=(ifThen disabled document.system.armor.defense source.system.armor.defense) disabled=disabled placeholder="-"}}
-    {{formGroup systemFields.armor.fields.penalty value=(ifThen disabled document.system.armor.penalty source.system.armor.penalty) disabled=disabled placeholder="-"}}
+    {{formGroup systemFields.armor.fields.defense value=(ifThen disabled document.system.armor.defense source.system.armor.defense) disabled=disabled placeholder="0" rootId=rootId classes="slim"}}
+    {{formGroup systemFields.armor.fields.penalty value=(ifThen disabled document.system.armor.penalty source.system.armor.penalty) disabled=disabled placeholder="-" rootId=rootId classes="slim"}}
 
     {{#if systemFields.armor.fields.dodge}}
-    {{formGroup systemFields.armor.fields.dodge value=(ifThen disabled document.system.armor.dodge source.system.armor.dodge) disabled=disabled}}
+    {{formGroup systemFields.armor.fields.dodge value=(ifThen disabled document.system.armor.dodge source.system.armor.dodge) disabled=disabled placeholder="0" rootId=rootId classes="slim"}}
     {{/if}}
 
   </fieldset>
