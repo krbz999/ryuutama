@@ -147,8 +147,8 @@
 
 /**
  * @typedef UnarmedConfiguration
- * @property {string} label   Human-readable label.
- * @property {string} icon    Icon displayed when unarmed.
+ * @property {string} label                   Human-readable label.
+ * @property {string} [icon]                  Icon displayed when unarmed.
  * @property {object} accuracy
  * @property {string[]} accuracy.abilities    Default abilities used for accuracy checks of unarmed attacks.
  * @property {number} accuracy.bonus          Default bonus for accuracy checks of unarmed attacks.
@@ -160,7 +160,7 @@
 /* -------------------------------------------------- */
 
 /**
- * @typedef WeaponCategoryConfig
+ * @typedef WeaponTypeConfig
  * @property {string} label         Human-readable label.
  * @property {string} labelPlural   Pluralized human-readable label.
  * @property {0|1|2} grip           The number of hands needed to wield.

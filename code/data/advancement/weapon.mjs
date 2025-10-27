@@ -10,7 +10,12 @@ export default class WeaponAdvancement extends Advancement {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
-        chosen: new StringField({ blank: true, required: true, choices: () => ryuutama.config.weaponCategories }),
+        chosen: new StringField({ blank: true, required: true, choices: () => {
+          return {
+            ...ryuutama.config.weaponTypes,
+            unarmed: ryuutama.config.weaponUnarmedTypes.unarmed,
+          };
+        } }),
       }),
     });
   }

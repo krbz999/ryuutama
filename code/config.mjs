@@ -5,7 +5,7 @@ import Prelocalization from "./helpers/prelocalization.mjs";
  * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, EffectExpirationTypeConfig, HerbTypeConfig,
  * ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig,
  * SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig,
- * TravelerTypeConfig, UnarmedConfiguration, WeaponCategoryConfig, WeatherTypeConfig
+ * TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig
  * } from "./_types.mjs";
  */
 
@@ -621,55 +621,83 @@ Prelocalization.prelocalize(travelerTypes);
 /* -------------------------------------------------- */
 
 /**
- * @type {UnarmedConfiguration}
+ * @type {Record<string, WeaponTypeConfig>}
  */
-export const unarmedConfiguration = {
-  label: "RYUUTAMA.WEAPON.CATEGORIES.unarmed",
-  icon: "icons/skills/melee/unarmed-punch-fist-white.webp",
-  accuracy: {
-    abilities: ["dexterity", "strength"],
-    bonus: 0,
+export const weaponTypes = {
+  axe: {
+    label: "RYUUTAMA.ITEM.WEAPON.TYPES.axe",
+    labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.axePl",
+    grip: 2,
+    baseItem: "Compendium.ryuutama.items.Item.axe0000000000000",
   },
-  damage: {
-    ability: "strength",
-    bonus: -2,
+  blade: {
+    label: "RYUUTAMA.ITEM.WEAPON.TYPES.blade",
+    labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.bladePl",
+    grip: 1,
+    baseItem: "Compendium.ryuutama.items.Item.blade00000000000",
+  },
+  bow: {
+    label: "RYUUTAMA.ITEM.WEAPON.TYPES.bow",
+    labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.bowPl",
+    grip: 2,
+    ranged: true,
+    baseItem: "Compendium.ryuutama.items.Item.bow0000000000000",
+  },
+  lightBlade: {
+    label: "RYUUTAMA.ITEM.WEAPON.TYPES.lightBlade",
+    labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.lightBladePl",
+    grip: 1,
+    baseItem: "Compendium.ryuutama.items.Item.lightblade000000",
+  },
+  polearm: {
+    label: "RYUUTAMA.ITEM.WEAPON.TYPES.polearm",
+    labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.polearmPl",
+    grip: 2,
+    baseItem: "Compendium.ryuutama.items.Item.polearm000000000",
   },
 };
+Prelocalization.prelocalize(weaponTypes, { properties: ["label", "labelPlural"] });
 
 /* -------------------------------------------------- */
 
 /**
- * @type {Record<string, WeaponCategoryConfig>}
+ * @type {Record<string, UnarmedConfiguration>}
  */
-export const weaponCategories = {
-  axe: {
-    label: "RYUUTAMA.WEAPON.CATEGORIES.axe",
-    labelPlural: "RYUUTAMA.WEAPON.CATEGORIES.axePl",
-    grip: 2,
+export const weaponUnarmedTypes = {
+  unarmed: {
+    label: "RYUUTAMA.ITEM.WEAPON.TYPES.unarmed",
+    labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.unarmedPl",
+    icon: "icons/skills/melee/unarmed-punch-fist-white.webp",
+    accuracy: {
+      abilities: ["strength", "dexterity"],
+      bonus: 0,
+    },
+    damage: {
+      ability: "strength",
+      bonus: -2,
+    },
   },
-  blade: {
-    label: "RYUUTAMA.WEAPON.CATEGORIES.blade",
-    labelPlural: "RYUUTAMA.WEAPON.CATEGORIES.bladePl",
-    grip: 1,
-  },
-  bow: {
-    label: "RYUUTAMA.WEAPON.CATEGORIES.bow",
-    labelPlural: "RYUUTAMA.WEAPON.CATEGORIES.bowPl",
-    grip: 2,
-    ranged: true,
-  },
-  lightBlade: {
-    label: "RYUUTAMA.WEAPON.CATEGORIES.lightBlade",
-    labelPlural: "RYUUTAMA.WEAPON.CATEGORIES.lightBladePl",
-    grip: 1,
-  },
-  polearm: {
-    label: "RYUUTAMA.WEAPON.CATEGORIES.polearm",
-    labelPlural: "RYUUTAMA.WEAPON.CATEGORIES.polearmPl",
-    grip: 2,
+  improvised: {
+    label: "RYUUTAMA.ITEM.WEAPON.TYPES.improvised",
+    labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.improvisedPl",
+    accuracy: {
+      abilities: ["strength", "dexterity"],
+      bonus: 0,
+    },
+    damage: {
+      ability: "strength",
+      bonus: -1,
+    },
   },
 };
-Prelocalization.prelocalize(weaponCategories, { properties: ["label", "labelPlural"] });
+Prelocalization.prelocalize(weaponUnarmedTypes, { properties: ["label", "labelPlural"] });
+
+/* -------------------------------------------------- */
+
+export const weaponCategories = {
+  ...weaponTypes,
+  ...weaponUnarmedTypes,
+};
 
 /* -------------------------------------------------- */
 

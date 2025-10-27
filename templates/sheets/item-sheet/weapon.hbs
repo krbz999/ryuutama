@@ -1,24 +1,28 @@
 <section>
   <fieldset>
-    <legend>{{localize "RYUUTAMA.WEAPON.weaponConfiguration"}}</legend>
-    {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim"}}
+    <legend>{{localize "RYUUTAMA.ITEM.WEAPON.weaponConfiguration"}}</legend>
 
+    {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim" blank=(localize "RYUUTAMA.ITEM.WEAPON.TYPES.improvised")}}
+
+    {{#unless document.system.isImprovised}}
     <div class="form-group">
-      <label>{{localize "RYUUTAMA.WEAPON.weaponAccuracy"}}</label>
-      <div class="form-fields">
+      <label>{{localize "RYUUTAMA.ITEM.WEAPON.weaponAccuracy"}}</label>
+      <div class="form-fields last-slim">
         {{#each (ifThen disabled document.system.accuracy.abilities source.system.accuracy.abilities) as |v k|}}
-        {{formInput @root.systemFields.accuracy.fields.abilities.element value=v blank=false name=(concat "system.accuracy.abilities." k) disabled=@root.disabled}}
+        {{formInput @root.systemFields.accuracy.fields.abilities.element value=v name=(concat "system.accuracy.abilities." k) disabled=@root.disabled}}
         {{/each}}
-        {{formGroup systemFields.accuracy.fields.bonus value=(ifThen disabled document.system.accuracy.bonus source.system.accuracy.bonus) disabled=disabled placeholder="0" classes="slim"}}
+        {{formInput systemFields.accuracy.fields.bonus value=(ifThen disabled document.system.accuracy.bonus source.system.accuracy.bonus) disabled=disabled placeholder="0"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label>{{localize "RYUUTAMA.WEAPON.weaponDamage"}}</label>
-      <div class="form-fields">
+      <label>{{localize "RYUUTAMA.ITEM.WEAPON.weaponDamage"}}</label>
+      <div class="form-fields last-slim">
         {{formInput systemFields.damage.fields.ability value=(ifThen disabled document.system.damage.ability source.system.damage.ability) disabled=disabled}}
-        {{formGroup systemFields.damage.fields.bonus value=(ifThen disabled document.system.damage.bonus source.system.damage.bonus) disabled=disabled placeholder="0" classes="slim"}}
+        {{formInput systemFields.damage.fields.bonus value=(ifThen disabled document.system.damage.bonus source.system.damage.bonus) disabled=disabled placeholder="0"}}
       </div>
     </div>
+    {{/unless}}
+
   </fieldset>
 </section>

@@ -1,0 +1,6 @@
+.ryuutama.sheet.item {
+  .form-fields.last-slim > :last-child {
+    flex: 0 0 2.5rem;
+    text-align: center;
+  }
+}

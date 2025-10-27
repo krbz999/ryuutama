@@ -144,7 +144,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     };
 
     context.equipped = this.#prepareEquipped();
-    context.weaponImage = this.document.system.equipped.weapon?.img ?? ryuutama.config.unarmedConfiguration.icon;
+    context.weaponImage = this.document.system.equipped.weapon?.img ?? ryuutama.config.weaponUnarmedTypes.unarmed.icon;
 
     // Capacity
     context.capacityPenalty = game.i18n.format("RYUUTAMA.ACTOR.capacityPenalty", {
