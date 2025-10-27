@@ -154,7 +154,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     context.showConcentration = roll.concentration?.allowed !== false;
     context.allowConsumeFumble = this.actor.system.schema.has("fumbles");
 
-    context.showAccuracy = (roll.type === "accuracy") && !roll.accuracy?.weapon?.system.isMastered;
+    context.showAccuracy = (roll.type === "accuracy") && (roll.accuracy?.weapon?.system.isMastered === false);
     context.showCondition = roll.type === "condition";
     context.showAbilities = !roll.formula;
 
@@ -166,7 +166,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
         if (this.actor.type === "traveler") {
           if (weapon && weapon.system.isUsable) context.subtitle = weapon.name;
           else if (weapon) context.subtitle = game.i18n.format("RYUUTAMA.ROLL.weaponBroken", { weapon: weapon.name });
-          else context.subtitle = game.i18n.localize("RYUUTAMA.WEAPON.CATEGORIES.unarmed");
+          else context.subtitle = ryuutama.config.weaponUnarmedTypes.unarmed.label;
         }
         break;
       case "journey":

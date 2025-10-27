@@ -58,7 +58,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
       description: await CONFIG.ux.TextEditor.enrichHTML(this.document.system.description.value, enrichment),
     };
 
-    context.attackImage = ryuutama.config.unarmedConfiguration.icon;
+    context.attackImage = ryuutama.config.weaponUnarmedTypes.unarmed.icon;
 
     context.seasonOptions = Object.entries(ryuutama.config.seasons).map(([k, v]) => {
       return { value: k, label: v.label };

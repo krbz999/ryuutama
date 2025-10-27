@@ -277,7 +277,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
             const w = this.equipped.weapon;
             let abi;
             if (w?.system.isUsable) abi = w.system.damage.ability;
-            else abi = ryuutama.config.unarmedConfiguration.damage.ability; // unarmed
+            else abi = ryuutama.config.weaponUnarmedTypes.unarmed.damage.ability; // unarmed
             roll.abilities = [abi];
             break;
           }
@@ -301,8 +301,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
               roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
             } else {
               // unarmed
-              abilities = [...ryuutama.config.unarmedConfiguration.accuracy.abilities];
-              roll.accuracy = { consumeStamina: true }; // TODO: unless mastered
+              abilities = [...ryuutama.config.weaponUnarmedTypes.unarmed.accuracy.abilities];
+              roll.accuracy = { consumeStamina: !this.mastered.weapons.unarmed };
             }
             roll.abilities = abilities;
             break;

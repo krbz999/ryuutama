@@ -110,9 +110,12 @@ export default class TravelerData extends CreatureData {
     this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
     this.magic = { seasons: new Set() };
     this.mastered = {
-      weapons: Object.fromEntries(Object.keys(ryuutama.config.weaponCategories).map(k => [k, 0])),
+      weapons: Object.fromEntries(Object.keys(ryuutama.config.weaponTypes).map(k => [k, 0])),
       terrain: new Set(), weather: new Set(),
     };
+
+    // Specific implementation of unarmed.
+    this.mastered.weapons.unarmed = 0;
 
     // Types, Status Immunities, and Mastered Weapons.
     const { habitat, weapon, statusImmunity, type } = this.advancements.documentsByType;
@@ -390,7 +393,7 @@ export default class TravelerData extends CreatureData {
 
     const weapon = this.equipped.weapon;
     const isUsable = weapon?.system.isUsable;
-    const unarmed = ryuutama.config.unarmedConfiguration;
+    const unarmed = ryuutama.config.weaponUnarmedTypes.unarmed;
     let weaponBonus = 0;
     if (rollConfig.type === "accuracy") {
       if (isUsable) {
