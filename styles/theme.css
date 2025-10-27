@@ -1,32 +1,41 @@
 .ryuutama {
+  --font-gothic: 'Carrois Gothic';
+  --font-gabriela: 'Gabriela';
+  --font-raleway: 'Raleway';
+  --font-radley: "Radley";
+
   aside.aside {
     background-color: var(--ryuutama-color-aside);
     padding: 1.5rem 3.5rem;
     border-radius: 15px;
     box-shadow: 4px 4px 0 var(--ryuutama-color-aside-border);
-    font-family: sans-serif;
     text-align: justify;
     border-image-source: url("/systems/ryuutama/assets/official/layout/corner-decoration.webp");
     border-image-width: 30px;
+    margin: 1rem 0;
 
-    * {
-      padding: 0;
-      margin: 0;
-      line-height: 1.5;
+    p {
+      font-family: var(--font-raleway);
     }
 
     h4 {
-      font-family: "Carrois Gothic";
+      font-family: var(--font-gothic);
       font-size: 16px;
     }
   }
 
-  h2, h3 {
-    font-family: Gabriela;
+  h2 {
+    font-family: var(--font-gothic);
     border: none;
+    color: var(--ryuutama-color-header-2);
   }
 
-  h2 {
-    color: var(--ryuutama-color-header-2);
+  p {
+    font-family: var(--font-radley);
+    margin: 0;
+  }
+
+  blockquote p {
+    font-family: var(--font-gabriela);
   }
 }
