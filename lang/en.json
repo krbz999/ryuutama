@@ -39,6 +39,8 @@
     "Item": {
       "accessory": "Accessory",
       "accessoryPl": "Accessories",
+      "animal": "Animal",
+      "animalPl": "Animals",
       "armor": "Armor",
       "armorPl": "Armor",
       "cape": "Cape",
@@ -78,7 +80,7 @@
         "arsenal": "Weapons & Armor",
         "gear": "Traveling Gear",
         "herbs": "Herbs",
-        "containers": "Containers"
+        "containers": "Animals & Containers"
       },
       "CONTEXT": {
         "EFFECT": {
@@ -312,6 +314,35 @@
       "details": "Details",
       "disabledEffects": "Inactive",
       "durability": "Durability ({value}/{max})",
+
+      "ANIMAL": {
+        "FIELDS": {
+          "capacity.max.label": "Carrying Capacity",
+          "capacity.riders.label": "Max Riders",
+          "category.value.label": "Animal Type",
+          "price.value.label": "Gold Value"
+        },
+
+        "MODIFIERS": {
+          "baby": "Baby",
+          "badAttitude": "Bad Attitude",
+          "clever": "Clever",
+          "loud": "Loud",
+          "loyal": "Loyal",
+          "tough": "Tough",
+          "wellTraveled": "Well-Traveled"
+        },
+
+        "TYPES": {
+          "riding": "Riding Animal",
+          "ridingLarge": "Large Riding Animal",
+          "pack": "Pack Animal",
+          "packLarge": "Large Pack Animal",
+          "pet": "Pet Animal"
+        },
+
+        "configuration": "Animal Configuration"
+      },
 
       "CONTAINER": {
         "FIELDS": {

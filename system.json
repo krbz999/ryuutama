@@ -89,6 +89,11 @@
           "description.value"
         ]
       },
+      "animal": {
+        "htmlFields": [
+          "description.value"
+        ]
+      },
       "armor": {
         "htmlFields": [
           "description.value"

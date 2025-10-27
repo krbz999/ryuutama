@@ -8,6 +8,26 @@
 /* -------------------------------------------------- */
 
 /**
+ * @typedef AnimalTypeConfig
+ * @property {string} label         Human-readable label.
+ * @property {number} price         Default base price.
+ * @property {number} [ride]        Number of people who can ride this animal. If non-zero, it is assumed this grants
+ *                                  a +1 bonus to travel checks on topographies of Level 2 or less.
+ * @property {number} [capacity]    Carrying capacity of this animal.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef AnimalModifierConfig
+ * @property {string} label         Human-readable label.
+ * @property {number} cost          A multiplicative modifier on the base cost.
+ * @property {boolean} [additive]   If `true`, the `cost` property is addtive.
+ */
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef CheckTypeConfig
  * @property {string} label                                   Human-readable label.
  * @property {Record<string, { string: label }>} [subtypes]   Subtypes of this kind of check.

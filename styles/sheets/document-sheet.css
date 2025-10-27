@@ -78,4 +78,8 @@
       }
     }
   }
+
+  .sheet-tabs.tabs [data-action=tab] {
+    white-space: nowrap;
+  }
 }

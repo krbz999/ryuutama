@@ -130,7 +130,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       {
         id: "containers",
         cssClass: context.inventoryTabs.containers.cssClass,
-        groups: [this.#prepareInventoryGroup("container")],
+        groups: [this.#prepareInventoryGroup("container"), this.#prepareInventoryGroup("animal")],
         tiles: true,
       },
     ];

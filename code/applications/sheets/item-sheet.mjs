@@ -37,32 +37,20 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /** @inheritdoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-
-    const hasModifiers = this.document.system.schema.has("modifiers");
-    const modifierOptions = {};
-
-    if (hasModifiers) {
-      for (const [k, v] of Object.entries(ryuutama.config.itemModifiers)) {
-        if (v.hidden && context.isEditable && !this.document.system._source.modifiers.includes(k)) continue;
-        if (v.hidden && !context.isEditable && !this.document.system.modifiers.has(k)) continue;
-        modifierOptions[k] = { value: k, label: v.label };
-      }
-      for (const k of this.document.system._source.modifiers) {
-        if (!(k in modifierOptions)) modifierOptions[k] = { value: k, label: k };
-      }
-    }
+    const modifierOptions = this.#prepareModifiers();
 
     Object.assign(context, {
+      isAnimal: this.document._source.type === "animal",
       isContainer: this.document._source.type === "container",
       isHerb: this.document._source.type === "herb",
       isSpell: this.document._source.type === "spell",
       isWeapon: this.document._source.type === "weapon",
       hasDurability: this.document.system.schema.has("durability"),
       hasPrice: this.document.system.schema.has("price"),
-      hasModifiers,
+      hasModifiers: modifierOptions.length > 0,
+      modifierOptions: modifierOptions,
       isGear: this.document.system.schema.has("gear"),
       hasArmor: this.document.system.schema.has("armor"),
-      modifierOptions: Object.values(modifierOptions),
       enriched: {
         description: await CONFIG.ux.TextEditor.enrichHTML(
           this.document.system.description.value,
@@ -110,10 +98,49 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       });
     }
 
+    if (context.isAnimal) {
+      const config = ryuutama.config.animalTypes[this.document.system.category.value];
+      context.animal = {
+        defaultRiding: config.ride,
+        defaultCapacity: config.capacity,
+      };
+    }
+
     // Effects.
     context.effects = this.#prepareEffects(context);
 
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare the options for the item's modifiers.
+   * @returns {{ value: string, label: string}[]}
+   */
+  #prepareModifiers() {
+    if (!this.document.system.schema.has("modifiers")) return [];
+    const config = this.document.type === "animal" ? ryuutama.config.animalModifiers : ryuutama.config.itemModifiers;
+
+    const isEditable = this.isEditable && this.isEditMode;
+    const options = {};
+
+    for (const [k, v] of Object.entries(config)) {
+      if (v.hidden && isEditable && !this.document.system._source.modifiers.includes(k)) continue;
+      if (v.hidden && !isEditable && !this.document.system.modifiers.has(k)) continue;
+      options[k] = { value: k, label: v.label };
+    }
+
+    // 'Well-Traveled' applies only to Riding Animals.
+    if ((this.document.type === "animal") && !["riding", "ridingLarge"].includes(this.document.system.category.value)) {
+      delete options.wellTraveled;
+    }
+
+    for (const k of this.document.system._source.modifiers) {
+      if (!(k in options)) options[k] = { value: k, label: k };
+    }
+
+    return Object.values(options);
   }
 
   /* -------------------------------------------------- */

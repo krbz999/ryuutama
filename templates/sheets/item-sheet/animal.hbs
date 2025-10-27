@@ -1,0 +1,15 @@
+<fieldset>
+  <legend>{{localize "RYUUTAMA.ITEM.ANIMAL.configuration"}}</legend>
+  {{!-- ANIMAL TYPE --}}
+  {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled}}
+
+  {{!-- RIDING CAPACITY --}}
+  {{#if document.system.capacity.canRide}}
+  {{formGroup systemFields.capacity.fields.riders value=(ifThen disabled document.system.capacity.riders source.system.capacity.riders) disabled=disabled classes="slim" placeholder=animal.defaultRiding}}
+  {{/if}}
+
+  {{!-- CARRY CAPACITY --}}
+  {{#if document.system.capacity.canCarry}}
+  {{formGroup systemFields.capacity.fields.max value=(ifThen disabled document.system.capacity.max source.system.capacity.max) disabled=disabled classes="slim" placeholder=animal.defaultCapacity}}
+  {{/if}}
+</fieldset>
