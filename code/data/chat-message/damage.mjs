@@ -55,7 +55,7 @@ export default class DamageData extends MessageData {
   _attachPartListeners(partId, element, context) {
     if (partId !== "damageTray") return;
 
-    element.querySelector("[data-action=applyDamage]").addEventListener("click", DamageData.#applyDamage.bind(this));
+    element.querySelector("[data-action=applyDamage]")?.addEventListener("click", DamageData.#applyDamage.bind(this));
   }
 
   /* -------------------------------------------------- */

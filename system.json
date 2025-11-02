@@ -81,7 +81,8 @@
       }
     },
     "ChatMessage": {
-      "damage": {}
+      "damage": {},
+      "effect": {}
     },
     "Item": {
       "accessory": {
