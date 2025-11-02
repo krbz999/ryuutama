@@ -84,6 +84,23 @@ export default class TravelerData extends CreatureData {
 
   /* -------------------------------------------------- */
 
+  /**
+   * How many incantation spells can the actor learn?
+   * @type {number}
+   */
+  get incantationSpells() {
+    let max = 0;
+    for (const advancement of this.advancements.documentsByType.type) {
+      const chosen = advancement.choice.chosen;
+      if (chosen !== "magic") continue;
+      const levels = Math.max(0, this.details.level - advancement.obtainedLevel + 1);
+      max = max + 2 * levels;
+    }
+    return max;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
@@ -352,7 +369,10 @@ export default class TravelerData extends CreatureData {
     for (const { result, type } of results) {
       switch (type) {
         case "advancement":
-          await ryuutama.data.advancement.Advancement.create(result.toObject(), { parent: actor });
+          await ryuutama.data.advancement.Advancement.create(
+            foundry.utils.mergeObject(result.toObject(), { obtainedLevel: level + 1 }),
+            { parent: actor },
+          );
           break;
         case "actor":
           foundry.utils.mergeObject(actorUpdate, result);

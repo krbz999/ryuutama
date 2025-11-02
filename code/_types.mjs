@@ -85,6 +85,7 @@
 /**
  * @typedef SpellCategoryConfig
  * @property {string} label   Human-readable label.
+ * @property {string} icon    Filepath to an SVG.
  */
 
 /* -------------------------------------------------- */

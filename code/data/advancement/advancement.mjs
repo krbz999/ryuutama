@@ -4,6 +4,8 @@ import PseudoDocument from "../pseudo-document.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
+const { NumberField } = foundry.data.fields;
+
 export default class Advancement extends PseudoDocument {
   /** @inheritdoc */
   static defineSchema() {
