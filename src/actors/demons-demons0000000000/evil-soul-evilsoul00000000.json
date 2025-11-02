@@ -51,8 +51,8 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.intelligence + @stats.spirit",
-      "damage": "@stats.spirit"
+      "accuracy": "",
+      "damage": ""
     },
     "description": {
       "value": "<p>The weakest demon in the entire world. They look like tiny people with strings holding them up - so tiny, in fact, that they can be blown into cities by heavy winds. While they aren't very dangerous directly, the tricks they play can have a negative long-term effect on people.</p>"
@@ -208,7 +208,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1761252356700,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

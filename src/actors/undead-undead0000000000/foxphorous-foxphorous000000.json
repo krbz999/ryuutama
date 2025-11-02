@@ -51,8 +51,8 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.intelligence + @stats.spirit",
-      "damage": "@stats.spirit"
+      "accuracy": "",
+      "damage": ""
     },
     "description": {
       "value": "<p>A creature that had a heart full of envy in its dying moment may become a Foxphorous, a type of undead that resembles a huge purple flame in the shape of a fox. It is weak to water, but its flames will instantly explode back to full strength even after being doused with water. The only way to extinguish it is with rain or the water from a river.</p>"
@@ -208,7 +208,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1760292133432,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

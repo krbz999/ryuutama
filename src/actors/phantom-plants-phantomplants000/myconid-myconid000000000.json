@@ -51,7 +51,7 @@
       }
     },
     "attack": {
-      "accuracy": "1d4 + 1d6",
+      "accuracy": "",
       "damage": ""
     },
     "description": {
@@ -177,7 +177,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1760289449948,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

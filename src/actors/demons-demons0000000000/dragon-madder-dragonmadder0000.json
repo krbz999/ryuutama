@@ -51,8 +51,8 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.intelligence + @stats.spirit",
-      "damage": "@stats.spirit"
+      "accuracy": "",
+      "damage": ""
     },
     "description": {
       "value": "<p>A parasitic high-level demon that makes its home in a dragon's maw. They are usually about fifty centimeters tall and look like clowns with deeply unsettling leers. The dragon madder targets dragons that are weak or in pain, and slowly drives them insane with ever increasing agony until the dragon goes berserk. The only way to destroy these demons is to enter the dragon's mouth and attack it directly.</p>"
@@ -208,7 +208,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1761252626992,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

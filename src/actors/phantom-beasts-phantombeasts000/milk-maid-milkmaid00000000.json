@@ -51,8 +51,8 @@
       }
     },
     "attack": {
-      "accuracy": "",
-      "damage": ""
+      "accuracy": "@stats.strength + @stats.dexterity",
+      "damage": "@stats.strength"
     },
     "description": {
       "value": "<p>A cow that lives at the shallows of the sea. As no males of their species exist, sometimes a Milk Maid will take human form to visit human villages, thinking to leave a child in town. Their milk is said to be highly valuable for treating various illnesses.</p>"
@@ -208,7 +208,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1759797277395,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
