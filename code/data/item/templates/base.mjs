@@ -46,4 +46,15 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
     div.innerHTML = htmlString;
     return div.children;
   }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  async toEmbed(config, options = {}) {
+    const enriched = await CONFIG.ux.TextEditor.enrichHTML(this.description.value, {
+      ...options,
+      relativeTo: this.parent,
+    });
+    return foundry.utils.parseHTML(enriched);
+  }
 }
