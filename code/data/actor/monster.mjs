@@ -44,6 +44,21 @@ export default class MonsterData extends CreatureData {
 
   /* -------------------------------------------------- */
 
+  /**
+   * What is the default attack type of this monster?
+   * The sum of its abilities determine whether it is best suited for using
+   * STR + DEX or INT + SPI.
+   * @type {"physical"|"mental"}
+   */
+  get _defaultAttackType() {
+    const { abilities } = this._source;
+    const phys = abilities.strength.value + abilities.dexterity.value;
+    const ment = abilities.intelligence.value + abilities.spirit.value;
+    return phys >= ment ? "physical" : "mental";
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
@@ -77,8 +92,12 @@ export default class MonsterData extends CreatureData {
    * Prepare accuracy and damage.
    */
   #prepareAttack() {
-    this.attack.accuracy ||= "@stats.strength + @stats.dexterity";
-    this.attack.damage ||= "@stats.strength";
+    const isPhysical = this._defaultAttackType === "physical";
+    const accuracy = isPhysical ? "@stats.strength + @stats.dexterity" : "@stats.intelligence + @stats.spirit";
+    const damage = isPhysical ? "@stats.strength" : "@stats.spirit";
+
+    if (!this.attack.accuracy) this.attack.accuracy = accuracy;
+    if (!this.attack.damage) this.attack.damage = damage;
   }
 
   /* -------------------------------------------------- */

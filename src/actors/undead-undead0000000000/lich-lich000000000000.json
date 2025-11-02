@@ -51,8 +51,8 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.intelligence + @stats.spirit",
-      "damage": "@stats.spirit"
+      "accuracy": "",
+      "damage": ""
     },
     "description": {
       "value": "<p>A sorcerer who presumed to seek immortality in undeath. Stories say that the ritual used to return the soul to the spellcaster's body does so imperfectly, damaging the soul in the process. A lich loses most of his living personality and becomes greedy and egotistical. Legends claim that the lich “Seleb” is the king of the undead.</p>"
@@ -208,7 +208,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1760292644623,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

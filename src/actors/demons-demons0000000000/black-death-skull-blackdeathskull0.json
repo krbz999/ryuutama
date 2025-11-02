@@ -51,8 +51,8 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.intelligence + @stats.spirit",
-      "damage": "@stats.spirit"
+      "accuracy": "",
+      "damage": ""
     },
     "description": {
       "value": "<p>One of the strongest demons known to man. It looks like a giant black skull, and has the power to control rats that are infected with the plague, driving them to multiply and spread the disease until huge numbers of people are infected. Anyone infected with this plague is afflicted with boils and dies within a week. It is said that the only cure is to defeat this monster, though there may be a certain high level healer or magician who can cure it...</p>"
@@ -208,7 +208,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1761252787447,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

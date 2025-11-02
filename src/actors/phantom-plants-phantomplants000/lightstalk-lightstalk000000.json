@@ -51,8 +51,8 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.intelligence + @stats.spirit",
-      "damage": "@stats.spirit"
+      "accuracy": "",
+      "damage": ""
     },
     "description": {
       "value": "<p>A type of tree that can grow up to sixty meters tall. It stores enough light in its leaves to shine like a beacon through cloudy weather. It is able to concentrate the light it emanates, shooting laser-like beams to protect itself. It is said that a city called Zeperion once harnessed their energy to protect the town from powerful monsters, but was destroyed by the power these plants possess.</p>"
@@ -208,7 +208,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1760290712678,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

@@ -51,8 +51,8 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.intelligence + @stats.spirit",
-      "damage": "@stats.spirit"
+      "accuracy": "",
+      "damage": ""
     },
     "defense": {
       "armor": null,
@@ -177,7 +177,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1761254320305,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

@@ -51,8 +51,8 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.intelligence + @stats.spirit",
-      "damage": "@stats.spirit"
+      "accuracy": "",
+      "damage": "@stats.intelligence"
     },
     "description": {
       "value": "<p>A human face that seems to appear out of sand or rock. Due to their cowardice, they almost never show themselves before humans, but they are known to help travelers in need by moving rocks or sand. They are also known to fight people that destroy rocks. Some towns with many stone buildings revere them as guardian gods.</p>"
@@ -208,7 +208,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1760291384851,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

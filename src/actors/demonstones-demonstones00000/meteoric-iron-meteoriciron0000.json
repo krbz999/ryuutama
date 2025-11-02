@@ -51,8 +51,8 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.intelligence + @stats.spirit",
-      "damage": "@stats.spirit"
+      "accuracy": "",
+      "damage": ""
     },
     "description": {
       "value": "<p>A sliver of rock that fell from a place beyond the moon and stars. At first it looks just like a normal hunk of iron, but actually it has a powerful intellect and can communicate with humans via telepathy. Used to make incredible weapons and armor, the weapons used by famous heroes are invariably made of meteoric iron.</p>"
@@ -208,7 +208,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1760291211557,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
