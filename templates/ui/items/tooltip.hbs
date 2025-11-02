@@ -13,6 +13,7 @@
   {{!-- WEAPON --}}
   {{#if (eq item.type "weapon")}}
   <section class="tags">
+    <div class="tag">{{item.system.category.label}}</div>
     <div class="tag">{{item.system.accuracy.label}}</div>
     <div class="tag">{{item.system.damage.label}}</div>
   </section>

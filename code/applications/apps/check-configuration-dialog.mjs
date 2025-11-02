@@ -154,11 +154,15 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     context.showConcentration = roll.concentration?.allowed !== false;
     context.allowConsumeFumble = this.actor.system.schema.has("fumbles");
 
-    context.showAccuracy = (roll.type === "accuracy") && !roll.accuracy?.weapon?.system.isMastered;
+    const weapon = roll.accuracy?.weapon ?? null;
+
+    context.showAccuracy =
+      ((roll.type === "accuracy") && (this.actor.type === "traveler"))
+      && ((weapon?.system.isMastered === false) || (!weapon && !this.actor.system.mastered.weapons.unarmed));
+
+    if (!context.showAccuracy) foundry.utils.setProperty(roll, "accuracy.consumeStamina", false);
     context.showCondition = roll.type === "condition";
     context.showAbilities = !roll.formula;
-
-    const weapon = this.actor.system.equipped?.weapon ?? null;
 
     switch (roll.type) {
       case "damage":
@@ -166,7 +170,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
         if (this.actor.type === "traveler") {
           if (weapon && weapon.system.isUsable) context.subtitle = weapon.name;
           else if (weapon) context.subtitle = game.i18n.format("RYUUTAMA.ROLL.weaponBroken", { weapon: weapon.name });
-          else context.subtitle = game.i18n.localize("RYUUTAMA.WEAPON.CATEGORIES.unarmed");
+          else context.subtitle = ryuutama.config.weaponUnarmedTypes.unarmed.label;
         }
         break;
       case "journey":

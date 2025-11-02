@@ -1,4 +1,8 @@
 /**
+ * @import RyuutamaItem from "../../documents/item.mjs";
+ */
+
+/**
  * @typedef CheckRollConfig
  * @property {string[]} [abilities]
  * @property {string} [formula]                             An explicit formula can be provided, in which case
@@ -22,7 +26,7 @@
  * @property {boolean} [condition.removeStatuses]           Remove status effects whose strength is lower than the
  *                                                          traveler's condition score?
  * @property {object} [accuracy]
- * @property {boolean} [accuracy.weapon]                    The weapon being used for the check.
+ * @property {RyuutamaItem} [accuracy.weapon]               The weapon being used for the check.
  * @property {boolean} [accuracy.consumeStamina]            Consume HP due to using a non-Mastered weapon?
  * @property {object} [initiative]
  * @property {boolean} [initiative.shield]                  If the rolled initiative value is lower than the actor's

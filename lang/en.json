@@ -431,6 +431,33 @@
         "specialDuration": "Special duration",
         "targetPlaceholder": "E.g. '1 person'",
         "timing": "Spell Timing"
+      },
+
+      "WEAPON": {
+        "FIELDS": {
+          "category.value.label": "Category"
+        },
+
+        "TYPES": {
+          "axe": "Axe",
+          "axePl": "Axes",
+          "blade": "Blade",
+          "bladePl": "Blades",
+          "bow": "Bow",
+          "bowPl": "Bows",
+          "lightBlade": "Light Blade",
+          "lightBladePl": "Light Blades",
+          "polearm": "Polearm",
+          "polearmPl": "Polearms",
+          "unarmed": "Unarmed",
+          "unarmedPl": "Unarmed",
+          "improvised": "Improvised Weapon",
+          "improvisedPl": "Improvised Weapons"
+        },
+
+        "weaponConfiguration": "Weapon Configuration",
+        "weaponAccuracy": "Accuracy",
+        "weaponDamage": "Damage"
       }
     },
     "GEAR": {
@@ -462,27 +489,6 @@
         "armor.dodge.label": "Shield Dodge Value"
       },
       "shieldDefense": "Shield Defense"
-    },
-    "WEAPON": {
-      "CATEGORIES": {
-        "axe": "Axe",
-        "axePl": "Axes",
-        "blade": "Blade",
-        "bladePl": "Blades",
-        "bow": "Bow",
-        "bowPl": "Bows",
-        "lightBlade": "Light Blade",
-        "lightBladePl": "Light Blades",
-        "polearm": "Polearm",
-        "polearmPl": "Polearms",
-        "unarmed": "Unarmed"
-      },
-      "FIELDS": {
-        "category.value.label": "Category"
-      },
-      "weaponConfiguration": "Weapon Configuration",
-      "weaponAccuracy": "Accuracy",
-      "weaponDamage": "Damage"
     },
 
     "PSEUDO": {

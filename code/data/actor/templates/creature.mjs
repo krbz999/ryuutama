@@ -277,7 +277,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
             const w = this.equipped.weapon;
             let abi;
             if (w?.system.isUsable) abi = w.system.damage.ability;
-            else abi = ryuutama.config.unarmedConfiguration.damage.ability; // unarmed
+            else abi = ryuutama.config.weaponUnarmedTypes.unarmed.damage.ability; // unarmed
             roll.abilities = [abi];
             break;
           }
@@ -301,8 +301,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
               roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
             } else {
               // unarmed
-              abilities = [...ryuutama.config.unarmedConfiguration.accuracy.abilities];
-              roll.accuracy = { consumeStamina: true }; // TODO: unless mastered
+              abilities = [...ryuutama.config.weaponUnarmedTypes.unarmed.accuracy.abilities];
+              roll.accuracy = { consumeStamina: !this.mastered.weapons.unarmed };
             }
             roll.abilities = abilities;
             break;
@@ -370,7 +370,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     const c = rollConfig.concentration ?? {};
     const cAllowed = c.allowed !== false;
     if (cAllowed && c.consumeFumble) {
-      const value = this.fumbles.value - 1;
+      const value = actor.system.fumbles.value - 1;
       if (value < 0) {
         ui.notifications.warn("RYUUTAMA.ROLL.WARNING.fumblesUnavailable", { format: { name: actor.name } });
         return false;
@@ -379,13 +379,13 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     }
 
     if (cAllowed && c.consumeMental) {
-      const value = this.resources.mental.value;
+      const value = actor.system.resources.mental.value;
       if (!value) {
         ui.notifications.warn("RYUUTAMA.ROLL.WARNING.mentalUnavailable", { format: { name: actor.name } });
         return false;
       }
       const toSpend = Math.ceil(value / 2);
-      update["system.resources.mental.spent"] = this.resources.mental.spent + toSpend;
+      update["system.resources.mental.spent"] = actor.system.resources.mental.spent + toSpend;
     }
 
     // Update condition score.
@@ -404,12 +404,12 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
     // Consume HP due to unmastered weapon.
     if (rollConfig.accuracy?.consumeStamina) {
-      const value = this.resources.stamina.value;
+      const value = actor.system.resources.stamina.value;
       if (!value) {
         ui.notifications.warn("RYUUTAMA.ROLL.WARNING.staminaUnavailable", { format: { name: actor.name } });
         return false;
       }
-      update["system.resources.stamina.spent"] = this.resources.stamina.spent + 1;
+      update["system.resources.stamina.spent"] = actor.system.resources.stamina.spent + 1;
     }
 
     // Deduct durability.
@@ -417,7 +417,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       // iterate over rollConfig.items and deduct durability.
     }
 
-    const dodge = this.defense?.dodge ?? Infinity;
+    const dodge = actor.system.defense?.dodge ?? Infinity;
     if (effectIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
     if (!foundry.utils.isEmpty(update)) await actor.update(update);
     if (rollConfig.initiative?.shield && (roll.total < dodge)) {

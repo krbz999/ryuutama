@@ -8,17 +8,13 @@ export default class WeaponData extends PhysicalData {
     return Object.assign(super.defineSchema(), {
       accuracy: new SchemaField({
         abilities: new ArrayField(
-          new StringField({ choices: () => ryuutama.config.abilityScores }),
+          new StringField({ required: true, blank: true, choices: () => ryuutama.config.abilityScores }),
           { min: 2, max: 2, initial: ["strength", "strength"] },
         ),
         bonus: new NumberField({ nullable: true, integer: true, initial: null }),
       }),
       category: new SchemaField({
-        value: new StringField({
-          required: true, blank: false,
-          choices: () => ryuutama.config.weaponCategories,
-          initial: () => Object.keys(ryuutama.config.weaponCategories)[0],
-        }),
+        value: new StringField({ required: true, blank: true, choices: () => ryuutama.config.weaponTypes }),
       }),
       damage: new SchemaField({
         ability: new StringField({
@@ -34,8 +30,18 @@ export default class WeaponData extends PhysicalData {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.WEAPON",
+    "RYUUTAMA.ITEM.WEAPON",
   ];
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is this an improvised weapon?
+   * @type {boolean}
+   */
+  get isImprovised() {
+    return !this.category.value;
+  }
 
   /* -------------------------------------------------- */
 
@@ -55,13 +61,31 @@ export default class WeaponData extends PhysicalData {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    const config = ryuutama.config.weaponCategories[this.category.value];
-    this.grip = config.grip;
+    const config = ryuutama.config.weaponTypes[this.category.value] ?? { grip: 2, ranged: false };
+    this.grip = config.grip ?? 1;
     this.ranged = config.ranged ?? false;
 
-    if (this.modifiers.has("highQuality")) this.accuracy.bonus = (this._source.accuracy.bonus ?? 0) + 1;
-    if (this.modifiers.has("plusOne")) this.damage.bonus = (this._source.damage.bonus ?? 0) + 1;
+    let baseAccuracy = this.isImprovised
+      ? ryuutama.config.weaponUnarmedTypes.improvised.accuracy.bonus
+      : this._source.accuracy.bonus ?? 0;
+    if (this.modifiers.has("highQuality")) baseAccuracy++;
+    this.accuracy.bonus = baseAccuracy;
 
+    let baseDamage = this.isImprovised
+      ? ryuutama.config.weaponUnarmedTypes.improvised.damage.bonus
+      : this._source.damage.bonus ?? 0;
+    if (this.modifiers.has("plusOne")) baseDamage++;
+    this.damage.bonus = baseDamage;
+
+    // For improvised weapons, override abilities.
+    if (this.isImprovised) {
+      this.accuracy.abilities = [...ryuutama.config.weaponUnarmedTypes.improvised.accuracy.abilities];
+      this.damage.ability = ryuutama.config.weaponUnarmedTypes.improvised.damage.ability;
+    }
+
+    this.category.label = this.isImprovised
+      ? ryuutama.config.weaponUnarmedTypes.improvised.label
+      : ryuutama.config.weaponTypes[this.category.value].label;
     this.accuracy.label = this.accuracy.abilities
       .map(ability => `${ryuutama.config.abilityScores[ability].abbreviation}`)
       .filterJoin(" + ") + (this.accuracy.bonus ? ` ${this.accuracy.bonus.signedString()}` : "");
