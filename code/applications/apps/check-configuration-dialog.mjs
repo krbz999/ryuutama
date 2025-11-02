@@ -154,11 +154,15 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     context.showConcentration = roll.concentration?.allowed !== false;
     context.allowConsumeFumble = this.actor.system.schema.has("fumbles");
 
-    context.showAccuracy = (roll.type === "accuracy") && (roll.accuracy?.weapon?.system.isMastered === false);
+    const weapon = roll.accuracy?.weapon ?? null;
+
+    context.showAccuracy =
+      ((roll.type === "accuracy") && (this.actor.type === "traveler"))
+      && ((weapon?.system.isMastered === false) || (!weapon && !this.actor.system.mastered.weapons.unarmed));
+
+    if (!context.showAccuracy) foundry.utils.setProperty(roll, "accuracy.consumeStamina", false);
     context.showCondition = roll.type === "condition";
     context.showAbilities = !roll.formula;
-
-    const weapon = this.actor.system.equipped?.weapon ?? null;
 
     switch (roll.type) {
       case "damage":
