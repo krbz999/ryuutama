@@ -1,0 +1,11 @@
+<section>
+  {{#if user.isGM}}
+  {{#each effects}}
+  <span class="effect" data-effect-uuid="{{effect.uuid}}">
+    <img src="{{effect.img}}" alt="{{effect.name}}" data-tooltip-html="{{ryuutama-tooltip uuid=effect.uuid}}">
+    <span class="name">{{effect.name}}</span>
+    <input type="checkbox" {{checked checked}}>
+  </span>
+  {{/each}}
+  {{/if}}
+</section>

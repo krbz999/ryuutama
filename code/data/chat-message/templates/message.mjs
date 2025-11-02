@@ -5,7 +5,19 @@ export default class MessageData extends foundry.abstract.TypeDataModel {
    */
   static PARTS = {
     header: "systems/ryuutama/templates/chat/header.hbs",
+    content: "systems/ryuutama/templates/chat/content.hbs",
   };
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is this message visible to the current user?
+   * Called by the document class to help determine visibility.
+   * @type {boolean}
+   */
+  get visible() {
+    return true;
+  }
 
   /* -------------------------------------------------- */
 
@@ -24,6 +36,10 @@ export default class MessageData extends foundry.abstract.TypeDataModel {
       document: this.parent,
       actor: this.parent.speakerActor,
       user: game.user,
+      content: await CONFIG.ux.TextEditor.enrichHTML(
+        this.parent.content,
+        { rollData: this.parent.getRollData?.() ?? {}, relativeTo: this.parent },
+      ),
     };
 
     await this._prepareContext(context);
