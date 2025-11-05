@@ -1,0 +1,9 @@
+#pause {
+  height: 250px;
+
+  img {
+    width: 600px;
+    height: unset;
+    filter: drop-shadow(0 0 1px white);
+  }
+}
