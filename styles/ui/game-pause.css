@@ -1,9 +1,26 @@
 #pause {
-  height: 250px;
+  height: fit-content;
+  padding: 2rem 0;
+  animation: none;
 
-  img {
+  ryuutama-icon {
     width: 600px;
-    height: unset;
     filter: drop-shadow(0 0 1px white);
+
+    .letters-jp {
+      display: none;
+    }
+
+    .letters-en {
+      display: none;
+    }
+  }
+
+  figcaption {
+    position: absolute;
+    top: 60%;
+    font-size: 40px;
+    text-shadow: 0 0 5px black;
+    animation: pulse 3s ease-in-out infinite;
   }
 }
