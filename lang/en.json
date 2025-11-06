@@ -662,6 +662,8 @@
 
     "WEATHER": {
       "blizzard": "Blizzard",
+      "clearSkies": "Clear Skies",
+      "cloudy": "Cloudy",
       "cold": "Cold",
       "darkness": "Darkness",
       "deepFog": "Deep Fog",
@@ -671,7 +673,8 @@
       "hurricane": "Hurricane",
       "rain": "Rain",
       "snow": "Snow",
-      "strongWind": "Strong Wind"
+      "strongWind": "Strong Wind",
+      "thunderStorm": "Thunder Storm"
     }
   }
 }
