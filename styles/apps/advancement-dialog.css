@@ -1,0 +1,7 @@
+.ryuutama.advancement-dialog {
+  [data-application-part=advancements] {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+}

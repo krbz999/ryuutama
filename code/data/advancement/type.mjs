@@ -60,4 +60,13 @@ export default class TypeAdvancement extends Advancement {
     context.showAttack = this.choice.chosen === "attack";
     context.showMagic = this.choice.chosen === "magic";
   }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  async _constructChildren() {
+    const types = [];
+    if (this.choice.chosen === "attack") types.push("weapon");
+    return types;
+  }
 }

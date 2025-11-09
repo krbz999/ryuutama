@@ -10,6 +10,7 @@ const { Application, HandlebarsApplicationMixin } = foundry.applications.api;
 export default class AdvancementDialog extends HandlebarsApplicationMixin(Application) {
   /** @override */
   static DEFAULT_OPTIONS = {
+    classes: ["advancement-dialog"],
     tag: "form",
     form: {
       submitOnChange: false,
@@ -32,7 +33,16 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------------- */
 
   /** @override */
-  static PARTS = {};
+  static PARTS = {
+    advancements: {
+      template: "systems/ryuutama/templates/apps/advancement-dialog/advancements.hbs",
+      classes: ["scrollable"],
+      scrollable: [""],
+    },
+    footer: {
+      template: "templates/generic/form-footer.hbs",
+    },
+  };
 
   /* -------------------------------------------------- */
 
@@ -130,7 +140,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
           id,
           template: node.advancement.constructor.CONFIGURE_TEMPLATE,
           templates: [],
-          classes: ["standard-form"],
+          classes: ["standard-form", "advancement"],
           forms: {
             form: {
               submitOnChange: true,
@@ -141,11 +151,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
       }
     }
 
-    parts.footer = {
-      template: "templates/generic/form-footer.hbs",
-    };
-
-    return parts;
+    return { ...super._configureRenderParts(options), ...parts };
   }
 
   /* -------------------------------------------------- */
@@ -155,6 +161,25 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     options = super._initializeApplicationOptions(options);
     options.classes.push(ryuutama.id);
     return options;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  _replaceHTML(result, content, options) {
+    super._replaceHTML(result, content, options);
+    for (const form of content.querySelectorAll("form.advancement")) {
+      const partId = form.dataset.applicationPart;
+      if (options.parts.includes(partId)) {
+        content.querySelector("[data-application-part=advancements]").appendChild(form);
+
+        // It is assumed the part id is equal to the node's id.
+        const node = this.chain.get(partId);
+        form.style.setProperty("order", node.index);
+      } else {
+        form.remove();
+      }
+    }
   }
 
   /* -------------------------------------------------- */
@@ -174,7 +199,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  _onChangeForm(formConfig, event) {
+  async _onChangeForm(formConfig, event) {
     super._onChangeForm(formConfig, event);
     if (event.currentTarget.id === this.element.id) return;
 
@@ -189,6 +214,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
     const formData = new foundry.applications.ux.FormDataExtended(form);
     node.advancement.updateSource(foundry.utils.expandObject(formData.object));
+    await node._initializeLeafNodes();
     this.render();
   }
 

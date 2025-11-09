@@ -67,11 +67,42 @@ export default class AdvancementNode {
   /* -------------------------------------------------- */
 
   /**
+   * The depth of this node.
+   * @type {number}
+   */
+  get depth() {
+    let depth = 0;
+    let parent = this.parent;
+    while (parent) {
+      depth++;
+      parent = parent.parent;
+    }
+    return depth;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Unique id to identify this node.
    * @type {string}
    */
   get id() {
     return this.#advancement.id;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * A sorting index in the application for the form of this node.
+   * @type {number}
+   */
+  get index() {
+    if (this.parent) {
+      const second = this.parent.index + 1;
+      const third = this.parent.children.indexOf(this) + 1;
+      return second * 10 + third * 1;
+    }
+    return 0;
   }
 
   /* -------------------------------------------------- */

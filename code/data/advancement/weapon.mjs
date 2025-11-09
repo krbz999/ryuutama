@@ -37,4 +37,11 @@ export default class WeaponAdvancement extends Advancement {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.PSEUDO.ADVANCEMENT.WEAPON",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  get isFullyConfigured() {
+    return !!this.choice.chosen;
+  }
 }

@@ -14,7 +14,7 @@ export default class StatsAdvancement extends Advancement {
           blank: false,
           required: true,
           choices: () => StatsAdvancement.STARTING_SCORES,
-          initial: "average",
+          initial: "standard",
         }),
         chosen: new SchemaField({
           strength: new NumberField({ min: 4, max: 8, step: 2, initial: 6, nullable: false }),
