@@ -37,12 +37,4 @@ export default class WeaponAdvancement extends Advancement {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.PSEUDO.ADVANCEMENT.WEAPON",
   ];
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static _determineResult(actor, formData) {
-    const data = foundry.utils.expandObject(formData.object);
-    return { result: new this({ type: this.TYPE, ...data }, { parent: actor }), type: "advancement" };
-  }
 }

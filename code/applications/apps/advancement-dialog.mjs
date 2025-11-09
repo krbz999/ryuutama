@@ -1,13 +1,8 @@
+import AdvancementChain from "../../utils/advancement/chain.mjs";
+
 /**
  * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import Advancement from "../../data/advancement/advancement.mjs";
- */
-
-/**
- * @typedef AdvancementApplicationPartResult
- * @property {boolean} valid
- * @property {typeof Advancement} advancementClass
- * @property {object} [result]
  */
 
 const { Application, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -29,8 +24,9 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
       height: "auto",
     },
     actions: {},
-    level: null,
     actor: null,
+    chain: null,
+    level: null,
   };
 
   /* -------------------------------------------------- */
@@ -67,6 +63,16 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------------- */
 
   /**
+   * The internal advancement chain.
+   * @type {AdvancementChain}
+   */
+  get chain() {
+    return this.options.chain;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * The data that will be submitted.
    * @type {object[]|null}
    */
@@ -87,19 +93,14 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /* -------------------------------------------------- */
 
-  /**
-   * For each rendered part, the configured result and whether it is valid.
-   * @type {Map<string, AdvancementApplicationPartResult>}
-   */
-  #configuredResults = new Map();
-
-  /* -------------------------------------------------- */
-
   /** @inheritdoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.actor = this.actor;
-    context.buttons = [{ label: "Confirm", icon: "fa-solid fa-check", type: "submit" }];
+    context.buttons = [{
+      label: "Confirm", icon: "fa-solid fa-check", type: "submit",
+      disabled: !this.chain.isFullyConfigured,
+    }];
     return context;
   }
 
@@ -108,7 +109,10 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   /** @inheritdoc */
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
-    await this.advancementClasses[partId]?._prepareAdvancementContext(context, options);
+
+    // It is assumed that the part id is equal to a node's id.
+    const node = this.chain.get(partId);
+    if (node) await node.advancement._prepareAdvancementContext(context, options);
     context.rootId = [this.id, partId].join("-");
     return context;
   }
@@ -119,19 +123,22 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   _configureRenderParts(options) {
     const parts = {};
 
-    for (const advancementClass of Object.values(this.advancementClasses)) {
-      parts[advancementClass.TYPE] = {
-        template: advancementClass.CONFIGURE_TEMPLATE,
-        templates: [],
-        classes: ["standard-form"],
-        id: advancementClass.TYPE,
-        forms: {
-          form: {
-            submitOnChange: true,
-            closeOnSubmit: false,
+    for (const nodes of this.chain.nodes.values()) {
+      for (const node of nodes) {
+        const id = node.id;
+        parts[id] = {
+          id,
+          template: node.advancement.constructor.CONFIGURE_TEMPLATE,
+          templates: [],
+          classes: ["standard-form"],
+          forms: {
+            form: {
+              submitOnChange: true,
+              closeOnSubmit: false,
+            },
           },
-        },
-      };
+        };
+      }
     }
 
     parts.footer = {
@@ -162,32 +169,6 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
         input.addEventListener("change", () => ryuutama.utils.parseInputDelta(input, this.document));
       }
     }
-
-    this.#toggleSubmitButton();
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  _attachPartListeners(partId, htmlElement, options) {
-    super._attachPartListeners(partId, htmlElement, options);
-    if (partId === "footer") return;
-
-    const advancementClass = this.advancementClasses[partId];
-    const formData = new foundry.applications.ux.FormDataExtended(htmlElement);
-    const valid = advancementClass._determineValidity(formData);
-    const result = advancementClass._determineResult(this.actor, formData);
-    this.#configuredResults.set(partId, { advancementClass, valid, result });
-    advancementClass._attachPartListeners.call(this, partId, htmlElement, options);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Refresh the disabled state of the submit button.
-   */
-  #toggleSubmitButton() {
-    this.element.querySelector("[type=submit]").disabled = Array.from(this.#configuredResults.values()).some(v => !v.valid);
   }
 
   /* -------------------------------------------------- */
@@ -199,12 +180,16 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
     const form = event.currentTarget;
     const partId = form.dataset.applicationPart;
-    const advancementClass = this.advancementClasses[partId];
+
+    // It is assumed the part id is equal to the node's id.
+    const node = this.chain.get(partId);
+    if (!node) {
+      throw new Error(`No node was found for part [${partId}].`);
+    }
+
     const formData = new foundry.applications.ux.FormDataExtended(form);
-    const valid = advancementClass._determineValidity(formData);
-    const result = advancementClass._determineResult(this.actor, formData);
-    this.#configuredResults.set(partId, { advancementClass, valid, result });
-    this.#toggleSubmitButton();
+    node.advancement.updateSource(foundry.utils.expandObject(formData.object));
+    this.render();
   }
 
   /* -------------------------------------------------- */
@@ -219,8 +204,12 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
    */
   static async create(actor, { level } = {}) {
     level ??= actor.system.details.level + 1;
+
+    const chain = new AdvancementChain(actor, level);
+    await chain.initializeRoots();
+
     const { promise, resolve } = Promise.withResolvers();
-    const application = new this({ actor, level });
+    const application = new this({ actor, chain, level });
     application.addEventListener("close", () => resolve(application.config), { once: true });
     application.render({ force: true });
     return promise;
@@ -233,20 +222,17 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
    * @this AdvancementDialog
    */
   static #onSubmit() {
+    if (!this.chain.isFullyConfigured) {
+      this.#config = null;
+      return;
+    }
+
     this.#config = [];
-    for (let [partId, { valid, advancementClass, result }] of this.#configuredResults.entries()) {
-      if (!valid) {
-        this.#config = null;
-        return;
+    for (const nodes of this.chain.nodes.values()) {
+      for (const node of nodes) {
+        const result = node.advancement._getAdvancementResult();
+        this.#config.push(result);
       }
-
-      if (!result) {
-        const element = this.querySelector(`form[id="${partId}"]`);
-        const formData = new foundry.applications.ux.FormDataExtended(element);
-        result = advancementClass._determineResult(this.actor, formData);
-      }
-
-      this.#config.push(result);
     }
   }
 }

@@ -1,10 +1,15 @@
 <form>
   <fieldset>
     <legend>{{title}}</legend>
-    {{formGroup fields.choice.fields.chosen rootId=rootId classes="slim"}}
+    {{formGroup fields.choice.fields.chosen value=advancement.choice.chosen rootId=rootId classes="slim"}}
     <p class="hint">{{localize "RYUUTAMA.PSEUDO.ADVANCEMENT.TYPE.hint"}}</p>
 
-    {{formGroup fields.choice.fields.attack rootId=rootId classes="slim hidden"}}
-    {{formGroup fields.choice.fields.magic rootId=rootId classes="slim hidden"}}
+    {{#if showAttack}}
+    {{formGroup fields.choice.fields.attack value=advancement.choice.attack rootId=rootId classes="slim"}}
+    {{/if}}
+
+    {{#if showMagic}}
+    {{formGroup fields.choice.fields.magic value=advancement.choice.magic rootId=rootId classes="slim"}}
+    {{/if}}
   </fieldset>
 </form>

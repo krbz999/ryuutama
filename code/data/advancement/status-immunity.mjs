@@ -10,7 +10,7 @@ export default class StatusImmunityAdvancement extends Advancement {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
-        chosen: new StringField({ blank: false, required: true, choices: () => ryuutama.config.statusEffects }),
+        chosen: new StringField({ blank: true, required: true, choices: () => ryuutama.config.statusEffects }),
       }),
     });
   }
@@ -36,8 +36,7 @@ export default class StatusImmunityAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  static _determineResult(actor, formData) {
-    const data = foundry.utils.expandObject(formData.object);
-    return { result: new this({ type: this.TYPE, ...data }, { parent: actor }), type: "advancement" };
+  get isFullyConfigured() {
+    return !!this.choice.chosen;
   }
 }

@@ -10,7 +10,7 @@ export default class StatIncreaseAdvancement extends Advancement {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
-        chosen: new StringField({ blank: false, required: true, choices: () => ryuutama.config.abilityScores }),
+        chosen: new StringField({ blank: true, required: true, choices: () => ryuutama.config.abilityScores }),
       }),
     });
   }
@@ -35,8 +35,15 @@ export default class StatIncreaseAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
+  /** @override */
+  get isFullyConfigured() {
+    return !!this.choice.chosen;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
-  static async _prepareAdvancementContext(context, options) {
+  async _prepareAdvancementContext(context, options) {
     await super._prepareAdvancementContext(context, options);
 
     const getScore = ability => {
@@ -52,10 +59,10 @@ export default class StatIncreaseAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  static _determineResult(actor, formData) {
-    formData = foundry.utils.expandObject(formData.object);
-    const ability = formData.choice.chosen;
-    const update = { [`system.abilities.${ability}.value`]: actor.system._source.abilities[ability].value + 2 };
+  _getAdvancementResult() {
+    const ability = this.choice.chosen;
+    // `parent` is the actor itself when the advancement is ephemeral, otherwise `document`.
+    const update = { [`system.abilities.${ability}.value`]: this.parent.system._source.abilities[ability].value + 2 };
     return { result: update, type: "actor" };
   }
 }

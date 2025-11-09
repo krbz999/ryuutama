@@ -43,33 +43,21 @@ export default class TypeAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  static _determineValidity(formData) {
-    formData = foundry.utils.expandObject(formData.object);
-    switch (formData.choice.chosen) {
-      case "magic": return !!formData.choice.magic;
-      case "attack": return !!formData.choice.attack;
-      default: return !!formData.choice.chosen;
+  get isFullyConfigured() {
+    const { chosen, attack, magic } = this.choice;
+    switch (chosen) {
+      case "magic": return !!magic;
+      case "attack": return !!attack;
+      default: return !!chosen;
     }
   }
 
   /* -------------------------------------------------- */
 
-  /** @override */
-  static _determineResult(actor, formData) {
-    const data = foundry.utils.expandObject(formData.object);
-    return { result: new this({ type: this.TYPE, ...data }, { parent: actor }), type: "advancement" };
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static _attachPartListeners(partId, htmlElement, options) {
-    const type = htmlElement.querySelector("[name='choice.chosen']");
-    type.addEventListener("change", event => {
-      const type = event.currentTarget.value;
-      htmlElement.querySelectorAll("[name='choice.attack'], [name='choice.magic']").forEach(input => {
-        input.closest(".form-group").classList.toggle("hidden", type !== input.name.split(".").at(-1));
-      });
-    });
+  /** @inheritdoc */
+  async _prepareAdvancementContext(context, options) {
+    await super._prepareAdvancementContext(context, options);
+    context.showAttack = this.choice.chosen === "attack";
+    context.showMagic = this.choice.chosen === "magic";
   }
 }

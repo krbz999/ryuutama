@@ -10,7 +10,12 @@ export default class StatsAdvancement extends Advancement {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
-        type: new StringField({ blank: false, required: true, choices: () => StatsAdvancement.STARTING_SCORES }),
+        type: new StringField({
+          blank: false,
+          required: true,
+          choices: () => StatsAdvancement.STARTING_SCORES,
+          initial: "average",
+        }),
         chosen: new SchemaField({
           strength: new NumberField({ min: 4, max: 8, step: 2, initial: 6, nullable: false }),
           dexterity: new NumberField({ min: 4, max: 8, step: 2, initial: 6, nullable: false }),
@@ -62,37 +67,34 @@ export default class StatsAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
+  /** @override */
+  get isFullyConfigured() {
+    const type = this.choice.type;
+    const set = [...StatsAdvancement.STARTING_SCORES[type].stats];
+    for (const k in ryuutama.config.abilityScores) {
+      const value = this.choice.chosen[k];
+      set.findSplice(v => v === value);
+    }
+    return !set.length;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
-  static async _prepareAdvancementContext(context, options) {
+  async _prepareAdvancementContext(context, options) {
     await super._prepareAdvancementContext(context, options);
     context.typeOptions = Object.entries(StatsAdvancement.STARTING_SCORES).map(([k, v]) => {
       return { value: k, label: game.i18n.localize(v.label) };
     });
-    context.valid = false;
   }
 
   /* -------------------------------------------------- */
 
   /** @override */
-  static _determineValidity(formData) {
-    formData = foundry.utils.expandObject(formData.object);
-    const type = formData.choice.type;
-    const set = [...StatsAdvancement.STARTING_SCORES[type].stats];
-    for (const k in ryuutama.config.abilityScores) {
-      const value = formData.choice.chosen[k];
-      set.findSplice(v => v === value);
-    }
-    return set.length === 0;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static _determineResult(actor, formData) {
-    formData = foundry.utils.expandObject(formData.object);
+  _getAdvancementResult() {
     const update = {};
     for (const k in ryuutama.config.abilityScores) {
-      update[`system.abilities.${k}.value`] = formData.choice.chosen[k];
+      update[`system.abilities.${k}.value`] = this.choice.chosen[k];
     }
 
     update["system.resources.stamina.max"] = 2 * update["system.abilities.strength.value"];
