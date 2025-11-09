@@ -93,7 +93,7 @@ export default class TravelerData extends CreatureData {
     for (const advancement of this.advancements.documentsByType.type) {
       const chosen = advancement.choice.chosen;
       if (chosen !== "magic") continue;
-      const levels = Math.max(0, this.details.level - advancement.obtainedLevel + 1);
+      const levels = Math.max(0, this.details.level - advancement.level + 1);
       max = max + 2 * levels;
     }
     return max;
@@ -369,10 +369,7 @@ export default class TravelerData extends CreatureData {
     for (const { result, type } of results) {
       switch (type) {
         case "advancement":
-          await ryuutama.data.advancement.Advancement.create(
-            foundry.utils.mergeObject(result.toObject(), { obtainedLevel: level + 1 }),
-            { parent: actor },
-          );
+          await ryuutama.data.advancement.Advancement.create(result.toObject(), { parent: actor });
           break;
         case "actor":
           foundry.utils.mergeObject(actorUpdate, result);
