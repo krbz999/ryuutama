@@ -163,26 +163,11 @@ export default class AdvancementNode {
   /* -------------------------------------------------- */
 
   /**
-   * Remove the children of this node from the chain.
-   * @returns {number}    The number of nodes removed.
-   */
-  clearChildren() {
-    let i = 0;
-    for (const child of this.children) {
-      const removed = this.chain.removeNode(child);
-      if (removed) i++;
-    }
-    return i;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
    * When this advancement is modified, reconstruct relevant parts of the chain.
    * @returns {Promise<void>}
    */
   async _initializeLeafNodes() {
-    this.clearChildren();
+    for (const node of this.children) this.chain.removeNode(node);
     const types = await this.advancement._constructChildren();
     for (const type of types) {
       const node = new this.constructor({ type, chain: this.chain, parent: this });

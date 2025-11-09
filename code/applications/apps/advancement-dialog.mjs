@@ -167,18 +167,14 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /** @override */
   _replaceHTML(result, content, options) {
-    super._replaceHTML(result, content, options);
-    for (const form of content.querySelectorAll("form.advancement")) {
-      const partId = form.dataset.applicationPart;
-      if (options.parts.includes(partId)) {
-        content.querySelector("[data-application-part=advancements]").appendChild(form);
+    const { footer, advancements, ...rest } = result;
+    super._replaceHTML(rest, advancements, options);
+    super._replaceHTML({ advancements, footer }, content, options);
 
-        // It is assumed the part id is equal to the node's id.
-        const node = this.chain.get(partId);
-        form.style.setProperty("order", node.index);
-      } else {
-        form.remove();
-      }
+    for (const form of advancements.querySelectorAll("form.advancement")) {
+      const node = this.chain.get(form.dataset.applicationPart);
+      if (!node) form.remove();
+      else form.style.setProperty("order", node.index);
     }
   }
 

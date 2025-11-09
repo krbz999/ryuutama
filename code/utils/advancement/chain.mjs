@@ -115,12 +115,13 @@ export default class AdvancementChain {
   /**
    * Remove a node.
    * @param {AdvancementNode} node
-   * @returns {boolean}
    */
   removeNode(node) {
     const nodes = this.nodes.get(node.type);
     const result = nodes.findSplice(n => n === node);
-    return result !== null;
+    if (result !== null) {
+      for (const child of node.children) this.removeNode(child);
+    }
   }
 
   /* -------------------------------------------------- */
