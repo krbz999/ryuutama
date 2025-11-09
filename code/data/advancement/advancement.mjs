@@ -10,14 +10,7 @@ export default class Advancement extends PseudoDocument {
   /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
-      level: new foundry.data.fields.NumberField({
-        required: true,
-        nullable: false,
-        integer: true,
-        min: 1,
-        max: 10,
-        initial: 1,
-      }),
+      level: new NumberField({ nullable: false, integer: true, min: 1, max: 10, initial: 1 }),
     });
   }
 

@@ -48,6 +48,8 @@
     --ryuutama-table-text-color: var(--ryuutama-color-black);
 
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-darkblue);
+
+    --ryuutama-color-spellbook-pill: var(--ryuutama-color-oldlace);
   }
 
   .theme-dark, .themed.theme-dark {
@@ -64,5 +66,7 @@
     --ryuutama-table-text-color: var(--ryuutama-color-black);
 
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-bisque);
+
+    --ryuutama-color-spellbook-pill: var(--ryuutama-color-dimgray);
   }
 }

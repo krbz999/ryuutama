@@ -277,7 +277,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
         .find(section => section.category === "incantation")?.groups
         .reduce((acc, grp) => acc + grp.documents.length, 0) ?? 0,
       max: this.document.system.incantationSpells,
-      icon: ryuutama.config.spellCategories.incantation.icon,
     };
 
     context.seasonSpells = Array.from(this.document.system.magic.seasons)

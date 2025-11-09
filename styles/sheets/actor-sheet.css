@@ -208,9 +208,10 @@
 
       .spell-pill {
         display: grid;
-        background-color: rgba(201, 63, 12, 0.603);
+        background-color: var(--ryuutama-color-spellbook-pill);
         border-radius: 5px;
         padding: 5px;
+        border: 2px inset var(--ryuutama-color-spellbook-pill);
 
         label {
           width: 100%;

@@ -372,7 +372,6 @@ Prelocalization.prelocalize(seasons);
 export const spellCategories = {
   incantation: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.incantation",
-    icon: "systems/ryuutama/assets/official/icons/magic/spring.webp",
   },
   spring: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.spring",
@@ -380,15 +379,15 @@ export const spellCategories = {
   },
   summer: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.summer",
-    icon: "systems/ryuutama/assets/official/icons/magic/spring.webp",
+    icon: "systems/ryuutama/assets/official/icons/magic/summer.webp",
   },
   autumn: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.autumn",
-    icon: "systems/ryuutama/assets/official/icons/magic/spring.webp",
+    icon: "systems/ryuutama/assets/official/icons/magic/fall.webp",
   },
   winter: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.winter",
-    icon: "systems/ryuutama/assets/official/icons/magic/spring.webp",
+    icon: "systems/ryuutama/assets/official/icons/magic/winter.webp",
   },
 };
 Prelocalization.prelocalize(spellCategories);
