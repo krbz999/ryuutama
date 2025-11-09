@@ -121,7 +121,9 @@
       "magical": "Magical",
       "disabledEffects": "Inactive",
       "activeEffects": "Active",
-      "description": "Description"
+      "description": "Description",
+      "incantationSpells": "Incantation Spells",
+      "seasonalSpells": "Seasonal Spells"
     },
     "CREATURE": {
       "FIELDS": {

@@ -46,10 +46,11 @@ export default class IconElement extends HTMLElement {
 
   /**
    * Fetch and cache SVG element.
-   * @param {string} filePath                     File path of the svg element.
+   * @param {string} src                          File path of the svg element.
    * @returns {SVGElement|Promise<SVGElement>}    Promise if the element is not cached, otherwise the element directly.
    */
   static fetch(src) {
+    if (!src.endsWith(".svg")) return foundry.utils.parseHTML(`<img src="${src}">`);
     if (!IconElement.#svgCache.has(src)) IconElement.#svgCache.set(src, fetch(src)
       .then(b => b.text())
       .then(t => {

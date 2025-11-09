@@ -1,4 +1,23 @@
 <section data-tab="{{tabs.spells.id}}" class="{{tabs.spells.cssClass}}" data-group="{{tabs.spells.group}}">
+
+  <section class="pills">
+    <div class="spell-pill">
+      <label>{{localize "RYUUTAMA.ACTOR.incantationSpells"}}</label>
+      <span>
+        {{incantation.value}} / {{incantation.max}}
+      </span>
+    </div>
+
+    <div class="spell-pill">
+      <label>{{localize "RYUUTAMA.ACTOR.seasonalSpells"}}</label>
+      <span>
+        {{#each seasonSpells}}
+        <ryuutama-icon src="{{icon}}" data-tooltip-text="{{label}}"></ryuutama-icon>
+        {{/each}}
+      </span>
+    </div>
+  </section>
+
   {{#each spells as |section|}}
   <section class="document-listing">
     <h4>{{section.label}}</h4>

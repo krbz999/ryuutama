@@ -258,6 +258,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
 
       const { low, mid, high } = Object.groupBy(spells, spell => spell.system.spell.level);
       const section = {
+        category,
         label: ryuutama.config.spellCategories[category].label,
         groups: [],
       };
@@ -270,6 +271,17 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       }
       sections.push(section);
     }
+
+    context.incantation = {
+      value: sections
+        .find(section => section.category === "incantation")?.groups
+        .reduce((acc, grp) => acc + grp.documents.length, 0) ?? 0,
+      max: this.document.system.incantationSpells,
+    };
+
+    context.seasonSpells = Array.from(this.document.system.magic.seasons)
+      .map(season => ryuutama.config.spellCategories[season])
+      .filter(_ => _);
 
     return sections;
   }

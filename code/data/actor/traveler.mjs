@@ -84,6 +84,23 @@ export default class TravelerData extends CreatureData {
 
   /* -------------------------------------------------- */
 
+  /**
+   * How many incantation spells can the actor learn?
+   * @type {number}
+   */
+  get incantationSpells() {
+    let max = 0;
+    for (const advancement of this.advancements.documentsByType.type) {
+      const chosen = advancement.choice.chosen;
+      if (chosen !== "magic") continue;
+      const levels = Math.max(0, this.details.level - advancement.level + 1);
+      max = max + 2 * levels;
+    }
+    return max;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;

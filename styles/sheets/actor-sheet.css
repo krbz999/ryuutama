@@ -199,6 +199,38 @@
     animation: tag-glow 2s infinite;
     box-shadow: 0 0 12px red;
   }
+
+  [data-tab=spells] {
+    .pills {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+
+      .spell-pill {
+        display: grid;
+        background-color: var(--ryuutama-color-spellbook-pill);
+        border-radius: 5px;
+        padding: 5px;
+        border: 2px inset var(--ryuutama-color-spellbook-pill);
+
+        label {
+          width: 100%;
+          text-align: center;
+        }
+
+        span {
+          display: flex;
+          gap: 5px;
+          justify-content: center;
+          align-items: center;
+        }
+
+        ryuutama-icon img, ryuutama-icon svg {
+          height: 35px;
+        }
+      }
+    }
+  }
 }
 
 @keyframes tag-glow {
