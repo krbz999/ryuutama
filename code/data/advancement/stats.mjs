@@ -68,7 +68,7 @@ export default class StatsAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  get isFullyConfigured() {
+  get isConfigured() {
     const type = this.choice.type;
     const set = [...StatsAdvancement.STARTING_SCORES[type].stats];
     for (const k in ryuutama.config.abilityScores) {
@@ -91,7 +91,7 @@ export default class StatsAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  _getAdvancementResult() {
+  _getAdvancementResult(actor) {
     const update = {};
     for (const k in ryuutama.config.abilityScores) {
       update[`system.abilities.${k}.value`] = this.choice.chosen[k];

@@ -49,10 +49,10 @@ export default class AdvancementChain {
    * Is the chain fully configured?
    * @type {boolean}
    */
-  get isFullyConfigured() {
+  get isConfigured() {
     for (const nodes of this.nodes.values()) {
       for (const node of nodes) {
-        if (!node.isFullyConfigured) return false;
+        if (!node.isConfigured) return false;
       }
     }
     return true;

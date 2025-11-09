@@ -119,7 +119,7 @@ export default class TravelerData extends CreatureData {
 
     // Types, Habitat, Status Immunities, and Mastered Weapons.
     for (const advancement of this.advancements) {
-      if (!advancement.isFullyConfigured) continue;
+      if (!advancement.isConfigured) continue;
       switch (advancement.type) {
         case "type": this.#prepareTypeAdvancement(advancement); break;
         case "habitat": this.#prepareHabitatAdvancement(advancement); break;

@@ -41,7 +41,7 @@ export default class WeaponAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  get isFullyConfigured() {
+  get isConfigured() {
     return !!this.choice.chosen;
   }
 }

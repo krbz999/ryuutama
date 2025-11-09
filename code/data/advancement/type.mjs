@@ -37,7 +37,7 @@ export default class TypeAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  get isFullyConfigured() {
+  get isConfigured() {
     const { chosen, magic } = this.choice;
     switch (chosen) {
       case "magic": return !!magic;
@@ -56,7 +56,7 @@ export default class TypeAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  async _constructChildren() {
+  async _getChildTypes() {
     const types = [];
     if (this.choice.chosen === "attack") types.push("weapon");
     return types;

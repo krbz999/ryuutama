@@ -36,7 +36,7 @@ export default class StatIncreaseAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  get isFullyConfigured() {
+  get isConfigured() {
     return !!this.choice.chosen;
   }
 
@@ -59,10 +59,9 @@ export default class StatIncreaseAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  _getAdvancementResult() {
+  _getAdvancementResult(actor) {
     const ability = this.choice.chosen;
-    // `parent` is the actor itself when the advancement is ephemeral, otherwise `document`.
-    const update = { [`system.abilities.${ability}.value`]: this.parent.system._source.abilities[ability].value + 2 };
+    const update = { [`system.abilities.${ability}.value`]: actor.system._source.abilities[ability].value + 2 };
     return { result: update, type: "actor" };
   }
 }

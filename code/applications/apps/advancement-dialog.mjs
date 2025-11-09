@@ -109,7 +109,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     context.actor = this.actor;
     context.buttons = [{
       label: "Confirm", icon: "fa-solid fa-check", type: "submit",
-      disabled: !this.chain.isFullyConfigured,
+      disabled: !this.chain.isConfigured,
     }];
     return context;
   }
@@ -139,7 +139,6 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
         parts[id] = {
           id,
           template: node.advancement.constructor.CONFIGURE_TEMPLATE,
-          templates: [],
           classes: ["standard-form", "advancement"],
           forms: {
             form: {
@@ -244,7 +243,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
    * @this AdvancementDialog
    */
   static #onSubmit() {
-    if (!this.chain.isFullyConfigured) {
+    if (!this.chain.isConfigured) {
       this.#config = null;
       return;
     }
@@ -252,7 +251,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     this.#config = [];
     for (const nodes of this.chain.nodes.values()) {
       for (const node of nodes) {
-        const result = node.advancement._getAdvancementResult();
+        const result = node.advancement._getAdvancementResult(this.actor);
         this.#config.push(result);
       }
     }

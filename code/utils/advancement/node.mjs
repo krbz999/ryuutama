@@ -98,11 +98,19 @@ export default class AdvancementNode {
    */
   get index() {
     if (this.parent) {
-      const second = this.parent.index + 1;
-      const third = this.parent.children.indexOf(this) + 1;
-      return second * 10 + third * 1;
+      const first = this.parent.index + 1;
+      const second = this.parent.children.indexOf(this) + 1;
+      return first * 10 + second;
     }
-    return 0;
+
+    let i = 0;
+    loop: for (const nodes of this.chain.nodes.values()) {
+      for (const node of nodes) {
+        if (node === this) break loop;
+        if (!node.depth) i++;
+      }
+    }
+    return i;
   }
 
   /* -------------------------------------------------- */
@@ -111,8 +119,8 @@ export default class AdvancementNode {
    * Is this node fully configured?
    * @type {boolean}
    */
-  get isFullyConfigured() {
-    return this.advancement.isFullyConfigured;
+  get isConfigured() {
+    return this.advancement.isConfigured;
   }
 
   /* -------------------------------------------------- */
@@ -168,7 +176,7 @@ export default class AdvancementNode {
    */
   async _initializeLeafNodes() {
     for (const node of this.children) this.chain.removeNode(node);
-    const types = await this.advancement._constructChildren();
+    const types = await this.advancement._getChildTypes();
     for (const type of types) {
       const node = new this.constructor({ type, chain: this.chain, parent: this });
       this.chain.addNode(node);

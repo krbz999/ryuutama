@@ -39,7 +39,7 @@ export default class ResourceAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  get isFullyConfigured() {
+  get isConfigured() {
     const { stamina, mental } = this.choice.chosen;
     return stamina + mental === 3;
   }

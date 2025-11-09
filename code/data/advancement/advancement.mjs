@@ -1,5 +1,9 @@
 import PseudoDocument from "../pseudo-document.mjs";
 
+/**
+ * @import RyuutamaActor from "../../documents/actor.mjs";
+ */
+
 export default class Advancement extends PseudoDocument {
   /** @inheritdoc */
   static defineSchema() {
@@ -62,7 +66,7 @@ export default class Advancement extends PseudoDocument {
    * Is this advancement fully configured?
    * @type {boolean}
    */
-  get isFullyConfigured() {
+  get isConfigured() {
     return true;
   }
 
@@ -86,9 +90,10 @@ export default class Advancement extends PseudoDocument {
 
   /**
    * Determine the result of this advancement.
+   * @param {RyuutamaActor} actor   The actor advancing.
    * @returns {{ type: "actor"|"advancement", result: object|Advancement }}
    */
-  _getAdvancementResult() {
+  _getAdvancementResult(actor) {
     return { type: "advancement", result: this };
   }
 
@@ -99,7 +104,7 @@ export default class Advancement extends PseudoDocument {
    * depending on this advancement's current configuration.
    * @returns {Promise<string[]>}
    */
-  async _constructChildren() {
+  async _getChildTypes() {
     return [];
   }
 }

@@ -36,7 +36,7 @@ export default class StatusImmunityAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  get isFullyConfigured() {
+  get isConfigured() {
     return !!this.choice.chosen;
   }
 }
