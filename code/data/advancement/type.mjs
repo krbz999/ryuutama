@@ -11,12 +11,6 @@ export default class TypeAdvancement extends Advancement {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
         chosen: new StringField({ blank: true, required: true, choices: () => ryuutama.config.travelerTypes }),
-        attack: new StringField({ blank: true, required: true, choices: () => {
-          return {
-            ...ryuutama.config.weaponTypes,
-            unarmed: ryuutama.config.weaponUnarmedTypes.unarmed,
-          };
-        } }),
         magic: new StringField({ blank: true, required: true, choices: () => ryuutama.config.seasons }),
       }),
     });
@@ -44,10 +38,9 @@ export default class TypeAdvancement extends Advancement {
 
   /** @override */
   get isFullyConfigured() {
-    const { chosen, attack, magic } = this.choice;
+    const { chosen, magic } = this.choice;
     switch (chosen) {
       case "magic": return !!magic;
-      case "attack": return !!attack;
       default: return !!chosen;
     }
   }
@@ -57,7 +50,6 @@ export default class TypeAdvancement extends Advancement {
   /** @inheritdoc */
   async _prepareAdvancementContext(context, options) {
     await super._prepareAdvancementContext(context, options);
-    context.showAttack = this.choice.chosen === "attack";
     context.showMagic = this.choice.chosen === "magic";
   }
 

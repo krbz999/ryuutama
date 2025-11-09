@@ -117,29 +117,61 @@ export default class TravelerData extends CreatureData {
     // Specific implementation of unarmed.
     this.mastered.weapons.unarmed = 0;
 
-    // Types, Status Immunities, and Mastered Weapons.
-    const { habitat, weapon, statusImmunity, type } = this.advancements.documentsByType;
-    for (const advancement of type) {
-      if (advancement.choice.chosen) this.details.type[advancement.choice.chosen]++;
-      switch (advancement.choice.chosen) {
-        case "attack":
-          if (advancement.choice.attack in this.mastered.weapons) this.mastered.weapons[advancement.choice.attack] = 1;
-          break;
-        case "magic":
-          if (advancement.choice.magic in ryuutama.config.seasons) this.magic.seasons.add(advancement.choice.magic);
+    // Types, Habitat, Status Immunities, and Mastered Weapons.
+    for (const advancement of this.advancements) {
+      if (!advancement.isFullyConfigured) continue;
+      switch (advancement.type) {
+        case "type": this.#prepareTypeAdvancement(advancement); break;
+        case "habitat": this.#prepareHabitatAdvancement(advancement); break;
+        case "statusImmunity": this.#prepareStatusImmunityAdvancement(advancement); break;
+        case "weapon": this.#prepareWeaponAdvancement(advancement); break;
       }
     }
-    for (const advancement of habitat) {
-      const type = advancement.choice.type;
-      const chosen = advancement.choice.chosen[type];
-      if ((type in this.mastered) && !!chosen) this.mastered[type].add(chosen);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare the benefits of a Type advancement.
+   * @param {Advancement} advancement
+   */
+  #prepareTypeAdvancement(advancement) {
+    this.details.type[advancement.choice.chosen]++;
+
+    if (advancement.choice.chosen === "magic") {
+      this.magic.seasons.add(advancement.choice.magic);
     }
-    for (const advancement of statusImmunity) {
-      if (advancement.choice.chosen) this.condition.immunities.add(advancement.choice.chosen);
-    }
-    for (const advancement of weapon) {
-      if (advancement.choice.chosen) this.mastered.weapons[advancement.choice.chosen] = 1;
-    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare the benefits of a Habitat advancement.
+   * @param {Advancement} advancement
+   */
+  #prepareHabitatAdvancement(advancement) {
+    const type = advancement.choice.type;
+    this.mastered[type].add(advancement.choice.chosen[type]);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare the benefits of a Status Immunity advancement.
+   * @param {Advancement} advancement
+   */
+  #prepareStatusImmunityAdvancement(advancement) {
+    this.condition.immunities.add(advancement.choice.chosen);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare the benefits of a Weapon advancement.
+   * @param {Advancement} advancement
+   */
+  #prepareWeaponAdvancement(advancement) {
+    this.mastered.weapons[advancement.choice.chosen] = 1;
   }
 
   /* -------------------------------------------------- */
