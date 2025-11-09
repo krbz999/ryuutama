@@ -107,10 +107,6 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.actor = this.actor;
-    context.buttons = [{
-      label: "Confirm", icon: "fa-solid fa-check", type: "submit",
-      disabled: !this.chain.isConfigured,
-    }];
     return context;
   }
 
@@ -120,9 +116,21 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
 
-    // It is assumed that the part id is equal to a node's id.
-    const node = this.chain.get(partId);
-    if (node) await node.advancement._prepareAdvancementContext(context, options);
+    switch (partId) {
+      case "footer":
+        context.buttons = [{
+          label: "Confirm", icon: "fa-solid fa-check", type: "submit", disabled: !this.chain.isConfigured,
+        }];
+        break;
+      case "advancements":
+        context.advancementIds = options.parts.filter(part => !["footer", "advancements"].includes(part));
+        break;
+      default:
+        // It is assumed that the part id is equal to a node's id.
+        await this.chain.get(partId).advancement._prepareAdvancementContext(context, options);
+        break;
+    }
+
     context.rootId = [this.id, partId].join("-");
     return context;
   }
@@ -131,7 +139,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /** @override */
   _configureRenderParts(options) {
-    const parts = {};
+    let parts = {};
 
     for (const nodes of this.chain.nodes.values()) {
       for (const node of nodes) {
@@ -150,7 +158,12 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
       }
     }
 
-    return { ...super._configureRenderParts(options), ...parts };
+    parts = { ...super._configureRenderParts(options), ...parts };
+    if (!options.isFirstRender) {
+      delete parts.advancements;
+      delete parts.footer;
+    }
+    return parts;
   }
 
   /* -------------------------------------------------- */
@@ -166,14 +179,21 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /** @override */
   _replaceHTML(result, content, options) {
-    const { footer, advancements, ...rest } = result;
-    super._replaceHTML(rest, advancements, options);
-    super._replaceHTML({ advancements, footer }, content, options);
+    if (options.isFirstRender) return super._replaceHTML(result, content, options);
+    content = this.element.querySelector("[data-application-part=advancements]");
+    return super._replaceHTML(result, content, options);
+  }
 
-    for (const form of advancements.querySelectorAll("form.advancement")) {
-      const node = this.chain.get(form.dataset.applicationPart);
-      if (!node) form.remove();
-      else form.style.setProperty("order", node.index);
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preRender(context, options) {
+    await super._preRender(context, options);
+    if (!options.isFirstRender) {
+      for (const form of this.element.querySelectorAll("form.advancement")) {
+        const node = this.chain.get(form.dataset.applicationPart);
+        if (!node) form.remove();
+      }
     }
   }
 
@@ -183,12 +203,20 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   async _onRender(context, options) {
     await super._onRender(context, options);
 
+    for (const form of this.element.querySelectorAll("form.advancement:not([data-order])")) {
+      const node = this.chain.get(form.dataset.applicationPart);
+      form.style.setProperty("order", node.index);
+      form.dataset.order = node.index;
+    }
+
     for (const input of this.element.querySelectorAll("input[type=number], input[type=text].delta")) {
       input.addEventListener("focus", () => input.select());
       if (input.classList.contains("delta")) {
         input.addEventListener("change", () => ryuutama.utils.parseInputDelta(input, this.document));
       }
     }
+
+    if (!options.isFirstRender) this.element.querySelector("button[type=submit]").disabled = !this.chain.isConfigured;
   }
 
   /* -------------------------------------------------- */
@@ -210,7 +238,13 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     const formData = new foundry.applications.ux.FormDataExtended(form);
     node.advancement.updateSource(foundry.utils.expandObject(formData.object));
     await node._initializeLeafNodes();
-    this.render();
+
+    // Re-render this specific part as well as all parts of descendant nodes that are not rendered.
+    const parts = [node.id];
+    for (const n of node.descendants()) {
+      if (!this.element.querySelector(`[data-application-part="${n.id}"]`)) parts.push(n.id);
+    }
+    this.render({ parts });
   }
 
   /* -------------------------------------------------- */

@@ -175,12 +175,36 @@ export default class AdvancementNode {
    * @returns {Promise<void>}
    */
   async _initializeLeafNodes() {
-    for (const node of this.children) this.chain.removeNode(node);
+    const children = this.children;
     const types = await this.advancement._getChildTypes();
     for (const type of types) {
+      // Child already exists, do nothing.
+      const child = children.find(child => child.type === type);
+      if (child) {
+        children.splice(children.indexOf(child), 1);
+        continue;
+      }
+
+      // Create new child (and its children).
       const node = new this.constructor({ type, chain: this.chain, parent: this });
       this.chain.addNode(node);
       await node._initializeLeafNodes();
+    }
+
+    // Remove no-longer valid children.
+    for (const node of children) this.chain.removeNode(node);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Traverse descendant nodes.
+   * @yields {AdvancementNode}
+   */
+  * descendants() {
+    for (const child of this.children) {
+      yield child;
+      yield* child.descendants();
     }
   }
 }
