@@ -10,10 +10,10 @@ export default class HabitatAdvancement extends Advancement {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
-        type: new StringField({ blank: false, required: true }),
+        type: new StringField({ blank: true, required: true }),
         chosen: new SchemaField({
-          terrain: new StringField({ blank: false, required: true, choices: () => ryuutama.config.terrainTypes }),
-          weather: new StringField({ blank: false, required: true, choices: () => ryuutama.config.weatherTypes }),
+          terrain: new StringField({ blank: true, required: true, choices: () => ryuutama.config.terrainTypes }),
+          weather: new StringField({ blank: true, required: true, choices: () => ryuutama.config.weatherTypes }),
         }),
       }),
     });
@@ -39,34 +39,24 @@ export default class HabitatAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
+  /** @override */
+  get isConfigured() {
+    const { type, chosen } = this.choice;
+    return ((type === "terrain") && (chosen.terrain in ryuutama.config.terrainTypes))
+      || ((type === "weather") && (chosen.weather in ryuutama.config.weatherTypes));
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
-  static async _prepareAdvancementContext(context, options) {
+  async _prepareAdvancementContext(context, options) {
     await super._prepareAdvancementContext(context, options);
     context.typeOptions = [
       { value: "terrain", label: game.i18n.localize("RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.optionTerrain") },
       { value: "weather", label: game.i18n.localize("RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.optionWeather") },
     ];
-  }
 
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static _attachPartListeners(partId, htmlElement, options) {
-    htmlElement.querySelector("[name='choice.type']").addEventListener("change", event => {
-      const terrain = htmlElement.querySelector("[name='choice.chosen.terrain']");
-      const weather = htmlElement.querySelector("[name='choice.chosen.weather']");
-
-      const type = event.currentTarget.value;
-      terrain.closest(".form-group").classList.toggle("hidden", type !== "terrain");
-      weather.closest(".form-group").classList.toggle("hidden", type !== "weather");
-    });
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static _determineResult(actor, formData) {
-    const data = foundry.utils.expandObject(formData.object);
-    return { result: new this({ type: this.TYPE, ...data }, { parent: actor }), type: "advancement" };
+    context.showTerrains = this.choice.type === "terrain";
+    context.showWeathers = this.choice.type === "weather";
   }
 }

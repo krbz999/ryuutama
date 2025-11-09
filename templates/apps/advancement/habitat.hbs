@@ -1,9 +1,15 @@
 <form>
   <fieldset>
     <legend>{{title}}</legend>
-    {{formGroup fields.choice.fields.type options=typeOptions value="terrain" rootId=rootId}}
-    {{formGroup fields.choice.fields.chosen.fields.terrain rootId=rootId classes="slim"}}
-    {{formGroup fields.choice.fields.chosen.fields.weather rootId=rootId classes="slim hidden"}}
+    {{formGroup fields.choice.fields.type options=typeOptions value=advancement.choice.type rootId=rootId}}
+
+    {{#if showTerrains}}
+    {{formGroup fields.choice.fields.chosen.fields.terrain value=advancement.choice.chosen.terrain rootId=rootId classes="slim"}}
+    {{/if}}
+
+    {{#if showWeathers}}
+    {{formGroup fields.choice.fields.chosen.fields.weather value=advancement.choice.chosen.weather rootId=rootId classes="slim"}}
+    {{/if}}
     <p class="hint">{{localize "RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.hint"}}</p>
   </fieldset>
 </form>

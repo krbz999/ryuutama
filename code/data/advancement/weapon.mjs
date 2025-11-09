@@ -41,8 +41,7 @@ export default class WeaponAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  static _determineResult(actor, formData) {
-    const data = foundry.utils.expandObject(formData.object);
-    return { result: new this({ type: this.TYPE, ...data }, { parent: actor }), type: "advancement" };
+  get isConfigured() {
+    return !!this.choice.chosen;
   }
 }

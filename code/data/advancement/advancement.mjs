@@ -1,13 +1,22 @@
 import PseudoDocument from "../pseudo-document.mjs";
 
 /**
- * @import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
+ * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
 export default class Advancement extends PseudoDocument {
   /** @inheritdoc */
   static defineSchema() {
-    return Object.assign(super.defineSchema(), {});
+    return Object.assign(super.defineSchema(), {
+      level: new foundry.data.fields.NumberField({
+        required: true,
+        nullable: false,
+        integer: true,
+        min: 1,
+        max: 10,
+        initial: 1,
+      }),
+    });
   }
 
   /* -------------------------------------------------- */
@@ -54,48 +63,48 @@ export default class Advancement extends PseudoDocument {
   /* -------------------------------------------------- */
 
   /**
-   * Prepare data when this advancement is presented when leveling up.
-   * @param {object} context    Current context. **will be mutated**
-   * @param {object} options    Rendering options.
-   * @returns {Promise<void>}
+   * Is this advancement fully configured?
+   * @type {boolean}
    */
-  static async _prepareAdvancementContext(context, options) {
-    context.fields = this.schema.fields;
-    context.title = game.i18n.format("RYUUTAMA.PSEUDO.ADVANCEMENT.configureTitle", {
-      name: game.i18n.localize(`TYPES.Advancement.${this.TYPE}`),
-    });
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Provide any part listeners.
-   * @this AdvancementDialog
-   * @param {string} partId                 The unique part id.
-   * @param {HTMLFormElement} htmlElement   The rendered form element.
-   * @param {object} options                Rendering options.
-   */
-  static _attachPartListeners(partId, htmlElement, options) {}
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Determine whether the form configuration is valid.
-   * @param {FormDataExtended} formData
-   */
-  static _determineValidity(formData) {
+  get isConfigured() {
     return true;
   }
 
   /* -------------------------------------------------- */
 
   /**
-   * Determine the result of this advancement.
-   * @param {FormDataExtended} formData
-   * @returns {object}
-   * @abstract
+   * Prepare data when this advancement is presented when leveling up.
+   * @param {object} context    Current context. **will be mutated**
+   * @param {object} options    Rendering options.
+   * @returns {Promise<void>}
    */
-  static _determineResult(formData) {
-    throw new Error("A subclass of Advancement must override _determineResult.");
+  async _prepareAdvancementContext(context, options) {
+    context.fields = this.schema.fields;
+    context.advancement = this;
+    context.title = game.i18n.format("RYUUTAMA.PSEUDO.ADVANCEMENT.configureTitle", {
+      name: game.i18n.localize(`TYPES.Advancement.${this.constructor.TYPE}`),
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Determine the result of this advancement.
+   * @param {RyuutamaActor} actor   The actor advancing.
+   * @returns {{ type: "actor"|"advancement", result: object|Advancement }}
+   */
+  _getAdvancementResult(actor) {
+    return { type: "advancement", result: this };
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Return advancement types that should be available choices
+   * depending on this advancement's current configuration.
+   * @returns {Promise<string[]>}
+   */
+  async _getChildTypes() {
+    return [];
   }
 }

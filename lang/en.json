@@ -556,7 +556,6 @@
         "TYPE": {
           "FIELDS": {
             "choice.chosen.label": "Chosen Type",
-            "choice.attack.label": "Additional Mastered Weapon",
             "choice.magic.label": "Seasonal Magic"
           },
           "hint": "Choose one of the three character types. If you choose one that you already have, the abilities are cumulative."

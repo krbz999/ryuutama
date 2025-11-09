@@ -3,6 +3,7 @@
 @import url("./sheets/_styles.css");
 @import url("./tables.css");
 @import url("./ui/_styles.css");
+@import url("./apps/_styles.css");
 
 ryuutama-icon {
   height: 100%;

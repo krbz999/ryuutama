@@ -11,12 +11,6 @@ export default class TypeAdvancement extends Advancement {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
         chosen: new StringField({ blank: true, required: true, choices: () => ryuutama.config.travelerTypes }),
-        attack: new StringField({ blank: true, required: true, choices: () => {
-          return {
-            ...ryuutama.config.weaponTypes,
-            unarmed: ryuutama.config.weaponUnarmedTypes.unarmed,
-          };
-        } }),
         magic: new StringField({ blank: true, required: true, choices: () => ryuutama.config.seasons }),
       }),
     });
@@ -43,33 +37,28 @@ export default class TypeAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  static _determineValidity(formData) {
-    formData = foundry.utils.expandObject(formData.object);
-    switch (formData.choice.chosen) {
-      case "magic": return !!formData.choice.magic;
-      case "attack": return !!formData.choice.attack;
-      default: return !!formData.choice.chosen;
+  get isConfigured() {
+    const { chosen, magic } = this.choice;
+    switch (chosen) {
+      case "magic": return !!magic;
+      default: return !!chosen;
     }
   }
 
   /* -------------------------------------------------- */
 
-  /** @override */
-  static _determineResult(actor, formData) {
-    const data = foundry.utils.expandObject(formData.object);
-    return { result: new this({ type: this.TYPE, ...data }, { parent: actor }), type: "advancement" };
+  /** @inheritdoc */
+  async _prepareAdvancementContext(context, options) {
+    await super._prepareAdvancementContext(context, options);
+    context.showMagic = this.choice.chosen === "magic";
   }
 
   /* -------------------------------------------------- */
 
   /** @override */
-  static _attachPartListeners(partId, htmlElement, options) {
-    const type = htmlElement.querySelector("[name='choice.chosen']");
-    type.addEventListener("change", event => {
-      const type = event.currentTarget.value;
-      htmlElement.querySelectorAll("[name='choice.attack'], [name='choice.magic']").forEach(input => {
-        input.closest(".form-group").classList.toggle("hidden", type !== input.name.split(".").at(-1));
-      });
-    });
+  async _getChildTypes() {
+    const types = [];
+    if (this.choice.chosen === "attack") types.push("weapon");
+    return types;
   }
 }

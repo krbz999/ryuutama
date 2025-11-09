@@ -38,30 +38,9 @@ export default class ResourceAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
-  static async _prepareAdvancementContext(context, options) {
-    await super._prepareAdvancementContext(context, options);
-    context.valid = false;
-  }
-
-  /* -------------------------------------------------- */
-
   /** @override */
-  static _determineValidity(formData) {
-    formData = foundry.utils.expandObject(formData.object);
-    return formData.choice.chosen.stamina + formData.choice.chosen.mental === 3;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static _determineResult(actor, formData) {
-    formData = foundry.utils.expandObject(formData.object);
-    formData.type = this.TYPE;
-
-    return {
-      result: new this(formData, { parent: actor }),
-      type: "advancement",
-    };
+  get isConfigured() {
+    const { stamina, mental } = this.choice.chosen;
+    return stamina + mental === 3;
   }
 }
