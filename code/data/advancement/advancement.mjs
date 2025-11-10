@@ -57,12 +57,40 @@ export default class Advancement extends PseudoDocument {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  get document() {
+    // If constructed as part of advancement, the document is the direct parent.
+    if (this.isEphemeral) return this.parent;
+    return super.document;
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Is this advancement fully configured?
    * @type {boolean}
    */
   get isConfigured() {
     return true;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _configure(options = {}) {
+    super._configure(options);
+    Object.defineProperties(this, {
+      isEphemeral: {
+        value: options.isEphemeral ?? false,
+        writable: false,
+        enumerable: false,
+      },
+      chain: {
+        value: options.chain ?? null,
+        writable: false,
+        enumerable: false,
+      },
+    });
   }
 
   /* -------------------------------------------------- */
@@ -97,9 +125,9 @@ export default class Advancement extends PseudoDocument {
   /**
    * Return advancement types that should be available choices
    * depending on this advancement's current configuration.
-   * @returns {Promise<string[]>}
+   * @returns {Promise<Set<string>>}
    */
   async _getChildTypes() {
-    return [];
+    return new Set();
   }
 }

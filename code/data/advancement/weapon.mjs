@@ -42,6 +42,25 @@ export default class WeaponAdvancement extends Advancement {
 
   /** @override */
   get isConfigured() {
-    return !!this.choice.chosen;
+    if (!this.isEphemeral) return !!this.choice.chosen;
+
+    const choices = [...Object.keys(ryuutama.config.weaponTypes), "unarmed"].filter(type => {
+      return (!this.document.system.mastered.weapons[type] && !this.#sameWeaponChoice(type));
+    });
+
+    return choices.includes(this.choice.chosen);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is there a Weapon advancement other than this one in the level-up chain that has picked a specific weapon?
+   * @param {string} type   The key of the weapon type.
+   * @returns {boolean}
+   */
+  #sameWeaponChoice(type) {
+    return this.chain.nodes.get("weapon").some(({ advancement }) => {
+      return (advancement !== this) && (advancement.choice.chosen === type);
+    });
   }
 }
