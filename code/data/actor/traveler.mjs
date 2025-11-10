@@ -213,6 +213,12 @@ export default class TravelerData extends CreatureData {
   _prepareAbilities() {
     super._prepareAbilities();
 
+    for (const advancement of this.advancements.documentsByType.statIncrease) {
+      if (!advancement.isConfigured) continue;
+      const ability = advancement.choice.chosen;
+      this.schema.getField(`abilities.${ability}.value`).increase(this.parent, 1);
+    }
+
     if (this.condition.value >= 10) {
       const ability = this.condition.shape.high;
       if (ability in this.abilities) this.schema.getField(`abilities.${ability}.value`).increase(this.parent, 1);
