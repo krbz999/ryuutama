@@ -262,15 +262,16 @@ export default class TravelerData extends CreatureData {
       const resource = this.resources[key];
       const src = this._source.resources[key];
 
-      const advancementBonus = this.advancements.documentsByType.resource
+      resource.typeBonus = typeBonus;
+      resource.advancement = this.advancements.documentsByType.resource
         .reduce((acc, advancement) => acc + advancement.choice.chosen[key], 0);
 
       resource.max = src.max
         + resource.bonuses.flat
         + resource.gear
         + resource.bonuses.level * this.details.level
-        + typeBonus
-        + advancementBonus;
+        + resource.typeBonus
+        + resource.advancement;
       resource.spent = allowNegative ? resource.spent : Math.min(resource.spent, resource.max);
       resource.value = resource.max - resource.spent;
 
