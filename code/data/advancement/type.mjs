@@ -57,8 +57,8 @@ export default class TypeAdvancement extends Advancement {
 
   /** @override */
   async _getChildTypes() {
-    const types = [];
-    if (this.choice.chosen === "attack") types.push("weapon");
+    const types = new Set();
+    if (this.choice.chosen === "attack") types.add("weapon");
     return types;
   }
 }
