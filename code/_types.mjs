@@ -179,6 +179,7 @@
 
 /**
  * @typedef WeatherTypeConfig
- * @property {string} label         Human-readable label.
- * @property {number} [modifier]    The weather modifier for a journey check.
+ * @property {string} label       Human-readable label.
+ * @property {number} modifier    The weather modifier for a journey check.
+ * @property {string} icon        Filepath for an icon.
  */

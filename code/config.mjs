@@ -709,49 +709,75 @@ export const weaponCategories = {
  * @type {Record<string, WeatherTypeConfig>}
  */
 export const weatherTypes = {
+  clearSkies: {
+    label: "RYUUTAMA.WEATHER.clearSkies",
+    modifier: 0,
+    icon: "systems/ryuutama/assets/official/icons/weathers/clear-skies.svg",
+  },
+  cloudy: {
+    label: "RYUUTAMA.WEATHER.cloudy",
+    modifier: 0,
+    icon: "systems/ryuutama/assets/official/icons/weathers/cloudy.svg",
+  },
   rain: {
     label: "RYUUTAMA.WEATHER.rain",
     modifier: 1,
+    icon: "systems/ryuutama/assets/official/icons/weathers/rain.svg",
   },
   strongWind: {
     label: "RYUUTAMA.WEATHER.strongWind",
     modifier: 1,
+    icon: "systems/ryuutama/assets/official/icons/weathers/strong-wind.svg",
   },
   fog: {
     label: "RYUUTAMA.WEATHER.fog",
     modifier: 1,
+    icon: "systems/ryuutama/assets/official/icons/weathers/fog.svg",
   },
   hot: {
     label: "RYUUTAMA.WEATHER.hot",
     modifier: 1,
+    icon: "systems/ryuutama/assets/official/icons/weathers/hot.svg",
   },
   cold: {
     label: "RYUUTAMA.WEATHER.cold",
     modifier: 1,
+    icon: "systems/ryuutama/assets/official/icons/weathers/cold.svg",
   },
   hardRain: {
     label: "RYUUTAMA.WEATHER.hardRain",
     modifier: 3,
+    icon: "systems/ryuutama/assets/official/icons/weathers/hard-rain.svg",
   },
   snow: {
     label: "RYUUTAMA.WEATHER.snow",
     modifier: 3,
+    icon: "systems/ryuutama/assets/official/icons/weathers/snow.svg",
   },
   deepFog: {
     label: "RYUUTAMA.WEATHER.deepFog",
     modifier: 3,
+    icon: "systems/ryuutama/assets/official/icons/weathers/deep-fog.svg",
+  },
+  thunderStorm: {
+    label: "RYUUTAMA.WEATHER.thunderStorm",
+    modifier: 3,
+    icon: "systems/ryuutama/assets/official/icons/weathers/thunder-storm.svg",
   },
   darkness: {
     label: "RYUUTAMA.WEATHER.darkness",
     modifier: 3,
+    icon: "systems/ryuutama/assets/official/icons/weathers/darkness.svg",
   },
   hurricane: {
     label: "RYUUTAMA.WEATHER.hurricane",
     modifier: 5,
+    icon: "systems/ryuutama/assets/official/icons/weathers/hurricane.svg",
   },
   blizzard: {
     label: "RYUUTAMA.WEATHER.blizzard",
     modifier: 5,
+    icon: "systems/ryuutama/assets/official/icons/weathers/blizzard.svg",
   },
 };
 Prelocalization.prelocalize(weatherTypes);
