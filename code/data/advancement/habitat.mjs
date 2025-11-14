@@ -42,8 +42,9 @@ export default class HabitatAdvancement extends Advancement {
   /** @override */
   get isConfigured() {
     const { type, chosen } = this.choice;
-    return ((type === "terrain") && (chosen.terrain in ryuutama.config.terrainTypes))
-      || ((type === "weather") && (chosen.weather in ryuutama.config.weatherTypes));
+    const { terrain, weather } = this.document.system.mastered;
+    return ((type === "terrain") && (chosen.terrain in ryuutama.config.terrainTypes) && !terrain.has(chosen.terrain))
+      || ((type === "weather") && (chosen.weather in ryuutama.config.weatherTypes) && !weather.has(chosen.weather));
   }
 
   /* -------------------------------------------------- */

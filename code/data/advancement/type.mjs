@@ -40,7 +40,7 @@ export default class TypeAdvancement extends Advancement {
   get isConfigured() {
     const { chosen, magic } = this.choice;
     switch (chosen) {
-      case "magic": return !!magic;
+      case "magic": return !!magic && !this.document.system.magic.seasons.has(this.choice.magic);
       default: return !!chosen;
     }
   }
