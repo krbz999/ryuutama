@@ -37,7 +37,17 @@ export default class StatIncreaseAdvancement extends Advancement {
 
   /** @override */
   get isConfigured() {
-    return !!this.choice.chosen;
+
+    const actor = this.parent.parent ?? this.parent;
+    const getScore = ability => {
+      const base = actor.system._source.abilities[ability].value;
+      const increases = actor.system.advancements.documentsByType[this.type]
+        .filter(a => a.choice.chosen === ability).length;
+
+      return base + 2 * increases;
+    };
+
+    return !!this.choice.chosen && (getScore(this.choice.chosen) < 12);
   }
 
   /* -------------------------------------------------- */
@@ -48,11 +58,14 @@ export default class StatIncreaseAdvancement extends Advancement {
 
     const getScore = ability => {
       const base = context.actor.system._source.abilities[ability].value;
-      return base;
+      const increases = context.actor.system.advancements.documentsByType[this.type]
+        .filter(a => a.choice.chosen === ability).length;
+
+      return base + 2 * increases;
     };
 
     context.abilityOptions = Object.entries(ryuutama.config.abilityScores)
-      .filter(([k, v]) => getScore(k) < 12)
+      // .filter(([k, v]) => getScore(k) < 12)
       .map(([k, v]) => ({ value: k, label: v.label }));
   }
 
@@ -60,8 +73,9 @@ export default class StatIncreaseAdvancement extends Advancement {
 
   /** @override */
   _getAdvancementResult(actor) {
-    const ability = this.choice.chosen;
-    const update = { [`system.abilities.${ability}.value`]: actor.system._source.abilities[ability].value + 2 };
-    return { result: update, type: "actor" };
+    // const ability = this.choice.chosen;
+    // const update = { [`system.abilities.${ability}.value`]: actor.system._source.abilities[ability].value + 2 };
+    // return { result: update, type: "actor" };
+    return super._getAdvancementResult(actor);
   }
 }
