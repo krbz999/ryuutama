@@ -58,6 +58,7 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels.animal = data.item.AnimalData;
   CONFIG.Item.dataModels.armor = data.item.ArmorData;
   CONFIG.Item.dataModels.cape = data.item.CapeData;
+  CONFIG.Item.dataModels.class = data.item.ClassData;
   CONFIG.Item.dataModels.container = data.item.ContainerData;
   CONFIG.Item.dataModels.hat = data.item.HatData;
   CONFIG.Item.dataModels.herb = data.item.HerbData;
@@ -148,6 +149,7 @@ Hooks.once("ready", () => {
 
     // ITEM PARTIALS
     "item-animal": "systems/ryuutama/templates/sheets/item-sheet/animal.hbs",
+    "item-class": "systems/ryuutama/templates/sheets/item-sheet/class.hbs",
     "item-container": "systems/ryuutama/templates/sheets/item-sheet/container.hbs",
     "item-defense": "systems/ryuutama/templates/sheets/item-sheet/defense.hbs",
     "item-gear": "systems/ryuutama/templates/sheets/item-sheet/gear.hbs",

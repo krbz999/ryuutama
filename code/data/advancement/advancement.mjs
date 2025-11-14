@@ -105,7 +105,7 @@ export default class Advancement extends PseudoDocument {
     context.fields = this.schema.fields;
     context.advancement = this;
     context.title = game.i18n.format("RYUUTAMA.PSEUDO.ADVANCEMENT.configureTitle", {
-      name: game.i18n.localize(`TYPES.Advancement.${this.constructor.TYPE}`),
+      name: game.i18n.localize(`TYPES.Advancement.${this.type}`),
     });
   }
 
@@ -114,10 +114,10 @@ export default class Advancement extends PseudoDocument {
   /**
    * Determine the result of this advancement.
    * @param {RyuutamaActor} actor   The actor advancing.
-   * @returns {{ type: "actor"|"advancement", result: object|Advancement }}
+   * @returns {Promise<{ type: "actor"|"advancement", result: object|Advancement }[]>}
    */
-  _getAdvancementResult(actor) {
-    return { type: "advancement", result: this };
+  async _getAdvancementResults(actor) {
+    return [{ type: "advancement", result: this }];
   }
 
   /* -------------------------------------------------- */

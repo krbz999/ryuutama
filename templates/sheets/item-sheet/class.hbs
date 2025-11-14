@@ -1,0 +1,18 @@
+<section>
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ITEM.CLASS.skills"}}</legend>
+
+    {{#if disabled}}
+    {{#each classSkills}}
+    <section class="description">
+      <h4>
+        <a data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}">{{item.name}}</a>
+      </h4>
+    </section>
+    {{/each}}
+    {{else}}
+    {{formGroup systemFields.skills value=source.system.skills}}
+    {{/if}}
+
+  </fieldset>
+</section>

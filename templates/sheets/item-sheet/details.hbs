@@ -59,6 +59,10 @@
   {{> "item-container"}}
   {{/if}}
 
+  {{#if isClass}}
+  {{> "item-class"}}
+  {{/if}}
+
   {{!-- DESCRIPTION --}}
   {{#if disabled}}
   {{#if enriched.description}}

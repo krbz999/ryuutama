@@ -1,5 +1,9 @@
 import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 
+/**
+ * @import RyuutamaItem from "../../documents/item.mjs";
+ */
+
 export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /** @override */
   static PARTS = {
@@ -41,6 +45,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
     Object.assign(context, {
       isAnimal: this.document._source.type === "animal",
+      isClass: this.document._source.type === "class",
       isContainer: this.document._source.type === "container",
       isHerb: this.document._source.type === "herb",
       isSpell: this.document._source.type === "spell",
@@ -106,10 +111,28 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       };
     }
 
+    if (context.isClass && context.disabled) context.classSkills = await this.#prepareClassSkills();
+
     // Effects.
     context.effects = this.#prepareEffects(context);
 
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare class skills for enriched display.
+   * @returns {Promise<{ item: RyuutamaItem }[]>}
+   */
+  async #prepareClassSkills() {
+    const skills = [];
+    for (const uuid of this.document.system.skills) {
+      const item = await fromUuid(uuid);
+      if (!item || (item.type !== "skill")) continue;
+      skills.push({ item });
+    }
+    return skills;
   }
 
   /* -------------------------------------------------- */

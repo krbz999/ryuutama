@@ -45,6 +45,8 @@
       "armorPl": "Armor",
       "cape": "Cape",
       "capePl": "Capes",
+      "class": "Class",
+      "classPl": "Classes",
       "container": "Container",
       "containerPl": "Containers",
       "hat": "Hat",
@@ -348,6 +350,14 @@
         },
 
         "configuration": "Animal Configuration"
+      },
+
+      "CLASS": {
+        "FIELDS": {
+          "skills.label": "Skills",
+          "skills.hint": "Enter uuids of Skill items that will be granted when this class is chosen."
+        },
+        "skills": "Skills"
       },
 
       "CONTAINER": {
