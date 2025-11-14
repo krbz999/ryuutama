@@ -3,28 +3,23 @@
   <h4>{{label}}</h4>
   {{/if}}
 
-  <section class="document-list {{#if tiles}} tiles {{/if}}">
+  <section class="document-list">
     {{#each entries as |entry|}}
     <div class="entry {{entry.classes}}" data-uuid="{{entry.document.uuid}}" data-name="{{entry.document.name}}" data-document-name="{{entry.document.documentName}}" data-tooltip-html="{{ryuutama-tooltip uuid=entry.document.uuid}}" {{#each dataset as |v k|}} data-{{k}}="{{v}}" {{/each}}>
       <img src="{{entry.document.img}}" alt="{{entry.document.name}}">
 
       <div class="center">
-        {{#if entry.embedded}}
+        <span class="title">{{entry.document.name}}</span>
         <span class="attribute">
+          {{#if entry.embedded}}
           <span class="values">
             <input type="text" id="{{@root.rootId}}-{{entry.document.id}}-{{entry.embedded.name}}" class="delta" data-name="{{entry.embedded.name}}" value="{{entry.embedded.value}}">
             <span class="sep">/</span>
             <span class="max">{{entry.embedded.max}}</span>
           </span>
+          {{/if}}
         </span>
-        {{/if}}
       </div>
-
-      <span class="controls">
-        <a data-action="contextMenu">
-          <i class="fa-solid fa-fw fa-ellipsis-vertical" inert></i>
-        </a>
-      </span>
     </div>
     {{/each}}
   </section>

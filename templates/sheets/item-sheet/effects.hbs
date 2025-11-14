@@ -1,10 +1,10 @@
 <section data-tab="{{tabs.effects.id}}" class="{{tabs.effects.cssClass}}" data-group="{{tabs.effects.group}}">
   <button type="button" data-action="createEffect" class="icon fa-solid fa-plus"></button>
   {{#if effects.enabledEffects.length}}
-  {{> "document-list" label=(localize "RYUUTAMA.ITEM.activeEffects") entries=effects.enabledEffects tiles=true}}
+  {{> "document-list" label=(localize "RYUUTAMA.ITEM.activeEffects") entries=effects.enabledEffects}}
   {{/if}}
 
   {{#if effects.disabledEffects.length}}
-  {{> "document-list" label=(localize "RYUUTAMA.ITEM.disabledEffects") entries=effects.disabledEffects tiles=true}}
+  {{> "document-list" label=(localize "RYUUTAMA.ITEM.disabledEffects") entries=effects.disabledEffects}}
   {{/if}}
 </section>
