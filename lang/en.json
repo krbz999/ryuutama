@@ -21,6 +21,8 @@
       "travelerPl": "Travelers"
     },
     "Advancement": {
+      "class": "Class",
+      "classPl": "Classes",
       "habitat": "Terrain / Weather Specialty",
       "habitatPl": "Terrain / Weather Specialties",
       "resource": "Resource Increase",
@@ -517,6 +519,12 @@
         "FIELDS": {},
         "configureTitle": "Configure {name}",
         "title": "Level Up: {name} - {nth} Level",
+
+        "CLASS": {
+          "FIELDS": {
+            "choice.chosen.label": "Class Item"
+          }
+        },
 
         "HABITAT": {
           "FIELDS": {

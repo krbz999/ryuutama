@@ -376,10 +376,7 @@ export default class TravelerData extends CreatureData {
           foundry.utils.mergeObject(actorUpdate, result);
           break;
         case "items":
-          for (const item of result) {
-            const keepId = !actor.items.has(item.id);
-            itemData.push(game.items.fromCompendium(item, { keepId }));
-          }
+          itemData.push(...result);
           break;
       }
     }

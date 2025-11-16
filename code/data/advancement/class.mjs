@@ -2,6 +2,9 @@ import Advancement from "./advancement.mjs";
 
 const { DocumentUUIDField, SchemaField } = foundry.data.fields;
 
+/**
+ * A subclass of advancement responsible for assigning a class.
+ */
 export default class ClassAdvancement extends Advancement {
   /** @inheritdoc */
   static defineSchema() {
@@ -17,7 +20,7 @@ export default class ClassAdvancement extends Advancement {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTANA.PSEUDO.ADVANCEMENT.CLASS",
+    "RYUUTAMA.PSEUDO.ADVANCEMENT.CLASS",
   ];
 
   /* -------------------------------------------------- */
@@ -52,8 +55,10 @@ export default class ClassAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _getAdvancementResults(actor) {
+    const results = await super._getAdvancementResults(actor);
+
     const classItem = await fromUuid(this.choice.chosen);
     const skills = await Promise.all(classItem.system.skills.map(uuid => fromUuid(uuid)));
     const itemData = skills.map(item => {
@@ -62,6 +67,8 @@ export default class ClassAdvancement extends Advancement {
       const options = { clearFolder: true, keepId };
       return game.items.fromCompendium(item, options);
     }).filter(_ => _);
-    return [{ type: "items", result: itemData }];
+
+    results.push({ type: "items", result: itemData });
+    return results;
   }
 }
