@@ -24,6 +24,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
       createEffect: RyuutamaDocumentSheet.#createEffect,
       renderEmbedded: RyuutamaDocumentSheet.#renderEmbedded,
       contextMenu: RyuutamaDocumentSheet.#contextMenu,
+      renderDocument: RyuutamaDocumentSheet.#renderDocument,
     },
   };
 
@@ -193,5 +194,17 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
       bubbles: true,
       cancelable: true,
     }));
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaDocumentSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static #renderDocument(event, target) {
+    const uuid = target.closest("[data-uuid]").dataset.uuid;
+    fromUuid(uuid).then(document => document.sheet.render({ force: true }));
   }
 }

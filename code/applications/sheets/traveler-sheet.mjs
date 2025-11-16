@@ -99,9 +99,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     const context = await super._prepareContext(options);
 
     // Skills.
-    context.skills = this.document.items.documentsByType.skill.map(skill => {
-      return { document: skill };
-    });
+    context.skills = this.#prepareSkills();
 
     context.tabs = this._prepareTabs("primary");
     context.inventoryTabs = this._prepareTabs("inventory");
@@ -160,6 +158,42 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     context.tags = this.#prepareTags(context);
 
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare skill item sections.
+   * @returns {object[]}
+   */
+  #prepareSkills() {
+    const groups = Map.groupBy(
+      this.document.items.documentsByType.skill,
+      item => {
+        const classIdentifier = item.getFlag(ryuutama.id, "originClass");
+        const clsItem = this.document.system.classes[classIdentifier];
+        return clsItem ? clsItem : "other";
+      },
+    );
+
+    const sections = [];
+
+    if (groups.has("other")) {
+      sections.push({
+        label: game.i18n.localize("RYUUTAMA.TRAVELER.otherSkills"),
+        entries: groups.get("other").map(item => ({ document: item })),
+      });
+      groups.delete("other");
+    }
+
+    for (const [classItem, skills] of groups.entries()) {
+      sections.unshift({
+        label: game.i18n.format("RYUUTAMA.TRAVELER.skillSectionLabel", { name: classItem.name }),
+        entries: skills.map(skill => ({ document: skill })),
+      });
+    }
+
+    return sections;
   }
 
   /* -------------------------------------------------- */
@@ -293,6 +327,14 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
    */
   #prepareTags(context) {
     const tags = [];
+
+    // Classes.
+    const classTag = Object.values(this.document.system.classes).map(item => item.name).join(" / ");
+    tags.push({
+      tag: classTag.length ? classTag : game.i18n.localize("RYUUTAMA.ACTOR.TAGS.noClass"),
+      cssClass: "traveler-classes",
+      tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.classes"),
+    });
 
     // Traveler Types.
     for (const [k, v] of Object.entries(this.document.system.details.type)) {

@@ -59,9 +59,9 @@ export default class StatIncreaseAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  _getAdvancementResult(actor) {
+  async _getAdvancementResults(actor) {
     const ability = this.choice.chosen;
     const update = { [`system.abilities.${ability}.value`]: actor.system._source.abilities[ability].value + 2 };
-    return { result: update, type: "actor" };
+    return [{ result: update, type: "actor" }];
   }
 }

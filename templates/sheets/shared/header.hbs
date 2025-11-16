@@ -10,7 +10,7 @@
       <a data-action="advance" class="tag {{#if levelUp.glow}} glow {{/if}}" data-tooltip-text="{{levelUp.tooltip}}" {{disabled (not editable)}}>{{levelUp.tag}}</a>
       {{/if}}
       {{#each tags}}
-      <div class="tag" data-tooltip-text="{{{tooltip}}}">{{{tag}}}</div>
+      <div class="tag {{cssClass}}" data-tooltip-text="{{{tooltip}}}">{{{tag}}}</div>
       {{/each}}
     </div>
 

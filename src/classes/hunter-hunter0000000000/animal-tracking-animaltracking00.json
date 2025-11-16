@@ -5,7 +5,8 @@
   "system": {
     "description": {
       "value": "<p>You can track four types of monsters (animal, phantom beast, demonstone, or phantom plant) by following their prints and spoor. You will also receive a +1 bonus to damage against a monster tracked using this skill.</p>\n<p><strong>Skill Effect:</strong> Find a monster's location. +1 bonus to damage against any monsters found.</p>\n<p><strong>Usable Circumstances:</strong> When finding an animal's tracks</p>\n<p><strong>Stat Used:</strong> [STR + INT]</p>\n<p><strong>TN:</strong> Topography</p>"
-    }
+    },
+    "identifier": "animal-tracking"
   },
   "img": "icons/svg/item-bag.svg",
   "effects": [],
@@ -21,7 +22,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1760283627338,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

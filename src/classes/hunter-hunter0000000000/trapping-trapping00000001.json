@@ -1,6 +1,6 @@
 {
   "name": "Trapping",
-  "_id": "trapping00000000",
+  "_id": "trapping00000001",
   "type": "skill",
   "system": {
     "description": {
@@ -10,7 +10,7 @@
   },
   "img": "icons/svg/item-bag.svg",
   "effects": [],
-  "folder": "artisan000000000",
+  "folder": "hunter0000000000",
   "sort": 0,
   "ownership": {
     "default": 0
@@ -27,5 +27,5 @@
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
-  "_key": "!items!trapping00000000"
+  "_key": "!items!trapping00000001"
 }

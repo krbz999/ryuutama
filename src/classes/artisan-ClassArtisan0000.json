@@ -1,0 +1,37 @@
+{
+  "name": "Artisan",
+  "type": "class",
+  "_id": "ClassArtisan0000",
+  "img": "systems/ryuutama/assets/official/icons/classes/artisan.webp",
+  "system": {
+    "description": {
+      "value": "<p><em>A craftsperson that makes useful things, beautiful things, delicious things—all kinds of items. They are able to fix things that break along the way to their destination, and create things they need along the way.</em></p><p><strong>Example Jobs:</strong> shoemaker, hatmaker, cook, etc.</p><p><strong>Example Actions:</strong> sewing, cooking, repairing, etc.</p>"
+    },
+    "skills": [
+      "Compendium.ryuutama.classes.Item.trapping00000000",
+      "Compendium.ryuutama.classes.Item.crafting00000000",
+      "Compendium.ryuutama.classes.Item.repair0000000000"
+    ],
+    "identifier": "artisan",
+    "tier": 1
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "1.1.0",
+    "createdTime": 1763159894492,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!ClassArtisan0000"
+}

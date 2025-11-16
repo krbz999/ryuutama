@@ -5,7 +5,8 @@
   "system": {
     "description": {
       "value": "<p>The people you have met on your travels have taught you their old songs and legends. You have learned a great deal about the world in this way.</p>\n<p><strong>Skill Effect:</strong> You can get more information about the things you see and hear.</p>\n<p><strong>Usable Circumstances:</strong> Any time you come across something interesting</p>\n<p><strong>Stat Used:</strong> [INT + INT]</p>\n<p><strong>TN:</strong> GM's discretion</p>"
-    }
+    },
+    "identifier": "knowledge-of-tradition"
   },
   "img": "icons/svg/item-bag.svg",
   "effects": [],
@@ -21,7 +22,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1760283328895,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

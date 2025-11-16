@@ -105,6 +105,11 @@
           "description.value"
         ]
       },
+      "class": {
+        "htmlFields": [
+          "description.value"
+        ]
+      },
       "container": {
         "htmlFields": [
           "description.value"

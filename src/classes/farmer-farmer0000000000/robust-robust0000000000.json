@@ -5,7 +5,8 @@
   "system": {
     "description": {
       "value": "<p>Thanks to your healthy lifestyle, your body is sturdy, and you are in tune with its natural rhythm. You are naturally resistant to ill effects and can carry more items.</p>\n<p><strong>Skill Effect:</strong> +1 bonus to Condition Checks. +3 bonus to Carrying Capacity</p>\n<p><strong>Usable Circumstances:</strong> -</p>\n<p><strong>Stat Used:</strong> -</p>\n<p><strong>TN:</strong> -</p>"
-    }
+    },
+    "identifier": "robust"
   },
   "img": "icons/svg/item-bag.svg",
   "effects": [],
@@ -21,7 +22,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1760283836382,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

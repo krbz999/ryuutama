@@ -1,6 +1,6 @@
 {
   "name": "Animal Owner",
-  "_id": "animalowner00000",
+  "_id": "animalowner00001",
   "type": "skill",
   "system": {
     "description": {
@@ -10,7 +10,7 @@
   },
   "img": "icons/svg/item-bag.svg",
   "effects": [],
-  "folder": "farmer0000000000",
+  "folder": "merchant00000000",
   "sort": 0,
   "ownership": {
     "default": 0
@@ -27,5 +27,5 @@
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
-  "_key": "!items!animalowner00000"
+  "_key": "!items!animalowner00001"
 }

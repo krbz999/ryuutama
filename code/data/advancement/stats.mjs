@@ -91,7 +91,7 @@ export default class StatsAdvancement extends Advancement {
   /* -------------------------------------------------- */
 
   /** @override */
-  _getAdvancementResult(actor) {
+  async _getAdvancementResults(actor) {
     const update = {};
     for (const k in ryuutama.config.abilityScores) {
       update[`system.abilities.${k}.value`] = this.choice.chosen[k];
@@ -99,6 +99,6 @@ export default class StatsAdvancement extends Advancement {
 
     update["system.resources.stamina.max"] = 2 * update["system.abilities.strength.value"];
     update["system.resources.mental.max"] = 2 * update["system.abilities.spirit.value"];
-    return { result: update, type: "actor" };
+    return [{ result: update, type: "actor" }];
   }
 }
