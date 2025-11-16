@@ -27,7 +27,7 @@ export default class ClassData extends BaseData {
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
 
-    if (this.parent && !options.advancement) {
+    if (this.parent.parent && !options.advancement) {
       ui.notifications.warn("RYUUTAMA.ITEM.CLASS.creationWarning", { localize: true });
       return false;
     }
