@@ -1,4 +1,6 @@
-export default class CheckRoll extends foundry.dice.Roll {
+import BaseRoll from "./base-roll.mjs";
+
+export default class CheckRoll extends BaseRoll {
   /**
    * Is the check a fumble?
    * @type {boolean}

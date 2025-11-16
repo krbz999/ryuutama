@@ -44,6 +44,9 @@
 
 /**
  * @typedef CheckMessageConfig
- * @property {boolean} [create]   Should a chat message be created?
- * @property {object} [data]      Data to be used for the chat message. This does not include `rolls` or `content`.
+ * @property {boolean} [create]                         Should a chat message be created?
+ * @property {object} [data]                            Data to be used for the chat message.
+ *                                                      This does not include `rolls` or `content`.
+ * @property {Record<string, boolean>} [rollOptions]    Options for the roll. The effect of these depends on
+ *                                                      the type of check being performed.
  */
