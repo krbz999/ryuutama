@@ -3,6 +3,7 @@
  * @import CheckRoll from "../../../dice/check-roll.mjs";
  * @import { DamageConfiguration } from "./_types.mjs";
  * @import RyuutamaActor from "../../../documents/actor.mjs";
+ * @import BaseRoll from "../../../dice/base-roll.mjs";
  */
 
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
@@ -461,10 +462,44 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       ].concat(parts);
     }
 
-    /** @type {CheckRoll} */
-    const roll = new CONFIG.Dice.CheckRoll(parts.filterJoin(" + "), rollData);
+    const Cls = this.#determineRollClass(rollConfig, dialogConfig, messageConfig);
+    const options = this.#constructRollOptions(rollConfig, dialogConfig, messageConfig);
+    const roll = new Cls(parts.filterJoin(" + "), rollData, options);
     if (rollConfig.critical?.allowed && rollConfig.critical.isCritical) roll.alter(2, 0);
     return roll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Determine roll class for the check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {typeof BaseRoll}
+   */
+  #determineRollClass(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    switch (rollConfig.type) {
+      case "damage": return ryuutama.dice.DamageRoll;
+    }
+    return ryuutama.dice.CheckRoll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Construct options for the Roll instance.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Record<string, boolean>}
+   */
+  #constructRollOptions(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    const options = {};
+    switch (rollConfig.type) {
+      case "damage": foundry.utils.mergeObject(options, { magical: false }); break;
+    }
+    return foundry.utils.mergeObject(options, messageConfig.rollOptions ?? {});
   }
 
   /* -------------------------------------------------- */

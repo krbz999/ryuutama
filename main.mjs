@@ -86,7 +86,9 @@ Hooks.once("init", () => {
   // Assign rolls.
   CONFIG.Dice.rolls.unshift(dice.DamageRoll);
   CONFIG.Dice.rolls.unshift(dice.CheckRoll);
+  CONFIG.Dice.rolls.unshift(dice.BaseRoll);
   Object.assign(CONFIG.Dice, {
+    BaseRoll: dice.BaseRoll,
     CheckRoll: dice.CheckRoll,
     DamageRoll: dice.DamageRoll,
   });
