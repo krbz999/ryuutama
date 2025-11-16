@@ -12,7 +12,8 @@
       "Compendium.ryuutama.classes.Item.crafting00000000",
       "Compendium.ryuutama.classes.Item.repair0000000000"
     ],
-    "identifier": "artisan"
+    "identifier": "artisan",
+    "tier": 1
   },
   "effects": [],
   "folder": null,

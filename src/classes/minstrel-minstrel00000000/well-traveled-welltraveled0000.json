@@ -5,7 +5,8 @@
   "system": {
     "description": {
       "value": "<p>As a minstrel who makes his earning by constant travel, you've learned how to travel safely.</p>\n<p><strong>Skill Effect:</strong> +1 to Journey Checks (Travel/Direction/Camping Checks; always in effect)</p>\n<p><strong>Usable Circumstances:</strong> -</p>\n<p><strong>Stat Used:</strong> -</p>\n<p><strong>TN:</strong> -</p>"
-    }
+    },
+    "identifier": "well-traveled"
   },
   "img": "icons/svg/item-bag.svg",
   "effects": [],
@@ -21,7 +22,7 @@
     "exportSource": null,
     "coreVersion": "13.350",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.1.0",
     "createdTime": 1760283267808,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
