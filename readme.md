@@ -1,5 +1,7 @@
 A Foundry VTT implementation of the Ryuutama Natural Fantasy RPG.
 
+![image](https://raw.githubusercontent.com/krbz999/ryuutama/refs/heads/main/assets/official/ui/ryuutama-logo.svg)
+
 The system contains all content found in the Ryuutama English edition, including monsters, items, and assets. Rules content is not included. All licensed content has been incorporated and implemented with the explicit permission of Kotodama Heavy Indistries and may not be distributed further without their consent.
 
 This system is created under the license found here, https://kotohi.com/ryuutama/licensing/, with permission to distribute with the above consent.
