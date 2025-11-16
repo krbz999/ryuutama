@@ -5,8 +5,8 @@
     {{#if disabled}}
     {{#each classSkills}}
     <section class="description">
-      <h4>
-        <a data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}">{{item.name}}</a>
+      <h4 data-uuid="{{item.uuid}}">
+        <a data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}" data-action="renderDocument">{{item.name}}</a>
       </h4>
     </section>
     {{/each}}

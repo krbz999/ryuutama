@@ -50,6 +50,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       isHerb: this.document._source.type === "herb",
       isSpell: this.document._source.type === "spell",
       isWeapon: this.document._source.type === "weapon",
+      hasIdentifier: this.document.system.schema.has("identifier"),
       hasDurability: this.document.system.schema.has("durability"),
       hasPrice: this.document.system.schema.has("price"),
       hasModifiers: modifierOptions.length > 0,
@@ -63,6 +64,10 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         ),
       },
     });
+
+    if (context.hasIdentifier) {
+      context.identifierPlaceholder = ryuutama.utils.createDefaultIdentifier(this.document._source.name);
+    }
 
     if (context.isHerb) {
       context.enriched.effect = await CONFIG.ux.TextEditor.enrichHTML(

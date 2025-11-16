@@ -6,6 +6,23 @@ import IdentifierField from "../fields/identifier-field.mjs";
  */
 
 export default class SkillData extends BaseData {
+  /** @inheritdoc */
+  static defineSchema() {
+    return Object.assign(super.defineSchema(), {
+      identifier: new IdentifierField(),
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RYUUTAMA.ITEM.SKILL",
+  ];
+
+  /* -------------------------------------------------- */
+
   /**
    * The origin class of this skill.
    * @type {RyuutamaItem}
@@ -30,15 +47,6 @@ export default class SkillData extends BaseData {
   get tier() {
     const cls = this.originClass;
     return cls ? cls.system.tier : 1;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  static defineSchema() {
-    return Object.assign(super.defineSchema(), {
-      identifier: new IdentifierField(),
-    });
   }
 
   /* -------------------------------------------------- */

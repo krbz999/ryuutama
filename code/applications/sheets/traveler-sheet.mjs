@@ -332,6 +332,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     const classTag = Object.values(this.document.system.classes).map(item => item.name).join(" / ");
     tags.push({
       tag: classTag.length ? classTag : game.i18n.localize("RYUUTAMA.ACTOR.TAGS.noClass"),
+      cssClass: "traveler-classes",
       tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.classes"),
     });
 

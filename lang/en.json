@@ -100,6 +100,9 @@
           "equip": "Equip Item",
           "unequip": "Unequip Item",
           "assignSpecialAbility": "Special Ability"
+        },
+        "MISC": {
+          "classTag": "Class: {name}"
         }
       },
       "TAGS": {
@@ -361,6 +364,8 @@
 
       "CLASS": {
         "FIELDS": {
+          "identifier.label": "Identifier",
+          "identifier.hint": "A unique identifier for this class item. Two items with the same identifier are, for all intents and purposes, considered to be the same item.",
           "skills.label": "Skills",
           "skills.hint": "Enter uuids of Skill items that will be granted when this class is chosen."
         },
@@ -400,6 +405,13 @@
         "anyTerrain": "Any Terrain",
 
         "configuration": "Herb Details"
+      },
+
+      "SKILL": {
+        "FIELDS": {
+          "identifier.label": "Identifier",
+          "identifier.hint": "A unique identifier for this skill item. Two items with the same identifier are, for all intents and purposes, considered to be the same item."
+        }
       },
 
       "SPELL": {
