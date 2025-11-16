@@ -104,10 +104,12 @@
       },
       "TAGS": {
         "category": "Category: {category}",
+        "classes": "Classes",
         "dragonica": "Dragonica No. {number}",
         "habitatSpecialty": "Terrain / Weather Specialty: {habitat}",
         "level": "Level {level}",
         "masteredWeapon": "Mastered Weapon: {weapon}",
+        "noClass": "No Class",
         "season": "Season: {season}",
         "type": "Type: {type}"
       },
@@ -203,7 +205,9 @@
       "abilities": "Abilities",
       "conditionShapeOutOfShape": "Out of Shape",
       "conditionShapeSelectAbility": "Select Ability",
-      "shape": "Shape"
+      "shape": "Shape",
+      "skillSectionLabel": "{name} Skills",
+      "otherSkills": "Other Skills"
     },
 
     "ABILITIES": {
@@ -324,6 +328,7 @@
       "details": "Details",
       "disabledEffects": "Inactive",
       "durability": "Durability ({value}/{max})",
+      "identifierError": "Invalid identifier.",
 
       "ANIMAL": {
         "FIELDS": {
@@ -359,7 +364,8 @@
           "skills.label": "Skills",
           "skills.hint": "Enter uuids of Skill items that will be granted when this class is chosen."
         },
-        "skills": "Skills"
+        "skills": "Skills",
+        "creationWarning": "A class item can only be created on an actor via advancement."
       },
 
       "CONTAINER": {

@@ -61,12 +61,34 @@ export default class ClassAdvancement extends Advancement {
 
     const classItem = await fromUuid(this.choice.chosen);
     const skills = await Promise.all(classItem.system.skills.map(uuid => fromUuid(uuid)));
-    const itemData = skills.map(item => {
-      if (!item || (item.type !== "skill")) return null;
-      const keepId = !actor.items.has(item.id);
-      const options = { clearFolder: true, keepId };
-      return game.items.fromCompendium(item, options);
-    }).filter(_ => _);
+
+    const itemData = [];
+
+    const classId = actor.items.has(classItem.id) ? foundry.utils.randomID() : classItem.id;
+    const classItemData = game.items.fromCompendium(classItem, { keepId: false, clearFolder: true });
+    classItemData._id = classId;
+
+    // Don't create a class multiple times.
+    if (!this.document.system.classes[classItem.identifier]) itemData.push(classItemData);
+    else results.push({ type: "itemUpdates", result: [{
+      _id: this.document.system.classes[classItem.identifier].id,
+      "system.tier": 2,
+    }] });
+
+    for (const skill of skills) {
+      if (!skill || (skill.type !== "skill")) continue;
+
+      // Don't create the skill if it already exists from a lower level and belonging to the same class.
+      const existingSkill = actor.items.documentsByType.skill.find(item => {
+        return (item.identifier === skill.identifier) && (item.system.originClass?.identifier === classItem.identifier);
+      });
+      if (existingSkill) continue;
+
+      const keepId = !actor.items.has(skill.id);
+      const data = game.items.fromCompendium(skill, { clearFolder: true, keepId });
+      foundry.utils.setProperty(data, `flags.${ryuutama.id}.originClass`, classItem.identifier);
+      itemData.push(data);
+    }
 
     results.push({ type: "items", result: itemData });
     return results;
