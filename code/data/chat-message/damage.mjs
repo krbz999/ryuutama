@@ -2,6 +2,7 @@ import MessageData from "./templates/message.mjs";
 
 /**
  * @import { DamageConfiguration } from "../actor/templates/_types.mjs";
+ * @import DamageRoll from "../../dice/damage-roll.mjs";
  */
 
 export default class DamageData extends MessageData {
@@ -30,14 +31,29 @@ export default class DamageData extends MessageData {
   /* -------------------------------------------------- */
 
   /**
+   * The valid damage rolls.
+   * @type {DamageRoll[]}
+   */
+  get damageRolls() {
+    return this.parent.rolls.filter(roll => roll instanceof ryuutama.dice.DamageRoll);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * The damage configs that will be applied by this message.
    * @type {DamageConfiguration[]}
    */
   get damages() {
-    return this.parent.rolls.map(roll => {
+    return this.damageRolls.map(roll => {
       return {
         value: roll.total,
-        magical: roll.isMagical,
+        options: {
+          defenseless: roll.isDefenseless,
+          magical: roll.isMagical,
+          mythril: roll.isMythril,
+          orichalcum: roll.isOrichalcum,
+        },
       };
     });
   }
@@ -46,7 +62,7 @@ export default class DamageData extends MessageData {
 
   /** @override */
   async _prepareContext(context) {
-    context.rolls = await Promise.all(this.parent.rolls.map(roll => roll.render()));
+    context.rolls = await Promise.all(this.damageRolls.map(roll => roll.render()));
   }
 
   /* -------------------------------------------------- */

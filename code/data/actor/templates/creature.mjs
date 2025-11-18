@@ -553,12 +553,21 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   calculateDamage(damages = []) {
     damages = foundry.utils.deepClone(damages);
 
-    const { modifiers } = this.defense;
+    /**
+     * Does this damage ignore defense/armor?
+     * @param {DamageConfiguration} damage
+     * @returns {boolean}
+     */
+    const ignoreDefense = damage => {
+      return damage.options?.defenseless
+        || ((this.details?.category === "undead") && (damage.options?.mythril || damage.options?.orichalcum));
+    };
+
     for (const damage of damages) {
-      if (damage.magical) damage.value += modifiers.magical;
+      if (damage.options?.magical) damage.value += this.defense.modifiers.magical;
       else {
-        damage.value += modifiers.physical;
-        damage.value -= this.defense.total;
+        damage.value += this.defense.modifiers.physical;
+        if (!ignoreDefense(damage)) damage.value -= this.defense.total;
       }
       damage.value = Math.max(0, damage.value);
     }
