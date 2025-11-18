@@ -78,7 +78,7 @@ Hooks.once("init", () => {
 
   CONFIG.ui.actors = applications.sidebar.tabs.RyuutamaActorDirectory;
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
-  CONFIG.ui.habitat = applications.apps.CurrentHabitat;
+  CONFIG.ui.habitat = applications.ui.CurrentHabitat;
   CONFIG.ui.pause = applications.ui.RyuutamaGamePause;
 
   CONFIG.ux.TooltipManager = helpers.interaction.RyuutamaTooltipManager;
@@ -167,5 +167,5 @@ Hooks.once("ready", () => {
 /* -------------------------------------------------- */
 
 Hooks.once("renderPlayers", () => {
-  if (game.user.isGM) ui.habitat.render({ force: true });
+  ui.habitat.render({ force: true });
 });
