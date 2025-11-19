@@ -84,6 +84,9 @@
       "damage": {},
       "effect": {}
     },
+    "Combat": {
+      "standard": {}
+    },
     "Item": {
       "accessory": {
         "htmlFields": [
