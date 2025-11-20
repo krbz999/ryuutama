@@ -5,14 +5,26 @@
   --font-radley: "Radley";
 
   aside.aside {
+    --decoration-inset: .25rem;
     background-color: var(--ryuutama-color-aside);
     padding: 1.5rem 3.5rem;
     border-radius: 15px;
     box-shadow: 4px 4px 0 var(--ryuutama-color-aside-border);
     text-align: justify;
-    border-image-source: url("/systems/ryuutama/assets/official/layout/corner-decoration.webp");
-    border-image-width: 30px;
     margin: 1rem 0;
+
+    background-image:
+      url("/systems/ryuutama/assets/official/layout/curve-top-left.svg"),
+      url("/systems/ryuutama/assets/official/layout/curve-top-right.svg"),
+      url("/systems/ryuutama/assets/official/layout/curve-bottom-right.svg"),
+      url("/systems/ryuutama/assets/official/layout/curve-bottom-left.svg");
+    background-position:
+      left var(--decoration-inset) top var(--decoration-inset),
+      right var(--decoration-inset) top var(--decoration-inset),
+      right var(--decoration-inset) bottom var(--decoration-inset),
+      left var(--decoration-inset) bottom var(--decoration-inset);
+    background-repeat: no-repeat;
+    background-size: 32px;
 
     p {
       font-family: var(--font-raleway);
@@ -32,7 +44,6 @@
 
   p {
     font-family: var(--font-radley);
-    margin: 0;
   }
 
   blockquote p {
