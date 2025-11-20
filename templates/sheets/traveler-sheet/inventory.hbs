@@ -24,7 +24,7 @@
   </section>
 
   {{!-- GOLD --}}
-  {{formGroup systemFields.gold.fields.value value=(ifThen disabled document.system.gold.value source.system.gold.value) disabled=disabled classes="slim"}}
+  {{formGroup systemFields.gold.fields.value value=document.system.gold.value disabled=(not editable) rootId=rootId classes="slim currency"}}
 
   {{!-- TABS --}}
   {{> "templates/generic/tab-navigation.hbs" tabs=inventoryTabs}}
