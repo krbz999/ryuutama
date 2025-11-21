@@ -76,3 +76,27 @@ ryuutama-icon {
   width: var(--input-height);
   pointer-events: none;
 }
+
+.ryuutama .form-group .form-fields:has(label > ryuutama-icon) {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+
+  label {
+    text-align: center;
+    white-space: nowrap;
+    display: grid;
+
+    &:has(+ input[type=radio]:not(:checked)) ryuutama-icon {
+      opacity: .25;
+    }
+
+    span {
+      overflow: hidden;
+    }
+  }
+
+  input[type=radio] {
+    display: none;
+  }
+}

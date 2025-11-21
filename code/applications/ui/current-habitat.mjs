@@ -95,20 +95,36 @@ export default class CurrentHabitat extends Application {
       return { value: k, label: `${v.label} (${v.difficulty})` };
     });
     const weatherOptions = Object.entries(ryuutama.config.weatherTypes).map(([k, v]) => {
-      return { value: k, label: `${v.label} (${v.modifier})` };
+      return { value: k, label: `${v.label} (${v.modifier})`, icon: v.icon, name: fields.weather.fieldPath };
     });
 
+    const id = foundry.utils.randomID();
+
     let habitat = await foundry.applications.api.Dialog.input({
-      content: [
+      classes: [ryuutama.id],
+      position: { width: 600 },
+      content: foundry.utils.parseHTML("<div>" + [
         fields.terrain.toFormGroup(
           { localize: true, classes: ["stacked"] },
           { value: current.terrain, type: "checkboxes", options: terrainOptions },
-        ),
-        fields.weather.toFormGroup(
-          { localize: true, classes: ["stacked"] },
-          { value: current.weather, type: "checkboxes", options: weatherOptions },
-        ),
-      ].map(field => field.outerHTML).join(""),
+        ).outerHTML,
+        // fields.weather.toFormGroup(
+        //   { localize: true, classes: ["stacked"] },
+        //   { value: current.weather, type: "checkboxes", options: weatherOptions },
+        // ),
+        `<div class="form-group stacked">
+          <label>${fields.weather.label}</label>
+          <div class="form-fields">
+          ${weatherOptions.map(o => `
+            <label for="weather-${id}-${o.value}">
+              <ryuutama-icon src="${o.icon}"></ryuutama-icon>
+              <span>${o.label}</span>
+            </label>
+            <input type="radio" name="${o.name}" value="${o.value}" id="weather-${id}-${o.value}" ${current.weather.has(o.value) ? "checked" : ""}>`,
+          ).join("")}
+          </div>
+        </div>`,
+      ].join("") + "</div>"),
       window: {
         title: "RYUUTAMA.SETTINGS.CURRENT_HABITAT.title",
       },
