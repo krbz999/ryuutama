@@ -169,7 +169,7 @@
       "name": "classes",
       "label": "RYUUTAMA.PACKS.CLASSES",
       "type": "Item",
-      "banner": ""
+      "banner": "systems/ryuutama/assets/official/banners/classes.webp"
     },
     {
       "name": "items",
