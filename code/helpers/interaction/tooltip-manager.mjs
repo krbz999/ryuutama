@@ -90,11 +90,19 @@ export default class RyuutamaTooltipManager extends foundry.helpers.interaction.
    * @param {foundry.abstract.Document} doc   The document.
    */
   async _onHoverDocument(doc) {
-    const content = await doc.system?.richTooltip?.();
+    let content = (doc.richTooltip instanceof Function)
+      ? doc.richTooltip()
+      : (doc.system?.richTooltip instanceof Function)
+        ? doc.system.richTooltip()
+        : null;
+    if (content === null) return;
+
+    content = await content;
     if (!content?.length) return;
+
     this.tooltip.replaceChildren(...content);
     this.tooltip.classList.add(ryuutama.id);
-    requestAnimationFrame(() => this._positionItemTooltip("UP"));
+    requestAnimationFrame(() => this._positionItemTooltip());
   }
 
   /* -------------------------------------------------- */
