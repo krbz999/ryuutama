@@ -197,9 +197,9 @@ export default class Enrichers {
   /**
    * Enrich a reference enricher.
    * @param {RegExpMatchArray} match
-   * @returns {HTMLAnchorElement|null}
+   * @returns {Promise<HTMLAnchorElement|null>}
    */
-  static enrichReference(match) {
+  static async enrichReference(match) {
     let { config } = match.groups;
     config = Enrichers.parseconfig(config);
 
@@ -210,9 +210,11 @@ export default class Enrichers {
     }
 
     const uuid = ryuutama.config.references[config.id];
+    const page = await fromUuid(uuid);
+    if (!page || (page.type !== "reference")) return null;
     const anchor = document.createElement("A");
     anchor.classList.add(ryuutama.id, "enricher");
-    anchor.innerHTML = fromUuidSync(uuid).name;
+    anchor.innerHTML = page.name;
     anchor.dataset.referenceId = config.id;
     anchor.dataset.tooltipHtml = game.tooltip.constructor.constructHTML({ uuid });
     return anchor;
