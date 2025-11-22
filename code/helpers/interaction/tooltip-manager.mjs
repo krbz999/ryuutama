@@ -13,6 +13,7 @@ export default class RyuutamaTooltipManager extends foundry.helpers.interaction.
   /**
    * Helper handlebars helper to create a `data-tooltip-html` property.
    * @example <div data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}"></div>
+   * @example <div data-tooltip-html="{{ryuutama-tooltip identifier='checks'}}"></div>
    * @param {object} options
    * @returns {string}
    */
@@ -28,8 +29,13 @@ export default class RyuutamaTooltipManager extends foundry.helpers.interaction.
    * @returns {string}
    */
   static constructHTML(options) {
+    const uuid = options.uuid
+      ? options.uuid
+      : ryuutama.config.references[options.identifier];
+    if (!uuid) return "";
+
     return `<section>
-      <i class="fa-solid fa-spinner fa-spin-pulse loading" data-uuid="${options.uuid}"></i>
+      <i class="fa-solid fa-spinner fa-spin-pulse loading" data-uuid="${uuid}"></i>
     </section>`;
   }
 
