@@ -67,6 +67,10 @@
       "staffPl": "Staffs",
       "weapon": "Weapon",
       "weaponPl": "Weapons"
+    },
+    "JournalEntryPage": {
+      "reference": "Reference",
+      "referencePl": "References"
     }
   },
   "RYUUTAMA": {

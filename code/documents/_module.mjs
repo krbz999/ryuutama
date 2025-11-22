@@ -5,6 +5,7 @@ export { default as RyuutamaCombat } from "./combat.mjs";
 export { default as RyuutamaCombatant } from "./combatant.mjs";
 export { default as RyuutamaCombatantGroup } from "./combatant-group.mjs";
 export { default as RyuutamaItem } from "./item.mjs";
+export { default as RyuutamaJournalEntryPage } from "./journal-entry-page.mjs";
 export { default as RyuutamaScene } from "./scene.mjs";
 export { default as RyuutamaTokenDocument } from "./token.mjs";
 

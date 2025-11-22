@@ -344,6 +344,14 @@ Prelocalization.prelocalize(monsterCategories);
 /* -------------------------------------------------- */
 
 /**
+ * Reference object, identifiers and uuids of pages.
+ * @type {Record<string, string>}
+ */
+export const references = {};
+
+/* -------------------------------------------------- */
+
+/**
  * @type {Record<string, SeasonConfig>}
  */
 export const seasons = {
