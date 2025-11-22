@@ -69,6 +69,9 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels.staff = data.item.StaffData;
   CONFIG.Item.dataModels.weapon = data.item.WeaponData;
 
+  CONFIG.JournalEntryPage.documentClass = documents.RyuutamaJournalEntryPage;
+  CONFIG.JournalEntryPage.dataModels.reference = data.journalEntryPage.ReferenceData;
+
   CONFIG.Scene.documentClass = documents.RyuutamaScene;
 
   CONFIG.Token.documentClass = documents.RyuutamaTokenDocument;
@@ -105,6 +108,10 @@ Hooks.once("init", () => {
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Actor, ryuutama.id, applications.sheets.RyuutamaMonsterSheet,
     { label: "RYUUTAMA.SHEETS.MonsterSheet", makeDefault: true, types: ["monster"] },
+  );
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.JournalEntryPage, ryuutama.id, foundry.applications.sheets.journal.JournalEntryPageProseMirrorSheet,
+    { makeDefault: true, types: ["reference"] },
   );
 
   // Register status effects.
