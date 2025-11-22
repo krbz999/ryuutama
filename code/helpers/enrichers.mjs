@@ -6,6 +6,7 @@ export default class Enrichers {
   static PATTERNS = {
     status: /\[\[\/status (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
     check: /\[\[\/check (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
+    reference: /\[\[reference (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
   };
 
   /* -------------------------------------------------- */
@@ -64,6 +65,14 @@ export default class Enrichers {
           // TODO: request roll.
         });
       },
+    });
+
+    // Display a rules reference.
+    enrichers.push({
+      id: "reference",
+      pattern: this.PATTERNS.reference,
+      enricher: this.enrichReference,
+      onRender: element => {},
     });
   }
 
@@ -181,5 +190,31 @@ export default class Enrichers {
     wrapper.innerHTML = elements.map(element => element.outerHTML).join("");
 
     return wrapper;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Enrich a reference enricher.
+   * @param {RegExpMatchArray} match
+   * @returns {HTMLAnchorElement|null}
+   */
+  static enrichReference(match) {
+    let { config } = match.groups;
+    config = Enrichers.parseconfig(config);
+
+    if (!("id" in config)) {
+      const id = config.values.find(k => k in ryuutama.config.references);
+      if (!id) return null;
+      config.id = id;
+    }
+
+    const uuid = ryuutama.config.references[config.id];
+    const anchor = document.createElement("A");
+    anchor.classList.add(ryuutama.id, "enricher");
+    anchor.innerHTML = fromUuidSync(uuid).name;
+    anchor.dataset.referenceId = config.id;
+    anchor.dataset.tooltipHtml = game.tooltip.constructor.constructHTML({ uuid });
+    return anchor;
   }
 }
