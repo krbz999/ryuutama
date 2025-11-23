@@ -576,6 +576,10 @@
         "img.label": "Image Path"
       },
 
+      "ACTION": {
+        "warningNoApplicableEffects": "The spell does not have any effects configured to be applied to targets."
+      },
+
       "ADVANCEMENT": {
         "FIELDS": {},
         "configureTitle": "Configure {name}",
@@ -692,7 +696,10 @@
       "situationalBonus": "Situational Bonus",
       "title": "Configure {type}: {name}",
       "unmasteredWeaponHint": "An accuracy check with an unmastered weapon costs 1 HP.",
-      "weaponBroken": "{weapon} (Broken)"
+      "weaponBroken": "{weapon} (Broken)",
+      "magicConsumeMental": "Consume MP",
+      "magicConsumeMentalHint": "The spell requires {mp} MP to cast.",
+      "magic": "Magic"
     },
 
     "SETTINGS": {
