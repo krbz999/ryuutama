@@ -2,7 +2,6 @@ import Action from "./action.mjs";
 
 /**
  * @import RyuutamaActiveEffect from "../../documents/active-effect.mjs";
- * @import RyuutamaChatMessage from "../../documents/chat-message.mjs";
  */
 
 const { NumberField, SchemaField, SetField, StringField, TypedObjectField } = foundry.data.fields;
@@ -38,16 +37,19 @@ export default class EffectAction extends Action {
 
   /* -------------------------------------------------- */
 
-  /**
-   * Use this action.
-   * @returns {Promise<RyuutamaChatMessage>}
-   */
+  /** @override */
   async use() {
+    const effects = this.applicableEffects;
+    if (!effects.length) {
+      console.warn("RYUUTAMA.PSEUDO.ACTION.warningNoApplicableEffects", { localize: true });
+      return null;
+    }
+
     const Cls = getDocumentClass("ChatMessage");
     return Cls.create({
       type: "effect",
       speaker: Cls.getSpeaker({ actor: this.actor }),
-      "system.effects": this.applicableEffects.map(e => e.uuid),
+      "system.effects": effects.map(e => e.uuid),
     });
   }
 }

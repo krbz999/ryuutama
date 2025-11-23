@@ -1,5 +1,6 @@
 /**
  * @import RyuutamaActor from "../../documents/actor.mjs";
+ * @import RyuutamaChatMessage from "../../documents/chat-message.mjs";
  * @import RyuutamaItem from "../../documents/item.mjs";
  */
 
@@ -34,6 +35,7 @@ export default class Action extends foundry.abstract.DataModel {
    */
   static get TYPES() {
     return Action.#TYPES ??= Object.freeze({
+      [ryuutama.data.action.DamageAction.TYPE]: ryuutama.data.action.DamageAction,
       [ryuutama.data.action.EffectAction.TYPE]: ryuutama.data.action.EffectAction,
     });
   }
@@ -82,5 +84,15 @@ export default class Action extends foundry.abstract.DataModel {
    */
   get actor() {
     return this.item.actor;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Use this action.
+   * @returns {Promise<RyuutamaChatMessage>}
+   */
+  async use() {
+    throw new Error("The 'use' method of Action must be overridden.");
   }
 }

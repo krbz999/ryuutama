@@ -139,6 +139,11 @@ export default class SpellData extends BaseData {
   async use() {
     const action = this.action;
     if (!action) throw new Error("A spell without a configured action cannot be used.");
+
+    const item = this.parent;
+    const magicCheck = await this.parent.actor.system.rollCheck({ type: "magic", magic: { item } });
+    if (!magicCheck) return null;
+
     return action.use();
   }
 }
