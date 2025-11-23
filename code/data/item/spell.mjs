@@ -1,6 +1,6 @@
 import BaseData from "./templates/base.mjs";
 
-const { NumberField, SchemaField, StringField } = foundry.data.fields;
+const { NumberField, SchemaField, StringField, TypedSchemaField } = foundry.data.fields;
 
 /**
  * @typedef SpellData
@@ -31,6 +31,7 @@ export default class SpellData extends BaseData {
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
+      action: new TypedSchemaField(ryuutama.data.action.Action.TYPES, { nullable: true, initial: null, required: true }),
       category: new SchemaField({
         value: new StringField({
           required: true, initial: "incantation",
@@ -127,5 +128,17 @@ export default class SpellData extends BaseData {
     context.spell.magicOptions = Object.entries(ryuutama.config.spellCategories).map(([k, v]) => {
       return { value: k, label: v.label, group: k === "incantation" ? undefined : seasonal };
     });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Use the spell.
+   * @returns {Promise}
+   */
+  async use() {
+    const action = this.action;
+    if (!action) throw new Error("A spell without a configured action cannot be used.");
+    return action.use();
   }
 }
