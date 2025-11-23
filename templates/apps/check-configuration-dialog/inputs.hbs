@@ -78,4 +78,17 @@
     <p class="hint">{{localize "RYUUTAMA.ROLL.conditionRemoveStatusesHint"}}</p>
   </div>
   {{/if}}
+
+  {{#if showMagic}}
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ROLL.magic"}}</legend>
+    <div class="form-group slim">
+      <label for="{{partId}}-magic.consumeMental">{{localize "RYUUTAMA.ROLL.magicConsumeMental"}}</label>
+      <div class="form-fields">
+        <input type="checkbox" name="magic.consumeMental" id="{{partId}}-magic.consumeMental" {{checked configurations.rollConfig.magic.consumeMental}}>
+      </div>
+      <p class="hint">{{localize "RYUUTAMA.ROLL.magicConsumeMentalHint" mp=magicCost}}</p>
+    </div>
+  </fieldset>
+  {{/if}}
 </form>
