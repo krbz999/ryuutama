@@ -70,7 +70,8 @@
 
 /**
  * @typedef MonsterCategoryConfig
- * @property {string} label   Human-readable label.
+ * @property {string} label                             Human-readable label.
+ * @property {"body"|"mind"|"all"} [statusImmunities]   The type of status effects the monster type is always immune to.
  */
 
 /* -------------------------------------------------- */

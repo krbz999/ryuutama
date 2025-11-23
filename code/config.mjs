@@ -319,6 +319,7 @@ Prelocalization.prelocalize(itemSizes);
 export const monsterCategories = {
   demonstone: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.demonstone",
+    statusImmunities: "body",
   },
   demon: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.demon",
@@ -328,6 +329,7 @@ export const monsterCategories = {
   },
   magical: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.magical",
+    statusImmunities: "mind",
   },
   phantomBeast: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.phantomBeast",
@@ -337,6 +339,7 @@ export const monsterCategories = {
   },
   undead: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.undead",
+    statusImmunities: "all",
   },
 };
 Prelocalization.prelocalize(monsterCategories);

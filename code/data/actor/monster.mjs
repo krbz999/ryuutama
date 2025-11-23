@@ -79,6 +79,21 @@ export default class MonsterData extends CreatureData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  prepareBaseData() {
+    // Apply status immunities prior to super call.
+    const imm = ryuutama.config.monsterCategories[this.details.category]?.statusImmunities;
+    if (imm) {
+      for (const [statusId, { category }] of Object.entries(ryuutama.config.statusEffects)) {
+        if (["all", category].includes(imm)) this.condition.immunities.add(statusId);
+      }
+    }
+
+    super.prepareBaseData();
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
     this.#prepareAttack();
