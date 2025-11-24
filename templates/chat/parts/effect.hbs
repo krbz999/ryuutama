@@ -1,3 +1,7 @@
+{{#if part.flavor}}
+<span class="flavor">{{part.flavor}}</span>
+{{/if}}
+
 <section class="effect-list">
   {{#each ctx.effects}}
   <span class="effect" data-effect-uuid="{{effect.uuid}}">
@@ -7,6 +11,7 @@
   </span>
   {{/each}}
 </section>
+
 <section>
   <effect-tray></effect-tray>
   <button type="button" data-action="applyEffects">

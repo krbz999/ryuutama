@@ -1,9 +1,10 @@
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
- * @import CheckRoll from "../../../dice/check-roll.mjs";
  * @import { DamageConfiguration } from "./_types.mjs";
- * @import RyuutamaActor from "../../../documents/actor.mjs";
  * @import BaseRoll from "../../../dice/base-roll.mjs";
+ * @import CheckRoll from "../../../dice/check-roll.mjs";
+ * @import RyuutamaActor from "../../../documents/actor.mjs";
+ * @import RyuutamaChatMessage from "../../../documents/chat-message.mjs";
  */
 
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
@@ -222,19 +223,38 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     if (consumed === false) return null;
 
     if (messageConfig.create !== false) {
-      messageConfig.data ??= {};
-      messageConfig.data.flavor ??= game.i18n.format(
-        `RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`,
-        {
-          type: game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`),
-          abilities: game.i18n
-            .getListFormatter()
-            .format(rollConfig.abilities?.map(abi => ryuutama.config.abilityScores[abi].label) ?? []),
-        }),
-      roll.toMessage(messageConfig.data);
+      await this._createCheckMessage(roll, rollConfig, dialogConfig, messageConfig);
     }
 
     return roll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Create the full message for the check.
+   * @param {CheckRoll} roll    The evaluated check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<RyuutamaChatMessage>}
+   */
+  async _createCheckMessage(roll, rollConfig, dialogConfig, messageConfig) {
+    const type = game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
+    const abilities = game.i18n
+      .getListFormatter()
+      .format(rollConfig.abilities?.map(abi => ryuutama.config.abilityScores[abi].label) ?? []);
+    const flavor = game.i18n.format(`RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`, {
+      type, abilities,
+    });
+
+    const messageData = foundry.utils.mergeObject({
+      flavor,
+      type: "standard",
+      speaker: getDocumentClass("ChatMessage").getSpeaker({ actor: this.parent }),
+    }, messageConfig.data ?? {}, { overwrite: false });
+
+    return roll.toMessage(messageData);
   }
 
   /* -------------------------------------------------- */
@@ -251,9 +271,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
     let roll = { condition: {}, concentration: {}, critical: {} };
     let dialog = { configure: true };
-    let message = { create: true, data: {
-      speaker: getDocumentClass("ChatMessage").getSpeaker({ actor: this.parent }),
-    } };
+    let message = { create: true };
 
     switch (rollConfig.type) {
       case "journey":
@@ -272,7 +290,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         break;
 
       case "damage": {
-        message.data.type = "damage";
         switch (this.parent.type) {
           case "traveler": {
             const w = this.equipped.weapon;

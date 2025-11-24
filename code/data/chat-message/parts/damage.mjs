@@ -26,13 +26,6 @@ export default class DamagePart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
-  static defineSchema() {
-    return Object.assign(super.defineSchema(), {});
-  }
-
-  /* -------------------------------------------------- */
-
   /**
    * The damage configs that will be applies by this message part.
    * @type {DamageConfiguration[]}
@@ -49,21 +42,6 @@ export default class DamagePart extends MessagePart {
         },
       };
     });
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _prepareContext(context) {
-    await super._prepareContext(context);
-    context.ctx.rolls = await Promise.all(this.rolls.map(roll => roll.render()));
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  _addListeners(html, context) {
-    super._addListeners(html, context);
   }
 
   /* -------------------------------------------------- */

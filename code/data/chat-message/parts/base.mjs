@@ -28,6 +28,7 @@ export default class MessagePart extends foundry.abstract.DataModel {
         validationError: `must be equal to "${this.TYPE}"`,
       }),
       rolls: new ArrayField(new JSONField()),
+      flavor: new StringField({ required: true }),
     };
   }
 
@@ -39,6 +40,7 @@ export default class MessagePart extends foundry.abstract.DataModel {
    */
   static get TYPES() {
     return this.#TYPES ??= Object.freeze({
+      [ryuutama.data.message.parts.CheckPart.TYPE]: ryuutama.data.message.parts.CheckPart,
       [ryuutama.data.message.parts.DamagePart.TYPE]: ryuutama.data.message.parts.DamagePart,
       [ryuutama.data.message.parts.EffectPart.TYPE]: ryuutama.data.message.parts.EffectPart,
     });
@@ -88,6 +90,7 @@ export default class MessagePart extends foundry.abstract.DataModel {
    */
   async _prepareContext(context) {
     context.ctx = {};
+    context.ctx.rolls = await Promise.all(this.rolls.map(roll => roll.render()));
   }
 
   /* -------------------------------------------------- */
