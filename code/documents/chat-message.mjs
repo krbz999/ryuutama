@@ -1,7 +1,13 @@
 export default class RyuutamaChatMessage extends foundry.documents.ChatMessage {
   /** @inheritdoc */
+  get isRoll() {
+    return this.system.isRoll ?? super.isRoll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   get visible() {
-    const system = this.system.visible ?? true;
-    return system && super.visible;
+    return (this.system.visible ?? true) && super.visible;
   }
 }

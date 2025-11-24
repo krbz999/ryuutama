@@ -63,11 +63,19 @@ export default class DamageTray extends HTMLElement {
   #createActor(actor) {
     if (!["traveler", "monster"].includes(actor.type)) return;
 
+    let damages;
+    if (this.#message.type === "damage") damages = this.#message.system.damages;
+    else if (this.#message.type === "standard") {
+      const partId = this.closest("[data-message-part]").dataset.messagePart;
+      damages = this.#message.system.parts[partId].damages;
+    }
+    if (!damages) return;
+
     const htmlString = `
     <div data-actor-uuid="${actor.uuid}">
       <img src="${actor.img}" alt="${actor.name}">
       <span>${actor.name}</span>
-      <span>${actor.system.calculateDamage(this.#message.system.damages)}</span>
+      <span>${actor.system.calculateDamage(damages)}</span>
     </div>`;
 
     return foundry.utils.parseHTML(htmlString);
