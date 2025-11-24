@@ -63,6 +63,7 @@ export default class DamageTray extends HTMLElement {
   #createActor(actor) {
     if (!["traveler", "monster"].includes(actor.type)) return;
 
+    // TODO: Simplify once 'damage' messages are removed.
     let damages;
     if (this.#message.type === "damage") damages = this.#message.system.damages;
     else if (this.#message.type === "standard") {
