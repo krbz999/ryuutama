@@ -83,7 +83,7 @@ export default class Enrichers {
    * @param {string} match
    * @returns {object}
    */
-  static parseconfig(match) {
+  static parseConfig(match) {
     const config = { _config: match, values: [] };
     for (const part of match.match(/(?:[^\s"]+|"[^"]*")+/g) ?? []) {
       if (!part) continue;
@@ -108,7 +108,7 @@ export default class Enrichers {
    */
   static enrichStatus(match) {
     let { config, label } = match.groups;
-    config = Enrichers.parseconfig(config);
+    config = Enrichers.parseConfig(config);
 
     if (!("id" in config)) {
       const id = config.values.find(k => k in ryuutama.config.statusEffects);
@@ -139,7 +139,7 @@ export default class Enrichers {
    */
   static enrichCheck(match) {
     let { config, label } = match.groups;
-    config = Enrichers.parseconfig(config);
+    config = Enrichers.parseConfig(config);
 
     if (!("type" in config)) {
       const type = config.values.find(k => k in ryuutama.config.checkTypes);
@@ -201,7 +201,7 @@ export default class Enrichers {
    */
   static async enrichReference(match) {
     let { config } = match.groups;
-    config = Enrichers.parseconfig(config);
+    config = Enrichers.parseConfig(config);
 
     if (!("id" in config)) {
       const id = config.values.find(k => k in ryuutama.config.references);
