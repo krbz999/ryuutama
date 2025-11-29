@@ -2,7 +2,7 @@
   "id": "ryuutama",
   "title": "Ryuutama",
   "description": "A Foundry VTT implementation of the Ryuutama Natural Fantasy RPG.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "compatibility": {
     "minimum": "13.350",
     "verified": "13",
@@ -82,7 +82,8 @@
     },
     "ChatMessage": {
       "damage": {},
-      "effect": {}
+      "effect": {},
+      "standard": {}
     },
     "Item": {
       "accessory": {
@@ -101,6 +102,11 @@
         ]
       },
       "cape": {
+        "htmlFields": [
+          "description.value"
+        ]
+      },
+      "class": {
         "htmlFields": [
           "description.value"
         ]
@@ -151,6 +157,9 @@
           "description.value"
         ]
       }
+    },
+    "JournalEntryPage": {
+      "reference": {}
     }
   },
   "packs": [
@@ -164,7 +173,7 @@
       "name": "classes",
       "label": "RYUUTAMA.PACKS.CLASSES",
       "type": "Item",
-      "banner": ""
+      "banner": "systems/ryuutama/assets/official/banners/classes.webp"
     },
     {
       "name": "items",

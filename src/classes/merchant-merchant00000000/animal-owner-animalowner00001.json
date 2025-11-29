@@ -1,0 +1,31 @@
+{
+  "name": "Animal Owner",
+  "_id": "animalowner00001",
+  "type": "skill",
+  "system": {
+    "description": {
+      "value": "<p>You have learned how to raise animals that will help you carry your goods. Normally, only one animal can be taken on a Journey for free (without paying their daily food and water costs). With this skill, you can keep more animals without incurring their food and water costs. The animal rules are explained in detail in the Items section.</p>\n<p><strong>Skill Effect:</strong> You can keep 2 more animals for a total of 3 without paying for their food and water.</p>\n<p><strong>Usable Circumstances:</strong> -</p>\n<p><strong>Stat Used:</strong> -</p>\n<p><strong>TN:</strong> -</p>"
+    },
+    "identifier": "animal-owner"
+  },
+  "img": "icons/svg/item-bag.svg",
+  "effects": [],
+  "folder": "merchant00000000",
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "ryuutama",
+    "systemVersion": "1.1.0",
+    "createdTime": 1760283856017,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000"
+  },
+  "_key": "!items!animalowner00001"
+}

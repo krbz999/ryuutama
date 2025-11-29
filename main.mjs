@@ -48,6 +48,7 @@ Hooks.once("init", () => {
   CONFIG.ChatMessage.documentClass = documents.RyuutamaChatMessage;
   CONFIG.ChatMessage.dataModels.damage = data.message.DamageData;
   CONFIG.ChatMessage.dataModels.effect = data.message.EffectData;
+  CONFIG.ChatMessage.dataModels.standard = data.message.StandardData;
 
   CONFIG.Combat.documentClass = documents.RyuutamaCombat;
   CONFIG.Combatant.documentClass = documents.RyuutamaCombatant;
@@ -58,6 +59,7 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels.animal = data.item.AnimalData;
   CONFIG.Item.dataModels.armor = data.item.ArmorData;
   CONFIG.Item.dataModels.cape = data.item.CapeData;
+  CONFIG.Item.dataModels.class = data.item.ClassData;
   CONFIG.Item.dataModels.container = data.item.ContainerData;
   CONFIG.Item.dataModels.hat = data.item.HatData;
   CONFIG.Item.dataModels.herb = data.item.HerbData;
@@ -68,6 +70,9 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels.staff = data.item.StaffData;
   CONFIG.Item.dataModels.weapon = data.item.WeaponData;
 
+  CONFIG.JournalEntryPage.documentClass = documents.RyuutamaJournalEntryPage;
+  CONFIG.JournalEntryPage.dataModels.reference = data.journalEntryPage.ReferenceData;
+
   CONFIG.Scene.documentClass = documents.RyuutamaScene;
 
   CONFIG.Token.documentClass = documents.RyuutamaTokenDocument;
@@ -77,7 +82,7 @@ Hooks.once("init", () => {
 
   CONFIG.ui.actors = applications.sidebar.tabs.RyuutamaActorDirectory;
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
-  CONFIG.ui.habitat = applications.apps.CurrentHabitat;
+  CONFIG.ui.habitat = applications.ui.CurrentHabitat;
   CONFIG.ui.pause = applications.ui.RyuutamaGamePause;
 
   CONFIG.ux.TooltipManager = helpers.interaction.RyuutamaTooltipManager;
@@ -85,7 +90,9 @@ Hooks.once("init", () => {
   // Assign rolls.
   CONFIG.Dice.rolls.unshift(dice.DamageRoll);
   CONFIG.Dice.rolls.unshift(dice.CheckRoll);
+  CONFIG.Dice.rolls.unshift(dice.BaseRoll);
   Object.assign(CONFIG.Dice, {
+    BaseRoll: dice.BaseRoll,
     CheckRoll: dice.CheckRoll,
     DamageRoll: dice.DamageRoll,
   });
@@ -102,6 +109,10 @@ Hooks.once("init", () => {
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Actor, ryuutama.id, applications.sheets.RyuutamaMonsterSheet,
     { label: "RYUUTAMA.SHEETS.MonsterSheet", makeDefault: true, types: ["monster"] },
+  );
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.JournalEntryPage, ryuutama.id, foundry.applications.sheets.journal.JournalEntryPageProseMirrorSheet,
+    { makeDefault: true, types: ["reference"] },
   );
 
   // Register status effects.
@@ -148,6 +159,7 @@ Hooks.once("ready", () => {
 
     // ITEM PARTIALS
     "item-animal": "systems/ryuutama/templates/sheets/item-sheet/animal.hbs",
+    "item-class": "systems/ryuutama/templates/sheets/item-sheet/class.hbs",
     "item-container": "systems/ryuutama/templates/sheets/item-sheet/container.hbs",
     "item-defense": "systems/ryuutama/templates/sheets/item-sheet/defense.hbs",
     "item-gear": "systems/ryuutama/templates/sheets/item-sheet/gear.hbs",
@@ -163,5 +175,5 @@ Hooks.once("ready", () => {
 /* -------------------------------------------------- */
 
 Hooks.once("renderPlayers", () => {
-  if (game.user.isGM) ui.habitat.render({ force: true });
+  ui.habitat.render({ force: true });
 });

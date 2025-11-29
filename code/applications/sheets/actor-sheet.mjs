@@ -150,6 +150,13 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       ".document-listing .document-list .entry[data-document-name=ActiveEffect]",
       { hookName: "Get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
     );
+
+    // Tags.
+    this._createContextMenu(
+      RyuutamaActorSheet.#createTagContextOptions.bind(this),
+      ".tags .tag.traveler-classes",
+      { hookName: "Get{}TagContextOptions", parentClassHooks: false, fixed: true },
+    );
   }
 
   /* -------------------------------------------------- */
@@ -314,6 +321,29 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
+   * Create context menu options for tags.
+   * @this RyuutamaActorSheet
+   * @returns {ContextMenuEntry[]}
+   */
+  static #createTagContextOptions() {
+    /** @type {ContextMenuEntry[]} */
+    const options = [];
+
+    for (const cls of this.document.items.documentsByType.class) {
+      options.push({
+        name: game.i18n.format("RYUUTAMA.ACTOR.CONTEXT.MISC.classTag", { name: cls.name }),
+        icon: "fa-solid fa-fw fa-landmark",
+        callback: () => cls.sheet.render({ force: true }),
+      });
+    }
+
+    if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));
+    return options;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * @this RyuutamaActorSheet
    * @param {string} selector   The css selector on which the drag event is targeted.
    * @returns {boolean}         Whether the user may initiate a drag event from this element.
@@ -423,7 +453,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    */
   static #rollCheck(event, target) {
     const type = target.dataset.check;
-    this.document.system.rollCheck({ type });
+    const configure = !event.shiftKey;
+    this.document.system.rollCheck({ type }, { configure });
   }
 
   /* -------------------------------------------------- */

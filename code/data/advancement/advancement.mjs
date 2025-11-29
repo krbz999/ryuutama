@@ -27,6 +27,7 @@ export default class Advancement extends PseudoDocument {
   /** @override */
   static get documentConfig() {
     return {
+      [ryuutama.data.advancement.ClassAdvancement.TYPE]: ryuutama.data.advancement.ClassAdvancement,
       [ryuutama.data.advancement.HabitatAdvancement.TYPE]: ryuutama.data.advancement.HabitatAdvancement,
       [ryuutama.data.advancement.ResourceAdvancement.TYPE]: ryuutama.data.advancement.ResourceAdvancement,
       [ryuutama.data.advancement.StatIncreaseAdvancement.TYPE]: ryuutama.data.advancement.StatIncreaseAdvancement,
@@ -57,12 +58,40 @@ export default class Advancement extends PseudoDocument {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  get document() {
+    // If constructed as part of advancement, the document is the direct parent.
+    if (this.isEphemeral) return this.parent;
+    return super.document;
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Is this advancement fully configured?
    * @type {boolean}
    */
   get isConfigured() {
     return true;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _configure(options = {}) {
+    super._configure(options);
+    Object.defineProperties(this, {
+      isEphemeral: {
+        value: options.isEphemeral ?? false,
+        writable: false,
+        enumerable: false,
+      },
+      chain: {
+        value: options.chain ?? null,
+        writable: false,
+        enumerable: false,
+      },
+    });
   }
 
   /* -------------------------------------------------- */
@@ -77,7 +106,7 @@ export default class Advancement extends PseudoDocument {
     context.fields = this.schema.fields;
     context.advancement = this;
     context.title = game.i18n.format("RYUUTAMA.PSEUDO.ADVANCEMENT.configureTitle", {
-      name: game.i18n.localize(`TYPES.Advancement.${this.constructor.TYPE}`),
+      name: game.i18n.localize(`TYPES.Advancement.${this.type}`),
     });
   }
 
@@ -86,10 +115,10 @@ export default class Advancement extends PseudoDocument {
   /**
    * Determine the result of this advancement.
    * @param {RyuutamaActor} actor   The actor advancing.
-   * @returns {{ type: "actor"|"advancement", result: object|Advancement }}
+   * @returns {Promise<{ type: "actor"|"advancement"|"items", result: object|object[]|Advancement }[]>}
    */
-  _getAdvancementResult(actor) {
-    return { type: "advancement", result: this };
+  async _getAdvancementResults(actor) {
+    return [{ type: "advancement", result: this }];
   }
 
   /* -------------------------------------------------- */
@@ -97,9 +126,9 @@ export default class Advancement extends PseudoDocument {
   /**
    * Return advancement types that should be available choices
    * depending on this advancement's current configuration.
-   * @returns {Promise<string[]>}
+   * @returns {Promise<Set<string>>}
    */
   async _getChildTypes() {
-    return [];
+    return new Set();
   }
 }

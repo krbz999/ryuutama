@@ -8,7 +8,12 @@ export default class WeaponData extends PhysicalData {
     return Object.assign(super.defineSchema(), {
       accuracy: new SchemaField({
         abilities: new ArrayField(
-          new StringField({ required: true, blank: true, choices: () => ryuutama.config.abilityScores }),
+          new StringField({
+            required: true,
+            blank: false,
+            initial: "strength",
+            choices: () => ryuutama.config.abilityScores,
+          }),
           { min: 2, max: 2, initial: ["strength", "strength"] },
         ),
         bonus: new NumberField({ nullable: true, integer: true, initial: null }),

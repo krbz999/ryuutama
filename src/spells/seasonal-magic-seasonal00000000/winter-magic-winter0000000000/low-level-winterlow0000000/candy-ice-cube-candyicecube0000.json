@@ -1,5 +1,5 @@
 {
-  "name": "Cancy Ice Cube",
+  "name": "Candy Ice Cube",
   "system": {
     "category": {
       "value": "winter"
@@ -27,7 +27,7 @@
       "effects": {}
     }
   },
-  "_id": "cancyicecube0000",
+  "_id": "candyicecube0000",
   "type": "spell",
   "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
   "effects": [],
@@ -48,5 +48,5 @@
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
-  "_key": "!items!cancyicecube0000"
+  "_key": "!items!candyicecube0000"
 }

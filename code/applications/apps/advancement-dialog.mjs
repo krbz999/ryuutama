@@ -276,7 +276,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
    * Submit the form.
    * @this AdvancementDialog
    */
-  static #onSubmit() {
+  static async #onSubmit() {
     if (!this.chain.isConfigured) {
       this.#config = null;
       return;
@@ -285,8 +285,8 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     this.#config = [];
     for (const nodes of this.chain.nodes.values()) {
       for (const node of nodes) {
-        const result = node.advancement._getAdvancementResult(this.actor);
-        this.#config.push(result);
+        const results = await node.advancement._getAdvancementResults(this.actor);
+        this.#config.push(...results);
       }
     }
   }

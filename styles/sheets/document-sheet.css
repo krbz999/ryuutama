@@ -2,56 +2,69 @@
   .document-listing {
 
     h4 {
-      font-size: 18px;
+      font-size: 16px;
       font-family: Amiri;
       font-weight: normal;
+      background-color: var(--ryuutama-color-document-list-header);
+      padding: 0.25em 1em;
+      border-radius: 5px 5px 1px 1px;
+      margin: 4px 0;
     }
 
     .document-list {
       display: flex;
       flex-wrap: wrap;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 4px;
 
       .entry {
-        height: 42px;
-        flex: 0 0 100%;
+        --height: 35px;
+        height: calc(var(--height) + 2px);
         display: grid;
-        grid-template-columns: 40px 1fr 0fr;
+        grid-template-columns: var(--height) 1fr 0fr;
         transition: background-color 150ms ease;
         padding: 1px;
         align-items: center;
+        flex: 0 0 100%;
 
         img {
-          height: 40px;
+          height: var(--height);
+        }
+
+        .center {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 0 1em;
+
+          .title {
+            font-size: 14px;
+            text-align: center;
+          }
         }
 
         .attribute {
           text-align: center;
           display: flex;
           flex-direction: column;
-          width: 75px;
+          align-items: center;
 
           .values {
             white-space: nowrap;
-            display: grid;
-            grid-template-columns: 1fr 0fr 1fr;
+            display: flex;
             align-items: center;
             align-content: center;
 
             input {
               text-align: center;
               background: inherit;
+              border: none;
+            }
+
+            .delta, .max {
+              flex: 0 0 25px;
             }
           }
-        }
-
-        .controls a {
-          flex: 1;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          aspect-ratio: 1 / 2;
         }
 
         &.inactive {
@@ -64,16 +77,6 @@
 
         &:hover {
           background-color: var(--ryuutama-document-list-hover-color);
-        }
-      }
-
-      &.tiles {
-        .entry {
-          flex: 0 0 42px;
-
-          .attribute, .controls {
-            display: none;
-          }
         }
       }
     }

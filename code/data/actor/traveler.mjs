@@ -124,6 +124,7 @@ export default class TravelerData extends CreatureData {
   prepareBaseData() {
     super.prepareBaseData();
     this.capacity = { bonus: 0 };
+    this.classes = Object.fromEntries(this.parent.items.documentsByType.class.map(cls => [cls.identifier, cls]));
     this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
     this.magic = { seasons: new Set() };
     this.mastered = {
@@ -268,15 +269,16 @@ export default class TravelerData extends CreatureData {
       const resource = this.resources[key];
       const src = this._source.resources[key];
 
-      const advancementBonus = this.advancements.documentsByType.resource
+      resource.typeBonus = typeBonus;
+      resource.advancement = this.advancements.documentsByType.resource
         .reduce((acc, advancement) => acc + advancement.choice.chosen[key], 0);
 
       resource.max = src.max
         + resource.bonuses.flat
         + resource.gear
         + resource.bonuses.level * this.details.level
-        + typeBonus
-        + advancementBonus;
+        + resource.typeBonus
+        + resource.advancement;
       resource.spent = allowNegative ? resource.spent : Math.min(resource.spent, resource.max);
       resource.value = resource.max - resource.spent;
 
@@ -372,26 +374,28 @@ export default class TravelerData extends CreatureData {
 
     const actorUpdate = {};
     const itemData = [];
+    const itemUpdates = [];
     for (const { result, type } of results) {
       switch (type) {
         case "advancement":
-          await ryuutama.data.advancement.Advancement.create(result.toObject(), { parent: actor });
+          await ryuutama.data.advancement.Advancement.create(result.toObject(), { parent: actor, advancement: true });
           break;
         case "actor":
           foundry.utils.mergeObject(actorUpdate, result);
           break;
         case "items":
-          for (const item of result) {
-            const keepId = !actor.items.has(item.id);
-            itemData.push(game.items.fromCompendium(item, { keepId }));
-          }
+          itemData.push(...result);
+          break;
+        case "itemUpdates":
+          itemUpdates.push(...result);
           break;
       }
     }
 
     foundry.utils.setProperty(actorUpdate, "system.details.level", level + 1);
-    await actor.update(actorUpdate);
-    await actor.createEmbeddedDocuments("Item", itemData, { keepId: true });
+    await actor.update(actorUpdate, { advancement: true });
+    await actor.createEmbeddedDocuments("Item", itemData, { keepId: true, advancement: true });
+    await actor.updateEmbeddedDocuments("Item", itemUpdates, { advancement: true });
 
     delete actor._advancing;
     return actor;

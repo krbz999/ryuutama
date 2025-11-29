@@ -250,14 +250,16 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
     const options = Object.keys(this.documentConfig).map(type => {
       return { value: type, label: game.i18n.localize(`TYPES.${this.documentName}.${type}`) };
     });
-    const content =
-    createFormGroup({
-      input: createTextInput({ name: "name" }),
-      label: "Name",
-    }).outerHTML + createFormGroup({
-      input: createSelectInput({ options, name: "type" }),
-      label: "Type",
-    }).outerHTML;
+    const content = [
+      createFormGroup({
+        input: createTextInput({ name: "name" }),
+        label: "Name",
+      }),
+      createFormGroup({
+        input: createSelectInput({ options, name: "type" }),
+        label: "Type",
+      }),
+    ].map(el => el.outerHTML).join("");
 
     const result = await foundry.applications.api.Dialog.input({
       content,

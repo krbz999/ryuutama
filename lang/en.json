@@ -21,6 +21,8 @@
       "travelerPl": "Travelers"
     },
     "Advancement": {
+      "class": "Class",
+      "classPl": "Classes",
       "habitat": "Terrain / Weather Specialty",
       "habitatPl": "Terrain / Weather Specialties",
       "resource": "Resource Increase",
@@ -45,6 +47,8 @@
       "armorPl": "Armor",
       "cape": "Cape",
       "capePl": "Capes",
+      "class": "Class",
+      "classPl": "Classes",
       "container": "Container",
       "containerPl": "Containers",
       "hat": "Hat",
@@ -63,6 +67,10 @@
       "staffPl": "Staffs",
       "weapon": "Weapon",
       "weaponPl": "Weapons"
+    },
+    "JournalEntryPage": {
+      "reference": "Reference",
+      "referencePl": "References"
     }
   },
   "RYUUTAMA": {
@@ -96,14 +104,19 @@
           "equip": "Equip Item",
           "unequip": "Unequip Item",
           "assignSpecialAbility": "Special Ability"
+        },
+        "MISC": {
+          "classTag": "Class: {name}"
         }
       },
       "TAGS": {
         "category": "Category: {category}",
+        "classes": "Classes",
         "dragonica": "Dragonica No. {number}",
         "habitatSpecialty": "Terrain / Weather Specialty: {habitat}",
         "level": "Level {level}",
         "masteredWeapon": "Mastered Weapon: {weapon}",
+        "noClass": "No Class",
         "season": "Season: {season}",
         "type": "Type: {type}"
       },
@@ -199,7 +212,9 @@
       "abilities": "Abilities",
       "conditionShapeOutOfShape": "Out of Shape",
       "conditionShapeSelectAbility": "Select Ability",
-      "shape": "Shape"
+      "shape": "Shape",
+      "skillSectionLabel": "{name} Skills",
+      "otherSkills": "Other Skills"
     },
 
     "ABILITIES": {
@@ -320,6 +335,7 @@
       "details": "Details",
       "disabledEffects": "Inactive",
       "durability": "Durability ({value}/{max})",
+      "identifierError": "Invalid identifier.",
 
       "ANIMAL": {
         "FIELDS": {
@@ -348,6 +364,17 @@
         },
 
         "configuration": "Animal Configuration"
+      },
+
+      "CLASS": {
+        "FIELDS": {
+          "identifier.label": "Identifier",
+          "identifier.hint": "A unique identifier for this class item. Two items with the same identifier are, for all intents and purposes, considered to be the same item.",
+          "skills.label": "Skills",
+          "skills.hint": "Enter uuids of Skill items that will be granted when this class is chosen."
+        },
+        "skills": "Skills",
+        "creationWarning": "A class item can only be created on an actor via advancement."
       },
 
       "CONTAINER": {
@@ -382,6 +409,13 @@
         "anyTerrain": "Any Terrain",
 
         "configuration": "Herb Details"
+      },
+
+      "SKILL": {
+        "FIELDS": {
+          "identifier.label": "Identifier",
+          "identifier.hint": "A unique identifier for this skill item. Two items with the same identifier are, for all intents and purposes, considered to be the same item."
+        }
       },
 
       "SPELL": {
@@ -507,6 +541,12 @@
         "FIELDS": {},
         "configureTitle": "Configure {name}",
         "title": "Level Up: {name} - {nth} Level",
+
+        "CLASS": {
+          "FIELDS": {
+            "choice.chosen.label": "Class Item"
+          }
+        },
 
         "HABITAT": {
           "FIELDS": {
@@ -663,6 +703,8 @@
 
     "WEATHER": {
       "blizzard": "Blizzard",
+      "clearSkies": "Clear Skies",
+      "cloudy": "Cloudy",
       "cold": "Cold",
       "darkness": "Darkness",
       "deepFog": "Deep Fog",
@@ -672,7 +714,8 @@
       "hurricane": "Hurricane",
       "rain": "Rain",
       "snow": "Snow",
-      "strongWind": "Strong Wind"
+      "strongWind": "Strong Wind",
+      "thunderStorm": "Thunder Storm"
     }
   }
 }

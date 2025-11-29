@@ -4,6 +4,7 @@ export { default as AccessoryData } from "./accessory.mjs";
 export { default as AnimalData } from "./animal.mjs";
 export { default as ArmorData } from "./armor.mjs";
 export { default as CapeData } from "./cape.mjs";
+export { default as ClassData } from "./class.mjs";
 export { default as ContainerData } from "./container.mjs";
 export { default as HatData } from "./hat.mjs";
 export { default as HerbData } from "./herb.mjs";

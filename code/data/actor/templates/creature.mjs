@@ -1,8 +1,10 @@
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
- * @import CheckRoll from "../../../dice/check-roll.mjs";
  * @import { DamageConfiguration } from "./_types.mjs";
+ * @import BaseRoll from "../../../dice/base-roll.mjs";
+ * @import CheckRoll from "../../../dice/check-roll.mjs";
  * @import RyuutamaActor from "../../../documents/actor.mjs";
+ * @import RyuutamaChatMessage from "../../../documents/chat-message.mjs";
  */
 
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
@@ -221,19 +223,38 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     if (consumed === false) return null;
 
     if (messageConfig.create !== false) {
-      messageConfig.data ??= {};
-      messageConfig.data.flavor ??= game.i18n.format(
-        `RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`,
-        {
-          type: game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`),
-          abilities: game.i18n
-            .getListFormatter()
-            .format(rollConfig.abilities?.map(abi => ryuutama.config.abilityScores[abi].label) ?? []),
-        }),
-      roll.toMessage(messageConfig.data);
+      await this._createCheckMessage(roll, rollConfig, dialogConfig, messageConfig);
     }
 
     return roll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Create the full message for the check.
+   * @param {CheckRoll} roll    The evaluated check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<RyuutamaChatMessage>}
+   */
+  async _createCheckMessage(roll, rollConfig, dialogConfig, messageConfig) {
+    const type = game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
+    const abilities = game.i18n
+      .getListFormatter()
+      .format(rollConfig.abilities?.map(abi => ryuutama.config.abilityScores[abi].label) ?? []);
+    const flavor = game.i18n.format(`RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`, {
+      type, abilities,
+    });
+
+    const messageData = foundry.utils.mergeObject({
+      flavor,
+      type: "standard",
+      speaker: getDocumentClass("ChatMessage").getSpeaker({ actor: this.parent }),
+    }, messageConfig.data ?? {}, { overwrite: false });
+
+    return roll.toMessage(messageData);
   }
 
   /* -------------------------------------------------- */
@@ -250,9 +271,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
     let roll = { condition: {}, concentration: {}, critical: {} };
     let dialog = { configure: true };
-    let message = { create: true, data: {
-      speaker: getDocumentClass("ChatMessage").getSpeaker({ actor: this.parent }),
-    } };
+    let message = { create: true };
 
     switch (rollConfig.type) {
       case "journey":
@@ -271,7 +290,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         break;
 
       case "damage": {
-        message.data.type = "damage";
         switch (this.parent.type) {
           case "traveler": {
             const w = this.equipped.weapon;
@@ -461,10 +479,44 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       ].concat(parts);
     }
 
-    /** @type {CheckRoll} */
-    const roll = new CONFIG.Dice.CheckRoll(parts.filterJoin(" + "), rollData);
+    const Cls = this.#determineRollClass(rollConfig, dialogConfig, messageConfig);
+    const options = this.#constructRollOptions(rollConfig, dialogConfig, messageConfig);
+    const roll = new Cls(parts.filterJoin(" + "), rollData, options);
     if (rollConfig.critical?.allowed && rollConfig.critical.isCritical) roll.alter(2, 0);
     return roll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Determine roll class for the check.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {typeof BaseRoll}
+   */
+  #determineRollClass(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    switch (rollConfig.type) {
+      case "damage": return ryuutama.dice.DamageRoll;
+    }
+    return ryuutama.dice.CheckRoll;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Construct options for the Roll instance.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Record<string, boolean>}
+   */
+  #constructRollOptions(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    const options = {};
+    switch (rollConfig.type) {
+      case "damage": foundry.utils.mergeObject(options, { magical: false }); break;
+    }
+    return foundry.utils.mergeObject(options, messageConfig.rollOptions ?? {});
   }
 
   /* -------------------------------------------------- */
@@ -518,12 +570,21 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   calculateDamage(damages = []) {
     damages = foundry.utils.deepClone(damages);
 
-    const { modifiers } = this.defense;
+    /**
+     * Does this damage ignore defense/armor?
+     * @param {DamageConfiguration} damage
+     * @returns {boolean}
+     */
+    const ignoreDefense = damage => {
+      return damage.options?.defenseless
+        || ((this.details?.category === "undead") && (damage.options?.mythril || damage.options?.orichalcum));
+    };
+
     for (const damage of damages) {
-      if (damage.magical) damage.value += modifiers.magical;
+      if (damage.options?.magical) damage.value += this.defense.modifiers.magical;
       else {
-        damage.value += modifiers.physical;
-        damage.value -= this.defense.total;
+        damage.value += this.defense.modifiers.physical;
+        if (!ignoreDefense(damage)) damage.value -= this.defense.total;
       }
       damage.value = Math.max(0, damage.value);
     }

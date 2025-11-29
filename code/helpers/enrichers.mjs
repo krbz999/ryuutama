@@ -6,6 +6,7 @@ export default class Enrichers {
   static PATTERNS = {
     status: /\[\[\/status (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
     check: /\[\[\/check (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
+    reference: /\[\[reference (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
   };
 
   /* -------------------------------------------------- */
@@ -65,6 +66,14 @@ export default class Enrichers {
         });
       },
     });
+
+    // Display a rules reference.
+    enrichers.push({
+      id: "reference",
+      pattern: this.PATTERNS.reference,
+      enricher: this.enrichReference,
+      onRender: element => {},
+    });
   }
 
   /* -------------------------------------------------- */
@@ -74,7 +83,7 @@ export default class Enrichers {
    * @param {string} match
    * @returns {object}
    */
-  static parseconfig(match) {
+  static parseConfig(match) {
     const config = { _config: match, values: [] };
     for (const part of match.match(/(?:[^\s"]+|"[^"]*")+/g) ?? []) {
       if (!part) continue;
@@ -99,7 +108,7 @@ export default class Enrichers {
    */
   static enrichStatus(match) {
     let { config, label } = match.groups;
-    config = Enrichers.parseconfig(config);
+    config = Enrichers.parseConfig(config);
 
     if (!("id" in config)) {
       const id = config.values.find(k => k in ryuutama.config.statusEffects);
@@ -130,7 +139,7 @@ export default class Enrichers {
    */
   static enrichCheck(match) {
     let { config, label } = match.groups;
-    config = Enrichers.parseconfig(config);
+    config = Enrichers.parseConfig(config);
 
     if (!("type" in config)) {
       const type = config.values.find(k => k in ryuutama.config.checkTypes);
@@ -181,5 +190,33 @@ export default class Enrichers {
     wrapper.innerHTML = elements.map(element => element.outerHTML).join("");
 
     return wrapper;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Enrich a reference enricher.
+   * @param {RegExpMatchArray} match
+   * @returns {Promise<HTMLAnchorElement|null>}
+   */
+  static async enrichReference(match) {
+    let { config } = match.groups;
+    config = Enrichers.parseConfig(config);
+
+    if (!("id" in config)) {
+      const id = config.values.find(k => k in ryuutama.config.references);
+      if (!id) return null;
+      config.id = id;
+    }
+
+    const uuid = ryuutama.config.references[config.id];
+    const page = await fromUuid(uuid);
+    if (!page || (page.type !== "reference")) return null;
+    const anchor = document.createElement("A");
+    anchor.classList.add(ryuutama.id, "enricher");
+    anchor.innerHTML = page.name;
+    anchor.dataset.referenceId = config.id;
+    anchor.dataset.tooltipHtml = game.tooltip.constructor.constructHTML({ uuid });
+    return anchor;
   }
 }

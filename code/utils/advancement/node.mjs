@@ -163,7 +163,11 @@ export default class AdvancementNode {
    */
   initializeNode() {
     const Cls = ryuutama.data.advancement.Advancement.documentConfig[this.type];
-    const advancement = new Cls({ level: this.level, type: this.type }, { parent: this.actor });
+    const advancement = new Cls({ level: this.level, type: this.type }, {
+      chain: this.chain,
+      isEphemeral: true,
+      parent: this.actor,
+    });
     this.#advancement = advancement;
     return this.advancement;
   }

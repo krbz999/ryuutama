@@ -34,6 +34,22 @@
   /* The border on empty equipment slots. */
   --ryuutama-color-border: var(--ryuutama-color-dimgray);
 
+  /* WEATHER ICONS */
+  --ryuutama-color-weather-blizzard: rgb(0, 174, 239);
+  --ryuutama-color-weather-clear-skies: rgb(247, 147, 29);
+  --ryuutama-color-weather-cloudy: rgb(99, 100, 102);
+  --ryuutama-color-weather-cold: rgb(0, 174, 239);
+  --ryuutama-color-weather-darkness: rgb(35, 31, 32);
+  --ryuutama-color-weather-deep-fog: rgb(128, 130, 133);
+  --ryuutama-color-weather-fog: rgb(157, 159, 162);
+  --ryuutama-color-weather-hard-rain: rgb(0, 84, 166);
+  --ryuutama-color-weather-hot: rgb(243, 111, 33);
+  --ryuutama-color-weather-hurricane: rgb(0, 37, 97);
+  --ryuutama-color-weather-rain: rgb(0, 84, 166);
+  --ryuutama-color-weather-snow: rgb(0, 174, 239);
+  --ryuutama-color-weather-strong-wind: rgb(0, 122, 122);
+  --ryuutama-color-weather-thunder-storm: rgb(255, 221, 0);
+
   .theme-light, .themed.theme-light {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
     --ryuutama-document-list-hover-color: rgba(0, 0, 0, 0.1);
@@ -50,6 +66,8 @@
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-darkblue);
 
     --ryuutama-color-spellbook-pill: var(--ryuutama-color-oldlace);
+
+    --ryuutama-color-document-list-header: var(--ryuutama-color-darkorange);
   }
 
   .theme-dark, .themed.theme-dark {
@@ -68,5 +86,7 @@
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-bisque);
 
     --ryuutama-color-spellbook-pill: var(--ryuutama-color-dimgray);
+
+    --ryuutama-color-document-list-header: var(--ryuutama-color-indianred);
   }
 }

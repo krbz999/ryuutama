@@ -1,6 +1,6 @@
-const { Application, HandlebarsApplicationMixin } = foundry.applications.api;
+const { Application } = foundry.applications.api;
 
-export default class CurrentHabitat extends HandlebarsApplicationMixin(Application) {
+export default class CurrentHabitat extends Application {
   /** @override */
   static DEFAULT_OPTIONS = {
     id: "current-habitat",
@@ -12,16 +12,6 @@ export default class CurrentHabitat extends HandlebarsApplicationMixin(Applicati
     },
     actions: {
       configureHabitat: CurrentHabitat.#configureHabitat,
-    },
-  };
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static PARTS = {
-    button: {
-      template: "systems/ryuutama/templates/apps/current-habitat/button.hbs",
-      classes: ["faded-ui"],
     },
   };
 
@@ -51,8 +41,32 @@ export default class CurrentHabitat extends HandlebarsApplicationMixin(Applicati
 
   /** @override */
   _insertElement(element) {
-    if (!game.user.isGM) return;
     document.querySelector("#players").insertAdjacentElement("beforebegin", element);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  _canRender(options) {
+    return game.user.isGM;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  async _renderHTML(context, options) {
+    const htmlString = await foundry.applications.handlebars.renderTemplate(
+      "systems/ryuutama/templates/ui/current-habitat/button.hbs", context,
+    );
+    const button = foundry.utils.parseHTML(htmlString);
+    return [button];
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  _replaceHTML(result, content, options) {
+    content.replaceChildren(...result);
   }
 
   /* -------------------------------------------------- */

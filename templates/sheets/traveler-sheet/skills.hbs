@@ -1,3 +1,5 @@
 <section data-tab="{{tabs.skills.id}}" class="{{tabs.skills.cssClass}}" data-group="{{tabs.skills.group}}">
-  {{> "document-list" label=(localize "TYPES.Item.skillPl") entries=skills}}
+  {{#each skills}}
+  {{> "document-list" label=label entries=entries}}
+  {{/each}}
 </section>

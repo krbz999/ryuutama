@@ -69,3 +69,10 @@ ryuutama-icon {
     white-space: nowrap;
   }
 }
+
+.ryuutama .form-group.currency .form-fields::after {
+  content: url("/systems/ryuutama/assets/official/icons/currency.svg");
+  height: var(--input-height);
+  width: var(--input-height);
+  pointer-events: none;
+}

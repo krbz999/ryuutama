@@ -36,4 +36,14 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
     if (!data.type || (data.type === "base")) data.type = "standard";
     return super._initializeSource(data, options);
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _applyAdd(actor, change, current, delta, changes) {
+    switch (foundry.utils.getType(current)) {
+      case "Set": current.add(delta); break;
+      default: return super._applyAdd(actor, change, current, delta, changes);
+    }
+  }
 }
