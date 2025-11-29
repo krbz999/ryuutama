@@ -1,6 +1,11 @@
 import CheckRoll from "./check-roll.mjs";
 
 export default class DamageRoll extends CheckRoll {
+  /** @override */
+  static PART_TYPE = "damage";
+
+  /* -------------------------------------------------- */
+
   /**
    * Does this instance of damage ignore defense points?
    */

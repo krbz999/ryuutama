@@ -453,7 +453,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    */
   static #rollCheck(event, target) {
     const type = target.dataset.check;
-    this.document.system.rollCheck({ type });
+    const configure = !event.shiftKey;
+    this.document.system.rollCheck({ type }, { configure });
   }
 
   /* -------------------------------------------------- */

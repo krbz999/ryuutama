@@ -1,0 +1,17 @@
+{{#if part.flavor}}
+<span class="flavor">{{part.flavor}}</span>
+{{/if}}
+
+<section class="damage-rolls">
+  {{#each ctx.rolls}}{{{this}}}{{/each}}
+</section>
+
+<section>
+  {{#if user.isGM}}
+  <damage-tray></damage-tray>
+  <button type="button" data-action="applyDamage">
+    <i class="fa-solid fa-burst" inert></i>
+    <span>{{localize "RYUUTAMA.CHAT.DAMAGE.applyDamage"}}</span>
+  </button>
+  {{/if}}
+</section>

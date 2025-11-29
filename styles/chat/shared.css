@@ -1,5 +1,5 @@
-.chat-message.damage [data-message-part=damageTray] damage-tray,
-.chat-message.effect [data-message-part=effectTray] effect-tray {
+.chat-message damage-tray,
+.chat-message effect-tray {
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
@@ -28,6 +28,7 @@
 }
 
 /* Effects List */
+.chat-message section.effect-list,
 .chat-message.effect [data-message-part=effectList] {
   display: flex;
   gap: 0.5rem;
@@ -49,4 +50,8 @@
       object-fit: contain;
     }
   }
+}
+
+.ryuutama.chat-message section[data-message-part]:not(:last-child) {
+  margin-bottom: 1rem;
 }
