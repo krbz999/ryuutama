@@ -275,6 +275,20 @@
       }
     },
 
+    "COMBAT": {
+      "STANDARD": {
+        "FIELDS": {
+          "battlefield.backAlly.label": "Ally Back Area",
+          "battlefield.backEnemy.label": "Enemy Back Area",
+          "battlefield.front.label": "Front Area",
+          "objects.element.name.label": "Object Name",
+          "objects.element.name.placeholder": "Object"
+        },
+
+        "objects": "Objects"
+      }
+    },
+
     "EFFECT": {
       "STATUS": {
         "FIELDS": {
