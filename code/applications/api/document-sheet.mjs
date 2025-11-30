@@ -1,3 +1,13 @@
+/**
+ * @import Advancement from "../../data/advancement/advancement.mjs";
+ * @import RyuutamaActiveEffect from "../../documents/active-effect.mjs";
+ * @import RyuutamaActor from "../../documents/actor.mjs";
+ * @import RyuutamaItem from "../../documents/item.mjs";
+ * @import DragDrop from "@client/applications/ux/drag-drop.mjs";
+ * @import Folder from "@client/documents/folder.mjs";
+ * @import { getDocumentClass } from "@client/utils/helpers.mjs";
+ */
+
 const { HandlebarsApplicationMixin, DocumentSheet } = foundry.applications.api;
 
 /**
@@ -66,6 +76,14 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
 
   /* -------------------------------------------------- */
 
+  /**
+   * A reference to the DragDrop instance, reused across re-renders.
+   * @type {DragDrop}
+   */
+  _dragDrop;
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
@@ -90,8 +108,11 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
   /** @inheritdoc */
   async _renderFrame(options) {
     const frame = await super._renderFrame(options);
-    this.window.controls.insertAdjacentHTML("afterend", `
-      <button type="button" class="header-control icon fa-solid fa-user-lock" data-action="toggleEditMode" data-tooltip="RYUUTAMA.SHEET.toggleEditMode"></button>`);
+    const button = document.createElement("BUTTON");
+    button.type = "button";
+    button.classList.add("header-control", "icon", "fa-solid", "fa-fw", "fa-lock");
+    Object.assign(button.dataset, { action: "toggleEditMode", tooltip: "RYUUTAMA.SHEET.toggleEditMode" });
+    this.window.controls.insertAdjacentElement("afterend", button);
     return frame;
   }
 
@@ -124,6 +145,21 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
         input.addEventListener("change", () => ryuutama.utils.parseInputDelta(input, this.document));
       }
     }
+
+    // Set up drag-drop.
+    this._dragDrop ??= new CONFIG.ux.DragDrop({
+      dragSelector: ".document-listing .document-list .entry",
+      dropSelector: null,
+      permissions: {
+        dragstart: RyuutamaDocumentSheet._canDragstart.bind(this),
+        drop: RyuutamaDocumentSheet._canDrop.bind(this),
+      },
+      callbacks: {
+        dragstart: RyuutamaDocumentSheet._onDragstart.bind(this),
+        drop: RyuutamaDocumentSheet._onDrop.bind(this),
+      },
+    });
+    this._dragDrop.bind(this.element);
   }
 
   /* -------------------------------------------------- */
@@ -190,7 +226,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
     event.stopPropagation();
     target.closest(".entry").dispatchEvent(new PointerEvent("contextmenu", {
       clientX, clientY,
-      view: window,
+      view: window, // TODO: v14 will likely require this to be a specific window.
       bubbles: true,
       cancelable: true,
     }));
@@ -207,4 +243,145 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
     const uuid = target.closest("[data-uuid]").dataset.uuid;
     fromUuid(uuid).then(document => document.sheet.render({ force: true }));
   }
+
+  /* -------------------------------------------------- */
+  /*   Drag & Drop Handlers                             */
+  /* -------------------------------------------------- */
+
+  /**
+   * Can the current user initiate a drag event?
+   * @this RyuutamaDocumentSheet
+   * @param {string} selector   The css selector on which the drag event is targeted.
+   * @returns {boolean}
+   */
+  static _canDragstart(selector) {
+    return true;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Can the current user perform a drop event?
+   * @this RyuutamaDocumentSheet
+   * @param {string} selector   The css selector on which the drag event is ended.
+   * @returns {boolean}
+   */
+  static _canDrop(selector) {
+    return this.isEditable;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Initiate a drag event.
+   * @this RyuutamaDocumentSheet
+   * @param {DragEvent} event   Initiating drag event.
+   * @returns {boolean}         If true, no further actions should be able to be taken by a subclass.
+   */
+  static _onDragstart(event) {
+    const target = event.currentTarget;
+    if ("link" in event.target.dataset) return true;
+
+    const embedded = this.getEmbeddedDocument(target.closest("[data-uuid]")?.dataset.uuid);
+    if (!embedded) return false;
+    const data = embedded.toDragData();
+    event.dataTransfer.setData("text/plain", JSON.stringify(data));
+    return true;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Perform drop actions.
+   * @this RyuutamaDocumentSheet
+   * @param {DragEvent} event   Initiating drop event.
+   * @returns {Promise}         Whether the drop was fully resolved, either truthy or falsy.
+   */
+  static async _onDrop(event) {
+    const { uuid } = CONFIG.ux.TextEditor.getDragEventData(event);
+    const model = await fromUuid(uuid);
+    if (!model) return false;
+
+    switch (model.documentName) {
+      case "ActiveEffect": return this._onDropActiveEffect(event, model);
+      case "Actor": return this._onDropActor(event, model);
+      case "Folder": return this._onDropFolder(event, model);
+      case "Item": return this._onDropItem(event, model);
+      case "Advancement": return this._onDropAdvancement(event, model);
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Handle drop events of an effect.
+   * @param {DragEvent} event               Initiating drop event.
+   * @param {RyuutamaActiveEffect} effect   The dropped effect.
+   * @returns {Promise}                     Whether the drop was fully resolved, either truthy or falsy.
+   */
+  async _onDropActiveEffect(event, effect) {
+    if (!("effects" in this.document.collections)) return false;
+    if (effect.parent === this.document) return false; // TODO: sort the effects?
+    const keepId = !this.document.effects.has(effect.id);
+
+    // TODO: clean up in v14.
+    const effectData = game.effects?.fromCompendium(effect, { clearFolder: true, keepId }) ?? effect.toObject();
+    effectData.origin = this.document.uuid;
+    return getDocumentClass("ActiveEffect").create(effectData, { parent: this.document, keepId });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Handle drop events of an actor.
+   * @param {DragEvent} event       Initiating drop event.
+   * @param {RyuutamaActor} actor   The dropped actor.
+   * @returns {Promise}             Whether the drop was fully resolved, either truthy or falsy.
+   */
+  async _onDropActor(event, actor) {}
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Handle drop events of a folder.
+   * @param {DragEvent} event   Initiating drop event.
+   * @param {Folder} folder     The dropped folder.
+   * @returns {Promise}         Whether the drop was fully resolved, either truthy or falsy.
+   */
+  async _onDropFolder(event, folder) {
+    const folders = (game.release.generation < 14) && folder.inCompendium
+      ? [folder].concat(folder.collection.folders.filter(f => f.getParentFolders().includes(folder)))
+      : [folder].concat(folder.getSubfolders(true));
+    let documents = folders.flatMap(folder => folder.contents);
+    if (folder.inCompendium) {
+      documents = await folder.collection.getDocuments({ _id__in: documents.map(d => d._id) });
+    }
+    for (const document of documents) await this[`_onDrop${folder.type}`]?.(event, document);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Handle drop events of an item.
+   * @param {DragEvent} event     Initiating drop event.
+   * @param {RyuutamaItem} item   The dropped item.
+   * @returns {Promise}           Whether the drop was fully resolved, either truthy or falsy.
+   */
+  async _onDropItem(event, item) {
+    if (!("items" in this.document.collections)) return false;
+    if (item.parent === this.document) return false; // TODO: sort the items?
+    const keepId = !this.document.items.has(item.id);
+    const itemData = game.items.fromCompendium(item, { clearFolder: true, keepId });
+    return getDocumentClass("Item").create(itemData, { parent: this.document, keepId });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Handle drop events of an advancement pseudo-document.
+   * @param {DragEvent} event           Initiating drop event.
+   * @param {Advancement} advancement   The dropped advancement.
+   * @returns {Promise}                 Whether the drop was fully resolved, either truthy or falsy.
+   */
+  async _onDropAdvancement(event, advancement) {}
 }
