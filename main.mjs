@@ -111,8 +111,8 @@ Hooks.once("init", () => {
     { label: "RYUUTAMA.SHEETS.MonsterSheet", makeDefault: true, types: ["monster"] },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
-    foundry.documents.JournalEntryPage, ryuutama.id, foundry.applications.sheets.journal.JournalEntryPageProseMirrorSheet,
-    { makeDefault: true, types: ["reference"] },
+    foundry.documents.JournalEntryPage, ryuutama.id, applications.sheets.pages.ReferencePageSheet,
+    { label: "RYUUTAMA.SHEETS.ReferencePageSheet", makeDefault: true, types: ["reference"] },
   );
 
   // Register status effects.

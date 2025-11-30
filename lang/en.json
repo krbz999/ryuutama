@@ -531,6 +531,14 @@
       "shieldDefense": "Shield Defense"
     },
 
+    "PAGE": {
+      "REFERENCE": {
+        "FIELDS": {
+          "tooltip.label": "Tooltip"
+        }
+      }
+    },
+
     "PSEUDO": {
       "FIELDS": {
         "name.label": "Name",
@@ -668,7 +676,8 @@
     "SHEETS": {
       "ActorSheet": "Ryuutama Actor Sheet",
       "ItemSheet": "Ryuutama Item Sheet",
-      "MonsterSheet": "Ryuutama Monster Sheet"
+      "MonsterSheet": "Ryuutama Monster Sheet",
+      "ReferencePageSheet": "Ryuutama Reference Page Sheet"
     },
 
     "SIDEBAR": {
