@@ -4,7 +4,7 @@ export default class CurrentHabitat extends Application {
   /** @override */
   static DEFAULT_OPTIONS = {
     id: "current-habitat",
-    classes: ["faded-ui"],
+    classes: ["faded-ui", "ui-control"],
     tag: "aside",
     window: {
       frame: false,
@@ -12,6 +12,7 @@ export default class CurrentHabitat extends Application {
     },
     actions: {
       configureHabitat: CurrentHabitat.#configureHabitat,
+      configureWeather: CurrentHabitat.#configureWeather,
     },
   };
 
@@ -21,19 +22,23 @@ export default class CurrentHabitat extends Application {
   async _prepareContext(options) {
     const value = game.settings.get(ryuutama.id, "CURRENT_HABITAT");
 
-    const targetNumber =
-      Math.max(0, ...[...value.terrain].map(v => ryuutama.config.terrainTypes[v]?.difficulty).filter(_ => _))
-      + Math.max(0, ...[...value.weather].map(v => ryuutama.config.weatherTypes[v]?.modifier).filter(_ => _));
+    // Current values.
+    const current = {
+      terrain: value.terrain.first() in ryuutama.config.terrainTypes ? value.terrain.first() : "grassland",
+      weather: value.weather.first() in ryuutama.config.weatherTypes ? value.weather.first() : "clearSkies",
+    };
 
-    const formatter = game.i18n.getListFormatter();
-
-    const terrain = [...value.terrain].map(v => ryuutama.config.terrainTypes[v]?.label).filter(_ => _);
-    const weather = [...value.weather].map(v => ryuutama.config.weatherTypes[v]?.label).filter(_ => _);
+    // Current topography configs.
+    const terrainConfig = ryuutama.config.terrainTypes[current.terrain];
+    const weatherConfig = ryuutama.config.weatherTypes[current.weather];
 
     return {
-      targetNumber,
-      terrain: terrain.length ? formatter.format(terrain) : null,
-      weather: weather.length ? formatter.format(weather) : null,
+      current, terrainConfig, weatherConfig,
+      targetNumber: terrainConfig.difficulty + weatherConfig.modifier,
+      terrainOptions: Object.entries(ryuutama.config.terrainTypes)
+        .map(([k, v]) => ({ value: k, label: v.label, img: v.icon })),
+      weatherOptions: Object.entries(ryuutama.config.weatherTypes)
+        .map(([k, v]) => ({ value: k, label: v.label, img: v.icon })),
     };
   }
 
@@ -41,7 +46,7 @@ export default class CurrentHabitat extends Application {
 
   /** @override */
   _insertElement(element) {
-    document.querySelector("#players").insertAdjacentElement("beforebegin", element);
+    document.querySelector("#ui-top #loading").insertAdjacentElement("beforebegin", element);
   }
 
   /* -------------------------------------------------- */
@@ -58,8 +63,7 @@ export default class CurrentHabitat extends Application {
     const htmlString = await foundry.applications.handlebars.renderTemplate(
       "systems/ryuutama/templates/ui/current-habitat/button.hbs", context,
     );
-    const button = foundry.utils.parseHTML(htmlString);
-    return [button];
+    return foundry.utils.parseHTML(htmlString);
   }
 
   /* -------------------------------------------------- */
@@ -118,5 +122,16 @@ export default class CurrentHabitat extends Application {
     habitat = foundry.utils.expandObject(habitat)[ryuutama.id].CURRENT_HABITAT;
 
     game.settings.set(ryuutama.id, "CURRENT_HABITAT", habitat);
+  }
+
+  /* -------------------------------------------------- */
+
+  static #configureWeather(event, target) {
+    const weatherId = target.dataset.weatherId;
+    const current = { ...game.settings.get(ryuutama.id, "CURRENT_HABITAT") };
+
+    current.terrain = [current.terrain.first()];
+    current.weather = [weatherId];
+    game.settings.set(ryuutama.id, "CURRENT_HABITAT", current);
   }
 }

@@ -1,0 +1,72 @@
+#current-habitat {
+  --height: 2rem;
+  pointer-events: all;
+  display: grid;
+  grid-template-columns: 75px 1fr 75px;
+  gap: 5px;
+  margin-top: .5rem;
+
+  > * {
+    background: var(--background-color);
+  }
+
+  span.hoverable {
+    height: var(--height);
+  }
+
+  span.hoverable:not(:hover, :focus-visible) menu {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  span.hoverable menu {
+    display: grid;
+    grid-template-columns: 75px;
+
+    &:hover {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    li a {
+      width: 50px;
+      height: 50px;
+      border: none;
+      background: none;
+      padding: 0;
+      margin: 2px;
+
+      ryuutama-icon svg {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  /* CENTER */
+  .topography {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .terrain, .weather {
+    position: relative;
+  }
+
+  /* THEMING */
+  .themed.theme-light & {
+    --background-color: rgba(255, 255, 255, 0.6);
+    --color-border: white;
+
+    &:hover {
+      color: black;
+    }
+  }
+
+  .themed.theme-dark & {
+    --background-color: var(--color-cool-5);
+    --color-border: black;
+    color: var(--color-text-light-hightlight);
+  }
+}

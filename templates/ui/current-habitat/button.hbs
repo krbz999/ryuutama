@@ -1,15 +1,30 @@
-<button type="button" data-action="configureHabitat">
-  <h4>{{localize "RYUUTAMA.SETTINGS.CURRENT_HABITAT.current"}}</h4>
+<span class="hoverable terrain">
+  <span class="label">{{terrainConfig.label}}</span>
+  <menu>
+    {{#each terrainOptions}}
+    <li>
+      <a data-terrain-id="{{value}}" data-action="configureTerrain" data-tooltip-text="{{label}}">
+        <ryuutama-icon src="{{img}}"></ryuutama-icon>
+      </a>
+    </li>
+    {{/each}}
+  </menu>
+</span>
 
-  {{#if targetNumber}}
-  <span class="topography">{{localize "RYUUTAMA.SETTINGS.CURRENT_HABITAT.targetNumber" number=targetNumber}}</span>
-  {{/if}}
+<span class="topography" data-action="configureHabitat">
+  <span class="label">{{localize "RYUUTAMA.SETTINGS.CURRENT_HABITAT.current"}}</span>
+  <span class="target-number">{{localize "RYUUTAMA.SETTINGS.CURRENT_HABITAT.targetNumber" number=targetNumber}}</span>
+</span>
 
-  {{#if terrain}}
-  <span class="terrain">{{terrain}}</span>
-  {{/if}}
-
-  {{#if weather}}
-  <span class="weather">{{weather}}</span>
-  {{/if}}
-</button>
+<span class="hoverable weather">
+  <span class="label">{{weatherConfig.label}}</span>
+  <menu>
+    {{#each weatherOptions}}
+    <li>
+      <a data-weather-id="{{value}}" data-action="configureWeather" data-tooltip-text="{{label}}">
+        <ryuutama-icon src="{{img}}"></ryuutama-icon>
+      </a>
+    </li>
+    {{/each}}
+  </menu>
+</span>
