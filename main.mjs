@@ -51,6 +51,8 @@ Hooks.once("init", () => {
   CONFIG.ChatMessage.dataModels.standard = data.message.StandardData;
 
   CONFIG.Combat.documentClass = documents.RyuutamaCombat;
+  CONFIG.Combat.dataModels.standard = data.combat.StandardData;
+
   CONFIG.Combatant.documentClass = documents.RyuutamaCombatant;
   CONFIG.CombatantGroup.documentClass = documents.RyuutamaCombatantGroup;
 

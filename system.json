@@ -85,6 +85,9 @@
       "effect": {},
       "standard": {}
     },
+    "Combat": {
+      "standard": {}
+    },
     "Item": {
       "accessory": {
         "htmlFields": [
