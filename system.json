@@ -159,7 +159,9 @@
       }
     },
     "JournalEntryPage": {
-      "reference": {}
+      "reference": {
+        "htmlFields": ["tooltip"]
+      }
     }
   },
   "packs": [

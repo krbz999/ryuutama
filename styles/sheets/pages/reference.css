@@ -1,0 +1,11 @@
+.sheet.journal-entry-page.reference {
+  [data-application-part=content] {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .form-group.stacked label {
+      margin: 0 1rem;
+    }
+  }
+}
