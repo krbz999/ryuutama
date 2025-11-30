@@ -1,11 +1,7 @@
 import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 
 /**
- * @import RyuutamaActiveEffect from "../../documents/active-effect.mjs";
- * @import RyuutamaItem from "../../documents/item.mjs";
- * @import DragDrop from "@client/applications/ux/drag-drop.mjs";
  * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
- * @import Document from "@common/abstract/document.mjs";
  */
 
 /**
@@ -32,14 +28,6 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       }],
     },
   };
-
-  /* -------------------------------------------------- */
-
-  /**
-   * A reference to the DragDrop instance, reused across re-renders.
-   * @type {DragDrop}
-   */
-  #dragDrop;
 
   /* -------------------------------------------------- */
 
@@ -157,27 +145,6 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       ".tags .tag.traveler-classes",
       { hookName: "Get{}TagContextOptions", parentClassHooks: false, fixed: true },
     );
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _onRender(context, options) {
-    await super._onRender(context, options);
-
-    this.#dragDrop ??= new CONFIG.ux.DragDrop({
-      dragSelector: ".document-listing .document-list .entry",
-      dropSelector: null,
-      permissions: {
-        dragstart: RyuutamaActorSheet.#canDragstart.bind(this),
-        drop: RyuutamaActorSheet.#canDrop.bind(this),
-      },
-      callbacks: {
-        dragstart: RyuutamaActorSheet.#onDragstart.bind(this),
-        drop: RyuutamaActorSheet.#onDrop.bind(this),
-      },
-    });
-    this.#dragDrop.bind(this.element);
   }
 
   /* -------------------------------------------------- */
@@ -339,97 +306,6 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
     if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));
     return options;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * @this RyuutamaActorSheet
-   * @param {string} selector   The css selector on which the drag event is targeted.
-   * @returns {boolean}         Whether the user may initiate a drag event from this element.
-   */
-  static #canDragstart(selector) {
-    return true;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * @this RyuutamaActorSheet
-   * @param {string} selector   The css selector on which the drag event is targeted.
-   * @returns {boolean}         Whether the user may finalize a drag event onto this element.
-   */
-  static #canDrop(selector) {
-    if (!this.isEditable) return false;
-    return true;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * @this RyuutamaActorSheet
-   * @param {DragEvent} event   The initiating drag event.
-   */
-  static #onDragstart(event) {
-    const target = event.currentTarget;
-    if ("link" in event.target.dataset) return;
-
-    /** @type {RyuutamaItem} */
-    const item = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
-    const data = item.toDragData();
-    event.dataTransfer.setData("text/plain", JSON.stringify(data));
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * @this RyuutamaActorSheet
-   * @param {DragEvent} event   The initiating drag event.
-   * @returns {Promise<Document|null>}
-   */
-  static async #onDrop(event) {
-    const { uuid } = CONFIG.ux.TextEditor.getDragEventData(event);
-    const document = await fromUuid(uuid);
-    if (!document) return null;
-
-    switch (document.documentName) {
-      case "Item": return (await this._onDropItem(document, event)) ?? null;
-      case "ActiveEffect": return (await this._onDropActiveEffect(document, event)) ?? null;
-    }
-
-    return null;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Handle dropping an item onto the actor sheet.
-   * @param {RyuutamaItem} item
-   * @param {DragEvent} event
-   * @returns {Promise<RyuutamaItem|null>}
-   */
-  async _onDropItem(item, event) {
-    if (item.parent === this.document) return null; // TODO: sort?
-    const keepId = !this.document.items.has(item.id);
-    const itemData = game.items.fromCompendium(item, { keepId });
-    return getDocumentClass("Item").create(itemData, { parent: this.document, keepId });
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Handle dropping an effect onto the actor sheet.
-   * @param {RyuutamaActiveEffect} effect
-   * @param {DragEvent} event
-   * @returns {Promise<RyuutamaActiveEffect|null>}
-   */
-  async _onDropActiveEffect(effect, event) {
-    if (effect.parent === this.document) return null; // TODO: sort?
-    if (effect.parent?.parent === this.document) return null; // own grandchild effect
-    const keepId = !this.document.effects.has(effect.id);
-    const effectData = effect.toObject();
-    effectData.origin = effect.parent?.uuid;
-    return getDocumentClass("ActiveEffect").create(effectData, { parent: this.document, keepId });
   }
 
   /* -------------------------------------------------- */
