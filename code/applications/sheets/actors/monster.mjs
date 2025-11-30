@@ -1,4 +1,4 @@
-import RyuutamaActorSheet from "./actor-sheet.mjs";
+import RyuutamaActorSheet from "../actor-sheet.mjs";
 
 /**
  * Ryuutama Monster Sheet.

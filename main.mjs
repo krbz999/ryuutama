@@ -109,11 +109,11 @@ Hooks.once("init", () => {
     { label: "RYUUTAMA.SHEETS.ItemSheet", makeDefault: true },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
-    foundry.documents.Actor, ryuutama.id, applications.sheets.RyuutamaTravelerSheet,
+    foundry.documents.Actor, ryuutama.id, applications.sheets.actors.RyuutamaTravelerSheet,
     { label: "RYUUTAMA.SHEETS.ActorSheet", makeDefault: true, types: ["traveler"] },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
-    foundry.documents.Actor, ryuutama.id, applications.sheets.RyuutamaMonsterSheet,
+    foundry.documents.Actor, ryuutama.id, applications.sheets.actors.RyuutamaMonsterSheet,
     { label: "RYUUTAMA.SHEETS.MonsterSheet", makeDefault: true, types: ["monster"] },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
