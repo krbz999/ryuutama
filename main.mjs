@@ -28,11 +28,15 @@ Hooks.once("init", () => {
   helpers.Enrichers.registerEnrichers();
 
   // Define custom elements.
-  window.customElements.define(applications.elements.DamageTray.tagName, applications.elements.DamageTray);
-  window.customElements.define(applications.elements.EffectTray.tagName, applications.elements.EffectTray);
-  window.customElements.define(applications.elements.IconElement.tagName, applications.elements.IconElement);
-  window.customElements.define(applications.elements.ProgressBar.tagName, applications.elements.ProgressBar);
-  window.customElements.define(applications.elements.ResourceBar.tagName, applications.elements.ResourceBar);
+  const defineElements = window => {
+    window.customElements.define(applications.elements.DamageTray.tagName, applications.elements.DamageTray);
+    window.customElements.define(applications.elements.EffectTray.tagName, applications.elements.EffectTray);
+    window.customElements.define(applications.elements.IconElement.tagName, applications.elements.IconElement);
+    window.customElements.define(applications.elements.ProgressBar.tagName, applications.elements.ProgressBar);
+    window.customElements.define(applications.elements.ResourceBar.tagName, applications.elements.ResourceBar);
+  };
+  defineElements(window);
+  Hooks.on("openDetachedWindow", (id, window) => defineElements(window));
 
   CONFIG.ActiveEffect.documentClass = documents.RyuutamaActiveEffect;
   CONFIG.ActiveEffect.dataModels.standard = data.effect.StandardData;
