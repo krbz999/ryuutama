@@ -216,7 +216,7 @@ export default class Enrichers {
     anchor.classList.add(ryuutama.id, "enricher");
     anchor.innerHTML = page.name;
     anchor.dataset.referenceId = config.id;
-    anchor.dataset.tooltipHtml = game.tooltip.constructor.constructHTML({ uuid });
+    anchor.dataset.tooltipHtml = CONFIG.ux.TooltipManager.constructHTML({ uuid });
     return anchor;
   }
 }
