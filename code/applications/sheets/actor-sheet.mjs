@@ -18,6 +18,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       renderItem: RyuutamaActorSheet.#renderItem,
       rollCheck: RyuutamaActorSheet.#rollCheck,
       toggleStatus: RyuutamaActorSheet.#toggleStatus,
+      useItem: RyuutamaActorSheet.#useItem,
     },
     window: {
       controls: [{
@@ -404,5 +405,17 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    */
   static #advance(event, target) {
     this.document.system.advance();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #useItem(event, target) {
+    const item = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
+    if (item) item.system.use();
   }
 }

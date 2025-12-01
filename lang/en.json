@@ -341,6 +341,7 @@
         "size5": "Size 5"
       },
       "TABS": {
+        "action": "Action",
         "details": "Details",
         "effects": "Effects"
       },
@@ -351,6 +352,8 @@
       "disabledEffects": "Inactive",
       "durability": "Durability ({value}/{max})",
       "identifierError": "Invalid identifier.",
+      "removeAction": "Remove this action",
+      "selectAction": "Select Action",
 
       "ANIMAL": {
         "FIELDS": {
@@ -485,7 +488,10 @@
         "durationLabel": "{units} {type}",
         "specialDuration": "Special duration",
         "targetPlaceholder": "E.g. '1 person'",
-        "timing": "Spell Timing"
+        "timing": "Spell Timing",
+        "warnNoAction": "A spell must have an Action configured to be cast.",
+        "warnNoApplicableEffects": "The spell does not have any effects configured to be applied to targets.",
+        "warnNoDamageFormula": "The spell does not have any damage formula configured for its damage roll."
       },
 
       "WEAPON": {
@@ -561,7 +567,23 @@
       },
 
       "ACTION": {
-        "warningNoApplicableEffects": "The spell does not have any effects configured to be applied to targets."
+        "LABELS": {
+          "damage": "Roll Damage",
+          "effect": "Apply Effect"
+        },
+        "DAMAGE": {
+          "FIELDS": {
+            "damage.formula.label": "Damage Formula",
+            "damage.formula.placeholder": "E.g. '2@stats.spirit.die'",
+            "damage.properties.label": "Damage Properties"
+          }
+        },
+        "EFFECT": {
+          "FIELDS": {
+            "effects.ids.label": "Effects",
+            "effects.ids.hint": "Effects that are applied by this action."
+          }
+        }
       },
 
       "ADVANCEMENT": {

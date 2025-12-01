@@ -1,5 +1,9 @@
 import BaseData from "./templates/base.mjs";
 
+/**
+ * @import RyuutamaChatMessage from "../../documents/chat-message.mjs";
+ */
+
 const { NumberField, SchemaField, StringField, TypedSchemaField } = foundry.data.fields;
 
 export default class SpellData extends BaseData {
@@ -71,14 +75,29 @@ export default class SpellData extends BaseData {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Use this spell.
+   * @returns {Promise<RyuutamaChatMessage|null>}
+   */
   async use() {
     const action = this.action;
-    if (!action) throw new Error("A spell without a configured action cannot be used.");
+    if (!action) {
+      ui.notifications.error("RYUUTAMA.ITEM.SPELL.warnNoAction", { localize: true });
+      return null;
+    }
+
+    const part = await action.use();
+    if (!part) return null;
 
     const item = this.parent;
-    const magicCheck = await this.parent.actor.system.rollCheck({ type: "magic", magic: { item } });
-    if (!magicCheck) return null;
+    const messageData = await this.parent.actor.system.rollCheck(
+      { type: "magic", magic: { item } },
+      {},
+      { create: false },
+    );
+    if (!messageData) return null;
 
-    return action.use();
+    messageData.system.parts.push(part);
+    return getDocumentClass("ChatMessage").create(messageData);
   }
 }

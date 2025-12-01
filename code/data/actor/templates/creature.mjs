@@ -202,7 +202,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<CheckRoll|null>}
+   * @returns {Promise<RyuutamaChatMessage|object|null>}
    */
   async #rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = this.#constructCheckConfigs(rollConfig, dialogConfig, messageConfig));
@@ -222,31 +222,29 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     const consumed = await this.#performCheckUpdates(roll, rollConfig, dialogConfig, messageConfig);
     if (consumed === false) return null;
 
-    if (messageConfig.create !== false) {
-      await this._createCheckMessage(roll, rollConfig, dialogConfig, messageConfig);
-    }
-
-    return roll;
+    const messageData = await this._createCheckMessage(roll, rollConfig, dialogConfig, messageConfig);
+    return roll.toMessage(messageData, { create: messageConfig.create });
   }
 
   /* -------------------------------------------------- */
 
   /**
-   * Create the full message for the check.
+   * Create the full message data for the check.
    * @param {CheckRoll} roll    The evaluated check.
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<RyuutamaChatMessage>}
+   * @returns {Promise<object>}
    */
   async _createCheckMessage(roll, rollConfig, dialogConfig, messageConfig) {
     const type = game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
     const abilities = game.i18n
       .getListFormatter()
       .format(rollConfig.abilities?.map(abi => ryuutama.config.abilityScores[abi].label) ?? []);
-    const flavor = game.i18n.format(`RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`, {
-      type, abilities,
-    });
+    const flavor = game.i18n.format(
+      `RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`,
+      { type, abilities },
+    );
 
     const messageData = foundry.utils.mergeObject({
       flavor,
@@ -254,7 +252,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       speaker: getDocumentClass("ChatMessage").getSpeaker({ actor: this.parent }),
     }, messageConfig.data ?? {}, { overwrite: false });
 
-    return roll.toMessage(messageData);
+    return messageData;
   }
 
   /* -------------------------------------------------- */
@@ -570,7 +568,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<CheckRoll|null>}
+   * @returns {Promise<RyuutamaChatMessage|object|null>}
    */
   async rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     return this.#rollCheck(rollConfig, dialogConfig, messageConfig);

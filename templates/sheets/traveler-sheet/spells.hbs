@@ -22,7 +22,7 @@
   <section class="document-listing">
     <h4>{{section.label}}</h4>
     {{#each section.groups as |group|}}
-    {{> "document-list" entries=group.documents}}
+    {{> "document-list" entries=group.documents useItem=true}}
     {{/each}}
   </section>
   {{/each}}
