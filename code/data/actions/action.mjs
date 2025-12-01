@@ -90,9 +90,18 @@ export default class Action extends foundry.abstract.DataModel {
 
   /**
    * Use this action.
-   * @returns {Promise<RyuutamaChatMessage>}
+   * This internal method should return message part to be combined with the parent item.
+   * @returns {Promise<object>}
    */
   async use() {
     throw new Error("The 'use' method of Action must be overridden.");
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Modify the context object when this model is rendered directly on the item sheet.
+   * @param {object} context    The rendering context. **will be mutated**
+   */
+  prepareSheetContext(context) {}
 }

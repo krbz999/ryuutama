@@ -6,6 +6,7 @@ export * as item from "./item/_module.mjs";
 export * as journalEntryPage from "./journal-entry-page/_module.mjs";
 export * as message from "./chat-message/_module.mjs";
 
+export * as action from "./actions/_module.mjs";
 export * as advancement from "./advancement/_module.mjs";
 export * as fields from "./fields/_module.mjs";
 

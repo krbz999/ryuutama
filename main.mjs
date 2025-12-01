@@ -183,6 +183,10 @@ Hooks.once("ready", () => {
     "actor-resources": "systems/ryuutama/templates/sheets/shared/resources.hbs",
     "actor-statuses": "systems/ryuutama/templates/sheets/shared/statuses.hbs",
 
+    // ITEM SUB-ACTIONS
+    "item-action-damage": "systems/ryuutama/templates/sheets/item-sheet/actions/damage.hbs",
+    "item-action-effect": "systems/ryuutama/templates/sheets/item-sheet/actions/effect.hbs",
+
     // SHARED PARTIALS
     "document-list": "systems/ryuutama/templates/sheets/shared/document-list.hbs",
   });

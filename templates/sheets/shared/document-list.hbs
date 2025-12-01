@@ -9,7 +9,11 @@
       <img src="{{entry.document.img}}" alt="{{entry.document.name}}">
 
       <div class="center">
+        {{#if ../useItem}}
+        <a class="title" data-action="useItem">{{entry.document.name}}</a>
+        {{else}}
         <span class="title">{{entry.document.name}}</span>
+        {{/if}}
         <span class="attribute">
           {{#if entry.embedded}}
           <span class="values">
