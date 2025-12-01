@@ -175,6 +175,10 @@ Hooks.once("ready", () => {
     "item-spell": "systems/ryuutama/templates/sheets/item-sheet/spell.hbs",
     "item-weapon": "systems/ryuutama/templates/sheets/item-sheet/weapon.hbs",
 
+    // ITEM SUB-ACTIONS
+    "item-action-damage": "systems/ryuutama/templates/sheets/item-sheet/actions/damage.hbs",
+    "item-action-effect": "systems/ryuutama/templates/sheets/item-sheet/actions/effect.hbs",
+
     // SHARED PARTIALS
     "document-list": "systems/ryuutama/templates/sheets/shared/document-list.hbs",
   });

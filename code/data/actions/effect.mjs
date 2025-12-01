@@ -27,6 +27,14 @@ export default class EffectAction extends Action {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RYUUTAMA.PSEUDO.ACTION.EFFECT",
+  ];
+
+  /* -------------------------------------------------- */
+
   /**
    * The effects of this item that can be applied by this action.
    * @type {RyuutamaActiveEffect[]}
@@ -41,15 +49,21 @@ export default class EffectAction extends Action {
   async use() {
     const effects = this.applicableEffects;
     if (!effects.length) {
-      console.warn("RYUUTAMA.PSEUDO.ACTION.warningNoApplicableEffects", { localize: true });
+      ui.notifications.error("RYUUTAMA.ITEM.SPELL.warnNoApplicableEffects", { localize: true });
       return null;
     }
-
-    const Cls = getDocumentClass("ChatMessage");
-    return Cls.create({
+    return {
       type: "effect",
-      speaker: Cls.getSpeaker({ actor: this.actor }),
-      "system.effects": effects.map(e => e.uuid),
-    });
+      effects: effects.map(e => e.uuid),
+    };
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareSheetContext(context) {
+    super.prepareSheetContext(context);
+    context.actionTemplate = "item-action-effect";
+    context.actionEffectIds = this.document.effects.map(e => ({ value: e.id, label: e.name }));
   }
 }

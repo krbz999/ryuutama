@@ -21,17 +21,31 @@ export default class DamageAction extends Action {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RYUUTAMA.PSEUDO.ACTION.DAMAGE",
+  ];
+
+  /* -------------------------------------------------- */
+
   /** @override */
   async use() {
-    const formula = this.damage.formula || "@stats.spirit";
+    const formula = this.damage.formula;
+    if (!formula) {
+      ui.notifications.error("RYUUTAMA.ITEM.SPELL.warnNoDamageFormula", { localize: true });
+      return null;
+    }
     const roll = new ryuutama.dice.DamageRoll(formula, this.actor.getRollData());
     await roll.evaluate();
-    const Cls = getDocumentClass("ChatMessage");
-    return Cls.create({
-      type: "damage",
-      speaker: Cls.getSpeaker({ actor: this.actor }),
-      rolls: [roll],
-      sound: null,
-    });
+    return { type: "damage", rolls: [roll] };
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareSheetContext(context) {
+    super.prepareSheetContext(context);
+    context.actionTemplate = "item-action-damage";
   }
 }
