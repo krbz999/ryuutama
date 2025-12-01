@@ -45,13 +45,12 @@ Hooks.once("init", () => {
   CONFIG.Actor.collection = documents.collections.RyuutamaActors;
   CONFIG.Actor.documentClass = documents.RyuutamaActor;
   CONFIG.Actor.dataModels.monster = data.actor.MonsterData;
-  CONFIG.Actor.dataModels.party = data.actor.PartyData;
-  CONFIG.Actor.dataModels.ryuujin = data.actor.RyuujinData;
+  // CONFIG.Actor.dataModels.party = data.actor.PartyData;
+  // CONFIG.Actor.dataModels.ryuujin = data.actor.RyuujinData;
   CONFIG.Actor.dataModels.traveler = data.actor.TravelerData;
 
   CONFIG.ChatMessage.documentClass = documents.RyuutamaChatMessage;
   CONFIG.ChatMessage.dataModels.damage = data.message.DamageData;
-  CONFIG.ChatMessage.dataModels.effect = data.message.EffectData;
   CONFIG.ChatMessage.dataModels.standard = data.message.StandardData;
 
   CONFIG.Combat.documentClass = documents.RyuutamaCombat;

@@ -9,7 +9,7 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PARTY",
+    "RYUUTAMA.ACTOR.PARTY",
   ];
 
   /* -------------------------------------------------- */
