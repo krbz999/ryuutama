@@ -1,5 +1,12 @@
 {{!-- EFFECTS --}}
-{{formGroup action.schema.fields.effects.fields.ids options=actionEffectIds name="system.action.effects.ids" value=action.effects.ids disabled=disabled classes="stacked"}}
+<div class="form-group stacked">
+  <label for="{{rootId}}-system.action.effects.ids">{{action.schema.fields.effects.fields.ids.label}}</label>
+  <div class="form-fields">
+    {{formInput action.schema.fields.effects.fields.ids options=actionEffectIds name="system.action.effects.ids" value=action.effects.ids disabled=disabled id=(concat rootId "-system.action.effects.ids")}}
+    <button type="button" class="icon fa-solid fa-plus" data-action="createActionEffect" {{disabled disabled}}></button>
+  </div>
+  <p class="hint">{{action.schema.fields.effects.fields.ids.hint}}</p>
+</div>
 
 {{!-- STATUSES --}}
 {{#each actionStatuses}}
