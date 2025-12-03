@@ -5,7 +5,7 @@
       "value": "winter"
     },
     "description": {
-      "value": "<p>The caster freezes time around her, gaining 1d4 extra rounds during which only she may act. The caster may use this time only to cast magic.</p>"
+      "value": "<p>The caster freezes time around her, gaining [[/r 1d4]] extra rounds during which only she may act. The caster may use this time only to cast magic.</p>"
     },
     "spell": {
       "activation": {
@@ -41,9 +41,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760194939108,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

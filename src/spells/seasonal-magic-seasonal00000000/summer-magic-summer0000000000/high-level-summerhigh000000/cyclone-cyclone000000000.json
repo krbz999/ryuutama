@@ -25,6 +25,12 @@
         "custom": "1 person + caster"
       },
       "effects": {}
+    },
+    "action": {
+      "type": "damage",
+      "damage": {
+        "formula": "@stats.dexterity + @stats.spirit"
+      }
     }
   },
   "_id": "cyclone000000000",
@@ -41,9 +47,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760194003385,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

@@ -25,6 +25,12 @@
         "custom": "1 person"
       },
       "effects": {}
+    },
+    "action": {
+      "type": "damage",
+      "damage": {
+        "formula": "1d6"
+      }
     }
   },
   "_id": "attackofthekille",
@@ -41,9 +47,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760192651876,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

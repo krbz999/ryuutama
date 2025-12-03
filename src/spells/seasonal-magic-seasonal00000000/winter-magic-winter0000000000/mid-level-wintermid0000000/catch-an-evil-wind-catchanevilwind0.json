@@ -25,6 +25,32 @@
         "custom": "1 person"
       },
       "effects": {}
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "statuses": {
+          "injury": {
+            "enabled": false
+          },
+          "poison": {
+            "enabled": false
+          },
+          "sickness": {
+            "enabled": true,
+            "strength": 6
+          },
+          "exhaustion": {
+            "enabled": false
+          },
+          "muddled": {
+            "enabled": false
+          },
+          "shock": {
+            "enabled": false
+          }
+        }
+      }
     }
   },
   "_id": "catchanevilwind0",
@@ -41,9 +67,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760194841345,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

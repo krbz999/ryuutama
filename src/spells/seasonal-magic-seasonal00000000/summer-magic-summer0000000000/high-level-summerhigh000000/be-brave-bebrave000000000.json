@@ -25,6 +25,32 @@
         "custom": "All areas"
       },
       "effects": {}
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "statuses": {
+          "injury": {
+            "enabled": false
+          },
+          "poison": {
+            "enabled": false
+          },
+          "sickness": {
+            "enabled": false
+          },
+          "exhaustion": {
+            "enabled": false
+          },
+          "muddled": {
+            "enabled": false
+          },
+          "shock": {
+            "enabled": true,
+            "strength": 10
+          }
+        }
+      }
     }
   },
   "_id": "bebrave000000000",
@@ -41,9 +67,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760194032165,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

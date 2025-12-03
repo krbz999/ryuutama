@@ -5,7 +5,7 @@
       "value": "summer"
     },
     "description": {
-      "value": "<p>This spell brings upon enemies the magical force known as “Gogatsubyo”, or “May Sickness”, which saps one's will to do anything other than mope. Though the normal Magic Check is required, the target suffers [Tired: 6], no matter what their Condition is.</p>"
+      "value": "<p>This spell brings upon enemies the magical force known as “Gogatsubyo”, or “May Sickness”, which saps one's will to do anything other than mope. Though the normal Magic Check is required, the target suffers [Exhaustion: 6], no matter what their Condition is.</p>"
     },
     "spell": {
       "activation": {
@@ -25,6 +25,32 @@
         "custom": "1 person"
       },
       "effects": {}
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "statuses": {
+          "injury": {
+            "enabled": false
+          },
+          "poison": {
+            "enabled": false
+          },
+          "sickness": {
+            "enabled": false
+          },
+          "exhaustion": {
+            "enabled": true,
+            "strength": 6
+          },
+          "muddled": {
+            "enabled": false
+          },
+          "shock": {
+            "enabled": false
+          }
+        }
+      }
     }
   },
   "_id": "theillnessofmay0",
@@ -41,9 +67,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760193883160,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
