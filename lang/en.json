@@ -612,6 +612,10 @@
           "damage": "Roll Damage",
           "effect": "Apply Effect"
         },
+        "PROPERTIES": {
+          "ignoreArmor": "Ignore Armor"
+        },
+
         "DAMAGE": {
           "FIELDS": {
             "damage.formula.label": "Damage Formula",
