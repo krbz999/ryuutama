@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "4gwvVTHzDkmjx5It"
+        ]
+      }
     }
   },
   "_id": "gratefulscarecro",
   "type": "spell",
   "img": "icons/magic/nature/leaf-glow-maple-orange.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Grateful Scarecrow",
+      "img": "icons/magic/nature/leaf-glow-maple-orange.webp",
+      "type": "standard",
+      "_id": "4gwvVTHzDkmjx5It",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": 6,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.gratefulscarecro caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764795515828,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!gratefulscarecro.4gwvVTHzDkmjx5It"
+    }
+  ],
   "folder": "fallmid000000000",
   "sort": 0,
   "ownership": {

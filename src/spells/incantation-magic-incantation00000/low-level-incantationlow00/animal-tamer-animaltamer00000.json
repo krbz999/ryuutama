@@ -28,6 +28,10 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "roll": {
+      "formula": "@stats.spirit",
+      "flavor": "Tamed Animals"
     }
   },
   "_id": "animaltamer00000",

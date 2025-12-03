@@ -5,7 +5,7 @@
       "value": "winter"
     },
     "description": {
-      "value": "<p>The caster freezes time around her, gaining [[/r 1d4]] extra rounds during which only she may act. The caster may use this time only to cast magic.</p>"
+      "value": "<p>The caster freezes time around her, gaining 1d4 extra rounds during which only she may act. The caster may use this time only to cast magic.</p>"
     },
     "spell": {
       "activation": {
@@ -28,7 +28,12 @@
     },
     "source": {
       "book": "Ryuutama"
-    }
+    },
+    "roll": {
+      "formula": "1d4",
+      "flavor": "Extra Rounds"
+    },
+    "action": null
   },
   "_id": "absolutezerocloc",
   "type": "spell",
