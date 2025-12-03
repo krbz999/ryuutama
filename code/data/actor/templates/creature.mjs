@@ -578,7 +578,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   }
 
   /* -------------------------------------------------- */
-  /*   Damage Application                               */
+  /*   Damage & Healing Application                     */
   /* -------------------------------------------------- */
 
   /**
@@ -626,6 +626,21 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
     const actor = this.parent;
     await actor.update({ "system.resources.stamina.spent": spent + damage });
+    return actor;
+  }
+
+  /* -------------------------------------------------- */
+
+  calculateHealing(healings = []) {
+    return healings.reduce((acc, k) => Math.max(0, k.value), 0);
+  }
+
+  /* -------------------------------------------------- */
+
+  async applyHealing(healings = []) {
+    const total = this.calculateHealing(healings);
+    const actor = this.parent;
+    await actor.update({ "system.resources.stamina.spent": Math.max(0, this.resources.stamina.spent - total) });
     return actor;
   }
 }

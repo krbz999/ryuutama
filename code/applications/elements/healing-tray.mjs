@@ -3,9 +3,9 @@
  * @import RyuutamaChatMessage from "../../documents/chat-message.mjs",
  */
 
-export default class EffectTray extends HTMLElement {
+export default class HealingTray extends HTMLElement {
   /** @override */
-  static tagName = "effect-tray";
+  static tagName = "healing-tray";
 
   /* -------------------------------------------------- */
 
@@ -29,7 +29,7 @@ export default class EffectTray extends HTMLElement {
   connectedCallback() {
     this.#message = game.messages.get(this.closest("[data-message-id]").dataset.messageId);
     if (!this.#message) {
-      throw new Error("Unable to find parent chat message for EffectTray element.");
+      throw new Error("Unable to find parent chat message for HealingTray element.");
     }
 
     this.#hookId = Hooks.on("controlToken", foundry.utils.debounce(() => {
@@ -63,11 +63,12 @@ export default class EffectTray extends HTMLElement {
   #createActor(actor) {
     if (!["traveler", "monster"].includes(actor.type)) return;
 
+    const healings = this.#message.system.parts[this.closest("[data-message-part]").dataset.messagePart].healings;
     const htmlString = `
     <div data-actor-uuid="${actor.uuid}">
       <img src="${actor.img}" alt="${actor.name}">
       <span>${actor.name}</span>
-      <span></span>
+      <span>${actor.system.calculateHealing(healings)}</span>
     </div>`;
 
     return foundry.utils.parseHTML(htmlString);

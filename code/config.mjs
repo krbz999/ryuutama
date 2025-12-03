@@ -3,9 +3,10 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 /**
  * @import {
  * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, DamageRollPropertyConfig,
- * EffectExpirationTypeConfig, HerbTypeConfig, ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig,
- * SpellCategoryConfig, SpellActivationTypeConfig, SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig,
- * StatusEffectConfig, TerrainTypeConfig, TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig
+ * EffectExpirationTypeConfig, HealingRollPropertyConfig, HerbTypeConfig, ItemModifierConfig, ItemSizeConfig,
+ * MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig, SpellDurationTypeConfig,
+ * SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig, TravelerTypeConfig, UnarmedConfiguration,
+ * WeaponTypeConfig, WeatherTypeConfig
  * } from "./_types.mjs";
  */
 
@@ -208,6 +209,13 @@ export const experienceLevels = [
   7_500,
   10_000,
 ];
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, HealingRollPropertyConfig>}
+ */
+export const healingRollProperties = {};
 
 /* -------------------------------------------------- */
 

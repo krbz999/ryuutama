@@ -50,6 +50,13 @@
 /* -------------------------------------------------- */
 
 /**
+ * @typedef HealingRollPropertyConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef HerbTypeConfig
  * @property {string} label   Human-readable label.
  */
