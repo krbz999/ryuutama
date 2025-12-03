@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "BJugp9XCVu8ycXie"
+        ]
+      }
     }
   },
   "_id": "arrowcompass0000",
   "type": "spell",
   "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Arrow Compass",
+      "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
+      "type": "standard",
+      "_id": "BJugp9XCVu8ycXie",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": 43200,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.arrowcompass0000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764773619201,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!arrowcompass0000.BJugp9XCVu8ycXie"
+    }
+  ],
   "folder": "incantationlow00",
   "sort": 0,
   "ownership": {

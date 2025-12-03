@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "k30YTXhhV3i8T60C"
+        ]
+      }
     }
   },
   "_id": "alittlebeauty000",
   "type": "spell",
   "img": "icons/magic/nature/leaf-glow-maple-green.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "A Little Beauty",
+      "img": "icons/magic/nature/leaf-glow-maple-green.webp",
+      "type": "standard",
+      "_id": "k30YTXhhV3i8T60C",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": 86400,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.alittlebeauty000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764774942037,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!alittlebeauty000.k30YTXhhV3i8T60C"
+    }
+  ],
   "folder": "springlow0000000",
   "sort": 0,
   "ownership": {

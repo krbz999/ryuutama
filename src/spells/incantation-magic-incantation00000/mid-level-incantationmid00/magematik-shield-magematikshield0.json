@@ -28,12 +28,69 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "WLdD8gEcshrsGhLJ"
+        ]
+      }
     }
   },
   "_id": "magematikshield0",
   "type": "spell",
   "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Magematik Shield",
+      "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
+      "type": "standard",
+      "_id": "WLdD8gEcshrsGhLJ",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [
+        {
+          "key": "system.defense.armor",
+          "mode": 2,
+          "value": "1",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": 600,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.magematikshield0 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764774206748,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!magematikshield0.WLdD8gEcshrsGhLJ"
+    }
+  ],
   "folder": "incantationmid00",
   "sort": 0,
   "ownership": {

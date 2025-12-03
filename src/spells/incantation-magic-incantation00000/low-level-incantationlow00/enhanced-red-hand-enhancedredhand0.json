@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "p98vzieS3YSV1EXj"
+        ]
+      }
     }
   },
   "_id": "enhancedredhand0",
   "type": "spell",
   "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Enhanced Red Hand",
+      "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
+      "type": "standard",
+      "_id": "p98vzieS3YSV1EXj",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": 6,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.enhancedredhand0 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764773684920,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!enhancedredhand0.p98vzieS3YSV1EXj"
+    }
+  ],
   "folder": "incantationlow00",
   "sort": 0,
   "ownership": {

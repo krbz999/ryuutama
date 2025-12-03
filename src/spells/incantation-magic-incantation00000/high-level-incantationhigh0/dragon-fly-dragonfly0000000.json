@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "yLNBsURbHVkNWes6"
+        ]
+      }
     }
   },
   "_id": "dragonfly0000000",
   "type": "spell",
   "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Dragon Fly",
+      "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
+      "type": "standard",
+      "_id": "yLNBsURbHVkNWes6",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": 600,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.dragonfly0000000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764774571088,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!dragonfly0000000.yLNBsURbHVkNWes6"
+    }
+  ],
   "folder": "incantationhigh0",
   "sort": 0,
   "ownership": {

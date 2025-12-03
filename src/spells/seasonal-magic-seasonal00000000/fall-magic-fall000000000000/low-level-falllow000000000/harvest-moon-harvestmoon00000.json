@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "0szvOmwmM18INLJX"
+        ]
+      }
     }
   },
   "_id": "harvestmoon00000",
   "type": "spell",
   "img": "icons/magic/nature/leaf-glow-maple-orange.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Harvest Moon",
+      "img": "icons/magic/nature/leaf-glow-maple-orange.webp",
+      "type": "standard",
+      "_id": "0szvOmwmM18INLJX",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": 6,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.harvestmoon00000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764776108534,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!harvestmoon00000.0szvOmwmM18INLJX"
+    }
+  ],
   "folder": "falllow000000000",
   "sort": 0,
   "ownership": {

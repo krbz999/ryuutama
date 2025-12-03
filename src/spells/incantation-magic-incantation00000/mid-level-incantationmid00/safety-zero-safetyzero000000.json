@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "cx5h7pHBMKeX8QaC"
+        ]
+      }
     }
   },
   "_id": "safetyzero000000",
   "type": "spell",
   "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Safety Zero",
+      "img": "icons/sundries/books/book-embossed-clasp-gold-brown.webp",
+      "type": "standard",
+      "_id": "cx5h7pHBMKeX8QaC",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": 6,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.safetyzero000000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764774309946,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!safetyzero000000.cx5h7pHBMKeX8QaC"
+    }
+  ],
   "folder": "incantationmid00",
   "sort": 0,
   "ownership": {

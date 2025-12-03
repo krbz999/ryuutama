@@ -28,6 +28,32 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "statuses": {
+          "injury": {
+            "enabled": false
+          },
+          "poison": {
+            "enabled": true,
+            "strength": 6
+          },
+          "sickness": {
+            "enabled": false
+          },
+          "exhaustion": {
+            "enabled": false
+          },
+          "muddled": {
+            "enabled": false
+          },
+          "shock": {
+            "enabled": false
+          }
+        }
+      }
     }
   },
   "_id": "rosefeverscatter",

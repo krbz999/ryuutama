@@ -28,6 +28,12 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "damage",
+      "damage": {
+        "formula": "1d6"
+      }
     }
   },
   "_id": "attackofthekille",

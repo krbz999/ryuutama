@@ -28,6 +28,32 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "statuses": {
+          "injury": {
+            "enabled": false
+          },
+          "poison": {
+            "enabled": false
+          },
+          "sickness": {
+            "enabled": true,
+            "strength": 6
+          },
+          "exhaustion": {
+            "enabled": false
+          },
+          "muddled": {
+            "enabled": false
+          },
+          "shock": {
+            "enabled": false
+          }
+        }
+      }
     }
   },
   "_id": "catchanevilwind0",

@@ -28,6 +28,32 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "statuses": {
+          "injury": {
+            "enabled": false
+          },
+          "poison": {
+            "enabled": false
+          },
+          "sickness": {
+            "enabled": false
+          },
+          "exhaustion": {
+            "enabled": false
+          },
+          "muddled": {
+            "enabled": false
+          },
+          "shock": {
+            "enabled": true,
+            "strength": 6
+          }
+        }
+      }
     }
   },
   "_id": "chocolatecosmos0",

@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "Zjf1nSfoaCSRnUSJ"
+        ]
+      }
     }
   },
   "_id": "otometears000000",
   "type": "spell",
   "img": "icons/magic/nature/leaf-glow-maple-orange.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Otome Tears",
+      "img": "icons/magic/nature/leaf-glow-maple-orange.webp",
+      "type": "standard",
+      "_id": "Zjf1nSfoaCSRnUSJ",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": 6,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.otometears000000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764776171026,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!otometears000000.Zjf1nSfoaCSRnUSJ"
+    }
+  ],
   "folder": "falllow000000000",
   "sort": 0,
   "ownership": {

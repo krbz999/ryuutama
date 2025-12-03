@@ -28,6 +28,12 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "damage",
+      "damage": {
+        "formula": "@stats.intelligence + @stats.spirit"
+      }
     }
   },
   "_id": "bloodbathblades0",

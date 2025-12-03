@@ -28,6 +28,12 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "damage",
+      "damage": {
+        "formula": "@stats.dexterity + @stats.spirit"
+      }
     }
   },
   "_id": "cyclone000000000",

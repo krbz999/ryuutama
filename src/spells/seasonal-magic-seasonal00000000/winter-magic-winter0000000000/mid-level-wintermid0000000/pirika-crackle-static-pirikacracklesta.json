@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "NMfT8QIWZwV94xXF"
+        ]
+      }
     }
   },
   "_id": "pirikacracklesta",
   "type": "spell",
   "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Pirika Crackle-Static",
+      "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
+      "type": "standard",
+      "_id": "NMfT8QIWZwV94xXF",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": 6,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.pirikacracklesta caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764777833815,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!pirikacracklesta.NMfT8QIWZwV94xXF"
+    }
+  ],
   "folder": "wintermid0000000",
   "sort": 0,
   "ownership": {

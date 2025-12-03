@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "BZhfrNrepVhZ04f2"
+        ]
+      }
     }
   },
   "_id": "graveglacier0000",
   "type": "spell",
   "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Grave Glacier",
+      "img": "icons/magic/nature/leaf-glow-maple-teal.webp",
+      "type": "standard",
+      "_id": "BZhfrNrepVhZ04f2",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": 86400,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.graveglacier0000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764777923271,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!graveglacier0000.BZhfrNrepVhZ04f2"
+    }
+  ],
   "folder": "winterhigh000000",
   "sort": 0,
   "ownership": {

@@ -28,12 +28,216 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "PTFQKCRuK9Rvb3XM",
+          "2EyOlECIehQCnrN8",
+          "HhBsjPAj5DBhtSMi",
+          "AdbTImVp9Zc9XYrv"
+        ]
+      }
     }
   },
   "_id": "sprout0000000000",
   "type": "spell",
   "img": "icons/magic/nature/leaf-glow-maple-green.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Sprout (STR)",
+      "img": "icons/magic/nature/leaf-glow-maple-green.webp",
+      "type": "standard",
+      "_id": "PTFQKCRuK9Rvb3XM",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [
+        {
+          "key": "system.abilities.strength.faces",
+          "mode": 5,
+          "value": "20",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": 6,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.sprout0000000000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764775239295,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!sprout0000000000.PTFQKCRuK9Rvb3XM"
+    },
+    {
+      "name": "Sprout (DEX)",
+      "img": "icons/magic/nature/leaf-glow-maple-green.webp",
+      "type": "standard",
+      "_id": "2EyOlECIehQCnrN8",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [
+        {
+          "key": "system.abilities.dexterity.faces",
+          "mode": 5,
+          "value": "20",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": 6,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.sprout0000000000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764775306679,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!sprout0000000000.2EyOlECIehQCnrN8"
+    },
+    {
+      "name": "Sprout (INT)",
+      "img": "icons/magic/nature/leaf-glow-maple-green.webp",
+      "type": "standard",
+      "_id": "HhBsjPAj5DBhtSMi",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [
+        {
+          "key": "system.abilities.intelligence.faces",
+          "mode": 5,
+          "value": "20",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": 6,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.sprout0000000000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764775332488,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!sprout0000000000.HhBsjPAj5DBhtSMi"
+    },
+    {
+      "name": "Sprout (SPI)",
+      "img": "icons/magic/nature/leaf-glow-maple-green.webp",
+      "type": "standard",
+      "_id": "AdbTImVp9Zc9XYrv",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [
+        {
+          "key": "system.abilities.spirit.faces",
+          "mode": 5,
+          "value": "20",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": 6,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.sprout0000000000 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764775352341,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!sprout0000000000.AdbTImVp9Zc9XYrv"
+    }
+  ],
   "folder": "springhigh000000",
   "sort": 0,
   "ownership": {

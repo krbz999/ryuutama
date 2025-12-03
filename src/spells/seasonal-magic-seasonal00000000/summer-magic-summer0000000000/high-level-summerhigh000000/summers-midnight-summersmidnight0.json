@@ -28,12 +28,62 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "effect",
+      "effects": {
+        "ids": [
+          "uLWPhb40fhhZ7FAj"
+        ]
+      }
     }
   },
   "_id": "summersmidnight0",
   "type": "spell",
   "img": "icons/magic/nature/leaf-glow-maple-orange-purple.webp",
-  "effects": [],
+  "effects": [
+    {
+      "name": "Summer's Midnight",
+      "img": "icons/magic/nature/leaf-glow-maple-orange-purple.webp",
+      "type": "standard",
+      "_id": "uLWPhb40fhhZ7FAj",
+      "system": {
+        "expiration": {
+          "type": ""
+        }
+      },
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": 3600,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "<p>@Embed[Compendium.ryuutama.spells.Item.summersmidnight0 caption=false]</p>",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "ryuutama",
+        "systemVersion": "1.2.0",
+        "createdTime": 1764776018259,
+        "modifiedTime": null,
+        "lastModifiedBy": "ryuutama00000000"
+      },
+      "_key": "!items.effects!summersmidnight0.uLWPhb40fhhZ7FAj"
+    }
+  ],
   "folder": "summerhigh000000",
   "sort": 0,
   "ownership": {
