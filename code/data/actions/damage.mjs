@@ -36,9 +36,23 @@ export default class DamageAction extends Action {
       ui.notifications.error("RYUUTAMA.ITEM.SPELL.warnNoDamageFormula", { localize: true });
       return null;
     }
-    const roll = new ryuutama.dice.DamageRoll(formula, this.actor.getRollData());
+
+    const options = Object.fromEntries(Array.from(this.getDamageOptions()).map(k => [k, true]));
+    const roll = new ryuutama.dice.DamageRoll(formula, this.actor.getRollData(), options);
     await roll.evaluate();
     return { type: "damage", rolls: [roll] };
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Gather the roll properties.
+   * @returns {Set<string>}
+   */
+  getDamageOptions() {
+    const properties = this.item.system.getDamageOptions();
+    if (this.damage.properties.has("ignoreArmor")) properties.add("ignoreArmor");
+    return properties;
   }
 
   /* -------------------------------------------------- */
@@ -47,5 +61,9 @@ export default class DamageAction extends Action {
   prepareSheetContext(context) {
     super.prepareSheetContext(context);
     context.actionTemplate = "item-action-damage";
+    context.actionProperties = Object.entries(ryuutama.config.damageRollProperties).map(([k, v]) => ({
+      value: k,
+      label: v.label,
+    }));
   }
 }
