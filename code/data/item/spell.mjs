@@ -42,6 +42,10 @@ export default class SpellData extends BaseData {
           choices: () => ryuutama.config.spellCategories,
         }),
       }),
+      roll: new SchemaField({
+        flavor: new StringField({ required: true }),
+        formula: new ryuutama.data.fields.FormulaField(),
+      }),
       spell: new SchemaField({
         activation: new SchemaField({
           cast: new StringField({ required: true, initial: "normal", choices: () => ryuutama.config.spellActivationTypes }),
@@ -142,13 +146,14 @@ export default class SpellData extends BaseData {
    */
   async use() {
     const action = this.action;
-    if (!action) {
-      ui.notifications.error("RYUUTAMA.ITEM.SPELL.warnNoAction", { localize: true });
-      return null;
+    let part;
+    if (action) {
+      part = await action.use();
+      if (!part) return null;
     }
 
-    const part = await action.use();
-    if (!part) return null;
+    const rollPart = await this.#generateGenericRollPart();
+    if (!rollPart) return null;
 
     const item = this.parent;
     const messageData = await this.parent.actor.system.rollCheck(
@@ -158,7 +163,26 @@ export default class SpellData extends BaseData {
     );
     if (!messageData) return null;
 
-    messageData.system.parts.push(part);
+    if (rollPart.rolls.length) messageData.system.parts.push(rollPart);
+    if (part) messageData.system.parts.push(part);
     return getDocumentClass("ChatMessage").create(messageData);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Generate the message part for the generic roll.
+   * @returns {Promise<object>}
+   */
+  async #generateGenericRollPart() {
+    const part = {
+      type: "roll", rolls: [],
+      flavor: this.roll.flavor,
+    };
+    if (this.roll.formula) {
+      const roll = await new ryuutama.dice.BaseRoll(this.roll.formula, this.parent.getRollData()).evaluate();
+      part.rolls.push(roll);
+    }
+    return part;
   }
 }

@@ -401,6 +401,7 @@
       "identifierError": "Invalid identifier.",
       "removeAction": "Remove this action",
       "selectAction": "Select Action",
+      "genericRoll": "Generic Roll",
 
       "ANIMAL": {
         "FIELDS": {
@@ -486,7 +487,10 @@
           "spell.activation.mental.label": "MP Cost",
           "spell.level.label": "Spell Level",
           "spell.range.value.label": "Range",
-          "spell.target.custom.label": "Targets"
+          "spell.target.custom.label": "Targets",
+          "roll.flavor.label": "Flavor Text",
+          "roll.formula.label": "Formula",
+          "roll.formula.placeholder": "E.g. '2d4'"
         },
         "ACTIVATION": {
           "normal": "Normal Spell",
@@ -531,7 +535,6 @@
         "specialDuration": "Special duration",
         "targetPlaceholder": "E.g. '1 person'",
         "timing": "Spell Timing",
-        "warnNoAction": "A spell must have an Action configured to be cast.",
         "warnNoApplicableEffects": "The spell does not have any effects configured to be applied to targets.",
         "warnNoDamageFormula": "The spell does not have any damage formula configured for its damage roll."
       },
