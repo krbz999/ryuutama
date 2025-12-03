@@ -1,8 +1,8 @@
 import MessagePart from "./base.mjs";
 
-export default class CheckPart extends MessagePart {
+export default class RollPart extends MessagePart {
   static {
-    Object.defineProperty(this, "TYPE", { value: "check" });
+    Object.defineProperty(this, "TYPE", { value: "roll" });
   }
 
   /* -------------------------------------------------- */
@@ -13,5 +13,5 @@ export default class CheckPart extends MessagePart {
   /* -------------------------------------------------- */
 
   /** @override */
-  static TEMPLATE = "systems/ryuutama/templates/chat/parts/check.hbs";
+  static TEMPLATE = "systems/ryuutama/templates/chat/parts/roll.hbs";
 }
