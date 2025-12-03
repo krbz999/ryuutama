@@ -25,6 +25,12 @@
         "custom": "1 person"
       },
       "effects": {}
+    },
+    "action": {
+      "type": "damage",
+      "damage": {
+        "formula": "@stats.spirit"
+      }
     }
   },
   "_id": "kaguyasleylance0",
