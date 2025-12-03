@@ -10,6 +10,13 @@
     <input type="checkbox" {{checked checked}}>
   </span>
   {{/each}}
+  {{#each ctx.statuses}}
+  <span class="effect" data-status-id="{{statusId}}">
+    <img src="{{icon}}" alt="{{label}}">
+    <span class="name">{{label}}</span>
+    <input type="checkbox" {{checked checked}}>
+  </span>
+  {{/each}}
 </section>
 
 <section>

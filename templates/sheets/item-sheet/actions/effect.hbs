@@ -1,1 +1,13 @@
+{{!-- EFFECTS --}}
 {{formGroup action.schema.fields.effects.fields.ids options=actionEffectIds name="system.action.effects.ids" value=action.effects.ids disabled=disabled classes="stacked"}}
+
+{{!-- STATUSES --}}
+{{#each actionStatuses}}
+<div class="form-group">
+  <label for="{{@root.rootId}}-{{concat namePrefix 'enabled'}}">{{label}}</label>
+  <div class="form-fields">
+    {{formInput enabledField value=enabled name=(concat namePrefix "enabled") disabled=@root.disabled id=(concat @root.rootId (concat "-" namePrefix "enabled"))}}
+    {{formInput strengthField value=strength name=(concat namePrefix "strength") disabled=(or @root.disabled (not enabled))}}
+  </div>
+</div>
+{{/each}}

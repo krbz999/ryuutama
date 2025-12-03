@@ -37,7 +37,7 @@
   border: 1px inset gray;
   border-radius: 3px;
 
-  [data-effect-uuid] {
+  [data-effect-uuid], [data-status-id] {
     display: grid;
     grid-template-columns: 35px 1fr 35px;
     align-items: center;
