@@ -10,6 +10,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     position: { width: 400 },
     actions: {
       removeAction: RyuutamaItemSheet.#removeAction,
+      createActionEffect: RyuutamaItemSheet.#createActionEffect,
     },
   };
 
@@ -207,5 +208,18 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
    */
   static #removeAction(event, target) {
     this.document.update({ "system.action": null });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaItemSheet
+   */
+  static async #createActionEffect(event, target) {
+    const effect = await getDocumentClass("ActiveEffect").create({
+      name: this.document.name,
+      img: this.document.img,
+    }, { parent: this.document, renderSheet: true });
+    this.document.update({ "system.action.effects.ids": [...this.document.system.action.effects.ids, effect.id] });
   }
 }

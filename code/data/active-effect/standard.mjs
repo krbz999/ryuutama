@@ -33,6 +33,22 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
+   * Is this effect prevented from affecting the actor?
+   * @type {boolean}
+   */
+  get isSuppressed() {
+    const effect = this.parent;
+    // TODO: might not be on any parent in v14.
+    if (effect.parent instanceof foundry.documents.Actor) return false;
+    if (effect.parent instanceof foundry.documents.Item) {
+      return !!effect.parent.system.action?.effects?.ids.has(effect.id);
+    }
+    return false;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Create data for an enriched tooltip.
    * @returns {Promise<HTMLElement[]>}
    */
