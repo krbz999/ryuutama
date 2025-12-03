@@ -2,10 +2,10 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 
 /**
  * @import {
- * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, EffectExpirationTypeConfig, HerbTypeConfig,
- * ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig,
- * SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig,
- * TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig
+ * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, DamageRollPropertyConfig,
+ * EffectExpirationTypeConfig, HerbTypeConfig, ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig,
+ * SpellCategoryConfig, SpellActivationTypeConfig, SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig,
+ * StatusEffectConfig, TerrainTypeConfig, TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig
  * } from "./_types.mjs";
  */
 
@@ -168,6 +168,18 @@ export const checkTypes = {
 };
 Prelocalization.prelocalize(checkTypes);
 Prelocalization.prelocalize(checkTypes.journey.subtypes);
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, DamageRollPropertyConfig>}
+ */
+export const damageRollProperties = {
+  ignoreArmor: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.ignoreArmor",
+  },
+};
+Prelocalization.prelocalize(damageRollProperties);
 
 /* -------------------------------------------------- */
 

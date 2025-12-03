@@ -529,8 +529,11 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    */
   #constructRollOptions(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     const options = {};
+    const item = ["accuracy", "damage"].includes(rollConfig.type) ? this.equipped?.weapon : null;
     switch (rollConfig.type) {
-      case "damage": foundry.utils.mergeObject(options, { magical: false }); break;
+      case "damage": foundry.utils.mergeObject(options, Object.fromEntries(
+        Array.from(item?.system.getDamageOptions()).map(k => [k, true]),
+      )); break;
     }
     return foundry.utils.mergeObject(options, messageConfig.rollOptions ?? {});
   }
@@ -592,7 +595,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
      * @returns {boolean}
      */
     const ignoreDefense = damage => {
-      return damage.options?.defenseless
+      return damage.options?.ignoreArmor
         || ((this.details?.category === "undead") && (damage.options?.mythril || damage.options?.orichalcum));
     };
 

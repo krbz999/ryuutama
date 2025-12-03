@@ -35,10 +35,10 @@ export default class DamagePart extends MessagePart {
       return {
         value: roll.total,
         options: {
-          defenseless: roll.isDefenseless,
-          magical: roll.isMagical,
-          mythril: roll.isMythril,
-          orichalcum: roll.isOrichalcum,
+          ignoreArmor: roll.ignoreArmor,
+          magical: roll.magical,
+          mythril: roll.mythril,
+          orichalcum: roll.orichalcum,
         },
       };
     });

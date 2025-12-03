@@ -9,8 +9,8 @@ export default class DamageRoll extends CheckRoll {
   /**
    * Does this instance of damage ignore defense points?
    */
-  get isDefenseless() {
-    return !!this.options.defenseless;
+  get ignoreArmor() {
+    return !!this.options.ignoreArmor;
   }
 
   /* -------------------------------------------------- */
@@ -19,7 +19,7 @@ export default class DamageRoll extends CheckRoll {
    * Is this instance of damage magical?
    * @type {boolean}
    */
-  get isMagical() {
+  get magical() {
     return !!this.options.magical;
   }
 
@@ -29,7 +29,7 @@ export default class DamageRoll extends CheckRoll {
    * Is this damage from a mythril item?
    * @type {boolean}
    */
-  get isMythril() {
+  get mythril() {
     return !!this.options.mythril;
   }
 
@@ -39,7 +39,7 @@ export default class DamageRoll extends CheckRoll {
    * Is this damage from an orichalcum item?
    * @type {boolean}
    */
-  get isOrichalcum() {
+  get orichalcum() {
     return !!this.options.orichalcum;
   }
 }

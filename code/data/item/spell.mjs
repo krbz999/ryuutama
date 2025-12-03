@@ -75,6 +75,13 @@ export default class SpellData extends BaseData {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  getDamageOptions() {
+    return super.getDamageOptions().add("magical");
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Use this spell.
    * @returns {Promise<RyuutamaChatMessage|null>}

@@ -36,6 +36,13 @@
 /* -------------------------------------------------- */
 
 /**
+ * @typedef DamageRollPropertyConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef EffectExpirationTypeConfig
  * @property {string} label   Human-readable label.
  */
