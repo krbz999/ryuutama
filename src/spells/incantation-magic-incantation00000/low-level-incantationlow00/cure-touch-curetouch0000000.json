@@ -28,6 +28,12 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "action": {
+      "type": "healing",
+      "healing": {
+        "formula": "@stats.intelligence"
+      }
     }
   },
   "_id": "curetouch0000000",
