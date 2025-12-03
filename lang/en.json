@@ -535,8 +535,9 @@
         "specialDuration": "Special duration",
         "targetPlaceholder": "E.g. '1 person'",
         "timing": "Spell Timing",
-        "warnNoApplicableEffects": "The spell does not have any effects configured to be applied to targets.",
-        "warnNoDamageFormula": "The spell does not have any damage formula configured for its damage roll."
+        "warnNoApplicableEffects": "The item does not have any effects or statuses configured to be applied.",
+        "warnNoDamageFormula": "The item does not have any damage formula configured for its roll.",
+        "warnNoHealingFormula": "The item does not have any healing formula configured for its roll."
       },
 
       "WEAPON": {
@@ -612,8 +613,9 @@
 
       "ACTION": {
         "LABELS": {
-          "damage": "Roll Damage",
-          "effect": "Apply Effect"
+          "damage": "Damage",
+          "effect": "Effect",
+          "healing": "Healing"
         },
         "PROPERTIES": {
           "ignoreArmor": "Ignore Armor"
@@ -622,7 +624,7 @@
         "DAMAGE": {
           "FIELDS": {
             "damage.formula.label": "Damage Formula",
-            "damage.formula.placeholder": "E.g. '2@stats.spirit.die'",
+            "damage.formula.placeholder": "E.g. '@stats.spirit'",
             "damage.properties.label": "Damage Properties"
           }
         },
@@ -630,6 +632,13 @@
           "FIELDS": {
             "effects.ids.label": "Effects",
             "effects.ids.hint": "Effects that are applied by this action."
+          }
+        },
+        "HEALING": {
+          "FIELDS": {
+            "healing.formula.label": "Healing Formula",
+            "healing.formula.placeholder": "E.g. '@stats.spirit'",
+            "healing.properties.label": "Healing Properties"
           }
         }
       },

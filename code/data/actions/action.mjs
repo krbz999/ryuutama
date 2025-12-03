@@ -1,6 +1,5 @@
 /**
  * @import RyuutamaActor from "../../documents/actor.mjs";
- * @import RyuutamaChatMessage from "../../documents/chat-message.mjs";
  * @import RyuutamaItem from "../../documents/item.mjs";
  */
 
@@ -37,6 +36,7 @@ export default class Action extends foundry.abstract.DataModel {
     return Action.#TYPES ??= Object.freeze({
       [ryuutama.data.action.DamageAction.TYPE]: ryuutama.data.action.DamageAction,
       [ryuutama.data.action.EffectAction.TYPE]: ryuutama.data.action.EffectAction,
+      [ryuutama.data.action.HealingAction.TYPE]: ryuutama.data.action.HealingAction,
     });
   }
 

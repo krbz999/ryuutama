@@ -733,4 +733,19 @@ export default class CreatureData extends BaseData {
     await actor.update({ "system.resources.stamina.spent": actor.system.resources.stamina.spent - total });
     return actor;
   }
+
+  /* -------------------------------------------------- */
+
+  calculateHealing(healings = []) {
+    return healings.reduce((acc, k) => Math.max(0, k.value), 0);
+  }
+
+  /* -------------------------------------------------- */
+
+  async applyHealing(healings = []) {
+    const total = this.calculateHealing(healings);
+    const actor = this.parent;
+    await actor.update({ "system.resources.stamina.spent": Math.max(0, this.resources.stamina.spent - total) });
+    return actor;
+  }
 }
