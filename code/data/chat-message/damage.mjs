@@ -48,7 +48,7 @@ export default class DamageData extends MessageData {
     return this.damageRolls.map(roll => {
       return {
         value: roll.total,
-        options: roll._getRollProperties(),
+        options: roll.damageProperties,
       };
     });
   }
