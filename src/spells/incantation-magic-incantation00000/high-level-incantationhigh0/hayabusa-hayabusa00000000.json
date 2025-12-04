@@ -5,7 +5,7 @@
       "value": "incantation"
     },
     "description": {
-      "value": "<p>The target is imbued with the speed of a hawk. The target may attack twice each round for the spell's duration. After the spell wears off, the target is exhausted and receives [Injury: 10]</p>"
+      "value": "<p>The target is imbued with the speed of a hawk. The target may attack twice each round for the spell's duration. After the spell wears off, the target is exhausted and receives [[/status injury 10]].</p>"
     },
     "spell": {
       "activation": {
@@ -41,9 +41,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760192905892,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
