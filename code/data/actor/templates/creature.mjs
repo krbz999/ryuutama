@@ -583,11 +583,14 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
   /**
    * Calculate the damage an actor will take.
-   * @param {DamageConfiguration[]} [damages=[]]
-   * @returns {number}
+   * @param {DamageConfiguration[]} damage
+   * @returns {{ stamina: number, mental: number }}   The damage applied to HP and MP.
    */
-  calculateDamage(damages = []) {
+  calculateDamage(damages) {
     damages = foundry.utils.deepClone(damages);
+
+    let hp = 0;
+    let mp = 0;
 
     /**
      * Does this damage ignore defense/armor?
@@ -606,9 +609,11 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         if (!ignoreDefense(damage)) damage.value -= this.defense.total;
       }
       damage.value = Math.max(0, damage.value);
+      hp += damage.value;
+      if (damage.options?.damageMental) mp += damage.value;
     }
 
-    return damages.reduce((acc, damage) => acc + damage.value, 0);
+    return { stamina: hp, mental: mp };
   }
 
   /* -------------------------------------------------- */
@@ -620,27 +625,40 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    */
   async applyDamage(damages = []) {
     const total = this.calculateDamage(damages);
-
-    const { value, spent } = this.resources.stamina;
-    const damage = Math.min(value, total);
-
+    const update = {};
+    const addDamage = resource => {
+      const { spent } = this.resources[resource];
+      update[`system.resources.${resource}.spent`] = spent + total[resource];
+    };
+    addDamage("stamina");
+    addDamage("mental");
     const actor = this.parent;
-    await actor.update({ "system.resources.stamina.spent": spent + damage });
+    await actor.update(update);
     return actor;
   }
 
   /* -------------------------------------------------- */
 
-  calculateHealing(healings = []) {
+  /**
+   * Calculate the healing an actor will have applied.
+   * @param {{ value: number }[]} healings
+   * @returns {number}
+   */
+  calculateHealing(healings) {
     return healings.reduce((acc, k) => Math.max(0, k.value), 0);
   }
 
   /* -------------------------------------------------- */
 
+  /**
+   * Apply healing to the actor.
+   * @param {{ value: number }[]} [healings=[]]
+   * @returns {Promise<RyuutamaActor>}
+   */
   async applyHealing(healings = []) {
     const total = this.calculateHealing(healings);
     const actor = this.parent;
-    await actor.update({ "system.resources.stamina.spent": Math.max(0, this.resources.stamina.spent - total) });
+    await actor.update({ "system.resources.stamina.spent": this.resources.stamina.spent - total });
     return actor;
   }
 }

@@ -32,6 +32,7 @@ export default class DamagePart extends MessagePart {
       return {
         value: roll.total,
         options: {
+          damageMental: roll.damageMental,
           ignoreArmor: roll.ignoreArmor,
           magical: roll.magical,
           mythril: roll.mythril,

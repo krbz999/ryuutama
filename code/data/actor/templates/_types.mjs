@@ -83,6 +83,7 @@
  * @typedef DamageConfiguration
  * @property {number} value                     The damage total.
  * @property {object} [options]
+ * @property {boolean} [options.damageMental]   Does this damage apply to MP as well?
  * @property {boolean} [options.ignoreArmor]    Does this damage ignore defense points?
  * @property {boolean} [options.magical]        Is this magical damage, i.e., from a spell?
  * @property {boolean} [options.mythril]        Is this damage from a mythril item?

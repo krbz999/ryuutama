@@ -179,6 +179,9 @@ export const damageRollProperties = {
   ignoreArmor: {
     label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.ignoreArmor",
   },
+  damageMental: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.damageMental",
+  },
 };
 Prelocalization.prelocalize(damageRollProperties);
 

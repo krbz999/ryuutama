@@ -7,6 +7,16 @@ export default class DamageRoll extends CheckRoll {
   /* -------------------------------------------------- */
 
   /**
+   * Does this instance of damage also affect MP?
+   * @type {boolean}
+   */
+  get damageMental() {
+    return !!this.options.damageMental;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Does this instance of damage ignore defense points?
    */
   get ignoreArmor() {
