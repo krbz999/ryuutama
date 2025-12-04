@@ -11,27 +11,26 @@ export default class DamageRoll extends CheckRoll {
    * @returns {Record<string, boolean>}
    */
   _getRollProperties() {
-    const {
-      damageMental = false, ignoreArmor = false, magical = false, mythril = false, orichalcum = false,
-    } = this.options;
-    return { damageMental, ignoreArmor, magical, mythril, orichalcum };
+    const options = {};
+    for (const k of Object.keys(ryuutama.config.damageRollProperties)) {
+      options[k] = !!this.options[k];
+    }
+    return options;
   }
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
   _getTooltipProperties() {
-    const config = ryuutama.config.damageRollProperties;
-    const modifiers = ryuutama.config.itemModifiers;
-    const options = this._getRollProperties();
+    const properties = Object.entries(this._getRollProperties()).map(([k, v]) => {
+      if (!v) return null;
+      const { label, icon } = ryuutama.config.damageRollProperties[k];
+      return { tooltip: label, icon };
+    }).filter(_ => _);
 
     return [
       ...super._getTooltipProperties(),
-      options.damageMental ? { icon: config.damageMental.icon, tooltip: config.damageMental.label } : null,
-      options.ignoreArmor ? { icon: config.ignoreArmor.icon, tooltip: config.ignoreArmor.label } : null,
-      options.magical ? { icon: "systems/ryuutama/assets/icons/eclipse-flare.svg", tooltip: "Magical" } : null,
-      options.mythril ? { icon: modifiers.mythril.icon, tooltip: modifiers.mythril.label } : null,
-      options.orichalcum ? { icon: modifiers.orichalcum.icon, tooltip: modifiers.orichalcum.label } : null,
-    ].filter(_ => _);
+      ...properties,
+    ];
   }
 }

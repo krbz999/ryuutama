@@ -176,13 +176,28 @@ Prelocalization.prelocalize(checkTypes.journey.subtypes);
  * @type {Record<string, DamageRollPropertyConfig>}
  */
 export const damageRollProperties = {
+  damageMental: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.damageMental",
+    icon: "systems/ryuutama/assets/icons/bolt-eye.svg",
+  },
   ignoreArmor: {
     label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.ignoreArmor",
     icon: "systems/ryuutama/assets/icons/shield-disabled.svg",
   },
-  damageMental: {
-    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.damageMental",
-    icon: "systems/ryuutama/assets/icons/bolt-eye.svg",
+  magical: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.magical",
+    icon: "systems/ryuutama/assets/icons/eclipse-flare.svg",
+    visible: false,
+  },
+  mythril: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.mythril",
+    icon: "systems/ryuutama/assets/icons/fish-scales.svg",
+    visible: false,
+  },
+  orichalcum: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.orichalcum",
+    icon: "systems/ryuutama/assets/icons/layered-armor.svg",
+    visible: false,
   },
 };
 Prelocalization.prelocalize(damageRollProperties);
@@ -274,12 +289,10 @@ export const itemModifiers = {
   mythril: {
     label: "RYUUTAMA.ITEM.MODIFIERS.mythril",
     cost: 10,
-    icon: "systems/ryuutama/assets/icons/fish-scales.svg",
   },
   orichalcum: {
     label: "RYUUTAMA.ITEM.MODIFIERS.orichalcum",
     cost: 50,
-    icon: "systems/ryuutama/assets/icons/layered-armor.svg",
   },
   plusOne: {
     label: "RYUUTAMA.ITEM.MODIFIERS.plusOne",
