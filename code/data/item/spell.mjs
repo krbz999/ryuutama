@@ -1,10 +1,6 @@
-import BaseData from "./templates/base.mjs";
+import ActionData from "./templates/action.mjs";
 
-/**
- * @import RyuutamaChatMessage from "../../documents/chat-message.mjs";
- */
-
-const { NumberField, SchemaField, StringField, TypedSchemaField } = foundry.data.fields;
+const { NumberField, SchemaField, StringField } = foundry.data.fields;
 
 /**
  * @typedef SpellData
@@ -35,16 +31,11 @@ export default class SpellData extends BaseData {
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
-      action: new TypedSchemaField(ryuutama.data.action.Action.TYPES, { nullable: true, initial: null, required: true }),
       category: new SchemaField({
         value: new StringField({
           required: true, initial: "incantation",
           choices: () => ryuutama.config.spellCategories,
         }),
-      }),
-      roll: new SchemaField({
-        flavor: new StringField({ required: true }),
-        formula: new ryuutama.data.fields.FormulaField(),
       }),
       spell: new SchemaField({
         activation: new SchemaField({
