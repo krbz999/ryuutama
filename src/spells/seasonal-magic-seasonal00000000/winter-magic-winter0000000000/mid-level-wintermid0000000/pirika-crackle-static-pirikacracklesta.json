@@ -5,7 +5,7 @@
       "value": "winter"
     },
     "description": {
-      "value": "<p>A powerful charge of static electricity zaps anyone who attacks the caster. Anybody whom the caster touches or attacks, or anyone who attacks the caster suffers [[/damage @stats.spirit]]{[SPI]} (1 die) damage. The caster also suffers this damage once, when the spell is cast.</p><p></p>"
+      "value": "<p>A powerful charge of static electricity zaps anyone who attacks the caster. Anybody whom the caster touches or attacks, or anyone who attacks the caster suffers [[/damage @stats.spirit]]{[SPI]} (1 die) damage. The caster also suffers this damage once, when the spell is cast.</p>"
     },
     "spell": {
       "activation": {
