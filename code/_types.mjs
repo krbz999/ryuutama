@@ -38,6 +38,7 @@
 /**
  * @typedef DamageRollPropertyConfig
  * @property {string} label   Human-readable label.
+ * @property {string} icon    Filepath of associated icon.
  */
 
 /* -------------------------------------------------- */
@@ -71,6 +72,7 @@
  * @property {boolean} [hidden]     If `true`, this modifier is not shown on the item sheet unless the item has this
  *                                  modifier and derived data is being shown.
  * @property {boolean} [magical]    If `true`, the `cost` property is additive.
+ * @property {string} [icon]        Filepath of the associated icon.
  */
 
 /* -------------------------------------------------- */

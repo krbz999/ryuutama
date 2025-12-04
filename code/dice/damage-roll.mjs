@@ -7,49 +7,31 @@ export default class DamageRoll extends CheckRoll {
   /* -------------------------------------------------- */
 
   /**
-   * Does this instance of damage also affect MP?
-   * @type {boolean}
+   * Obtain which roll properties are applied.
+   * @returns {Record<string, boolean>}
    */
-  get damageMental() {
-    return !!this.options.damageMental;
+  _getRollProperties() {
+    const {
+      damageMental = false, ignoreArmor = false, magical = false, mythril = false, orichalcum = false,
+    } = this.options;
+    return { damageMental, ignoreArmor, magical, mythril, orichalcum };
   }
 
   /* -------------------------------------------------- */
 
-  /**
-   * Does this instance of damage ignore defense points?
-   */
-  get ignoreArmor() {
-    return !!this.options.ignoreArmor;
-  }
+  /** @inheritdoc */
+  _getTooltipProperties() {
+    const config = ryuutama.config.damageRollProperties;
+    const modifiers = ryuutama.config.itemModifiers;
+    const options = this._getRollProperties();
 
-  /* -------------------------------------------------- */
-
-  /**
-   * Is this instance of damage magical?
-   * @type {boolean}
-   */
-  get magical() {
-    return !!this.options.magical;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Is this damage from a mythril item?
-   * @type {boolean}
-   */
-  get mythril() {
-    return !!this.options.mythril;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Is this damage from an orichalcum item?
-   * @type {boolean}
-   */
-  get orichalcum() {
-    return !!this.options.orichalcum;
+    return [
+      ...super._getTooltipProperties(),
+      options.damageMental ? { icon: config.damageMental.icon, tooltip: config.damageMental.label } : null,
+      options.ignoreArmor ? { icon: config.ignoreArmor.icon, tooltip: config.ignoreArmor.label } : null,
+      options.magical ? { icon: "systems/ryuutama/assets/icons/eclipse-flare.svg", tooltip: "Magical" } : null,
+      options.mythril ? { icon: modifiers.mythril.icon, tooltip: modifiers.mythril.label } : null,
+      options.orichalcum ? { icon: modifiers.orichalcum.icon, tooltip: modifiers.orichalcum.label } : null,
+    ].filter(_ => _);
   }
 }

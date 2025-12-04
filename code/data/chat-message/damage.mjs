@@ -48,13 +48,7 @@ export default class DamageData extends MessageData {
     return this.damageRolls.map(roll => {
       return {
         value: roll.total,
-        options: {
-          damageMental: roll.damageMental,
-          ignoreArmor: roll.ignoreArmor,
-          magical: roll.magical,
-          mythril: roll.mythril,
-          orichalcum: roll.orichalcum,
-        },
+        options: roll._getRollProperties(),
       };
     });
   }
