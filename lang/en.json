@@ -75,6 +75,13 @@
   },
   "RYUUTAMA": {
     "ACTOR": {
+      "PARTY": {
+        "FIELDS": {}
+      },
+      "RYUUJIN": {
+        "FIELDS": {}
+      },
+
       "TABS": {
         "attributes": "Attributes",
         "details": "Details",
@@ -186,12 +193,6 @@
       },
       "specialAbility": "Special Ability",
       "monsterDetails": "Monster Details"
-    },
-    "PARTY": {
-      "FIELDS": {}
-    },
-    "RYUUJIN": {
-      "FIELDS": {}
     },
     "TRAVELER": {
       "FIELDS": {
