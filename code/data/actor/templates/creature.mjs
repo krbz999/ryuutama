@@ -593,7 +593,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
      * @returns {boolean}
      */
     const ignoreDefense = damage => {
-      return damage.options?.defenseless
+      return damage.options?.ignoreArmor
         || ((this.details?.category === "undead") && (damage.options?.mythril || damage.options?.orichalcum));
     };
 

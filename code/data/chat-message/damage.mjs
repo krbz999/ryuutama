@@ -48,12 +48,7 @@ export default class DamageData extends MessageData {
     return this.damageRolls.map(roll => {
       return {
         value: roll.total,
-        options: {
-          defenseless: roll.isDefenseless,
-          magical: roll.isMagical,
-          mythril: roll.isMythril,
-          orichalcum: roll.isOrichalcum,
-        },
+        options: roll.damageProperties,
       };
     });
   }

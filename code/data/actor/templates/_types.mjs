@@ -83,8 +83,9 @@
  * @typedef DamageConfiguration
  * @property {number} value                     The damage total.
  * @property {object} [options]
- * @property {boolean} [options.defenseless]    Does this damage ignore defense points?
- * @property {boolean} [options.magical]        Is this magical damage, e.g., from a spell?
+ * @property {boolean} [options.damageMental]   Does this damage apply to MP as well?
+ * @property {boolean} [options.ignoreArmor]    Does this damage ignore defense points?
+ * @property {boolean} [options.magical]        Is this magical damage, i.e., from a spell?
  * @property {boolean} [options.mythril]        Is this damage from a mythril item?
  * @property {boolean} [options.orichalcum]     Is this damage from an orichalcum item? Mythril and orichalcum
  *                                              items ignore Armor points on Undead.

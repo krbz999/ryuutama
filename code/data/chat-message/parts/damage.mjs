@@ -31,12 +31,7 @@ export default class DamagePart extends MessagePart {
     return this.rolls.map(roll => {
       return {
         value: roll.total,
-        options: {
-          defenseless: roll.isDefenseless,
-          magical: roll.isMagical,
-          mythril: roll.isMythril,
-          orichalcum: roll.isOrichalcum,
-        },
+        options: roll.damageProperties,
       };
     });
   }
