@@ -21,7 +21,7 @@ export default class EffectPart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /** @override  */
+  /** @override */
   static TEMPLATE = "systems/ryuutama/templates/chat/parts/effect.hbs";
 
   /* -------------------------------------------------- */
