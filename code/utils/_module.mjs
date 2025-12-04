@@ -1,5 +1,6 @@
 export { default as applyStatus } from "./apply-status.mjs";
 export { default as createDefaultIdentifier } from "./create-default-identifier.mjs";
+export { default as formatNumber } from "./format-number.mjs";
 export { default as isValidIdentifier } from "./is-valid-identifier.mjs";
 export { default as parseInputDelta } from "./parse-input-delta.mjs";
 export { default as prelocalize } from "./prelocalize.mjs";
