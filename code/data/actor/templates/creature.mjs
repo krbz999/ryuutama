@@ -623,4 +623,29 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     await actor.update({ "system.resources.stamina.spent": spent + total });
     return actor;
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Calculate healing received.
+   * @param {{ value: number }[]} healing
+   * @returns {number}
+   */
+  calculateHealing(healing) {
+    return healing.reduce((acc, h) => acc + Math.max(h.value, 0), 0);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Apply healing to this actor.
+   * @param {{ value: number }[]} healing
+   * @returns {Promise<RyuutamaActor>}
+   */
+  async applyHealing(healing = []) {
+    const total = this.calculateHealing(healing);
+    const actor = this.parent;
+    await actor.update({ "system.resources.stamina.spent": actor.system.resources.stamina.spent - total });
+    return actor;
+  }
 }
