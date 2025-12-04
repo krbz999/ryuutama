@@ -31,7 +31,7 @@ export default class DamagePart extends MessagePart {
     return this.rolls.map(roll => {
       return {
         value: roll.total,
-        options: roll._getRollPropertes(),
+        options: roll._getRollProperties(),
       };
     });
   }
