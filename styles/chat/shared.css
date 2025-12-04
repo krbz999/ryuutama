@@ -1,5 +1,6 @@
 .chat-message damage-tray,
-.chat-message effect-tray {
+.chat-message effect-tray,
+.chat-message healing-tray {
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
@@ -22,7 +23,8 @@
   }
 
   + button[data-action=applyDamage],
-  + button[data-action=applyEffects] {
+  + button[data-action=applyEffects],
+  + button[data-action=applyHealing] {
     width: 100%;
   }
 }
@@ -37,7 +39,7 @@
   border: 1px inset gray;
   border-radius: 3px;
 
-  [data-effect-uuid] {
+  [data-effect-uuid], [data-status-id] {
     display: grid;
     grid-template-columns: 35px 1fr 35px;
     align-items: center;

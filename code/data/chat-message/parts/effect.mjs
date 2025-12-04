@@ -5,7 +5,7 @@ import MessagePart from "./base.mjs";
  * @import RyuutamaActiveEffect from "../../../documents/active-effect.mjs";
  */
 
-const { ArrayField, DocumentUUIDField } = foundry.data.fields;
+const { ArrayField, DocumentUUIDField, NumberField, TypedObjectField } = foundry.data.fields;
 
 export default class EffectPart extends MessagePart {
   static {
@@ -21,10 +21,7 @@ export default class EffectPart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /**
-   * The template used for rendering this part in a chat message.
-   * @type {string}
-   */
+  /** @override  */
   static TEMPLATE = "systems/ryuutama/templates/chat/parts/effect.hbs";
 
   /* -------------------------------------------------- */
@@ -33,6 +30,10 @@ export default class EffectPart extends MessagePart {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       effects: new ArrayField(new DocumentUUIDField({ embedded: true, type: "ActiveEffect" })),
+      statuses: new TypedObjectField(
+        new NumberField({ min: 2, max: 20, integer: true, nullable: false, initial: 4 }),
+        { validateKey: key => key in ryuutama.config.statusEffects },
+      ),
     });
   }
 
@@ -49,11 +50,20 @@ export default class EffectPart extends MessagePart {
   /* -------------------------------------------------- */
 
   /**
-   * Effects whose checkboxes have been modified.
-   * If the uuid of an effect does not exist here, it is assumed to be checked.
-   * @type {Map<string, boolean>}
+   * The statuses to be applied.
+   * @type {Record<string, number>}
    */
-  #checkedEffects = new Map();
+  get appliedStatuses() {
+    return foundry.utils.deepClone(this.statuses);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Effects and statuses to ignore. Storing either uuids or status ids.
+   * @type {Set<string>}
+   */
+  #ignoredEffects = new Set();
 
   /* -------------------------------------------------- */
 
@@ -70,7 +80,15 @@ export default class EffectPart extends MessagePart {
     context.ctx.effects = this.appliedEffects.map(effect => {
       return {
         effect,
-        checked: this.#checkedEffects.get(effect.uuid) ?? true,
+        checked: !this.#ignoredEffects.has(effect.uuid),
+      };
+    });
+    context.ctx.statuses = Object.entries(this.appliedStatuses).map(([statusId, strength]) => {
+      return {
+        statusId, strength,
+        label: ryuutama.config.statusEffects[statusId].name,
+        icon: ryuutama.config.statusEffects[statusId].img,
+        checked: !this.#ignoredEffects.has(statusId),
       };
     });
   }
@@ -83,7 +101,10 @@ export default class EffectPart extends MessagePart {
 
     for (const input of html.querySelectorAll("input[type=checkbox]")) {
       input.addEventListener("change", () => {
-        this.#checkedEffects.set(input.closest("[data-effect-uuid]").dataset.effectUuid, input.checked);
+        const div = input.closest(".effect");
+        const id = div.dataset.effectUuid ?? div.dataset.statusId;
+        if (input.checked) this.#ignoredEffects.delete(id);
+        else this.#ignoredEffects.add(id);
       });
     }
   }
@@ -98,10 +119,12 @@ export default class EffectPart extends MessagePart {
    */
   static async #applyEffects(event, target) {
     const element = target.closest("[data-message-part]");
-    const effects = this.appliedEffects.filter(effect => this.#checkedEffects.get(effect.uuid) !== false);
+    const effects = this.appliedEffects.filter(effect => !this.#ignoredEffects.has(effect.uuid));
+    const statuses = this.appliedStatuses;
+    for (const k in statuses) if (this.#ignoredEffects.has(k)) delete statuses[k];
     for (const actorElement of element.querySelectorAll("effect-tray [data-actor-uuid]")) {
       const actor = fromUuidSync(actorElement.dataset.actorUuid);
-      EffectPart.applyEffects(actor, effects);
+      EffectPart.applyEffects(actor, effects, statuses);
     }
   }
 
@@ -111,9 +134,10 @@ export default class EffectPart extends MessagePart {
    * Apply effects to one actor.
    * @param {RyuutamaActor} actor
    * @param {RyuutamaActiveEffect[]} effects
+   * @param {Record<string, number>} statuses
    * @returns {Promise}
    */
-  static async applyEffects(actor, effects) {
+  static async applyEffects(actor, effects, statuses) {
     const toDelete = [];
     const toCreate = [];
 
@@ -126,9 +150,18 @@ export default class EffectPart extends MessagePart {
       toCreate.push(data);
     }
 
-    return Promise.all([
+    await Promise.all([
       foundry.utils.isEmpty(toDelete) ? null : actor.deleteEmbeddedDocuments("ActiveEffect", toDelete),
       foundry.utils.isEmpty(toCreate) ? null : actor.createEmbeddedDocuments("ActiveEffect", toCreate),
     ]);
+
+    for (const [statusId, strength] of Object.entries(statuses)) {
+      const effect = await getDocumentClass("ActiveEffect").fromStatusEffect(statusId, { strength });
+      if (actor.effects.has(effect.id)) {
+        await actor.effects.get(effect.id).update(effect.toObject(), { diff: false, recursive: false });
+      } else {
+        await actor.createEmbeddedDocuments("ActiveEffect", [effect.toObject()], { keepId: true });
+      }
+    }
   }
 }

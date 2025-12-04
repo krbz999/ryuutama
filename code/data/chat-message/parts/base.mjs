@@ -43,6 +43,8 @@ export default class MessagePart extends foundry.abstract.DataModel {
       [ryuutama.data.message.parts.CheckPart.TYPE]: ryuutama.data.message.parts.CheckPart,
       [ryuutama.data.message.parts.DamagePart.TYPE]: ryuutama.data.message.parts.DamagePart,
       [ryuutama.data.message.parts.EffectPart.TYPE]: ryuutama.data.message.parts.EffectPart,
+      [ryuutama.data.message.parts.HealingPart.TYPE]: ryuutama.data.message.parts.HealingPart,
+      [ryuutama.data.message.parts.RollPart.TYPE]: ryuutama.data.message.parts.RollPart,
     });
   }
 

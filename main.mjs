@@ -31,6 +31,7 @@ Hooks.once("init", () => {
   const defineElements = window => {
     window.customElements.define(applications.elements.DamageTray.tagName, applications.elements.DamageTray);
     window.customElements.define(applications.elements.EffectTray.tagName, applications.elements.EffectTray);
+    window.customElements.define(applications.elements.HealingTray.tagName, applications.elements.HealingTray);
     window.customElements.define(applications.elements.IconElement.tagName, applications.elements.IconElement);
     window.customElements.define(applications.elements.ProgressBar.tagName, applications.elements.ProgressBar);
     window.customElements.define(applications.elements.ResourceBar.tagName, applications.elements.ResourceBar);
@@ -45,8 +46,8 @@ Hooks.once("init", () => {
   CONFIG.Actor.collection = documents.collections.RyuutamaActors;
   CONFIG.Actor.documentClass = documents.RyuutamaActor;
   CONFIG.Actor.dataModels.monster = data.actor.MonsterData;
-  CONFIG.Actor.dataModels.party = data.actor.PartyData;
-  CONFIG.Actor.dataModels.ryuujin = data.actor.RyuujinData;
+  // CONFIG.Actor.dataModels.party = data.actor.PartyData;
+  // CONFIG.Actor.dataModels.ryuujin = data.actor.RyuujinData;
   CONFIG.Actor.dataModels.traveler = data.actor.TravelerData;
 
   CONFIG.ChatMessage.documentClass = documents.RyuutamaChatMessage;
@@ -94,6 +95,7 @@ Hooks.once("init", () => {
   CONFIG.ux.TooltipManager = helpers.interaction.RyuutamaTooltipManager;
 
   // Assign rolls.
+  CONFIG.Dice.rolls.unshift(dice.HealingRoll);
   CONFIG.Dice.rolls.unshift(dice.DamageRoll);
   CONFIG.Dice.rolls.unshift(dice.CheckRoll);
   CONFIG.Dice.rolls.unshift(dice.BaseRoll);

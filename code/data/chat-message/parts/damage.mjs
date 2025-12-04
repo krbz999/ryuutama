@@ -18,16 +18,13 @@ export default class DamagePart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /**
-   * The template used for rendering this part in a chat message.
-   * @type {string}
-   */
+  /** @override */
   static TEMPLATE = "systems/ryuutama/templates/chat/parts/damage.hbs";
 
   /* -------------------------------------------------- */
 
   /**
-   * The damage configs that will be applies by this message part.
+   * The damage configs that will be applied by this message part.
    * @type {DamageConfiguration[]}
    */
   get damages() {
@@ -50,6 +47,7 @@ export default class DamagePart extends MessagePart {
   prepareData() {
     super.prepareData();
     this.rolls = this.rolls.filter(roll => roll instanceof ryuutama.dice.DamageRoll);
+    this.flavor ||= game.i18n.localize("RYUUTAMA.CHAT.DAMAGE.defaultRollFlavor");
   }
 
   /* -------------------------------------------------- */

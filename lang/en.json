@@ -268,11 +268,17 @@
     "CHAT": {
       "DAMAGE": {
         "FIELDS": {},
-        "applyDamage": "Apply Damage"
+        "applyDamage": "Apply Damage",
+        "defaultRollFlavor": "Damage Roll"
       },
       "EFFECT": {
         "FIELDS": {},
         "applyEffects": "Apply Effects"
+      },
+      "HEALING": {
+        "FIELDS": {},
+        "applyHealing": "Apply Healing",
+        "defaultRollFlavor": "Healing Roll"
       }
     },
 

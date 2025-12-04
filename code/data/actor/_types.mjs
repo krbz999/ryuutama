@@ -3,13 +3,21 @@
  */
 
 /**
+ * @typedef {"accuracy"|"check"|"condition"|"damage"|"initiative"|"journey"|"magic"} CheckType
+ */
+
+/**
+ * @typedef {"camping"|"direction"|"travel"} JourneySubtype
+ */
+
+/**
  * @typedef CheckRollConfig
  * @property {string[]} [abilities]
  * @property {string} [formula]                             An explicit formula can be provided, in which case
  *                                                          abilities are ignored for the formula creation. Modifiers
  *                                                          are still added on top.
- * @property {string} [type]
- * @property {"travel"|"direction"|"camping"} [journeyId]   If a journey check, the type of check.
+ * @property {CheckType} [type]                             The check type.
+ * @property {JourneySubtype} [journeyId]                   If a journey check, the type of check.
  * @property {number} [modifier]                            A modifier to the roll that cannot be changed via the UI,
  *                                                          e.g., the accuracy or damage modifier from a weapon.
  * @property {number} [situationalBonus]
@@ -31,6 +39,9 @@
  * @property {object} [initiative]
  * @property {boolean} [initiative.shield]                  If the rolled initiative value is lower than the actor's
  *                                                          Shield Dodge Value, create the Shield Dodge effect?
+ * @property {object} [magic]
+ * @property {boolean} [magic.consumeMental]                Consume the MP for casting the spell?
+ * @property {RyuutamaItem} [magic.item]                    The spell being cast.
  */
 
 /* -------------------------------------------------- */
