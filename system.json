@@ -82,7 +82,6 @@
     },
     "ChatMessage": {
       "damage": {},
-      "effect": {},
       "standard": {}
     },
     "Combat": {
