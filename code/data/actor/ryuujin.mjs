@@ -9,7 +9,7 @@ export default class RyuujinData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.RYUUJIN",
+    "RYUUTAMA.ACTOR.RYUUJIN",
   ];
 
   /* -------------------------------------------------- */
