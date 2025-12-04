@@ -6,6 +6,7 @@ export default class Enrichers {
   static PATTERNS = {
     status: /\[\[\/status (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
     check: /\[\[\/check (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
+    damage: /\[\[\/damage (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
     reference: /\[\[reference (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
   };
 
@@ -74,6 +75,36 @@ export default class Enrichers {
       enricher: this.enrichReference,
       onRender: element => {},
     });
+
+    // A generic damage roll (not a check).
+    enrichers.push({
+      id: "damage",
+      pattern: this.PATTERNS.damage,
+      enricher: this.enrichDamage,
+      onRender: element => {
+        const { formula } = element.dataset;
+        const enricher = element.querySelector(".enricher");
+        if (enricher._hasEvent) return;
+        enricher._hasEvent = true;
+        enricher.addEventListener("click", async (event) => {
+          const target = event.currentTarget;
+          const application = foundry.applications.instances.get(target.closest(".application")?.id);
+          const tooltipActor = fromUuidSync(target.closest(".locked-tooltip [data-actor-uuid]")?.dataset.actorUuid);
+          let actors = [];
+          if (tooltipActor instanceof foundry.documents.Actor) actors = [tooltipActor];
+          else if (application?.document instanceof foundry.documents.Actor) actors = [application.document];
+          else if (application?.document?.actor instanceof foundry.documents.Actor) actors = [application.document.actor];
+          else actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
+
+          const Cls = getDocumentClass("ChatMessage");
+          for (const actor of actors) {
+            const roll = new ryuutama.dice.DamageRoll(formula, actor.getRollData());
+            const speaker = Cls.getSpeaker({ actor });
+            await roll.toMessage({ speaker });
+          }
+        });
+      },
+    });
   }
 
   /* -------------------------------------------------- */
@@ -128,6 +159,49 @@ export default class Enrichers {
     anchor.dataset.statusId = config.id;
     anchor.dataset.strength = config.strength;
     return anchor;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Enrich a damage roll.
+   * @param {RegExpMatchArray} match
+   * @returns {HTMLAnchorElement|null}
+   */
+  static enrichDamage(match) {
+    let { config, label } = match.groups;
+    config = Enrichers.parseConfig(config);
+
+    if (!("formula" in config)) {
+      const formula = config.values.find(k => !!k && foundry.dice.Roll.validate(k));
+      if (formula) config.formula = formula;
+      else return null;
+    }
+
+    // Show request.
+    config.request ??= config.values.includes("request");
+
+    const wrapper = new foundry.applications.elements.HTMLEnrichedContentElement();
+    wrapper.classList.add(ryuutama.id);
+    const elements = [];
+
+    const anchor = document.createElement("A");
+    elements.push(anchor);
+    anchor.classList.add("enricher");
+    if (!label) label = `[${config.formula}]`;
+    anchor.innerHTML = label.trim();
+
+    wrapper.dataset.formula = config.formula;
+    if (config.request) {
+      const request = document.createElement("A");
+      request.innerHTML = "<i class=\"fa-solid fa-bullhorn\"></i>";
+      request.classList.add("request");
+      elements.push(request);
+    }
+
+    wrapper.innerHTML = elements.map(element => element.outerHTML).join("");
+
+    return wrapper;
   }
 
   /* -------------------------------------------------- */
