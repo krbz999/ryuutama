@@ -619,7 +619,10 @@
         },
         "PROPERTIES": {
           "damageMental": "Damage MP",
-          "ignoreArmor": "Ignore Armor"
+          "ignoreArmor": "Ignore Armor",
+          "magical": "Magical Damage",
+          "mythril": "Mythril Weapon",
+          "orichalcum": "Orichalcum Weapon"
         },
 
         "DAMAGE": {

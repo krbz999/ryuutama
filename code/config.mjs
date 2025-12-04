@@ -273,12 +273,10 @@ export const itemModifiers = {
   mythril: {
     label: "RYUUTAMA.ITEM.MODIFIERS.mythril",
     cost: 10,
-    icon: "systems/ryuutama/assets/icons/fish-scales.svg",
   },
   orichalcum: {
     label: "RYUUTAMA.ITEM.MODIFIERS.orichalcum",
     cost: 50,
-    icon: "systems/ryuutama/assets/icons/layered-armor.svg",
   },
   plusOne: {
     label: "RYUUTAMA.ITEM.MODIFIERS.plusOne",
