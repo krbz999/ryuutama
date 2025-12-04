@@ -68,4 +68,17 @@ export default class SpellData extends BaseData {
 
     this.spell.target.label = this.spell.target.custom;
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  getRollOptions(type) {
+    const options = super.getRollOptions(type);
+    switch (type) {
+      case "damage":
+        options.add("magical");
+        break;
+    }
+    return options;
+  }
 }

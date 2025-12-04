@@ -57,4 +57,16 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
     });
     return foundry.utils.parseHTML(enriched);
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Retrieve the options to apply to a Roll instance
+   * when performing a specific kind of check or other roll.
+   * @param {string} type   The type of check or roll.
+   * @returns {Set<string>}
+   */
+  getRollOptions(type) {
+    return new Set();
+  }
 }

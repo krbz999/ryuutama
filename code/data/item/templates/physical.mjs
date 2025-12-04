@@ -130,4 +130,18 @@ export default class PhysicalData extends BaseData {
     }
     this.modifierLabels.sort((a, b) => a.localeCompare(b));
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  getRollOptions(type) {
+    const options = super.getRollOptions(type);
+    switch (type) {
+      case "damage":
+        if (this.modifiers.has("mythril")) options.add("mythril");
+        if (this.modiifers.has("orichalcum")) options.add("orichalcum");
+        break;
+    }
+    return options;
+  }
 }
