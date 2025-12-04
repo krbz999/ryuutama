@@ -61,9 +61,8 @@ export default class DamageAction extends Action {
   prepareSheetContext(context) {
     super.prepareSheetContext(context);
     context.actionTemplate = "item-action-damage";
-    context.actionProperties = Object.entries(ryuutama.config.damageRollProperties).map(([k, v]) => ({
-      value: k,
-      label: v.label,
-    }));
+    context.actionProperties = Object.entries(ryuutama.config.damageRollProperties)
+      .filter(([k, v]) => v.visible !== false)
+      .map(([k, v]) => ({ value: k, label: v.label }));
   }
 }
