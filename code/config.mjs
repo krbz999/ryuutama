@@ -195,6 +195,9 @@ export const damageRollProperties = {
     label: "RYUUTAMA.DAMAGE.PROPERTIES.orichalcum",
     icon: "systems/ryuutama/assets/icons/layered-armor.svg",
   },
+  damageMental: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.damageMental",
+  },
 };
 Prelocalization.prelocalize(damageRollProperties);
 
