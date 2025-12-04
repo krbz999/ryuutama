@@ -362,6 +362,14 @@
       "selectAction": "Select Action",
       "genericRoll": "Generic Roll",
 
+      "ACTION": {
+        "FIELDS": {
+          "roll.flavor.label": "Flavor Text",
+          "roll.formula.label": "Formula",
+          "roll.formula.placeholder": "E.g. '2d4'"
+        }
+      },
+
       "ANIMAL": {
         "FIELDS": {
           "capacity.max.label": "Carrying Capacity",
@@ -451,10 +459,7 @@
           "spell.activation.mental.label": "MP Cost",
           "spell.level.label": "Spell Level",
           "spell.range.value.label": "Range",
-          "spell.target.custom.label": "Targets",
-          "roll.flavor.label": "Flavor Text",
-          "roll.formula.label": "Formula",
-          "roll.formula.placeholder": "E.g. '2d4'"
+          "spell.target.custom.label": "Targets"
         },
         "ACTIVATION": {
           "normal": "Normal Spell",
