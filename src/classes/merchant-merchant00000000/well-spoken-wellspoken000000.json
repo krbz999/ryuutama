@@ -4,11 +4,11 @@
   "type": "skill",
   "system": {
     "description": {
-      "value": "<p>As a merchant who earns her keep by trading, your communication skills are top notch.</p>\n<p><strong>Skill Effect:</strong> Negotiation Check [INT + SPI] gets +1, always in effect</p>\n<p><strong>Usable Circumstances:</strong> Any Negotiation Check</p>\n<p><strong>Stat Used:</strong> -</p>\n<p><strong>TN:</strong> -</p>"
+      "value": "<p>As a merchant who earns her keep by trading, your communication skills are top notch.</p><p><strong>Skill Effect:</strong> Negotiation Check [INT + SPI] gets +1, always in effect</p><p><strong>Usable Circumstances:</strong> Any Negotiation Check</p><p><strong>Stat Used:</strong> -</p><p><strong>TN:</strong> -</p>"
     },
     "identifier": "well-spoken"
   },
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/skills/social/diplomacy-handshake-yellow.webp",
   "effects": [],
   "folder": "merchant00000000",
   "sort": 0,
@@ -20,9 +20,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760283410044,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

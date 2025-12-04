@@ -4,11 +4,11 @@
   "type": "skill",
   "system": {
     "description": {
-      "value": "<p>After long years of practice and extensive training under a master-at-arms, you have learned to be graceful when wielding a certain weapon. When creating your character, choose either Blade, Polearm or Bow. You receive this weapon as a Mastered Weapon. If you already have this chosen category as a Mastered Weapon, you receive a +1 bonus to your Accuracy checks when using a weapon from that category.</p>\n<p><strong>Skill Effect:</strong> Choose Blade/Polearm/Bow; it becomes an additional Mastered Weapon. If chosen category is already a Mastered Weapon, gain +1 bonus to Accuracy checks.</p>\n<p><strong>Usable Circumstances:</strong> -</p>\n<p><strong>Stat Used:</strong> -</p>\n<p><strong>TN:</strong> -</p>"
+      "value": "<p>After long years of practice and extensive training under a master-at-arms, you have learned to be graceful when wielding a certain weapon. When creating your character, choose either Blade, Polearm or Bow. You receive this weapon as a Mastered Weapon. If you already have this chosen category as a Mastered Weapon, you receive a +1 bonus to your Accuracy checks when using a weapon from that category.</p><p><strong>Skill Effect:</strong> Choose Blade/Polearm/Bow; it becomes an additional Mastered Weapon. If chosen category is already a Mastered Weapon, gain +1 bonus to Accuracy checks.</p><p><strong>Usable Circumstances:</strong> -</p><p><strong>Stat Used:</strong> -</p><p><strong>TN:</strong> -</p>"
     },
     "identifier": "weapon-grace"
   },
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/weapons/swords/sword-guard-steel-green.webp",
   "effects": [],
   "folder": "noble00000000000",
   "sort": 0,
@@ -20,9 +20,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760284202415,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

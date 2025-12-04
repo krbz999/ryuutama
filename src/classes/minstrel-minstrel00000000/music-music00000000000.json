@@ -4,11 +4,11 @@
   "type": "skill",
   "system": {
     "description": {
-      "value": "<p>You can play music that reinvigorates your companions. Once per scenario you may choose one terrain or weather type you are currently traveling through and gain it as a song. For example, if your character is currently in a rainy grassland, they might learn “Rain Song” or “Ballad of the Grassland,” but not “Desert Rumba.” You may later use the song only if it matches the specific condition in which it was acquired: for example, “Rain Song” can be used anytime it is raining, regardless of terrain. You can name your song whatever you like (the above names are only examples).</p>\n<p><strong>Skill Effect:</strong> Give all party members a +1 bonus to their next roll. Critical: +3 bonus Fumble: Any PCs with Condition of 6 or less gain the [Muddled: 6] status effect.</p>\n<p><strong>Usable Circumstances:</strong> Usable when in a suitable area. Each use reduces the Minstrel's HP by 1</p>\n<p><strong>Stat Used:</strong> [DEX + SPI]</p>\n<p><strong>TN:</strong> Topography</p>"
+      "value": "<p>You can play music that reinvigorates your companions. Once per scenario you may choose one terrain or weather type you are currently traveling through and gain it as a song. For example, if your character is currently in a rainy grassland, they might learn “Rain Song” or “Ballad of the Grassland,” but not “Desert Rumba.” You may later use the song only if it matches the specific condition in which it was acquired: for example, “Rain Song” can be used anytime it is raining, regardless of terrain. You can name your song whatever you like (the above names are only examples).</p><p><strong>Skill Effect:</strong> Give all party members a +1 bonus to their next roll. Critical: +3 bonus Fumble: Any PCs with Condition of 6 or less gain the [Muddled: 6] status effect.</p><p><strong>Usable Circumstances:</strong> Usable when in a suitable area. Each use reduces the Minstrel's HP by 1</p><p><strong>Stat Used:</strong> [DEX + SPI]</p><p><strong>TN:</strong> Topography</p>"
     },
     "identifier": "music"
   },
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/tools/instruments/harp-yellow-teal.webp",
   "effects": [],
   "folder": "minstrel00000000",
   "sort": 0,
@@ -20,9 +20,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760283375548,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

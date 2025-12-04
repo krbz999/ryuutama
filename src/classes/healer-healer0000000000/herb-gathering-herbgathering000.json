@@ -4,11 +4,11 @@
   "type": "skill",
   "system": {
     "description": {
-      "value": "<p>You know where to find potent Healing Herbs. Once each morning, when you succeed on this Skill Check, you can explore the wilderness to obtain a Healing Herb. The Healing Herb obtained depends on the current terrain. See the Healing Herb list in the Item Section for more information. Healing Herbs are only good for one day, unless you use a disposable herb bottle to keep it fresh for up to a week.</p>\n<p><strong>Skill Effect:</strong> Find a single Healing Herb. Critical: Find 3 Healing Herbs. Fumble: Afflicted with [Poison: 6]</p>\n<p><strong>Usable Circumstances:</strong> Once each morning, before the Travel check</p>\n<p><strong>Stat Used:</strong> [STR + INT]</p>\n<p><strong>TN:</strong> Topography</p>"
+      "value": "<p>You know where to find potent Healing Herbs. Once each morning, when you succeed on this Skill Check, you can explore the wilderness to obtain a Healing Herb. The Healing Herb obtained depends on the current terrain. See the Healing Herb list in the Item Section for more information. Healing Herbs are only good for one day, unless you use a disposable herb bottle to keep it fresh for up to a week.</p><p><strong>Skill Effect:</strong> Find a single Healing Herb. Critical: Find 3 Healing Herbs. Fumble: Afflicted with [Poison: 6]</p><p><strong>Usable Circumstances:</strong> Once each morning, before the Travel check</p><p><strong>Stat Used:</strong> [STR + INT]</p><p><strong>TN:</strong> Topography</p>"
     },
     "identifier": "herb-gathering"
   },
-  "img": "icons/svg/item-bag.svg",
+  "img": "icons/magic/nature/leaf-rune-glow-green.webp",
   "effects": [],
   "folder": "healer0000000000",
   "sort": 0,
@@ -20,9 +20,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760283807393,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
