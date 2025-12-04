@@ -71,7 +71,13 @@ export default class SpellData extends ActionData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  getDamageOptions() {
-    return super.getDamageOptions().add("magical");
+  getRollOptions(type) {
+    const options = super.getRollOptions(type);
+    switch (type) {
+      case "damage":
+        options.add("magical");
+        break;
+    }
+    return options;
   }
 }
