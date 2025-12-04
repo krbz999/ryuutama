@@ -618,6 +618,7 @@
           "healing": "Healing"
         },
         "PROPERTIES": {
+          "damageMental": "Damage MP",
           "ignoreArmor": "Ignore Armor"
         },
 

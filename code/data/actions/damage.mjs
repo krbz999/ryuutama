@@ -51,7 +51,7 @@ export default class DamageAction extends Action {
    */
   getDamageOptions() {
     const properties = this.item.system.getDamageOptions();
-    if (this.damage.properties.has("ignoreArmor")) properties.add("ignoreArmor");
+    this.damage.properties.forEach(p => properties.add(p));
     return properties;
   }
 

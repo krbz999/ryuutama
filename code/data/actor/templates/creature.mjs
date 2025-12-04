@@ -662,7 +662,7 @@ export default class CreatureData extends BaseData {
    * @param {DamageConfiguration[]} [damages=[]]
    * @returns {{ hp: number, mp: number }}    The damage applied to HP and MP.
    */
-  calculateDamage(damages = []) {
+  calculateDamage(damages) {
     damages = foundry.utils.deepClone(damages);
 
     let hp = 0;
@@ -731,21 +731,6 @@ export default class CreatureData extends BaseData {
     const total = this.calculateHealing(healing);
     const actor = this.parent;
     await actor.update({ "system.resources.stamina.spent": actor.system.resources.stamina.spent - total });
-    return actor;
-  }
-
-  /* -------------------------------------------------- */
-
-  calculateHealing(healings = []) {
-    return healings.reduce((acc, k) => Math.max(0, k.value), 0);
-  }
-
-  /* -------------------------------------------------- */
-
-  async applyHealing(healings = []) {
-    const total = this.calculateHealing(healings);
-    const actor = this.parent;
-    await actor.update({ "system.resources.stamina.spent": Math.max(0, this.resources.stamina.spent - total) });
     return actor;
   }
 }
