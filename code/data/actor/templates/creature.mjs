@@ -202,7 +202,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<CheckRoll|null>}
+   * @returns {Promise<RyuutamaChatMessage|object|null>}
    */
   async #rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = this.#constructCheckConfigs(rollConfig, dialogConfig, messageConfig));
@@ -222,31 +222,29 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     const consumed = await this.#performCheckUpdates(roll, rollConfig, dialogConfig, messageConfig);
     if (consumed === false) return null;
 
-    if (messageConfig.create !== false) {
-      await this._createCheckMessage(roll, rollConfig, dialogConfig, messageConfig);
-    }
-
-    return roll;
+    const messageData = await this._createCheckMessage(roll, rollConfig, dialogConfig, messageConfig);
+    return roll.toMessage(messageData, { create: messageConfig.create });
   }
 
   /* -------------------------------------------------- */
 
   /**
-   * Create the full message for the check.
+   * Create the full message data for the check.
    * @param {CheckRoll} roll    The evaluated check.
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<RyuutamaChatMessage>}
+   * @returns {Promise<object>}
    */
   async _createCheckMessage(roll, rollConfig, dialogConfig, messageConfig) {
     const type = game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
     const abilities = game.i18n
       .getListFormatter()
       .format(rollConfig.abilities?.map(abi => ryuutama.config.abilityScores[abi].label) ?? []);
-    const flavor = game.i18n.format(`RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`, {
-      type, abilities,
-    });
+    const flavor = game.i18n.format(
+      `RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`,
+      { type, abilities },
+    );
 
     const messageData = foundry.utils.mergeObject({
       flavor,
@@ -254,7 +252,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       speaker: getDocumentClass("ChatMessage").getSpeaker({ actor: this.parent }),
     }, messageConfig.data ?? {}, { overwrite: false });
 
-    return roll.toMessage(messageData);
+    return messageData;
   }
 
   /* -------------------------------------------------- */
@@ -269,18 +267,40 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   #constructCheckConfigs(rollConfig, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
 
-    let roll = { condition: {}, concentration: {}, critical: {} };
+    const spell = rollConfig.magic?.item;
+    delete rollConfig.magic?.item;
+
+    let roll = { condition: {}, concentration: {}, critical: {}, magic: {} };
     let dialog = { configure: true };
     let message = { create: true };
 
     switch (rollConfig.type) {
-      case "journey":
-        switch (rollConfig.journeyId) {
-          case "travel": roll.abilities = ["strength", "dexterity"]; break;
-          case "camping": roll.abilities = ["intelligence", "intelligence"]; break;
-          case "direction": roll.abilities = ["dexterity", "intelligence"]; break;
-          default: throw new Error(`Invalid journeyId '${rollConfig.journeyId}' for a journey check.`);
+      case "accuracy": {
+        switch (this.parent.type) {
+          case "traveler": {
+            let abilities;
+            const w = this.equipped.weapon;
+            if (w?.system.isUsable) {
+              abilities = [...w.system.accuracy.abilities];
+              roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
+            } else {
+              // unarmed
+              abilities = [...ryuutama.config.weaponUnarmedTypes.unarmed.accuracy.abilities];
+              roll.accuracy = { consumeStamina: !this.mastered.weapons.unarmed };
+            }
+            roll.abilities = abilities;
+            break;
+          }
+          case "monster": {
+            roll.formula = this.attack.accuracy;
+            break;
+          }
         }
+        break;
+      }
+
+      case "check":
+        roll.abilities = ["strength", "strength"];
         break;
 
       case "condition":
@@ -309,30 +329,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         break;
       }
 
-      case "accuracy": {
-        switch (this.parent.type) {
-          case "traveler": {
-            let abilities;
-            const w = this.equipped.weapon;
-            if (w?.system.isUsable) {
-              abilities = [...w.system.accuracy.abilities];
-              roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
-            } else {
-              // unarmed
-              abilities = [...ryuutama.config.weaponUnarmedTypes.unarmed.accuracy.abilities];
-              roll.accuracy = { consumeStamina: !this.mastered.weapons.unarmed };
-            }
-            roll.abilities = abilities;
-            break;
-          }
-          case "monster": {
-            roll.formula = this.attack.accuracy;
-            break;
-          }
-        }
-        break;
-      }
-
       case "initiative":
         switch (this.parent.type) {
           case "traveler": {
@@ -347,8 +343,18 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         roll.concentration.allowed = false;
         break;
 
-      case "check":
-        roll.abilities = ["strength", "strength"];
+      case "journey":
+        switch (rollConfig.journeyId) {
+          case "travel": roll.abilities = ["strength", "dexterity"]; break;
+          case "camping": roll.abilities = ["intelligence", "intelligence"]; break;
+          case "direction": roll.abilities = ["dexterity", "intelligence"]; break;
+          default: throw new Error(`Invalid journeyId '${rollConfig.journeyId}' for a journey check.`);
+        }
+        break;
+
+      case "magic":
+        roll.abilities = ["intelligence", "spirit"];
+        roll.magic.consumeMental = true;
         break;
 
       default:
@@ -362,9 +368,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     };
 
     // Final step: cleanup.
-    if (result.rollConfig.formula) {
-      delete result.rollConfig.abilities;
-    }
+    if (result.rollConfig.formula) delete result.rollConfig.abilities;
+    if (spell) result.rollConfig.magic.item = spell;
 
     return result;
   }
@@ -428,6 +433,17 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         return false;
       }
       update["system.resources.stamina.spent"] = actor.system.resources.stamina.spent + 1;
+    }
+
+    // Consume MP from casting a spell.
+    if (rollConfig.magic?.consumeMental && rollConfig.magic.item) {
+      const mp = rollConfig.magic.item.system.spell.activation.mental;
+      update["system.resources.mental.spent"] ??= actor.system.resources.mental.spent;
+      update["system.resources.mental.spent"] += mp;
+      if (update["system.resources.mental.spent"] > actor.system.resources.mental.max) {
+        ui.notifications.warn("RYUUTAMA.ROLL.WARNING.mentalUnavailable", { format: { name: actor.name } });
+        return false;
+      }
     }
 
     // Deduct durability.
@@ -513,6 +529,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    */
   #constructRollOptions(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     const options = {};
+    const item = ["accuracy", "damage"].includes(rollConfig.type) ? this.equipped?.weapon : null;
     switch (rollConfig.type) {
       case "damage": foundry.utils.mergeObject(options, { magical: false }); break;
     }
@@ -552,14 +569,14 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<CheckRoll|null>}
+   * @returns {Promise<RyuutamaChatMessage|object|null>}
    */
   async rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
   }
 
   /* -------------------------------------------------- */
-  /*   Damage Application                               */
+  /*   Damage & Healing Application                     */
   /* -------------------------------------------------- */
 
   /**
@@ -601,12 +618,9 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    */
   async applyDamage(damages = []) {
     const total = this.calculateDamage(damages);
-
-    const { value, spent } = this.resources.stamina;
-    const damage = Math.min(value, total);
-
+    const { spent } = this.resources.stamina;
     const actor = this.parent;
-    await actor.update({ "system.resources.stamina.spent": spent + damage });
+    await actor.update({ "system.resources.stamina.spent": spent + total });
     return actor;
   }
 }

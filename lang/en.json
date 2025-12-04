@@ -661,7 +661,8 @@
         "condition": "Condition Check",
         "damage": "Damage Check",
         "initiative": "Initiative Check",
-        "journey": "Journey Check"
+        "journey": "Journey Check",
+        "magic": "Magic Check"
       },
       "abilities": "Abilities",
       "concentration": "Concentration",
@@ -677,7 +678,10 @@
       "situationalBonus": "Situational Bonus",
       "title": "Configure {type}: {name}",
       "unmasteredWeaponHint": "An accuracy check with an unmastered weapon costs 1 HP.",
-      "weaponBroken": "{weapon} (Broken)"
+      "weaponBroken": "{weapon} (Broken)",
+      "magicConsumeMental": "Consume MP",
+      "magicConsumeMentalHint": "The spell requires {mp} MP to cast.",
+      "magic": "Magic"
     },
 
     "SETTINGS": {

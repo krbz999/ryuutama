@@ -153,6 +153,8 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     const roll = this.#configurations.rollConfig;
     context.showConcentration = roll.concentration?.allowed !== false;
     context.allowConsumeFumble = this.actor.system.schema.has("fumbles");
+    context.showMagic = roll.type === "magic";
+    context.magicCost = roll.magic?.item?.system.spell.activation.mental;
 
     const weapon = roll.accuracy?.weapon ?? null;
 
@@ -175,6 +177,9 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
         break;
       case "journey":
         context.subtitle = ryuutama.config.checkTypes.journey.subtypes[roll.journeyId].label;
+        break;
+      case "magic":
+        context.subtitle = roll.magic.item?.name;
         break;
     }
 
