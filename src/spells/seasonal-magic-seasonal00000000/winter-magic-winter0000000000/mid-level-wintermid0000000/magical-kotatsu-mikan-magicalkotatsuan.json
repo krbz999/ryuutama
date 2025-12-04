@@ -5,7 +5,7 @@
       "value": "winter"
     },
     "description": {
-      "value": "<p>A warm low-table with blankets and mandarin oranges suddenly appears. It provides a +2 bonus to Camping Checks while in “cold” weather. However, any character that Fumbles on the next day's Condition suffers [Sick: 4].</p>"
+      "value": "<p>A warm low-table with blankets and mandarin oranges suddenly appears. It provides a +2 bonus to Camping Checks while in “cold” weather. However, any character that Fumbles on the next day's Condition suffers [[/status sickness 4]].</p>"
     },
     "spell": {
       "activation": {
@@ -41,9 +41,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.2.0",
     "createdTime": 1760194900190,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
