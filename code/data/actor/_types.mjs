@@ -60,4 +60,6 @@
  *                                                      This does not include `rolls` or `content`.
  * @property {Record<string, boolean>} [rollOptions]    Options for the roll. The effect of these depends on
  *                                                      the type of check being performed.
+ * @property {string} [messageId]                       The id of a message (of type `standard`) to append to
+ *                                                      rather than create a new message. The `create` option is ignored.
  */

@@ -139,7 +139,7 @@ export default class PhysicalData extends BaseData {
     switch (type) {
       case "damage":
         if (this.modifiers.has("mythril")) options.add("mythril");
-        if (this.modiifers.has("orichalcum")) options.add("orichalcum");
+        if (this.modifiers.has("orichalcum")) options.add("orichalcum");
         break;
     }
     return options;
