@@ -1,8 +1,8 @@
-import BaseData from "./templates/base.mjs";
+import ActionData from "./templates/action.mjs";
 
 const { NumberField, SchemaField, StringField } = foundry.data.fields;
 
-export default class SpellData extends BaseData {
+export default class SpellData extends ActionData {
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
@@ -23,7 +23,6 @@ export default class SpellData extends BaseData {
           type: new StringField({ required: true, initial: "instant", choices: () => ryuutama.config.spellDurationTypes }),
           custom: new StringField({ required: true }),
         }),
-        effects: new SchemaField({}),
         level: new StringField({ required: true, initial: "low", choices: () => ryuutama.config.spellLevels }),
         range: new SchemaField({
           value: new StringField({ required: true, initial: "touch", choices: () => ryuutama.config.spellRangeTypes }),

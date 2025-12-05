@@ -6,12 +6,27 @@ import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 
 export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /** @override */
+  static DEFAULT_OPTIONS = {
+    actions: {
+      removeAction: RyuutamaItemSheet.#removeAction,
+      createActionEffect: RyuutamaItemSheet.#createActionEffect,
+    },
+  };
+
+  /* -------------------------------------------------- */
+
+  /** @override */
   static PARTS = {
     navigation: {
       template: "templates/generic/tab-navigation.hbs",
     },
     details: {
       template: "systems/ryuutama/templates/sheets/item-sheet/details.hbs",
+      classes: ["tab", "scrollable", "standard-form"],
+      scrollable: [""],
+    },
+    action: {
+      template: "systems/ryuutama/templates/sheets/item-sheet/action.hbs",
       classes: ["tab", "scrollable", "standard-form"],
       scrollable: [""],
     },
@@ -29,12 +44,31 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     primary: {
       tabs: [
         { id: "details" },
+        { id: "action" },
         { id: "effects" },
       ],
       initial: "details",
       labelPrefix: "RYUUTAMA.ITEM.TABS",
     },
   };
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareTabs(group) {
+    const tabs = super._prepareTabs(group);
+    if (!this.document.system.schema.has("action")) delete tabs.action;
+    return tabs;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _configureRenderParts(options) {
+    const parts = super._configureRenderParts(options);
+    if (!this.document.system.schema.has("action")) delete parts.action;
+    return parts;
+  }
 
   /* -------------------------------------------------- */
 
@@ -64,6 +98,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         ),
       },
     });
+    this.#prepareAction(context);
 
     if (context.hasIdentifier) {
       context.identifierPlaceholder = ryuutama.utils.createDefaultIdentifier(this.document._source.name);
@@ -192,6 +227,21 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Prepare context for rendering the Action.
+   * @param {object} context    Rendering context. **will be mutated**
+   */
+  #prepareAction(context) {
+    if (!this.document.system.schema.has("action")) return;
+    context.actionTypes = Object.keys(ryuutama.data.action.Action.TYPES)
+      .map(type => ({ value: type, label: game.i18n.localize(`RYUUTAMA.PSEUDO.ACTION.LABELS.${type}`) }));
+    if (this.document.system.action) {
+      this.document.system.action.prepareSheetContext(context);
+    }
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _onFirstRender(context, options) {
     await super._onFirstRender(context, options);
@@ -243,5 +293,27 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
     if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));
     return options;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaItemSheet
+   */
+  static #removeAction(event, target) {
+    this.document.update({ "system.action": null });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaItemSheet
+   */
+  static async #createActionEffect(event, target) {
+    const effect = await getDocumentClass("ActiveEffect").create({
+      name: this.document.name,
+      img: this.document.img,
+    }, { parent: this.document, renderSheet: true });
+    this.document.update({ "system.action.effects.ids": [...this.document.system.action.effects.ids, effect.id] });
   }
 }

@@ -25,6 +25,12 @@
         "custom": "1 area"
       },
       "effects": {}
+    },
+    "action": {
+      "type": "damage",
+      "damage": {
+        "formula": "@stats.spirit"
+      }
     }
   },
   "_id": "snowballstorm000",

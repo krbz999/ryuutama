@@ -619,11 +619,14 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
   /**
    * Calculate the damage an actor will take.
-   * @param {DamageConfiguration[]} [damages=[]]
-   * @returns {number}
+   * @param {DamageConfiguration[]} damage
+   * @returns {{ stamina: number, mental: number }}   The damage applied to HP and MP.
    */
-  calculateDamage(damages = []) {
+  calculateDamage(damages) {
     damages = foundry.utils.deepClone(damages);
+
+    let hp = 0;
+    let mp = 0;
 
     /**
      * Does this damage ignore defense/armor?
@@ -642,9 +645,11 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         if (!ignoreDefense(damage)) damage.value -= this.defense.total;
       }
       damage.value = Math.max(0, damage.value);
+      hp += damage.value;
+      if (damage.options?.damageMental) mp += damage.value;
     }
 
-    return damages.reduce((acc, damage) => acc + damage.value, 0);
+    return { stamina: hp, mental: mp };
   }
 
   /* -------------------------------------------------- */

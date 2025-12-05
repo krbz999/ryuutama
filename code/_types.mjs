@@ -36,7 +36,23 @@
 /* -------------------------------------------------- */
 
 /**
+ * @typedef DamageRollPropertyConfig
+ * @property {string} label   Human-readable label.
+ * @property {string} icon    Filepath of associated icon.
+ * @property {boolean} [visible]    If `false`, this is not a configurable option in Damage actions.
+ */
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef EffectExpirationTypeConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef HealingRollPropertyConfig
  * @property {string} label   Human-readable label.
  */
 

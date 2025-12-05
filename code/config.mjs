@@ -2,10 +2,11 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 
 /**
  * @import {
- * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, EffectExpirationTypeConfig, HerbTypeConfig,
- * ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig,
- * SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig,
- * TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig
+ * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, DamageRollPropertyConfig,
+ * EffectExpirationTypeConfig, HealingRollPropertyConfig, HerbTypeConfig, ItemModifierConfig, ItemSizeConfig,
+ * MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig, SpellDurationTypeConfig,
+ * SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig, TravelerTypeConfig, UnarmedConfiguration,
+ * WeaponTypeConfig, WeatherTypeConfig
  * } from "./_types.mjs";
  */
 
@@ -172,6 +173,38 @@ Prelocalization.prelocalize(checkTypes.journey.subtypes);
 /* -------------------------------------------------- */
 
 /**
+ * @type {Record<string, DamageRollPropertyConfig>}
+ */
+export const damageRollProperties = {
+  damageMental: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.damageMental",
+    icon: "systems/ryuutama/assets/icons/bolt-eye.svg",
+  },
+  ignoreArmor: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.ignoreArmor",
+    icon: "systems/ryuutama/assets/icons/shield-disabled.svg",
+  },
+  magical: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.magical",
+    icon: "systems/ryuutama/assets/icons/eclipse-flare.svg",
+    visible: false,
+  },
+  mythril: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.mythril",
+    icon: "systems/ryuutama/assets/icons/fish-scales.svg",
+    visible: false,
+  },
+  orichalcum: {
+    label: "RYUUTAMA.PSEUDO.ACTION.PROPERTIES.orichalcum",
+    icon: "systems/ryuutama/assets/icons/layered-armor.svg",
+    visible: false,
+  },
+};
+Prelocalization.prelocalize(damageRollProperties);
+
+/* -------------------------------------------------- */
+
+/**
  * @type {Record<string, EffectExpirationTypeConfig>}
  */
 export const effectExpirationTypes = {
@@ -196,6 +229,13 @@ export const experienceLevels = [
   7_500,
   10_000,
 ];
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, HealingRollPropertyConfig>}
+ */
+export const healingRollProperties = {};
 
 /* -------------------------------------------------- */
 
