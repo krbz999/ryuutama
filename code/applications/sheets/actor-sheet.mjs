@@ -16,6 +16,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       configure: RyuutamaActorSheet.#configure,
       configurePrototypeToken: RyuutamaActorSheet.#configurePrototypeToken,
       renderItem: RyuutamaActorSheet.#renderItem,
+      rollAttack: RyuutamaActorSheet.#rollAttack,
       rollCheck: RyuutamaActorSheet.#rollCheck,
       toggleStatus: RyuutamaActorSheet.#toggleStatus,
     },
@@ -318,6 +319,17 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   static #renderItem(event, target) {
     const item = this.getEmbeddedDocument(target.dataset.uuid);
     item.sheet.render({ force: true, mode: 1 });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #rollAttack(event, target) {
+    this.document.system.rollAttack({}, { configure: !event.shiftKey }, {});
   }
 
   /* -------------------------------------------------- */

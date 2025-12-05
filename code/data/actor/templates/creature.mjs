@@ -222,7 +222,22 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     const consumed = await this.#performCheckUpdates(roll, rollConfig, dialogConfig, messageConfig);
     if (consumed === false) return null;
 
-    const messageData = await this._createCheckMessage(roll, rollConfig, dialogConfig, messageConfig);
+    let messageData = await this._createCheckMessage(roll, rollConfig, dialogConfig, messageConfig);
+
+    // If a message id is passed through, check whether we need to create.
+    append: if (messageConfig.messageId) {
+      const origin = game.messages.get(messageConfig.messageId);
+      if (origin?.type !== "standard") break append;
+      messageData = await roll.toMessage(messageData, { create: false });
+      const originData = origin.toObject();
+
+      const { type } = messageData.system.parts[0];
+      let part = originData.system.parts.find(p => (p.type === type) && !p.rolls.length);
+      if (part) Object.assign(part, messageData.system.parts[0]);
+      else originData.system.parts.push(...messageData.system.parts);
+      return origin.update(originData);
+    }
+
     return roll.toMessage(messageData, { create: messageConfig.create });
   }
 
@@ -576,6 +591,26 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    */
   async rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * A bespoke method for accuracy and damage checks combined into one message.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   */
+  async rollAttack(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    const create = messageConfig.create ?? true;
+    messageConfig.create = false;
+    rollConfig.type = "accuracy";
+    const messageData = await this.rollCheck(rollConfig, dialogConfig, messageConfig);
+    if (!messageData) return null;
+    const Cls = getDocumentClass("ChatMessage");
+    messageData.system.parts.push({ type: "damage" });
+    const message = new Cls(messageData);
+    return create ? Cls.create(message.toObject()) : message.toObject();
   }
 
   /* -------------------------------------------------- */
