@@ -14,6 +14,7 @@ export default class DamagePart extends MessagePart {
   /** @override */
   static ACTIONS = {
     applyDamage: DamagePart.#applyDamage,
+    rollDamage: DamagePart.#rollDamage,
   };
 
   /* -------------------------------------------------- */
@@ -53,12 +54,28 @@ export default class DamagePart extends MessagePart {
    * @param {PointerEvent} event    Initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
-  static async #applyDamage(event, target) {
+  static #applyDamage(event, target) {
     const damages = this.damages;
     const section = target.closest("[data-message-part]");
     for (const actorElement of section.querySelectorAll("damage-tray [data-actor-uuid]")) {
       const actor = fromUuidSync(actorElement.dataset.actorUuid);
       actor.system.applyDamage(damages);
     }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll unresolved damage.
+   * @this DamagePart
+   * @param {PointerEvent} event    Initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   */
+  static #rollDamage(event, target) {
+    const message = this.parent.parent;
+    const rollConfig = { type: "damage" };
+    const dialogConfig = { configure: !event.shiftKey };
+    const messageConfig = { messageId: message.id };
+    message.speakerActor.system.rollCheck(rollConfig, dialogConfig, messageConfig);
   }
 }

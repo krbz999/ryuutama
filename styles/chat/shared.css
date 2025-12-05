@@ -21,10 +21,10 @@
       object-fit: contain;
     }
   }
+}
 
-  + button[data-action=applyDamage],
-  + button[data-action=applyEffects],
-  + button[data-action=applyHealing] {
+.chat-message.message [data-message-part] {
+  button[data-action] {
     width: 100%;
   }
 }

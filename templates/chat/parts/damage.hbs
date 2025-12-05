@@ -6,8 +6,17 @@
   {{#each ctx.rolls}}{{{this}}}{{/each}}
 </section>
 
+{{#if (and canUpdate (not ctx.rolls.length))}}
 <section>
-  {{#if user.isGM}}
+  <button type="button" data-action="rollDamage">
+    <i class="fa-solid fa-burst" inert></i>
+    <span>{{localize "RYUUTAMA.CHAT.DAMAGE.rollDamage"}}</span>
+  </button>
+</section>
+{{/if}}
+
+<section>
+  {{#if (and user.isGM ctx.rolls.length)}}
   <damage-tray></damage-tray>
   <button type="button" data-action="applyDamage">
     <i class="fa-solid fa-burst" inert></i>

@@ -6,7 +6,7 @@
   {{!-- HP & MP --}}
   {{> "actor-resources"}}
 
-  {{!-- ATTACK & CHECK --}}
+  {{!-- ATTACKS & CHECK --}}
   <div class="icon-fields">
     <div class="icon-field">
       {{#if isEditable}}
@@ -15,8 +15,9 @@
       <img src="{{attackImage}}" alt="">
       {{/if}}
       <div class="attack">
-        <button type="button" data-action="rollCheck" data-check="accuracy" {{disabled (not isInteractive)}}>{{localize "RYUUTAMA.ACTOR.rollAccuracy"}}</button>
-        <button type="button" data-action="rollCheck" data-check="damage" {{disabled (not isInteractive)}}>{{localize "RYUUTAMA.ACTOR.rollDamage"}}</button>
+        <button type="button" data-action="rollAttack" {{disabled (not isInteractive)}}>
+          <span>{{localize "RYUUTAMA.ACTOR.rollAttack"}}</span>
+        </button>
       </div>
     </div>
 

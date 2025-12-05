@@ -129,8 +129,7 @@
       },
       "HP": "HP",
       "MP": "MP",
-      "rollAccuracy": "Roll Accuracy",
-      "rollDamage": "Roll Damage",
+      "rollAttack": "Roll Attack",
       "rollCheck": "Roll Check",
       "condition": "Condition",
       "capacityPenalty": "{penalty} penalty on all checks",
@@ -269,7 +268,8 @@
       "DAMAGE": {
         "FIELDS": {},
         "applyDamage": "Apply Damage",
-        "defaultRollFlavor": "Damage Roll"
+        "defaultRollFlavor": "Damage Roll",
+        "rollDamage": "Roll Damage"
       },
       "EFFECT": {
         "FIELDS": {},

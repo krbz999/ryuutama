@@ -50,6 +50,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
       rollData: this.parent.getRollData?.(),
       isWhisper: this.parent.whisper.length,
       whisperTo: this.parent.whisper.map(u => game.users.get(u)?.name).filterJoin(", "),
+      canUpdate: this.parent.canUserModify(game.user, "update"),
     };
 
     const element = this.#renderFrame(options);

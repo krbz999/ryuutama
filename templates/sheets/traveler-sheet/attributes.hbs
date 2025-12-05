@@ -5,7 +5,7 @@
   {{!-- HP & MP --}}
   {{> "actor-resources"}}
 
-  {{!-- FUMBLES & EXP --}}
+  {{!-- FUMBLES --}}
   <div class="icon-fields">
     <div class="icon-field">
       <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg"></ryuutama-icon>
@@ -23,13 +23,14 @@
     <div class="icon-field">
       <img src="{{weaponImage}}" alt="">
       <div class="attack">
-        <button type="button" data-action="rollCheck" data-check="accuracy" {{disabled (not isInteractive)}}>{{localize "RYUUTAMA.ACTOR.rollAccuracy"}}</button>
-        <button type="button" data-action="rollCheck" data-check="damage" {{disabled (not isInteractive)}}>{{localize "RYUUTAMA.ACTOR.rollDamage"}}</button>
+        <button type="button" data-action="rollAttack" {{disabled (not isInteractive)}}>
+          <span>{{localize "RYUUTAMA.ACTOR.rollAttack"}}</span>
+        </button>
       </div>
     </div>
 
     <button type="button" class="heightened" data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
-      <i class="fa-solid fa-burst"></i>
+      <i class="fa-solid fa-burst" inert></i>
       <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
     </button>
   </div>
