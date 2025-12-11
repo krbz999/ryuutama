@@ -5,11 +5,27 @@ import RyuutamaActorSheet from "../actor-sheet.mjs";
  * @extends RyuutamaActorSheet
  */
 export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
+  static DEFAULT_OPTIONS = {
+    window: {
+      resizable: true,
+    },
+    position: {
+      width: 680,
+      height: 800,
+    },
+  };
+
+  /* -------------------------------------------------- */
+
   /** @override */
   static PARTS = {
     header: {
-      template: "systems/ryuutama/templates/sheets/shared/header.hbs",
-      templates: ["templates/generic/tab-navigation.hbs"],
+      template: "systems/ryuutama/templates/sheets/traveler-sheet/header.hbs",
+      classes: ["standard-form", "scrollable"],
+      scrollable: [""],
+    },
+    navigation: {
+      template: "templates/generic/tab-navigation.hbs",
     },
     attributes: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/attributes.hbs",

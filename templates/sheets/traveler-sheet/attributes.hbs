@@ -2,22 +2,6 @@
   {{!-- ABILITIES --}}
   {{> "actor-abilities"}}
 
-  {{!-- HP & MP --}}
-  {{> "actor-resources"}}
-
-  {{!-- FUMBLES --}}
-  <div class="icon-fields">
-    <div class="icon-field">
-      <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg"></ryuutama-icon>
-      <div class="form-group stacked">
-        <label for="{{rootId}}-system.fumbles.value">{{systemFields.fumbles.fields.value.label}}</label>
-        <div class="form-fields">
-          <input type="text" name="system.fumbles.value" class="delta" value="{{ifThen disabled document.system.fumbles.value source.system.fumbles.value}}" {{disabled (not editable)}} placeholder="0" id="{{rootId}}-system.fumbles.value">
-        </div>
-      </div>
-    </div>
-  </div>
-
   {{!-- ATTACKS & CHECKS --}}
   <div class="icon-fields">
     <div class="icon-field">

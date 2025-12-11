@@ -108,7 +108,7 @@
 
   .icon-fields {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
     gap: 1rem;
 
     &.column-3 {
@@ -239,5 +239,111 @@
   }
   100% {
     box-shadow: 0 0 1px red;
+  }
+}
+
+.ryuutama.application.sheet.actor.traveler {
+  --sidebar-width: 260px;
+  --content-width: 520px;
+  --min-width: calc(var(--sidebar-width) + var(--content-width));
+
+  &:not(.minimizing, .maximizing, .minimized) {
+    min-width: var(--min-width);
+    min-height: 680px;
+  }
+
+  .window-header {
+    background: transparent;
+    border: none;
+    justify-content: end;
+    width: calc(100% - var(--sidebar-width));
+    z-index: 2;
+    place-self: end;
+
+    .window-icon, .window-title {
+      display: none;
+    }
+  }
+
+  .controls-dropdown {
+    z-index: 2;
+  }
+
+  .window-content {
+    display: grid;
+    grid:
+      "header navigation" 0fr
+      "header content" 1fr
+      / var(--sidebar-width) 2fr;
+    z-index: 1;
+    margin-top: calc(var(--header-height) * -1);
+    transition: margin-top 200ms ease;
+
+    [data-application-part] {
+      grid-area: content;
+    }
+
+    [data-application-part=header] {
+      grid-area: header;
+      border: 2px outset burlywood;
+      border-radius: 10px;
+      margin-right: 0;
+      background-color: rgba(169, 169, 169, 0.1);
+      padding: 0.5rem;
+      padding-right: 0;
+
+      .avatar {
+        border-radius: 2px;
+        position: relative;
+        border: 1px solid burlywood;
+        &::after {
+          position: absolute;
+          inset: 4px;
+          content: "";
+          border: 1px solid burlywood;
+        }
+      }
+
+      .title {
+        margin: 0;
+      }
+    }
+
+    [data-application-part=navigation] {
+      grid-area: navigation;
+      margin-top: var(--header-height);
+    }
+  }
+
+  .window-resize-handle {
+    z-index: 2;
+  }
+
+  &:is(.minimizing, .maximizing, .minimized) {
+    .window-header { width: 100% }
+    .window-header .window-icon, .window-header .window-title { display: block }
+    .window-content { display: none }
+  }
+
+  &.sidebar-only {
+    --content-width: 0;
+    width: auto !important;
+    max-height: 680px;
+
+    .window-header {
+      width: 100%;
+    }
+
+    .window-content {
+      margin-top: 0;
+      padding-right: 0;
+
+      [data-application-part]:not([data-application-part=header]) { display: none }
+      [data-application-part=header] { margin: 0 }
+    }
+
+    .window-resize-handle {
+      display: none;
+    }
   }
 }
