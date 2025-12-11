@@ -97,8 +97,8 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
     options = super._initializeApplicationOptions(options);
     options.classes.push(ryuutama.id);
     switch (options.document.documentName) {
-      case "Actor": options.classes.push("actor"); break;
-      case "Item": options.classes.push("item"); break;
+      case "Actor": options.classes.push("actor", options.document.type); break;
+      case "Item": options.classes.push("item", options.document.type); break;
     }
     return options;
   }

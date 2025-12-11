@@ -5,19 +5,37 @@ import RyuutamaActorSheet from "../actor-sheet.mjs";
  * @extends RyuutamaActorSheet
  */
 export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
+  static DEFAULT_OPTIONS = {
+    window: {
+      resizable: true,
+    },
+    position: {
+      width: 680,
+      height: 800,
+    },
+  };
+
+  /* -------------------------------------------------- */
+
   /** @override */
   static PARTS = {
     header: {
-      template: "systems/ryuutama/templates/sheets/shared/header.hbs",
-      templates: ["templates/generic/tab-navigation.hbs"],
+      template: "systems/ryuutama/templates/sheets/traveler-sheet/header.hbs",
+      classes: ["standard-form", "scrollable"],
+      scrollable: [""],
+    },
+    navigation: {
+      template: "templates/generic/tab-navigation.hbs",
     },
     attributes: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/attributes.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
     skills: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/skills.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
     spells: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/spells.hbs",
@@ -27,14 +45,17 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     inventory: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/inventory.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
     effects: {
       template: "systems/ryuutama/templates/sheets/shared/effects.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
     notes: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/notes.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
   };
 
