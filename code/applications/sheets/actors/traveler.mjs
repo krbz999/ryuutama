@@ -14,10 +14,12 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     attributes: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/attributes.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
     skills: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/skills.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
     spells: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/spells.hbs",
@@ -27,14 +29,17 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     inventory: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/inventory.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
     effects: {
       template: "systems/ryuutama/templates/sheets/shared/effects.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
     notes: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/notes.hbs",
       classes: ["tab", "standard-form", "scrollable"],
+      scrollable: [""],
     },
   };
 
