@@ -231,10 +231,12 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       messageData = await roll.toMessage(messageData, { create: false });
       const originData = origin.toObject();
 
-      const { type } = messageData.system.parts[0];
-      let part = originData.system.parts.find(p => (p.type === type) && !p.rolls.length);
-      if (part) Object.assign(part, messageData.system.parts[0]);
-      else originData.system.parts.push(...messageData.system.parts);
+      const { type } = Object.values(messageData.system.parts)[0];
+      let part = Object.values(originData.system.parts).find(p => (p.type === type) && !p.rolls.length);
+      if (part) Object.assign(part, Object.values(messageData.system.parts)[0]);
+      else {
+        originData.system.parts[foundry.utils.randomID()] = Object.values(messageData.system.parts)[0];
+      }
       return origin.update(originData);
     }
 
@@ -628,7 +630,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     const messageData = await this.rollCheck(rollConfig, dialogConfig, messageConfig);
     if (!messageData) return null;
     const Cls = getDocumentClass("ChatMessage");
-    messageData.system.parts.push({ type: "damage" });
+    messageData.system.parts[foundry.utils.randomID()] = { type: "damage" };
     const message = new Cls(messageData);
     return create ? Cls.create(message.toObject()) : message.toObject();
   }

@@ -1,14 +1,27 @@
 import MessagePart from "./parts/base.mjs";
 
-const { ArrayField, TypedSchemaField } = foundry.data.fields;
+const { TypedObjectField, TypedSchemaField } = foundry.data.fields;
 const { handlebars } = foundry.applications;
 
 export default class StandardData extends foundry.abstract.TypeDataModel {
   /** @override */
   static defineSchema() {
     return {
-      parts: new ArrayField(new TypedSchemaField(MessagePart.TYPES)),
+      parts: new TypedObjectField(
+        new TypedSchemaField(MessagePart.TYPES),
+        { validateKey: key => foundry.data.validators.isValidId(key) },
+      ),
     };
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static migrateData(source) {
+    if (Array.isArray(source?.parts)) {
+      source.parts = Object.fromEntries(source.parts.map(part => [foundry.utils.randomID(), part]));
+    }
+    return super.migrateData(source);
   }
 
   /* -------------------------------------------------- */
@@ -18,7 +31,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get isRoll() {
-    return this.parts.some(part => part.isRoll);
+    return Object.values(this.parts).some(part => part.isRoll);
   }
 
   /* -------------------------------------------------- */
@@ -28,7 +41,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get visible() {
-    return this.parts.some(part => part.visible);
+    return Object.values(this.parts).some(part => part.visible);
   }
 
   /* -------------------------------------------------- */
@@ -60,13 +73,13 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
     element.insertAdjacentHTML("beforeend", htmlString);
 
     // Render reusable parts.
-    for (const [i, part] of this.parts.entries()) {
+    for (const [id, part] of Object.entries(this.parts)) {
       if (!part.visible) continue;
-      Object.assign(context, { part, index: i });
+      Object.assign(context, { part, id });
       await part._prepareContext(context);
       const htmlString = await handlebars.renderTemplate(part.constructor.TEMPLATE, context);
       const html = foundry.utils.parseHTML(`
-        <section data-message-part="${i}" data-message-part-type="${part.constructor.TYPE}">${htmlString}</section>`,
+        <section data-message-part="${id}" data-message-part-type="${part.constructor.TYPE}">${htmlString}</section>`,
       );
       part._addListeners(html, context);
       element.insertAdjacentElement("beforeend", html);
@@ -107,7 +120,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
-    for (const part of this.parts) part._onCreate(data, options, userId);
+    for (const part of Object.values(this.parts)) part._onCreate(data, options, userId);
   }
 
   /* -------------------------------------------------- */
@@ -115,6 +128,6 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    for (const part of this.parts) part.prepareData();
+    for (const part of Object.values(this.parts)) part.prepareData();
   }
 }

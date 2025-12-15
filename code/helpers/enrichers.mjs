@@ -74,7 +74,11 @@ export default class Enrichers {
           const messageData = {
             type: "standard",
             speaker: getDocumentClass("ChatMessage").getSpeaker({ actor }),
-            system: { parts: [{ type: "request", check: { configuration: rollConfig } }] },
+            system: {
+              parts: {
+                [foundry.utils.randomID()]: { type: "request", check: { configuration: rollConfig } },
+              },
+            },
           };
           getDocumentClass("ChatMessage").create(messageData);
         });
