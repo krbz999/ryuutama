@@ -267,7 +267,27 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       speaker: getDocumentClass("ChatMessage").getSpeaker({ actor: this.parent }),
     }, messageConfig.data ?? {}, { overwrite: false });
 
+    // Append flag for check request messages.
+    if (game.messages.get(messageConfig.requestId)) {
+      foundry.utils.setProperty(messageData, `flags.${ryuutama.id}.requestId`, messageConfig.requestId);
+    }
+
     return messageData;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Create the label for a roll configuration of a check.
+   * @param {CheckRollConfig} rollConfig
+   * @returns {string}
+   */
+  static _createCheckLabel(rollConfig) {
+    const typeLabel = game.i18n.format(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
+    const subtitle = (rollConfig.type === "journey")
+      ? ryuutama.config.checkTypes.journey.subtypes[rollConfig.journeyId].label
+      : null;
+    return subtitle ? `${typeLabel} (${subtitle})` : typeLabel;
   }
 
   /* -------------------------------------------------- */
