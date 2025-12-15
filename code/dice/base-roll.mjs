@@ -23,11 +23,13 @@ export default class BaseRoll extends foundry.dice.Roll {
       author: game.user.id,
       sound: CONFIG.sounds.dice,
     }, messageData);
-    messageData.system.parts = [{
-      rolls: [this],
-      type: this.constructor.PART_TYPE,
-      flavor: messageData.flavor,
-    }];
+    messageData.system.parts = {
+      [foundry.utils.randomID()]: {
+        rolls: [this],
+        type: this.constructor.PART_TYPE,
+        flavor: messageData.flavor,
+      },
+    };
     delete messageData.flavor;
     delete messageData.rolls;
 
