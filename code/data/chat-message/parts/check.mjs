@@ -19,19 +19,18 @@ export default class CheckPart extends MessagePart {
 
   /** @override */
   _onCreate(data, options, userId) {
-    const requestMessage = game.messages.get(this.message.flags[ryuutama.id]?.requestId);
-    const isUser = requestMessage && game.users
-      .getDesignatedUser(user => user.active && requestMessage.canUserModify(user, "update"))?.isSelf;
+    const [messageId, partId] = this.message.flags[ryuutama.id]?.requestId?.split(".") ?? [];
+    const request = game.messages.get(messageId)?.system.parts?.[partId];
+    const isUser = request && game.users
+      .getDesignatedUser(user => user.active && request.message.canUserModify(user, "update"))?.isSelf;
     if (!isUser) return;
 
-    const messageData = requestMessage.toObject();
     const actorUuid = this.message.speakerActor.uuid;
-    const partData = Object.values(messageData.system.parts).find(part => part.type === "request");
-
+    const partData = request.toObject();
     const result = { actorUuid, result: this.rolls.reduce((acc, r) => acc + r.total, 0) };
     if (!partData.results.findSplice(r => r.actorUuid === actorUuid, result)) {
       partData.results.push(result);
     }
-    requestMessage.update(messageData);
+    request.message.update({ [`system.parts.${request.id}.results`]: partData.results });
   }
 }

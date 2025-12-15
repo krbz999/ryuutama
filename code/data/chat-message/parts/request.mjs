@@ -100,7 +100,7 @@ export default class RequestPart extends MessagePart {
   async _rollRequest(actor, event) {
     const rollConfig = foundry.utils.deepClone(this.check.configuration);
     const dialogConfig = { configure: !event.shiftKey };
-    const messageConfig = { requestId: this.message.id };
+    const messageConfig = { requestId: [this.message.id, this.id].join(".") };
     await actor.system.rollCheck(rollConfig, dialogConfig, messageConfig);
   }
 }

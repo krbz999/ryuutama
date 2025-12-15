@@ -270,7 +270,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     }, messageConfig.data ?? {}, { overwrite: false });
 
     // Append flag for check request messages.
-    if (game.messages.get(messageConfig.requestId)) {
+    const [messageId, partId] = messageConfig.requestId?.split(".") ?? [];
+    if (game.messages.get(messageId)?.system.parts?.[partId]?.type === "request") {
       foundry.utils.setProperty(messageData, `flags.${ryuutama.id}.requestId`, messageConfig.requestId);
     }
 
