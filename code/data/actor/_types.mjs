@@ -62,4 +62,6 @@
  *                                                      the type of check being performed.
  * @property {string} [messageId]                       The id of a message (of type `standard`) to append to
  *                                                      rather than create a new message. The `create` option is ignored.
+ * @property {string} [requestId]                       The id of a message (of type `standard`) that requested this check,
+ *                                                      and will be updated to show the result in a compact format.
  */

@@ -1,0 +1,20 @@
+{{#if part.flavor}}
+<span class="flavor">{{part.flavor}}</span>
+{{/if}}
+
+<section class="request-config">
+  <button type="button" data-action="rollRequest">
+    <i class="fa-solid fa-dice" inert></i>
+    <span>{{ctx.requestText}}</span>
+  </button>
+</section>
+
+<section class="request-results">
+  {{#each ctx.results}}
+  <div class="request-result" data-actor-uuid="{{actor.uuid}}">
+    <img src="{{actor.img}}" alt="{{actor.name}}" data-tooltip-text="{{actor.name}}">
+    <span class="result">{{result}}</span>
+    <button type="button" data-action="rerollRequest" class="icon fa-solid fa-rotate-left" {{disabled disabled}}></button>
+  </div>
+  {{/each}}
+</section>

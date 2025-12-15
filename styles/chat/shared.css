@@ -1,6 +1,7 @@
 .chat-message damage-tray,
 .chat-message effect-tray,
-.chat-message healing-tray {
+.chat-message healing-tray,
+.chat-message [data-message-part-type=request] .request-results {
   display: flex;
   gap: 0.5rem;
   flex-direction: column;

@@ -14,4 +14,26 @@ export default class CheckPart extends MessagePart {
 
   /** @override */
   static TEMPLATE = "systems/ryuutama/templates/chat/parts/check.hbs";
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  _onCreate(data, options, userId) {
+    const requestMessage = game.messages.get(this.message.flags[ryuutama.id]?.requestId);
+    const isUser = requestMessage && game.users
+      .getDesignatedUser(user => user.active && (user.isGM || requestMessage.isAuthor))?.isSelf;
+    if (!isUser) return;
+
+    const index = requestMessage.system.parts.findIndex(part => part.type === "request");
+    const messageData = requestMessage.toObject();
+
+    const actorUuid = this.message.speakerActor.uuid;
+    const partData = messageData.system.parts[index];
+
+    const result = { actorUuid, result: this.rolls.reduce((acc, r) => r.total, 0) };
+    if (!partData.results.findSplice(r => r.actorUuid === actorUuid, result)) {
+      partData.results.push(result);
+    }
+    requestMessage.update(messageData);
+  }
 }

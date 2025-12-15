@@ -65,7 +65,9 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
       Object.assign(context, { part, index: i });
       await part._prepareContext(context);
       const htmlString = await handlebars.renderTemplate(part.constructor.TEMPLATE, context);
-      const html = foundry.utils.parseHTML(`<section data-message-part="${i}">${htmlString}</section>`);
+      const html = foundry.utils.parseHTML(`
+        <section data-message-part="${i}" data-message-part-type="${part.constructor.TYPE}">${htmlString}</section>`,
+      );
       part._addListeners(html, context);
       element.insertAdjacentElement("beforeend", html);
     }
@@ -95,9 +97,17 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
       whisper.length ? "whisper" : null,
       blind ? "blind" : null,
     ];
-    for (const cssClass of cssClasses) frame.classList.add(cssClass);
+    for (const cssClass of cssClasses) if (cssClass) frame.classList.add(cssClass);
     if (options.borderColor) frame.style.setProperty("border-color", options.borderColor);
     return frame;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onCreate(data, options, userId) {
+    super._onCreate(data, options, userId);
+    for (const part of this.parts) part._onCreate(data, options, userId);
   }
 
   /* -------------------------------------------------- */

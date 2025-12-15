@@ -673,15 +673,16 @@
       "consumeMental": "Consume MP",
       "consumeStamina": "Consume Stamina",
       "critical": "Critical",
+      "magic": "Magic",
+      "magicConsumeMental": "Consume MP",
+      "magicConsumeMentalHint": "The spell requires {mp} MP to cast.",
       "messageFlavor": "{type}",
       "messageFlavorAbilities": "{type} ({abilities})",
+      "requestRoll": "Request Roll",
       "situationalBonus": "Situational Bonus",
       "title": "Configure {type}: {name}",
       "unmasteredWeaponHint": "An accuracy check with an unmastered weapon costs 1 HP.",
-      "weaponBroken": "{weapon} (Broken)",
-      "magicConsumeMental": "Consume MP",
-      "magicConsumeMentalHint": "The spell requires {mp} MP to cast.",
-      "magic": "Magic"
+      "weaponBroken": "{weapon} (Broken)"
     },
 
     "SETTINGS": {

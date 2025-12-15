@@ -1,3 +1,7 @@
+/**
+ * @import RyuutamaChatMessage from "../../../documents/chat-message.mjs";
+ */
+
 const { ArrayField, JSONField, StringField } = foundry.data.fields;
 
 export default class MessagePart extends foundry.abstract.DataModel {
@@ -44,6 +48,7 @@ export default class MessagePart extends foundry.abstract.DataModel {
       [ryuutama.data.message.parts.DamagePart.TYPE]: ryuutama.data.message.parts.DamagePart,
       [ryuutama.data.message.parts.EffectPart.TYPE]: ryuutama.data.message.parts.EffectPart,
       [ryuutama.data.message.parts.HealingPart.TYPE]: ryuutama.data.message.parts.HealingPart,
+      [ryuutama.data.message.parts.RequestPart.TYPE]: ryuutama.data.message.parts.RequestPart,
       [ryuutama.data.message.parts.RollPart.TYPE]: ryuutama.data.message.parts.RollPart,
     });
   }
@@ -71,6 +76,16 @@ export default class MessagePart extends foundry.abstract.DataModel {
    */
   get isRoll() {
     return !!this.rolls.length;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The parent chat message.
+   * @type {RyuutamaChatMessage}
+   */
+  get message() {
+    return this.parent.parent;
   }
 
   /* -------------------------------------------------- */
@@ -110,6 +125,16 @@ export default class MessagePart extends foundry.abstract.DataModel {
       element.addEventListener("click", event => action.call(this, event, element));
     }
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Perform actions when a message is created with this part.
+   * @param {object} data
+   * @param {object} options
+   * @param {string} userId
+   */
+  _onCreate(data, options, userId) {}
 
   /* -------------------------------------------------- */
 

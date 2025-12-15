@@ -63,7 +63,20 @@ export default class Enrichers {
         });
 
         element.querySelector(".request")?.addEventListener("click", event => {
-          // TODO: request roll.
+          const target = event.currentTarget;
+          const application = foundry.applications.instances.get(target.closest(".application")?.id);
+          const tooltipActor = fromUuidSync(target.closest(".locked-tooltip [data-actor-uuid]")?.dataset.actorUuid);
+          let actor;
+          if (tooltipActor instanceof foundry.documents.Actor) actor = tooltipActor;
+          else if (application?.document instanceof foundry.documents.Actor) actor = application.document;
+          else if (application?.document?.actor instanceof foundry.documents.Actor) actor = application.document.actor;
+
+          const messageData = {
+            type: "standard",
+            speaker: getDocumentClass("ChatMessage").getSpeaker({ actor }),
+            system: { parts: [{ type: "request", check: { configuration: rollConfig } }] },
+          };
+          getDocumentClass("ChatMessage").create(messageData);
         });
       },
     });
@@ -258,6 +271,7 @@ export default class Enrichers {
       const request = document.createElement("A");
       request.innerHTML = "<i class=\"fa-solid fa-bullhorn\"></i>";
       request.classList.add("request");
+      request.dataset.tooltip = "RYUUTAMA.ROLL.requestRoll";
       elements.push(request);
     }
 
