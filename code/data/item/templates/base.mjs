@@ -44,16 +44,6 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
-   * The properties applied to the DamageRoll when this item is used.
-   * @returns {Set<string>}
-   */
-  getDamageOptions() {
-    return new Set();
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
    * Create data for an enriched tooltip.
    * @returns {Promise<HTMLElement[]>}
    */
