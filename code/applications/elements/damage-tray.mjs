@@ -76,7 +76,7 @@ export default class DamageTray extends HTMLElement {
     <div data-actor-uuid="${actor.uuid}">
       <img src="${actor.img}" alt="${actor.name}">
       <span>${actor.name}</span>
-      <span>${actor.system.calculateDamage(damages)}</span>
+      <span>${actor.system.calculateDamage(damages).hp}</span>
     </div>`;
 
     return foundry.utils.parseHTML(htmlString);

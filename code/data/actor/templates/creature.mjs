@@ -643,10 +643,13 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   /**
    * Calculate the damage an actor will take.
    * @param {DamageConfiguration[]} [damages=[]]
-   * @returns {number}
+   * @returns {{ hp: number, mp: number }}    The damage applied to HP and MP.
    */
   calculateDamage(damages = []) {
     damages = foundry.utils.deepClone(damages);
+
+    let hp = 0;
+    let mp = 0;
 
     /**
      * Does this damage ignore defense/armor?
@@ -665,9 +668,11 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         if (!ignoreDefense(damage)) damage.value -= this.defense.total;
       }
       damage.value = Math.max(0, damage.value);
+      hp += damage.value;
+      if (damage.options?.damageMental) mp += damage.value;
     }
 
-    return damages.reduce((acc, damage) => acc + damage.value, 0);
+    return { hp, mp };
   }
 
   /* -------------------------------------------------- */
@@ -678,10 +683,12 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * @returns {Promise<RyuutamaActor>}
    */
   async applyDamage(damages = []) {
-    const total = this.calculateDamage(damages);
-    const { spent } = this.resources.stamina;
+    const { hp, mp } = this.calculateDamage(damages);
     const actor = this.parent;
-    await actor.update({ "system.resources.stamina.spent": spent + total });
+    await actor.update({
+      "system.resources.stamina.spent": this.resources.stamina.spent + hp,
+      "system.resources.mental.spent": this.resources.mental.spent + mp,
+    });
     return actor;
   }
 
