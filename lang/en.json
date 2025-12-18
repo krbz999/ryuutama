@@ -296,6 +296,16 @@
       }
     },
 
+    "DAMAGE": {
+      "PROPERTIES": {
+        "damageMental": "Damage MP",
+        "ignoreArmor": "Ignore Armor",
+        "magical": "Magical",
+        "mythril": "Mythril",
+        "orichalcum": "Orichalcum"
+      }
+    },
+
     "EFFECT": {
       "STATUS": {
         "FIELDS": {

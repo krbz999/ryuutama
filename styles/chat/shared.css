@@ -58,3 +58,21 @@
 .ryuutama.chat-message section[data-message-part]:not(:last-child) {
   margin-bottom: 1rem;
 }
+
+.dice-roll .dice-result .dice-total {
+  display: grid;
+  grid-template-columns: 1fr 0;
+
+  --ryuutama-color-roll-property: rgb(85, 85, 85);
+
+  .dice-properties {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row-reverse;
+
+    svg {
+      width: auto;
+      padding: 4px 2px;
+    }
+  }
+}

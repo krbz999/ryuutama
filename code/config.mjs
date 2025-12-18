@@ -2,7 +2,7 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 
 /**
  * @import {
- * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, EffectExpirationTypeConfig, HerbTypeConfig,
+ * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, DamageRollPropertyConfig, EffectExpirationTypeConfig, HerbTypeConfig,
  * ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig,
  * SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig,
  * TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig
@@ -168,6 +168,35 @@ export const checkTypes = {
 };
 Prelocalization.prelocalize(checkTypes);
 Prelocalization.prelocalize(checkTypes.journey.subtypes);
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, DamageRollPropertyConfig>}
+ */
+export const damageRollProperties = {
+  damageMental: {
+    label: "RYUUTAMA.DAMAGE.PROPERTIES.damageMental",
+    icon: "systems/ryuutama/assets/icons/bolt-eye.svg",
+  },
+  ignoreArmor: {
+    label: "RYUUTAMA.DAMAGE.PROPERTIES.ignoreArmor",
+    icon: "systems/ryuutama/assets/icons/shield-disabled.svg",
+  },
+  magical: {
+    label: "RYUUTAMA.DAMAGE.PROPERTIES.magical",
+    icon: "systems/ryuutama/assets/icons/eclipse-flare.svg",
+  },
+  mythril: {
+    label: "RYUUTAMA.DAMAGE.PROPERTIES.mythril",
+    icon: "systems/ryuutama/assets/icons/fish-scales.svg",
+  },
+  orichalcum: {
+    label: "RYUUTAMA.DAMAGE.PROPERTIES.orichalcum",
+    icon: "systems/ryuutama/assets/icons/layered-armor.svg",
+  },
+};
+Prelocalization.prelocalize(damageRollProperties);
 
 /* -------------------------------------------------- */
 
