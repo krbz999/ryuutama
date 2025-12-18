@@ -57,8 +57,10 @@ export default class Enrichers {
           else if (application?.document?.actor instanceof foundry.documents.Actor) actors = [application.document.actor];
           else actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
 
+          const options = Object.fromEntries(element.dataset.properties.split(",").map(p => [p, true]));
+          const dialogConfig = { configure: !event.shiftKey };
           for (const actor of actors) {
-            await actor.system.rollCheck(rollConfig);
+            await actor.system.rollCheck(rollConfig, dialogConfig, { rollOptions: options });
           }
         });
 
@@ -111,11 +113,13 @@ export default class Enrichers {
           if (tooltipActor instanceof foundry.documents.Actor) actors = [tooltipActor];
           else if (application?.document instanceof foundry.documents.Actor) actors = [application.document];
           else if (application?.document?.actor instanceof foundry.documents.Actor) actors = [application.document.actor];
-          else actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
+          else actors = Array.from(new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _)));
+          if (!actors.length) actors = [game.user.character];
 
           const Cls = getDocumentClass("ChatMessage");
+          const options = Object.fromEntries(element.dataset.properties.split(",").map(p => [p, true]));
           for (const actor of actors) {
-            const roll = new ryuutama.dice.DamageRoll(formula, actor.getRollData());
+            const roll = new ryuutama.dice.DamageRoll(formula, actor?.getRollData(), options);
             const speaker = Cls.getSpeaker({ actor });
             await roll.toMessage({ speaker });
           }
@@ -195,8 +199,11 @@ export default class Enrichers {
       else return null;
     }
 
-    // Show request.
-    config.request ??= config.values.includes("request");
+    config.properties = new Set();
+    for (const property of Object.keys(ryuutama.config.damageRollProperties)) {
+      config[property] ??= config.values.includes(property);
+      if (config[property]) config.properties.add(property);
+    }
 
     const wrapper = new foundry.applications.elements.HTMLEnrichedContentElement();
     wrapper.classList.add(ryuutama.id);
@@ -209,13 +216,7 @@ export default class Enrichers {
     anchor.innerHTML = label.trim();
 
     wrapper.dataset.formula = config.formula;
-    if (config.request) {
-      const request = document.createElement("A");
-      request.innerHTML = "<i class=\"fa-solid fa-bullhorn\"></i>";
-      request.classList.add("request");
-      elements.push(request);
-    }
-
+    wrapper.dataset.properties = Array.from(config.properties).join(",");
     wrapper.innerHTML = elements.map(element => element.outerHTML).join("");
 
     return wrapper;
@@ -250,6 +251,15 @@ export default class Enrichers {
       if (formula) config.formula = formula;
     }
 
+    config.properties = new Set();
+    if (config.type === "damage") {
+      // TODO: allow for properties on other types of checks.
+      for (const property of Object.keys(ryuutama.config.damageRollProperties)) {
+        config[property] ??= config.values.includes(property);
+        if (config[property]) config.properties.add(property);
+      }
+    }
+
     // Show request.
     config.request ??= config.values.includes("request");
 
@@ -279,6 +289,7 @@ export default class Enrichers {
       elements.push(request);
     }
 
+    wrapper.dataset.properties = Array.from(config.properties).join(",");
     wrapper.innerHTML = elements.map(element => element.outerHTML).join("");
 
     return wrapper;
