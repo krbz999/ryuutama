@@ -4,7 +4,7 @@ export default class Enrichers {
    * @type {Record<string, RegExp>}
    */
   static PATTERNS = {
-    status: /\[\[\/status (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
+    status: /\[\[\/?status (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
     check: /\[\[\/check (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
     damage: /\[\[\/damage (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
     reference: /\[\[reference (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi,
@@ -42,6 +42,8 @@ export default class Enrichers {
           rollConfig.journeyId = subtype;
         }
         if (formula) rollConfig.formula = formula;
+        const options = Object.fromEntries(element.dataset.properties.split(",").map(p => [p, true]));
+        rollConfig.rollOptions = options;
 
         const enricher = element.querySelector(".enricher");
         if (enricher._hasEvent) return;
@@ -57,10 +59,9 @@ export default class Enrichers {
           else if (application?.document?.actor instanceof foundry.documents.Actor) actors = [application.document.actor];
           else actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
 
-          const options = Object.fromEntries(element.dataset.properties.split(",").map(p => [p, true]));
           const dialogConfig = { configure: !event.shiftKey };
           for (const actor of actors) {
-            await actor.system.rollCheck(rollConfig, dialogConfig, { rollOptions: options });
+            await actor.system.rollCheck(rollConfig, dialogConfig);
           }
         });
 

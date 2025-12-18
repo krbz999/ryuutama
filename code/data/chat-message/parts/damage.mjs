@@ -1,10 +1,10 @@
-import MessagePart from "./base.mjs";
+import CheckPart from "./check.mjs";
 
 /**
  * @import { DamageConfiguration } from "../../actor/templates/_types.mjs";
  */
 
-export default class DamagePart extends MessagePart {
+export default class DamagePart extends CheckPart {
   static {
     Object.defineProperty(this, "TYPE", { value: "damage" });
   }

@@ -42,6 +42,8 @@
  * @property {object} [magic]
  * @property {boolean} [magic.consumeMental]                Consume the MP for casting the spell?
  * @property {RyuutamaItem} [magic.item]                    The spell being cast.
+ * @property {Record<string, boolean>} [rollOptions]        Options for the roll. The effect of these depends on
+ *                                                          the type of check being performed.
  */
 
 /* -------------------------------------------------- */
@@ -58,8 +60,6 @@
  * @property {boolean} [create]                         Should a chat message be created?
  * @property {object} [data]                            Data to be used for the chat message.
  *                                                      This does not include `rolls` or `content`.
- * @property {Record<string, boolean>} [rollOptions]    Options for the roll. The effect of these depends on
- *                                                      the type of check being performed.
  * @property {string} [messageId]                       The id of a message (of type `standard`) to append to
  *                                                      rather than create a new message. The `create` option is ignored.
  * @property {string} [requestId]                       The id of a message (of type `standard`) that requested this check,

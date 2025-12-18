@@ -592,7 +592,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         : null;
     const rollOptions = item?.system.getRollOptions?.(rollConfig.type) ?? [];
     rollOptions.forEach(o => options[o] = true);
-    return foundry.utils.mergeObject(options, messageConfig.rollOptions ?? {});
+    return foundry.utils.mergeObject(options, rollConfig.rollOptions ?? {});
   }
 
   /* -------------------------------------------------- */
