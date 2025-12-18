@@ -37,22 +37,10 @@ export default class DamageAction extends Action {
       return null;
     }
 
-    const options = Object.fromEntries(Array.from(this.getDamageOptions()).map(k => [k, true]));
+    const options = Object.fromEntries(Array.from(this.getRollOptions("damage")).map(k => [k, true]));
     const roll = new ryuutama.dice.DamageRoll(formula, this.actor.getRollData(), options);
     await roll.evaluate();
     return { type: "damage", rolls: [roll] };
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Gather the roll properties.
-   * @returns {Set<string>}
-   */
-  getDamageOptions() {
-    const properties = this.item.system.getDamageOptions();
-    this.damage.properties.forEach(p => properties.add(p));
-    return properties;
   }
 
   /* -------------------------------------------------- */

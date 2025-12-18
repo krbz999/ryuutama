@@ -50,16 +50,6 @@ export default class PhysicalData extends BaseData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  getDamageOptions() {
-    const options = super.getDamageOptions();
-    if (this.modifiers.has("orichalcum")) options.add("orichalcum");
-    if (this.modifiers.has("mythril")) options.add("mythril");
-    return options;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
     this.#prepareSize();
