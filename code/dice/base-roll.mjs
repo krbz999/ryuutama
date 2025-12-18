@@ -1,4 +1,9 @@
 export default class BaseRoll extends foundry.dice.Roll {
+  /** @override */
+  static CHAT_TEMPLATE = "systems/ryuutama/templates/dice/roll.hbs";
+
+  /* -------------------------------------------------- */
+
   /**
    * The type used for the `part` of a standard message.
    * @type {string}
@@ -39,5 +44,24 @@ export default class BaseRoll extends foundry.dice.Roll {
 
     if (create) return Cls.create(msg);
     return msg.toObject();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Retrieve properties to display on the roll as a tooltip.
+   * @returns {{ icon: string, tooltip: string }[]}
+   */
+  _getTooltipProperties() {
+    return [];
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _prepareChatRenderContext(options = {}) {
+    const context = await super._prepareChatRenderContext(options);
+    context.properties = this._getTooltipProperties();
+    return context;
   }
 }

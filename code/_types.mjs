@@ -36,6 +36,14 @@
 /* -------------------------------------------------- */
 
 /**
+ * @typedef DamageRollPropertyConfig
+ * @property {string} label   Human-readable label.
+ * @property {string} icon    Icon displayed in chat messages for this property.
+ */
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef EffectExpirationTypeConfig
  * @property {string} label   Human-readable label.
  */
