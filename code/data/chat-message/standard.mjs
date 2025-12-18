@@ -47,6 +47,16 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
+   * How many rolls are rendered in this chat message for the current user?
+   * @type {number}
+   */
+  get _rollCount() {
+    return Object.values(this.parts).reduce((acc, part) => acc + (part.visible ? part.rolls.length : 0), 0);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Render the HTML for the ChatMessage which should be added to the log.
    * @param {object} [options]              Additional options passed to the Handlebars template.
    * @param {boolean} [options.canDelete]   Render a delete button. By default, this is true for GM users.
@@ -121,6 +131,25 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
     for (const part of Object.values(this.parts)) part._onCreate(data, options, userId);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preUpdate(changes, options, user) {
+    if ((await super._preUpdate(changes, options, user)) === false) return false;
+    if (this.parent.visible) options.rollCount = this._rollCount;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onUpdate(changed, options, user) {
+    super._onUpdate(changed, options, user);
+
+    if (this.parent.visible && (this._rollCount > options.rollCount)) {
+      ui.chat.notify(this.parent, { newMessage: false });
+    }
   }
 
   /* -------------------------------------------------- */
