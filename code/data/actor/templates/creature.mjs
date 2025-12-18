@@ -334,13 +334,14 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
           case "traveler": {
             let abilities;
             const w = this.equipped.weapon;
+            roll.accuracy = { weapon: w };
             if (w?.system.isUsable) {
               abilities = [...w.system.accuracy.abilities];
-              roll.accuracy = { weapon: w, consumeStamina: !w.system.isMastered };
+              roll.accuracy.consumeStamina = !w.system.isMastered;
             } else {
               // unarmed
               abilities = [...ryuutama.config.weaponUnarmedTypes.unarmed.accuracy.abilities];
-              roll.accuracy = { consumeStamina: !this.mastered.weapons.unarmed };
+              roll.accuracy.consumeStamina = !this.mastered.weapons.unarmed;
             }
             roll.abilities = abilities;
             break;
@@ -367,6 +368,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         switch (this.parent.type) {
           case "traveler": {
             const w = this.equipped.weapon;
+            roll.accuracy = { weapon: w };
             let abi;
             if (w?.system.isUsable) abi = w.system.damage.ability;
             else abi = ryuutama.config.weaponUnarmedTypes.unarmed.damage.ability; // unarmed
