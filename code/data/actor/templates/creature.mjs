@@ -662,7 +662,7 @@ export default class CreatureData extends BaseData {
    * @param {DamageConfiguration[]} [damages=[]]
    * @returns {{ hp: number, mp: number }}    The damage applied to HP and MP.
    */
-  calculateDamage(damages) {
+  calculateDamage(damages = []) {
     damages = foundry.utils.deepClone(damages);
 
     let hp = 0;
