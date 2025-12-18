@@ -1,3 +1,11 @@
 #token-hud .palette.status-effects {
   --effect-columns: 1;
 }
+
+#token-hud .attribute.bar1 input {
+  border-color: var(--ryuutama-color-resource-stamina);
+}
+
+#token-hud .attribute.bar2 input {
+  border-color: var(--ryuutama-color-resource-mental);
+}
