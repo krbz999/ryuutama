@@ -24,8 +24,19 @@ globalThis.ryuutama = {
 /* -------------------------------------------------- */
 
 Hooks.once("init", () => {
+  // Register settings.
   registerSettings();
-  helpers.Enrichers.registerEnrichers();
+
+  // Register enrichers.
+  [
+    helpers.enrichers.CheckEnricher,
+    helpers.enrichers.DamageEnricher,
+    helpers.enrichers.ReferenceEnricher,
+    helpers.enrichers.StatusEnricher,
+  ].forEach(obj => {
+    const { id, pattern, enricher, onRender } = obj;
+    CONFIG.TextEditor.enrichers.push({ id, pattern, enricher, onRender });
+  });
 
   // Define custom elements.
   const defineElements = window => {
