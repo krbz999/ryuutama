@@ -57,12 +57,13 @@
 
 /**
  * @typedef CheckMessageConfig
- * @property {boolean} [create]                         Should a chat message be created?
- * @property {object} [data]                            Data to be used for the chat message.
- *                                                      This does not include `rolls` or `content`.
- * @property {string} [messageId]                       The id of a message (of type `standard`) to append to
- *                                                      rather than create a new message. The `create` option is ignored.
- * @property {string} [requestId]                       The id of a message (of type `standard`) that requested this check,
- *                                                      in combination with the id of the `request` part. The message will
- *                                                      be updated to show the result in a compact format.
+ * @property {boolean} [create]                 Should a chat message be created?
+ * @property {object} [data]                    Data to be used for the chat message.
+ *                                              This does not include `rolls` or `content`.
+ * @property {string} [messageId]               The id of a message (of type `standard`) to append to
+ *                                              rather than create a new message. The `create` option is ignored.
+ * @property {string} [requestId]               The id of a message (of type `standard`) that requested this check,
+ *                                              in combination with the id of the `request` part. The message will
+ *                                              be updated to show the result in a compact format.
+ * @property {boolean} [returnNumeric=false]    Return a numeric value rather than a chat message or message data.
  */

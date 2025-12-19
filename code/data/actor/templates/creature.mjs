@@ -218,7 +218,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<RyuutamaChatMessage|object|null>}
+   * @returns {Promise<RyuutamaChatMessage|object|number|null>}
    */
   async #rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = this.#constructCheckConfigs(rollConfig, dialogConfig, messageConfig));
@@ -253,10 +253,14 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       else {
         originData.system.parts[foundry.utils.randomID()] = Object.values(messageData.system.parts)[0];
       }
-      return origin.update(originData);
+      const message = await origin.update(originData);
+      if (!messageConfig.returnNumeric) return message;
+      return roll.total;
     }
 
-    return roll.toMessage(messageData, { create: messageConfig.create });
+    const message = await roll.toMessage(messageData, { create: messageConfig.create });
+    if (!messageConfig.returnNumeric) return message;
+    return roll.total;
   }
 
   /* -------------------------------------------------- */
@@ -628,7 +632,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<RyuutamaChatMessage|object|null>}
+   * @returns {Promise<RyuutamaChatMessage|object|number|null>}
    */
   async rollCheck(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     return this.#rollCheck(rollConfig, dialogConfig, messageConfig);
@@ -641,6 +645,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<RyuutamaChatMessage|object|number|null>}
    */
   async rollAttack(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     const create = messageConfig.create ?? true;
@@ -652,6 +657,26 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     messageData.system.parts[foundry.utils.randomID()] = { type: "damage" };
     const message = new Cls(messageData);
     return create ? Cls.create(message.toObject()) : message.toObject();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * A bespoke method for initiative checks.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<number|null>}
+   */
+  async rollInitiative(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    rollConfig = foundry.utils.mergeObject(rollConfig, {
+      type: "initiative",
+      initiative: { shield: this.parent.type === "traveler" },
+    }, { inplace: false });
+    messageConfig = foundry.utils.mergeObject(messageConfig, {
+      returnNumeric: true,
+    }, { inplace: false });
+    return this.rollCheck(rollConfig, dialogConfig, messageConfig);
   }
 
   /* -------------------------------------------------- */

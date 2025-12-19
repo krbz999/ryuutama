@@ -15,12 +15,8 @@ export default class RyuutamaCombatant extends foundry.documents.Combatant {
       throw new Error("Ryuutama | The signature of Combatant#rollInitiative has changed and no longer allows a formula replacement.");
     }
 
-    rollConfig = foundry.utils.mergeObject({
-      type: "initiative",
-      initiative: { shield: this.actor.type === "traveler" },
-    }, rollConfig);
-    const roll = await this.actor.system.rollCheck(rollConfig, dialogConfig, messageConfig);
-    if (!roll) return this;
-    return this.update({ initiative: roll.total });
+    const result = await this.actor.system.rollInitiative(rollConfig, dialogConfig, messageConfig);
+    if (result === null) return this;
+    return this.update({ initiative: result });
   }
 }
