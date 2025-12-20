@@ -21,12 +21,19 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       toggleStatus: RyuutamaActorSheet.#toggleStatus,
     },
     window: {
-      controls: [{
-        action: "configurePrototypeToken",
-        icon: "fa-solid fa-circle-user",
-        label: "TOKEN.TitlePrototype",
-        ownership: "OWNER",
-      }],
+      controls: [
+        {
+          action: "toggleCompactMode",
+          icon: "fa-solid fa-expand",
+          label: "RYUUTAMA.ACTOR.toggleCompactMode",
+        },
+        {
+          action: "configurePrototypeToken",
+          icon: "fa-solid fa-circle-user",
+          label: "TOKEN.TitlePrototype",
+          ownership: "OWNER",
+        },
+      ],
     },
   };
 
@@ -77,10 +84,17 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
         img, name, status, immune, effect, strength, suppressed,
         active: strength > 0,
         label: suppressed
-          ? game.i18n.format("RYUUTAMA.ACTOR.statusSuppressed", { strength: effect.system.strength.value })
+          ? game.i18n.format("RYUUTAMA.ACTOR.statusSuppressedS")
           : immune
-            ? game.i18n.localize("RYUUTAMA.ACTOR.statusImmune")
+            ? game.i18n.localize("RYUUTAMA.ACTOR.statusImmuneI")
             : strength,
+        tooltip: suppressed
+          ? `${name} (${game.i18n.format("RYUUTAMA.ACTOR.statusSuppressed")})`
+          : immune
+            ? `${name} (${game.i18n.localize("RYUUTAMA.ACTOR.statusImmune")})`
+            : effect
+              ? `${name} (${strength})`
+              : name,
       };
     });
 

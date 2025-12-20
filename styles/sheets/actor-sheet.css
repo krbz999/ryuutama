@@ -108,25 +108,21 @@
 
   .icon-fields {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    grid-template-columns: repeat(var(--grid-columns, 3), 1fr);
     gap: 1rem;
 
-    &.column-3 {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
     .icon-field {
-      max-width: 250px;
       display: grid;
       grid-template-columns: 45px 1fr;
       gap: .5rem;
 
-      > :first-child {
-        height: 45px;
-      }
-
       [data-status] > ryuutama-icon:not(.active) {
         opacity: 0.5;
+      }
+
+      /* Enforce that 'Condition' is 45px high in edit mode despite the 'tip-top shape' select. */
+      > :first-child {
+        height: 45px;
       }
 
       .stacked {
@@ -148,7 +144,7 @@
           width: 100%;
         }
 
-        * {
+        span, label, .value, input {
           text-align: center;
         }
       }
@@ -325,10 +321,13 @@
     .window-content { display: none }
   }
 
-  &.sidebar-only {
+  &.compact-mode {
     --content-width: 0;
-    width: auto !important;
-    max-height: 680px;
+
+    &:not(.minimizing, .maximizing, .minimized) {
+      width: auto !important;
+      height: auto !important;
+    }
 
     .window-header {
       width: 100%;
@@ -344,6 +343,28 @@
 
     .window-resize-handle {
       display: none;
+    }
+  }
+
+  .statuses {
+    display: flex;
+    gap: .5rem;
+    padding: 0 .25rem;
+
+    .status {
+      display: grid;
+      text-align: center;
+
+      ryuutama-icon {
+        opacity: 0.5;
+
+        &.active { opacity: 1 }
+      }
+
+      span.value {
+        color: var(--ryuutama-color-disabled);
+        overflow: hidden;
+      }
     }
   }
 }
