@@ -152,7 +152,10 @@
       "rollCheck": "Roll Check",
       "seasonalSpells": "Seasonal Spells",
       "statusImmune": "Immune",
-      "statusSuppressed": "Suppressed ({strength})"
+      "statusImmuneI": "I",
+      "statusSuppressed": "Suppressed",
+      "statusSuppressedS": "S",
+      "toggleCompactMode": "Compact Mode"
     },
     "CREATURE": {
       "FIELDS": {
@@ -220,7 +223,7 @@
       },
       "abilities": "Abilities",
       "conditionShapeOutOfShape": "Out of Shape",
-      "conditionShapeSelectAbility": "Select Ability",
+      "conditionShapeSelectAbility": "Select Tip-Top Shape",
       "shape": "Shape",
       "skillSectionLabel": "{name} Skills",
       "otherSkills": "Other Skills"

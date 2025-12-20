@@ -2,8 +2,9 @@
   {{!-- ABILITIES --}}
   {{> "actor-abilities"}}
 
-  {{!-- ATTACKS & CHECKS --}}
-  <div class="icon-fields">
+  <div class="icon-fields" style="--grid-columns: 2">
+
+    {{!-- ATTACK --}}
     <div class="icon-field">
       <img src="{{weaponImage}}" alt="">
       <div class="attack">
@@ -13,17 +14,20 @@
       </div>
     </div>
 
-    <button type="button" class="heightened" data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
-      <i class="fa-solid fa-burst" inert></i>
-      <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
-    </button>
+    {{!-- FUMBLES --}}
+    <div class="icon-field">
+      <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg"></ryuutama-icon>
+      <div class="form-group stacked">
+        <label for="{{rootId}}-system.fumbles.value">{{systemFields.fumbles.fields.value.label}}</label>
+        <div class="form-fields">
+          <input type="text" name="system.fumbles.value" class="delta" value="{{document.system.fumbles.value}}" {{disabled (not editable)}} placeholder="0" id="{{rootId}}-system.fumbles.value">
+        </div>
+      </div>
+    </div>
   </div>
 
-  {{!-- STATUSES --}}
-  {{> "actor-statuses"}}
-
   {{!-- CONDITION & ARMOR --}}
-  <div class="icon-fields">
+  <div class="icon-fields" style="--grid-columns: 2">
     {{!-- CONDITION --}}
     <div class="icon-field">
       {{#if isEditable}}
@@ -43,7 +47,7 @@
             {{#if disabled}}
             <span class="tag">{{systemFields.condition.fields.shape.fields.high.label}}: {{conditionShape.ability}}</span>
             {{else}}
-            {{formGroup systemFields.condition.fields.shape.fields.high value=source.system.condition.shape.high blank=(localize "RYUUTAMA.TRAVELER.conditionShapeSelectAbility") hint=false}}
+            {{formInput systemFields.condition.fields.shape.fields.high value=source.system.condition.shape.high blank=(localize "RYUUTAMA.TRAVELER.conditionShapeSelectAbility") hint=false}}
             {{/if}}
             {{else if conditionShape.low}}
             <span class="tag">{{localize "RYUUTAMA.TRAVELER.conditionShapeOutOfShape"}}</span>

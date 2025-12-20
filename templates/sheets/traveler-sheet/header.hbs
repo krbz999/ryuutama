@@ -21,6 +21,12 @@
       <resource-bar resource="system.details.exp" class="exp" id="{{rootId}}-exp"></resource-bar>
     </div>
   </div>
+
+  <button type="button" data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
+    <i class="fa-solid fa-dice" inert></i>
+    <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
+  </button>
+
   {{else}}
   {{formGroup fields.name value=source.name classes="stacked"}}
   {{formGroup fields.img value=source.img classes="stacked"}}
@@ -31,16 +37,15 @@
   {{!-- HP & MP --}}
   {{> "actor-resources"}}
 
-  {{!-- FUMBLES --}}
-  <div class="icon-fields">
-    <div class="icon-field">
-      <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg"></ryuutama-icon>
-      <div class="form-group stacked">
-        <label for="{{rootId}}-system.fumbles.value">{{systemFields.fumbles.fields.value.label}}</label>
-        <div class="form-fields">
-          <input type="text" name="system.fumbles.value" class="delta" value="{{ifThen disabled document.system.fumbles.value source.system.fumbles.value}}" {{disabled (not editable)}} placeholder="0" id="{{rootId}}-system.fumbles.value">
-        </div>
-      </div>
+  {{!-- STATUSES --}}
+  <section class="statuses">
+    {{#each statuses}}
+    <div class="status">
+      <a data-action="toggleStatus" data-status="{{status}}" {{disabled (not @root.editable)}} data-tooltip-text="{{tooltip}}">
+        <ryuutama-icon src="{{img}}" {{#if active}} class="active" {{/if}}></ryuutama-icon>
+      </a>
+      <span class="value">{{label}}</span>
     </div>
-  </div>
+    {{/each}}
+  </section>
 </section>
