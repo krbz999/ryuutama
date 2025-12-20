@@ -2,7 +2,7 @@
   {{!-- ABILITIES --}}
   {{> "actor-abilities"}}
 
-  <div class="icon-fields" style="--grid-columns: 2">
+  <div class="icon-fields" style="--grid-columns: 1">
 
     {{!-- ATTACK --}}
     <div class="icon-field">
@@ -14,20 +14,10 @@
       </div>
     </div>
 
-    {{!-- FUMBLES --}}
-    <div class="icon-field">
-      <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg"></ryuutama-icon>
-      <div class="form-group stacked">
-        <label for="{{rootId}}-system.fumbles.value">{{systemFields.fumbles.fields.value.label}}</label>
-        <div class="form-fields">
-          <input type="text" name="system.fumbles.value" class="delta" value="{{document.system.fumbles.value}}" {{disabled (not editable)}} placeholder="0" id="{{rootId}}-system.fumbles.value">
-        </div>
-      </div>
-    </div>
   </div>
 
   {{!-- CONDITION & ARMOR --}}
-  <div class="icon-fields" style="--grid-columns: 2">
+  <div class="icon-fields" style="--grid-columns: 3">
     {{!-- CONDITION --}}
     <div class="icon-field">
       {{#if isEditable}}
@@ -58,8 +48,24 @@
       </div>
     </div>
 
+    {{!-- FUMBLES --}}
+    <div class="icon-field">
+      <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg"></ryuutama-icon>
+      <div class="form-group stacked">
+        <label for="{{rootId}}-system.fumbles.value">{{systemFields.fumbles.fields.value.label}}</label>
+        <div class="form-fields">
+          <input type="text" name="system.fumbles.value" class="delta" value="{{document.system.fumbles.value}}" {{disabled (not editable)}} placeholder="0" id="{{rootId}}-system.fumbles.value">
+        </div>
+      </div>
+    </div>
+
     {{!-- ARMOR --}}
     {{> "actor-defense"}}
   </div>
 
+  <section class="skills">
+    {{#each skills}}
+    {{> "document-list" label=label entries=entries}}
+    {{/each}}
+  </section>
 </section>
