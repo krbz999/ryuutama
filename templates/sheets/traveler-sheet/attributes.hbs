@@ -52,7 +52,7 @@
       <div class="form-group stacked">
         <label>{{localize "RYUUTAMA.ACTOR.condition"}}</label>
         <div class="form-fields">
-          <span class="value italics">{{ifThen document.system.condition.value document.system.condition.value 0}}</span>
+          <span class="value italics">{{document.system.condition.value}}</span>
           {{#if conditionShape.active}}
           <div class="tags center">
             {{#if conditionShape.high}}
