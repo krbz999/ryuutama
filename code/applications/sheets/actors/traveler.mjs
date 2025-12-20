@@ -36,11 +36,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       classes: ["tab", "standard-form", "scrollable"],
       scrollable: [""],
     },
-    skills: {
-      template: "systems/ryuutama/templates/sheets/traveler-sheet/skills.hbs",
-      classes: ["tab", "standard-form", "scrollable"],
-      scrollable: [""],
-    },
     spells: {
       template: "systems/ryuutama/templates/sheets/traveler-sheet/spells.hbs",
       classes: ["tab", "standard-form", "scrollable"],
@@ -70,7 +65,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     primary: {
       tabs: [
         { id: "attributes" },
-        { id: "skills" },
         { id: "spells" },
         { id: "inventory" },
         { id: "effects" },

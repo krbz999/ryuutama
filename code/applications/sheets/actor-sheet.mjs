@@ -78,16 +78,18 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       const { img, name, _id } = data;
       const immune = immunities.has(status);
       const effect = this.document.effects.get(_id);
-      const strength = affected[status] ?? 0;
+      const strength = affected[status];
       const suppressed = !!effect && !strength;
       return {
         img, name, status, immune, effect, strength, suppressed,
-        active: strength > 0,
+        active: !!effect,
         label: suppressed
           ? game.i18n.format("RYUUTAMA.ACTOR.statusSuppressedS")
           : immune
             ? game.i18n.localize("RYUUTAMA.ACTOR.statusImmuneI")
-            : strength,
+            : Number.isNumeric(strength)
+              ? strength
+              : "&ndash;",
         tooltip: suppressed
           ? `${name} (${game.i18n.format("RYUUTAMA.ACTOR.statusSuppressed")})`
           : immune

@@ -41,10 +41,10 @@
   <section class="statuses">
     {{#each statuses}}
     <div class="status">
-      <a data-action="toggleStatus" data-status="{{status}}" {{disabled (not @root.editable)}} data-tooltip-text="{{tooltip}}">
+      <a data-action="toggleStatus" data-status="{{status}}" {{disabled (not @root.editable)}} data-tooltip-text="{{tooltip}}" data-tooltip-direction="UP">
         <ryuutama-icon src="{{img}}" {{#if active}} class="active" {{/if}}></ryuutama-icon>
       </a>
-      <span class="value">{{label}}</span>
+      <span class="value">{{{label}}}</span>
     </div>
     {{/each}}
   </section>
