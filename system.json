@@ -87,6 +87,9 @@
     "Combat": {
       "standard": {}
     },
+    "Combatant": {
+      "standard": {}
+    },
     "Item": {
       "accessory": {
         "htmlFields": [

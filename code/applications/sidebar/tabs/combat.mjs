@@ -20,6 +20,23 @@ export default class RyuutamaCombatTracker extends foundry.applications.sidebar.
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  _getEntryContextOptions() {
+    const options = super._getEntryContextOptions();
+    const index = options.findIndex(o => o.name === "COMBAT.CombatantReroll");
+    if (index !== -1) options.splice(index + 1, 0, {
+      name: "RYUUTAMA.COMBAT.rollDelayed",
+      icon: "<i class='fa-solid fa-dice-d20'></i>",
+      callback: li => {
+        const combatant = this.viewed.combatants.get(li.dataset.combatantId);
+        combatant.actor?.system.rollInitiative({ initiative: { delayed: true } });
+      },
+    });
+    return options;
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Add a new set of 5 objects to the combat.
    * @param {PointerEvent} event    Initiating click event.

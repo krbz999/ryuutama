@@ -65,6 +65,8 @@ Hooks.once("init", () => {
   CONFIG.Combat.dataModels.standard = data.combat.StandardData;
 
   CONFIG.Combatant.documentClass = documents.RyuutamaCombatant;
+  CONFIG.Combatant.dataModels.standard = data.combatant.StandardData;
+
   CONFIG.CombatantGroup.documentClass = documents.RyuutamaCombatantGroup;
 
   CONFIG.Item.documentClass = documents.RyuutamaItem;

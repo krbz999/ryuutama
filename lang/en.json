@@ -304,7 +304,8 @@
         },
 
         "objects": "Objects"
-      }
+      },
+      "rollDelayed": "Roll Delayed Initiative"
     },
 
     "DAMAGE": {
