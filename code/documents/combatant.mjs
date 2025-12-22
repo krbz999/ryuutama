@@ -3,6 +3,14 @@
  */
 
 export default class RyuutamaCombatant extends foundry.documents.Combatant {
+  /** @inheritdoc */
+  _initializeSource(data = {}, options = {}) {
+    if (!data.type || (data.type === "base")) data.type = "standard";
+    return super._initializeSource(data, options);
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
@@ -15,9 +23,8 @@ export default class RyuutamaCombatant extends foundry.documents.Combatant {
       throw new Error("Ryuutama | The signature of Combatant#rollInitiative has changed and no longer allows a formula replacement.");
     }
 
-    const result = await this.actor.system.rollInitiative(rollConfig, dialogConfig, messageConfig);
-    if (result === null) return this;
-    return this.update({ initiative: result });
+    await this.actor.system.rollInitiative(rollConfig, dialogConfig, messageConfig);
+    return this;
   }
 
   /* -------------------------------------------------- */

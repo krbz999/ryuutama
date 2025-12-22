@@ -8,13 +8,30 @@ export default class RyuutamaCombat extends foundry.documents.Combat {
   /* -------------------------------------------------- */
 
   /** @override */
-  async rollInitiative(ids, options = {}) {
+  async rollInitiative(ids, { delayed = false, ...options } = {}) {
     ids = typeof ids === "string" ? [ids] : ids;
 
     for (const id of ids) {
-      await this.combatants.get(id)?.rollInitiative();
+      await this.combatants.get(id)?.rollInitiative({ initiative: { delayed } });
     }
 
     return this;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async nextRound() {
+    const updates = this.combatants.map(c => {
+      const update = { _id: c.id };
+      const delayed = c.system.initiative;
+      if (Number.isNumeric(delayed.value)) {
+        update.initiative = delayed.value;
+        update.system = { initiative: null };
+      }
+      return update;
+    });
+    await this.updateEmbeddedDocuments("Combatant", updates, { render: false, turnEvents: false });
+    return super.nextRound();
   }
 }
