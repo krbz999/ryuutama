@@ -199,12 +199,14 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
    * @param {RyuutamaCombatant} combatant
    */
   #insertDelayedInitiative(input, combatant) {
-    const element = input.ownerDocument.createElement("SPAN");
-    element.classList.add("initiative-delayed");
-    element.textContent = new ryuutama.dice.BaseRoll(
+    const next = new ryuutama.dice.BaseRoll(
       combatant.system.initiative.value,
       combatant.getRollData(),
-    ).evaluateSync().product;
+    ).evaluateSync().total;
+    if (next === combatant.initiative) return;
+    const element = input.ownerDocument.createElement("SPAN");
+    element.classList.add("initiative-delayed");
+    element.textContent = String(next);
     input.insertAdjacentElement("afterend", element);
   }
 }
