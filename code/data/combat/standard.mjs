@@ -1,6 +1,7 @@
 /**
  * @import RegionDocument from "@client/documents/region.mjs";
  * @import RyuutamaCombat from "../../documents/combat.mjs";
+ * @import RyuutamaCombatant from "../../documents/combatant.mjs";
  */
 
 const { BooleanField, ForeignDocumentField, SchemaField, StringField, TypedObjectField } = foundry.data.fields;
@@ -146,7 +147,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
     for (const input of element.querySelectorAll(".initiative-input")) {
       const combatant = this.parent.combatants.get(input.closest("[data-combatant-id]").dataset.combatantId);
       const delayed = combatant.system.initiative.value;
-      if (Number.isNumeric(delayed)) this.#insertDelayedInitiative(input, combatant);
+      if (delayed) this.#insertDelayedInitiative(input, combatant);
     }
   }
 
@@ -192,10 +193,18 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Insert an element that displays a delayed initiative value.
+   * @param {HTMLInputElement} input
+   * @param {RyuutamaCombatant} combatant
+   */
   #insertDelayedInitiative(input, combatant) {
     const element = input.ownerDocument.createElement("SPAN");
     element.classList.add("initiative-delayed");
-    element.textContent = combatant.system.initiative.value;
+    element.textContent = new ryuutama.dice.BaseRoll(
+      combatant.system.initiative.value,
+      combatant.getRollData(),
+    ).evaluateSync().product;
     input.insertAdjacentElement("afterend", element);
   }
 }

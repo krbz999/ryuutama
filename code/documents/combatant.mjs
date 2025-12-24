@@ -34,4 +34,16 @@ export default class RyuutamaCombatant extends foundry.documents.Combatant {
     super._onUpdate(changed, options, userId);
     if ("initiative" in changed) this.actor?.render(false, { renderContext: "updateCombatant" });
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Return a data object which defines the data schema against which dice rolls can be evaluated.
+   * @returns {object}
+   */
+  getRollData() {
+    const rollData = this.actor?.getRollData() ?? {};
+    rollData.combatant = { ...this };
+    return rollData;
+  }
 }

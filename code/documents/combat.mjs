@@ -25,9 +25,9 @@ export default class RyuutamaCombat extends foundry.documents.Combat {
     const updates = this.combatants.map(c => {
       const update = { _id: c.id };
       const delayed = c.system.initiative;
-      if (Number.isNumeric(delayed.value)) {
-        update.initiative = delayed.value;
-        update.system = { initiative: null };
+      if (delayed.value) {
+        update.initiative = new ryuutama.dice.BaseRoll(delayed.value, c.getRollData()).evaluateSync().total;
+        update.system = { "initiative.value": "" };
       }
       return update;
     });
