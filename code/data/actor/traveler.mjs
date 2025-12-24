@@ -241,11 +241,11 @@ export default class TravelerData extends CreatureData {
       (armor?.system.isUsable ? armor.system.armor.defense : 0)
       + (shield?.system.isUsable ? shield.system.armor.defense : 0);
 
-    this.defense.shieldDefense = this.parent.statuses.has("shieldDefense");
+    this.defense.shieldDodge = this.parent.statuses.has("shieldDodge");
     this.defense.dodge = shield?.system.isUsable ? shield.system.armor.dodge : 0;
     this.defense.total = Math.max(
       this.defense.armor + this.defense.gear,
-      this.defense.shieldDefense ? this.defense.dodge : 0,
+      this.defense.shieldDodge ? this.defense.dodge : 0,
     );
   }
 

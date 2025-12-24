@@ -515,7 +515,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     if (effectIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
     if (!foundry.utils.isEmpty(update)) await actor.update(update);
     if (rollConfig.initiative?.shield && (roll.total < dodge)) {
-      const id = "shieldDefense";
+      const id = "shieldDodge";
       await actor.toggleStatusEffect(id, { active: true });
     }
   }

@@ -586,11 +586,11 @@ export const specialStatusEffects = {
     img: "icons/svg/skull.svg",
     name: "RYUUTAMA.STATUSES.defeated",
   },
-  shieldDefense: {
-    _id: "shielddefense000",
+  shieldDodge: {
+    _id: "shielddodge00000",
     hud: false,
     img: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
-    name: "RYUUTAMA.STATUSES.shieldDefense",
+    name: "RYUUTAMA.STATUSES.shieldDodge",
     system: {
       expiration: {
         type: "combatEnd",
