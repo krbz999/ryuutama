@@ -136,6 +136,16 @@
  * @property {"body"|"mind"} category   The status effect category.
  */
 
+/**
+ * @typedef _SpecialStatusEffectConfig
+ * @property {boolean} hud        Whether the status is shown on the token HUD.
+ * @property {object} [system]    System-specific data.
+ */
+
+/**
+ * @typedef {StatusEffectConfig & _SpecialStatusEffectConfig} SpecialStatusEffectConfig
+ */
+
 /* -------------------------------------------------- */
 
 /**

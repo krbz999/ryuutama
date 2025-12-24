@@ -442,7 +442,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<boolean|void>}    Explicitly returning false if consumption was not possible.
+   * @returns {Promise<boolean|void>}    Explicitly returning false if the changes were not possible.
    */
   async #performCheckUpdates(roll, rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     const update = {};
@@ -515,22 +515,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     if (effectIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
     if (!foundry.utils.isEmpty(update)) await actor.update(update);
     if (rollConfig.initiative?.shield && (roll.total < dodge)) {
-      const _id = ryuutama.utils.staticId("shielddodge");
-
-      await actor.effects.get(_id)?.delete();
-      await getDocumentClass("ActiveEffect").create({
-        _id,
-        img: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
-        name: game.i18n.localize("RYUUTAMA.SHIELD.shieldDefense"),
-        system: {
-          expiration: {
-            type: "combatEnd",
-          },
-        },
-        changes: [
-          { key: `flags.${ryuutama.id}.shieldDodge`, mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE, value: "true" },
-        ],
-      }, { keepId: true, parent: actor });
+      const id = "shieldDefense";
+      await actor.toggleStatusEffect(id, { active: true });
     }
   }
 
