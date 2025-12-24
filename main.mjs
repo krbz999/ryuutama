@@ -131,6 +131,10 @@ Hooks.once("init", () => {
     foundry.documents.JournalEntryPage, ryuutama.id, applications.sheets.pages.ReferencePageSheet,
     { label: "RYUUTAMA.SHEETS.ReferencePageSheet", makeDefault: true, types: ["reference"] },
   );
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.Combatant, ryuutama.id, applications.sheets.combatants.RyuutamaCombatantSheet,
+    { label: "RYUUTAMA.SHEETS.CombatantSheet", makeDefault: true },
+  );
 
   // Register status effects.
   // TODO: This becomes a Record in v14.

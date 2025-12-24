@@ -308,6 +308,15 @@
       "rollDelayed": "Roll Delayed Initiative"
     },
 
+    "COMBATANT": {
+      "STANDARD": {
+        "FIELDS": {
+          "initiative.value.label": "Delayed Initiative",
+          "initiative.value.hint": "The combatant's initiative will be replaced with this value starting next round. You can use a placeholder value, '@combatant.initiative', to describe the current initiative value."
+        }
+      }
+    },
+
     "DAMAGE": {
       "PROPERTIES": {
         "damageMental": "Damage MP",
@@ -726,6 +735,7 @@
 
     "SHEETS": {
       "ActorSheet": "Ryuutama Actor Sheet",
+      "CombatantSheet": "Ryuutama Combatant Sheet",
       "ItemSheet": "Ryuutama Item Sheet",
       "MonsterSheet": "Ryuutama Monster Sheet",
       "ReferencePageSheet": "Ryuutama Reference Page Sheet"
