@@ -39,6 +39,8 @@
  * @property {object} [initiative]
  * @property {boolean} [initiative.delayed]                 The rolled initiative is stored on the Combatant
  *                                                          document to be applied as initiative on the next turn.
+ * @property {boolean} [initiative.upgrade=true]            Use the rolled value only if a combatant has not rolled
+ *                                                          initiative or if the new value is higher.
  * @property {object} [magic]
  * @property {boolean} [magic.consumeMental]            Consume the MP for casting the spell?
  * @property {string} [magic.item]                      The id of the spell being cast.
