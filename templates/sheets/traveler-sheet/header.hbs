@@ -4,6 +4,8 @@
     <img src="{{document.img}}" alt="{{document.name}}" data-action="showPortrait">
   </aside>
   <h3 class="title nameplate dropshadow gold-border" data-tooltip-text="{{document.name}}">{{document.name}}</h3>
+
+  {{!-- TAGS --}}
   <div class="tags">
     {{#if levelUp}}
     <a data-action="advance" class="tag {{#if levelUp.glow}} glow {{/if}}" data-tooltip-text="{{levelUp.tooltip}}" {{disabled not editable}}>
@@ -14,11 +16,38 @@
     <div class="tag {{cssClass}}" data-tooltip-text="{{tooltip}}">{{{tag}}}</div>
     {{/each}}
   </div>
+
+  {{!-- EXP --}}
   <div class="form-group">
     <div class="form-fields">
       <resource-bar resource="system.details.exp" class="exp" id="{{rootId}}-exp"></resource-bar>
     </div>
   </div>
+
+  {{else}}
+  {{formGroup fields.name value=source.name classes="stacked"}}
+  {{formGroup fields.img value=source.img classes="stacked"}}
+
+  <hr>
+
+  {{/if}}
+
+  <div class="abilities">
+    {{#each abilities}}
+    <div class="ability" data-tooltip-text="{{label}}">
+      {{#if @root.isEditable}}
+      <a data-action="configure" data-config="ability" data-ability="{{ability}}">
+        <i class="fa-solid fa-cog" inert></i>
+      </a>
+      {{else}}
+      <ryuutama-icon src="{{icon}}"></ryuutama-icon>
+      {{/if}}
+      <span class="value">{{value.die}}</span>
+    </div>
+    {{/each}}
+  </div>
+
+  {{#if disabled}}
 
   {{!-- ACTIONS --}}
   <div class="actions">
@@ -35,11 +64,6 @@
 
   </div>
 
-  {{else}}
-  {{formGroup fields.name value=source.name classes="stacked"}}
-  {{formGroup fields.img value=source.img classes="stacked"}}
-
-  <hr>
   {{/if}}
 
   {{!-- HP & MP --}}

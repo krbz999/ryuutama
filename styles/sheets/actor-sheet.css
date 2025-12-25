@@ -327,6 +327,36 @@
         padding: .5rem .2rem;
       }
 
+      .abilities {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+
+        .ability {
+          border: 1px solid var(--ryuutama-color-filigree);
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-template-rows: 1fr;
+          align-items: center;
+          justify-items: center;
+          text-align: center;
+          font-size: 14px;
+          border-radius: 15% / 50%;
+          overflow: hidden;
+
+          ryuutama-icon {
+            aspect-ratio: 1;
+          }
+
+          [data-action=configure] {
+            width: 100%;
+            aspect-ratio: 1;
+            display: grid;
+            align-items: center;
+          }
+        }
+      }
+
       .actions {
         display: grid;
         grid-template-columns: 1fr 1fr;
