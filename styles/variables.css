@@ -14,6 +14,9 @@
   --ryuutama-color-steelblue: #45619e;
   --ryuutama-color-steelblue-light: #0089bd;
   --ryuutama-color-firebrick: #c4151c;
+  --ryuutama-color-burlywood: #deb887;
+  --ryuutama-color-lightwood: #6b583d;
+  --ryuutama-color-white: #efe6d8;
 
   /* VARIABLES */
   --ryuutama-color-resource-stamina: var(--ryuutama-color-limegreen);
@@ -29,7 +32,7 @@
   --ryuutama-color-check-critical: var(--ryuutama-color-steelblue);
   --ryuutama-color-check-condition: var(--ryuutama-color-palevioletred);
 
-  --ryuutama-color-exp-bar: var(--ryuutama-color-steelblue);
+
 
   /* The border on empty equipment slots. */
   --ryuutama-color-border: var(--ryuutama-color-dimgray);
@@ -62,12 +65,15 @@
     --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
     --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
     --ryuutama-table-text-color: var(--ryuutama-color-black);
-
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-darkblue);
-
     --ryuutama-color-spellbook-pill: var(--ryuutama-color-oldlace);
-
     --ryuutama-color-document-list-header: var(--ryuutama-color-darkorange);
+
+    /* Actor sheets. */
+    --ryuutama-color-filigree: var(--ryuutama-color-lightwood);
+    --ryuutama-color-nameplate: var(--ryuutama-color-palevioletred);
+    --ryuutama-color-exp-bar: var(--ryuutama-color-steelblue);
+    --ryuutama-color-header-button: var(--color-dark-1);
   }
 
   .theme-dark, .themed.theme-dark {
@@ -82,11 +88,14 @@
     --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
     --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
     --ryuutama-table-text-color: var(--ryuutama-color-black);
-
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-bisque);
-
     --ryuutama-color-spellbook-pill: var(--ryuutama-color-dimgray);
-
     --ryuutama-color-document-list-header: var(--ryuutama-color-indianred);
+
+    /* Actor sheets. */
+    --ryuutama-color-filigree: var(--ryuutama-color-burlywood);
+    --ryuutama-color-nameplate: var(--ryuutama-color-palevioletred);
+    --ryuutama-color-exp-bar: var(--ryuutama-color-steelblue);
+    --ryuutama-color-header-button: var(--color-light-1);
   }
 }

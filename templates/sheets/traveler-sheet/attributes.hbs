@@ -2,20 +2,6 @@
   {{!-- ABILITIES --}}
   {{> "actor-abilities"}}
 
-  <div class="icon-fields" style="--grid-columns: 1">
-
-    {{!-- ATTACK --}}
-    <div class="icon-field">
-      <img src="{{weaponImage}}" alt="">
-      <div class="attack">
-        <button type="button" data-action="rollAttack" {{disabled (not isInteractive)}}>
-          <span>{{localize "RYUUTAMA.ACTOR.rollAttack"}}</span>
-        </button>
-      </div>
-    </div>
-
-  </div>
-
   {{!-- CONDITION & ARMOR --}}
   <div class="icon-fields" style="--grid-columns: 3">
     {{!-- CONDITION --}}

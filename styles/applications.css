@@ -77,3 +77,23 @@ ryuutama-icon {
   width: var(--input-height);
   pointer-events: none;
 }
+
+.ryuutama .nameplate {
+  background: linear-gradient(
+    45deg,
+    var(--ryuutama-color-nameplate) 0%,
+    hsl(from var(--ryuutama-color-nameplate) h s 50) 65%,
+    var(--ryuutama-color-nameplate) 100%
+  );
+  border-radius: 50% / 10%;
+  color: lightgray;
+  text-shadow: 1px 1px 2px black;
+}
+
+.ryuutama .dropshadow {
+  filter: drop-shadow(2px 2px 2px black);
+}
+
+.ryuutama .gold-border {
+  border: 1px solid var(--ryuutama-color-filigree);
+}
