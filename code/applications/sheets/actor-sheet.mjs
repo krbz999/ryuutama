@@ -19,6 +19,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       rollAttack: RyuutamaActorSheet.#rollAttack,
       rollCheck: RyuutamaActorSheet.#rollCheck,
       toggleStatus: RyuutamaActorSheet.#toggleStatus,
+      showPortrait: RyuutamaActorSheet.#showPortrait,
     },
     window: {
       controls: [
@@ -432,5 +433,17 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    */
   static #advance(event, target) {
     this.document.system.advance();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #showPortrait(event, target) {
+    const { img: src, uuid, name: title } = this.document;
+    new foundry.applications.apps.ImagePopout({ src, uuid, window: { title } }).render({ force: true });
   }
 }

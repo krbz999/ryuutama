@@ -56,12 +56,14 @@
 
     &.stamina {
       --color: var(--ryuutama-color-resource-stamina);
+      color: var(--ryuutama-color-white);
       &.negative {
         --color: var(--ryuutama-color-resource-stamina-negative);
       }
     }
     &.mental {
       --color: var(--ryuutama-color-resource-mental);
+      color: var(--ryuutama-color-white);
     }
     &.capacity {
       --color: var(--ryuutama-color-capacity-bar);
@@ -248,6 +250,10 @@
     min-height: 680px;
   }
 
+  .window-header button.header-control {
+    --button-text-color: var(--ryuutama-color-header-button);
+  }
+
   .window-header {
     background: transparent;
     border: none;
@@ -281,7 +287,7 @@
 
     [data-application-part=header] {
       grid-area: header;
-      border: 2px outset burlywood;
+      border: 2px outset var(--ryuutama-color-filigree);
       border-radius: 10px;
       margin-right: 0;
       background-color: rgba(169, 169, 169, 0.1);
@@ -292,18 +298,54 @@
       .avatar {
         border-radius: 2px;
         position: relative;
-        border: 1px solid burlywood;
+        overflow: hidden;
+        border: 1px solid var(--ryuutama-color-filigree);
+
         &::after {
           position: absolute;
           inset: 4px;
           content: "";
-          border: 1px solid burlywood;
+          border: 1px solid var(--ryuutama-color-filigree);
+          pointer-events: none;
+        }
+
+        img {
+          aspect-ratio: 1;
+          object-fit: cover;
+          object-position: center;
+          cursor: var(--cursor-pointer);
         }
       }
 
       .title {
         margin: 0;
         text-align: center;
+        font-weight: normal;
+        font-family: Bruno Ace;
+        font-size: 16px;
+        min-height: fit-content;
+        padding: .5rem .2rem;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+
+        button {
+          border-radius: 15% / 200%;
+
+          &:nth-child(odd) {
+            border-end-end-radius: 0;
+            border-start-end-radius: 0;
+            border-right: none;
+          }
+          &:nth-child(even) {
+            border-end-start-radius: 0;
+            border-start-start-radius: 0;
+            border-left: none;
+          }
+        }
       }
     }
 
@@ -359,6 +401,11 @@
       text-align: center;
       gap: 3px;
 
+      [data-action=toggleStatus] {
+        border-radius: 20%; /* 20% is the radius in the svg */
+        overflow: hidden;
+      }
+
       ryuutama-icon {
         opacity: 0.5;
         aspect-ratio: 1;
@@ -367,8 +414,9 @@
       }
 
       span.value {
-        color: var(--ryuutama-color-disabled);
         overflow: hidden;
+        border: 1px outset var(--ryuutama-color-filigree);
+        border-radius: 50% / 10%;
       }
     }
   }

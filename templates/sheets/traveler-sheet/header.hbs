@@ -1,11 +1,9 @@
-<section>
+<section data-tooltip-direction="UP">
   {{#if disabled}}
   <aside class="avatar">
-    <img src="{{document.img}}" alt="{{document.name}}">
+    <img src="{{document.img}}" alt="{{document.name}}" data-action="showPortrait">
   </aside>
-  <h3 class="title">
-    <span>{{document.name}}</span>
-  </h3>
+  <h3 class="title nameplate dropshadow gold-border" data-tooltip-text="{{document.name}}">{{document.name}}</h3>
   <div class="tags">
     {{#if levelUp}}
     <a data-action="advance" class="tag {{#if levelUp.glow}} glow {{/if}}" data-tooltip-text="{{levelUp.tooltip}}" {{disabled not editable}}>
@@ -22,10 +20,20 @@
     </div>
   </div>
 
-  <button type="button" data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
-    <i class="fa-solid fa-dice" inert></i>
-    <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
-  </button>
+  {{!-- ACTIONS --}}
+  <div class="actions">
+
+    <button type="button" data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
+      <i class="fa-solid fa-dice" inert></i>
+      <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
+    </button>
+
+    <button type="button" data-action="rollAttack" {{disabled (not isInteractive)}}>
+      <i class="fa-solid fa-dice" inert></i>
+      <span>{{localize "RYUUTAMA.ACTOR.rollAttack"}}</span>
+    </button>
+
+  </div>
 
   {{else}}
   {{formGroup fields.name value=source.name classes="stacked"}}
@@ -41,10 +49,10 @@
   <section class="statuses">
     {{#each statuses}}
     <div class="status">
-      <a data-action="toggleStatus" data-status="{{status}}" {{disabled (not @root.editable)}} data-tooltip-text="{{tooltip}}" data-tooltip-direction="UP">
+      <a class="dropshadow gold-border" data-action="toggleStatus" data-status="{{status}}" {{disabled (not @root.editable)}} data-tooltip-text="{{tooltip}}">
         <ryuutama-icon src="{{img}}" {{#if active}} class="active" {{/if}}></ryuutama-icon>
       </a>
-      <span class="value">{{{label}}}</span>
+      <span class="value nameplate">{{{label}}}</span>
     </div>
     {{/each}}
   </section>
