@@ -82,8 +82,8 @@ ryuutama-icon {
   background: linear-gradient(
     45deg,
     var(--ryuutama-color-nameplate) 0%,
-    hsl(from var(--ryuutama-color-nameplate) h s 50) 65%,
-    var(--ryuutama-color-nameplate) 100%
+    hsl(from var(--ryuutama-color-nameplate) h s 70) 30%,
+    var(--ryuutama-color-nameplate) 60%
   );
   border-radius: 50% / 10%;
   color: lightgray;
