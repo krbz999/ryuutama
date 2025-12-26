@@ -522,13 +522,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       // iterate over rollConfig.items and deduct durability.
     }
 
-    const dodge = actor.system.defense?.dodge ?? Infinity;
     if (effectIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
     if (!foundry.utils.isEmpty(update)) await actor.update(update);
-    if (rollConfig.initiative?.shield && (roll.total < dodge)) {
-      const id = "shieldDodge";
-      await actor.toggleStatusEffect(id, { active: true });
-    }
   }
 
   /* -------------------------------------------------- */
@@ -668,7 +663,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   async rollInitiative(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     rollConfig = foundry.utils.mergeObject(rollConfig, {
       type: "initiative",
-      initiative: { shield: this.parent.type === "traveler" },
+      initiative: {},
     }, { inplace: false });
     messageConfig = foundry.utils.mergeObject(messageConfig, {
       returnNumeric: true,

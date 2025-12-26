@@ -327,9 +327,6 @@
           "title": "Configure Strength"
         },
         "noActors": "No controlled tokens' actors were valid for application of this status."
-      },
-      "EXPIRATION": {
-        "combatEnd": "When combat ends"
       }
     },
 
@@ -739,8 +736,7 @@
       "muddled": "Muddled",
       "shock": "Shock",
 
-      "defeated": "Defeated",
-      "shieldDodge": "Shield Dodge"
+      "defeated": "Defeated"
     },
 
     "TERRAIN": {

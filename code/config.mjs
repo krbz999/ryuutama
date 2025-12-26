@@ -2,7 +2,7 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 
 /**
  * @import {
- * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, DamageRollPropertyConfig, EffectExpirationTypeConfig, HerbTypeConfig,
+ * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, DamageRollPropertyConfig, HerbTypeConfig,
  * ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig, SpecialStatusEffectConfig, SpellCategoryConfig, SpellActivationTypeConfig,
  * SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig,
  * TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig
@@ -197,18 +197,6 @@ export const damageRollProperties = {
   },
 };
 Prelocalization.prelocalize(damageRollProperties);
-
-/* -------------------------------------------------- */
-
-/**
- * @type {Record<string, EffectExpirationTypeConfig>}
- */
-export const effectExpirationTypes = {
-  combatEnd: {
-    label: "RYUUTAMA.EFFECT.EXPIRATION.combatEnd",
-  },
-};
-Prelocalization.prelocalize(effectExpirationTypes);
 
 /* -------------------------------------------------- */
 
@@ -585,17 +573,6 @@ export const specialStatusEffects = {
     hud: false,
     img: "icons/svg/skull.svg",
     name: "RYUUTAMA.STATUSES.defeated",
-  },
-  shieldDodge: {
-    _id: "shielddodge00000",
-    hud: false,
-    img: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
-    name: "RYUUTAMA.STATUSES.shieldDodge",
-    system: {
-      expiration: {
-        type: "combatEnd",
-      },
-    },
   },
 };
 
