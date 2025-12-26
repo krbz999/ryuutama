@@ -37,6 +37,14 @@ export default class RyuutamaCombatant extends foundry.documents.Combatant {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    this.actor?.render(false, { renderContext: "deleteCombatant" });
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Return a data object which defines the data schema against which dice rolls can be evaluated.
    * @returns {object}
