@@ -25,6 +25,10 @@
         "custom": "Up to 7 animals"
       },
       "effects": {}
+    },
+    "roll": {
+      "formula": "@stats.spirit",
+      "flavor": "Tamed Animals"
     }
   },
   "_id": "animaltamer00000",

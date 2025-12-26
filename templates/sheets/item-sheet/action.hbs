@@ -1,0 +1,30 @@
+<section data-tab="{{tabs.action.id}}" class="{{tabs.action.cssClass}}" data-group="{{tabs.action.group}}">
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ITEM.genericRoll"}}</legend>
+    {{formGroup systemFields.roll.fields.flavor value=document.system.roll.flavor disabled=disabled}}
+    {{formGroup systemFields.roll.fields.formula value=document.system.roll.formula disabled=disabled placeholder=(localize "RYUUTAMA.ITEM.ACTION.FIELDS.roll.formula.placeholder")}}
+  </fieldset>
+
+  {{#if document.system.action}}
+  <fieldset>
+    <legend>
+      <span>{{localize (concat "RYUUTAMA.PSEUDO.ACTION.LABELS." document.system.action.type)}}</span>
+      {{#unless disabled}}
+      <a data-action="removeAction" data-tooltip="RYUUTAMA.ITEM.removeAction">
+        <i class="fa-solid fa-trash"></i>
+      </a>
+      {{/unless}}
+    </legend>
+    {{> (lookup . "actionTemplate") action=document.system.action}}
+  </fieldset>
+  {{else}}
+  <div class="form-group">
+    <label for="{{rootId}}-system.action.type">{{localize "RYUUTAMA.ITEM.selectAction"}}</label>
+    <div class="form-fields">
+      <select name="system.action.type" id="{{rootId}}-system.action.type" {{disabled disabled}}>
+        {{selectOptions actionTypes blank=""}}
+      </select>
+    </div>
+  </div>
+  {{/if}}
+</section>

@@ -25,7 +25,12 @@
         "custom": "All areas"
       },
       "effects": {}
-    }
+    },
+    "roll": {
+      "formula": "1d4",
+      "flavor": "Extra Rounds"
+    },
+    "action": null
   },
   "_id": "absolutezerocloc",
   "type": "spell",

@@ -229,6 +229,13 @@ export const experienceLevels = [
 /* -------------------------------------------------- */
 
 /**
+ * @type {Record<string, HealingRollPropertyConfig>}
+ */
+export const healingRollProperties = {};
+
+/* -------------------------------------------------- */
+
+/**
  * @type {Record<string, HerbTypeConfig>}
  */
 export const herbTypes = {

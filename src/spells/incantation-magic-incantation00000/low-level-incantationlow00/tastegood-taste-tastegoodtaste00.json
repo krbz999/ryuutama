@@ -25,6 +25,10 @@
         "custom": "Rations"
       },
       "effects": {}
+    },
+    "roll": {
+      "flavor": "Delicious Rations",
+      "formula": "@stats.spirit"
     }
   },
   "_id": "tastegoodtaste00",

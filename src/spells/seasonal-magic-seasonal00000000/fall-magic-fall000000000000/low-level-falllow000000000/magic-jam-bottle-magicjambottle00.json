@@ -25,6 +25,10 @@
         "custom": "Food"
       },
       "effects": {}
+    },
+    "roll": {
+      "flavor": "Rations Created",
+      "formula": "@stats.spirit"
     }
   },
   "_id": "magicjambottle00",

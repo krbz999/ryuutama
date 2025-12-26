@@ -366,6 +366,7 @@
         "size5": "Size 5"
       },
       "TABS": {
+        "action": "Action",
         "details": "Details",
         "effects": "Effects"
       },
@@ -376,6 +377,17 @@
       "disabledEffects": "Inactive",
       "durability": "Durability ({value}/{max})",
       "identifierError": "Invalid identifier.",
+      "removeAction": "Remove this action",
+      "selectAction": "Select Action",
+      "genericRoll": "Generic Roll",
+
+      "ACTION": {
+        "FIELDS": {
+          "roll.flavor.label": "Flavor Text",
+          "roll.formula.label": "Formula",
+          "roll.formula.placeholder": "E.g. '2d4'"
+        }
+      },
 
       "ANIMAL": {
         "FIELDS": {
@@ -510,7 +522,10 @@
         "durationLabel": "{units} {type}",
         "specialDuration": "Special duration",
         "targetPlaceholder": "E.g. '1 person'",
-        "timing": "Spell Timing"
+        "timing": "Spell Timing",
+        "warnNoApplicableEffects": "The item does not have any effects or statuses configured to be applied.",
+        "warnNoDamageFormula": "The item does not have any damage formula configured for its roll.",
+        "warnNoHealingFormula": "The item does not have any healing formula configured for its roll."
       },
 
       "WEAPON": {
@@ -582,6 +597,42 @@
       "FIELDS": {
         "name.label": "Name",
         "img.label": "Image Path"
+      },
+
+      "ACTION": {
+        "LABELS": {
+          "damage": "Damage",
+          "effect": "Effect",
+          "healing": "Healing"
+        },
+        "PROPERTIES": {
+          "damageMental": "Damage MP",
+          "ignoreArmor": "Ignore Armor",
+          "magical": "Magical Damage",
+          "mythril": "Mythril Weapon",
+          "orichalcum": "Orichalcum Weapon"
+        },
+
+        "DAMAGE": {
+          "FIELDS": {
+            "damage.formula.label": "Damage Formula",
+            "damage.formula.placeholder": "E.g. '@stats.spirit'",
+            "damage.properties.label": "Damage Properties"
+          }
+        },
+        "EFFECT": {
+          "FIELDS": {
+            "effects.ids.label": "Effects",
+            "effects.ids.hint": "Effects that are applied by this action."
+          }
+        },
+        "HEALING": {
+          "FIELDS": {
+            "healing.formula.label": "Healing Formula",
+            "healing.formula.placeholder": "E.g. '@stats.spirit'",
+            "healing.properties.label": "Healing Properties"
+          }
+        }
       },
 
       "ADVANCEMENT": {
@@ -700,7 +751,10 @@
       "situationalBonus": "Situational Bonus",
       "title": "Configure {type}: {name}",
       "unmasteredWeaponHint": "An accuracy check with an unmastered weapon costs 1 HP.",
-      "weaponBroken": "{weapon} (Broken)"
+      "weaponBroken": "{weapon} (Broken)",
+      "magicConsumeMental": "Consume MP",
+      "magicConsumeMentalHint": "The spell requires {mp} MP to cast.",
+      "magic": "Magic"
     },
 
     "SETTINGS": {
