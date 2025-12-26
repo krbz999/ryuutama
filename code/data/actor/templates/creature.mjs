@@ -496,8 +496,8 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         : rollConfig.initiative?.delayed
           ? `max(@combatant.initiative, ${roll.total})`
           : Math.max(combatant.initiative, roll.total);
-      if (combatant && rollConfig.initiative?.delayed) await combatant.update({ "system.initiative.value": total });
-      else if (combatant) await combatant.update({ initiative: total });
+      if (rollConfig.initiative?.delayed) await combatant.update({ "system.initiative.value": total });
+      else await combatant.update({ initiative: total });
     }
   }
 
