@@ -19,4 +19,12 @@ export default class RyuutamaCombatant extends foundry.documents.Combatant {
     if (result === null) return this;
     return this.update({ initiative: result });
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onUpdate(changed, options, userId) {
+    super._onUpdate(changed, options, userId);
+    if ("initiative" in changed) this.actor?.render(false, { renderContext: "updateCombatant" });
+  }
 }
