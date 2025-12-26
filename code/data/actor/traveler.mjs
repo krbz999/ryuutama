@@ -54,6 +54,7 @@ export default class TravelerData extends CreatureData {
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.TRAVELER",
+    "RYUUTAMA.ACTOR.TRAVELER",
   ];
 
   /* -------------------------------------------------- */
@@ -80,6 +81,15 @@ export default class TravelerData extends CreatureData {
       if (this.equipped[key]?.system.modifiers.has("cursed")) penalty++;
     }
     return penalty;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  get defenseValue() {
+    const combatant = game.combat?.combatants.find(c => c.actor === this.parent);
+    if (!combatant || (combatant.initiative === null)) return null;
+    return Math.max(combatant.initiative, this.defense.dodge);
   }
 
   /* -------------------------------------------------- */
@@ -242,11 +252,8 @@ export default class TravelerData extends CreatureData {
       + (shield?.system.isUsable ? shield.system.armor.defense : 0);
 
     this.defense.shieldDodge = this.parent.statuses.has("shieldDodge");
-    this.defense.dodge = shield?.system.isUsable ? shield.system.armor.dodge : 0;
-    this.defense.total = Math.max(
-      this.defense.armor + this.defense.gear,
-      this.defense.shieldDodge ? this.defense.dodge : 0,
-    );
+    this.defense.dodge = (shield?.system.isUsable && this.defense.shieldDodge) ? shield.system.armor.dodge : 0;
+    this.defense.total = this.defense.armor + this.defense.gear;
   }
 
   /* -------------------------------------------------- */

@@ -5,7 +5,7 @@
   <ryuutama src=""></ryuutama>
   {{/if}}
   <div class="form-group stacked">
-    <label>{{localize "RYUUTAMA.ACTOR.armor"}}</label>
+    <label>{{localize (ifThen (eq document.type "traveler") "RYUUTAMA.ACTOR.TRAVELER.defensePoints" "RYUUTAMA.ACTOR.armor")}}</label>
     <div class="form-fields">
       <span class="value italics">{{document.system.defense.total}}</span>
       {{#if armor.hasTags}}
@@ -18,6 +18,16 @@
         {{/if}}
       </div>
       {{/if}}
+    </div>
+  </div>
+</div>
+
+<div class="icon-field">
+  <ryuutama src=""></ryuutama>
+  <div class="form-group stacked">
+    <label>{{localize "RYUUTAMA.ACTOR.defenseValue"}}</label>
+    <div class="form-fields">
+      <span class="value italics">{{ifThen document.system.defenseValue document.system.defenseValue "-"}}</span>
     </div>
   </div>
 </div>

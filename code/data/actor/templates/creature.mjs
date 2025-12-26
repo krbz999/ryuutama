@@ -64,6 +64,17 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
+   * The actor's defense value, the target number for a chance to hit them.
+   * @type {number|null}
+   */
+  get defenseValue() {
+    const combatant = game.combat?.combatants.find(c => c.actor === this.parent);
+    return combatant ? combatant.initiative : null;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Display scrolling numbers when damaged or healed.
    * @param {RyuutamaActor} actor   The actor whose HP is modified.
    * @param {number} delta          The change to HP.
