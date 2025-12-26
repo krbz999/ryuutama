@@ -558,8 +558,7 @@
         "armor.penalty.label": "Penalty",
         "armor.defense.label": "Defense Points",
         "armor.dodge.label": "Shield Dodge Value"
-      },
-      "shieldDefense": "Shield Defense"
+      }
     },
 
     "PAGE": {
@@ -729,7 +728,10 @@
       "sickness": "Sickness",
       "exhaustion": "Exhaustion",
       "muddled": "Muddled",
-      "shock": "Shock"
+      "shock": "Shock",
+
+      "defeated": "Defeated",
+      "shieldDodge": "Shield Dodge"
     },
 
     "TERRAIN": {

@@ -3,7 +3,7 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 /**
  * @import {
  * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, DamageRollPropertyConfig, EffectExpirationTypeConfig, HerbTypeConfig,
- * ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig, SpellCategoryConfig, SpellActivationTypeConfig,
+ * ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig, SpecialStatusEffectConfig, SpellCategoryConfig, SpellActivationTypeConfig,
  * SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig,
  * TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig
  * } from "./_types.mjs";
@@ -536,43 +536,68 @@ Prelocalization.prelocalize(spellRangeTypes);
  */
 export const statusEffects = {
   injury: {
-    name: "RYUUTAMA.STATUSES.injury",
-    img: "systems/ryuutama/assets/official/icons/statuses/injury.svg",
     _id: "injury0000000000",
     category: "body",
+    img: "systems/ryuutama/assets/official/icons/statuses/injury.svg",
+    name: "RYUUTAMA.STATUSES.injury",
   },
   poison: {
-    name: "RYUUTAMA.STATUSES.poison",
-    img: "systems/ryuutama/assets/official/icons/statuses/poison.svg",
     _id: "poison0000000000",
     category: "body",
+    img: "systems/ryuutama/assets/official/icons/statuses/poison.svg",
+    name: "RYUUTAMA.STATUSES.poison",
   },
   sickness: {
-    name: "RYUUTAMA.STATUSES.sickness",
-    img: "systems/ryuutama/assets/official/icons/statuses/sickness.svg",
     _id: "sickness00000000",
     category: "body",
+    img: "systems/ryuutama/assets/official/icons/statuses/sickness.svg",
+    name: "RYUUTAMA.STATUSES.sickness",
   },
   exhaustion: {
-    name: "RYUUTAMA.STATUSES.exhaustion",
-    img: "systems/ryuutama/assets/official/icons/statuses/exhaustion.svg",
     _id: "exhaustion000000",
     category: "mind",
+    img: "systems/ryuutama/assets/official/icons/statuses/exhaustion.svg",
+    name: "RYUUTAMA.STATUSES.exhaustion",
   },
   muddled: {
-    name: "RYUUTAMA.STATUSES.muddled",
-    img: "systems/ryuutama/assets/official/icons/statuses/muddled.svg",
     _id: "muddled000000000",
     category: "mind",
+    img: "systems/ryuutama/assets/official/icons/statuses/muddled.svg",
+    name: "RYUUTAMA.STATUSES.muddled",
   },
   shock: {
-    name: "RYUUTAMA.STATUSES.shock",
-    img: "systems/ryuutama/assets/official/icons/statuses/shock.svg",
     _id: "shock00000000000",
     category: "mind",
+    img: "systems/ryuutama/assets/official/icons/statuses/shock.svg",
+    name: "RYUUTAMA.STATUSES.shock",
   },
 };
 Prelocalization.prelocalize(statusEffects, { properties: ["name"] });
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, SpecialStatusEffectConfig>}
+ */
+export const specialStatusEffects = {
+  defeated: {
+    _id: "defeated00000000",
+    hud: false,
+    img: "icons/svg/skull.svg",
+    name: "RYUUTAMA.STATUSES.defeated",
+  },
+  shieldDodge: {
+    _id: "shielddodge00000",
+    hud: false,
+    img: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
+    name: "RYUUTAMA.STATUSES.shieldDodge",
+    system: {
+      expiration: {
+        type: "combatEnd",
+      },
+    },
+  },
+};
 
 /* -------------------------------------------------- */
 
