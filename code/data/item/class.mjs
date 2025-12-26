@@ -8,7 +8,16 @@ export default class ClassData extends BaseData {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       identifier: new IdentifierField(),
-      skills: new SetField(new DocumentUUIDField({ embedded: false, type: "Item" })),
+      skills: new SetField(new DocumentUUIDField({
+        embedded: false,
+        type: "Item",
+        validate: uuid => {
+          if (uuid && !uuid.startsWith("Compendium.")) return false;
+          const item = fromUuidSync(uuid, { strict: false });
+          return !item || (item.type === "skill");
+        },
+        validationError: "must be a skill item in a compendium",
+      })),
       tier: new NumberField({ nullable: false, initial: 1, integer: true, min: 1, max: 2 }),
     });
   }

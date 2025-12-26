@@ -10,7 +10,16 @@ export default class ClassAdvancement extends Advancement {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
-        chosen: new DocumentUUIDField({ type: "Item", embedded: false }),
+        chosen: new DocumentUUIDField({
+          type: "Item",
+          embedded: false,
+          validate: uuid => {
+            if (uuid && !uuid.startsWith("Compendium.")) return false;
+            const item = fromUuidSync(uuid, { strict: false });
+            return !item || (item.type === "class");
+          },
+          validationError: "must be a class item in a compendium",
+        }),
       }),
     });
   }
