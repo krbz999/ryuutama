@@ -247,15 +247,18 @@
 
   &:not(.minimizing, .maximizing, .minimized) {
     min-width: var(--min-width);
-    min-height: 500px
-  }
+    min-height: 500px;
 
-  .window-header button.header-control {
-    --button-text-color: var(--ryuutama-color-header-button);
+    .window-header {
+      background: transparent;
+
+      button.header-control {
+        --button-text-color: var(--ryuutama-color-header-button);
+      }
+    }
   }
 
   .window-header {
-    background: transparent;
     border: none;
     justify-content: end;
     width: calc(100% - var(--sidebar-width));
