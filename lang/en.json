@@ -288,7 +288,8 @@
         "FIELDS": {},
         "applyHealing": "Apply Healing",
         "defaultRollFlavor": "Healing Roll"
-      }
+      },
+      "warnNoActorFoundForCommand": "You must control a token or have an actor assigned to be able to use this chat command."
     },
 
     "COMBAT": {

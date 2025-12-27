@@ -15,6 +15,14 @@ export const pattern = /\[\[\/damage (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/g
 /* -------------------------------------------------- */
 
 /**
+ * A chat message string pattern to match.
+ * @type {RegExp}
+ */
+export const chatPattern = /^\/damage (?<config>[^\]]+)/;
+
+/* -------------------------------------------------- */
+
+/**
  * The function that will be called on each match. It is expected that this
  * returns an HTML element to be inserted into the final enriched content.
  * @type {import("@client/config.mjs").TextEditorEnricher}
@@ -23,17 +31,7 @@ export async function enricher(match, options = {}) {
   let { config, label } = match.groups;
   config = ryuutama.utils.parseEnricherConfig(config);
 
-  if (!("formula" in config)) {
-    const formula = config.values.find(k => !!k && foundry.dice.Roll.validate(k));
-    if (formula) config.formula = formula;
-    else return null;
-  }
-
-  config.properties = new Set();
-  for (const property of Object.keys(ryuutama.config.damageRollProperties)) {
-    config[property] ??= config.values.includes(property);
-    if (config[property]) config.properties.add(property);
-  }
+  if (adjustConfig(config) === null) return null;
 
   const wrapper = new foundry.applications.elements.HTMLEnrichedContentElement();
   wrapper.classList.add(ryuutama.id);
@@ -82,4 +80,44 @@ export function onRender(element) {
       await roll.toMessage({ speaker });
     }
   });
+}
+
+/* -------------------------------------------------- */
+
+/**
+ * The function that runs to interpret message contents for a damage roll.
+ * @param {string} message
+ * @param {{ speaker: object, userId: string }} chatData
+ */
+export function chatMessage(message, chatData) {
+  let config = message.match(chatPattern).groups.config;
+  config = ryuutama.utils.parseEnricherConfig(config);
+  if (adjustConfig(config) === null) return;
+
+  const Cls = getDocumentClass("ChatMessage");
+  const actor = Cls.getSpeakerActor(chatData.speaker);
+  const options = Object.fromEntries(Array.from(config.properties).map(p => [p, true]));
+  const roll = new ryuutama.dice.DamageRoll(config.formula, actor?.getRollData(), options);
+  roll.toMessage({ speaker: chatData.speaker });
+}
+
+/* -------------------------------------------------- */
+
+/**
+ * Mutate the configuration object. Return `null` to cancel the enrichment.
+ * @param {object} config
+ * @returns {void|null}
+ */
+function adjustConfig(config) {
+  if (!("formula" in config)) {
+    const formula = config.values.find(k => !!k && foundry.dice.Roll.validate(k));
+    if (formula) config.formula = formula;
+    else return null;
+  }
+
+  config.properties = new Set();
+  for (const property of Object.keys(ryuutama.config.damageRollProperties)) {
+    config[property] ??= config.values.includes(property);
+    if (config[property]) config.properties.add(property);
+  }
 }
