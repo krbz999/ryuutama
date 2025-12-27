@@ -1,30 +1,85 @@
 export default class RyuutamaToken extends foundry.canvas.placeables.Token {
   /** @override */
   _drawBar(number, bar, data) {
-    const val = Number(data.value);
-    const pct = Math.clamp(val, 0, data.max) / data.max;
-
-    // Determine sizing
+    const pct = this.#getBarPercentage(data);
     const { width, height } = this.document.getSize();
     const s = canvas.dimensions.uiScale;
     const bw = width;
     const bh = 8 * (this.document.height >= 2 ? 1.5 : 1) * s;
+    const color = this.#getBarColor(number, data, pct);
+    const inverted = this.#getBarInverted(data);
 
-    // Determine the color to use
-    let color;
-    const Color = foundry.utils.Color;
-    if (number === 0) color = Color.from(Color.mix(Color.from("#b8006d"), Color.from("#4BA72F"), pct));
-    else color = Color.from(Color.mix(Color.from("#270695"), Color.from("#4F2EBD"), pct));
-
-    // Draw the bar
+    // Draw the bar.
     bar.clear();
     bar.lineStyle(s, 0x000000, 1.0);
     bar.beginFill(0x000000, 0.5).drawRoundedRect(0, 0, bw, bh, 3 * s);
     bar.beginFill(color, 1.0).drawRoundedRect(0, 0, pct * bw, bh, 2 * s);
 
-    // Set position
+    // Set position.
+    bar.scale.x = inverted ? -1 : 1;
     const posY = number === 0 ? height - bh : 0;
-    bar.position.set(0, posY);
+    bar.position.set(inverted ? bw : 0, posY);
     return true;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is the bar inverted?
+   * @param {{ attribute: string, value: number, max: number }} data
+   * @return {boolean}
+   */
+  #getBarInverted(data) {
+    switch (data.attribute) {
+      case "resources.stamina": return this.actor.system.resources.stamina.value < 0;
+      default: return false;
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Get the fill percentage of a bar.
+   * @param {{ attribute: string, value: number, max: number }} data
+   * @returns {number}    The percentage, a number between 0 and 1.
+   */
+  #getBarPercentage(data) {
+    switch (data.attribute) {
+      case "resources.stamina":
+        return this.actor.system.resources.stamina.pct / 100;
+      case "resources.mental":
+        return this.actor.system.resources.mental.pct / 100;
+      default:
+        return Math.clamp(data.value, 0, data.max) / data.max;
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Get the color of an attribute bar.
+   * @param {0|1} number                                                The bar number.
+   * @param {{ attribute: string, value: number, max: number }} data    Bar data.
+   * @param {number} pct                                                Fill percentage.
+   * @returns {foundry.utils.Color}
+   */
+  #getBarColor(number, data, pct) {
+    const Color = foundry.utils.Color;
+    let colors;
+    switch (data.attribute) {
+      case "resources.stamina":
+        colors = data.value >= 0 ? ["#b8006d", "#4ba72f"] : ["#b8006d", "#ff0000"];
+        break;
+      case "resources.mental":
+        colors = ["#270695", "#4f2ebd"];
+        break;
+      default: {
+        switch (number) {
+          case 0: colors = ["#b8006d", "#4ba72f"]; break;
+          case 1: colors = ["#270695", "#4f2ebd"]; break;
+        }
+      }
+    }
+    return Color.from(Color.mix(...colors.map(c => Color.from(c)), Math.abs(pct)));
   }
 }
