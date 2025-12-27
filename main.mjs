@@ -28,15 +28,8 @@ Hooks.once("init", () => {
   registerSettings();
 
   // Register enrichers.
-  [
-    helpers.enrichers.CheckEnricher,
-    helpers.enrichers.DamageEnricher,
-    helpers.enrichers.ReferenceEnricher,
-    helpers.enrichers.StatusEnricher,
-  ].forEach(obj => {
-    const { id, pattern, enricher, onRender } = obj;
-    CONFIG.TextEditor.enrichers.push({ id, pattern, enricher, onRender });
-  });
+  CONFIG.TextEditor.enrichers = Object.values(helpers.enrichers)
+    .map(({ id, pattern, enricher, onRender }) => ({ id, pattern, enricher, onRender }));
 
   // Define custom elements.
   const defineElements = window => {
@@ -199,4 +192,14 @@ Hooks.once("ready", () => {
 
 Hooks.once("renderPlayers", () => {
   ui.habitat.render({ force: true });
+});
+
+/* -------------------------------------------------- */
+
+Hooks.on("chatMessage", (chatLog, message, chatData) => {
+  for (const { chatPattern, chatMessage } of Object.values(helpers.enrichers)) {
+    if (!chatPattern?.test(message)) continue;
+    chatMessage(message, chatData);
+    return false;
+  }
 });

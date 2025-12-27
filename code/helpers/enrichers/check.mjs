@@ -15,6 +15,14 @@ export const pattern = /\[\[\/check (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi
 /* -------------------------------------------------- */
 
 /**
+ * A chat message string pattern to match.
+ * @type {RegExp}
+ */
+export const chatPattern = /^\/check (?<config>[^\]]+)/;
+
+/* -------------------------------------------------- */
+
+/**
  * The function that will be called on each match. It is expected that this
  * returns an HTML element to be inserted into the final enriched content.
  * @type {import("@client/config.mjs").TextEditorEnricher}
@@ -22,36 +30,7 @@ export const pattern = /\[\[\/check (?<config>[^\]]+)]](?:{(?<label>[^}]+)})?/gi
 export async function enricher(match, options = {}) {
   let { config, label } = match.groups;
   config = ryuutama.utils.parseEnricherConfig(config);
-
-  if (!("type" in config)) {
-    const type = config.values.find(k => k in ryuutama.config.checkTypes);
-    if (!type) return null;
-    config.type = type;
-  }
-
-  const typeConfig = ryuutama.config.checkTypes[config.type];
-
-  if (typeConfig.subtypes && !("subtype" in config)) {
-    const subtype = config.values.find(k => k in typeConfig.subtypes);
-    if (subtype) config.subtype = subtype;
-  }
-
-  if (!("formula" in config)) {
-    const formula = config.values.find(k => !!k && foundry.dice.Roll.validate(k));
-    if (formula) config.formula = formula;
-  }
-
-  config.properties = new Set();
-  if (config.type === "damage") {
-    // TODO: allow for properties on other types of checks.
-    for (const property of Object.keys(ryuutama.config.damageRollProperties)) {
-      config[property] ??= config.values.includes(property);
-      if (config[property]) config.properties.add(property);
-    }
-  }
-
-  // Show request.
-  config.request ??= config.values.includes("request");
+  if (adjustConfig(config) === null) return null;
 
   const wrapper = new foundry.applications.elements.HTMLEnrichedContentElement();
   wrapper.classList.add(ryuutama.id);
@@ -141,4 +120,81 @@ export function onRender(element) {
     };
     getDocumentClass("ChatMessage").create(messageData);
   });
+}
+
+/* -------------------------------------------------- */
+
+/**
+ * The function that runs to interpret message contents for a check.
+ * @param {string} message
+ * @param {{ speaker: object, userId: string }} chatData
+ */
+export function chatMessage(message, chatData) {
+  let config = message.match(chatPattern).groups.config;
+  config = ryuutama.utils.parseEnricherConfig(config);
+  if (adjustConfig(config) === null) return;
+
+  const Cls = getDocumentClass("ChatMessage");
+  const actor = Cls.getSpeakerActor(chatData.speaker);
+
+  const { type, subtype, formula, request, properties } = config;
+  const options = Object.fromEntries(Array.from(properties ?? []).map(p => [p, true]));
+  const rollConfig = { type, journeyId: subtype, formula, rollOptions: options };
+  if (!actor && !request) {
+    ui.notifications.error("RYUUTAMA.CHAT.warnNoActorFoundForCommand", { localize: true });
+    return;
+  }
+
+  if (request) {
+    Cls.create({
+      type: "standard",
+      speaker: chatData.speaker,
+      system: {
+        parts: {
+          [foundry.utils.randomID()]: { type: "request", check: { configuration: rollConfig } },
+        },
+      },
+    });
+  } else {
+    actor.system.rollCheck(rollConfig);
+  }
+}
+
+/* -------------------------------------------------- */
+
+/**
+ * Mutate the configuration object. Return `null` to cancel the enrichment.
+ * @param {object} config
+ * @returns {void|null}
+ */
+function adjustConfig(config) {
+  if (!("type" in config)) {
+    const type = config.values.find(k => k in ryuutama.config.checkTypes);
+    if (!type) return null;
+    config.type = type;
+  }
+
+  const typeConfig = ryuutama.config.checkTypes[config.type];
+
+  if (typeConfig.subtypes && !("subtype" in config)) {
+    const subtype = config.values.find(k => k in typeConfig.subtypes);
+    if (subtype) config.subtype = subtype;
+  }
+
+  if (!("formula" in config)) {
+    const formula = config.values.find(k => !!k && foundry.dice.Roll.validate(k));
+    if (formula) config.formula = formula;
+  }
+
+  config.properties = new Set();
+  if (config.type === "damage") {
+    // TODO: allow for properties on other types of checks.
+    for (const property of Object.keys(ryuutama.config.damageRollProperties)) {
+      config[property] ??= config.values.includes(property);
+      if (config[property]) config.properties.add(property);
+    }
+  }
+
+  // Show request.
+  config.request ??= config.values.includes("request");
 }
