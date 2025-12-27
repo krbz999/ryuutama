@@ -1,0 +1,45 @@
+<section>
+  {{!-- REPRESENTED ACTOR --}}
+  <div class="form-group">
+    <label>{{localize "COMBAT.CombatantActor"}}</label>
+    <div class="form-fields">
+      <input type="text" name="actorName" value="{{document.actor.name}}" disabled>
+    </div>
+  </div>
+
+  {{!-- REPRESENTED TOKEN --}}
+  <div class="form-group">
+    <label>{{localize "COMBAT.CombatantToken"}}</label>
+    <div class="form-fields">
+      <input type="text" name="tokenName" value="{{document.token.name}}" disabled>
+    </div>
+  </div>
+
+  {{!-- NAME --}}
+  {{formGroup fields.name value=source.name rootId=rootId placeholder=document.name localize=true}}
+
+  {{!-- IMAGE --}}
+  {{formGroup fields.img value=source.img rootId=rootId localize=true}}
+
+  {{!-- INITIATIVE --}}
+  {{formGroup fields.initiative value=source.initiative rootId=rootId localize=true}}
+
+  {{!-- DELAYED INITIATIVE --}}
+  {{formGroup systemFields.initiative.fields.value value=source.system.initiative.value rootId=rootId placeholder="@combatant.initiative"}}
+
+  {{!-- STATUSES --}}
+  <div class="form-group">
+    <label>{{localize "COMBAT.CombatantStatus"}}</label>
+    <div class="form-fields">
+      <label class="checkbox">
+        <input type="checkbox" name="hidden" {{checked source.hidden}}>
+        <span>{{localize "COMBAT.CombatantHidden"}}</span>
+      </label>
+
+      <label class="checkbox">
+        <input type="checkbox" name="defeated" {{checked source.defeated}}>
+        <span>{{localize "COMBAT.CombatantDefeated"}}</span>
+      </label>
+    </div>
+  </div>
+</section>

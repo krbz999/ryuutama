@@ -3,6 +3,14 @@
  */
 
 export default class RyuutamaCombatant extends foundry.documents.Combatant {
+  /** @inheritdoc */
+  _initializeSource(data = {}, options = {}) {
+    if (!data.type || (data.type === "base")) data.type = "standard";
+    return super._initializeSource(data, options);
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
@@ -15,9 +23,8 @@ export default class RyuutamaCombatant extends foundry.documents.Combatant {
       throw new Error("Ryuutama | The signature of Combatant#rollInitiative has changed and no longer allows a formula replacement.");
     }
 
-    const result = await this.actor.system.rollInitiative(rollConfig, dialogConfig, messageConfig);
-    if (result === null) return this;
-    return this.update({ initiative: result });
+    await this.actor.system.rollInitiative(rollConfig, dialogConfig, messageConfig);
+    return this;
   }
 
   /* -------------------------------------------------- */
@@ -26,5 +33,25 @@ export default class RyuutamaCombatant extends foundry.documents.Combatant {
   _onUpdate(changed, options, userId) {
     super._onUpdate(changed, options, userId);
     if ("initiative" in changed) this.actor?.render(false, { renderContext: "updateCombatant" });
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    this.actor?.render(false, { renderContext: "deleteCombatant" });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Return a data object which defines the data schema against which dice rolls can be evaluated.
+   * @returns {object}
+   */
+  getRollData() {
+    const rollData = this.actor?.getRollData() ?? {};
+    rollData.combatant = { ...this };
+    return rollData;
   }
 }

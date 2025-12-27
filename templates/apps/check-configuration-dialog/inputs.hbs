@@ -91,4 +91,17 @@
     </div>
   </fieldset>
   {{/if}}
+
+  {{#if showInitiative}}
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ROLL.initiative"}}</legend>
+    <div class="form-group slim">
+      <label for="{{partId}}-initiative.upgrade">{{localize "RYUUTAMA.ROLL.initiativeUpgrade"}}</label>
+      <div class="form-fields">
+        <input type="checkbox" name="initiative.upgrade" id="{{partId}}-initiative.upgrade" {{checked initiative.upgrade}}>
+      </div>
+      <p class="hint">{{localize "RYUUTAMA.ROLL.initiativeUpgradeHint"}}</p>
+    </div>
+  </fieldset>
+  {{/if}}
 </form>

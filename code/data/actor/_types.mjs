@@ -37,6 +37,10 @@
  * @property {RyuutamaItem} [accuracy.weapon]               The weapon being used for the check.
  * @property {boolean} [accuracy.consumeStamina]            Consume HP due to using a non-Mastered weapon?
  * @property {object} [initiative]
+ * @property {boolean} [initiative.delayed]                 The rolled initiative is stored on the Combatant
+ *                                                          document to be applied as initiative on the next turn.
+ * @property {boolean} [initiative.upgrade=true]            Use the rolled value only if a combatant has not rolled
+ *                                                          initiative or if the new value is higher.
  * @property {object} [magic]
  * @property {boolean} [magic.consumeMental]                Consume the MP for casting the spell?
  * @property {RyuutamaItem} [magic.item]                    The spell being cast.
