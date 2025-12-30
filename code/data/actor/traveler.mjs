@@ -132,7 +132,6 @@ export default class TravelerData extends CreatureData {
 
   /** @inheritdoc */
   prepareBaseData() {
-    super.prepareBaseData();
     this.capacity = { bonus: 0 };
     this.classes = Object.fromEntries(this.parent.items.documentsByType.class.map(cls => [cls.identifier, cls]));
     this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
@@ -145,13 +144,19 @@ export default class TravelerData extends CreatureData {
     // Specific implementation of unarmed.
     this.mastered.weapons.unarmed = 0;
 
+    // Status immunities are prepared prior to statuses in CreatureData.
+    for (const si of this.advancements) {
+      if (si.isConfigured && (si.type === "statusImmunity")) this.#prepareStatusImmunityAdvancement(si);
+    }
+
+    super.prepareBaseData();
+
     // Types, Habitat, Status Immunities, and Mastered Weapons.
     for (const advancement of this.advancements) {
       if (!advancement.isConfigured) continue;
       switch (advancement.type) {
         case "type": this.#prepareTypeAdvancement(advancement); break;
         case "habitat": this.#prepareHabitatAdvancement(advancement); break;
-        case "statusImmunity": this.#prepareStatusImmunityAdvancement(advancement); break;
         case "weapon": this.#prepareWeaponAdvancement(advancement); break;
       }
     }
