@@ -91,7 +91,7 @@ ryuutama-icon {
 }
 
 .ryuutama .dropshadow {
-  filter: drop-shadow(2px 2px 2px black);
+  filter: drop-shadow(2px 2px 0 black);
 }
 
 .ryuutama .gold-border {

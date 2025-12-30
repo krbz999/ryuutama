@@ -32,7 +32,8 @@
 
   {{/if}}
 
-  <div class="abilities">
+  {{!-- ABILITIES --}}
+  <section class="abilities">
     {{#each abilities}}
     <div class="ability" data-tooltip-text="{{label}}">
       {{#if @root.isEditable}}
@@ -45,38 +46,56 @@
       <span class="value">{{value.die}}</span>
     </div>
     {{/each}}
-  </div>
-
-  {{#if disabled}}
+  </section>
 
   {{!-- ACTIONS --}}
-  <div class="actions">
-
-    <button type="button" data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
+  {{#if disabled}}
+  <section class="actions">
+    <a data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
       <i class="fa-solid fa-dice" inert></i>
       <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
-    </button>
-
-    <button type="button" data-action="rollAttack" {{disabled (not isInteractive)}}>
+    </a>
+    <a data-action="rollAttack" {{disabled (not isInteractive)}}>
       <i class="fa-solid fa-dice" inert></i>
       <span>{{localize "RYUUTAMA.ACTOR.rollAttack"}}</span>
-    </button>
-
-  </div>
-
+    </a>
+  </section>
   {{/if}}
 
   {{!-- HP & MP --}}
-  {{> "actor-resources"}}
+  <section class="resources">
+    <div class="stamina">
+      <label>{{localize "RYUUTAMA.ACTOR.HP"}}</label>
+      <div class="resource">
+        <resource-bar resource="system.resources.stamina" class="stamina dropshadow {{#if this.document.system.resources.stamina.negative}} negative {{/if}}" id="{{rootId}}-stamina"></resource-bar>
+        {{#unless disabled}}
+        <a data-action="configure" data-config="resource" data-resource="stamina">
+          <i class="fa-solid fa-cog" inert></i>
+        </a>
+        {{/unless}}
+      </div>
+    </div>
+    <div class="mental">
+      <label>{{localize "RYUUTAMA.ACTOR.MP"}}</label>
+      <div class="resource">
+        <resource-bar resource="system.resources.mental" class="mental dropshadow" id="{{rootId}}-mental"></resource-bar>
+        {{#unless disabled}}
+        <a data-action="configure" data-config="resource" data-resource="mental">
+          <i class="fa-solid fa-cog" inert></i>
+        </a>
+        {{/unless}}
+      </div>
+    </div>
+  </section>
 
   {{!-- STATUSES --}}
   <section class="statuses">
     {{#each statuses}}
-    <div class="status">
-      <a class="dropshadow gold-border" data-action="toggleStatus" data-status="{{status}}" {{disabled (not @root.editable)}} data-tooltip-text="{{tooltip}}">
-        <ryuutama-icon src="{{img}}" {{#if active}} class="active" {{/if}}></ryuutama-icon>
+    <div class="status" data-tooltip-text="{{tooltip}}">
+      <a class="dropshadow gold-border" data-action="toggleStatus" data-status="{{status}}" {{disabled (not @root.editable)}}>
+        <ryuutama-icon src="{{img}}"></ryuutama-icon>
       </a>
-      <span class="value nameplate">{{{label}}}</span>
+      <span class="value {{#if active}} nameplate active {{/if}}">{{{label}}}</span>
     </div>
     {{/each}}
   </section>

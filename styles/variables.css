@@ -7,7 +7,7 @@
   --ryuutama-color-bisque: #f7dfc5;
   --ryuutama-color-oldlace: #fbedde;
   --ryuutama-color-indianred: #87384d;
-  --ryuutama-color-limegreen: #4BA72F;
+  --ryuutama-color-forestgreen: #316b20;
   --ryuutama-color-darkblue: #4F2EBD;
   --ryuutama-color-black: black;
   --ryuutama-color-mediumvioletred: #b8006d;
@@ -19,7 +19,7 @@
   --ryuutama-color-white: #efe6d8;
 
   /* VARIABLES */
-  --ryuutama-color-resource-stamina: var(--ryuutama-color-limegreen);
+  --ryuutama-color-resource-stamina: var(--ryuutama-color-forestgreen);
   --ryuutama-color-resource-stamina-negative: var(--ryuutama-color-indianred);
   --ryuutama-color-resource-mental: var(--ryuutama-color-darkblue);
   --ryuutama-color-resource-default: var(--ryuutama-color-black);
