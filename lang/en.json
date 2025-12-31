@@ -666,6 +666,13 @@
       "TABLES": "Tables"
     },
 
+    "REQUESTOR": {
+      "requestAll": "Request All",
+      "requestRoll": "Request Roll",
+      "ok": "OK",
+      "title": "Request Roll"
+    },
+
     "ROLL": {
       "WARNING": {
         "fumblesUnavailable": "{name} does not have any Fumble Points available.",
