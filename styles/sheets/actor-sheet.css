@@ -350,7 +350,7 @@
         padding: .5rem .2rem;
       }
 
-      .exp {
+      section.exp {
         display: grid;
         grid-template-columns: 0fr 1fr;
         gap: 5px;
