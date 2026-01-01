@@ -2,27 +2,28 @@
   {{#if disabled}}
   <aside class="avatar">
     <img src="{{document.img}}" alt="{{document.name}}" data-action="showPortrait">
+    <span class="types">
+      {{#each types}}
+      <span class="type">
+        <ryuutama-icon src="{{icon}}" data-tooltip-text="{{label}}"></ryuutama-icon>
+      </span>
+      {{/each}}
+    </span>
   </aside>
   <h3 class="title nameplate dropshadow gold-border" data-tooltip-text="{{document.name}}">{{document.name}}</h3>
 
-  {{!-- TAGS --}}
-  <div class="tags">
-    {{#if levelUp}}
-    <a data-action="advance" class="tag {{#if levelUp.glow}} glow {{/if}}" data-tooltip-text="{{levelUp.tooltip}}" {{disabled not editable}}>
-      {{levelUp.tag}}
-    </a>
-    {{/if}}
-    {{#each tags}}
-    <div class="tag {{cssClass}}" data-tooltip-text="{{tooltip}}">{{{tag}}}</div>
-    {{/each}}
-  </div>
-
   {{!-- EXP --}}
-  <div class="form-group">
-    <div class="form-fields">
-      <resource-bar resource="system.details.exp" class="exp" id="{{rootId}}-exp"></resource-bar>
-    </div>
-  </div>
+  <section class="exp">
+    {{#if exp.button}}
+    <a data-action="advance" class="ryuutama-button" data-tooltip-text="{{exp.tooltip}}" {{disabled (not editable)}}>
+      <i class="fa-solid fa-arrow-up" inert></i>
+      <span>{{exp.tag}}</span>
+    </a>
+    {{else}}
+    <span data-tooltip-text="{{exp.tooltip}}">{{exp.tag}}</span>
+    {{/if}}
+    <resource-bar resource="system.details.exp" class="exp" id="{{rootId}}-exp"></resource-bar>
+  </section>
 
   {{else}}
   {{formGroup fields.name value=source.name classes="stacked"}}
@@ -51,11 +52,11 @@
   {{!-- ACTIONS --}}
   {{#if disabled}}
   <section class="actions">
-    <a data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
+    <a class="ryuutama-button" data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
       <i class="fa-solid fa-dice" inert></i>
       <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
     </a>
-    <a data-action="rollAttack" {{disabled (not isInteractive)}}>
+    <a class="ryuutama-button" data-action="rollAttack" {{disabled (not isInteractive)}}>
       <i class="fa-solid fa-dice" inert></i>
       <span>{{localize "RYUUTAMA.ACTOR.rollAttack"}}</span>
     </a>

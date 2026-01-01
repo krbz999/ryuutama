@@ -1,3 +1,16 @@
+{{#*inline "equippedTemplate"}}
+<div class="item">
+  {{#if item}}
+  <a data-action="renderItem" data-uuid="{{item.uuid}}" data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}">
+    <img src="{{img}}" alt="{{item.name}}">
+  </a>
+  {{else}}
+  <div class="empty-slot"></div>
+  {{/if}}
+  <span>{{label}}</span>
+</div>
+{{/inline}}
+
 <section data-tab="{{tabs.inventory.id}}" class="{{tabs.inventory.cssClass}}" data-group="{{tabs.inventory.group}}">
   {{!-- CAPACITY BAR --}}
   <div class="capacity">
@@ -9,18 +22,16 @@
 
   {{!-- EQUIPPED ITEMS --}}
   <section class="equipped">
-    {{#each equipped as |eqp key|}}
-    <div class="item">
-      <label>{{label}}</label>
-      {{#if item}}
-      <a data-action="renderItem" data-uuid="{{item.uuid}}" data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}">
-        <img src="{{img}}" alt="{{item.name}}">
-      </a>
-      {{else}}
-      <div class="empty-slot"></div>
-      {{/if}}
+    <div class="section" style="--count: {{equipped.main.length}};">
+      {{#each equipped.main}}
+      {{> equippedTemplate}}
+      {{/each}}
     </div>
-    {{/each}}
+    <div class="section" style="--count: {{equipped.secondary.length}};">
+      {{#each equipped.secondary}}
+      {{> equippedTemplate}}
+      {{/each}}
+    </div>
   </section>
 
   {{!-- GOLD --}}

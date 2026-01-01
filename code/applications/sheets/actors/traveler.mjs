@@ -192,6 +192,12 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     // Tags.
     context.tags = this.#prepareTags(context);
 
+    // EXP.
+    context.exp = this.#prepareExp();
+
+    // Types.
+    context.types = this.#prepareTypes();
+
     return context;
   }
 
@@ -253,7 +259,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
 
   /**
    * Prepare equipped items.
-   * @returns {object}
+   * @returns {{ main: object[], secondary: object[] }}
    */
   #prepareEquipped() {
     const equipped = {};
@@ -265,10 +271,11 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
         label: game.i18n.localize(`TYPES.Item.${type}`),
         options: this.document.items.documentsByType[type].map(item => ({ value: item.id, label: item.name })),
         value: this.document.system._source.equipped[type],
+        section: ["weapon", "shield", "armor"].includes(type) ? "main" : "secondary",
       };
     }
     if (!this.document.system.canEquipShield) delete equipped.shield;
-    return equipped;
+    return Object.groupBy(Object.values(equipped), e => e.section);
   }
 
   /* -------------------------------------------------- */
@@ -371,17 +378,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.classes"),
     });
 
-    // Traveler Types.
-    for (const [k, v] of Object.entries(this.document.system.details.type)) {
-      const label = ryuutama.config.travelerTypes[k]?.label;
-      if (!v || !label) continue;
-      const tag = label + (v > 1 ? ` &times; ${v}` : "");
-      tags.push({
-        tag,
-        tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.type", { type: label }),
-      });
-    }
-
     // Mastered Weapons.
     for (const [k, v] of Object.entries(this.document.system.mastered.weapons)) {
       const label = ryuutama.config.weaponCategories[k]?.labelPlural;
@@ -413,16 +409,35 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       });
     }
 
-    // Level up button.
-    const levelTag = game.i18n.format("RYUUTAMA.ACTOR.TAGS.level", { level: this.document.system.details.level });
-    if (this.document.system.details.level < 10) {
-      context.levelUp = { tag: levelTag, tooltip: levelTag };
-      if (this.document.system.details.exp.pct === 100) context.levelUp.glow = true;
-    } else {
-      tags.unshift({ tag: levelTag, tooltip: levelTag });
-    }
-
     return tags;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare EXP related context data.
+   * @returns {object}
+   */
+  #prepareExp() {
+    const levelTag = game.i18n.format("RYUUTAMA.ACTOR.TAGS.level", { level: this.document.system.details.level });
+    const exp = {};
+    exp.tag = exp.tooltip = levelTag;
+    if (this.document.system.details.level < 10) {
+      exp.button = true;
+      if (this.document.system.details.exp.pct === 100) exp.arrow = true;
+    }
+    return exp;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare types related context data.
+   * @returns {{ label: string, icon: string }[]}
+   */
+  #prepareTypes() {
+    return Object.entries(this.document.system.details.type)
+      .flatMap(([type, value]) => Array(value).fill(ryuutama.config.travelerTypes[type]));
   }
 
   /* -------------------------------------------------- */

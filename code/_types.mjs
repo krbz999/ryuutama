@@ -154,6 +154,7 @@
 /**
  * @typedef TravelerTypeConfig
  * @property {string} label   Human-readable label.
+ * @property {string} icon    Filepath to the Type icon.
  */
 
 /* -------------------------------------------------- */

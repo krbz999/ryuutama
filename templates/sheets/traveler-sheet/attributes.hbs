@@ -1,4 +1,16 @@
 <section data-tab="{{tabs.attributes.id}}" class="{{tabs.attributes.cssClass}}" data-group="{{tabs.attributes.group}}">
+  {{!-- TAGS --}}
+  <div class="tags">
+    {{#if levelUp}}
+    <a data-action="advance" class="tag {{#if levelUp.glow}} glow {{/if}}" data-tooltip-text="{{levelUp.tooltip}}" {{disabled not editable}}>
+      {{levelUp.tag}}
+    </a>
+    {{/if}}
+    {{#each tags}}
+    <div class="tag {{cssClass}}" data-tooltip-text="{{tooltip}}">{{{tag}}}</div>
+    {{/each}}
+  </div>
+
   {{!-- CONDITION & ARMOR --}}
   <div class="icon-fields" style="--grid-columns: 2">
     {{!-- CONDITION --}}

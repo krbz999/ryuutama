@@ -654,12 +654,15 @@ Prelocalization.prelocalize(terrainTypes);
 export const travelerTypes = {
   attack: {
     label: "RYUUTAMA.TRAVELER.TYPES.attack",
+    icon: "systems/ryuutama/assets/official/icons/types/attack.svg",
   },
   technical: {
     label: "RYUUTAMA.TRAVELER.TYPES.technical",
+    icon: "systems/ryuutama/assets/official/icons/types/technical.svg",
   },
   magic: {
     label: "RYUUTAMA.TRAVELER.TYPES.magic",
+    icon: "systems/ryuutama/assets/official/icons/types/magic.svg",
   },
 };
 Prelocalization.prelocalize(travelerTypes);

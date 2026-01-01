@@ -97,3 +97,21 @@ ryuutama-icon {
 .ryuutama .gold-border {
   border: 1px solid var(--ryuutama-color-filigree);
 }
+
+.ryuutama a.ryuutama-button {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--ryuutama-color-filigree);
+  padding: .25rem;
+  text-align: center;
+  background-color: var(--ryuutama-color-black);
+  transition: all 500ms ease;
+  border-radius: 15% / 200%;
+  --button-border-color: var(--ryuutama-color-filigree);
+
+  &:hover {
+    background-color: var(--ryuutama-color-filigree);
+    color: var(--ryuutama-color-black);
+    text-shadow: none;
+  }
+}

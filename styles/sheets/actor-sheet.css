@@ -37,6 +37,7 @@
 
 .ryuutama.application.sheet.actor {
   font-family: Amiri;
+  container-type: inline-size;
 
   resource-bar {
     cursor: var(--cursor-pointer);
@@ -179,24 +180,34 @@
 
   .equipped {
     display: flex;
+    flex-direction: row;
     gap: 2px;
 
-    .item {
+    .section {
       display: flex;
+      flex-direction: row;
+      flex: var(--count);
+      gap: inherit;
+    }
+
+    .item {
       flex: 1;
       text-align: center;
-      flex-direction: column-reverse;
+      max-width: 75px;
+
+      span {
+        overflow: hidden;
+      }
     }
 
     .empty-slot {
       border: 1px solid var(--ryuutama-color-border);
       aspect-ratio: 1;
     }
-  }
 
-  .tags .tag.glow {
-    animation: tag-glow 2s infinite;
-    box-shadow: 0 0 12px red;
+    @container (width < 800px) {
+      flex-direction: column;
+    }
   }
 
   [data-tab=spells] {
@@ -232,18 +243,9 @@
   }
 }
 
-@keyframes tag-glow {
-  0% {
-    box-shadow: 0 0 12px red;
-  }
-  100% {
-    box-shadow: 0 0 1px red;
-  }
-}
-
 .ryuutama.application.sheet.actor.traveler {
   --sidebar-width: 260px;
-  --content-width: 520px;
+  --content-width: 420px;
   --min-width: calc(var(--sidebar-width) + var(--content-width));
 
   &:not(.minimizing, .maximizing, .minimized) {
@@ -305,10 +307,11 @@
         overflow: hidden;
         border: 1px solid var(--ryuutama-color-filigree);
         min-height: fit-content;
+        --inset: 4px;
 
         &::after {
           position: absolute;
-          inset: 4px;
+          inset: var(--inset);
           content: "";
           border: 1px solid var(--ryuutama-color-filigree);
           pointer-events: none;
@@ -320,6 +323,21 @@
           object-position: center;
           cursor: var(--cursor-pointer);
         }
+
+        .types {
+          position: absolute;
+          right: calc(var(--inset) + 4px);
+          bottom: calc(var(--inset) + 4px);
+          display: flex;
+          height: 10%;
+          z-index: 1;
+          gap: 4px;
+
+          .type {
+            border: 1px solid var(--ryuutama-color-filigree);
+            border-radius: 3px;
+          }
+        }
       }
 
       .title {
@@ -330,6 +348,14 @@
         font-size: 16px;
         min-height: fit-content;
         padding: .5rem .2rem;
+      }
+
+      .exp {
+        display: grid;
+        grid-template-columns: 0fr 1fr;
+        gap: 5px;
+        align-items: center;
+        text-wrap: nowrap;
       }
 
       .abilities {
@@ -368,22 +394,7 @@
         grid-template-columns: 1fr 1fr;
         gap: 0;
 
-        a {
-          border-width: 1px;
-          border-style: solid;
-          border-color: var(--ryuutama-color-filigree);
-          padding: 0.5rem;
-          text-align: center;
-          border-radius: 15% / 200%;
-          background-color: var(--ryuutama-color-black);
-          transition: all 500ms ease;
-
-          &:hover {
-            background-color: var(--ryuutama-color-filigree);
-            color: black;
-            text-shadow: none;
-          }
-
+        .ryuutama-button {
           &:nth-child(odd) {
             border-end-end-radius: 0;
             border-start-end-radius: 0;

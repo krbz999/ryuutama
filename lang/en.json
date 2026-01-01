@@ -133,8 +133,7 @@
         "level": "Level {level}",
         "masteredWeapon": "Mastered Weapon: {weapon}",
         "noClass": "No Class",
-        "season": "Season: {season}",
-        "type": "Type: {type}"
+        "season": "Season: {season}"
       },
       "activeEffects": "Active",
       "armor": "Armor",
