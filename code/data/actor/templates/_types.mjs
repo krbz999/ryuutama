@@ -21,6 +21,7 @@
  * @property {AbilityData} abilities.spirit
  * @property {object} condition
  * @property {string[]} condition.immunities    The status effects the creature is immune to.
+ * @property {object} condition.rationing       A penalty to checks for lacking food or water.
  * @property {object} condition.shape
  * @property {string} condition.shape.high      The ability that is improved when in Top Shape.
  * @property {number} condition.value           The creature's current condition.

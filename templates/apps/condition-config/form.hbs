@@ -1,11 +1,9 @@
 <section>
-  {{formGroup systemFields.condition.fields.value value=source.system.condition.value placeholder=systemFields.condition.fields.value.initial classes="slim"}}
+  {{formGroup systemFields.condition.fields.value value=source.system.condition.value placeholder=systemFields.condition.fields.value.initial classes="slim" rootId=rootId}}
   {{formGroup systemFields.condition.fields.immunities value=source.system.condition.immunities type="checkboxes" classes="stacked" labelAttr="name"}}
 
   {{#if (eq document.type "traveler")}}
-  <fieldset>
-    <legend>{{localize "RYUUTAMA.TRAVELER.shape"}}</legend>
-    {{formGroup systemFields.condition.fields.shape.fields.high value=source.system.condition.shape.high classes="slim"}}
-  </fieldset>
+  {{formGroup systemFields.condition.fields.rationing value=source.system.condition.rationing classes="slim" rootId=rootId}}
+  {{formGroup systemFields.condition.fields.shape.fields.high value=source.system.condition.shape.high classes="slim" rootId=rootId}}
   {{/if}}
 </section>

@@ -26,6 +26,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     return {
       condition: new SchemaField({
         immunities: new SetField(new StringField({ choices: () => ryuutama.config.statusEffects })),
+        rationing: new NumberField({ nullable: false, initial: 0, min: 0, integer: true }),
         shape: new SchemaField({
           high: new StringField({ required: true, blank: true, choices: () => ryuutama.config.abilityScores }),
         }),
@@ -50,7 +51,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.CREATURE",
+    "RYUUTAMA.ACTOR.CREATURE",
   ];
 
   /* -------------------------------------------------- */
@@ -612,6 +613,11 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     if (rollConfig.situationalBonus) {
       parts.push("@situationalBonus");
       rollData.situationalBonus = rollConfig.situationalBonus;
+    }
+
+    if (rollData.condition?.rationing) {
+      parts.push("@rationPenalty");
+      rollData.rationPenalty = -rollData.condition.rationing;
     }
 
     return { parts, rollData };
