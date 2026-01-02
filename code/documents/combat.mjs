@@ -9,10 +9,12 @@ export default class RyuutamaCombat extends foundry.documents.Combat {
 
   /** @override */
   async rollInitiative(ids, { delayed = false, ...options } = {}) {
-    ids = typeof ids === "string" ? [ids] : ids;
+    ids = (typeof ids === "string") ? [ids] : ids;
 
     for (const id of ids) {
-      await this.combatants.get(id)?.rollInitiative({ initiative: { delayed } });
+      const combatant = this.combatants.get(id);
+      if (!combatant?.actor) continue;
+      await combatant?.rollInitiative({ initiative: { delayed } });
     }
 
     return this;
