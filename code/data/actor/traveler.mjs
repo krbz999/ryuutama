@@ -499,4 +499,38 @@ export default class TravelerData extends CreatureData {
 
     return { parts, rollData };
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _constructCheckConfigs(roll, dialog, message) {
+    super._constructCheckConfigs(roll, dialog, message);
+
+    const weapon = this.equipped.weapon;
+
+    switch (roll.type) {
+      case "accuracy": {
+        let abilities;
+        roll.accuracy.weapon = weapon?.id;
+        if (weapon?.system.isUsable) {
+          abilities = [...weapon.system.accuracy.abilities];
+          roll.accuracy.consumeStamina = !weapon.system.isMastered;
+        } else {
+          // Unarmed.
+          abilities = [...ryuutama.config.weaponUnarmedTypes.unarmed.accuracy.abilities];
+          roll.accuracy.consumeStamina = !this.mastered.weapons.unarmed;
+        }
+        roll.abilities = abilities;
+        break;
+      }
+      case "condition": roll.condition.updateScore = roll.condition.removeStatuses = true; break;
+      case "damage":
+        roll.accuracy.weapon = weapon?.id;
+        roll.abilities = weapon?.system.isUsable
+          ? [weapon.system.damage.ability]
+          : [ryuutama.config.weaponUnarmedTypes.unarmed.damage.ability]; // Unarmed
+        break;
+      case "initiative": roll.abilities = ["dexterity", "intelligence"]; break;
+    }
+  }
 }

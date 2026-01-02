@@ -13,35 +13,35 @@
 /**
  * @typedef CheckRollConfig
  * @property {string[]} [abilities]
- * @property {string} [formula]                             An explicit formula can be provided, in which case
- *                                                          abilities are ignored for the formula creation. Modifiers
- *                                                          are still added on top.
- * @property {CheckType} [type]                             The check type.
- * @property {JourneySubtype} [journeyId]                   If a journey check, the type of check.
- * @property {number} [modifier]                            A modifier to the roll that cannot be changed via the UI,
- *                                                          e.g., the accuracy or damage modifier from a weapon.
+ * @property {string} [formula]                         An explicit formula can be provided, in which case
+ *                                                      abilities are ignored for the formula creation. Modifiers
+ *                                                      are still added on top.
+ * @property {CheckType} [type]                         The check type.
+ * @property {JourneySubtype} [journeyId]               If a journey check, the type of check.
+ * @property {number} [modifier]                        A modifier to the roll that cannot be changed via the UI,
+ *                                                      e.g., the accuracy or damage modifier from a weapon.
  * @property {number} [situationalBonus]
  * @property {object} [critical]
- * @property {boolean} [critical.allowed]                   Can the roll be critical?
- * @property {boolean} [critical.isCritical]                Roll double the dice?
+ * @property {boolean} [critical.allowed]               Can the roll be critical?
+ * @property {boolean} [critical.isCritical]            Roll double the dice?
  * @property {object} [concentration]
- * @property {boolean} [concentration.allowed]              If explicitly `false`, options are not shown.
- * @property {boolean} [concentration.consumeMental]        Consume half the traveler's current MP (rounded up)?
- * @property {boolean} [concentration.consumeFumble]        Consume a Fumble point?
+ * @property {boolean} [concentration.allowed]          If explicitly `false`, options are not shown.
+ * @property {boolean} [concentration.consumeMental]    Consume half the traveler's current MP (rounded up)?
+ * @property {boolean} [concentration.consumeFumble]    Consume a Fumble point?
  * @property {object} [condition]
- * @property {boolean} [condition.updateScore]              Update the traveler's condition score with
- *                                                          the total of the check?
- * @property {boolean} [condition.removeStatuses]           Remove status effects whose strength is lower than the
- *                                                          traveler's condition score?
+ * @property {boolean} [condition.updateScore]          Update the traveler's condition score with
+ *                                                      the total of the check?
+ * @property {boolean} [condition.removeStatuses]       Remove status effects whose strength is lower than the
+ *                                                      traveler's condition score?
  * @property {object} [accuracy]
- * @property {RyuutamaItem} [accuracy.weapon]               The weapon being used for the check.
- * @property {boolean} [accuracy.consumeStamina]            Consume HP due to using a non-Mastered weapon?
+ * @property {string} [accuracy.weapon]                 The id of the weapon being used for the check.
+ * @property {boolean} [accuracy.consumeStamina]        Consume HP due to using a non-Mastered weapon?
  * @property {object} [initiative]
  * @property {object} [magic]
- * @property {boolean} [magic.consumeMental]                Consume the MP for casting the spell?
- * @property {RyuutamaItem} [magic.item]                    The spell being cast.
- * @property {Record<string, boolean>} [rollOptions]        Options for the roll. The effect of these depends on
- *                                                          the type of check being performed.
+ * @property {boolean} [magic.consumeMental]            Consume the MP for casting the spell?
+ * @property {string} [magic.item]                      The id of the spell being cast.
+ * @property {Record<string, boolean>} [rollOptions]    Options for the roll. The effect of these depends on
+ *                                                      the type of check being performed.
  */
 
 /* -------------------------------------------------- */
