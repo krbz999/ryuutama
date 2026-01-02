@@ -152,4 +152,17 @@ export default class MonsterData extends CreatureData {
     setupResource("stamina", true);
     setupResource("mental");
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _constructCheckConfigs(roll, dialog, message) {
+    super._constructCheckConfigs(roll, dialog, message);
+    switch (roll.type) {
+      case "accuracy": roll.formula = this.attack.accuracy; break;
+      case "condition": roll.condition.updateScore = false; break;
+      case "damage": roll.formula = this.attack.damage; break;
+      case "initiative": roll.formula = "@initiative.value"; dialog.configure ??= false; break;
+    }
+  }
 }

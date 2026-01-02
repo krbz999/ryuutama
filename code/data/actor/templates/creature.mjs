@@ -337,39 +337,12 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   #constructCheckConfigs(rollConfig, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
 
-    const spell = rollConfig.magic?.item;
-    delete rollConfig.magic?.item;
-
-    let roll = { condition: {}, concentration: {}, critical: {}, magic: {} };
-    let dialog = { configure: true };
+    let roll = { accuracy: {}, condition: {}, concentration: {}, critical: {}, magic: {} };
+    let dialog = {};
     let message = { create: true };
 
     switch (rollConfig.type) {
-      case "accuracy": {
-        switch (this.parent.type) {
-          case "traveler": {
-            let abilities;
-            const w = this.equipped.weapon;
-            roll.accuracy = { weapon: w };
-            if (w?.system.isUsable) {
-              abilities = [...w.system.accuracy.abilities];
-              roll.accuracy.consumeStamina = !w.system.isMastered;
-            } else {
-              // unarmed
-              abilities = [...ryuutama.config.weaponUnarmedTypes.unarmed.accuracy.abilities];
-              roll.accuracy.consumeStamina = !this.mastered.weapons.unarmed;
-            }
-            roll.abilities = abilities;
-            break;
-          }
-          case "monster": {
-            roll.formula = this.attack.accuracy;
-            break;
-          }
-        }
-        break;
-      }
-
+      case "accuracy": break;
       case "check":
         roll.abilities = ["strength", "strength"];
         break;
@@ -377,41 +350,15 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       case "condition":
         roll.abilities = ["strength", "spirit"];
         roll.concentration.allowed = false;
-        roll.condition = { updateScore: true, removeStatuses: true };
         break;
 
       case "damage": {
-        switch (this.parent.type) {
-          case "traveler": {
-            const w = this.equipped.weapon;
-            roll.accuracy = { weapon: w };
-            let abi;
-            if (w?.system.isUsable) abi = w.system.damage.ability;
-            else abi = ryuutama.config.weaponUnarmedTypes.unarmed.damage.ability; // unarmed
-            roll.abilities = [abi];
-            break;
-          }
-          case "monster": {
-            roll.formula = this.attack.damage;
-            break;
-          }
-        }
         roll.concentration.allowed = false;
-        roll.critical = { allowed: true };
+        roll.critical.allowed = true;
         break;
       }
 
       case "initiative":
-        switch (this.parent.type) {
-          case "traveler": {
-            roll.abilities = ["dexterity", "intelligence"];
-            break;
-          }
-          case "monster": {
-            roll.formula = "@initiative.value";
-            break;
-          }
-        }
         roll.concentration.allowed = false;
         break;
 
@@ -439,12 +386,24 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       messageConfig: foundry.utils.mergeObject(message, messageConfig),
     };
 
+    // Allow subclasses to perform changes.
+    this._constructCheckConfigs(result.rollConfig, result.dialogConfig, result.messageConfig);
+
     // Final step: cleanup.
     if (result.rollConfig.formula) delete result.rollConfig.abilities;
-    if (spell) result.rollConfig.magic.item = spell;
 
     return result;
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Allow subclasses to perform changes to check configs.
+   * @param {CheckRollConfig} roll
+   * @param {CheckDialogConfig} dialog
+   * @param {CheckMessageConfig} message
+   */
+  _constructCheckConfigs(roll, dialog, message) {}
 
   /* -------------------------------------------------- */
 
@@ -508,8 +467,9 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
     }
 
     // Consume MP from casting a spell.
-    if (rollConfig.magic?.consumeMental && rollConfig.magic.item) {
-      const mp = rollConfig.magic.item.system.spell.activation.mental;
+    const magicItem = this.parent.items.get(rollConfig.magic?.item);
+    if (rollConfig.magic?.consumeMental && magicItem) {
+      const mp = magicItem.system.spell.activation.mental;
       update["system.resources.mental.spent"] ??= actor.system.resources.mental.spent;
       update["system.resources.mental.spent"] += mp;
       if (update["system.resources.mental.spent"] > actor.system.resources.mental.max) {
@@ -583,9 +543,9 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   #constructRollOptions(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     const options = {};
     const item = ["accuracy", "damage"].includes(rollConfig.type)
-      ? this.equipped?.weapon
+      ? this.parent.items.get(rollConfig.accuracy?.weapon)
       : (rollConfig.type === "magic")
-        ? rollConfig.magic?.item
+        ? this.parent.items.get(rollConfig.magic?.item)
         : null;
     const rollOptions = item?.system.getRollOptions?.(rollConfig.type) ?? [];
     rollOptions.forEach(o => options[o] = true);
