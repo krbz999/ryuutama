@@ -50,6 +50,9 @@ export async function enricher(match, options = {}) {
  * @type {Function(HTMLEnrichedContentElement)}
  */
 export function onRender(element) {
+  const enricher = element.querySelector(".enricher");
+  if (enricher._hasEvent) return;
+  enricher._hasEvent = true;
   element = element.querySelector("[data-status-id]");
   const { statusId, strength } = element.dataset;
   element.addEventListener("click", () => ryuutama.utils.applyStatus(statusId, Number(strength)));
