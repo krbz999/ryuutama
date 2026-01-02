@@ -27,6 +27,9 @@ Hooks.once("init", () => {
   // Register settings.
   registerSettings();
 
+  // Register queries.
+  helpers.registerQueries();
+
   // Register enrichers.
   CONFIG.TextEditor.enrichers = Object.values(helpers.enrichers)
     .map(({ id, pattern, enricher, onRender }) => ({ id, pattern, enricher, onRender }));

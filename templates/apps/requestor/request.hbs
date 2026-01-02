@@ -1,0 +1,14 @@
+<section data-actor-uuid="{{ctx.actor.uuid}}" data-tooltip-direction="UP">
+  <div class="result">
+    <img src="{{ctx.actor.img}}" alt="{{ctx.actor.name}}">
+    <span class="name">{{ctx.actor.name}}</span>
+    <span class="value">{{{ctx.value}}}</span>
+    <button type="button" class="icon fa-solid fa-bell" data-tooltip="RYUUTAMA.REQUESTOR.requestRoll" data-action="request" {{disabled ctx.showBar}}></button>
+  </div>
+  <div class="progress-bar">
+    {{#if ctx.showBar}}
+    <div class="progress-bar-fill"></div>
+    {{/if}}
+  </div>
+  <hr>
+</section>

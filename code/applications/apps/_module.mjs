@@ -5,3 +5,4 @@ export { default as CheckConfigurationDialog } from "./check-configuration-dialo
 export { default as ConditionConfig } from "./condition-config.mjs";
 export { default as DefenseConfig } from "./defense-config.mjs";
 export { default as ResourceConfig } from "./resource-config.mjs";
+export { default as RollRequestor } from "./roll-requestor.mjs";
