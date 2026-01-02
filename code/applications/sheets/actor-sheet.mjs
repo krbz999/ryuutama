@@ -24,11 +24,6 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
     window: {
       controls: [
         {
-          action: "toggleCompactMode",
-          icon: "fa-solid fa-expand",
-          label: "RYUUTAMA.ACTOR.toggleCompactMode",
-        },
-        {
           action: "configurePrototypeToken",
           icon: "fa-solid fa-circle-user",
           label: "TOKEN.TitlePrototype",

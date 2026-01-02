@@ -300,6 +300,7 @@
       padding: 0.5rem;
       padding-right: 0;
       gap: .5rem;
+      width: var(--sidebar-width);
 
       .avatar {
         border-radius: 2px;
@@ -473,30 +474,5 @@
     .window-header { width: 100% }
     .window-header .window-icon, .window-header .window-title { display: block }
     .window-content { display: none }
-  }
-
-  &.compact-mode {
-    --content-width: 0;
-
-    &:not(.minimizing, .maximizing, .minimized) {
-      width: auto !important;
-      height: auto !important;
-    }
-
-    .window-header {
-      width: 100%;
-    }
-
-    .window-content {
-      margin-top: 0;
-      padding-right: 0;
-
-      [data-application-part]:not([data-application-part=header]) { display: none }
-      [data-application-part=header] { margin: 0 }
-    }
-
-    .window-resize-handle {
-      display: none;
-    }
   }
 }

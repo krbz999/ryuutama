@@ -12,10 +12,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     },
     position: {
       width: 680,
-      height: 800,
-    },
-    actions: {
-      toggleCompactMode: RyuutamaTravelerSheet.#toggleCompactMode,
+      height: 620,
     },
   };
 
@@ -87,14 +84,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
 
   /* -------------------------------------------------- */
 
-  /**
-   * Is the sheet showing only the aside?
-   * @type {boolean}
-   */
-  _compactMode = false;
-
-  /* -------------------------------------------------- */
-
   /** @inheritdoc */
   _getTabsConfig(group) {
     const config = foundry.utils.deepClone(super._getTabsConfig(group)) ?? null;
@@ -117,14 +106,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     }
 
     return parts;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  _insertElement(element) {
-    element.classList.toggle("compact-mode", this._compactMode);
-    return super._insertElement(element);
   }
 
   /* -------------------------------------------------- */
@@ -472,15 +453,5 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
     if (!(item.type in this.document.system.equipped)) return false;
     await this.document.update({ [`system.equipped.${item.type}`]: item.id });
     return true;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * @this RyuutamaTravelerSheet
-   */
-  static #toggleCompactMode(event, target) {
-    this._compactMode = !this._compactMode;
-    this.element.classList.toggle("compact-mode", this._compactMode);
   }
 }

@@ -153,8 +153,7 @@
       "statusImmune": "Immune",
       "statusImmuneI": "I",
       "statusSuppressed": "Suppressed",
-      "statusSuppressedS": "S",
-      "toggleCompactMode": "Compact Mode"
+      "statusSuppressedS": "S"
     },
     "CREATURE": {
       "FIELDS": {
