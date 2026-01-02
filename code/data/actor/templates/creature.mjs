@@ -485,6 +485,20 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
 
     if (effectIds.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
     if (!foundry.utils.isEmpty(update)) await actor.update(update);
+
+    // Apply (delayed) initiative.
+    const combatant = game.combat?.combatants.find(c => c.actor === this.parent);
+    if (combatant) {
+      const total = (rollConfig.initiative?.upgrade === false)
+        ? rollConfig.initiative.delayed
+          ? roll.product
+          : roll.total
+        : rollConfig.initiative?.delayed
+          ? `max(@combatant.initiative, ${roll.total})`
+          : Math.max(combatant.initiative, roll.total);
+      if (rollConfig.initiative?.delayed) await combatant.update({ "system.initiative.value": total });
+      else await combatant.update({ initiative: total });
+    }
   }
 
   /* -------------------------------------------------- */

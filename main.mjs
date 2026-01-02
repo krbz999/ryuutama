@@ -65,6 +65,8 @@ Hooks.once("init", () => {
   CONFIG.Combat.dataModels.standard = data.combat.StandardData;
 
   CONFIG.Combatant.documentClass = documents.RyuutamaCombatant;
+  CONFIG.Combatant.dataModels.standard = data.combatant.StandardData;
+
   CONFIG.CombatantGroup.documentClass = documents.RyuutamaCombatantGroup;
 
   CONFIG.Item.documentClass = documents.RyuutamaItem;
@@ -128,6 +130,10 @@ Hooks.once("init", () => {
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.JournalEntryPage, ryuutama.id, applications.sheets.pages.ReferencePageSheet,
     { label: "RYUUTAMA.SHEETS.ReferencePageSheet", makeDefault: true, types: ["reference"] },
+  );
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.Combatant, ryuutama.id, applications.sheets.combatants.RyuutamaCombatantSheet,
+    { label: "RYUUTAMA.SHEETS.CombatantSheet", makeDefault: true },
   );
 
   // Register status effects.

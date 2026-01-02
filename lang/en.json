@@ -304,6 +304,16 @@
         },
 
         "objects": "Objects"
+      },
+      "rollDelayed": "Roll Delayed Initiative"
+    },
+
+    "COMBATANT": {
+      "STANDARD": {
+        "FIELDS": {
+          "initiative.value.label": "Delayed Initiative",
+          "initiative.value.hint": "The combatant's initiative will be replaced with this value starting next round. You can use a placeholder value, '@combatant.initiative', to describe the current initiative value."
+        }
       }
     },
 
@@ -697,6 +707,9 @@
       "consumeMental": "Consume MP",
       "consumeStamina": "Consume Stamina",
       "critical": "Critical",
+      "initiative": "Initiative",
+      "initiativeUpgrade": "Upgrade Only",
+      "initiativeUpgradeHint": "Only a higher value rolled will take the place of initiative in the Encounter tracker.",
       "magic": "Magic",
       "magicConsumeMental": "Consume MP",
       "magicConsumeMentalHint": "The spell requires {mp} MP to cast.",
@@ -725,6 +738,7 @@
 
     "SHEETS": {
       "ActorSheet": "Ryuutama Actor Sheet",
+      "CombatantSheet": "Ryuutama Combatant Sheet",
       "ItemSheet": "Ryuutama Item Sheet",
       "MonsterSheet": "Ryuutama Monster Sheet",
       "ReferencePageSheet": "Ryuutama Reference Page Sheet"

@@ -167,6 +167,8 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     context.showCondition = roll.type === "condition";
     context.showAbilities = !roll.formula;
 
+    const combatant = game.combat?.combatants.find(c => c.actor === this.actor);
+
     switch (roll.type) {
       case "damage":
       case "accuracy":
@@ -175,6 +177,10 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
           else if (weapon) context.subtitle = game.i18n.format("RYUUTAMA.ROLL.weaponBroken", { weapon: weapon.name });
           else context.subtitle = ryuutama.config.weaponUnarmedTypes.unarmed.label;
         }
+        break;
+      case "initiative":
+        context.showInitiative = !!combatant && (combatant.initiative !== null);
+        context.initiative = { upgrade: roll.initiative?.upgrade !== false };
         break;
       case "journey":
         context.subtitle = ryuutama.config.checkTypes.journey.subtypes[roll.journeyId].label;

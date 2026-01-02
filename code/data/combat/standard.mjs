@@ -1,6 +1,7 @@
 /**
  * @import RegionDocument from "@client/documents/region.mjs";
  * @import RyuutamaCombat from "../../documents/combat.mjs";
+ * @import RyuutamaCombatant from "../../documents/combatant.mjs";
  */
 
 const { BooleanField, ForeignDocumentField, SchemaField, StringField, TypedObjectField } = foundry.data.fields;
@@ -142,6 +143,12 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
     const header = element.querySelector("[data-application-part=header]");
     if (header.querySelector(".ryuutama.objects")) return;
     this.#insertObjects(header);
+
+    for (const input of element.querySelectorAll(".initiative-input")) {
+      const combatant = this.parent.combatants.get(input.closest("[data-combatant-id]").dataset.combatantId);
+      const delayed = combatant.system.initiative.value;
+      if (delayed) this.#insertDelayedInitiative(input, combatant);
+    }
   }
 
   /* -------------------------------------------------- */
@@ -151,7 +158,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
    * @param {HTMLElement} element   The combat tracker's rendered element.
    */
   #insertObjects(element) {
-    const div = document.createElement("DIV");
+    const div = element.ownerDocument.createElement("DIV");
     div.classList.add(ryuutama.id, "objects");
     const isGM = game.user.isGM;
 
@@ -182,5 +189,24 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
     }
 
     if (isGM || element.childElementCount) element.insertAdjacentElement("beforeend", div);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Insert an element that displays a delayed initiative value.
+   * @param {HTMLInputElement} input
+   * @param {RyuutamaCombatant} combatant
+   */
+  #insertDelayedInitiative(input, combatant) {
+    const next = new ryuutama.dice.BaseRoll(
+      combatant.system.initiative.value,
+      combatant.getRollData(),
+    ).evaluateSync().total;
+    if (next === combatant.initiative) return;
+    const element = input.ownerDocument.createElement("SPAN");
+    element.classList.add("initiative-delayed");
+    element.textContent = String(next);
+    input.insertAdjacentElement("afterend", element);
   }
 }
