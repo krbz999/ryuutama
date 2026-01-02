@@ -75,6 +75,32 @@
   },
   "RYUUTAMA": {
     "ACTOR": {
+      "CREATURE": {
+        "FIELDS": {
+          "condition.immunities.label": "Status Immunities",
+          "condition.rationing.hint": "This penalty is deducted from all checks as a result of lack of food or water.",
+          "condition.rationing.label": "Rationing Penalty",
+          "condition.shape.high.hint": "This ability has its die increased by 1 size (to a maximum of 12) when the actor's Condition is 10 or higher.",
+          "condition.shape.high.label": "Tip-Top Shape",
+          "condition.value.label": "Current Condition",
+          "defense.modifiers.magical.label": "Magical",
+          "defense.modifiers.physical.label": "Physical",
+          "resources.mental.bonuses.flat.hint": "This bonus is added to the maximum MP after all other modifiers.",
+          "resources.mental.bonuses.flat.label": "Overall Bonus",
+          "resources.mental.bonuses.level.hint": "This bonus is added to the maximum MP for every level the actor has attained.",
+          "resources.mental.bonuses.level.label": "Per Level Bonus",
+          "resources.mental.max.hint": "The base MP maximum prior to any modifiers.",
+          "resources.mental.max.label": "Base Maximum",
+          "resources.mental.spent.label": "Spent",
+          "resources.stamina.bonuses.flat.hint": "This bonus is added to the maximum HP after all other modifiers.",
+          "resources.stamina.bonuses.flat.label": "Overall Bonus",
+          "resources.stamina.bonuses.level.hint": "This bonus is added to the maximum HP for every level the actor has attained.",
+          "resources.stamina.bonuses.level.label": "Per Level Bonus",
+          "resources.stamina.max.hint": "The base HP maximum prior to any modifiers.",
+          "resources.stamina.max.label": "Base Maximum",
+          "resources.stamina.spent.label": "Spent"
+        }
+      },
       "PARTY": {
         "FIELDS": {}
       },
@@ -154,30 +180,6 @@
       "statusImmune": "Immune",
       "statusSuppressed": "Suppressed ({strength})"
     },
-    "CREATURE": {
-      "FIELDS": {
-        "condition.immunities.label": "Status Immunities",
-        "condition.shape.high.hint": "This ability has its die increased by 1 size (to a maximum of 12) when the actor's Condition is 10 or higher.",
-        "condition.shape.high.label": "Tip-Top Shape",
-        "condition.value.label": "Current Condition",
-        "defense.modifiers.magical.label": "Magical",
-        "defense.modifiers.physical.label": "Physical",
-        "resources.mental.bonuses.flat.hint": "This bonus is added to the maximum MP after all other modifiers.",
-        "resources.mental.bonuses.flat.label": "Overall Bonus",
-        "resources.mental.bonuses.level.hint": "This bonus is added to the maximum MP for every level the actor has attained.",
-        "resources.mental.bonuses.level.label": "Per Level Bonus",
-        "resources.mental.max.hint": "The base MP maximum prior to any modifiers.",
-        "resources.mental.max.label": "Base Maximum",
-        "resources.mental.spent.label": "Spent",
-        "resources.stamina.bonuses.flat.hint": "This bonus is added to the maximum HP after all other modifiers.",
-        "resources.stamina.bonuses.flat.label": "Overall Bonus",
-        "resources.stamina.bonuses.level.hint": "This bonus is added to the maximum HP for every level the actor has attained.",
-        "resources.stamina.bonuses.level.label": "Per Level Bonus",
-        "resources.stamina.max.hint": "The base HP maximum prior to any modifiers.",
-        "resources.stamina.max.label": "Base Maximum",
-        "resources.stamina.spent.label": "Spent"
-      }
-    },
     "MONSTER": {
       "FIELDS": {
         "attack.accuracy.label": "Accuracy Formula",
@@ -221,7 +223,6 @@
       "abilities": "Abilities",
       "conditionShapeOutOfShape": "Out of Shape",
       "conditionShapeSelectAbility": "Select Ability",
-      "shape": "Shape",
       "skillSectionLabel": "{name} Skills",
       "otherSkills": "Other Skills"
     },
