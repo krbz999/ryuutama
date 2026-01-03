@@ -1,0 +1,42 @@
+<section class="calendar">
+  <a class="hoverable terrain" data-terrain-id="{{terrain}}" {{#if isGM}} data-action="openMenu" {{/if}} data-menu="terrain" data-tooltip-text="{{terrainConfig.label}}" {{disabled (not isGM)}}>
+    <img src="{{terrainConfig.iconSmall}}" alt="{{terrainConfig.label}}">
+  </a>
+
+  <span class="topography">
+    <span class="label">{{terrainConfig.label}} / {{weatherConfig.label}}</span>
+    <span class="target-number">{{localize "RYUUTAMA.HABITAT.targetNumber" number=targetNumber}}</span>
+  </span>
+
+  <a class="hoverable weather" {{#if isGM}} data-action="openMenu" {{/if}} data-menu="weather" data-tooltip-text="{{weatherConfig.label}}" {{disabled (not isGM)}}>
+    {{#if weatherSVG}}
+    <ryuutama-icon src="{{weatherConfig.icon}}"></ryuutama-icon>
+    {{else}}
+    <img src="{{weatherConfig.icon}}" alt="{{weatherConfig.label}}">
+    {{/if}}
+  </a>
+</section>
+
+<section class="menus">
+  {{#if isGM}}
+  <menu class="terrain {{#if terrainOpen}} open {{/if}}">
+    {{#each terrainOptions}}
+    <li>
+      <a data-terrain-id="{{value}}" data-action="configureTerrain" data-tooltip-text="{{label}}">
+        <img src="{{iconSmall}}" alt="{{label}}">
+      </a>
+    </li>
+    {{/each}}
+  </menu>
+
+  <menu class="weather {{#if weatherOpen}} open {{/if}}">
+    {{#each weatherOptions}}
+    <li>
+      <a data-weather-id="{{value}}" data-action="configureWeather" data-tooltip-text="{{label}}">
+        <ryuutama-icon src="{{img}}"></ryuutama-icon>
+      </a>
+    </li>
+    {{/each}}
+  </menu>
+  {{/if}}
+</section>

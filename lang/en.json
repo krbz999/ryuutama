@@ -342,6 +342,13 @@
       }
     },
 
+    "HABITAT": {
+      "targetNumber": "Target Number: {number}",
+      "CONTEXT": {
+        "viewFullImage": "View Full Image"
+      }
+    },
+
     "ITEM": {
       "CONTEXT": {
         "EFFECT": {
@@ -722,15 +729,7 @@
       "weaponBroken": "{weapon} (Broken)"
     },
 
-    "SETTINGS": {
-      "CURRENT_HABITAT": {
-        "terrain": "Terrain",
-        "weather": "Weather",
-        "title": "Configure Current Habitat",
-        "current": "Current Habitat",
-        "targetNumber": "Target Number: {number}"
-      }
-    },
+    "SETTINGS": {},
 
     "SHEET": {
       "toggleEditMode": "Toggle Edit Mode"

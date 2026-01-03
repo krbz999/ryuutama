@@ -18,16 +18,10 @@ export default function registerSettings() {
     scope: "world",
     requiresReload: false,
     type: new SchemaField({
-      terrain: new SetField(
-        new StringField({ choices: () => ryuutama.config.terrainTypes }),
-        { label: "RYUUTAMA.SETTINGS.CURRENT_HABITAT.terrain" },
-      ),
-      weather: new SetField(
-        new StringField({ choices: () => ryuutama.config.weatherTypes }),
-        { label: "RYUUTAMA.SETTINGS.CURRENT_HABITAT.weather" },
-      ),
+      terrain: new StringField({ required: true, choices: () => ryuutama.config.terrainTypes, initial: "grassland" }),
+      weather: new StringField({ required: true, choices: () => ryuutama.config.weatherTypes, initial: "clearSkies" }),
     }),
-    default: { terrain: [], weather: [] },
+    default: { terrain: "grassland", weather: "clearSkies" },
     config: false,
     onChange: () => ui.habitat.render(),
   });
@@ -40,6 +34,8 @@ export default function registerSettings() {
     type: new StringField({ required: true, blank: true }),
     config: false,
   });
+
+  migrateSettings();
 }
 
 /* -------------------------------------------------- */
@@ -68,3 +64,14 @@ Hooks.once("ready", () => {
   if (!game.user.isActiveGM) return;
   game.settings.set(ryuutama.id, "MIGRATION_VERSION", game.system.version);
 });
+
+/* -------------------------------------------------- */
+
+/**
+ * Perform migration on settings.
+ */
+function migrateSettings() {
+  // Current habitat now only stores strings, not arrays of strings.
+  const data = game.settings.storage.get("world").find(k => k.key === `${ryuutama.id}.CURRENT_HABITAT`)?.value;
+  for (const k of ["weather", "terrain"]) if (data?.[k]?.includes?.(",")) data[k] = data[k].split(",")[0].trim();
+}

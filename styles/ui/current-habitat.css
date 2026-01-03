@@ -1,51 +1,81 @@
 #current-habitat {
   pointer-events: all;
-  width: fit-content;
-  height: fit-content;
-  min-height: 60px;
-  border-radius: .5em;
-  overflow: hidden;
+  width: 20rem;
 
-  button {
+  .calendar {
     display: grid;
-    grid-template-columns: 1fr;
-    width: var(--players-width, 200px);
-    height: 100%;
-    padding: .5rem;
-    border: 1px solid var(--color-border);
+    grid-template-columns: 1fr 6fr 1fr;
+    margin: .25rem 0;
+
+    .topography {
+      display: grid;
+      font-size: 14px;
+      text-align: center;
+      align-items: center;
+
+      .target-number {
+        font-size: 75%;
+      }
+    }
+
+    .terrain, .weather {
+      padding: .25rem;
+
+      ryuutama-icon {
+        display: grid;
+      }
+    }
+  }
+
+  .menus {
+    padding: 5px;
+
+    &:not(:has(.open)) {
+      display: none;
+    }
+
+    menu.terrain, menu.weather {
+      width: 100%;
+      display: none;
+      gap: 5px;
+
+      &.open {
+        display: grid;
+      }
+
+      &.terrain {
+        grid-template-columns: repeat(3, 1fr);
+
+        li img {
+          border-radius: 10px;
+        }
+      }
+
+      &.weather {
+        grid-template-columns: repeat(4, 1fr);
+
+        li {
+          aspect-ratio: 1;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .calendar, .menus:has(.open) {
     background: var(--background-color);
+    border-radius: 7px;
   }
 
-  &:hover {
-    box-shadow: 0 0 10px var(--color-shadow-highlight);
-  }
-
-  h4 {
-    margin: 0;
-  }
-
-  .topography {
-    font-size: 17px;
-  }
-
-  .terrain, .weather {
-    text-align: left;
-    font-size: 12px;
-    margin: .1rem 0;
-  }
-
+  /* THEMING */
   .themed.theme-light & {
     --background-color: rgba(255, 255, 255, 0.6);
     --color-border: white;
-
-    &:hover {
-      color: black;
-    }
+    color: black;
   }
 
   .themed.theme-dark & {
     --background-color: var(--color-cool-5);
     --color-border: black;
-    color: var(--color-text-light-hightlight);
   }
 }
