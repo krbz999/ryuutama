@@ -58,6 +58,11 @@
         "styles",
         "templates"
       ]
+    },
+    "ryuutama": {
+      "sources": {
+        "Ryuutama": "Ryuutama: Natural Fantasy Roleplay"
+      }
     }
   },
   "documentTypes": {

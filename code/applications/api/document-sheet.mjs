@@ -27,14 +27,22 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
     },
     window: {
       contentClasses: ["standard-form"],
+      controls: [{
+        action: "openSourceConfig",
+        icon: "fa-solid fa-book-bookmark",
+        label: "RYUUTAMA.SHEET.openSourceConfig",
+        ownership: "OWNER",
+        visible: function() { return this.isEditable; },
+      }],
     },
     mode: 1,
     actions: {
-      toggleEditMode: RyuutamaDocumentSheet.#toggleEditMode,
-      createEffect: RyuutamaDocumentSheet.#createEffect,
-      renderEmbedded: RyuutamaDocumentSheet.#renderEmbedded,
       contextMenu: RyuutamaDocumentSheet.#contextMenu,
+      createEffect: RyuutamaDocumentSheet.#createEffect,
+      openSourceConfig: RyuutamaDocumentSheet.#openSourceConfig,
       renderDocument: RyuutamaDocumentSheet.#renderDocument,
+      renderEmbedded: RyuutamaDocumentSheet.#renderEmbedded,
+      toggleEditMode: RyuutamaDocumentSheet.#toggleEditMode,
     },
   };
 
@@ -178,6 +186,17 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
       document = document.getEmbeddedDocument(embeddedName, embeddedId);
     }
     return document;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaDocumentSheet
+   */
+  static #openSourceConfig(event, target) {
+    let application = new ryuutama.applications.apps.SourceConfig({ document: this.document });
+    application = foundry.applications.instances.get(application.id) ?? application;
+    application.render({ force: true });
   }
 
   /* -------------------------------------------------- */

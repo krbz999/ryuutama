@@ -1,4 +1,3 @@
-import IdentifierField from "../fields/identifier-field.mjs";
 import BaseData from "./templates/base.mjs";
 
 const { DocumentUUIDField, NumberField, SetField } = foundry.data.fields;
@@ -7,7 +6,6 @@ export default class ClassData extends BaseData {
   /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
-      identifier: new IdentifierField(),
       skills: new SetField(new DocumentUUIDField({
         embedded: false,
         type: "Item",

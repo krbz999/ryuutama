@@ -1,5 +1,4 @@
 import BaseData from "./templates/base.mjs";
-import IdentifierField from "../fields/identifier-field.mjs";
 
 /**
  * @import RyuutamaItem from "../../documents/item.mjs";
@@ -8,9 +7,7 @@ import IdentifierField from "../fields/identifier-field.mjs";
 export default class SkillData extends BaseData {
   /** @inheritdoc */
   static defineSchema() {
-    return Object.assign(super.defineSchema(), {
-      identifier: new IdentifierField(),
-    });
+    return Object.assign(super.defineSchema(), {});
   }
 
   /* -------------------------------------------------- */

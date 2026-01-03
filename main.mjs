@@ -158,6 +158,8 @@ Hooks.once("i18nInit", () => {
   for (const DM of Object.values(data.advancement.Advancement.documentConfig)) {
     foundry.helpers.Localization.localizeDataModel(DM);
   }
+
+  helpers.Prelocalization.configureSources();
 });
 
 /* -------------------------------------------------- */

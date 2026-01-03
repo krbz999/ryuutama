@@ -43,6 +43,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         mental: makeResource(),
         stamina: makeResource(),
       }),
+      source: new ryuutama.data.fields.SourceField(),
     };
   }
 
@@ -52,6 +53,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ACTOR.CREATURE",
+    "RYUUTAMA.SOURCE",
   ];
 
   /* -------------------------------------------------- */
