@@ -1,39 +1,91 @@
+/**
+ * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
+ */
+
 const { Application } = foundry.applications.api;
 
 export default class CurrentHabitat extends Application {
   /** @override */
   static DEFAULT_OPTIONS = {
     id: "current-habitat",
-    classes: ["faded-ui"],
+    classes: ["faded-ui", "ui-control"],
     tag: "aside",
     window: {
       frame: false,
       positioned: false,
     },
     actions: {
-      configureHabitat: CurrentHabitat.#configureHabitat,
+      openMenu: CurrentHabitat.#openMenu,
+      configureTerrain: CurrentHabitat.#configureTerrain,
+      configureWeather: CurrentHabitat.#configureWeather,
     },
   };
 
   /* -------------------------------------------------- */
 
+  /**
+   * THe name of the current habitat setting.
+   * @type {string}
+   */
+  static get SETTING() {
+    return "CURRENT_HABITAT";
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is the terrain menu currently expanded?
+   * @type {boolean}
+   */
+  #terrain = false;
+  get #terrainOpen() {
+    return this.#terrain;
+  }
+  set #terrainOpen(open) {
+    this.#terrain = !!open;
+    this.element.querySelector("menu.terrain").classList.toggle("open", this.#terrain);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is the weather menu currently expanded?
+   * @type {boolean}
+   */
+  #weather = false;
+  get #weatherOpen() {
+    return this.#weather;
+  }
+  set #weatherOpen(open) {
+    this.#weather = !!open;
+    this.element.querySelector("menu.weather").classList.toggle("open", this.#weather);
+  }
+
+  /* -------------------------------------------------- */
+
   /** @override */
   async _prepareContext(options) {
-    const value = game.settings.get(ryuutama.id, "CURRENT_HABITAT");
+    const value = game.settings.get(ryuutama.id, CurrentHabitat.SETTING);
 
-    const targetNumber =
-      Math.max(0, ...[...value.terrain].map(v => ryuutama.config.terrainTypes[v]?.difficulty).filter(_ => _))
-      + Math.max(0, ...[...value.weather].map(v => ryuutama.config.weatherTypes[v]?.modifier).filter(_ => _));
-
-    const formatter = game.i18n.getListFormatter();
-
-    const terrain = [...value.terrain].map(v => ryuutama.config.terrainTypes[v]?.label).filter(_ => _);
-    const weather = [...value.weather].map(v => ryuutama.config.weatherTypes[v]?.label).filter(_ => _);
+    // Current topography configs.
+    const terrainConfig = ryuutama.config.terrainTypes[value.terrain];
+    const weatherConfig = ryuutama.config.weatherTypes[value.weather];
 
     return {
-      targetNumber,
-      terrain: terrain.length ? formatter.format(terrain) : null,
-      weather: weather.length ? formatter.format(weather) : null,
+      targetNumber: terrainConfig.difficulty + weatherConfig.modifier,
+      isGM: game.user.isGM,
+
+      terrain: value.terrain,
+      terrainConfig,
+      terrainOpen: this.#terrainOpen,
+      terrainOptions: Object.entries(ryuutama.config.terrainTypes)
+        .map(([k, v]) => ({ value: k, label: v.label, img: v.icon, iconSmall: v.iconSmall })),
+
+      weatherConfig,
+      weatherOpen: this.#weatherOpen,
+      weatherSVG: weatherConfig.icon.endsWith(".svg"),
+      weatherOptions: Object.entries(ryuutama.config.weatherTypes)
+        .map(([k, v]) => ({ value: k, label: v.label, img: v.icon })),
     };
   }
 
@@ -41,14 +93,7 @@ export default class CurrentHabitat extends Application {
 
   /** @override */
   _insertElement(element) {
-    document.querySelector("#players").insertAdjacentElement("beforebegin", element);
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  _canRender(options) {
-    return game.user.isGM;
+    document.querySelector("#ui-top #loading").insertAdjacentElement("beforebegin", element);
   }
 
   /* -------------------------------------------------- */
@@ -56,10 +101,9 @@ export default class CurrentHabitat extends Application {
   /** @override */
   async _renderHTML(context, options) {
     const htmlString = await foundry.applications.handlebars.renderTemplate(
-      "systems/ryuutama/templates/ui/current-habitat/button.hbs", context,
+      "systems/ryuutama/templates/ui/current-habitat/section.hbs", context,
     );
-    const button = foundry.utils.parseHTML(htmlString);
-    return [button];
+    return foundry.utils.parseHTML(htmlString);
   }
 
   /* -------------------------------------------------- */
@@ -71,52 +115,95 @@ export default class CurrentHabitat extends Application {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options);
+
+    this._createContextMenu(
+      CurrentHabitat.#createContextMenuOptions.bind(this),
+      "[data-terrain-id]",
+      { hookName: "get{}ContextMenuOptions", parentClassHooks: false, fixed: true },
+    );
+  }
+
+  /* -------------------------------------------------- */
+  /*   Event Handlers                                   */
+  /* -------------------------------------------------- */
+
   /**
+   * Create context menu options for the application.
    * @this CurrentHabitat
-   * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   * @returns {ContextMenuEntry[]}
    */
-  static #configureHabitat(event, target) {
-    CurrentHabitat.configureHabitat();
+  static #createContextMenuOptions() {
+    const options = [
+      {
+        name: "RYUUTAMA.HABITAT.CONTEXT.viewFullImage",
+        icon: "fa-solid fa-fw fa-image",
+        callback: target => {
+          const terrain = target.dataset.terrainId;
+          const { icon: src, label: title } = ryuutama.config.terrainTypes[terrain];
+          const application = new foundry.applications.apps.ImagePopout({ src, window: { title } });
+          application.render({ force: true });
+        },
+      },
+    ];
+    if (game.release.generation < 14) options.forEach(o => o.icon = `<i class="${o.icon}"></i>`);
+    return options;
   }
 
   /* -------------------------------------------------- */
 
   /**
-   * Configure the current habitat.
-   * @returns {Promise<void>}
+   * @this CurrentHabitat
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
-  static async configureHabitat() {
-    if (!game.user.isGM) return;
-    const current = game.settings.get(ryuutama.id, "CURRENT_HABITAT");
-    const fields = game.settings.settings.get(`${ryuutama.id}.CURRENT_HABITAT`).type.fields;
+  static #openMenu(event, target) {
+    const type = target.dataset.menu;
+    this.#terrainOpen = type === "terrain" ? !this.#terrain : type === "terrain";
+    this.#weatherOpen = type === "weather" ? !this.#weather : type === "weather";
+  }
 
-    const terrainOptions = Object.entries(ryuutama.config.terrainTypes).map(([k, v]) => {
-      return { value: k, label: `${v.label} (${v.difficulty})` };
-    });
-    const weatherOptions = Object.entries(ryuutama.config.weatherTypes).map(([k, v]) => {
-      return { value: k, label: `${v.label} (${v.modifier})` };
-    });
+  /* -------------------------------------------------- */
 
-    let habitat = await foundry.applications.api.Dialog.input({
-      content: [
-        fields.terrain.toFormGroup(
-          { localize: true, classes: ["stacked"] },
-          { value: current.terrain, type: "checkboxes", options: terrainOptions },
-        ),
-        fields.weather.toFormGroup(
-          { localize: true, classes: ["stacked"] },
-          { value: current.weather, type: "checkboxes", options: weatherOptions },
-        ),
-      ].map(field => field.outerHTML).join(""),
-      window: {
-        title: "RYUUTAMA.SETTINGS.CURRENT_HABITAT.title",
-      },
-    });
-    if (!habitat) return;
+  /**
+   * @this CurrentHabitat
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #configureTerrain(event, target) {
+    const terrain = target.dataset.terrainId;
+    return CurrentHabitat.updateHabitat({ terrain });
+  }
 
-    habitat = foundry.utils.expandObject(habitat)[ryuutama.id].CURRENT_HABITAT;
+  /* -------------------------------------------------- */
 
-    game.settings.set(ryuutama.id, "CURRENT_HABITAT", habitat);
+  /**
+   * @this CurrentHabitat
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #configureWeather(event, target) {
+    const weather = target.dataset.weatherId;
+    return CurrentHabitat.updateHabitat({ weather });
+  }
+
+  /* -------------------------------------------------- */
+  /*   API Methods                                      */
+  /* -------------------------------------------------- */
+
+  /**
+   * Update the current habitat.
+   * @param {{ weather?: string, terrain?: string }} [habitat]
+   * @returns {Promise<Setting>}
+   */
+  static async updateHabitat(habitat = {}) {
+    const data = foundry.utils.mergeObject(
+      game.settings.get(ryuutama.id, CurrentHabitat.SETTING),
+      habitat,
+      { inplace: false, insertKeys: false },
+    );
+    return game.settings.set(ryuutama.id, CurrentHabitat.SETTING, data);
   }
 }

@@ -146,6 +146,8 @@
  * @property {string} label                 Human-readable label.
  * @property {number} level                 The terrain level.
  * @property {number} difficulty            Terrain difficulty.
+ * @property {string} icon                  Filepath to the terrain icon.
+ * @property {string} iconSmall             A smaller, and square, image used for thumbnails.
  * @property {number} [movementModifier]    A modifier to movement speed through this terrain.
  */
 
