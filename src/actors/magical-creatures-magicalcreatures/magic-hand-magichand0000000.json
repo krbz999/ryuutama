@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>A magical hand made by some mad magician. It appears as a large hand wearing a white glove. They seem to display the same intelligence as a human and can communicate through sign language. Records exist of other giant body parts, such as magic eyes and feet, so it is thought that magic hands are a part of some ancient giant. It is thought that if someone were to gather up the parts of this giant, it would be resurrected, but so far nobody has attempted this.</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "Magic Hand",
@@ -175,9 +178,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761253480492,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

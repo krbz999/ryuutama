@@ -6,7 +6,10 @@
     "description": {
       "value": "<p>As a merchant who earns her keep by trading, your communication skills are top notch.</p><p><strong>Skill Effect:</strong> Negotiation Check [INT + SPI] gets +1, always in effect</p><p><strong>Usable Circumstances:</strong> Any Negotiation Check</p><p><strong>Stat Used:</strong> -</p><p><strong>TN:</strong> -</p>"
     },
-    "identifier": "well-spoken"
+    "identifier": "well-spoken",
+    "source": {
+      "book": "Ryuutama"
+    }
   },
   "img": "icons/skills/social/diplomacy-handshake-yellow.webp",
   "effects": [],
@@ -22,7 +25,7 @@
     "exportSource": null,
     "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.2.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760283410044,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

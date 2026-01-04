@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>These guys are the bosses of the low-level bandits, or are bandits that live in deep forests, deserts, or other tough terrain. These bandits are well equipped to handle long journeys and target high-end goods--they may even target whole towns! Compared to weaker bandits, they possess a sharp wit, and are known for stealing hearts as well as gold. Those that live in the jungle are called \"junglers\", while those that reside in the desert are known as \"desert vikings\".</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "High-level Bandit",
@@ -175,9 +178,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761254178985,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

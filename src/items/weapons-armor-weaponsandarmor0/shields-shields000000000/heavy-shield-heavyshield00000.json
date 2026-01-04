@@ -22,6 +22,9 @@
       "defense": 2,
       "dodge": 9,
       "penalty": 1
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "effects": [],
@@ -34,9 +37,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1759431823839,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

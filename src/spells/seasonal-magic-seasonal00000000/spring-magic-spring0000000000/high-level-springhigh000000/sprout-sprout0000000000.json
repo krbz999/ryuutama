@@ -25,6 +25,9 @@
         "custom": "1 person"
       },
       "effects": {}
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "_id": "sprout0000000000",
@@ -43,7 +46,7 @@
     "exportSource": null,
     "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.2.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760193569690,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

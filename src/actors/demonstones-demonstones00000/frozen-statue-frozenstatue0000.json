@@ -63,6 +63,9 @@
         "magical": null,
         "physical": null
       }
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "Frozen Statue",
@@ -206,9 +209,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760291471849,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

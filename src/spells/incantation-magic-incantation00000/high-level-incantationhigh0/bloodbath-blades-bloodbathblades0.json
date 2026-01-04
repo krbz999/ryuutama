@@ -25,6 +25,9 @@
         "custom": "All areas"
       },
       "effects": {}
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "_id": "bloodbathblades0",
@@ -43,7 +46,7 @@
     "exportSource": null,
     "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.2.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760192968393,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

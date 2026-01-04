@@ -6,7 +6,10 @@
     "description": {
       "value": "<p>As a minstrel who makes his earning by constant travel, you've learned how to travel safely.</p><p><strong>Skill Effect:</strong> +1 to Journey Checks (Travel/Direction/Camping Checks; always in effect)</p><p><strong>Usable Circumstances:</strong> -</p><p><strong>Stat Used:</strong> -</p><p><strong>TN:</strong> -</p>"
     },
-    "identifier": "well-traveled"
+    "identifier": "well-traveled",
+    "source": {
+      "book": "Ryuutama"
+    }
   },
   "img": "icons/environment/wilderness/camp-improvised.webp",
   "effects": [],
@@ -22,7 +25,7 @@
     "exportSource": null,
     "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.2.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760283267808,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

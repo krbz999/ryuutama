@@ -6,7 +6,10 @@
     "description": {
       "value": "<p>The people you have met on your travels have taught you their old songs and legends. You have learned a great deal about the world in this way.</p><p><strong>Skill Effect:</strong> You can get more information about the things you see and hear.</p><p><strong>Usable Circumstances:</strong> Any time you come across something interesting</p><p><strong>Stat Used:</strong> [INT + INT]</p><p><strong>TN:</strong> GM's discretion</p>"
     },
-    "identifier": "knowledge-of-tradition"
+    "identifier": "knowledge-of-tradition",
+    "source": {
+      "book": "Ryuutama"
+    }
   },
   "img": "icons/skills/trades/academics-study-reading-book.webp",
   "effects": [],
@@ -22,7 +25,7 @@
     "exportSource": null,
     "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.2.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760283328895,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

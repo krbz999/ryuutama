@@ -25,6 +25,9 @@
         "custom": "Open space"
       },
       "effects": {}
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "_id": "candyicecube0000",
@@ -41,9 +44,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760194685901,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

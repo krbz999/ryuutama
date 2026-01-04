@@ -18,6 +18,9 @@
       "type": "jungle",
       "details": "Only during strong winds",
       "level": 4
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "img": "icons/commodities/flowers/lotus-purple.webp",
@@ -31,9 +34,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1759688468807,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

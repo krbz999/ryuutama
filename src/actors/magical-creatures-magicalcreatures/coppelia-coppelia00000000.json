@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>These are created with a fusion of magic and technical skill, producing a magical creature that looks almost human. Indeed, it is said that some Coppelia are indistinguishable from humans, from their breathing down to their body heat. While they usually follow the commands of their creators, it is also said that some Coppelia have minds of their own.</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "Coppelia",
@@ -206,9 +209,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761253529979,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

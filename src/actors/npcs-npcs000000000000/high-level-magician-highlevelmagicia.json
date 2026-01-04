@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>High-level magicians know all spells of 2 different seasons as well as all low-level, 5 mid-level and 4 high- level incantation spells. These magicians are the top of their class and are comfortable using any type of magic. Without extensive knowledge of nature, it would have been impossible for them to get this far in their magical studies.</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "High-level Magician",
@@ -175,9 +178,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761254361377,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

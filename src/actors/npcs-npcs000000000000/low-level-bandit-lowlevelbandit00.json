@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>These mugs lurk in grasslands, wastelands, and other easy to traverse terrain, preying on caravans and doing other unsavory things. They are usually lazy, dimwitted and uncouth. Those bandits that live in the wasteland are called \"brigands\", while those that live among hills are called \"highlanders\".</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "Low-level Bandit",
@@ -175,9 +178,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761254108474,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

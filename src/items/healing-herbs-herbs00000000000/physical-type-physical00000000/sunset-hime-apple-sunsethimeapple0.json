@@ -18,6 +18,9 @@
       "type": "grassland",
       "level": 1,
       "details": ""
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "img": "icons/consumables/fruit/apple-glowing-green.webp",
@@ -31,9 +34,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1759688295424,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

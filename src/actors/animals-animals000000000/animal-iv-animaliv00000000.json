@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>Alpha wolf, small bear, etc.</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "Animal IV",
@@ -175,9 +178,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761254655274,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

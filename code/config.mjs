@@ -391,6 +391,13 @@ export const seasons = {
 Prelocalization.prelocalize(seasons);
 
 /* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, string>}
+ */
+export const sources = {};
+
+/* -------------------------------------------------- */
 /*   SPELLS                                           */
 /* -------------------------------------------------- */
 

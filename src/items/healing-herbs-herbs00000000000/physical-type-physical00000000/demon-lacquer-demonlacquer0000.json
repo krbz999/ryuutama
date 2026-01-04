@@ -18,6 +18,9 @@
       "type": "woods",
       "level": 2,
       "details": ""
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "img": "icons/commodities/wood/log-rough-petrified-white.webp",
@@ -31,9 +34,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1759688332925,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

@@ -6,7 +6,10 @@
     "description": {
       "value": "<p>Due to your long years of tutelage and experience in noble society, you are aware of the importance of proper etiquette. When speaking to someone of rank or status, you are able to leave them with a positive impression of you when you win a contested Etiquette check.</p><p><strong>Skill Effect:</strong> Leave a positive impression on someone of high rank or status.</p><p><strong>Usable Circumstances:</strong> Conversing with someone of rank or status</p><p><strong>Stat Used:</strong> [DEX + INT]</p><p><strong>TN:</strong> contested</p>"
     },
-    "identifier": "etiquette"
+    "identifier": "etiquette",
+    "source": {
+      "book": "Ryuutama"
+    }
   },
   "img": "icons/skills/social/diplomacy-writing-letter.webp",
   "effects": [],
@@ -22,7 +25,7 @@
     "exportSource": null,
     "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.2.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760284153063,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

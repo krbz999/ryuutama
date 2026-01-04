@@ -6,7 +6,10 @@
     "description": {
       "value": "<p>Since a farmer's life can be tough without extra money in the off-season, you've taken up another job on the side. When you choose the Farmer Class, choose a single Skill from any other class that requires a Skill Check. You may use that skill as if you were a member of that class. However, you aren't as practiced as a person of that class, so you will always have a -1 penalty to the check.</p><p><strong>Skill Effect:</strong> Use a single skill from another class with a -1 penalty</p><p><strong>Usable Circumstances:</strong> Depends on the skill</p><p><strong>Stat Used:</strong> Depends on the skill</p><p><strong>TN:</strong> Depends on the skill</p>"
     },
-    "identifier": "side-job"
+    "identifier": "side-job",
+    "source": {
+      "book": "Ryuutama"
+    }
   },
   "img": "icons/skills/trades/construction-carpentry-hammer-gray.webp",
   "effects": [],
@@ -22,7 +25,7 @@
     "exportSource": null,
     "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.2.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760283884159,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
