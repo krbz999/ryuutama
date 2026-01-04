@@ -8,8 +8,19 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       description: new SchemaField(this.HTMLFields),
+      identifier: new ryuutama.data.fields.IdentifierField(),
+      source: new ryuutama.data.fields.SourceField(),
     };
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static LOCALIZATION_PREFIXES = [
+    ...super.LOCALIZATION_PREFIXES,
+    "RYUUTAMA.ITEM",
+    "RYUUTAMA.SOURCE",
+  ];
 
   /* -------------------------------------------------- */
 

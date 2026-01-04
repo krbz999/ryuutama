@@ -58,6 +58,11 @@
         "styles",
         "templates"
       ]
+    },
+    "ryuutama": {
+      "sources": [
+        { "short": "RYUUTAMA.SOURCE.SHORT", "long": "RYUUTAMA.SOURCE.LONG" }
+      ]
     }
   },
   "documentTypes": {

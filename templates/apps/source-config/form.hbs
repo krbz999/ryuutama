@@ -1,0 +1,35 @@
+<section>
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.SOURCE.source"}}</legend>
+    {{!-- BOOK LABEL --}}
+    {{formGroup systemFields.source.fields.custom value=source.system.source.custom rootId=rootId}}
+    {{#unless source.system.source.custom}}
+    <div class="form-group">
+      <label for="{{rootId}}-system.source.book">{{systemFields.source.fields.book.label}}</label>
+      <div class="form-fields">
+        <input type="text" name="system.source.book" id="{{rootId}}-system.source.book" value="{{source.system.source.book}}" list="{{rootId}}-system.source.book-list">
+        <datalist id="{{rootId}}-system.source.book-list">
+          {{#each bookOptions}}
+          <option value="{{value}}">{{label}}</option>
+          {{/each}}
+        </datalist>
+      </div>
+    </div>
+    {{/unless}}
+
+    {{!-- COMPENDIUM SOURCE --}}
+    {{#if compendiumSource}}
+    <div class="form-group slim">
+      <label>{{localize "RYUUTAMA.SOURCE.compendiumSource"}}</label>
+      <div class="form-fields">
+        <span>{{{compendiumSource}}}</span>
+      </div>
+    </div>
+    {{/if}}
+  </fieldset>
+
+  {{!-- IDENTIFIER --}}
+  {{#if isItem}}
+  {{formGroup systemFields.identifier value=source.system.identifier placeholder=identifierPlaceholder rootId=rootId}}
+  {{/if}}
+</section>

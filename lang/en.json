@@ -350,6 +350,10 @@
     },
 
     "ITEM": {
+      "FIELDS": {
+        "identifier.label": "Identifier",
+        "identifier.hint": "A unique identifier for this item. Two items with the same identifier are, for all intents and purposes, considered to be the same item."
+      },
       "CONTEXT": {
         "EFFECT": {
           "edit": "Edit Effect",
@@ -424,8 +428,6 @@
 
       "CLASS": {
         "FIELDS": {
-          "identifier.label": "Identifier",
-          "identifier.hint": "A unique identifier for this class item. Two items with the same identifier are, for all intents and purposes, considered to be the same item.",
           "skills.label": "Skills",
           "skills.hint": "Enter uuids of Skill items that will be granted when this class is chosen."
         },
@@ -468,10 +470,7 @@
       },
 
       "SKILL": {
-        "FIELDS": {
-          "identifier.label": "Identifier",
-          "identifier.hint": "A unique identifier for this skill item. Two items with the same identifier are, for all intents and purposes, considered to be the same item."
-        }
+        "FIELDS": {}
       },
 
       "SPELL": {
@@ -732,6 +731,7 @@
     "SETTINGS": {},
 
     "SHEET": {
+      "openSourceConfig": "Show Source Config",
       "toggleEditMode": "Toggle Edit Mode"
     },
 
@@ -748,6 +748,18 @@
         "contextMenuAssignPrimaryParty": "Assign Primary Party",
         "contextMenuRemovePrimaryParty": "Remove Primary Party"
       }
+    },
+
+    "SOURCE": {
+      "FIELDS": {
+        "source.book.label": "Book",
+        "source.custom.label": "Custom"
+      },
+      "SHORT": "Ryuutama",
+      "LONG": "Ryuutama: Natural Fantasy Roleplay",
+      "compendiumSource": "Compendium Source",
+      "source": "Source",
+      "title": "Configure Source: {name}"
     },
 
     "STATUSES": {
