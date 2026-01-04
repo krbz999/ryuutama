@@ -16,7 +16,9 @@
 
     {{!-- TRAVELER: XP BAR --}}
     {{#if (eq document.type "traveler")}}
-    <resource-bar resource="system.details.exp" class="exp" id="{{rootId}}-exp"></resource-bar>
+    {{#with document.system.details.exp}}
+    <progress-bar data-name="system.details.exp.value" class="exp" id="{{rootId}}-exp" data-value="{{value}}" data-pct="{{pct}}" data-label="{{value}} / {{max}}" data-input></progress-bar>
+    {{/with}}
     {{/if}}
   </h3>
   {{> "templates/generic/tab-navigation.hbs"}}

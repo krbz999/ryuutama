@@ -1,7 +1,9 @@
 <section data-tab="{{tabs.inventory.id}}" class="{{tabs.inventory.cssClass}}" data-group="{{tabs.inventory.group}}">
   {{!-- CAPACITY BAR --}}
   <div class="capacity">
-    <progress-bar resource="system.capacity" class="capacity {{#if capacityOverflow}} overflow {{/if}}" id="{{rootId}}-capacity"></progress-bar>
+    {{#with document.system.capacity}}
+    <progress-bar class="capacity {{#if capacityOverflow}} overflow {{/if}}" id="{{rootId}}-capacity" data-label="{{value}} / {{max}}" data-pct="{{pct}}"></progress-bar>
+    {{/with}}
     {{#if document.system.capacity.penalty}}
     <span class="tag">({{{capacityPenalty}}})</span>
     {{/if}}

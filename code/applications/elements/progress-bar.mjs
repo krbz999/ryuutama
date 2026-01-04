@@ -17,28 +17,6 @@ export default class ProgressBar extends HTMLElement {
   /* -------------------------------------------------- */
 
   /**
-   * The percentage fill.
-   * @type {number}
-   */
-  get pct() {
-    return Number(this.getAttribute("pct")) || 0;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Set the percentage fill.
-   * @param {number} value
-   */
-  set pct(value) {
-    if (isNaN(value) || (value < 0)) return;
-    this.setAttribute("pct", String(value));
-    this.#bar.style.setProperty("--fill", `${value}%`);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
    * The inner bar that holds the fill.
    * @type {HTMLSpanElement}
    */
@@ -61,51 +39,38 @@ export default class ProgressBar extends HTMLElement {
   /* -------------------------------------------------- */
 
   /**
-   * The document sheet's element on which this is attached.
-   * @type {HTMLFormElement|null}
+   * A temporary input field displayed when the progress bar is clicked.
+   * @type {HTMLInputElement|null}
    */
-  #app;
+  #input = null;
+  get input() {
+    return this.#input;
+  }
 
   /* -------------------------------------------------- */
 
   /**
-   * The document sheet.
+   * The id of the application on which this is rendered.
+   * @type {string|null}
+   */
+  #appId;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The application on which this is rendered.
    * @type {Application|null}
    */
   get app() {
-    return foundry.applications.instances.get(this.#app?.id) ?? null;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * The document attached to this element's app.
-   * @type {foundry.abstract.Document|null}
-   */
-  get document() {
-    return this.app?.document ?? null;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * The tracked resource or other value.
-   * @type {{ value: number, max: number, pct: number }|null}
-   */
-  get resource() {
-    const resource = this.getAttribute("resource");
-    if (!resource) return null;
-    return foundry.utils.getProperty(this.document, resource) ?? null;
+    return foundry.applications.instances.get(this.#appId);
   }
 
   /* -------------------------------------------------- */
 
   /** @override */
   connectedCallback() {
-    this.#app = this.closest(".application") ?? null;
-    if (!this.resource) return;
-
-    const { value, max, pct } = this.resource;
+    const { value, pct, label, input, name } = this.dataset;
+    this.#appId = this.closest(".application")?.id ?? null;
 
     this.#bar = this.ownerDocument.createElement("SPAN");
     this.#bar.classList.add("bar");
@@ -114,10 +79,21 @@ export default class ProgressBar extends HTMLElement {
 
     this.#display = this.ownerDocument.createElement("SPAN");
     this.#display.classList.add("display");
-    this.#display.textContent = `${value} / ${max}`;
+    this.#display.textContent = label;
     this.insertAdjacentElement("beforeend", this.#display);
 
     this.#animateConnection();
+
+    if (!this.hasAttribute("data-input") || (input === "false")) return;
+    this.addEventListener("click", ProgressBar.#onClick.bind(this));
+    this.#input = this.ownerDocument.createElement("INPUT");
+    this.#input.classList.add("hidden", "delta");
+    this.#input.type = "text";
+    this.#input.value = value;
+    this.#input.disabled = true;
+    this.#input.name = name;
+    this.insertAdjacentElement("beforeend", this.#input);
+    this.#input.addEventListener("blur", ProgressBar.#onBlur.bind(this));
   }
 
   /* -------------------------------------------------- */
@@ -143,5 +119,30 @@ export default class ProgressBar extends HTMLElement {
 
     if (stored === null) return;
     bar.animate([{ right: `${stored}%` }, { right: `${value}%` }], { duration: 500, easing: "ease-in-out" });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this ProgressBar
+   */
+  static #onClick(event) {
+    if (!this.app?.isEditable) return;
+
+    this.display.classList.add("hidden");
+    this.#input.classList.remove("hidden");
+    this.#input.disabled = false;
+    this.#input.select();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this ProgressBar
+   */
+  static #onBlur(event) {
+    this.display.classList.remove("hidden");
+    this.#input.classList.add("hidden");
+    this.#input.disabled = true;
   }
 }
