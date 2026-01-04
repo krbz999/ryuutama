@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>These huts are said to be made by the cruelest of magicians. A mimic hut appears to be nothing more than a small hut with a single door, waiting on the side of the road, but is actually a large and fierce magical creature. The instant anyone so much as sets foot inside the hut, a sticky fluid entraps them, keeping them in place to be devoured. Only death awaits those unfortunate enough to be caught by the mimic hut. Though normally subtle, if it senses prey lingering in the area without going inside, it may resort to direct attacks.</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "Mimic Hut",
@@ -206,9 +209,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761253620210,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

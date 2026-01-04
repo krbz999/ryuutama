@@ -6,7 +6,10 @@
     "description": {
       "value": "<p>After years of study under a learned tutor, you have memorized facts and trivia about many aspects of the world. You know more than the average person about history, famous people and well-traveled places.</p><p><strong>Skill Effect:</strong> Know detailed information about the things you see or hear.</p><p><strong>Usable Circumstances:</strong> Seeing or hearing something.</p><p><strong>Stat Used:</strong> [INT + INT]</p><p><strong>TN:</strong> GM's discretion</p>"
     },
-    "identifier": "refined-education"
+    "identifier": "refined-education",
+    "source": {
+      "book": "Ryuutama"
+    }
   },
   "img": "icons/sundries/books/book-open-red.webp",
   "effects": [],
@@ -22,7 +25,7 @@
     "exportSource": null,
     "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.2.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760284180438,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

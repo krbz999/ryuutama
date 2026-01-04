@@ -6,7 +6,10 @@
     "description": {
       "value": "<p>You heal a companion's injuries by creating a secret remedy from Healing Herbs and water. Any Healing Herb may be used, but the process takes time, so this skill is less effective if used during combat.</p><p><strong>Skill Effect:</strong> Target character recovers HP equal to the result of [INT + SPI]. During combat, recover only the result of [INT] (only 1 die.)</p><p><strong>Usable Circumstances:</strong> Spend 1 Healing Herb</p><p><strong>Stat Used:</strong> [INT + SPI] (During combat, [INT] only)</p><p><strong>TN:</strong> None</p>"
     },
-    "identifier": "healing"
+    "identifier": "healing",
+    "source": {
+      "book": "Ryuutama"
+    }
   },
   "img": "icons/magic/nature/beam-hand-leaves-green.webp",
   "effects": [],
@@ -22,7 +25,7 @@
     "exportSource": null,
     "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.2.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760283727221,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

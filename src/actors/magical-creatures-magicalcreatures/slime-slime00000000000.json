@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>Slimes are magical creatures that resemble slime molds. Though most have oozing, jelly-like bodies, there are some with a cuter, rounded shape. Most slimes are blue or green and live in the shade, beneath rocks or otherwise out of direct sunlight. The largest slime on record was larger than 10 meters in size. Care must be taken when fighting slimes, as any slime that remains after the battle will eventually grow back into a full slime.</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "Slime",
@@ -206,9 +209,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761253413507,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

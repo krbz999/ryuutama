@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>These are magical constructs in the shape of small castles. They are said to have been made by the most powerful sorcerers, long ago, since today's magic lacks the power to create them. They don't have very powerful fighting skills, but they have the ability to consume weapons and spit out the magical animals that it produces within itself. Sometimes they make deals with towns in need of protection.</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "Factory",
@@ -206,9 +209,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761253662085,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

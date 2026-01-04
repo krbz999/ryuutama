@@ -10,7 +10,10 @@
       "Compendium.ryuutama.classes.Item.herbgathering000"
     ],
     "identifier": "healer",
-    "tier": 1
+    "tier": 1,
+    "source": {
+      "book": "Ryuutama"
+    }
   },
   "_id": "classhealer00000",
   "type": "class",
@@ -26,9 +29,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1763295844701,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

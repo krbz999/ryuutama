@@ -6,7 +6,10 @@
     "description": {
       "value": "<p>You have learned how to raise animals that will help you carry your goods. Normally, only one animal can be taken on a Journey for free (without paying their daily food and water costs). With this skill, you can keep more animals without incurring their food and water costs. The animal rules are explained in detail in the Items section.</p><p><strong>Skill Effect:</strong> You can keep 2 more animals for a total of 3 without paying for their food and water.</p><p><strong>Usable Circumstances:</strong> -</p><p><strong>Stat Used:</strong> -</p><p><strong>TN:</strong> -</p>"
     },
-    "identifier": "animal-owner"
+    "identifier": "animal-owner",
+    "source": {
+      "book": "Ryuutama"
+    }
   },
   "img": "icons/creatures/mammals/livestock-sheep-green.webp",
   "effects": [],
@@ -22,7 +25,7 @@
     "exportSource": null,
     "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.2.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760283856017,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

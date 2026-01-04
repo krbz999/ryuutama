@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>These mages know mid-level magic: up to mid-level spells of 1 season, 6 low-level and 4 mid-level invocation spells. These wizards are powerful enough to act as tutors or teachers of young magic users. Many mid-level wizards embark on long journeys to understand the differences between the seasons.</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "Mid-level Magician",
@@ -175,9 +178,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.1.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761254320305,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

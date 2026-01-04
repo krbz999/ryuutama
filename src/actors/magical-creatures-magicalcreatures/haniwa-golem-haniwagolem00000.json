@@ -63,6 +63,9 @@
     },
     "description": {
       "value": "<p>These magical beings are created from kiln-fired clay in various humanoid shapes. Though they are not very durable and will often fall apart when struck with weapons, they are very easy to repair. They are not really made for combat; their main use is everyday chores though in some regions they are used as decor.</p>"
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "name": "Haniwa Golem",
@@ -206,9 +209,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1761253572738,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

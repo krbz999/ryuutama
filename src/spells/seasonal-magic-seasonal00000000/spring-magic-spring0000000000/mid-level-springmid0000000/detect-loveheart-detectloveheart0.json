@@ -25,6 +25,9 @@
         "custom": "Loving heart"
       },
       "effects": {}
+    },
+    "source": {
+      "book": "Ryuutama"
     }
   },
   "_id": "detectloveheart0",
@@ -41,9 +44,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.350",
+    "coreVersion": "13.351",
     "systemId": "ryuutama",
-    "systemVersion": "1.0.0",
+    "systemVersion": "1.4.0",
     "createdTime": 1760193394504,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
