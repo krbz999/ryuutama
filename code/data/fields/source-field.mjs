@@ -17,7 +17,7 @@ export default class SourceField extends SchemaField {
   /* -------------------------------------------------- */
 
   /**
-   * Format the source label from a source configuration.
+   * Format the source label for an actor or item.
    * @param {RyuutamaActor|RyuutamaItem} [entry]
    * @returns {Promise<string>}
    */
