@@ -15,9 +15,8 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
+  /** @override */
   static LOCALIZATION_PREFIXES = [
-    ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ITEM",
     "RYUUTAMA.SOURCE",
   ];
