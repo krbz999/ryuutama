@@ -1,18 +1,15 @@
-<section>
-  <fieldset>
-    <legend>{{localize "RYUUTAMA.ITEM.CLASS.skills"}}</legend>
+<section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
+  {{formGroup systemFields.identifier value=(ifThen disabled document.identifier source.system.identifier) disabled=disabled placeholder=identifierPlaceholder}}
 
-    {{#if disabled}}
-    {{#each classSkills}}
-    <section class="description">
-      <h4 data-uuid="{{item.uuid}}">
-        <a data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}" data-action="renderDocument">{{item.name}}</a>
-      </h4>
-    </section>
-    {{/each}}
-    {{else}}
-    {{formGroup systemFields.skills value=source.system.skills}}
-    {{/if}}
-
-  </fieldset>
+  {{#if disabled}}
+  {{#each classSkills}}
+  <section class="description">
+    <h4 data-uuid="{{item.uuid}}">
+      <a data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}" data-action="renderDocument">{{item.name}}</a>
+    </h4>
+  </section>
+  {{/each}}
+  {{else}}
+  {{formGroup systemFields.skills value=source.system.skills classes="stacked"}}
+  {{/if}}
 </section>

@@ -2,6 +2,31 @@ import BaseData from "./templates/base.mjs";
 
 const { NumberField, SchemaField, StringField } = foundry.data.fields;
 
+/**
+ * @typedef SpellData
+ * @property {object} category
+ * @property {string} category.value
+ * @property {object} description
+ * @property {string} description.value
+ * @property {string} identifier
+ * @property {object} source
+ * @property {string} source.book
+ * @property {string} source.custom
+ * @property {object} spell
+ * @property {object} spell.activation
+ * @property {string} spell.activation.cast
+ * @property {number|null} spell.activation.mental
+ * @property {object} spell.duration
+ * @property {number} spell.duration.value
+ * @property {string} spell.duration.type
+ * @property {string} spell.duration.custom
+ * @property {string} spell.level
+ * @property {object} spell.range
+ * @property {string} spell.range.value
+ * @property {object} spell.target
+ * @property {string} spell.target.custom
+ */
+
 export default class SpellData extends BaseData {
   /** @override */
   static defineSchema() {
@@ -23,7 +48,6 @@ export default class SpellData extends BaseData {
           type: new StringField({ required: true, initial: "instant", choices: () => ryuutama.config.spellDurationTypes }),
           custom: new StringField({ required: true }),
         }),
-        effects: new SchemaField({}),
         level: new StringField({ required: true, initial: "low", choices: () => ryuutama.config.spellLevels }),
         range: new SchemaField({
           value: new StringField({ required: true, initial: "touch", choices: () => ryuutama.config.spellRangeTypes }),
@@ -42,6 +66,11 @@ export default class SpellData extends BaseData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ITEM.SPELL",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/spell.hbs";
 
   /* -------------------------------------------------- */
 
@@ -80,5 +109,23 @@ export default class SpellData extends BaseData {
         break;
     }
     return options;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  async _prepareSubtypeContext(sheet, context, options) {
+    context.spell = { duration: {} };
+
+    context.spell.duration.type = context.disabled
+      ? this.spell.duration.type
+      : this._source.spell.duration.type;
+    context.spell.duration.units = !!ryuutama.config.spellDurationTypes[context.spell.duration.type]?.units;
+    context.spell.duration.special = context.spell.duration.type === "special";
+
+    const seasonal = game.i18n.localize("RYUUTAMA.ITEM.SPELL.CATEGORIES.seasonal");
+    context.spell.magicOptions = Object.entries(ryuutama.config.spellCategories).map(([k, v]) => {
+      return { value: k, label: v.label, group: k === "incantation" ? undefined : seasonal };
+    });
   }
 }

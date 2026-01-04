@@ -6,12 +6,24 @@ import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 
 export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /** @override */
+  static DEFAULT_OPTIONS = {
+    position: { width: 400 },
+  };
+
+  /* -------------------------------------------------- */
+
+  /** @override */
   static PARTS = {
     navigation: {
       template: "templates/generic/tab-navigation.hbs",
     },
+    identity: {
+      template: "systems/ryuutama/templates/sheets/item-sheet/identity.hbs",
+      classes: ["tab", "scrollable", "standard-form"],
+      scrollable: [""],
+    },
     details: {
-      template: "systems/ryuutama/templates/sheets/item-sheet/details.hbs",
+      template: null,
       classes: ["tab", "scrollable", "standard-form"],
       scrollable: [""],
     },
@@ -28,35 +40,40 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   static TABS = {
     primary: {
       tabs: [
+        { id: "identity" },
         { id: "details" },
         { id: "effects" },
       ],
-      initial: "details",
+      initial: "identity",
       labelPrefix: "RYUUTAMA.ITEM.TABS",
     },
   };
 
   /* -------------------------------------------------- */
 
+  /** @override */
+  get title() {
+    return this.document.name;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  _configureRenderParts(options) {
+    const details = this.document.system.constructor.DETAILS_TEMPLATE;
+    const parts = foundry.utils.deepClone(this.constructor.PARTS);
+    parts.details.template = details;
+    Object.values(parts).forEach(p => p.templates ??= []);
+    return parts;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    const modifierOptions = this.#prepareModifiers();
 
     Object.assign(context, {
-      isAnimal: this.document._source.type === "animal",
-      isClass: this.document._source.type === "class",
-      isContainer: this.document._source.type === "container",
-      isHerb: this.document._source.type === "herb",
-      isSpell: this.document._source.type === "spell",
-      isWeapon: this.document._source.type === "weapon",
-      hasIdentifier: this.document.system.schema.has("identifier"),
-      hasDurability: this.document.system.schema.has("durability"),
-      hasPrice: this.document.system.schema.has("price"),
-      hasModifiers: modifierOptions.length > 0,
-      modifierOptions: modifierOptions,
-      isGear: this.document.system.schema.has("gear"),
-      hasArmor: this.document.system.schema.has("armor"),
       enriched: {
         description: await CONFIG.ux.TextEditor.enrichHTML(
           this.document.system.description.value,
@@ -65,110 +82,13 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       },
     });
 
-    if (context.hasIdentifier) {
-      context.identifierPlaceholder = ryuutama.utils.createDefaultIdentifier(this.document._source.name);
-    }
-
-    if (context.isHerb) {
-      context.enriched.effect = await CONFIG.ux.TextEditor.enrichHTML(
-        this.document.system.description.effect,
-        { rollData: this.document.getRollData(), relativeTo: this.document },
-      );
-
-      const herbLevelOptions = Array.fromRange(5, 1).map(n => {
-        return { value: n, label: game.i18n.localize(`RYUUTAMA.ITEM.HERB.terrainLevel${n}`) };
-      });
-      const herbTypes = [
-        { value: "", label: game.i18n.localize("RYUUTAMA.ITEM.HERB.anyTerrain") },
-      ];
-      for (const k in ryuutama.config.terrainTypes) {
-        const { label, level } = ryuutama.config.terrainTypes[k];
-        if (level === this.document.system.terrain.level) herbTypes.push({
-          label,
-          value: k,
-          group: game.i18n.localize("RYUUTAMA.ITEM.HERB.specificTerrain"),
-        });
-      }
-      context.herbTypes = herbTypes;
-      context.herbLevelOptions = herbLevelOptions;
-    }
-
-    if (context.isSpell) {
-      context.spell = {};
-      const duration = context.spell.duration = {};
-      duration.type = context.disabled
-        ? context.document.system.spell.duration.type
-        : context.source.system.spell.duration.type;
-      duration.units = !!ryuutama.config.spellDurationTypes[context.spell.duration.type]?.units;
-      duration.special = duration.type === "special";
-
-      const seasonal = game.i18n.localize("RYUUTAMA.ITEM.SPELL.CATEGORIES.seasonal");
-      context.spell.magicOptions = Object.entries(ryuutama.config.spellCategories).map(([k, v]) => {
-        return { value: k, label: v.label, group: k === "incantation" ? undefined : seasonal };
-      });
-    }
-
-    if (context.isAnimal) {
-      const config = ryuutama.config.animalTypes[this.document.system.category.value];
-      context.animal = {
-        defaultRiding: config.ride,
-        defaultCapacity: config.capacity,
-      };
-    }
-
-    if (context.isClass && context.disabled) context.classSkills = await this.#prepareClassSkills();
-
     // Effects.
     context.effects = this.#prepareEffects(context);
 
+    // Subtype specific context modification.
+    await this.document.system._prepareSubtypeContext(this, context, options);
+
     return context;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare class skills for enriched display.
-   * @returns {Promise<{ item: RyuutamaItem }[]>}
-   */
-  async #prepareClassSkills() {
-    const skills = [];
-    for (const uuid of this.document.system.skills) {
-      const item = await fromUuid(uuid);
-      if (!item || (item.type !== "skill")) continue;
-      skills.push({ item });
-    }
-    return skills;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare the options for the item's modifiers.
-   * @returns {{ value: string, label: string}[]}
-   */
-  #prepareModifiers() {
-    if (!this.document.system.schema.has("modifiers")) return [];
-    const config = this.document.type === "animal" ? ryuutama.config.animalModifiers : ryuutama.config.itemModifiers;
-
-    const isEditable = this.isEditable && this.isEditMode;
-    const options = {};
-
-    for (const [k, v] of Object.entries(config)) {
-      if (v.hidden && isEditable && !this.document.system._source.modifiers.includes(k)) continue;
-      if (v.hidden && !isEditable && !this.document.system.modifiers.has(k)) continue;
-      options[k] = { value: k, label: v.label };
-    }
-
-    // 'Well-Traveled' applies only to Riding Animals.
-    if ((this.document.type === "animal") && !["riding", "ridingLarge"].includes(this.document.system.category.value)) {
-      delete options.wellTraveled;
-    }
-
-    for (const k of this.document.system._source.modifiers) {
-      if (!(k in options)) options[k] = { value: k, label: k };
-    }
-
-    return Object.values(options);
   }
 
   /* -------------------------------------------------- */

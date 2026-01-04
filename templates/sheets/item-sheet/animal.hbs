@@ -1,7 +1,12 @@
-<fieldset>
-  <legend>{{localize "RYUUTAMA.ITEM.ANIMAL.configuration"}}</legend>
+<section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
+  {{!-- PRICE --}}
+  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.total source.system.price.value) disabled=disabled classes="slim" placeholder="1"}}
+
+  {{!-- MODIFIERS --}}
+  {{formGroup systemFields.modifiers value=(ifThen disabled document.system.modifiers source.system.modifiers) disabled=disabled options=modifiers type="checkboxes" classes="stacked"}}
+
   {{!-- ANIMAL TYPE --}}
-  {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled}}
+  {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim"}}
 
   {{!-- RIDING CAPACITY --}}
   {{#if document.system.capacity.canRide}}
@@ -12,4 +17,4 @@
   {{#if document.system.capacity.canCarry}}
   {{formGroup systemFields.capacity.fields.max value=(ifThen disabled document.system.capacity.max source.system.capacity.max) disabled=disabled classes="slim" placeholder=animal.defaultCapacity}}
   {{/if}}
-</fieldset>
+</section>

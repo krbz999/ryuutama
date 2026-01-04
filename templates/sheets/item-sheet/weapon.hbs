@@ -1,28 +1,35 @@
-<section>
-  <fieldset>
-    <legend>{{localize "RYUUTAMA.ITEM.WEAPON.weaponConfiguration"}}</legend>
+<section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
+  {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim" blank=(localize "RYUUTAMA.ITEM.WEAPON.TYPES.improvised")}}
 
-    {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim" blank=(localize "RYUUTAMA.ITEM.WEAPON.TYPES.improvised")}}
-
-    {{#unless document.system.isImprovised}}
-    <div class="form-group">
-      <label>{{localize "RYUUTAMA.ITEM.WEAPON.weaponAccuracy"}}</label>
-      <div class="form-fields last-slim">
-        {{#each (ifThen disabled document.system.accuracy.abilities source.system.accuracy.abilities) as |v k|}}
-        {{formInput @root.systemFields.accuracy.fields.abilities.element value=v name=(concat "system.accuracy.abilities." k) disabled=@root.disabled}}
-        {{/each}}
-        {{formInput systemFields.accuracy.fields.bonus value=(ifThen disabled document.system.accuracy.bonus source.system.accuracy.bonus) disabled=disabled placeholder="0"}}
-      </div>
+  {{!-- SIZE & DURABILITY --}}
+  <div class="form-group stacked">
+    <label>{{localize "RYUUTAMA.ITEM.durability" value=document.system.durability.value max=document.system.durability.max}}</label>
+    <div class="form-fields">
+      {{formGroup systemFields.durability.fields.spent value=(ifThen disabled document.system.durability.spent source.system.durability.spent) disabled=disabled max=document.system.durability.max type="number"}}
+      {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.total source.system.size.value) disabled=disabled}}
     </div>
+  </div>
 
-    <div class="form-group">
-      <label>{{localize "RYUUTAMA.ITEM.WEAPON.weaponDamage"}}</label>
-      <div class="form-fields last-slim">
-        {{formInput systemFields.damage.fields.ability value=(ifThen disabled document.system.damage.ability source.system.damage.ability) disabled=disabled}}
-        {{formInput systemFields.damage.fields.bonus value=(ifThen disabled document.system.damage.bonus source.system.damage.bonus) disabled=disabled placeholder="0"}}
-      </div>
+  {{#unless document.system.isImprovised}}
+  <div class="form-group stacked">
+    <label>{{localize "RYUUTAMA.ITEM.WEAPON.weaponAccuracy"}}</label>
+    <div class="form-fields last-slim">
+      {{#each (ifThen disabled document.system.accuracy.abilities source.system.accuracy.abilities) as |v k|}}
+      {{formInput @root.systemFields.accuracy.fields.abilities.element value=v name=(concat "system.accuracy.abilities." k) disabled=@root.disabled}}
+      {{/each}}
+      {{formInput systemFields.accuracy.fields.bonus value=(ifThen disabled document.system.accuracy.bonus source.system.accuracy.bonus) disabled=disabled placeholder="0"}}
     </div>
-    {{/unless}}
+  </div>
 
-  </fieldset>
+  <div class="form-group stacked">
+    <label>{{localize "RYUUTAMA.ITEM.WEAPON.weaponDamage"}}</label>
+    <div class="form-fields last-slim">
+      {{formInput systemFields.damage.fields.ability value=(ifThen disabled document.system.damage.ability source.system.damage.ability) disabled=disabled}}
+      {{formInput systemFields.damage.fields.bonus value=(ifThen disabled document.system.damage.bonus source.system.damage.bonus) disabled=disabled placeholder="0"}}
+    </div>
+  </div>
+  {{/unless}}
+
+  {{!-- MODIFIERS --}}
+  {{formGroup systemFields.modifiers value=(ifThen disabled document.system.modifiers source.system.modifiers) disabled=disabled options=modifiers type="checkboxes" classes="stacked"}}
 </section>

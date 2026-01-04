@@ -2,6 +2,26 @@ import PhysicalData from "./templates/physical.mjs";
 
 const { NumberField, SchemaField } = foundry.data.fields;
 
+/**
+ * @typedef ArmorData
+ * @property {object} armor
+ * @property {number|null} armor.defense
+ * @property {number|null} armor.penalty
+ * @property {object} description
+ * @property {string} description.value
+ * @property {object} durability
+ * @property {number} durability.spent
+ * @property {string} identifier
+ * @property {string[]} modifiers
+ * @property {object} price
+ * @property {number} price.value
+ * @property {object} size
+ * @property {number} size.value
+ * @property {object} source
+ * @property {string} source.book
+ * @property {string} source.custom
+ */
+
 export default class ArmorData extends PhysicalData {
   /** @inheritdoc */
   static defineSchema() {
@@ -20,6 +40,11 @@ export default class ArmorData extends PhysicalData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ARMOR",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/armor.hbs";
 
   /* -------------------------------------------------- */
 

@@ -2,6 +2,7 @@
   {{!-- PRICE --}}
   {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.total source.system.price.value) disabled=disabled classes="slim" placeholder="1"}}
 
+  {{!-- SIZE & DURABILITY --}}
   <div class="form-group stacked">
     <label>{{localize "RYUUTAMA.ITEM.durability" value=document.system.durability.value max=document.system.durability.max}}</label>
     <div class="form-fields">
@@ -10,8 +11,12 @@
     </div>
   </div>
 
-  {{!-- GEAR --}}
-  {{formGroup systemFields.gear.fields.custom value=(ifThen disabled document.system.gear.custom source.system.gear.custom) disabled=disabled label=(concat systemFields.gear.fields.custom.label " (+" document.system.gear.check ")") classes="stacked"}}
+  {{!-- ARMOR --}}
+  {{formGroup systemFields.armor.fields.defense value=(ifThen disabled document.system.armor.defense source.system.armor.defense) disabled=disabled classes="slim" placeholder="0"}}
+  {{formGroup systemFields.armor.fields.penalty value=(ifThen disabled document.system.armor.penalty source.system.armor.penalty) disabled=disabled classes="slim" placeholder="0"}}
+
+  {{!-- SHIELD DODGE VALUE --}}
+  {{formGroup systemFields.armor.fields.dodge value=(ifThen disabled document.system.armor.dodge source.system.armor.dodge) disabled=disabled placeholder="0" rootId=rootId classes="slim"}}
 
   {{!-- MODIFIERS --}}
   {{formGroup systemFields.modifiers value=(ifThen disabled document.system.modifiers source.system.modifiers) disabled=disabled options=modifiers type="checkboxes" classes="stacked"}}

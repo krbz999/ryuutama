@@ -387,7 +387,8 @@
       },
       "TABS": {
         "details": "Details",
-        "effects": "Effects"
+        "effects": "Effects",
+        "identity": "Identity"
       },
       "activeEffects": "Active",
       "defenses": "Defenses",

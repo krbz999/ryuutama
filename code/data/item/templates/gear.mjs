@@ -22,6 +22,18 @@ export default class GearData extends PhysicalData {
 
   /* -------------------------------------------------- */
 
+  /** @override */
+  static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/gear.hbs";
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _prepareSubtypeContext(context, options) {
+    await super._prepareSubtypeContext(context, options);
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   prepareBaseData() {
     super.prepareBaseData();
