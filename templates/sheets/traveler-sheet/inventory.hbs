@@ -2,7 +2,7 @@
   {{!-- CAPACITY BAR --}}
   <div class="capacity">
     {{#with document.system.capacity}}
-    <progress-bar class="capacity {{#if capacityOverflow}} overflow {{/if}}" id="{{rootId}}-capacity" data-label="{{value}} / {{max}}" data-pct="{{pct}}"></progress-bar>
+    <progress-bar class="capacity {{#if @root.capacityOverflow}} overflow {{/if}}" id="{{@root.rootId}}-capacity" data-label="{{value}} / {{max}}" data-pct="{{pct}}"></progress-bar>
     {{/with}}
     {{#if document.system.capacity.penalty}}
     <span class="tag">({{{capacityPenalty}}})</span>

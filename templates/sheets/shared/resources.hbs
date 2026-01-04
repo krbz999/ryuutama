@@ -13,7 +13,7 @@
   <label>{{localize "RYUUTAMA.ACTOR.MP"}}</label>
   <div class="form-fields">
     {{#with document.system.resources.mental}}
-    <progress-bar class="mental" id="{{rootId}}-mental" data-value="{{value}}" data-pct="{{pct}}" data-input data-name="system.resources.mental.value" data-label="{{value}} / {{max}}"></progress-bar>
+    <progress-bar class="mental" id="{{@root.rootId}}-mental" data-value="{{value}}" data-pct="{{pct}}" data-input data-name="system.resources.mental.value" data-label="{{value}} / {{max}}"></progress-bar>
     {{/with}}
     {{#unless disabled}}
     <button type="button" data-action="configure" data-config="resource" data-resource="mental" class="icon fa-solid fa-cog"></button>
