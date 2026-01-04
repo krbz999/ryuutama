@@ -1,0 +1,19 @@
+<section data-tab="{{tabs.identity.id}}" class="{{tabs.identity.cssClass}}" data-group="{{tabs.identity.group}}">
+  {{!-- NAME --}}
+  {{formGroup fields.name value=(ifThen disabled document.name source.name) disabled=disabled classes="stacked"}}
+
+  {{!-- IMG --}}
+  {{formGroup fields.img value=(ifThen disabled document.img source.img) disabled=disabled classes="stacked"}}
+
+  {{!-- DESCRIPTION --}}
+  {{#if disabled}}
+  {{#if enriched.description}}
+  <section class="description">
+    <h4>{{localize "RYUUTAMA.ITEM.description"}}</h4>
+    {{{enriched.description}}}
+  </section>
+  {{/if}}
+  {{else}}
+  {{formInput systemFields.description.fields.value value=source.system.description.value height=300}}
+  {{/if}}
+</section>

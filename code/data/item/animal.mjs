@@ -2,6 +2,24 @@ import BaseData from "./templates/base.mjs";
 
 const { NumberField, SetField, SchemaField, StringField } = foundry.data.fields;
 
+/**
+ * @typedef AnimalData
+ * @property {object} capacity
+ * @property {number|null} capacity.max
+ * @property {number|null} capacity.riders
+ * @property {object} category
+ * @property {string} category.value
+ * @property {object} description
+ * @property {string} description.value
+ * @property {string} identifier
+ * @property {string[]} modifiers
+ * @property {object} price
+ * @property {number} price.value
+ * @property {object} source
+ * @property {string} source.book
+ * @property {string} source.custom
+ */
+
 export default class AnimalData extends BaseData {
   /** @inheritdoc */
   static defineSchema() {
@@ -27,6 +45,11 @@ export default class AnimalData extends BaseData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ITEM.ANIMAL",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/animal.hbs";
 
   /* -------------------------------------------------- */
 
@@ -91,5 +114,30 @@ export default class AnimalData extends BaseData {
       if (label) this.modifierLabels.push(label);
     }
     this.modifierLabels.sort((a, b) => a.localeCompare(b));
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  async _prepareSubtypeContext(sheet, context, options) {
+    // Prepare modifiers.
+    const config = ryuutama.config.animalModifiers;
+    const isEditable = sheet.isEditable && sheet.isEditMode;
+    const choices = {};
+    for (const [k, v] of Object.entries(config)) {
+      if (v.hidden && isEditable && !this._source.modifiers.includes(k)) continue;
+      if (v.hidden && !isEditable && !this.modifiers.has(k)) continue;
+      choices[k] = { value: k, label: v.label };
+    }
+    // 'Well-Traveled' applies only to Riding Animals.
+    if (!["riding", "ridingLarge"].includes(this.category.value)) delete choices.wellTraveled;
+    for (const k of this._source.modifiers) {
+      if (!(k in choices)) choices[k] = { value: k, label: k };
+    }
+    context.modifiers = Object.values(choices);
+
+    // Animal capacity details.
+    const { ride, capacity } = ryuutama.config.animalTypes[this.category.value];
+    context.animal = { defaultRiding: ride, defaultCapacity: capacity };
   }
 }

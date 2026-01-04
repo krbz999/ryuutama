@@ -1,3 +1,5 @@
+import BaseData from "./base.mjs";
+
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
  * @import { DamageConfiguration } from "./_types.mjs";
@@ -9,8 +11,8 @@
 
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
-export default class CreatureData extends foundry.abstract.TypeDataModel {
-  /** @override */
+export default class CreatureData extends BaseData {
+  /** @inheritdoc */
   static defineSchema() {
     const makeResource = () => {
       return new SchemaField({
@@ -23,7 +25,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
       });
     };
 
-    return {
+    return Object.assign(super.defineSchema(), {
       condition: new SchemaField({
         immunities: new SetField(new StringField({ choices: () => ryuutama.config.statusEffects })),
         rationing: new NumberField({ nullable: false, initial: 0, min: 0, integer: true }),
@@ -43,8 +45,7 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
         mental: makeResource(),
         stamina: makeResource(),
       }),
-      source: new ryuutama.data.fields.SourceField(),
-    };
+    });
   }
 
   /* -------------------------------------------------- */
@@ -53,7 +54,6 @@ export default class CreatureData extends foundry.abstract.TypeDataModel {
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ACTOR.CREATURE",
-    "RYUUTAMA.SOURCE",
   ];
 
   /* -------------------------------------------------- */

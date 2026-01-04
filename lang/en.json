@@ -75,6 +75,7 @@
   },
   "RYUUTAMA": {
     "ACTOR": {
+      "FIELDS": {},
       "CREATURE": {
         "FIELDS": {
           "condition.immunities.label": "Status Immunities",
@@ -387,7 +388,8 @@
       },
       "TABS": {
         "details": "Details",
-        "effects": "Effects"
+        "effects": "Effects",
+        "identity": "Identity"
       },
       "activeEffects": "Active",
       "defenses": "Defenses",

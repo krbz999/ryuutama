@@ -4,6 +4,16 @@ import BaseData from "./templates/base.mjs";
  * @import RyuutamaItem from "../../documents/item.mjs";
  */
 
+/**
+ * @typedef SkillData
+ * @property {object} description
+ * @property {string} description.value
+ * @property {string} identifier
+ * @property {object} source
+ * @property {string} source.book
+ * @property {string} source.custom
+ */
+
 export default class SkillData extends BaseData {
   /** @inheritdoc */
   static defineSchema() {
@@ -17,6 +27,11 @@ export default class SkillData extends BaseData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ITEM.SKILL",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/skill.hbs";
 
   /* -------------------------------------------------- */
 
@@ -55,5 +70,12 @@ export default class SkillData extends BaseData {
     if (!this.identifier) {
       this.parent.updateSource({ "system.identifier": ryuutama.utils.createDefaultIdentifier(this.parent.name) });
     }
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  async _prepareSubtypeContext(sheet, context, options) {
+    context.identifierPlaceholder = ryuutama.utils.createDefaultIdentifier(this.parent._source.name);
   }
 }

@@ -1,12 +1,11 @@
-<fieldset>
-  <legend>{{localize "RYUUTAMA.ITEM.HERB.configuration"}}</legend>
+<section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
   {{!-- SUBTYPE --}}
   {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim"}}
 
   {{!-- TERRAIN --}}
-  {{formGroup systemFields.terrain.fields.level value=(ifThen disabled document.system.terrain.level source.system.terrain.level) disabled=disabled options=herbLevelOptions}}
-  {{formGroup systemFields.terrain.fields.type value=(ifThen disabled document.system.terrain.type source.system.terrain.type) disabled=disabled options=herbTypes}}
-  {{formGroup systemFields.terrain.fields.details value=(ifThen disabled document.system.terrain.details source.system.terrain.details) disabled=disabled}}
+  {{formGroup systemFields.terrain.fields.level value=(ifThen disabled document.system.terrain.level source.system.terrain.level) disabled=disabled options=herbLevelOptions classes="slim"}}
+  {{formGroup systemFields.terrain.fields.type value=(ifThen disabled document.system.terrain.type source.system.terrain.type) disabled=disabled options=herbTypes classes="slim"}}
+  {{formGroup systemFields.terrain.fields.details value=(ifThen disabled document.system.terrain.details source.system.terrain.details) disabled=disabled classes="stacked"}}
 
   {{!-- EFFECT DESCRIPTION --}}
   {{#if disabled}}
@@ -19,4 +18,4 @@
   {{else}}
   {{formGroup systemFields.description.fields.effect value=source.system.description.effect height=300}}
   {{/if}}
-</fieldset>
+</section>

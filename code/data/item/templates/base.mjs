@@ -15,12 +15,19 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
+  /** @override */
   static LOCALIZATION_PREFIXES = [
-    ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ITEM",
     "RYUUTAMA.SOURCE",
   ];
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The handlebars template used for rendering a subtype's Details tab.
+   * @type {string}
+   */
+  static DETAILS_TEMPLATE;
 
   /* -------------------------------------------------- */
 
@@ -80,4 +87,15 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
   getRollOptions(type) {
     return new Set();
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Adjust sheet rendering context for subtype specific data.
+   * @param {RyuutamaDocumentSheet} sheet
+   * @param {object} context
+   * @param {object} options
+   * @returns {Promise<void>}
+   */
+  async _prepareSubtypeContext(sheet, context, options) {}
 }

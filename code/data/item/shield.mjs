@@ -2,6 +2,27 @@ import PhysicalData from "./templates/physical.mjs";
 
 const { NumberField, SchemaField } = foundry.data.fields;
 
+/**
+ * @typedef ShieldData
+ * @property {object} armor
+ * @property {number|null} armor.defense
+ * @property {number|null} armor.dodge
+ * @property {number|null} armor.penalty
+ * @property {object} description
+ * @property {string} description.value
+ * @property {object} durability
+ * @property {number} durability.spent
+ * @property {string} identifier
+ * @property {string[]} modifiers
+ * @property {object} price
+ * @property {number} price.value
+ * @property {object} size
+ * @property {object} size.value
+ * @property {object} source
+ * @property {string} source.book
+ * @property {string} source.custom
+ */
+
 export default class ShieldData extends PhysicalData {
   /** @inheritdoc */
   static defineSchema() {
@@ -21,6 +42,11 @@ export default class ShieldData extends PhysicalData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.SHIELD",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/shield.hbs";
 
   /* -------------------------------------------------- */
 

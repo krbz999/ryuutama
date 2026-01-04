@@ -2,6 +2,18 @@ import BaseData from "./templates/base.mjs";
 
 const { DocumentUUIDField, NumberField, SetField } = foundry.data.fields;
 
+/**
+ * @typedef ClassData
+ * @property {object} description
+ * @property {string} description.value
+ * @property {string} identifier
+ * @property {string[]} skills
+ * @property {object} source
+ * @property {string} source.book
+ * @property {string} source.custom
+ * @property {number} tier
+ */
+
 export default class ClassData extends BaseData {
   /** @inheritdoc */
   static defineSchema() {
@@ -27,6 +39,27 @@ export default class ClassData extends BaseData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ITEM.CLASS",
   ];
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/class.hbs";
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  async _prepareSubtypeContext(sheet, context, options) {
+    context.identifierPlaceholder = ryuutama.utils.createDefaultIdentifier(this.parent._source.name);
+    if (context.disabled) {
+      const skills = [];
+      for (const uuid of this.skills) {
+        const item = await fromUuid(uuid);
+        if (!item || (item.type !== "skill")) continue;
+        skills.push({ item });
+      }
+      context.classSkills = skills;
+    }
+  }
 
   /* -------------------------------------------------- */
 

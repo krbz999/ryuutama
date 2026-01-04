@@ -184,16 +184,6 @@ Hooks.once("ready", () => {
     "actor-resources": "systems/ryuutama/templates/sheets/shared/resources.hbs",
     "actor-statuses": "systems/ryuutama/templates/sheets/shared/statuses.hbs",
 
-    // ITEM PARTIALS
-    "item-animal": "systems/ryuutama/templates/sheets/item-sheet/animal.hbs",
-    "item-class": "systems/ryuutama/templates/sheets/item-sheet/class.hbs",
-    "item-container": "systems/ryuutama/templates/sheets/item-sheet/container.hbs",
-    "item-defense": "systems/ryuutama/templates/sheets/item-sheet/defense.hbs",
-    "item-gear": "systems/ryuutama/templates/sheets/item-sheet/gear.hbs",
-    "item-herb": "systems/ryuutama/templates/sheets/item-sheet/herb.hbs",
-    "item-spell": "systems/ryuutama/templates/sheets/item-sheet/spell.hbs",
-    "item-weapon": "systems/ryuutama/templates/sheets/item-sheet/weapon.hbs",
-
     // SHARED PARTIALS
     "document-list": "systems/ryuutama/templates/sheets/shared/document-list.hbs",
   });

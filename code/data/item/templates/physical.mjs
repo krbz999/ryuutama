@@ -144,4 +144,23 @@ export default class PhysicalData extends BaseData {
     }
     return options;
   }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  async _prepareSubtypeContext(sheet, context, options) {
+    // Prepare modifiers.
+    const config = ryuutama.config.itemModifiers;
+    const isEditable = sheet.isEditable && sheet.isEditMode;
+    const choices = {};
+    for (const [k, v] of Object.entries(config)) {
+      if (v.hidden && isEditable && !this._source.modifiers.includes(k)) continue;
+      if (v.hidden && !isEditable && !this.modifiers.has(k)) continue;
+      choices[k] = { value: k, label: v.label };
+    }
+    for (const k of this._source.modifiers) {
+      if (!(k in choices)) choices[k] = { value: k, label: k };
+    }
+    context.modifiers = Object.values(choices);
+  }
 }
