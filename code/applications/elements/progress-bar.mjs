@@ -39,7 +39,7 @@ export default class ProgressBar extends HTMLElement {
   /* -------------------------------------------------- */
 
   /**
-   * A temporary input field displayed when the progress bar is clicked.
+   * An input field displayed when the progress bar is clicked.
    * @type {HTMLInputElement|null}
    */
   #input = null;
