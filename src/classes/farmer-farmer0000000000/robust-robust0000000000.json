@@ -20,11 +20,7 @@
       "disabled": false,
       "type": "standard",
       "_id": "34GDYwrxiEQRacfj",
-      "system": {
-        "expiration": {
-          "type": ""
-        }
-      },
+      "system": {},
       "changes": [
         {
           "key": "system.capacity.bonus",
