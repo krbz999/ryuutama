@@ -41,7 +41,6 @@ Hooks.once("init", () => {
     window.customElements.define(applications.elements.HealingTray.tagName, applications.elements.HealingTray);
     window.customElements.define(applications.elements.IconElement.tagName, applications.elements.IconElement);
     window.customElements.define(applications.elements.ProgressBar.tagName, applications.elements.ProgressBar);
-    window.customElements.define(applications.elements.ResourceBar.tagName, applications.elements.ResourceBar);
   };
   defineElements(window);
   Hooks.on("openDetachedWindow", (id, window) => defineElements(window));
