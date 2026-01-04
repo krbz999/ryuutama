@@ -39,10 +39,12 @@ export default class Prelocalization {
     const configureSource = pkg => {
       const sources = pkg.flags?.[ryuutama.id]?.sources ?? [];
       for (let { short, long } of sources) {
-        long = game.i18n.localize(long || "");
-        short = short ? game.i18n.localize(short) : long;
-        if (!short || !long) return;
-        if ((short in config) && (config[short] !== long)) {
+        if (!short || !long) {
+          console.warn(`Source attempted registered with missing data: '${short}' / '${long}'`);
+          return;
+        }
+        long = game.i18n.localize(long);
+        if (short in config) {
           console.warn(`Duplicate source attempted registered: '${short}' / '${long}'`);
           return;
         }

@@ -61,7 +61,7 @@
     },
     "ryuutama": {
       "sources": [
-        { "short": "RYUUTAMA.SOURCE.SHORT", "long": "RYUUTAMA.SOURCE.LONG" }
+        { "short": "Ryuutama", "long": "RYUUTAMA.SOURCE.LONG" }
       ]
     }
   },
