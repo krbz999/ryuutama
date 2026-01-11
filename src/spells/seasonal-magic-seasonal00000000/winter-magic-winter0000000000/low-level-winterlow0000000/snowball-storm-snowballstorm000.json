@@ -28,6 +28,11 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "actions": {
+      "damage": {
+        "formula": "@stats.spirit"
+      }
     }
   },
   "_id": "snowballstorm000",

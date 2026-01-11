@@ -28,6 +28,11 @@
     },
     "source": {
       "book": "Ryuutama"
+    },
+    "actions": {
+      "damage": {
+        "formula": "@stats.intelligence"
+      }
     }
   },
   "_id": "curetouch0000000",
