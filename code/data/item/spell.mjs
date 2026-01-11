@@ -1,9 +1,11 @@
+import ActionsModel from "../actions-model.mjs";
 import BaseData from "./templates/base.mjs";
 
-const { NumberField, SchemaField, StringField } = foundry.data.fields;
+const { EmbeddedDataField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
 /**
  * @typedef SpellData
+ * @property {ActionsModel} actions
  * @property {object} category
  * @property {string} category.value
  * @property {object} description
@@ -31,6 +33,7 @@ export default class SpellData extends BaseData {
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
+      actions: new EmbeddedDataField(ActionsModel),
       category: new SchemaField({
         value: new StringField({
           required: true, initial: "incantation",
@@ -127,5 +130,12 @@ export default class SpellData extends BaseData {
     context.spell.magicOptions = Object.entries(ryuutama.config.spellCategories).map(([k, v]) => {
       return { value: k, label: v.label, group: k === "incantation" ? undefined : seasonal };
     });
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  isEffectSuppressed(effect) {
+    return super.isEffectSuppressed(effect);
   }
 }

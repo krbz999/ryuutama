@@ -239,6 +239,18 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
           this.document.setFlag(ryuutama.id, "specialAbility", item.id);
         },
       },
+      {
+        group: "system",
+        name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.castSpell",
+        icon: "fa-solid fa-fw fa-book",
+        condition: target => {
+          const item = getItem(target);
+          return (typeof this.document.system.castSpell === "function") && (item.type === "spell");
+        },
+        callback: target => {
+          this.document.system.castSpell(getItem(target));
+        },
+      },
     ];
 
     if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));

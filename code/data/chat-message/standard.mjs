@@ -82,6 +82,16 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
     const htmlString = await handlebars.renderTemplate(headerTemplate, context);
     element.insertAdjacentHTML("beforeend", htmlString);
 
+    // If content is explicitly included, insert it.
+    if (context.document.content) {
+      const enriched = await CONFIG.ux.TextEditor.enrichHTML(context.document.content, {
+        rollData: context.rollData,
+        relativeTo: context.actor,
+      });
+      const html = foundry.utils.parseHTML(`<section data-message-part="content">${enriched}</section>`);
+      element.insertAdjacentElement("beforeend", html);
+    }
+
     // Render reusable parts.
     for (const [id, part] of Object.entries(this.parts)) {
       if (!part.visible) continue;
@@ -123,6 +133,16 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
     for (const cssClass of cssClasses) if (cssClass) frame.classList.add(cssClass);
     if (options.borderColor) frame.style.setProperty("border-color", options.borderColor);
     return frame;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preCreate(data, options, user) {
+    if ((await super._preCreate(data, options, user)) === false) return false;
+    for (const part of Object.values(this.parts)) {
+      for (const roll of part.rolls) if (!roll._evaluated) await roll.evaluate();
+    }
   }
 
   /* -------------------------------------------------- */
