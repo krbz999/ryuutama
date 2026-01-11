@@ -37,8 +37,10 @@
 
 /**
  * @typedef DamageRollPropertyConfig
- * @property {string} label   Human-readable label.
- * @property {string} icon    Icon displayed in chat messages for this property.
+ * @property {string} label       Human-readable label.
+ * @property {string} icon        Icon displayed in chat messages for this property.
+ * @property {boolean} [hidden]   Whether damage roll derive this property from the item,
+ *                                and so does not show this on the item sheet for configuration.
  */
 
 /* -------------------------------------------------- */

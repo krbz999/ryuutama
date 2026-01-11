@@ -45,4 +45,14 @@ export default class RyuutamaItem extends foundry.documents.Item {
 
     return { img };
   }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  getRollData() {
+    const item = { ...this };
+    const rollData = this.actor?.getRollData() ?? {};
+    rollData.item = item;
+    return rollData;
+  }
 }

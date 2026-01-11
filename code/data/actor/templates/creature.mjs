@@ -1,4 +1,5 @@
 import BaseData from "./base.mjs";
+import RyuutamaItem from "../../../documents/item.mjs";
 
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
@@ -629,6 +630,35 @@ export default class CreatureData extends BaseData {
     if (!messageData) return null;
     const Cls = getDocumentClass("ChatMessage");
     messageData.system.parts[foundry.utils.randomID()] = { type: "damage" };
+    const message = new Cls(messageData);
+    return create ? Cls.create(message.toObject()) : message.toObject();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * A bespoke method for spellcasting in one message.
+   * @param {RyuutamaItem} spell    The spell to cast.
+   * @param {CheckRollConfig} [rollConfig={}]
+   * @param {CheckDialogConfig} [dialogConfig={}]
+   * @param {CheckMessageConfig} [messageConfig={}]
+   * @returns {Promise<RyuutamaChatMessage|object|number|null>}
+   */
+  async castSpell(spell, rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
+    rollConfig = foundry.utils.mergeObject(rollConfig, {
+      type: "magic",
+      "magic.item": spell.id,
+    }, { inplace: false });
+    const create = messageConfig.create ?? true;
+    messageConfig.create = false;
+    const messageData = await this.rollCheck(rollConfig, dialogConfig, messageConfig);
+    if (!messageData) return null;
+    const Cls = getDocumentClass("ChatMessage");
+    messageData.content = `<p>@Embed[${spell.uuid} caption=false]</p>`;
+
+    // Insert more parts here according to how the spell is configured.
+    Object.assign(messageData.system.parts, spell.system.actions.toMessagePartData());
+
     const message = new Cls(messageData);
     return create ? Cls.create(message.toObject()) : message.toObject();
   }

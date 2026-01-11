@@ -186,14 +186,17 @@ export const damageRollProperties = {
   magical: {
     label: "RYUUTAMA.DAMAGE.PROPERTIES.magical",
     icon: "systems/ryuutama/assets/icons/eclipse-flare.svg",
+    hidden: true,
   },
   mythril: {
     label: "RYUUTAMA.DAMAGE.PROPERTIES.mythril",
     icon: "systems/ryuutama/assets/icons/fish-scales.svg",
+    hidden: true,
   },
   orichalcum: {
     label: "RYUUTAMA.DAMAGE.PROPERTIES.orichalcum",
     icon: "systems/ryuutama/assets/icons/layered-armor.svg",
+    hidden: true,
   },
 };
 Prelocalization.prelocalize(damageRollProperties);

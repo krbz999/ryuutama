@@ -98,4 +98,15 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
    * @returns {Promise<void>}
    */
   async _prepareSubtypeContext(sheet, context, options) {}
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Does this item subtype currently suppress an effect?
+   * @param {RyuutamaActiveEffect}
+   * @returns {boolean}
+   */
+  isEffectSuppressed(effect) {
+    return false;
+  }
 }

@@ -65,6 +65,7 @@ export default class MessagePart extends foundry.abstract.DataModel {
 
   /**
    * The subtype of this part.
+   * @type {string}
    */
   static TYPE = "";
 

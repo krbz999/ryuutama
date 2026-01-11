@@ -1,0 +1,17 @@
+<section data-tab="{{tabs.actions.id}}" class="{{tabs.actions.cssClass}}" data-group="{{tabs.actions.group}}">
+  {{#with actions}}
+  {{!-- DAMAGE --}}
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ITEM.ACTIONS.damage"}}</legend>
+    {{formGroup fields.damage.fields.formula value=document.damage.formula disabled=@root.disabled}}
+    {{formGroup fields.damage.fields.properties value=document.damage.properties options=damageOptions disabled=@root.disabled type="checkboxes" classes="stacked"}}
+  </fieldset>
+
+  {{!-- HEALING --}}
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ITEM.ACTIONS.healing"}}</legend>
+    {{formGroup fields.healing.fields.formula value=document.healing.formula disabled=@root.disabled}}
+    {{!-- {{formGroup fields.healing.fields.properties value=document.healing.properties options=healingOptions disabled=@root.disabled type="checkboxes" classes="stacked"}} --}}
+  </fieldset>
+  {{/with}}
+</section>

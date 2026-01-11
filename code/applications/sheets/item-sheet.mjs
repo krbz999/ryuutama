@@ -1,9 +1,5 @@
 import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 
-/**
- * @import RyuutamaItem from "../../documents/item.mjs";
- */
-
 export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /** @override */
   static DEFAULT_OPTIONS = {
@@ -27,6 +23,11 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       classes: ["tab", "scrollable", "standard-form"],
       scrollable: [""],
     },
+    actions: {
+      template: "systems/ryuutama/templates/sheets/item-sheet/actions.hbs",
+      classes: ["tab", "scrollable", "standard-form"],
+      scrollable: [""],
+    },
     effects: {
       template: "systems/ryuutama/templates/sheets/item-sheet/effects.hbs",
       classes: ["tab", "scrollable", "standard-form"],
@@ -42,6 +43,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       tabs: [
         { id: "identity" },
         { id: "details" },
+        { id: "actions" },
         { id: "effects" },
       ],
       initial: "identity",
@@ -63,8 +65,18 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     const details = this.document.system.constructor.DETAILS_TEMPLATE;
     const parts = foundry.utils.deepClone(this.constructor.PARTS);
     parts.details.template = details;
+    if (!this.document.system.schema.has("actions")) delete parts.actions;
     Object.values(parts).forEach(p => p.templates ??= []);
     return parts;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareTabs(group) {
+    const tabs = super._prepareTabs(group);
+    if (!this.document.system.schema.has("actions")) delete tabs.actions;
+    return tabs;
   }
 
   /* -------------------------------------------------- */
@@ -83,10 +95,12 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     });
 
     // Effects.
-    context.effects = this.#prepareEffects(context);
+    context.effects = this.#prepareEffects();
 
     // Subtype specific context modification.
     await this.document.system._prepareSubtypeContext(this, context, options);
+
+    if (this.document.system.schema.has("actions")) this.#prepareActions(context);
 
     return context;
   }
@@ -94,8 +108,25 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * Prepare effects.
+   * Prepare actions.
    * @param {object} context    Rendering context. **will be mutated**
+   */
+  #prepareActions(context) {
+    context.actions = {
+      document: this.document.system.actions,
+      source: this.document.system.actions._source,
+      fields: this.document.system.actions.schema.fields,
+    };
+
+    context.actions.damageOptions = Object.keys(ryuutama.config.damageRollProperties)
+      .filter(key => !ryuutama.config.damageRollProperties[key].hidden)
+      .map(key => ({ value: key, label: ryuutama.config.damageRollProperties[key].label }));
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare effects.
    * @returns {{ enabledEffects: object[], disabledEffects: object[] }}
    */
   #prepareEffects(context) {

@@ -141,12 +141,13 @@
           "enable": "Enable Effect"
         },
         "ITEM": {
-          "view": "View Item",
-          "edit": "Edit Item",
+          "assignSpecialAbility": "Special Ability",
+          "castSpell": "Cast Spell",
           "delete": "Delete Item",
+          "edit": "Edit Item",
           "equip": "Equip Item",
           "unequip": "Unequip Item",
-          "assignSpecialAbility": "Special Ability"
+          "view": "View Item"
         },
         "MISC": {
           "classTag": "Class: {name}"
@@ -387,9 +388,20 @@
         "size5": "Size 5"
       },
       "TABS": {
+        "actions": "Actions",
         "details": "Details",
         "effects": "Effects",
         "identity": "Identity"
+      },
+      "ACTIONS": {
+        "FIELDS": {
+          "damage.formula.label": "Formula",
+          "damage.properties.label": "Properties",
+          "healing.formula.label": "Formula",
+          "healing.properties.label": "Properties"
+        },
+        "damage": "Damage",
+        "healing": "Healing"
       },
       "activeEffects": "Active",
       "defenses": "Defenses",
