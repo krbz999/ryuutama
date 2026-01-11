@@ -27,7 +27,7 @@ const { NumberField, SchemaField, StringField } = foundry.data.fields;
  * @property {string} spell.target.custom
  */
 
-export default class SpellData extends BaseData {
+export default class SpellData extends ActionData {
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
