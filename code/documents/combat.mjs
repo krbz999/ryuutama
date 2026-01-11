@@ -1,4 +1,21 @@
 export default class RyuutamaCombat extends foundry.documents.Combat {
+  static {
+    Object.defineProperty(this, "TURN_MARKER", {
+      value: "systems/ryuutama/assets/official/combat/turn-marker-1.webp",
+      writable: false,
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Default turn marker.
+   * @type {string}
+   */
+  static TURN_MARKER;
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   _initializeSource(data = {}, options = {}) {
     if (!data.type || (data.type === "base")) data.type = "standard";
