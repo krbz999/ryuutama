@@ -7,6 +7,8 @@
 
 ryuutama-icon {
   height: 100%;
+  aspect-ratio: 1;
+  display: block;
 
   svg {
     height: 100%;

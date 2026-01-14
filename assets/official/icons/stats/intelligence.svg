@@ -4,7 +4,7 @@
   <g style="--color: var(--ryuutama-color-stats, #87384d)">
     <g fill="var(--color)">
       <!-- BG -->
-      <rect rx="20%" x="0" y="0" width="100%" height="100%" />
+      <rect x="0" y="0" width="100%" height="100%" />
 
       <g fill="#fff">
         <!-- HEAD -->

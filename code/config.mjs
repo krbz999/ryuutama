@@ -686,12 +686,15 @@ Prelocalization.prelocalize(terrainTypes);
 export const travelerTypes = {
   attack: {
     label: "RYUUTAMA.TRAVELER.TYPES.attack",
+    icon: "systems/ryuutama/assets/official/icons/types/attack.svg",
   },
   technical: {
     label: "RYUUTAMA.TRAVELER.TYPES.technical",
+    icon: "systems/ryuutama/assets/official/icons/types/technical.svg",
   },
   magic: {
     label: "RYUUTAMA.TRAVELER.TYPES.magic",
+    icon: "systems/ryuutama/assets/official/icons/types/magic.svg",
   },
 };
 Prelocalization.prelocalize(travelerTypes);
@@ -707,12 +710,14 @@ export const weaponTypes = {
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.axePl",
     grip: 2,
     baseItem: "Compendium.ryuutama.items.Item.axe0000000000000",
+    icon: "systems/ryuutama/assets/icons/weapons/axe.svg",
   },
   blade: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.blade",
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.bladePl",
     grip: 1,
     baseItem: "Compendium.ryuutama.items.Item.blade00000000000",
+    icon: "systems/ryuutama/assets/icons/weapons/blade.svg",
   },
   bow: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.bow",
@@ -720,18 +725,21 @@ export const weaponTypes = {
     grip: 2,
     ranged: true,
     baseItem: "Compendium.ryuutama.items.Item.bow0000000000000",
+    icon: "systems/ryuutama/assets/icons/weapons/bow.svg",
   },
   lightBlade: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.lightBlade",
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.lightBladePl",
     grip: 1,
     baseItem: "Compendium.ryuutama.items.Item.lightblade000000",
+    icon: "systems/ryuutama/assets/icons/weapons/light-blade.svg",
   },
   polearm: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.polearm",
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.polearmPl",
     grip: 2,
     baseItem: "Compendium.ryuutama.items.Item.polearm000000000",
+    icon: "systems/ryuutama/assets/icons/weapons/polearm.svg",
   },
 };
 Prelocalization.prelocalize(weaponTypes, { properties: ["label", "labelPlural"] });
@@ -745,7 +753,7 @@ export const weaponUnarmedTypes = {
   unarmed: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.unarmed",
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.unarmedPl",
-    icon: "icons/skills/melee/unarmed-punch-fist-white.webp",
+    icon: "systems/ryuutama/assets/icons/weapons/unarmed.svg",
     accuracy: {
       abilities: ["strength", "dexterity"],
       bonus: 0,

@@ -63,7 +63,7 @@
   display: grid;
   grid-template-columns: 1fr 0;
 
-  --ryuutama-color-roll-property: rgb(85, 85, 85);
+  --ryuutama-color-roll-property: rgb(85 85 85);
 
   .dice-properties {
     display: flex;
