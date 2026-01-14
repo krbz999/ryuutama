@@ -38,27 +38,19 @@
       width: 100%;
       display: none;
       gap: 5px;
+      grid-template-columns: repeat(var(--repeat), 1fr);
 
       &.open {
         display: grid;
       }
 
-      &.terrain {
-        grid-template-columns: repeat(3, 1fr);
-
-        li img {
-          border-radius: 10px;
-        }
+      li img, li ryuutama-icon {
+        border-radius: 10px;
+        overflow: hidden;
       }
 
-      &.weather {
-        grid-template-columns: repeat(4, 1fr);
-
-        li {
-          aspect-ratio: 1;
-          height: 100%;
-        }
-      }
+      &.terrain { --repeat: 3 }
+      &.weather { --repeat: 4 }
     }
   }
 
@@ -69,7 +61,7 @@
 
   /* THEMING */
   .themed.theme-light & {
-    --background-color: rgba(255, 255, 255, 0.6);
+    --background-color: rgb(255 255 255 / 0.6);
     --color-border: white;
     color: black;
   }

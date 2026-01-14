@@ -158,6 +158,7 @@
 /**
  * @typedef TravelerTypeConfig
  * @property {string} label   Human-readable label.
+ * @property {string} icon    Filepath to the Type icon.
  */
 
 /* -------------------------------------------------- */
@@ -181,6 +182,7 @@
  * @property {string} label         Human-readable label.
  * @property {string} labelPlural   Pluralized human-readable label.
  * @property {0|1|2} grip           The number of hands needed to wield.
+ * @property {string} icon          Artwork for the weapon type.
  * @property {boolean} [ranged]     Can this weapon attack from long range?
  */
 
