@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28.35 28.35">
+  <defs>
+    <!-- MASK -->
+    <mask id="__1__">
+      <rect width="100%" height="100%" fill="black" />
 
-  <g fill="var(--ryuutama-color-statuses-mind, #0089bd)">
-    <!-- BG -->
-    <rect x="0" y="0" width="100%" height="100%" />
+      <!-- SHOW -->
+      <use href="#__2__" fill="white" />
 
-    <g fill="#fff">
+      <!-- SUBTRACT -->
+      <use href="#__3__" fill="black" />
+    </mask>
+
+    <!-- GEOMETRY -->
+    <g id="__2__">
       <!-- ARROW -->
       <path d="M23.14,5.39v3.88c0,.55-.45,1-1,1h-3.87v1h3.87c1.1,0,2-.9,2-2v-3.88h-1Z"/>
       <polygon points="22.31 6.17 23.62 3.9 24.94 6.17 22.31 6.17"/>
@@ -33,7 +41,20 @@
       <path d="M10.21,8.86s-.45-1.42-1.98-.72c0,0,.76,1.45,2.04.83"/>
     </g>
 
-    <path d="M8.94,4.35c0,.44-.36.8-.8.8s-.8-.36-.8-.8.36-.8.8-.8.8.36.8.8"/>
+    <!-- CUT -->
+    <g id="__3__">
+      <!-- FLOWER CENTER -->
+      <path d="M8.94,4.35c0,.44-.36.8-.8.8s-.8-.36-.8-.8.36-.8.8-.8.8.36.8.8"/>
+    </g>
+  </defs>
+
+  <!-- BACKGROUND -->
+  <g fill="var(--ryuutama-color-statuses-mind, #0089bd)">
+    <rect width="100%" height="100%" />
   </g>
 
+  <!-- RENDER -->
+  <g mask="url(#__1__)" fill="white">
+    <use href="#__2__" />
+  </g>
 </svg>
