@@ -93,6 +93,7 @@ export default class CurrentHabitat extends Application {
 
   /** @override */
   _insertElement(element) {
+    element.classList.add(ryuutama.id);
     document.querySelector("#ui-top #loading").insertAdjacentElement("beforebegin", element);
   }
 
