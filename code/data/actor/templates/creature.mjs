@@ -1,5 +1,6 @@
 import BaseData from "./base.mjs";
 import RyuutamaItem from "../../../documents/item.mjs";
+import RyuutamaToken from "../../../canvas/placeables/token.mjs";
 
 /**
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
@@ -60,14 +61,6 @@ export default class CreatureData extends BaseData {
   /* -------------------------------------------------- */
 
   /**
-   * Storage of previous HP values.
-   * @type {Map<string, number>}
-   */
-  static #staminaChange = new Map();
-
-  /* -------------------------------------------------- */
-
-  /**
    * The actor's defense value, the target number for a chance to hit them.
    * @type {number|null}
    */
@@ -86,7 +79,7 @@ export default class CreatureData extends BaseData {
   static #displayScrollingDamageNumbers(actor, delta) {
     if (!delta) return;
 
-    const color = delta > 0 ? "#4BA72F" : "#b8006d";
+    const color = delta > 0 ? RyuutamaToken.RYUUTAMA_COLORS.hp : "#b8006d";
     const tokens = actor.isToken ? [actor.token?.object] : actor.getActiveTokens(true);
     const options = {
       duration: 3000,
@@ -130,7 +123,7 @@ export default class CreatureData extends BaseData {
 
     // Store current HP for later comparison.
     if (foundry.utils.hasProperty(changes, "system.resources.stamina.spent")) {
-      CreatureData.#staminaChange.set(this.parent.uuid, this.resources.stamina.spent);
+      foundry.utils.setProperty(options, `${ryuutama.id}.hp`, { [this.parent.uuid]: this.resources.stamina.spent });
     }
   }
 
@@ -140,9 +133,8 @@ export default class CreatureData extends BaseData {
   _onUpdate(changed, options, userId) {
     super._onUpdate(changed, options, userId);
 
-    if (CreatureData.#staminaChange.has(this.parent.uuid)) {
-      const delta = CreatureData.#staminaChange.get(this.parent.uuid) - this.resources.stamina.spent;
-      CreatureData.#staminaChange.delete(this.parent.uuid);
+    if (options[ryuutama.id]?.hp?.[this.parent.uuid]) {
+      const delta = options[ryuutama.id].hp[this.parent.uuid] - this.resources.stamina.spent;
       CreatureData.#displayScrollingDamageNumbers(this.parent, delta);
     }
   }

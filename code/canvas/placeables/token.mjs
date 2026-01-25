@@ -1,4 +1,15 @@
 export default class RyuutamaToken extends foundry.canvas.placeables.Token {
+  /**
+   * Colors of HP and MP.
+   * @type {Record<string, string>}
+   */
+  static RYUUTAMA_COLORS = {
+    hp: "#4ba72f",
+    mp: "#4f2ebd",
+  };
+
+  /* -------------------------------------------------- */
+
   /** @override */
   _drawBar(number, bar, data) {
     const pct = this.#getBarPercentage(data);
@@ -68,18 +79,28 @@ export default class RyuutamaToken extends foundry.canvas.placeables.Token {
     let colors;
     switch (data.attribute) {
       case "resources.stamina":
-        colors = data.value >= 0 ? ["#b8006d", "#4ba72f"] : ["#b8006d", "#ff0000"];
+        colors = data.value >= 0 ? ["#b8006d", RyuutamaToken.RYUUTAMA_COLORS.hp] : ["#b8006d", "#ff0000"];
         break;
       case "resources.mental":
-        colors = ["#270695", "#4f2ebd"];
+        colors = ["#270695", RyuutamaToken.RYUUTAMA_COLORS.mp];
         break;
       default: {
         switch (number) {
-          case 0: colors = ["#b8006d", "#4ba72f"]; break;
-          case 1: colors = ["#270695", "#4f2ebd"]; break;
+          case 0: colors = ["#b8006d", RyuutamaToken.RYUUTAMA_COLORS.hp]; break;
+          case 1: colors = ["#270695", RyuutamaToken.RYUUTAMA_COLORS.mp]; break;
         }
       }
     }
     return Color.from(Color.mix(...colors.map(c => Color.from(c)), Math.abs(pct)));
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _updateTarget(targeted, user) {
+    super._updateTarget(targeted, user);
+
+    if (!targeted) return;
+    this.ring?.flashColor(user.color);
   }
 }
