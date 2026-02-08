@@ -136,13 +136,7 @@ export default class TravelerData extends CreatureData {
     this.classes = Object.fromEntries(this.parent.items.documentsByType.class.map(cls => [cls.identifier, cls]));
     this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
     this.magic = { seasons: new Set() };
-    this.mastered = {
-      weapons: Object.fromEntries(Object.keys(ryuutama.config.weaponTypes).map(k => [k, 0])),
-      terrain: new Set(), weather: new Set(),
-    };
-
-    // Specific implementation of unarmed.
-    this.mastered.weapons.unarmed = 0;
+    this.mastered = { weapons: new Set(), terrain: new Set(), weather: new Set() };
 
     // Status immunities are prepared prior to statuses in CreatureData.
     for (const si of this.advancements) {
@@ -204,7 +198,7 @@ export default class TravelerData extends CreatureData {
    * @param {Advancement} advancement
    */
   #prepareWeaponAdvancement(advancement) {
-    this.mastered.weapons[advancement.choice.chosen] = 1;
+    this.mastered.weapons.add(advancement.choice.chosen);
   }
 
   /* -------------------------------------------------- */
@@ -463,16 +457,8 @@ export default class TravelerData extends CreatureData {
     const unarmed = ryuutama.config.weaponUnarmedTypes.unarmed;
     let weaponBonus = 0;
     if (rollConfig.type === "accuracy") {
-      if (isUsable) {
-        weaponBonus = weapon.system.accuracy.bonus;
-
-        // Mastering the same weapon twice (only possible via a class) grants a +1 to Accuracy checks with that weapon.
-        if (weapon.system.isMastered && (this.mastered.weapons[weapon.system.category.value] > 1)) weaponBonus++;
-      } else {
-        // Fall back to 'Unarmed'.
-        weaponBonus = unarmed.accuracy.bonus;
-        // TODO: Grant +1 if Unarmed is mastered twice?
-      }
+      // TODO: Grant an additional +1 if the weapon (or unarmed) is "double-mastered" eg as Noble.
+      weaponBonus = isUsable ? weapon.system.accuracy.bonus : unarmed.accuracy.bonus;
 
       if (weaponBonus) {
         parts.push("@weaponBonus");
@@ -518,7 +504,7 @@ export default class TravelerData extends CreatureData {
         } else {
           // Unarmed.
           abilities = [...ryuutama.config.weaponUnarmedTypes.unarmed.accuracy.abilities];
-          roll.accuracy.consumeStamina = !this.mastered.weapons.unarmed;
+          roll.accuracy.consumeStamina = !this.mastered.weapons.has("unarmed");
         }
         roll.abilities = abilities;
         break;

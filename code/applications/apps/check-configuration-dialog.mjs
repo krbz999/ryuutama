@@ -161,7 +161,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
 
     context.showAccuracy =
       ((roll.type === "accuracy") && (this.actor.type === "traveler"))
-      && ((weapon?.system.isMastered === false) || (!weapon && !this.actor.system.mastered.weapons.unarmed));
+      && ((weapon?.system.isMastered === false) || (!weapon && !this.actor.system.mastered.weapons.has("unarmed")));
 
     if (!context.showAccuracy) foundry.utils.setProperty(roll, "accuracy.consumeStamina", false);
     context.showCondition = roll.type === "condition";

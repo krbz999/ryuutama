@@ -34,6 +34,21 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  static migrateData(source) {
+    for (const change of source.changes ?? []) {
+      if (change.key.startsWith("system.mastered.weapons.")) {
+        const weapon = change.key.slice("system.mastered.weapons.".length);
+        change.key = "system.mastered.weapons";
+        change.mode = CONST.ACTIVE_EFFECT_MODES.ADD,
+        change.value = weapon || "";
+      }
+    }
+    return super.migrateData(source);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   _initializeSource(data = {}, options = {}) {
     if (!data.type || (data.type === "base")) data.type = "standard";
     return super._initializeSource(data, options);

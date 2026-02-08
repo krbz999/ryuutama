@@ -45,7 +45,7 @@ export default class WeaponAdvancement extends Advancement {
     if (!this.isEphemeral) return !!this.choice.chosen;
 
     const choices = [...Object.keys(ryuutama.config.weaponTypes), "unarmed"].filter(type => {
-      return (!this.document.system.mastered.weapons[type] && !this.#sameWeaponChoice(type));
+      return (!this.document.system.mastered.weapons.has(type) && !this.#sameWeaponChoice(type));
     });
 
     return choices.includes(this.choice.chosen);
