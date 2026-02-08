@@ -1,9 +1,24 @@
+/**
+ * @typedef ItemSubtypeMetadata
+ * @property {boolean} [inventory]    Unless explicitly `false`, this item type appears in inventories.
+ */
+
 const { HTMLField, SchemaField } = foundry.data.fields;
 
 /**
  * Base class that all other item data models inherit from.
  */
 export default class BaseData extends foundry.abstract.TypeDataModel {
+  /**
+   * Subtype specific metadata.
+   * @type {ItemSubtypeMetadata}
+   */
+  static metadata = Object.freeze({
+    inventory: true,
+  });
+
+  /* -------------------------------------------------- */
+
   /** @override */
   static defineSchema() {
     return {

@@ -1,0 +1,123 @@
+<section data-tooltip-direction="UP">
+  {{!-- AVATAR & COMMON STATS --}}
+  <section class="sidebar">
+    {{!-- IMAGE --}}
+    <aside class="avatar filigree-section bordered">
+      <img class="img" src="{{document.img}}" alt="{{document.name}}" {{#if disabled}} data-action="showPortrait" {{/if}}>
+    </aside>
+
+    <h3 class="name-plaque">
+      <span>{{document.name}}</span>
+    </h3>
+
+    {{#unless disabled}}
+    {{formInput fields.name value=source.name classes="stacked"}}
+    {{formInput fields.img value=source.img classes="stacked"}}
+    {{/unless}}
+
+    {{!-- ACTIONS --}}
+    {{#if disabled}}
+    <section class="actions">
+      <button type="button" data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
+        <i class="fa-solid fa-fw fa-dice" inert></i>
+        <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
+      </button>
+      <button type="button" data-action="rollAttack" {{disabled (not isInteractive)}}>
+        <span>{{localize "RYUUTAMA.ACTOR.rollAttack"}}</span>
+        <i class="fa-solid fa-fw fa-crosshairs" inert></i>
+      </button>
+    </section>
+    {{/if}}
+
+    {{!-- DEFENSES --}}
+    <section class="defenses">
+
+      <span class="defense-points" data-tooltip-html="{{armor.dp.breakdown}}">
+        <span class="label">{{localize "RYUUTAMA.ACTOR.defensePoints"}}</span>
+        <span class="value">{{armor.dp.value}}</span>
+      </span>
+
+      <span class="defense-icon">
+        {{#if disabled}}
+        <ryuutama-icon src="systems/ryuutama/assets/icons/shield.svg"></ryuutama-icon>
+        {{else}}
+        <a data-action="configure" data-config="defense">
+          <i class="fa-solid fa-fw fa-cog" inert></i>
+        </a>
+        {{/if}}
+      </span>
+
+      <span class="defense-value" data-tooltip-html="{{armor.dv.breakdown}}">
+        <span class="label">{{localize "RYUUTAMA.ACTOR.defenseValue"}}</span>
+        <span class="value">{{armor.dv.value}}</span>
+      </span>
+
+    </section>
+
+    {{!-- ABILITIES --}}
+    <section class="abilities">
+      {{#each abilities}}
+      <div class="ability" data-tooltip-text="{{label}}" data-tooltip-direction="UP">
+        <span class="value">{{value.die}}</span>
+        <span class="label">{{abbreviation}}</span>
+
+        <span class="back">
+          <ryuutama-icon src="{{icon}}"></ryuutama-icon>
+        </span>
+      </div>
+      {{/each}}
+    </section>
+
+    {{!-- HP & MP --}}
+    {{> "actor-resources"}}
+
+    {{!-- FUMBLES --}}
+    <section class="fumbles" style="--fdigits: {{fumbles.digits}}ch">
+      <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg" data-tooltip="RYUUTAMA.ACTOR.TRAVELER.fumblePoints"></ryuutama-icon>
+      <a data-action="adjustFumbles" class="fa-solid fa-fw fa-minus" data-direction="DOWN" {{disabled fumbles.disableDown}}></a>
+      <input type="text" name="system.fumbles.value" value="{{fumbles.value}}" class="delta value" placeholder="0">
+      <a data-action="adjustFumbles" class="fa-solid fa-fw fa-plus" data-direction="UP" {{disabled fumbles.disableUp}}></a>
+    </section>
+
+    {{!-- EXP --}}
+    {{#unless exp.hideBar}}
+    <section class="experience label-progress">
+      {{#if exp.button}}
+      <a class="exp-level" data-action="advance" data-tooltip-text="{{exp.tooltip}}" {{disabled (not editable)}}>
+        {{#if exp.arrow}}<i class="fa-solid fa-fw fa-arrow-up" inert></i>
+        {{else}}<span>{{exp.tag}}</span>
+        {{/if}}
+      </a>
+      {{else}}
+      <span class="exp-level" data-tooltip-text="{{exp.tooltip}}">{{exp.tag}}</span>
+      {{/if}}
+
+      {{#if exp.hideBar}}
+      <span></span>
+      {{else}}
+      {{#with document.system.details.exp}}
+      <progress-bar data-name="system.details.exp.value" class="exp" id="{{@root.rootId}}-exp" data-input data-value="{{value}}" data-pct="{{pct}}" data-label="{{value}} / {{max}}"></progress-bar>
+      {{/with}}
+      {{/if}}
+    </section>
+    {{/unless}}
+  </section>
+
+  {{!-- EQUIPPED --}}
+  <section class="equipped">
+    {{#each equipment}}
+    <div class="item" {{#unless item}} data-tooltip-text="{{label}}" {{/unless}}>
+      {{#if item}}
+      <span data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}" data-uuid="{{item.uuid}}" data-item-context>
+        <img src="{{item.img}}" alt="{{item.name}}">
+      </span>
+      {{else}}
+      <div class="empty">
+        <ryuutama-icon src="systems/ryuutama/assets/official/icons/items/equipment.svg"></ryuutama-icon>
+      </div>
+      {{/if}}
+    </div>
+    {{/each}}
+  </section>
+
+</section>

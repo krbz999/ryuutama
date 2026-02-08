@@ -1,0 +1,48 @@
+<section data-tab="{{tabs.effects.id}}" class="{{tabs.effects.cssClass}}" data-group="{{tabs.effects.group}}">
+  <div class="contents">
+    {{!-- CONDITION --}}
+    <section class="condition banner-label">
+      <button class="value square" type="button" data-action="{{ifThen disabled 'rollCheck' 'configure'}}" data-config="condition" data-check="condition" {{disabled (not isInteractive)}}>
+        {{#if disabled}}
+        <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/condition.svg" inert></ryuutama-icon>
+        <i class="hover fa-solid fa-dice-d10" inert></i>
+        {{else}}
+        <i class="fa-solid fa-cog" inert></i>
+        {{/if}}
+      </button>
+      <span class="label">
+        <span>{{document.system.condition.value}}</span>
+        {{#if condition.active}}
+        <ryuutama-icon src="{{condition.abilityIcon}}" {{#if condition.high}} data-tooltip="RYUUTAMA.ACTOR.TRAVELER.conditionHighTooltip" {{/if}}></ryuutama-icon>
+        {{/if}}
+      </span>
+    </section>
+
+    {{!-- STATUSES --}}
+    <section class="statuses">
+      {{#each statuses}}
+      <a type="button" class="status {{#if active}} active {{/if}}" data-action="toggleStatus" data-status="{{status}}" {{disabled (not @root.editable)}}>
+        <ryuutama-icon src="{{img}}"></ryuutama-icon>
+        <span class="label">
+          <span class="status-name">{{name}}</span>
+          <span class="status-hint">
+            {{#if suppressed}}
+            {{localize "RYUUTAMA.ACTOR.statusSuppressed"}}
+            {{else if immune}}
+            {{localize "RYUUTAMA.ACTOR.statusImmune"}}
+            {{else if active}}
+            {{strength}}
+            {{else}}
+            &mdash;
+            {{/if}}
+          </span>
+        </span>
+      </a>
+      {{/each}}
+    </section>
+
+    {{#each effects.sections}}
+    {{> "document-list" label=label entries=entries}}
+    {{/each}}
+  </div>
+</section>

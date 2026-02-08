@@ -6,9 +6,18 @@ import RyuutamaActorSheet from "../actor-sheet.mjs";
  */
 export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
   /** @override */
+  static DEFAULT_OPTIONS = {
+    window: {
+      resizable: false,
+    },
+  };
+
+  /* -------------------------------------------------- */
+
+  /** @override */
   static PARTS = {
     header: {
-      template: "systems/ryuutama/templates/sheets/shared/header.hbs",
+      template: "systems/ryuutama/templates/sheets/monster-sheet/header.hbs",
       templates: ["templates/generic/tab-navigation.hbs"],
     },
     attributes: {
@@ -27,7 +36,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
       scrollable: [""],
     },
     effects: {
-      template: "systems/ryuutama/templates/sheets/shared/effects.hbs",
+      template: "systems/ryuutama/templates/sheets/monster-sheet/effects.hbs",
       classes: ["tab", "standard-form", "scrollable"],
       scrollable: [""],
     },
@@ -74,7 +83,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
     // Skills (Special Abilities).
     context.skills = [];
     for (const skill of this.document.items.documentsByType.skill) {
-      context.skills.push({ document: skill });
+      context.skills.push({ document: skill, dataset: { "item-context": "" } });
     }
     context.specialAbility = {
       item: this.document.items
@@ -89,7 +98,70 @@ export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
       );
     }
 
+    // Abilities.
+    context.abilities = Object.keys(ryuutama.config.abilityScores).map(abi => {
+      return {
+        ability: abi,
+        icon: ryuutama.config.abilityScores[abi].icon,
+        label: ryuutama.config.abilityScores[abi].abbreviation,
+        value: this.document.system.abilities[abi],
+      };
+    });
+
+    // Status effects.
+    const immunities = this.document.system.condition.immunities;
+    const affected = this.document.system.condition.statuses;
+    context.statuses = Object.entries(ryuutama.config.statusEffects).map(([status, data]) => {
+      const { img, name, _id } = data;
+      const immune = immunities.has(status);
+      const effect = this.document.effects.get(_id);
+      const strength = affected[status] ?? 0;
+      const suppressed = !!effect && !strength;
+      return {
+        img, name, status, immune, effect, strength, suppressed,
+        active: strength > 0,
+        label: suppressed
+          ? game.i18n.format("RYUUTAMA.ACTOR.statusSuppressed", { strength: effect.system.strength.value })
+          : immune
+            ? game.i18n.localize("RYUUTAMA.ACTOR.statusImmune")
+            : strength,
+      };
+    });
+
+    // Armor.
+    const modifiers = this.document.system.defense.modifiers;
+    context.armor = {
+      total: this.document.system.defense.total,
+      hasTags: !!modifiers.physical || !!modifiers.magical,
+      tags: {
+        physical: modifiers.physical ? modifiers.physical.signedString() : null,
+        magical: modifiers.magical ? modifiers.magical.signedString() : null,
+      },
+    };
+
+    // Effects.
+    context.effects = this.#prepareEffects(context);
+
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare effects.
+   * @param {object} context    Rendering context. **will be mutated**
+   * @returns {{ enabledEffects: object[], disabledEffects: object[] }}
+   */
+  #prepareEffects(context) {
+    const { enabled = [], disabled = [] } = Object.groupBy(this.document.effects.contents, effect => {
+      if (effect.type !== "standard") return "status";
+      return effect.disabled ? "disabled" : "enabled";
+    });
+
+    return {
+      enabledEffects: enabled.map(effect => ({ document: effect, dataset: { "effect-context": "" } })),
+      disabledEffects: disabled.map(effect => ({ document: effect, dataset: { "effect-context": "" }, classes: ["inactive"] })),
+    };
   }
 
   /* -------------------------------------------------- */

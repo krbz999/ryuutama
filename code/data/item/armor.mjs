@@ -24,6 +24,15 @@ const { NumberField, SchemaField } = foundry.data.fields;
 
 export default class ArmorData extends PhysicalData {
   /** @inheritdoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(
+    super.metadata,
+    { sort: 103 },
+    { inplace: false },
+  ));
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       armor: new SchemaField({

@@ -201,3 +201,54 @@
  * @property {number} modifier    The weather modifier for a journey check.
  * @property {string} icon        Filepath for an icon.
  */
+
+/* -------------------------------------------------- */
+/*   SEARCH & FILTERING                               */
+/* -------------------------------------------------- */
+
+/**
+ * @typedef LockedSearchFilter
+ * @property {string} field           The document property to compare against.
+ * @property {string} operator        A comparison method from `SearchFilter.OPERATORS`.
+ * @property {any|() => any} value    A value, array of values, or method that returns such.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef ConfigurableSearchFilter
+ * @property {string} id                  Unique identifier for this specific filter.
+ * @property {string} field               The document property to compare against.
+ * @property {string} operator            A comparison method from `SearchFilter.OPERATORS`.
+ * @property {any[]|() => any[]} value    An array of values, or method that returns such.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef SearchCategory
+ * @property {LockedSearchFilter[]} [locked]
+ * @property {ConfigurableSearchFilter[]} [filters]
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef InitializedLockedSearchFilter
+ * @property {string} field       The document property to compare against.
+ * @property {string} operator    A comparison method from `SearchFilter.OPERATORS`.
+ * @property {any|any[]} value    A value or array of values.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef InitializedConfigurableSearchFilter
+ * @property {string} field     The document property to compare against.
+ * @property {string} operator    A comparison method from `SearchFilter.OPERATORS`.
+ * @property {Map<any, -1|0|1>} value   A mapping of a value to the filter state;
+ *                                      -1: Documents that match this are filtered out.
+ *                                       0: Documents that match this are not ignored, *unless* another
+ *                                          another option in the category is 1.
+ *                                       1: Documents are filtered out unless they match this.
+ */

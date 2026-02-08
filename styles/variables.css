@@ -7,16 +7,30 @@
   --ryuutama-color-bisque: #f7dfc5;
   --ryuutama-color-oldlace: #fbedde;
   --ryuutama-color-indianred: #87384d;
-  --ryuutama-color-limegreen: #4BA72F;
+  --ryuutama-color-forestgreen: #316b20;
   --ryuutama-color-darkblue: #4F2EBD;
   --ryuutama-color-black: black;
   --ryuutama-color-mediumvioletred: #b8006d;
   --ryuutama-color-steelblue: #45619e;
   --ryuutama-color-steelblue-light: #0089bd;
   --ryuutama-color-firebrick: #c4151c;
+  --ryuutama-color-burlywood: #deb887;
+  --ryuutama-color-lightwood: #6b583d;
+  --ryuutama-color-white: #efe6d8;
+
+  --ryuutama-color-book-cover-blue: #5aadb7;
+  --ryuutama-color-book-cover-gold: #f4b669;
+  --ryuutama-color-book-altcover-green: #194125;
+  --ryuutama-color-book-altcover-gold: #aca267;
+
+  /* SEASONS */
+  --ryuutama-color-season-spring: #60995c;
+  --ryuutama-color-season-summer: #e86720;
+  --ryuutama-color-season-autumn: #a72244;
+  --ryuutama-color-season-winter: #0095da;
 
   /* VARIABLES */
-  --ryuutama-color-resource-stamina: var(--ryuutama-color-limegreen);
+  --ryuutama-color-resource-stamina: var(--ryuutama-color-forestgreen);
   --ryuutama-color-resource-stamina-negative: var(--ryuutama-color-indianred);
   --ryuutama-color-resource-mental: var(--ryuutama-color-darkblue);
   --ryuutama-color-resource-default: var(--ryuutama-color-black);
@@ -29,64 +43,45 @@
   --ryuutama-color-check-critical: var(--ryuutama-color-steelblue);
   --ryuutama-color-check-condition: var(--ryuutama-color-palevioletred);
 
-  --ryuutama-color-exp-bar: var(--ryuutama-color-steelblue);
-
-  /* The border on empty equipment slots. */
-  --ryuutama-color-border: var(--ryuutama-color-dimgray);
+  /* ACCENTS */
+  --ryuutama-color-shadow-black: rgb(11 10 19 / .9);
+  --ryuutama-color-shadow-white: rgb(175 175 175 / .9);
 
   /* WEATHER ICONS */
-  --ryuutama-color-weather-blizzard: rgb(0, 174, 239);
-  --ryuutama-color-weather-clear-skies: rgb(247, 147, 29);
-  --ryuutama-color-weather-cloudy: rgb(99, 100, 102);
-  --ryuutama-color-weather-cold: rgb(0, 174, 239);
-  --ryuutama-color-weather-darkness: rgb(35, 31, 32);
-  --ryuutama-color-weather-deep-fog: rgb(128, 130, 133);
-  --ryuutama-color-weather-fog: rgb(157, 159, 162);
-  --ryuutama-color-weather-hard-rain: rgb(0, 84, 166);
-  --ryuutama-color-weather-hot: rgb(243, 111, 33);
-  --ryuutama-color-weather-hurricane: rgb(0, 37, 97);
-  --ryuutama-color-weather-rain: rgb(0, 84, 166);
-  --ryuutama-color-weather-snow: rgb(0, 174, 239);
-  --ryuutama-color-weather-strong-wind: rgb(0, 122, 122);
-  --ryuutama-color-weather-thunder-storm: rgb(255, 221, 0);
+  --ryuutama-color-weather-blizzard: rgb(0 174 239);
+  --ryuutama-color-weather-clear-skies: rgb(247 147 29);
+  --ryuutama-color-weather-cloudy: rgb(99 100 102);
+  --ryuutama-color-weather-cold: rgb(0 174 239);
+  --ryuutama-color-weather-darkness: rgb(35 31 32);
+  --ryuutama-color-weather-deep-fog: rgb(128 130 133);
+  --ryuutama-color-weather-fog: rgb(157 159 162);
+  --ryuutama-color-weather-hard-rain: rgb(0 84 166);
+  --ryuutama-color-weather-hot: rgb(243 111 33);
+  --ryuutama-color-weather-hurricane: rgb(0 37 97);
+  --ryuutama-color-weather-rain: rgb(0 84 166);
+  --ryuutama-color-weather-snow: rgb(0 174 239);
+  --ryuutama-color-weather-strong-wind: rgb(0 122 122);
+  --ryuutama-color-weather-thunder-storm: rgb(255 221 0);
 
   .theme-light, .themed.theme-light {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
-    --ryuutama-document-list-hover-color: rgba(0, 0, 0, 0.1);
-    --ryuutama-color-value-location: black;
-    --ryuutama-color-disabled: var(--ryuutama-color-dimgray);
-    --ryuutama-color-capacity-bar: var(--ryuutama-color-darkorange);
     --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
 
     --ryuutama-color-table-header: var(--ryuutama-color-darkorange);
     --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
     --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
     --ryuutama-table-text-color: var(--ryuutama-color-black);
-
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-darkblue);
-
-    --ryuutama-color-spellbook-pill: var(--ryuutama-color-oldlace);
-
-    --ryuutama-color-document-list-header: var(--ryuutama-color-darkorange);
   }
 
   .theme-dark, .themed.theme-dark {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-palevioletred);
-    --ryuutama-document-list-hover-color: rgba(255, 255, 255, 0.1);
-    --ryuutama-color-value-location: white;
-    --ryuutama-color-disabled: var(--ryuutama-color-tan);
-    --ryuutama-color-capacity-bar: var(--ryuutama-color-darkorange);
     --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
 
     --ryuutama-color-table-header: var(--ryuutama-color-darkorange);
     --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
     --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
     --ryuutama-table-text-color: var(--ryuutama-color-black);
-
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-bisque);
-
-    --ryuutama-color-spellbook-pill: var(--ryuutama-color-dimgray);
-
-    --ryuutama-color-document-list-header: var(--ryuutama-color-indianred);
   }
 }

@@ -1,0 +1,19 @@
+<section class="filters">
+  <search data-search="{{search.key}}">
+    <input type="search" id="{{rootId}}-search.{{search.key}}" placeholder="{{search.placeholder}}">
+    <span class="controls">
+      {{#if search.allowCategorizationToggle}}
+      <a data-action="cycleCategorizationMode" class="fa-solid fa-fw fa-{{search.categoryCssClass}}"></a>
+      {{/if}}
+      <a data-action="cycleSortMode" class="fa-solid fa-fw fa-arrow-down-{{search.cssClass}}"></a>
+      <a data-action="toggleFilterList" class="fa-solid fa-fw fa-filter {{#if search.expanded}} expanded {{/if}}"></a>
+    </span>
+    <menu class="menu-options">
+      {{#each search.options}}
+      <a data-action="toggleFilterOption" class="{{cssClass}}" data-option="{{option}}" data-id="{{id}}">
+        <span class="label">{{label}}</span>
+      </a>
+      {{/each}}
+    </menu>
+  </search>
+</section>

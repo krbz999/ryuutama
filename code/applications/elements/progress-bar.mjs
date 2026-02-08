@@ -114,11 +114,12 @@ export default class ProgressBar extends HTMLElement {
 
     const stored = ProgressBar.storage.get(id) ?? null;
     const bar = this.#bar;
-    const value = bar.computedStyleMap().get("right").value;
+    const property = this.classList.contains("vertical") ? "top" : "right";
+    const value = bar.computedStyleMap().get(property).value;
     ProgressBar.storage.set(id, value);
 
-    if (stored === null) return;
-    bar.animate([{ right: `${stored}%` }, { right: `${value}%` }], { duration: 500, easing: "ease-in-out" });
+    if ((stored === null) || (value === "auto") || (stored === "auto")) return;
+    bar.animate([{ [property]: `${stored}%` }, { [property]: `${value}%` }], { duration: 500, easing: "ease-in-out" });
   }
 
   /* -------------------------------------------------- */

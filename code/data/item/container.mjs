@@ -19,6 +19,15 @@ const { NumberField, SchemaField } = foundry.data.fields;
  */
 
 export default class ContainerData extends BaseData {
+  /** @inheritdoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(
+    super.metadata,
+    { sort: 303 },
+    { inplace: false },
+  ));
+
+  /* -------------------------------------------------- */
+
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {

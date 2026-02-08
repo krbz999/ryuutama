@@ -2,6 +2,8 @@ import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 
 /**
  * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
+ * @import RyuutamaSearchManager from "../../ux/search-manager.mjs";
+ * @import { SearchCategory } from "../../_types.mjs";
  */
 
 /**
@@ -13,28 +15,87 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   static DEFAULT_OPTIONS = {
     actions: {
       advance: RyuutamaActorSheet.#advance,
+      castSpell: RyuutamaActorSheet.#castSpell,
       configure: RyuutamaActorSheet.#configure,
       configurePrototypeToken: RyuutamaActorSheet.#configurePrototypeToken,
+      cycleCategorizationMode: RyuutamaActorSheet.#cycleCategorizationMode,
+      cycleSortMode: RyuutamaActorSheet.#cycleSortMode,
+      deleteEffect: RyuutamaActorSheet.#deleteEffect,
+      deleteItem: RyuutamaActorSheet.#deleteItem,
       renderItem: RyuutamaActorSheet.#renderItem,
       rollAttack: RyuutamaActorSheet.#rollAttack,
       rollCheck: RyuutamaActorSheet.#rollCheck,
+      showPortrait: RyuutamaActorSheet.#showPortrait,
+      toggleFilterList: RyuutamaActorSheet.#toggleFilterList,
+      toggleFilterOption: { handler: RyuutamaActorSheet.#toggleFilterOption, buttons: [0, 2] },
+      toggleSectionCollapse: RyuutamaActorSheet.#toggleSectionCollapse,
       toggleStatus: RyuutamaActorSheet.#toggleStatus,
+      unequipItem: RyuutamaActorSheet.#unequipItem,
     },
     window: {
-      controls: [{
-        action: "configurePrototypeToken",
-        icon: "fa-solid fa-circle-user",
-        label: "TOKEN.TitlePrototype",
-        ownership: "OWNER",
-      }],
+      resizable: true,
+      controls: [
+        {
+          action: "configurePrototypeToken",
+          icon: "fa-solid fa-circle-user",
+          label: "TOKEN.TitlePrototype",
+          ownership: "OWNER",
+        },
+      ],
     },
   };
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Search configuration.
+   * @type {Record<string, SearchCategory>}
+   */
+  static SEARCH = {};
 
   /* -------------------------------------------------- */
 
   /** @override */
   get title() {
     return this.document.name;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Notes sections that have been collapsed.
+   * @type {Set<string>}
+   */
+  #collapsedSections = new Set();
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @type {RyuutamaSearchManager}
+   */
+  #search = new ryuutama.applications.ux.RyuutamaSearchManager(this.document, this.constructor.SEARCH);
+  get search() {
+    return this.#search;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The unique search filters.
+   * @type {Map<string, RyuutamaSearchFilter>}
+   */
+  #searchFilters = new Map();
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The search inputs with currently expanded filter lists.
+   * If the key is in the set, the list is expanded.
+   * @type {Set<string>}
+   */
+  #expandedFilters = new Set();
+  get expandedFilters() {
+    return this.#expandedFilters;
   }
 
   /* -------------------------------------------------- */
@@ -54,12 +115,14 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
+    context.collapsed = Object.fromEntries(Array.from(this.#collapsedSections).map(s => [s, true]));
+
     // Abilities.
     context.abilities = Object.keys(ryuutama.config.abilityScores).map(abi => {
       return {
         ability: abi,
         icon: ryuutama.config.abilityScores[abi].icon,
-        label: ryuutama.config.abilityScores[abi].abbreviation,
+        label: ryuutama.config.abilityScores[abi].label,
         value: this.document.system.abilities[abi],
       };
     });
@@ -71,53 +134,27 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
       const { img, name, _id } = data;
       const immune = immunities.has(status);
       const effect = this.document.effects.get(_id);
-      const strength = affected[status] ?? 0;
+      const strength = affected[status];
       const suppressed = !!effect && !strength;
       return {
-        img, name, status, immune, effect, strength, suppressed,
-        active: strength > 0,
-        label: suppressed
-          ? game.i18n.format("RYUUTAMA.ACTOR.statusSuppressed", { strength: effect.system.strength.value })
-          : immune
-            ? game.i18n.localize("RYUUTAMA.ACTOR.statusImmune")
-            : strength,
+        img, name, status, immune, strength, suppressed,
+        active: !!effect,
       };
     });
 
-    // Armor.
-    const modifiers = this.document.system.defense.modifiers;
-    context.armor = {
-      total: this.document.system.defense.total,
-      hasTags: !!modifiers.physical || !!modifiers.magical,
-      tags: {
-        physical: modifiers.physical ? modifiers.physical.signedString() : null,
-        magical: modifiers.magical ? modifiers.magical.signedString() : null,
-      },
-    };
-
-    // Effects.
-    context.effects = this.#prepareEffects(context);
+    // Set up search filters.
+    for (const key of Object.keys(this.constructor.SEARCH)) {
+      if (this.#searchFilters.get(key)) continue;
+      this.#searchFilters.set(key, new ryuutama.applications.ux.RyuutamaSearchFilter({
+        inputSelector: `[id="${context.rootId}-search.${key}"]`,
+        contentSelector: `[data-search-container="${key}"]`,
+        initial: "",
+        callback: RyuutamaActorSheet.#searchListings.bind(this),
+        delay: 200,
+      }));
+    }
 
     return context;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare effects.
-   * @param {object} context    Rendering context. **will be mutated**
-   * @returns {{ enabledEffects: object[], disabledEffects: object[] }}
-   */
-  #prepareEffects(context) {
-    const { enabled = [], disabled = [] } = Object.groupBy(this.document.effects.contents, effect => {
-      if (effect.type !== "standard") return "status";
-      return effect.disabled ? "disabled" : "enabled";
-    });
-
-    return {
-      enabledEffects: enabled.map(effect => ({ document: effect })),
-      disabledEffects: disabled.map(effect => ({ document: effect, classes: ["inactive"] })),
-    };
   }
 
   /* -------------------------------------------------- */
@@ -129,23 +166,27 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
     // Manage items.
     this._createContextMenu(
       RyuutamaActorSheet.#createItemContextOptions.bind(this),
-      ".document-listing .document-list .entry[data-document-name=Item], .equipped [data-uuid]",
+      "[data-item-context]",
       { hookName: "get{}ItemContextOptions", parentClassHooks: false, fixed: true },
     );
 
     // Manage effects.
     this._createContextMenu(
       RyuutamaActorSheet.#createActiveEffectContextOptions.bind(this),
-      ".document-listing .document-list .entry[data-document-name=ActiveEffect]",
+      "[data-effect-context]",
       { hookName: "Get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
     );
+  }
 
-    // Tags.
-    this._createContextMenu(
-      RyuutamaActorSheet.#createTagContextOptions.bind(this),
-      ".tags .tag.traveler-classes",
-      { hookName: "Get{}TagContextOptions", parentClassHooks: false, fixed: true },
-    );
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+
+    for (const k of Object.keys(this.constructor.SEARCH)) {
+      this.#searchFilters.get(k).bind(this.element, false);
+    }
   }
 
   /* -------------------------------------------------- */
@@ -191,7 +232,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
         name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.delete",
         icon: "fa-solid fa-fw fa-trash",
         callback: target => getItem(target).deleteDialog(),
-        condition: () => this.isEditable,
+        condition: target => this.isEditable && (getItem(target).type !== "class"),
       },
       {
         group: "system",
@@ -278,7 +319,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
         name: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.delete",
         icon: "fa-solid fa-fw fa-trash",
         callback: target => getItem(target).deleteDialog(),
-        condition: () => this.isEditable,
+        condition: target => (getItem(target).parent === this.document) && this.isEditable,
       },
       {
         name: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.disable",
@@ -301,24 +342,142 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * Create context menu options for tags.
    * @this RyuutamaActorSheet
-   * @returns {ContextMenuEntry[]}
+   * @param {Event} event
+   * @param {string} query
+   * @param {RegExp} regex
+   * @param {HTMLElement} container
    */
-  static #createTagContextOptions() {
-    /** @type {ContextMenuEntry[]} */
-    const options = [];
+  static #searchListings(event, query, regex, container) {
+    const key = container.dataset.searchContainer;
+    const entries = container.querySelectorAll(".entry[data-uuid]");
+    const matches = this.search.search(key, query).map(item => item.uuid);
+    for (const entry of entries) entry.classList.toggle("hidden", !matches.includes(entry.dataset.uuid));
+  }
 
-    for (const cls of this.document.items.documentsByType.class) {
-      options.push({
-        name: game.i18n.format("RYUUTAMA.ACTOR.CONTEXT.MISC.classTag", { name: cls.name }),
-        icon: "fa-solid fa-fw fa-landmark",
-        callback: () => cls.sheet.render({ force: true }),
-      });
+  /* -------------------------------------------------- */
+  /*   Event Handlers                                   */
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #advance(event, target) {
+    this.document.system.advance();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #castSpell(event, target) {
+    const item = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
+    this.document.system.castSpell(item);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #configure(event, target) {
+    const options = { document: this.document };
+    let application;
+    switch (target.dataset.config) {
+      case "ability":
+        options.ability = target.dataset.ability;
+        application = new ryuutama.applications.apps.AbilityConfig(options);
+        break;
+      case "attack":
+        application = new ryuutama.applications.apps.AttackConfig(options);
+        break;
+      case "condition":
+        application = new ryuutama.applications.apps.ConditionConfig(options);
+        break;
+      case "defense":
+        application = new ryuutama.applications.apps.DefenseConfig(options);
+        break;
+      case "resource":
+        options.resource = target.dataset.resource;
+        application = new ryuutama.applications.apps.ResourceConfig(options);
+        break;
     }
+    if (!application) return;
+    application.render({ force: true });
+  }
 
-    if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));
-    return options;
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #configurePrototypeToken(event, target) {
+    new CONFIG.Token.prototypeSheetClass({
+      prototype: this.document.prototypeToken,
+      position: {
+        left: Math.max(this.position.left - 560 - 10, 10),
+        top: this.position.top,
+      },
+    }).render({ force: true });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static async #cycleCategorizationMode(event, target) {
+    const key = target.closest("[data-search]").dataset.search;
+    await this.search.cycleCategorizationMode(key);
+    this.render();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static async #cycleSortMode(event, target) {
+    const key = target.closest("[data-search]").dataset.search;
+    await this.search.cycleSortMode(key);
+    this.render();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #deleteEffect(event, target) {
+    const effect = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
+    effect.deleteDialog({ yes: { default: true } });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #deleteItem(event, target) {
+    const item = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
+    item?.deleteDialog();
   }
 
   /* -------------------------------------------------- */
@@ -364,30 +523,53 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
-  static #configure(event, target) {
-    const options = { document: this.document };
-    let application;
-    switch (target.dataset.config) {
-      case "ability":
-        options.ability = target.dataset.ability;
-        application = new ryuutama.applications.apps.AbilityConfig(options);
-        break;
-      case "attack":
-        application = new ryuutama.applications.apps.AttackConfig(options);
-        break;
-      case "condition":
-        application = new ryuutama.applications.apps.ConditionConfig(options);
-        break;
-      case "defense":
-        application = new ryuutama.applications.apps.DefenseConfig(options);
-        break;
-      case "resource":
-        options.resource = target.dataset.resource;
-        application = new ryuutama.applications.apps.ResourceConfig(options);
-        break;
-    }
-    if (!application) return;
-    application.render({ force: true });
+  static #showPortrait(event, target) {
+    const { img: src, uuid, name: title } = this.document;
+    new foundry.applications.apps.ImagePopout({ src, uuid, window: { title } }).render({ force: true });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #toggleFilterList(event, target) {
+    const key = target.closest("[data-search]").dataset.search;
+    if (this.#expandedFilters.has(key)) this.#expandedFilters.delete(key);
+    else this.#expandedFilters.add(key);
+    target.classList.toggle("expanded", this.#expandedFilters.has(key));
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #toggleFilterOption(event, target) {
+    const { id, option } = target.dataset;
+    const key = target.closest("[data-search]").dataset.search;
+    const state = this.search.cycle(key, id, option, event.button === 2);
+    target.classList.toggle("active", state === 1);
+    target.classList.toggle("inactive", state === -1);
+    this.#searchFilters.get(key).bind(this.element, false);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaActorSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #toggleSectionCollapse(event, target) {
+    const section = target.closest("[data-collapse-section]").dataset.collapseSection;
+    if (this.#collapsedSections.has(section)) this.#collapsedSections.delete(section);
+    else this.#collapsedSections.add(section);
+    target.closest(".collapsible-container").classList.toggle("collapsed", this.#collapsedSections.has(section));
   }
 
   /* -------------------------------------------------- */
@@ -409,24 +591,8 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
-  static #configurePrototypeToken(event, target) {
-    new CONFIG.Token.prototypeSheetClass({
-      prototype: this.document.prototypeToken,
-      position: {
-        left: Math.max(this.position.left - 560 - 10, 10),
-        top: this.position.top,
-      },
-    }).render({ force: true });
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * @this RyuutamaActorSheet
-   * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
-   */
-  static #advance(event, target) {
-    this.document.system.advance();
+  static #unequipItem(event, target) {
+    const item = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
+    this.document.update({ [`system.equipped.${item.type}`]: null });
   }
 }

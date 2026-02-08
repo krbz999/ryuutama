@@ -1,0 +1,257 @@
+.ryuutama.application.sheet.actor.traveler {
+  --c-text-light: rgb(245, 245, 220);
+  --c-text-dark: rgb(40, 0, 0);
+  background:
+    linear-gradient(
+      65deg,
+      hsl(from var(--c-primary) h s l / 1) 0%,
+      hsl(from var(--c-primary) h s l / .3) 15%,
+      hsl(from var(--c-primary) h s l / .3) 50%,
+      hsl(from var(--c-primary) h s l / 1) 100%
+    ),
+    var(--c-background);
+
+  /* -------------------------------------------------- */
+  /*   TEXT COLORS                                      */
+  /* -------------------------------------------------- */
+
+  --color-text-primary: var(--c-text);
+  --color-text-secondary: var(--c-text);
+  --color-text-emphatic: var(--c-text);
+  button {
+    --button-text-color: var(--c-text);
+    --button-hover-background-color: var(--c-accent);
+
+    &:hover {
+      --button-hover-text-color: var(--c-text-dark);
+    }
+  }
+
+  /* TODO: move to other apps. */
+  * { scrollbar-color: var(--c-accent) var(--color-scrollbar-track) }
+
+  /* -------------------------------------------------- */
+  /*   FILTERS                                          */
+  /* -------------------------------------------------- */
+
+  .filters {
+    --c-active: greenyellow;
+    --c-inactive: red;
+    margin-left: 0;
+    margin-bottom: 0;
+
+    input[type=search] {
+      margin: 2px;
+      border-color: var(--c-primary);
+      background: transparent;
+    }
+
+    search {
+      display: grid;
+      grid-template-columns: 1fr 0fr;
+      gap: 1rem;
+      position: relative;
+      align-items: center;
+      margin-right: 1rem;
+
+      .controls {
+        display: flex;
+        flex: 1;
+        gap: 1rem;
+      }
+    }
+
+    [data-action=cycleCategorizationMode],
+    [data-action=cycleSortMode],
+    [data-action=toggleFilterList] {
+      color: var(--c-accent);
+      display: grid;
+      text-shadow: none;
+
+      &::before {
+        transform: scale(1.5);
+      }
+    }
+
+    [data-action=toggleFilterList]:has(+ .menu-options > [data-option].active) {
+      color: var(--c-active);
+    }
+    [data-action=toggleFilterList]:has(+ .menu-options > [data-option].inactive) {
+      color: var(--c-inactive);
+    }
+
+    menu.menu-options {
+      display: none;
+      position: absolute;
+      background:
+        linear-gradient(
+          270deg,
+          hsl(from var(--c-primary) h s l / 1) 0%,
+          hsl(from var(--c-primary) h s l / .85) 15%,
+          hsl(from var(--c-primary) h s l / .55) 95%
+        ),
+        linear-gradient(
+          90deg,
+          var(--c-background) 0%,
+          transparent 75%
+        );
+      border: 1px solid var(--c-accent);
+      border-radius: .35rem;
+      border-top-right-radius: 0;
+      padding: .5rem;
+      padding-right: 1.5rem;
+      inset: 100% 1rem auto auto;
+      gap: .5rem;
+      filter: drop-shadow(-.25rem .25rem .25rem var(--ryuutama-color-shadow-black));
+      z-index: 1;
+
+      .filters:has([data-action=toggleFilterList].expanded) & {
+        display: grid;
+      }
+
+      [data-option] {
+        display: grid;
+        grid-template-columns: 1.25em 1fr;
+        gap: .5rem;
+
+        &.inactive .label {
+          opacity: 0.5;
+        }
+
+        &::before {
+          font-family: var(--font-awesome);
+          text-align: center;
+          content: "\f068";
+          color: hsl(from var(--c-accent) h s l / .25);
+        }
+        &.inactive::before {
+          content: "\f00d";
+          color: var(--c-inactive);
+        }
+        &.active::before {
+          content: "\f00c";
+          color: var(--c-active);
+        }
+      }
+    }
+  }
+
+  /* -------------------------------------------------- */
+  /*   INPUTS                                           */
+  /* -------------------------------------------------- */
+
+  input[type=search],
+  input[type=text] {
+    box-shadow: none;
+
+    &:focus {
+      --input-focus-outline-color: var(--c-accent);
+    }
+  }
+
+  /* -------------------------------------------------- */
+  /*   STATUSES                                         */
+  /* -------------------------------------------------- */
+
+  .statuses {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    background: var(--c-primary);
+    border: 1px solid var(--c-accent);
+    border-radius: 3px;
+    overflow: hidden;
+
+    .status {
+      --icon: 45px;
+      display: grid;
+      grid-template-columns: var(--icon) 1fr;
+      align-items: center;
+      border: 1px solid var(--c-accent);
+      text-align: center;
+      height: var(--icon);
+      max-height: var(--icon);
+      text-shadow: none;
+      transition: background 100ms ease-in-out;
+
+      &:not(.active) {
+        --ryuutama-color-statuses-body: transparent;
+        --ryuutama-color-statuses-mind: transparent;
+      }
+
+      &:hover {
+        background: var(--c-accent);
+      }
+
+      .label {
+        display: grid;
+      }
+
+      .status-hint {
+        font-size: 12px;
+      }
+    }
+  }
+
+  /* -------------------------------------------------- */
+  /*   TEXT SECTIONS                                    */
+  /* -------------------------------------------------- */
+
+  [data-application-part=notes] .shaded-header {
+    grid-template-columns: 1fr 0fr;
+    padding: 1rem .75rem;
+    display: grid;
+    align-content: center;
+    border-radius: 2px 2rem 2rem 2px;
+    text-shadow: none;
+
+    i.fa-solid {
+      color: var(--c-accent);
+      transition: transform 300ms ease-out;
+      .collapsed & { transform: rotate(90deg) }
+    }
+  }
+  [data-application-part=notes] .collapsible-wrapper {
+    user-select: text;
+
+    .collapsible-padding {
+      background: hsl(from var(--c-secondary) h s l / .25);
+      padding: .5rem 1rem 1rem;
+      margin: 0 .25rem;
+      margin-right: 1rem;
+      border: 1px solid var(--c-secondary);
+      border-top: none;
+      border-radius: 2px;
+      min-height: 3rem;
+    }
+  }
+
+  /* -------------------------------------------------- */
+  /*   THEMING                                          */
+  /* -------------------------------------------------- */
+
+  .theme-dark &,
+  &.themed.theme-dark {
+    /* Primary */
+    --c-primary: #411935;
+
+    /* Complementary color */
+    --c-secondary: var(--ryuutama-color-book-altcover-green);
+
+    /* Accent */
+    --c-accent: var(--ryuutama-color-book-altcover-gold);
+
+    --c-background: var(--ryuutama-color-shadow-black);
+    --c-shadow: var(--c-background);
+    --c-text: rgb(245, 245, 220);
+  }
+
+  .theme-light &,
+  &.themed.theme-light {
+    --c-primary: var(--ryuutama-color-book-cover-blue);
+    --c-secondary: #B7645A;
+    --c-accent: var(--ryuutama-color-book-cover-gold);
+    --c-background: var(--ryuutama-color-shadow-white);
+    --c-shadow: var(--c-background);
+    --c-text: rgb(40, 0, 0);
+  }
+}

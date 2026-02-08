@@ -1,25 +1,44 @@
 <section class="document-listing">
   {{#if label}}
-  <h4>{{label}}</h4>
+  <h4>
+    <span>{{label}}</span>
+
+    {{#if attributeLabel}}
+    <span data-column="attribute">{{attributeLabel}}</span>
+    {{else}}
+    <span data-column="attribute"></span>
+    {{/if}}
+
+    {{#if controlWidgets}}
+    <span data-column="controls">{{{controlWidgets}}}</span>
+    {{else}}
+    <span data-column="controls"></span>
+    {{/if}}
+  </h4>
   {{/if}}
 
   <section class="document-list">
     {{#each entries as |entry|}}
-    <div class="entry {{entry.classes}}" data-uuid="{{entry.document.uuid}}" data-name="{{entry.document.name}}" data-document-name="{{entry.document.documentName}}" data-tooltip-html="{{ryuutama-tooltip uuid=entry.document.uuid}}" {{#each dataset as |v k|}} data-{{k}}="{{v}}" {{/each}}>
+    <div class="entry {{entry.classes}}" data-uuid="{{entry.document.uuid}}" data-name="{{entry.document.name}}" data-type="{{entry.document.type}}" data-document-name="{{entry.document.documentName}}" data-tooltip-html="{{ryuutama-tooltip uuid=entry.document.uuid}}" {{#each dataset as |v k|}} data-{{k}}="{{v}}" {{/each}}>
       <img src="{{entry.document.img}}" alt="{{entry.document.name}}">
-
-      <div class="center">
-        <span class="title">{{entry.document.name}}</span>
-        <span class="attribute">
-          {{#if entry.embedded}}
-          <span class="values">
-            <input type="text" id="{{@root.rootId}}-{{entry.document.id}}-{{entry.embedded.name}}" class="delta" data-name="{{entry.embedded.name}}" value="{{entry.embedded.value}}">
-            <span class="sep">/</span>
-            <span class="max">{{entry.embedded.max}}</span>
-          </span>
-          {{/if}}
-        </span>
-      </div>
+      <span class="title">{{entry.document.name}}</span>
+      <span data-column="attribute">
+        {{#if entry.attribute}}
+        {{{entry.attribute}}}
+        {{/if}}
+      </span>
+      <span data-column="controls">
+        {{#each buttons as |button|}}
+        {{#if button}}
+        <button type="button" data-action="{{button.action}}">
+          <i class="fa-fw {{button.icon}}" inert></i>
+        </button>
+        {{/if}}
+        {{/each}}
+        <button type="button" data-action="contextMenu">
+          <i class="fa-solid fa-fw fa-ellipsis-vertical" inert></i>
+        </button>
+      </span>
     </div>
     {{/each}}
   </section>

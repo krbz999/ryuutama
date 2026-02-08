@@ -34,6 +34,9 @@ Hooks.once("init", () => {
   CONFIG.TextEditor.enrichers = Object.values(helpers.enrichers)
     .map(({ id, pattern, enricher, onRender }) => ({ id, pattern, enricher, onRender }));
 
+  // Register fonts.
+  helpers.fonts.registerFonts();
+
   // Define custom elements.
   const defineElements = window => {
     window.customElements.define(applications.elements.DamageTray.tagName, applications.elements.DamageTray);
@@ -179,10 +182,7 @@ Hooks.once("ready", () => {
 
   foundry.applications.handlebars.loadTemplates({
     // ACTOR PARTIALS
-    "actor-abilities": "systems/ryuutama/templates/sheets/shared/abilities.hbs",
-    "actor-defense": "systems/ryuutama/templates/sheets/shared/defense.hbs",
     "actor-resources": "systems/ryuutama/templates/sheets/shared/resources.hbs",
-    "actor-statuses": "systems/ryuutama/templates/sheets/shared/statuses.hbs",
 
     // SHARED PARTIALS
     "document-list": "systems/ryuutama/templates/sheets/shared/document-list.hbs",

@@ -4,6 +4,9 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /** @override */
   static DEFAULT_OPTIONS = {
     position: { width: 400 },
+    window: {
+      contentClasses: ["standard-form"],
+    },
   };
 
   /* -------------------------------------------------- */

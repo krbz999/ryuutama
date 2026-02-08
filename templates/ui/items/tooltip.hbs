@@ -1,9 +1,9 @@
 <section class="tooltip item" {{#if item.actor}} data-actor-uuid="{{item.actor.uuid}}" {{/if}}>
-  <h4 class="name">{{item.name}}</h4>
-  <section class="content">{{{enriched}}}</section>
+  <h4 class="tooltip-name">{{item.name}}</h4>
+  <section class="tooltip-content">{{{enriched}}}</section>
 
   {{#if item.system.modifierLabels.length}}
-  <section class="modifiers tags">
+  <section class="tooltip-modifiers tooltip-tags">
     {{#each item.system.modifierLabels}}
     <div class="tag">{{this}}</div>
     {{/each}}
@@ -12,31 +12,31 @@
 
   {{!-- WEAPON --}}
   {{#if (eq item.type "weapon")}}
-  <section class="tags">
-    <div class="tag">{{item.system.category.label}}</div>
-    <div class="tag">{{item.system.accuracy.label}}</div>
-    <div class="tag">{{item.system.damage.label}}</div>
+  <section class="tooltip-tags">
+    <div class="tooltip-tag">{{item.system.category.label}}</div>
+    <div class="tooltip-tag">{{item.system.accuracy.label}}</div>
+    <div class="tooltip-tag">{{item.system.damage.label}}</div>
   </section>
   {{/if}}
 
   {{!-- HERB --}}
   {{#if item.system.terrain.label}}
-  <section class="tags">
-    <div class="tag">{{item.system.terrain.label}}</div>
+  <section class="tooltip-tags">
+    <div class="tooltip-tag">{{item.system.terrain.label}}</div>
   </section>
   {{/if}}
 
   {{!-- SPELL --}}
   {{#if (eq item.type "spell")}}
-  <section class="tags">
+  <section class="tooltip-tags">
     {{#if item.system.spell.costLabel}}
-    <div class="tag">{{item.system.spell.costLabel}}</div>
+    <div class="tooltip-tag">{{item.system.spell.costLabel}}</div>
     {{/if}}
-    <div class="tag">{{item.system.spell.activation.label}}</div>
-    <div class="tag">{{item.system.spell.duration.label}}</div>
-    <div class="tag">{{item.system.spell.range.label}}</div>
+    <div class="tooltip-tag">{{item.system.spell.activation.label}}</div>
+    <div class="tooltip-tag">{{item.system.spell.duration.label}}</div>
+    <div class="tooltip-tag">{{item.system.spell.range.label}}</div>
     {{#if item.system.spell.target.label}}
-    <div class="tag">{{item.system.spell.target.label}}</div>
+    <div class="tooltip-tag">{{item.system.spell.target.label}}</div>
     {{/if}}
   </section>
   {{/if}}

@@ -21,6 +21,15 @@ const { HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields
  */
 
 export default class HerbData extends BaseData {
+  /** @inheritdoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(
+    super.metadata,
+    { sort: 301 },
+    { inplace: false },
+  ));
+
+  /* -------------------------------------------------- */
+
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {

@@ -72,6 +72,17 @@ export default class TravelerData extends CreatureData {
   /* -------------------------------------------------- */
 
   /**
+   * The current initiative of associated combatant.
+   * @type {number|null}
+   */
+  get combatantInitiative() {
+    const combatant = game.combat?.combatants.find(c => c.actor === this.parent);
+    return combatant?.initiative ?? null;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * The number of cursed equipment the character has equipped.
    * @type {number}
    */
@@ -87,9 +98,7 @@ export default class TravelerData extends CreatureData {
 
   /** @override */
   get defenseValue() {
-    const combatant = game.combat?.combatants.find(c => c.actor === this.parent);
-    if (!combatant || (combatant.initiative === null)) return null;
-    return Math.max(combatant.initiative, this.defense.dodge);
+    return Math.max(this.combatantInitiative, this.defense.dodge);
   }
 
   /* -------------------------------------------------- */
@@ -99,14 +108,14 @@ export default class TravelerData extends CreatureData {
    * @type {number}
    */
   get incantationSpells() {
-    let max = 0;
-    for (const advancement of this.advancements.documentsByType.type) {
-      const chosen = advancement.choice.chosen;
-      if (chosen !== "magic") continue;
-      const levels = Math.max(0, this.details.level - advancement.level + 1);
-      max = max + 2 * levels;
-    }
-    return max;
+    foundry.utils.logCompatibilityWarning("Ryuutama | TravelerData#incantationSpells is deprecated.", {
+      since: "1.4.0",
+      until: "2.0.0",
+      once: false,
+      mode: CONST.COMPATIBILITY_MODES.WARNING,
+      details: "Use TravelerData#magic.incantation.max instead.",
+    });
+    return this.magic.incantation.max;
   }
 
   /* -------------------------------------------------- */
@@ -213,6 +222,7 @@ export default class TravelerData extends CreatureData {
     this.#prepareResources();
     this.#prepareCapacity();
     this.#prepareExp();
+    this.#prepareIncantationSpells();
 
     for (const advancement of this.advancements) advancement.prepareDerivedData();
   }
@@ -346,6 +356,26 @@ export default class TravelerData extends CreatureData {
     // if (exp.value < prev) exp.pct = Math.clamp(Math.round(exp.value / next * 100), 0, 100);
     exp.pct = Math.clamp(Math.round((exp.value - prev) / (next - prev) * 100), 0, 100);
     if (isNaN(exp.pct) || !ryuutama.config.experienceLevels[level]) exp.pct = 100;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare incantation spells data.
+   */
+  #prepareIncantationSpells() {
+    this.magic ??= {};
+    const inc = this.magic.incantation = { value: 0, max: 0 };
+    for (const advancement of this.advancements.documentsByType.type) {
+      const chosen = advancement.choice.chosen;
+      if (chosen !== "magic") continue;
+      const levels = Math.max(0, this.details.level - advancement.level + 1);
+      inc.max = inc.max + 2 * levels;
+    }
+    this.parent.items.documentsByType.spell.forEach(spell => {
+      if (spell.system.category.value === "incantation") inc.value++;
+    });
+    inc.pct = Math.clamp(Math.round(inc.value / inc.max * 100), 0, 100);
   }
 
   /* -------------------------------------------------- */

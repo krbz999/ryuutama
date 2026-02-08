@@ -26,7 +26,6 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
       width: 560,
     },
     window: {
-      contentClasses: ["standard-form"],
       controls: [{
         action: "openSourceConfig",
         icon: "fa-solid fa-book-bookmark",
@@ -139,6 +138,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
       document: this.document,
       systemFields: this.document.system.schema.fields,
       source: this.document._source,
+      rollData: this.document.getRollData(),
     });
   }
 
@@ -216,12 +216,13 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
    * @this RyuutamaDocumentSheet
    */
   static #createEffect(event, target) {
+    const disabled = target.dataset.disabled === "true";
     getDocumentClass("ActiveEffect").create({
+      disabled,
       name: this.document.name,
       img: this.document.img,
       transfer: false,
-      disabled: false,
-    }, { parent: this.document });
+    }, { parent: this.document, renderSheet: true });
   }
 
   /* -------------------------------------------------- */
@@ -244,7 +245,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
   static #contextMenu(event, target) {
     const { clientX, clientY } = event;
     event.stopPropagation();
-    target.closest(".entry").dispatchEvent(new PointerEvent("contextmenu", {
+    target.closest("[data-uuid]").dispatchEvent(new PointerEvent("contextmenu", {
       clientX, clientY,
       view: window, // TODO: v14 will likely require this to be a specific window.
       bubbles: true,
@@ -301,6 +302,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
   static _onDragstart(event) {
     const target = event.currentTarget;
     if ("link" in event.target.dataset) return true;
+    if (this.element.ownerDocument.elementFromPoint(event.clientX, event.clientY).tagName === "BUTTON") return false;
 
     const embedded = this.getEmbeddedDocument(target.closest("[data-uuid]")?.dataset.uuid);
     if (!embedded) return false;
@@ -389,10 +391,45 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
    */
   async _onDropItem(event, item) {
     if (!("items" in this.document.collections)) return false;
-    if (item.parent === this.document) return false; // TODO: sort the items?
+
+    // Deduce whether this is a sort operation.
+    if (item.parent === this.document) return this._onSortItem(event, item);
+
+    // Foreign item; add to document.
     const keepId = !this.document.items.has(item.id);
     const itemData = game.items.fromCompendium(item, { clearFolder: true, keepId });
     return getDocumentClass("Item").create(itemData, { parent: this.document, keepId });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Handle drop events of an item into its current collection to sort it.
+   * @param {DragEvent} event       Initiating drop event.
+   * @param {RyuutamaItem} item     The dropped item.
+   * @returns {Promise<boolean>}    Whether this was a sort operation.
+   */
+  async _onSortItem(event, item) {
+    const target = event.target.closest("[data-uuid]");
+    if (!target) return false;
+
+    const sibling = this.getEmbeddedDocument(target.dataset.uuid);
+    if (sibling.collection !== item.collection) return false;
+
+    const siblings = [];
+    for (const element of target.closest(".document-list").children) {
+      const uuid = element.dataset.uuid;
+      if (uuid && (uuid !== item.uuid)) siblings.push(this.getEmbeddedDocument(uuid));
+    }
+
+    const sort = foundry.utils.performIntegerSort(item, { target: sibling, siblings });
+    const updates = sort.map(u => {
+      const update = u.update;
+      update._id = u.target._id;
+      return update;
+    });
+    await this.document.updateEmbeddedDocuments("Item", updates);
+    return true;
   }
 
   /* -------------------------------------------------- */

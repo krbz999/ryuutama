@@ -1,29 +1,14 @@
 <section data-tab="{{tabs.spells.id}}" class="{{tabs.spells.cssClass}}" data-group="{{tabs.spells.group}}">
+  <div class="contents">
+    {{!-- ITEM FILTERS --}}
+    {{> "systems/ryuutama/templates/sheets/traveler-sheet/search.hbs" search=spells.search}}
 
-  <section class="pills">
-    <div class="spell-pill">
-      <label>{{localize "RYUUTAMA.ACTOR.incantationSpells"}}</label>
-      <span>
-        {{incantation.value}} / {{incantation.max}}
-      </span>
-    </div>
-
-    <div class="spell-pill">
-      <label>{{localize "RYUUTAMA.ACTOR.seasonalSpells"}}</label>
-      <span>
-        {{#each seasonSpells}}
-        <ryuutama-icon src="{{icon}}" data-tooltip-text="{{label}}"></ryuutama-icon>
-        {{/each}}
-      </span>
-    </div>
-  </section>
-
-  {{#each spells as |section|}}
-  <section class="document-listing">
-    <h4>{{section.label}}</h4>
-    {{#each section.groups as |group|}}
-    {{> "document-list" entries=group.documents}}
-    {{/each}}
-  </section>
-  {{/each}}
+    <section class="spells" data-search-container="spells">
+      {{#each spells.groups}}
+      <section class="document-listings">
+        {{> "document-list" entries=documents label=label}}
+      </section>
+      {{/each}}
+    </section>
+  </div>
 </section>

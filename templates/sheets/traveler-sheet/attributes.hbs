@@ -1,77 +1,22 @@
 <section data-tab="{{tabs.attributes.id}}" class="{{tabs.attributes.cssClass}}" data-group="{{tabs.attributes.group}}">
-  {{!-- ABILITIES --}}
-  {{> "actor-abilities"}}
+  <div class="contents">
+    <section class="image-tags">
+      {{#each imageTags}}
+      <span class="image-tag" {{#each dataset as |v k|}} data-{{k}}="{{v}}" {{/each}}>
+        {{#if isSVG}}
+        <ryuutama-icon src="{{icon}}"></ryuutama-icon>
+        {{else}}
+        <img src="{{icon}}" alt="{{label}}">
+        {{/if}}
+      </span>
+      {{/each}}
+    </section>
 
-  {{!-- HP & MP --}}
-  {{> "actor-resources"}}
-
-  {{!-- FUMBLES --}}
-  <div class="icon-fields">
-    <div class="icon-field">
-      <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg"></ryuutama-icon>
-      <div class="form-group stacked">
-        <label for="{{rootId}}-system.fumbles.value">{{systemFields.fumbles.fields.value.label}}</label>
-        <div class="form-fields">
-          <input type="text" name="system.fumbles.value" class="delta" value="{{ifThen disabled document.system.fumbles.value source.system.fumbles.value}}" {{disabled (not editable)}} placeholder="0" id="{{rootId}}-system.fumbles.value">
-        </div>
-      </div>
-    </div>
+    {{!-- SKILLS --}}
+    <section class="skills">
+      {{#each skills}}
+      {{> "document-list" label=label entries=entries}}
+      {{/each}}
+    </section>
   </div>
-
-  {{!-- ATTACKS & CHECKS --}}
-  <div class="icon-fields">
-    <div class="icon-field">
-      <img src="{{weaponImage}}" alt="">
-      <div class="attack">
-        <button type="button" data-action="rollAttack" {{disabled (not isInteractive)}}>
-          <span>{{localize "RYUUTAMA.ACTOR.rollAttack"}}</span>
-        </button>
-      </div>
-    </div>
-
-    <button type="button" class="heightened" data-action="rollCheck" data-check="check" {{disabled (not isInteractive)}}>
-      <i class="fa-solid fa-burst" inert></i>
-      <span>{{localize "RYUUTAMA.ACTOR.rollCheck"}}</span>
-    </button>
-  </div>
-
-  {{!-- STATUSES --}}
-  {{> "actor-statuses"}}
-
-  {{!-- CONDITION & ARMOR --}}
-  <div class="icon-fields">
-    {{!-- CONDITION --}}
-    <div class="icon-field">
-      {{#if isEditable}}
-      <button type="button" data-action="configure" data-config="condition" class="unsize icon fa-solid fa-cog"></button>
-      {{else}}
-      <a data-action="rollCheck" data-check="condition" {{disabled (not isInteractive)}}>
-        <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/condition.svg"></ryuutama-icon>
-      </a>
-      {{/if}}
-      <div class="form-group stacked">
-        <label>{{localize "RYUUTAMA.ACTOR.condition"}}</label>
-        <div class="form-fields">
-          <span class="value italics">{{document.system.condition.value}}</span>
-          {{#if conditionShape.active}}
-          <div class="tags center">
-            {{#if conditionShape.high}}
-            {{#if disabled}}
-            <span class="tag">{{systemFields.condition.fields.shape.fields.high.label}}: {{conditionShape.ability}}</span>
-            {{else}}
-            {{formGroup systemFields.condition.fields.shape.fields.high value=source.system.condition.shape.high blank=(localize "RYUUTAMA.TRAVELER.conditionShapeSelectAbility") hint=false}}
-            {{/if}}
-            {{else if conditionShape.low}}
-            <span class="tag">{{localize "RYUUTAMA.TRAVELER.conditionShapeOutOfShape"}}</span>
-            {{/if}}
-          </div>
-          {{/if}}
-        </div>
-      </div>
-    </div>
-
-    {{!-- ARMOR --}}
-    {{> "actor-defense"}}
-  </div>
-
 </section>

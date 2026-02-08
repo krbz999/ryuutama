@@ -1,0 +1,287 @@
+.ryuutama {
+  /* A flex section. */
+  section.flex {
+    display: flex;
+  }
+
+  /* -------------------------------------------------- */
+
+  /* A rectangular section with filigree corner elements. */
+  /* The '.bordered' modifier adds some inset and a 2px border. */
+  .filigree-section {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      pointer-events: none;
+      content: "";
+      inset: 0;
+      background:
+        var(--corner-tl) top left no-repeat,
+        var(--corner-tr) top right no-repeat,
+        var(--corner-br) bottom right no-repeat,
+        var(--corner-bl) bottom left no-repeat;
+      background-size: 2rem;
+    }
+
+    &.bordered {
+      --inset: .5rem;
+      border: 2px solid var(--c-accent);
+      border-radius: 2px;
+
+      &::after {
+        inset: var(--inset);
+        border: 2px solid var(--c-accent);
+      }
+    }
+
+    /* Variables */
+    .theme-light &,
+    &.themed.theme-light {
+      --corner-tl: url("/systems/ryuutama/assets/official/layout/corner-light-tl.svg");
+      --corner-tr: url("/systems/ryuutama/assets/official/layout/corner-light-tr.svg");
+      --corner-br: url("/systems/ryuutama/assets/official/layout/corner-light-br.svg");
+      --corner-bl: url("/systems/ryuutama/assets/official/layout/corner-light-bl.svg");
+    }
+    .theme-dark &,
+    &.themed.theme-dark {
+      --corner-tl: url("/systems/ryuutama/assets/official/layout/corner-dark-tl.svg");
+      --corner-tr: url("/systems/ryuutama/assets/official/layout/corner-dark-tr.svg");
+      --corner-br: url("/systems/ryuutama/assets/official/layout/corner-dark-br.svg");
+      --corner-bl: url("/systems/ryuutama/assets/official/layout/corner-dark-bl.svg");
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /* A name plaque, a rectangular section to display a title. */
+  /* This element should be an H3 with the inner content in a span. */
+  .name-plaque {
+    text-align: center;
+    font-weight: normal;
+    height: 0;
+    min-height: fit-content;
+    padding: .5rem .5rem;
+    border: 2px solid var(--c-accent);
+    box-shadow: 2px 2px .15rem var(--ryuutama-color-black);
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    background: linear-gradient(
+      45deg,
+      var(--c-secondary) 0%,
+      hsl(from var(--c-secondary) h s l / .6) 15%,
+      var(--c-secondary) 100%
+    ), var(--c-primary);
+  }
+
+  /* -------------------------------------------------- */
+
+  /* Simple rectangular area with smooth inset border. */
+  .bordered-section {
+    padding: 1.5rem;
+    position: relative;
+
+    &::after {
+      position: absolute;
+      content: "";
+      inset: .5rem;
+      border-radius: .5rem;
+      border: 2px solid var(--c-accent);
+      pointer-events: none;
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /* Accented styling for tab navigation. */
+  /* This css class can be placed directly on the '.sheet-tabs' element or wrapping it. */
+  .accented-tabs {
+    &.sheet-tabs,
+    .sheet-tabs {
+      border-top: none;
+      gap: 0;
+      border-color: var(--c-accent);
+    }
+
+    [data-tab] {
+      line-height: normal;
+      text-shadow: none;
+      border: 1px solid var(--c-accent);
+      flex: 1;
+      background: linear-gradient(
+        90deg,
+        hsl(from var(--c-secondary) h s l / .5) 0%,
+        hsl(from var(--c-secondary) h s l / .75) 60%
+      );
+      position: relative;
+      &::before {
+        content: "";
+        inset: 0;
+        background: var(--c-background);
+        position: absolute;
+        z-index: -1;
+      }
+
+      &.active {
+        background: var(--c-secondary);
+      }
+    }
+
+    &.main-tabs {
+      &.sheet-tabs,
+      .sheet-tabs {
+        align-items: end;
+        height: 2.25rem;
+        padding: 0 .25rem;
+        justify-content: start;
+
+        [data-tab] {
+          padding-top: .5rem;
+          border-bottom: none;
+          flex: 0 0 75px;
+          height: 85%;
+          transition: 300ms ease-in-out;
+
+          &.active {
+            height: 100%;
+            border-radius: 5px 5px 0 0;
+          }
+
+          &:first-child { border-top-left-radius: 5px }
+          &:last-child { border-top-right-radius: 5px }
+
+          .fa-solid { font-size: 1.15rem }
+        }
+      }
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /* A banner label element displaying a circular field on the left with a thick label extending to the right. */
+  /* The '.slim' modifier halves the height. */
+  /* Attach the '.progress' modifier to the '.label' element when using progress-bar elements. */
+  /* Attach the '.square' modifier to any of the contained elements for less rounded corners. */
+  .banner-label {
+    --height: 3rem;
+    --width: 3rem;
+    display: grid;
+    grid-template-columns: var(--width) 1fr;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    grid: "value label" "_ sublabel" / var(--width) auto;
+
+    &.slim {
+      --height: 1.5rem;
+    }
+
+    .value {
+      grid-area: value;
+      height: var(--height);
+      width: var(--width);
+      align-content: center;
+      z-index: 1;
+      border: 2px solid var(--c-accent);
+      border-radius: calc(var(--height) * .5);
+      box-shadow: 0 0 4px var(--c-shadow) inset;
+      display: grid;
+      text-align: center;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .label {
+      grid-area: label;
+      display: flex;
+      background: var(--c-secondary);
+      border: 2px solid var(--c-accent);
+      border-radius: 0 calc(var(--height) * .35) calc(var(--height) * .35) 0;
+      align-items: center;
+      justify-content: center;
+      height: calc(var(--height) * .8);
+      margin: 0 0 0 calc(var(--height) * -.5);
+      padding-left: calc(var(--height) * .4);
+      text-align: center;
+      overflow: hidden;
+
+      &.progress {
+        padding-left: 1rem;
+        background: transparent;
+
+        progress-bar {
+          height: 100%;
+          width: 100%;
+          border: none;
+          border-radius: 0;
+        }
+      }
+    }
+
+    .sublabel {
+      grid-area: sublabel;
+      font-size: 11px;
+      background: var(--c-primary);
+      border: 1px solid var(--c-accent);
+      border-top-color: transparent;
+      border-radius: 0 0 2px 2px;
+      text-wrap: wrap;
+      place-self: left;
+      width: calc(100% - var(--height) * .35 - .3rem);
+      margin-top: calc(var(--height) * -.1);
+      margin-left: .3rem;
+    }
+
+    /* Modifiers */
+    .square {
+      border-radius: 2px;
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /* A two-column layout with a small gap. */
+  .two-column {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+    gap: .5rem;
+  }
+
+  /* -------------------------------------------------- */
+
+  /* A container that can be collapsed and expanded. */
+  /* This kind of element should simply be a 'section.collapsible-container > * + section.collapsible-wrapper'. */
+  .collapsible-container {
+    display: grid;
+    grid-template-rows: 0fr 1fr;
+    transition: grid-template-rows 200ms ease-out;
+
+    &.collapsed {
+      grid-template-rows: 0fr 0fr;
+    }
+
+    .collapsible-wrapper {
+      overflow: hidden;
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /* A rectangular, shaded element, used as header for sections. */
+  .shaded-header {
+    font-weight: normal;
+    border: 1px solid var(--c-accent);
+    height: 1.5rem;
+    display: grid;
+    align-items: center;
+    padding-left: .5rem;
+    background: linear-gradient(
+      45deg,
+      var(--c-secondary) 0%,
+      hsl(from var(--c-shadow) h s l / 1) 75%,
+      transparent 100%
+    ), var(--c-primary);
+  }
+}

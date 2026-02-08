@@ -108,6 +108,7 @@ export default class RyuutamaTooltipManager extends foundry.helpers.interaction.
 
     this.tooltip.replaceChildren(...content);
     this.tooltip.classList.add(ryuutama.id);
+    this.tooltip.classList.remove("themed", "theme-dark", "theme-light");
     requestAnimationFrame(() => this._positionItemTooltip());
   }
 

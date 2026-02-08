@@ -1,0 +1,89 @@
+/* A progress bar that shows a meter that fills with animation. */
+/* The '.vertical' modifier makes it vertical instead of horizontal. */
+progress-bar {
+  position: relative;
+  height: calc(1.2rem + var(--border-width));
+  display: flex;
+  border-radius: 5px;
+  overflow: hidden;
+  border: var(--border-width) solid hsl(from var(--color) h s l);
+  --color: var(--ryuutama-color-resource-default);
+  --border-width: 1px;
+  background: hsl(from var(--c-shadow) h s l / .75);
+
+  &.vertical {
+    width: calc(1.2rem + var(--border-width));
+  }
+
+  &:has(input) {
+    cursor: var(--cursor-pointer);
+  }
+
+  .bar {
+    position: absolute;
+    inset: 0 calc(100% - var(--fill)) 0 0;
+    background: linear-gradient(
+      90deg,
+      hsl(from var(--color) h s 25) 0%,
+      var(--color) 50%,
+      hsl(from var(--color) h s l / .9) 100%
+    );
+
+    .vertical & {
+      inset: calc(100% - var(--fill)) 0 0 0;
+    }
+  }
+
+  .display {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    align-content: center;
+  }
+
+  input {
+    width: 100%;
+    max-height: 100%;
+    text-align: center;
+    z-index: 1;
+    background: none;
+  }
+
+  /* Coloration */
+  &.stamina {
+    --color: var(--ryuutama-color-resource-stamina);
+    color: var(--ryuutama-color-white);
+    &.negative {
+      --color: var(--ryuutama-color-resource-stamina-negative);
+    }
+  }
+  &.mental {
+    --color: var(--ryuutama-color-resource-mental);
+    color: var(--ryuutama-color-white);
+  }
+  &.capacity {
+    --color: var(--c-primary);
+
+    &.overflow {
+      --color: var(--ryuutama-color-capacity-bar-overflow);
+    }
+  }
+}
+
+/* -------------------------------------------------- */
+
+/* Ryuutama icons embed SVGs. */
+ryuutama-icon {
+  height: 100%;
+  aspect-ratio: 1;
+  display: block;
+  overflow: hidden;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
