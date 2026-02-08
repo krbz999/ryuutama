@@ -71,7 +71,7 @@
       var(--c-secondary) 0%,
       hsl(from var(--c-secondary) h s l / .6) 15%,
       var(--c-secondary) 100%
-    ), var(--c-primary);
+    ), var(--c-shadow);
   }
 
   /* -------------------------------------------------- */

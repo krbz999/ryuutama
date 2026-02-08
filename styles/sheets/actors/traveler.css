@@ -9,6 +9,12 @@
   &:not(.minimizing, .maximizing, .minimized) {
     min-width: var(--min-width);
     min-height: var(--min-height);
+    --header-height: 10rem;
+
+    .window-header {
+      padding: .5rem;
+      align-items: flex-start;
+    }
   }
   &:is(.minimized, .minimizing, .maximizing) {
     .window-header { width: 100% }
@@ -44,6 +50,34 @@
       / calc(var(--sidebar-width) + var(--equipment-width)) 2fr;
     z-index: 1;
     margin-top: calc(var(--header-height) * -1);
+    position: relative;
+
+    &:has([data-application-part=attributes].active) {
+      --background-image: url("/systems/ryuutama/assets/official/ui/header-dragon.webp");
+    }
+    &:has([data-application-part=spells].active) {
+      --background-image: url("/systems/ryuutama/assets/official/ui/header-spellcasting.webp");
+    }
+    &:has([data-application-part=inventory].active) {
+      --background-image: url("/systems/ryuutama/assets/official/ui/header-inventory.webp");
+    }
+    &:has([data-application-part=effects].active) {
+      --background-image: url("/systems/ryuutama/assets/official/ui/header-healing.webp");
+    }
+    &:has([data-application-part=notes].active) {
+      --background-image: url("/systems/ryuutama/assets/official/ui/header-forest.webp");
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      inset: 0;
+      background: top center / contain no-repeat var(--background-image);
+      mask-image: linear-gradient(180deg, #fff, transparent 90%);
+      opacity: .35;
+      pointer-events: none;
+      aspect-ratio: 3 / 1;
+    }
   }
 
   [data-application-part] {
@@ -63,7 +97,7 @@
 
     .sidebar {
       border-radius: .2rem;
-      background-color: hsl(from var(--c-secondary) h s l / .5);
+      background: linear-gradient(0deg, var(--c-secondary), hsl(from var(--c-secondary) h s l / .5)), var(--c-primary);
       padding: 0.5rem;
       display: flex;
       flex-direction: column;
@@ -512,5 +546,10 @@
   .controls-dropdown,
   .window-resize-handle {
     z-index: 2;
+  }
+
+  /* The dropdown is always below the full header, can probably revisit this in v14. */
+  .controls-dropdown {
+    top: 2.5rem;
   }
 }
