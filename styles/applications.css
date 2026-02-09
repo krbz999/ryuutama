@@ -78,3 +78,97 @@ ryuutama-icon {
   width: var(--input-height);
   pointer-events: none;
 }
+
+:root {
+  interpolate-size: allow-keywords;
+}
+.ryuutama details {
+  margin-bottom: .5rem;
+
+  :has( > &) {
+    gap: 0;
+  }
+
+  > summary {
+    cursor: pointer;
+    border: 2px solid silver;
+    background-color: gainsboro;
+    padding: .5rem;
+    border-radius: 6px;
+    color: black;
+    position: relative;
+    transition:
+      all 1000ms ease-out,
+      border-radius 100ms ease-out 1000ms;
+
+    /* + * { margin-top: .5rem } */
+
+
+    &::marker {
+      content: "";
+    }
+
+    &::after {
+      content: "+";
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5rem;
+      background: black;
+      text-align: center;
+      line-height: 1.5rem;
+      font-weight: 100;
+      inset: .25rem .25rem .25rem auto;
+      border-radius: 50%;
+      display: inline-block;
+      color: white;
+    }
+  }
+
+  &:open > summary::after { content: "-" }
+
+  &::details-content {
+    height: 0;
+    overflow: hidden;
+    border-width: 0;
+    border-style: solid;
+    border-color: transparent;
+    content-visibility: visible;
+    block-size: 0;
+    padding: 0 .5rem;
+    transition:
+      all 1000ms ease-out,
+      border-width 1000ms step-end;
+  }
+
+  &:open {
+    > summary {
+      border-radius: 6px 6px 0 0;
+      background-color: royalblue;
+      border-color: navy;
+      color: white;
+      transition:
+        all 1000ms ease-out,
+        border-radius step-start;
+    }
+
+    &::details-content {
+      height: auto;
+      border-radius: 0 0 6px 6px;
+      border-color: silver;
+      border-style: solid;
+      border-width: 0 2px 2px 2px;
+      block-size: auto;
+      transition:
+        all 1000ms ease-out,
+        border-width step-start;
+    }
+  }
+}
+
+
+
+
+dialog .dialog-content > p {
+  --background-color: plum;
+  background-color: hsl(from var(--background-color) calc((sibling-index() - 1) * 50deg + h * 1deg) s l);
+}
