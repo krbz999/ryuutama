@@ -1,6 +1,6 @@
 .ryuutama.sheet.actor.traveler {
   --sidebar-width: 260px;
-  --equipment-width: 60px;
+  --equipment-width: 55px;
   --content-width: 400px;
   --min-width: calc(var(--sidebar-width) + var(--equipment-width) + var(--content-width) + 2.25rem);
   --min-height: 550px;
@@ -31,7 +31,7 @@
   .window-header {
     border: none;
     justify-content: end;
-    width: calc(100% - var(--sidebar-width));
+    width: calc(100% - var(--sidebar-width) - var(--equipment-width));
     z-index: 2;
     place-self: end;
     background: transparent;
@@ -50,6 +50,7 @@
       / calc(var(--sidebar-width) + var(--equipment-width)) 2fr;
     z-index: 1;
     margin-top: calc(var(--header-height) * -1);
+    column-gap: .5rem;
     position: relative;
 
     &:has([data-application-part=attributes].active) {
@@ -224,7 +225,6 @@
     .equipped {
       display: grid;
       gap: .25rem;
-      margin-right: 1rem;
       margin-top: 1rem;
       height: fit-content;
 
@@ -459,11 +459,6 @@
           inset: 0 .5rem 0 auto;
         }
       }
-    }
-
-    .statuses {
-      margin: 0 .5rem;
-      max-width: calc(var(--content-width) * 2);
     }
   }
 

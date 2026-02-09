@@ -155,11 +155,12 @@
 
   .statuses {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     background: var(--c-primary);
     border: 1px solid var(--c-accent);
     border-radius: 3px;
     overflow: hidden;
+    max-width: calc(6 * 150px);
 
     .status {
       --icon: 45px;
