@@ -6,10 +6,6 @@
 @import url("./apps/_styles.css");
 
 .ryuutama {
-  --ryuutama-font-raleway: Raleway;
-  --ryuutama-font-radley: Radley;
-  --ryuutama-font-gothic: Carrois Gothic;
-  --ryuutama-font-gabriela: Gabriela;
   --font-body: var(--ryuutama-font-raleway);
   --font-sans: var(--ryuutama-font-raleway);
   --font-h1: var(--ryuutama-font-raleway);
@@ -57,4 +53,10 @@
 
 .ryuutama.application a[disabled] {
   opacity: .5;
+}
+
+.ryuutama input[type=number],
+.ryuutama input[type=text].delta,
+.ryuutama .numeric-display {
+  font-family: var(--ryuutama-font-gothic);
 }

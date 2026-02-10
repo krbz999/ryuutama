@@ -3,7 +3,7 @@
 
     <section class="">
       {{!-- CAPACITY BAR --}}
-      <div class="banner-label capacity constrained-width">
+      <div class="banner-label capacity constrained-width numeric-display">
         <ryuutama-icon class="value square" src="systems/ryuutama/assets/official/icons/capacity.svg" data-tooltip="RYUUTAMA.ACTOR.TRAVELER.capacity"></ryuutama-icon>
         <span class="label progress square">
           <progress-bar class="capacity {{#if capacity.overflow}} overflow {{/if}}" id="{{rootId}}-capacity" data-label="{{capacity.value}} / {{capacity.max}}" data-pct="{{capacity.pct}}"></progress-bar>

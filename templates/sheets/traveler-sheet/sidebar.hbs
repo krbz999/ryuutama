@@ -34,7 +34,7 @@
 
       <span class="defense-points" data-tooltip-html="{{armor.dp.breakdown}}">
         <span class="label">{{localize "RYUUTAMA.ACTOR.defensePoints"}}</span>
-        <span class="value">{{armor.dp.value}}</span>
+        <span class="value numeric-display">{{armor.dp.value}}</span>
       </span>
 
       <span class="defense-icon">
@@ -49,7 +49,7 @@
 
       <span class="defense-value" data-tooltip-html="{{armor.dv.breakdown}}">
         <span class="label">{{localize "RYUUTAMA.ACTOR.defenseValue"}}</span>
-        <span class="value">{{armor.dv.value}}</span>
+        <span class="value numeric-display">{{armor.dv.value}}</span>
       </span>
 
     </section>
@@ -96,7 +96,7 @@
       <span></span>
       {{else}}
       {{#with document.system.details.exp}}
-      <progress-bar data-name="system.details.exp.value" class="exp" id="{{@root.rootId}}-exp" data-input data-value="{{value}}" data-pct="{{pct}}" data-label="{{value}} / {{max}}"></progress-bar>
+      <progress-bar data-name="system.details.exp.value" class="numeric-display exp" id="{{@root.rootId}}-exp" data-input data-value="{{value}}" data-pct="{{pct}}" data-label="{{value}} / {{max}}"></progress-bar>
       {{/with}}
       {{/if}}
     </section>

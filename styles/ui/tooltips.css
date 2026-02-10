@@ -58,6 +58,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: .25rem;
+    font-family: var(--ryuutama-font-gothic);
 
     .tooltip-tag {
       border: 1px solid var(--ryuutama-enriched-tooltip-border);

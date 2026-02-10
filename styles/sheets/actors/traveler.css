@@ -12,7 +12,7 @@
     --header-height: 10rem;
 
     .window-header {
-      padding: .5rem;
+      padding: .35rem .5rem;
       align-items: flex-start;
     }
   }
@@ -153,6 +153,10 @@
           .label {
             font-size: 10px;
             text-wrap: nowrap;
+          }
+
+          .value {
+            font-size: 18px;
           }
         }
 

@@ -63,6 +63,12 @@
   --ryuutama-color-weather-strong-wind: rgb(0 122 122);
   --ryuutama-color-weather-thunder-storm: rgb(255 221 0);
 
+  /* FONTS */
+  --ryuutama-font-raleway: Raleway;
+  --ryuutama-font-radley: Radley;
+  --ryuutama-font-gothic: Carrois Gothic;
+  --ryuutama-font-gabriela: Gabriela;
+
   .theme-light, .themed.theme-light {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
     --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);

@@ -11,7 +11,7 @@
         {{/if}}
       </button>
       <span class="label">
-        <span>{{document.system.condition.value}}</span>
+        <span class="numeric-display">{{document.system.condition.value}}</span>
         {{#if condition.active}}
         <ryuutama-icon src="{{condition.abilityIcon}}" {{#if condition.high}} data-tooltip="RYUUTAMA.ACTOR.TRAVELER.conditionHighTooltip" {{/if}}></ryuutama-icon>
         {{/if}}

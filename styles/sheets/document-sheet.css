@@ -107,7 +107,8 @@
           .values {
             white-space: nowrap;
             display: flex;
-            align-items: center;
+            align-items: baseline;
+            font-family: var(--ryuutama-font-gothic);
 
             input {
               text-align: center;
