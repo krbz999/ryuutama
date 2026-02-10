@@ -99,7 +99,12 @@
 
     .sidebar {
       border-radius: .2rem;
-      background: linear-gradient(0deg, var(--c-secondary), hsl(from var(--c-secondary) h s l / .5)), var(--c-primary);
+      background:
+        radial-gradient(
+          ellipse at bottom,
+          var(--c-secondary),
+          hsl(from var(--c-secondary) h s calc(l - 10))
+        );
       padding: 0.5rem;
       display: flex;
       flex-direction: column;
@@ -442,7 +447,7 @@
         position: relative;
 
         > * {
-          transition: opacity 200ms ease-in-out;
+          transition: opacity 200ms ease-out;
         }
 
         .hover {
@@ -484,7 +489,7 @@
         height: var(--icon);
         max-height: var(--icon);
         text-shadow: none;
-        transition: background 100ms ease-in-out;
+        transition: background 100ms ease-out;
 
         &:not(.active) {
           --ryuutama-color-statuses-body: transparent;

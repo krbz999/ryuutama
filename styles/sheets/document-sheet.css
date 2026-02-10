@@ -31,11 +31,10 @@
       font-weight: normal;
       height: var(--header-height);
       background: linear-gradient(
-        135deg,
-        hsl(from var(--c-secondary) h s l / 1) 0%,
-        hsl(from var(--c-secondary) h s l / .65) 50%,
-        hsl(from var(--c-secondary) h s l / 1) 100%
-      ), var(--c-primary);
+        90deg,
+        var(--c-secondary),
+        hsl(from var(--c-secondary) h s calc(l - 10))
+      );
 
       * {
         height: var(--header-height);

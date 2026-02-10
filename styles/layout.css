@@ -67,11 +67,10 @@
     overflow-x: hidden;
     text-overflow: ellipsis;
     background: linear-gradient(
-      45deg,
-      var(--c-secondary) 0%,
-      hsl(from var(--c-secondary) h s l / .6) 15%,
-      var(--c-secondary) 100%
-    ), var(--c-shadow);
+      90deg,
+      var(--c-secondary),
+      hsl(from var(--c-secondary) h s calc(l + 10))
+    );
   }
 
   /* -------------------------------------------------- */
@@ -108,11 +107,7 @@
       text-shadow: none;
       border: 1px solid var(--c-accent);
       flex: 1;
-      background: linear-gradient(
-        90deg,
-        hsl(from var(--c-secondary) h s l / .5) 0%,
-        hsl(from var(--c-secondary) h s l / .75) 60%
-      );
+      background: var(--c-secondary);
       position: relative;
       &::before {
         content: "";
@@ -123,7 +118,11 @@
       }
 
       &.active {
-        background: var(--c-secondary);
+        background: linear-gradient(
+          180deg,
+          var(--c-secondary),
+          hsl(from var(--c-secondary) h calc(s + 30) l)
+        );
       }
     }
 
@@ -140,7 +139,7 @@
           border-bottom: none;
           flex: 0 0 75px;
           height: 85%;
-          transition: 300ms ease-in-out;
+          transition: 300ms ease-out;
 
           &.active {
             height: 100%;
