@@ -31,7 +31,7 @@
   .window-header {
     border: none;
     justify-content: end;
-    width: calc(100% - var(--sidebar-width) - var(--equipment-width));
+    width: calc(100% - var(--sidebar-width) - var(--equipment-width) - 1rem);
     z-index: 2;
     place-self: end;
     background: transparent;
