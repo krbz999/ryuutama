@@ -51,33 +51,16 @@
     }
 
     .document-list {
-      .theme-light & {
-        --c-e-h: 32;
-        --c-e-s: 100%;
-        --c-e-l: 74%;
-        --c-o-h: 51;
-        --c-o-s: 98%;
-        --c-o-l: 78%;
-      }
-      .theme-dark & {
-        --c-e-h: 35;
-        --c-e-s: 27%;
-        --c-e-l: 33%;
-        --c-o-h: 40;
-        --c-o-s: 18%;
-        --c-o-l: 54%;
-      }
-
       .entry {
-        --luminosity1: -10%;
-        --luminosity2: 0%;
+        --luminosity1: -20;
+        --luminosity2: 0;
         height: var(--entry-height);
         grid-template-columns: var(--entry-height) 1fr var(--c-width-attribute) var(--c-width-controls);
         container-type: inline-size;
         background: linear-gradient(
           90deg,
-          hsl(var(--c-h) var(--c-s) calc(var(--c-l) + var(--luminosity1))) 0%,
-          hsl(var(--c-h) var(--c-s) calc(var(--c-l) + var(--luminosity2))) 95%
+          hsl(from var(--c) h s calc(l + var(--luminosity1))),
+          hsl(from var(--c) h s calc(l + var(--luminosity2)))
         );
         margin: 0 .5rem;
         padding: 0 .5rem 0 2px;
@@ -85,18 +68,14 @@
 
         &:last-child { border-radius: 0 0 3px 3px }
         &:nth-child(even of :not(.hidden)) {
-          --c-h: var(--c-e-h);
-          --c-s: var(--c-e-s);
-          --c-l: var(--c-e-l);
+          --c: var(--c-document-list-even);
         }
         &:nth-child(odd of :not(.hidden)) {
-          --c-h: var(--c-o-h);
-          --c-s: var(--c-o-s);
-          --c-l: var(--c-o-l);
+          --c: var(--c-document-list-odd);
         }
         &:hover {
-          --luminosity1: 0%;
-          --luminosity2: 10%;
+          --luminosity1: 0;
+          --luminosity2: 20;
         }
 
         > :not(.title) {

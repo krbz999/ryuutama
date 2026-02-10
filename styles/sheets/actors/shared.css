@@ -243,7 +243,10 @@
 
     --c-background: var(--ryuutama-color-shadow-black);
     --c-shadow: var(--c-background);
-    --c-text: rgb(245, 245, 220);
+    --c-text: rgb(245 245 220);
+
+    --c-document-list-even: hsl(35deg 27% 33%);
+    --c-document-list-odd: hsl(40deg 18% 54%);
   }
 
   .theme-light &,
@@ -253,6 +256,9 @@
     --c-accent: var(--ryuutama-color-book-cover-gold);
     --c-background: var(--ryuutama-color-shadow-white);
     --c-shadow: var(--c-background);
-    --c-text: rgb(40, 0, 0);
+    --c-text: rgb(40 0 0);
+
+    --c-document-list-even: hsl(32deg 100% 74%);
+    --c-document-list-odd: hsl(51deg 98% 78%);
   }
 }
