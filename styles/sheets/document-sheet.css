@@ -30,6 +30,7 @@
       border-radius: 3px;
       font-weight: normal;
       height: var(--header-height);
+      color: var(--ryuutama-color-document-listing-header);
       background: linear-gradient(
         90deg,
         var(--c-secondary),

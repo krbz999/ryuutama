@@ -24,9 +24,8 @@ progress-bar {
     inset: 0 calc(100% - var(--fill)) 0 0;
     background: linear-gradient(
       90deg,
-      hsl(from var(--color) h s 25) 0%,
-      var(--color) 50%,
-      hsl(from var(--color) h s l / .9) 100%
+      hsl(from var(--color) h s calc(l + 5)),
+      var(--color) 50%
     );
 
     .vertical & {
@@ -67,9 +66,14 @@ progress-bar {
   &.capacity {
     --color: var(--c-primary);
 
-    &.overflow {
-      --color: var(--ryuutama-color-capacity-bar-overflow);
+    &.overflow .display::after {
+      font-family: var(--font-awesome);
+      content: "\f071";
+      padding-left: .5rem;
     }
+  }
+  &.exp {
+    --color: var(--c-secondary);
   }
 }
 

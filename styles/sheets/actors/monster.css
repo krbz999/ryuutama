@@ -67,7 +67,7 @@
       --color: var(--ryuutama-color-capacity-bar);
 
       &.overflow {
-        --color: var(--ryuutama-color-capacity-bar-overflow);
+        --color: var(--ryuutama-color-mediumvioletred);
       }
     }
     &.exp {

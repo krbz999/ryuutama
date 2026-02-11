@@ -77,7 +77,6 @@
 @scope (.theme-dark) to (.themed) {
   .ryuutama, &.ryuutama {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-palevioletred);
-    --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
 
     --ryuutama-color-table-header: var(--ryuutama-color-darkorange);
     --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
@@ -117,6 +116,8 @@
 
     /* The distance of drop-shadow filtering; falls back to .1rem in light-mode. */
     --shadow-spread: .5rem;
+
+    --ryuutama-color-document-listing-header: var(--c-text-light);
   }
 
   /* Tooltips */
@@ -130,7 +131,6 @@
 @scope (.theme-light) to (.themed) {
   .ryuutama, &.ryuutama {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
-    --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
 
     --ryuutama-color-table-header: var(--ryuutama-color-darkorange);
     --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
@@ -161,6 +161,9 @@
 
     /* The color of equipment empty slot icons; falls back to #fff in dark-mode. */
     --equipment-empty-slot-fill: black;
+
+    --ryuutama-color-document-listing-header: var(--c-text-light);
+    --capacity-text: var(--c-text-light);
   }
 
   /* Tooltips */

@@ -270,7 +270,6 @@
       }
 
       progress-bar.exp {
-        --color: var(--c-secondary);
         border-color: var(--c-accent);
       }
     }
@@ -319,7 +318,6 @@
   [data-application-part=navigation] {
     grid-area: navigation;
     margin-top: var(--header-height);
-    margin-bottom: .5rem;
 
     .classes {
       display: flex;
@@ -337,6 +335,10 @@
     .skills {
       display: grid;
       gap: .5rem;
+    }
+
+    .contents {
+      padding-top: .5rem;
     }
 
     .image-tags {
@@ -366,6 +368,7 @@
       grid-template-rows: 0fr 1fr;
       height: 100%;
       gap: .5rem;
+      padding-top: .5rem;
     }
 
     [data-search-container] {
@@ -379,13 +382,13 @@
 
   [data-application-part=inventory] {
     overflow: hidden;
-    container-type: inline-size;
 
     .contents {
       display: grid;
       grid-template-rows: 0fr 0fr 1fr;
       height: 100%;
       gap: .5rem;
+      padding-top: .5rem;
 
       .capacity,
       .gold {
@@ -395,6 +398,7 @@
 
       .banner-label.capacity {
         margin-bottom: .5rem;
+        color: var(--capacity-text);
       }
 
       .gold {
@@ -430,6 +434,7 @@
     .contents {
       display: grid;
       gap: .5rem;
+      padding-top: .5rem;
     }
 
     .condition {
@@ -519,6 +524,7 @@
       grid-template-rows: 1fr;
       height: 100%;
       gap: .5rem;
+      padding-top: .5rem;
     }
 
     .classes {
@@ -612,7 +618,9 @@
   .image-color,
   .resources .resource,
   .fumbles ryuutama-icon,
-  .defense-icon {
+  .defense-icon,
+  .filters search .controls,
+  .gold > label {
     filter: drop-shadow(0 0 var(--shadow-spread, .1rem) var(--ryuutama-color-shadow-black));
   }
 
