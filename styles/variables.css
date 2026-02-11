@@ -68,21 +68,14 @@
   --ryuutama-font-radley: Radley;
   --ryuutama-font-gothic: Carrois Gothic;
   --ryuutama-font-gabriela: Gabriela;
+}
 
-  body.theme-light,
-  .themed.theme-light {
-    --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
-    --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
+/* -------------------------------------------------- */
+/*   Themes                                           */
+/* -------------------------------------------------- */
 
-    --ryuutama-color-table-header: var(--ryuutama-color-darkorange);
-    --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
-    --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
-    --ryuutama-table-text-color: var(--ryuutama-color-black);
-    --ryuutama-enriched-tooltip-border: var(--ryuutama-color-darkblue);
-  }
-
-  body.theme-dark,
-  .themed.theme-dark {
+@scope (.theme-dark) to (.themed) {
+  .ryuutama, &.ryuutama {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-palevioletred);
     --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
 
@@ -91,5 +84,89 @@
     --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
     --ryuutama-table-text-color: var(--ryuutama-color-black);
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-bisque);
+
+    --corner-tl: url("/systems/ryuutama/assets/official/layout/corner-dark-tl.svg");
+    --corner-tr: url("/systems/ryuutama/assets/official/layout/corner-dark-tr.svg");
+    --corner-br: url("/systems/ryuutama/assets/official/layout/corner-dark-br.svg");
+    --corner-bl: url("/systems/ryuutama/assets/official/layout/corner-dark-bl.svg");
+
+    /* Lightness shade change for backdrops. Defaults to +10. */
+    --backdrop-lightness-delta: -15;
+  }
+
+  /* Shared sheet styles. TODO: Will eventually apply to all actor sheets. */
+  .ryuutama.application.sheet.actor.traveler, &.ryuutama.application.sheet.actor.traveler {
+    --c-text-light: rgb(245 245 220);
+    --c-text-dark: rgb(40 0 0);
+
+    /* Primary */
+    --c-primary: #411935;
+
+    /* Complementary color */
+    --c-secondary: var(--ryuutama-color-book-altcover-green);
+
+    /* Accent */
+    --c-accent: var(--ryuutama-color-book-altcover-gold);
+
+    --c-background: var(--ryuutama-color-shadow-black);
+    --c-shadow: var(--c-background);
+    --c-text: rgb(245 245 220);
+
+    --c-document-list-even: hsl(35deg 27% 33%);
+    --c-document-list-odd: hsl(40deg 18% 54%);
+
+    /* The distance of drop-shadow filtering; falls back to .1rem in light-mode. */
+    --shadow-spread: .5rem;
+  }
+
+  /* Tooltips */
+  #tooltip.ryuutama, .ryuutama.locked-tooltip {
+    --c-primary: #411935;
+    --c-background: var(--ryuutama-color-shadow-black);
+    --c-text: rgb(245 245 220);
+  }
+}
+
+@scope (.theme-light) to (.themed) {
+  .ryuutama, &.ryuutama {
+    --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
+    --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
+
+    --ryuutama-color-table-header: var(--ryuutama-color-darkorange);
+    --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
+    --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
+    --ryuutama-table-text-color: var(--ryuutama-color-black);
+    --ryuutama-enriched-tooltip-border: var(--ryuutama-color-darkblue);
+
+    --corner-tl: url("/systems/ryuutama/assets/official/layout/corner-light-tl.svg");
+    --corner-tr: url("/systems/ryuutama/assets/official/layout/corner-light-tr.svg");
+    --corner-br: url("/systems/ryuutama/assets/official/layout/corner-light-br.svg");
+    --corner-bl: url("/systems/ryuutama/assets/official/layout/corner-light-bl.svg");
+  }
+
+  /* Shared sheet styles. TODO: Will eventually apply to all actor sheets. */
+  .ryuutama.application.sheet.actor.traveler, &.ryuutama.application.sheet.actor.traveler {
+    --c-text-light: rgb(245 245 220);
+    --c-text-dark: rgb(40 0 0);
+
+    --c-primary: var(--ryuutama-color-book-cover-blue);
+    --c-secondary: #B7645A;
+    --c-accent: var(--ryuutama-color-book-cover-gold);
+    --c-background: var(--ryuutama-color-shadow-white);
+    --c-shadow: var(--c-background);
+    --c-text: rgb(40 0 0);
+
+    --c-document-list-even: hsl(32deg 100% 74%);
+    --c-document-list-odd: hsl(51deg 98% 78%);
+
+    /* The color of equipment empty slot icons; falls back to #fff in dark-mode. */
+    --equipment-empty-slot-fill: black;
+  }
+
+  /* Tooltips */
+  #tooltip.ryuutama, .ryuutama.locked-tooltip {
+    --c-primary: var(--ryuutama-color-book-cover-blue);
+    --c-background: var(--ryuutama-color-shadow-white);
+    --c-text: rgb(40 0 0);
   }
 }

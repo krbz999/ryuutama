@@ -60,3 +60,20 @@
 .ryuutama .numeric-display {
   font-family: var(--ryuutama-font-gothic);
 }
+
+#tooltip.ryuutama,
+.ryuutama.locked-tooltip,
+.ryuutama.application.sheet.actor.traveler {
+  background:
+    linear-gradient(
+      65deg,
+      hsl(from var(--c-primary) h s l) 0%,
+      hsl(from var(--c-primary) h s calc(l + var(--backdrop-lightness-delta, 20))) 15%,
+      hsl(from var(--c-primary) h s calc(l + var(--backdrop-lightness-delta, 20))) 35%,
+      hsl(from var(--c-primary) h s l) 100%
+    );
+
+  --color-text-primary: var(--c-text);
+  --color-text-secondary: var(--c-text);
+  --color-text-emphatic: var(--c-text);
+}

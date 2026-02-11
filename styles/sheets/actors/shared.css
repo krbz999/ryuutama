@@ -1,23 +1,7 @@
 .ryuutama.application.sheet.actor.traveler {
-  --c-text-light: rgb(245, 245, 220);
-  --c-text-dark: rgb(40, 0, 0);
-  background:
-    linear-gradient(
-      65deg,
-      hsl(from var(--c-primary) h s l / 1) 0%,
-      hsl(from var(--c-primary) h s l / .3) 15%,
-      hsl(from var(--c-primary) h s l / .3) 50%,
-      hsl(from var(--c-primary) h s l / 1) 100%
-    ),
-    var(--c-background);
-
   /* -------------------------------------------------- */
   /*   TEXT COLORS                                      */
   /* -------------------------------------------------- */
-
-  --color-text-primary: var(--c-text);
-  --color-text-secondary: var(--c-text);
-  --color-text-emphatic: var(--c-text);
   button {
     --button-text-color: var(--c-text);
     --button-hover-background-color: var(--c-accent);
@@ -33,7 +17,6 @@
   /* -------------------------------------------------- */
   /*   FILTERS                                          */
   /* -------------------------------------------------- */
-
   .filters {
     --c-active: greenyellow;
     --c-inactive: red;
@@ -139,7 +122,6 @@
   /* -------------------------------------------------- */
   /*   INPUTS                                           */
   /* -------------------------------------------------- */
-
   input[type=search],
   input[type=text] {
     box-shadow: none;
@@ -147,53 +129,5 @@
     &:focus {
       --input-focus-outline-color: var(--c-accent);
     }
-  }
-
-  /* -------------------------------------------------- */
-  /*   THEMING                                          */
-  /* -------------------------------------------------- */
-
-  body.theme-dark &,
-  &.themed.theme-dark {
-    /* Primary */
-    --c-primary: #411935;
-
-    /* Complementary color */
-    --c-secondary: var(--ryuutama-color-book-altcover-green);
-
-    /* Accent */
-    --c-accent: var(--ryuutama-color-book-altcover-gold);
-
-    --c-background: var(--ryuutama-color-shadow-black);
-    --c-shadow: var(--c-background);
-    --c-text: rgb(245 245 220);
-
-    --c-document-list-even: hsl(35deg 27% 33%);
-    --c-document-list-odd: hsl(40deg 18% 54%);
-
-    /* The distance of drop-shadow filtering. */
-    --shadow-spread: .5rem;
-
-    /* The color of equipment empty slot icons. */
-    --equipment-empty-slot-fill: white;
-  }
-
-  body.theme-light &,
-  &.themed.theme-light {
-    --c-primary: var(--ryuutama-color-book-cover-blue);
-    --c-secondary: #B7645A;
-    --c-accent: var(--ryuutama-color-book-cover-gold);
-    --c-background: var(--ryuutama-color-shadow-white);
-    --c-shadow: var(--c-background);
-    --c-text: rgb(40 0 0);
-
-    --c-document-list-even: hsl(32deg 100% 74%);
-    --c-document-list-odd: hsl(51deg 98% 78%);
-
-    /* The distance of drop-shadow filtering. */
-    --shadow-spread: .1rem;
-
-    /* The color of equipment empty slot icons. */
-    --equipment-empty-slot-fill: black;
   }
 }
