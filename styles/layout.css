@@ -36,15 +36,15 @@
     }
 
     /* Variables */
-    .theme-light &,
-    &.themed.theme-light {
+    body.theme-light &,
+    .themed.theme-light & {
       --corner-tl: url("/systems/ryuutama/assets/official/layout/corner-light-tl.svg");
       --corner-tr: url("/systems/ryuutama/assets/official/layout/corner-light-tr.svg");
       --corner-br: url("/systems/ryuutama/assets/official/layout/corner-light-br.svg");
       --corner-bl: url("/systems/ryuutama/assets/official/layout/corner-light-bl.svg");
     }
-    .theme-dark &,
-    &.themed.theme-dark {
+    body.theme-dark &,
+    .themed.theme-dark & {
       --corner-tl: url("/systems/ryuutama/assets/official/layout/corner-dark-tl.svg");
       --corner-tr: url("/systems/ryuutama/assets/official/layout/corner-dark-tr.svg");
       --corner-br: url("/systems/ryuutama/assets/official/layout/corner-dark-br.svg");

@@ -153,7 +153,7 @@
   /*   THEMING                                          */
   /* -------------------------------------------------- */
 
-  .theme-dark &,
+  body.theme-dark &,
   &.themed.theme-dark {
     /* Primary */
     --c-primary: #411935;
@@ -170,9 +170,15 @@
 
     --c-document-list-even: hsl(35deg 27% 33%);
     --c-document-list-odd: hsl(40deg 18% 54%);
+
+    /* The distance of drop-shadow filtering. */
+    --shadow-spread: .5rem;
+
+    /* The color of equipment empty slot icons. */
+    --equipment-empty-slot-fill: white;
   }
 
-  .theme-light &,
+  body.theme-light &,
   &.themed.theme-light {
     --c-primary: var(--ryuutama-color-book-cover-blue);
     --c-secondary: #B7645A;
@@ -183,5 +189,11 @@
 
     --c-document-list-even: hsl(32deg 100% 74%);
     --c-document-list-odd: hsl(51deg 98% 78%);
+
+    /* The distance of drop-shadow filtering. */
+    --shadow-spread: .1rem;
+
+    /* The color of equipment empty slot icons. */
+    --equipment-empty-slot-fill: black;
   }
 }

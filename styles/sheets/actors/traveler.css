@@ -250,6 +250,7 @@
           fill: transparent;
           opacity: 0.15;
           scale: 0.7;
+          --fill: var(--equipment-empty-slot-fill);
         }
       }
     }
@@ -265,6 +266,7 @@
         width: 2rem;
         place-content: center;
         text-align: center;
+        color: var(--ryuutama-color-black);
       }
 
       progress-bar.exp {
@@ -611,11 +613,7 @@
   .resources .resource,
   .fumbles ryuutama-icon,
   .defense-icon {
-    filter: drop-shadow(0 0 .1rem var(--ryuutama-color-shadow-black));
-
-    .theme-dark & {
-      filter: drop-shadow(0 0 .5rem var(--ryuutama-color-shadow-black));
-    }
+    filter: drop-shadow(0 0 var(--shadow-spread, .1rem) var(--ryuutama-color-shadow-black));
   }
 
   .controls-dropdown,

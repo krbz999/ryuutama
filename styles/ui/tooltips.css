@@ -19,12 +19,16 @@
   --color-text-primary: var(--c-text);
   --color-text-secondary: var(--c-text);
   --color-text-emphatic: var(--c-text);
-  .theme-dark &, &.themed.theme-dark {
+
+  body.theme-dark &,
+  &.themed.theme-dark {
     --c-primary: #411935;
     --c-background: var(--ryuutama-color-shadow-black);
     --c-text: rgb(245, 245, 220);
   }
-  .theme-light &, &.themed.theme-light {
+
+  body.theme-light &,
+  &.themed.theme-light {
     --c-primary: var(--ryuutama-color-book-cover-blue);
     --c-background: var(--ryuutama-color-shadow-white);
     --c-text: rgb(40, 0, 0);

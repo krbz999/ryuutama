@@ -69,7 +69,8 @@
   --ryuutama-font-gothic: Carrois Gothic;
   --ryuutama-font-gabriela: Gabriela;
 
-  .theme-light, .themed.theme-light {
+  body.theme-light,
+  .themed.theme-light {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
     --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
 
@@ -80,7 +81,8 @@
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-darkblue);
   }
 
-  .theme-dark, .themed.theme-dark {
+  body.theme-dark,
+  .themed.theme-dark {
     --ryuutama-sidebar-primary-party: var(--ryuutama-color-palevioletred);
     --ryuutama-color-capacity-bar-overflow: var(--ryuutama-color-mediumvioletred);
 
