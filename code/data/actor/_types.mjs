@@ -1,8 +1,4 @@
 /**
- * @import RyuutamaItem from "../../documents/item.mjs";
- */
-
-/**
  * @typedef {"accuracy"|"check"|"condition"|"damage"|"initiative"|"journey"|"magic"} CheckType
  */
 
