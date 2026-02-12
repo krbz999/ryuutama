@@ -1,4 +1,4 @@
-const { ForeignDocumentField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { BooleanField, ForeignDocumentField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
 export default function registerSettings() {
   // Storing the primary party's id.
@@ -26,6 +26,16 @@ export default function registerSettings() {
     onChange: () => ui.habitat.render(),
   });
 
+  // Journey management.
+  game.settings.register(ryuutama.id, "JOURNEY_MANAGEMENT", {
+    name: "Journey Management",
+    scope: "world",
+    requiresReload: false,
+    type: JourneyManagementData,
+    config: false,
+    onChange: () => game.settings.journeyManager.render(),
+  });
+
   // Migration version.
   game.settings.register(ryuutama.id, "MIGRATION_VERSION", {
     name: "Migration Version",
@@ -48,6 +58,36 @@ class PrimaryPartyModel extends foundry.abstract.DataModel {
         blank: true,
         validate: id => !game.actors || (game.actors.get(id)?.type === "party"),
         validationError: "This is not a valid id for a Party-type actor.",
+      }),
+    };
+  }
+}
+
+/* -------------------------------------------------- */
+
+class JourneyManagementData extends foundry.abstract.DataModel {
+  /** @override */
+  static defineSchema() {
+    return {
+      camping: new SchemaField({
+        primary: new StringField(),
+        result: new NumberField(),
+        support: new StringField(),
+        supported: new BooleanField(),
+      }),
+      condition: new SchemaField({
+        ignore: new BooleanField(),
+      }),
+      consumption: new SchemaField({}),
+      direction: new SchemaField({
+        ignore: new BooleanField(),
+        primary: new StringField(),
+        result: new NumberField(),
+        support: new StringField(),
+        supported: new BooleanField(),
+      }),
+      travel: new SchemaField({
+        ignore: new BooleanField(),
       }),
     };
   }

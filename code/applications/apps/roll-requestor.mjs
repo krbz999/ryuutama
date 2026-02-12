@@ -265,13 +265,14 @@ export default class RollRequestor extends HandlebarsApplicationMixin(Applicatio
    * Request a roll for an actor.
    * @param {RyuutamaActor} actor
    * @param {CheckRollConfig} roll
-   * @param {CheckDialogConfig} dialog
-   * @param {CheckMessageConfig} message
+   * @param {CheckDialogConfig} [dialog]
+   * @param {CheckMessageConfig} [message]
    * @returns {Promise<number>}
    * @throws
    */
-  static async request(actor, roll, dialog, message) {
+  static async request(actor, roll, dialog = {}, message = {}) {
     const user = game.users.getDesignatedUser(user => {
+      if (user.isGM) return false;
       return actor.testUserPermission(user, "OWNER") && user.active;
     }) ?? game.users.activeGM;
     return user.query(
