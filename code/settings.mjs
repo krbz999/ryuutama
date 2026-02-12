@@ -1,4 +1,6 @@
-const { BooleanField, ForeignDocumentField, NumberField, SchemaField, StringField } = foundry.data.fields;
+const {
+  BooleanField, ForeignDocumentField, NumberField, SchemaField, StringField, TypedObjectField,
+} = foundry.data.fields;
 
 export default function registerSettings() {
   // Storing the primary party's id.
@@ -73,10 +75,12 @@ class JourneyManagementData extends foundry.abstract.DataModel {
         primary: new StringField(),
         result: new NumberField(),
         support: new StringField(),
-        supported: new BooleanField(),
+        // If null, no roll has been performed to support the primary.
+        supported: new NumberField({ integer: true, nullable: true, initial: null }),
       }),
       condition: new SchemaField({
         ignore: new BooleanField(),
+        results: new TypedObjectField(new NumberField({ integer: true, nullable: false })),
       }),
       consumption: new SchemaField({}),
       direction: new SchemaField({
@@ -84,12 +88,25 @@ class JourneyManagementData extends foundry.abstract.DataModel {
         primary: new StringField(),
         result: new NumberField(),
         support: new StringField(),
-        supported: new BooleanField(),
+        // If null, no roll has been performed to support the primary.
+        supported: new NumberField({ integer: true, nullable: true, initial: null }),
       }),
       travel: new SchemaField({
         ignore: new BooleanField(),
+        results: new TypedObjectField(new NumberField({ integer: true, nullable: false })),
       }),
     };
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is the camping or direction check sufficiently supported?
+   * @param {"camping"|"direction"} type
+   * @returns {boolean}
+   */
+  isSupported(type) {
+    return this[type].supported >= 5;
   }
 }
 
