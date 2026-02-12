@@ -1,69 +1,150 @@
 .ryuutama.application.sheet {
   .document-listing {
+    --header-height: 2.3rem;
+    --entry-height: 2.25rem;
+    --c-width-attribute: 5rem;
+    --c-width-controls: 5rem;
+
+    h4,
+    .document-list .entry {
+      display: grid;
+      grid-template-columns: 1fr var(--c-width-attribute) var(--c-width-controls);
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+
+      [data-column=attribute] {
+        text-align: center;
+      }
+
+      [data-column=controls] {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+      }
+    }
 
     h4 {
-      font-size: 16px;
-      font-family: Amiri;
+      padding: 0 1rem;
+      border-radius: 3px;
       font-weight: normal;
-      background-color: var(--ryuutama-color-document-list-header);
-      padding: 0.25em 1em;
-      border-radius: 5px 5px 1px 1px;
-      margin: 4px 0;
+      height: var(--header-height);
+      color: var(--ryuutama-color-document-listing-header);
+      background: linear-gradient(
+        90deg,
+        var(--c-secondary),
+        hsl(from var(--c-secondary) h s calc(l - 10))
+      );
+
+      * {
+        height: var(--header-height);
+        display: grid;
+        align-items: center;
+      }
+
+      [data-column=controls] {
+        * {
+          max-height: calc(var(--header-height) - .5rem);
+        }
+      }
     }
 
     .document-list {
-      display: flex;
-      flex-wrap: wrap;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 4px;
-
       .entry {
-        --height: 35px;
-        height: calc(var(--height) + 2px);
-        display: grid;
-        grid-template-columns: var(--height) 1fr 0fr;
-        transition: background-color 150ms ease;
-        padding: 1px;
-        align-items: center;
-        flex: 0 0 100%;
+        --luminosity1: -20;
+        --luminosity2: 0;
+        height: var(--entry-height);
+        grid-template-columns: var(--entry-height) 1fr var(--c-width-attribute) var(--c-width-controls);
+        container-type: inline-size;
+        background: linear-gradient(
+          90deg,
+          hsl(from var(--c) h s calc(l + var(--luminosity1))),
+          hsl(from var(--c) h s calc(l + var(--luminosity2)))
+        );
+        margin: 0 .5rem;
+        padding: 0 .5rem 0 2px;
+        border-top: 1px solid var(--c-secondary);
 
-        img {
-          height: var(--height);
+        &:last-child { border-radius: 0 0 3px 3px }
+        &:nth-child(even of :not(.hidden)) {
+          --c: var(--c-document-list-even);
+        }
+        &:nth-child(odd of :not(.hidden)) {
+          --c: var(--c-document-list-odd);
+        }
+        &:hover {
+          --luminosity1: 0;
+          --luminosity2: 20;
         }
 
-        .center {
+        > :not(.title) {
+          height: calc(var(--entry-height) - 4px);
           display: flex;
-          justify-content: space-between;
           align-items: center;
-          margin: 0 1em;
+        }
 
-          .title {
-            font-size: 14px;
-            text-align: center;
+        .title {
+          overflow: hidden;
+          text-wrap: nowrap;
+          text-overflow: ellipsis;
+          display: inline-block;
+        }
+
+        input {
+          color: inherit;
+          --input-focus-outline-color: hsl(from var(--ryuutama-color-burlywood) h s l / .25);
+        }
+
+        [data-column=attribute] {
+          justify-content: center;
+
+          @container (width < 250px) {
+            display: none;
           }
-        }
 
-        .attribute {
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
+          /* value/max pairs, like durability */
           .values {
             white-space: nowrap;
             display: flex;
-            align-items: center;
-            align-content: center;
+            align-items: baseline;
+            font-family: var(--ryuutama-font-gothic);
 
             input {
               text-align: center;
               background: inherit;
               border: none;
+              box-shadow: none;
             }
 
             .delta, .max {
               flex: 0 0 25px;
             }
+          }
+
+          /* spell levels, low mid high */
+          .spell-level {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            text-align: center;
+
+            &.low::after { content: "I" }
+            &.mid::after { content: "II" }
+            &.high::after { content: "III" }
+          }
+        }
+
+        [data-column=controls] {
+          button {
+            border: none;
+            background: none;
+            aspect-ratio: 1;
+            padding: 0;
+            margin: 0;
+            color: inherit;
           }
         }
 
@@ -74,15 +155,7 @@
         &[data-action] {
           cursor: var(--cursor-pointer);
         }
-
-        &:hover {
-          background-color: var(--ryuutama-document-list-hover-color);
-        }
       }
     }
-  }
-
-  .sheet-tabs.tabs [data-action=tab] {
-    white-space: nowrap;
   }
 }

@@ -1,4 +1,6 @@
-@import url("./styles/variables.css");
 @import url("./styles/applications.css");
-@import url("./styles/enrichers.css");
 @import url("./styles/chat/_styles.css");
+@import url("./styles/elements.css");
+@import url("./styles/enrichers.css");
+@import url("./styles/layout.css");
+@import url("./styles/variables.css");

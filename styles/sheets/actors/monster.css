@@ -1,4 +1,4 @@
-.ryuutama.application.sheet.actor {
+.ryuutama.application.sheet.monster {
   .sheet-tabs [data-action=tab] {
     padding: 0;
     line-height: normal;
@@ -35,7 +35,7 @@
   }
 }
 
-.ryuutama.application.sheet.actor {
+.ryuutama.application.sheet.monster {
   font-family: Amiri;
 
   progress-bar {
@@ -67,7 +67,7 @@
       --color: var(--ryuutama-color-capacity-bar);
 
       &.overflow {
-        --color: var(--ryuutama-color-capacity-bar-overflow);
+        --color: var(--ryuutama-color-mediumvioletred);
       }
     }
     &.exp {
@@ -230,6 +230,40 @@
         }
       }
     }
+  }
+
+  .form-group.stacked.center label {
+    width: 100%;
+    text-align: center;
+  }
+
+  .tags {
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    font-family: Amiri;
+    flex-wrap: wrap;
+
+    &.center {
+      justify-content: space-around;
+    }
+
+    .tag {
+      border: 1px dotted rgb(150, 130, 16);
+      border-radius: 5px;
+      padding: 2px 4px;
+      white-space: nowrap;
+      font-size: 10px;
+    }
+  }
+
+  button.heightened {
+    height: 100%;
+    --buttons-size: 100%;
+  }
+
+  button.unsize {
+    --button-size: unset;
   }
 }
 

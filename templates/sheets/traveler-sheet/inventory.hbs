@@ -1,45 +1,32 @@
 <section data-tab="{{tabs.inventory.id}}" class="{{tabs.inventory.cssClass}}" data-group="{{tabs.inventory.group}}">
-  {{!-- CAPACITY BAR --}}
-  <div class="capacity">
-    {{#with document.system.capacity}}
-    <progress-bar class="capacity {{#if @root.capacityOverflow}} overflow {{/if}}" id="{{@root.rootId}}-capacity" data-label="{{value}} / {{max}}" data-pct="{{pct}}"></progress-bar>
-    {{/with}}
-    {{#if document.system.capacity.penalty}}
-    <span class="tag">({{{capacityPenalty}}})</span>
-    {{/if}}
+  <div class="contents">
+
+    <section class="">
+      {{!-- CAPACITY BAR --}}
+      <div class="banner-label capacity constrained-width numeric-display">
+        <ryuutama-icon class="value square" src="systems/ryuutama/assets/official/icons/capacity.svg" data-tooltip="RYUUTAMA.ACTOR.TRAVELER.capacity"></ryuutama-icon>
+        <span class="label progress square">
+          <progress-bar class="capacity {{#if capacity.overflow}} overflow {{/if}}" id="{{rootId}}-capacity" data-label="{{capacity.value}} / {{capacity.max}}" data-pct="{{capacity.pct}}"></progress-bar>
+        </span>
+      </div>
+
+      {{!-- GOLD --}}
+      <div class="gold">
+        <label for="{{rootId}}-system.gold.value" class="value square">
+          <ryuutama-icon src="systems/ryuutama/assets/official/icons/currency.svg" data-tooltip="RYUUTAMA.ACTOR.TRAVELER.gold"></ryuutama-icon>
+        </label>
+        <input class="delta label square" type="text" name="system.gold.value" value="{{document.system.gold.value}}" id="{{rootId}}-system.gold.value">
+      </div>
+    </section>
+
+    {{!-- ITEM FILTERS --}}
+    {{> "systems/ryuutama/templates/sheets/traveler-sheet/search.hbs" search=inventory.search}}
+
+    {{!-- INVENTORY --}}
+    <section class="inventory" data-search-container="inventory">
+      {{#each inventory.groups}}
+      {{> "document-list" label=labelPlural entries=items}}
+      {{/each}}
+    </section>
   </div>
-
-  {{!-- EQUIPPED ITEMS --}}
-  <section class="equipped">
-    {{#each equipped as |eqp key|}}
-    <div class="item">
-      <label>{{label}}</label>
-      {{#if item}}
-      <a data-action="renderItem" data-uuid="{{item.uuid}}" data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}">
-        <img src="{{img}}" alt="{{item.name}}">
-      </a>
-      {{else}}
-      <div class="empty-slot"></div>
-      {{/if}}
-    </div>
-    {{/each}}
-  </section>
-
-  {{!-- GOLD --}}
-  {{formGroup systemFields.gold.fields.value value=document.system.gold.value disabled=(not editable) rootId=rootId classes="slim currency"}}
-
-  {{!-- TABS --}}
-  {{> "templates/generic/tab-navigation.hbs" tabs=inventoryTabs}}
-
-  {{!-- INVENTORY SECTIONS --}}
-  {{#each inventorySections}}
-  <section data-tab="{{id}}" class="tab {{cssClass}}" data-group="inventory">
-    {{#each groups}}
-    {{#if items.length}}
-    {{> "document-list" label=label entries=items}}
-    {{/if}}
-    {{/each}}
-  </section>
-  {{/each}}
-
 </section>

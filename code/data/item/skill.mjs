@@ -16,6 +16,15 @@ import BaseData from "./templates/base.mjs";
 
 export default class SkillData extends BaseData {
   /** @inheritdoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(
+    super.metadata,
+    { inventory: false },
+    { inplace: false },
+  ));
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {});
   }

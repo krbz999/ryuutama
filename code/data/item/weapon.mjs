@@ -22,6 +22,15 @@ const { ArrayField, NumberField, SchemaField, StringField } = foundry.data.field
 
 export default class WeaponData extends PhysicalData {
   /** @inheritdoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(
+    super.metadata,
+    { sort: 101 },
+    { inplace: false },
+  ));
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       accuracy: new SchemaField({

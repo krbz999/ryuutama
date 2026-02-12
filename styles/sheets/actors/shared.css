@@ -1,0 +1,146 @@
+.ryuutama.application.sheet.actor.traveler {
+  /* -------------------------------------------------- */
+  /*   TEXT COLORS                                      */
+  /* -------------------------------------------------- */
+  button {
+    --button-text-color: var(--c-text);
+    --button-hover-background-color: var(--c-accent);
+
+    &:hover {
+      --button-hover-text-color: var(--c-text-dark);
+    }
+  }
+
+  /* TODO: move to other apps. */
+  * { scrollbar-color: var(--c-accent) var(--color-scrollbar-track) }
+
+  /* -------------------------------------------------- */
+  /*   FILTERS                                          */
+  /* -------------------------------------------------- */
+  .filters {
+    --c-active: greenyellow;
+    --c-inactive: red;
+    margin-left: 0;
+    margin-bottom: 0;
+
+    input[type=search] {
+      margin: 2px;
+      border-color: var(--c-primary);
+      background: transparent;
+    }
+
+    search {
+      display: grid;
+      grid-template-columns: 1fr 0fr;
+      gap: 1rem;
+      position: relative;
+      align-items: center;
+      margin-right: 1rem;
+
+      .controls {
+        display: flex;
+        flex: 1;
+        gap: 1rem;
+      }
+    }
+
+    [data-action=cycleCategorizationMode],
+    [data-action=cycleSortMode],
+    [data-action=toggleFilterList] {
+      color: var(--c-accent);
+      display: grid;
+      text-shadow: none;
+
+      &::before {
+        transform: scale(1.5);
+      }
+    }
+
+    [data-action=toggleFilterList]:has(+ .menu-options > [data-option].active) {
+      color: var(--c-active);
+    }
+    [data-action=toggleFilterList]:has(+ .menu-options > [data-option].inactive) {
+      color: var(--c-inactive);
+    }
+
+    menu.menu-options {
+      display: none;
+      position: absolute;
+      background:
+        linear-gradient(
+          90deg,
+          hsl(from var(--c-primary) h s calc(l + 10)),
+          var(--c-primary)
+        );
+      border: 1px solid var(--c-accent);
+      border-radius: .35rem;
+      border-top-right-radius: 0;
+      padding: 0;
+      inset: 100% 1rem auto auto;
+      gap: 0;
+      z-index: 1;
+      box-shadow: 0 0 .5rem var(--ryuutama-color-shadow-black);
+      overflow: hidden;
+
+      .filters:has([data-action=toggleFilterList].expanded) & {
+        display: grid;
+      }
+
+      [data-option] {
+        display: grid;
+        grid-template-columns: 1.25em 1fr;
+        gap: .5rem;
+        padding: .25rem .5rem;
+        padding-right: 1.5rem;
+
+        &:first-child {
+          padding-top: .5rem;
+        }
+
+        &:last-child {
+          padding-bottom: .5rem;
+        }
+
+        &:hover {
+          text-shadow: none;
+          background: hsl(from var(--c-primary) h s calc(l + 15));
+        }
+
+        &.active .label {
+          font-weight: bold;
+        }
+
+        &.inactive .label {
+          opacity: 0.5;
+        }
+
+        &::before {
+          font-family: var(--font-awesome);
+          text-align: center;
+          content: "\f068";
+          color: var(--c-accent);
+        }
+        &.inactive::before {
+          content: "\f00d";
+          color: var(--c-inactive);
+        }
+        &.active::before {
+          content: "\f00c";
+          color: var(--c-active);
+        }
+      }
+    }
+  }
+
+  /* -------------------------------------------------- */
+  /*   INPUTS                                           */
+  /* -------------------------------------------------- */
+  input[type=search],
+  input[type=text] {
+    box-shadow: none;
+
+    &:focus {
+      --input-focus-outline-color: var(--c-accent);
+    }
+  }
+}

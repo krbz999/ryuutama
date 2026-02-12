@@ -30,6 +30,15 @@ const { EmbeddedDataField, NumberField, SchemaField, StringField } = foundry.dat
  */
 
 export default class SpellData extends BaseData {
+  /** @inheritdoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(
+    super.metadata,
+    { inventory: false },
+    { inplace: false },
+  ));
+
+  /* -------------------------------------------------- */
+
   /** @override */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {

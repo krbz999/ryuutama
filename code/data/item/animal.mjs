@@ -22,6 +22,15 @@ const { NumberField, SetField, SchemaField, StringField } = foundry.data.fields;
 
 export default class AnimalData extends BaseData {
   /** @inheritdoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(
+    super.metadata,
+    { sort: 302 },
+    { inplace: false },
+  ));
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       capacity: new SchemaField({

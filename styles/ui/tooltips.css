@@ -3,30 +3,39 @@
 #tooltip.ryuutama,
 .ryuutama.locked-tooltip {
   min-width: 400px;
+  color: var(--c-text);
 
   &:not(.locked-tooltip) {
     box-shadow: 0 0 2px var(--ryuutama-enriched-tooltip-border);
   }
 
-  > .tooltip.item {
-    text-align: initial;
-    font-family: Amiri;
-
-    .name {
-      font-family: Amiri;
-    }
+  .tooltip {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: .5rem 0;
   }
 
-  > .tooltip.effect {
+  .tooltip.item,
+  .tooltip.effect {
     text-align: initial;
-    font-family: Amiri;
-
-    .name {
-      font-family: Amiri;
-    }
   }
 
-  section.tags {
-    margin-bottom: 4px;
+  .tooltip-name {
+    margin: 0;
+  }
+
+  section.tooltip-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+    font-family: var(--ryuutama-font-gothic);
+
+    .tooltip-tag {
+      border: 1px solid var(--ryuutama-enriched-tooltip-border);
+      border-radius: .25rem;
+      padding: .1rem .3rem;
+      text-wrap: nowrap;
+    }
   }
 }

@@ -1,22 +1,23 @@
-<div class="form-group wide">
-  <label>{{localize "RYUUTAMA.ACTOR.HP"}}</label>
-  <div class="form-fields">
+<section class="resources">
+  <div class="resource">
     {{#with document.system.resources.stamina}}
-    <progress-bar class="stamina {{#if negative}} negative {{/if}}" id="{{@root.rootId}}-stamina" data-value="{{value}}" data-pct="{{pct}}" data-input data-name="system.resources.stamina.value" data-label="{{value}} / {{max}}"></progress-bar>
+    <progress-bar class="stamina numeric-display {{#if negative}} negative {{/if}}" id="{{@root.rootId}}-stamina" data-value="{{value}}" data-pct="{{pct}}" {{#if @root.disabled}} data-input data-name="system.resources.stamina.value" data-label="{{value}} / {{max}}" {{/if}}></progress-bar>
     {{/with}}
     {{#unless disabled}}
-    <button type="button" data-action="configure" data-config="resource" data-resource="stamina" class="icon fa-solid fa-cog"></button>
+    <a data-action="configure" data-config="resource" data-resource="stamina">
+      <i class="fa-solid fa-cog" inert></i>
+    </a>
     {{/unless}}
   </div>
-</div>
-<div class="form-group wide">
-  <label>{{localize "RYUUTAMA.ACTOR.MP"}}</label>
-  <div class="form-fields">
+
+  <div class="resource">
     {{#with document.system.resources.mental}}
-    <progress-bar class="mental" id="{{@root.rootId}}-mental" data-value="{{value}}" data-pct="{{pct}}" data-input data-name="system.resources.mental.value" data-label="{{value}} / {{max}}"></progress-bar>
+    <progress-bar class="mental numeric-display" id="{{@root.rootId}}-mental" data-value="{{value}}" data-pct="{{pct}}" {{#if @root.disabled}} data-input data-name="system.resources.mental.value" data-label="{{value}} / {{max}}" {{/if}}></progress-bar>
     {{/with}}
     {{#unless disabled}}
-    <button type="button" data-action="configure" data-config="resource" data-resource="mental" class="icon fa-solid fa-cog"></button>
+    <a data-action="configure" data-config="resource" data-resource="mental">
+      <i class="fa-solid fa-cog" inert></i>
+    </a>
     {{/unless}}
   </div>
-</div>
+</section>

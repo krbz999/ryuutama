@@ -110,12 +110,40 @@
       },
       "MONSTER": {
         "FIELDS": {},
-        "baseArmor": "Base Armor"
+        "armor": "Armor",
+        "physical": "Phys",
+        "magical": "Mag",
+        "baseArmor": "Base Armor",
+        "configureAttack": "Configure Attack",
+        "effectDuration": "Duration",
+        "effectSource": "Source",
+        "inventory": "Inventory"
       },
       "TRAVELER": {
         "FIELDS": {},
-        "defensePoints": "Defense Points",
-        "baseDefensePoints": "Base Defense Points"
+        "noteTabs": {
+          "appearance": "Appearance",
+          "hometown": "Hometown / Reason for Travel",
+          "notes": "Notes"
+        },
+        "baseDefensePoints": "Base Defense Points",
+        "capacity": "Capacity",
+        "conditionHigh": "Bonus: {ability}",
+        "conditionHighTooltip": "Tip-Top Shape",
+        "conditionLow": "Out of Shape",
+        "damageReductionMagical": "Magical: {value}",
+        "damageReductionPhysical": "Physical: {value}",
+        "defensePoints": "Defense Points: {value}",
+        "effectDuration": "Duration",
+        "effectSource": "Source",
+        "fumblePoints": "Fumble Points",
+        "gold": "Gold",
+        "imageColor": "Image color",
+        "incantationLearned": "Learned Incantation Spells",
+        "incantationSpells": "Incantations",
+        "initiative": "Initiative: {value}",
+        "seasonAffinity": "Affinity",
+        "shieldDodge": "Shield Dodge Value: {value}"
       },
 
       "TABS": {
@@ -126,12 +154,6 @@
         "notes": "Notes",
         "skills": "Skills",
         "spells": "Magic"
-      },
-      "INVENTORY_TABS": {
-        "arsenal": "Weapons & Armor",
-        "gear": "Traveling Gear",
-        "herbs": "Herbs",
-        "containers": "Animals & Containers"
       },
       "CONTEXT": {
         "EFFECT": {
@@ -155,32 +177,34 @@
       },
       "TAGS": {
         "category": "Category: {category}",
-        "classes": "Classes",
         "dragonica": "Dragonica No. {number}",
-        "habitatSpecialty": "Terrain / Weather Specialty: {habitat}",
         "level": "Level {level}",
         "masteredWeapon": "Mastered Weapon: {weapon}",
-        "noClass": "No Class",
         "season": "Season: {season}",
-        "type": "Type: {type}"
+        "specialtyTerrain": "Terrain Specialty: {terrain}",
+        "specialtyWeather": "Weather Specialty: {weather}"
       },
-      "activeEffects": "Active",
-      "armor": "Armor",
-      "capacityPenalty": "{penalty} penalty on all checks",
+      "activeEffects": "Active Effects",
       "condition": "Condition",
+      "defenseMagical": "Mag {value}",
+      "defensePhysical": "Phys {value}",
+      "defensePoints": "Defense Points",
       "defenseValue": "Defense Value",
       "description": "Description",
-      "disabledEffects": "Inactive",
+      "disabledEffects": "Inactive Effects",
+      "durability": "Durability",
       "HP": "HP",
       "incantationSpells": "Incantation Spells",
-      "magical": "Magical",
       "MP": "MP",
-      "physical": "Physical",
       "rollAttack": "Roll Attack",
       "rollCheck": "Roll Check",
       "seasonalSpells": "Seasonal Spells",
+      "spellLevel": "Spell Level",
       "statusImmune": "Immune",
-      "statusSuppressed": "Suppressed ({strength})"
+      "statusImmuneI": "I",
+      "statusSuppressed": "Suppressed",
+      "statusSuppressedS": "S",
+      "temporaryEffects": "Temporary Effects"
     },
     "MONSTER": {
       "FIELDS": {
@@ -211,7 +235,6 @@
         "background.appearance.label": "Appearance",
         "background.hometown.label": "Hometown / Reason for Travel",
         "background.notes.label": "Notes",
-        "details.color.label": "Image Color",
         "details.exp.label": "EXP",
         "details.level.label": "Level",
         "fumbles.value.label": "Fumble Points",
@@ -223,8 +246,6 @@
         "technical": "Technical Type"
       },
       "abilities": "Abilities",
-      "conditionShapeOutOfShape": "Out of Shape",
-      "conditionShapeSelectAbility": "Select Ability",
       "skillSectionLabel": "{name} Skills",
       "otherSkills": "Other Skills"
     },

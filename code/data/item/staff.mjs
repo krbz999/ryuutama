@@ -17,4 +17,11 @@ import GearData from "./templates/gear.mjs";
  * @property {string} source.custom
  */
 
-export default class StaffData extends GearData {}
+export default class StaffData extends GearData {
+  /** @inheritdoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(
+    super.metadata,
+    { sort: 205 },
+    { inplace: false },
+  ));
+}

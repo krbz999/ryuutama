@@ -1,5 +1,5 @@
 @import url("./document-sheet.css");
-@import url("./actor-sheet.css");
 @import url("./item-sheet.css");
 
+@import url("./actors/_styles.css");
 @import url("./pages/_styles.css");
