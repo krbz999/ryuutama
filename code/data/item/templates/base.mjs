@@ -1,6 +1,7 @@
 /**
  * @typedef ItemSubtypeMetadata
  * @property {boolean} [inventory]    Unless explicitly `false`, this item type appears in inventories.
+ * @property {number} [sort]          The order in which this item appears as a section on actor sheets.
  */
 
 const { HTMLField, SchemaField } = foundry.data.fields;
