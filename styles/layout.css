@@ -217,16 +217,6 @@
 
   /* -------------------------------------------------- */
 
-  /* A two-column layout with a small gap. */
-  .two-column {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    align-items: start;
-    gap: .5rem;
-  }
-
-  /* -------------------------------------------------- */
-
   /* A container that can be collapsed and expanded. */
   /* This kind of element should simply be a 'section.collapsible-container > * + section.collapsible-wrapper'. */
   .collapsible-container {

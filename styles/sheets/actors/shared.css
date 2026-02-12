@@ -68,25 +68,19 @@
       position: absolute;
       background:
         linear-gradient(
-          270deg,
-          hsl(from var(--c-primary) h s l / 1) 0%,
-          hsl(from var(--c-primary) h s l / .85) 15%,
-          hsl(from var(--c-primary) h s l / .55) 95%
-        ),
-        linear-gradient(
           90deg,
-          var(--c-background) 0%,
-          transparent 75%
+          hsl(from var(--c-primary) h s calc(l + 10)),
+          var(--c-primary)
         );
       border: 1px solid var(--c-accent);
       border-radius: .35rem;
       border-top-right-radius: 0;
-      padding: .5rem;
-      padding-right: 1.5rem;
+      padding: 0;
       inset: 100% 1rem auto auto;
-      gap: .5rem;
-      filter: drop-shadow(-.25rem .25rem .25rem var(--ryuutama-color-shadow-black));
+      gap: 0;
       z-index: 1;
+      box-shadow: 0 0 .5rem var(--ryuutama-color-shadow-black);
+      overflow: hidden;
 
       .filters:has([data-action=toggleFilterList].expanded) & {
         display: grid;
@@ -96,6 +90,25 @@
         display: grid;
         grid-template-columns: 1.25em 1fr;
         gap: .5rem;
+        padding: .25rem .5rem;
+        padding-right: 1.5rem;
+
+        &:first-child {
+          padding-top: .5rem;
+        }
+
+        &:last-child {
+          padding-bottom: .5rem;
+        }
+
+        &:hover {
+          text-shadow: none;
+          background: hsl(from var(--c-primary) h s calc(l + 15));
+        }
+
+        &.active .label {
+          font-weight: bold;
+        }
 
         &.inactive .label {
           opacity: 0.5;
@@ -105,7 +118,7 @@
           font-family: var(--font-awesome);
           text-align: center;
           content: "\f068";
-          color: hsl(from var(--c-accent) h s l / .25);
+          color: var(--c-accent);
         }
         &.inactive::before {
           content: "\f00d";

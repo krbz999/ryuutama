@@ -1,6 +1,11 @@
 import RyuutamaActorSheet from "../actor-sheet.mjs";
 
 /**
+ * @import RyuutamaActiveEffect from "../../../documents/active-effect.mjs";
+ * @import RyuutamaActor from "../../../documents/actor.mjs";
+ */
+
+/**
  * Ryuutama Traveler Sheet.
  * @extends RyuutamaActorSheet
  */
@@ -132,6 +137,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
 
   /** @inheritdoc */
   _getTabsConfig(group) {
+    /** @type {RyuutamaActor} */
     const actor = this.document;
     const hideSpells = (group === "primary")
       && !actor.items.documentsByType.spell.length && !actor.system.details.type.magic;
@@ -352,6 +358,16 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
       s.entries = [];
     }
 
+    /**
+     * Should a delete button be displayed?
+     * @param {RyuutamaActiveEffect} effect
+     * @returns {boolean}
+     */
+    const canDelete = effect => {
+      if (!context.isInteractive || context.disabled) return false;
+      return effect.parent === this.document;
+    };
+
     for (const effect of this.document.allApplicableEffects()) {
       if (effect.type !== "standard") continue;
       const key = !effect.active ? "inactive" : effect.isTemporary ? "temporary" : "active";
@@ -361,7 +377,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
         dataset: { "effect-context": "" },
         attribute: `<span>${foundry.utils.getProperty(effect, section.attribute)}</span>`,
         buttons: [
-          context.isInteractive && !context.disabled ? { action: "deleteEffect", icon: "fa-solid fa-trash" } : null,
+          canDelete(effect) ? { action: "deleteEffect", icon: "fa-solid fa-trash" } : null,
         ],
       });
     }
