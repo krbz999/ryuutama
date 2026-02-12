@@ -1,36 +1,36 @@
-import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
+import RyuutamaDocumentSheet from "../../api/document-sheet.mjs";
 
 /**
  * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
  * @import RyuutamaSearchManager from "../../ux/search-manager.mjs";
- * @import { SearchCategory } from "../../_types.mjs";
+ * @import { SearchCategory } from "../../../_types.mjs";
  */
 
 /**
  * Base actor sheet.
  * @extends RyuutamaDocumentSheet
  */
-export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
+export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /** @override */
   static DEFAULT_OPTIONS = {
     actions: {
-      advance: RyuutamaActorSheet.#advance,
-      castSpell: RyuutamaActorSheet.#castSpell,
-      configure: RyuutamaActorSheet.#configure,
-      configurePrototypeToken: RyuutamaActorSheet.#configurePrototypeToken,
-      cycleCategorizationMode: RyuutamaActorSheet.#cycleCategorizationMode,
-      cycleSortMode: RyuutamaActorSheet.#cycleSortMode,
-      deleteEffect: RyuutamaActorSheet.#deleteEffect,
-      deleteItem: RyuutamaActorSheet.#deleteItem,
-      renderItem: RyuutamaActorSheet.#renderItem,
-      rollAttack: RyuutamaActorSheet.#rollAttack,
-      rollCheck: RyuutamaActorSheet.#rollCheck,
-      showPortrait: RyuutamaActorSheet.#showPortrait,
-      toggleFilterList: RyuutamaActorSheet.#toggleFilterList,
-      toggleFilterOption: { handler: RyuutamaActorSheet.#toggleFilterOption, buttons: [0, 2] },
-      toggleSectionCollapse: RyuutamaActorSheet.#toggleSectionCollapse,
-      toggleStatus: RyuutamaActorSheet.#toggleStatus,
-      unequipItem: RyuutamaActorSheet.#unequipItem,
+      advance: RyuutamaBaseActorSheet.#advance,
+      castSpell: RyuutamaBaseActorSheet.#castSpell,
+      configure: RyuutamaBaseActorSheet.#configure,
+      configurePrototypeToken: RyuutamaBaseActorSheet.#configurePrototypeToken,
+      cycleCategorizationMode: RyuutamaBaseActorSheet.#cycleCategorizationMode,
+      cycleSortMode: RyuutamaBaseActorSheet.#cycleSortMode,
+      deleteEffect: RyuutamaBaseActorSheet.#deleteEffect,
+      deleteItem: RyuutamaBaseActorSheet.#deleteItem,
+      renderItem: RyuutamaBaseActorSheet.#renderItem,
+      rollAttack: RyuutamaBaseActorSheet.#rollAttack,
+      rollCheck: RyuutamaBaseActorSheet.#rollCheck,
+      showPortrait: RyuutamaBaseActorSheet.#showPortrait,
+      toggleFilterList: RyuutamaBaseActorSheet.#toggleFilterList,
+      toggleFilterOption: { handler: RyuutamaBaseActorSheet.#toggleFilterOption, buttons: [0, 2] },
+      toggleSectionCollapse: RyuutamaBaseActorSheet.#toggleSectionCollapse,
+      toggleStatus: RyuutamaBaseActorSheet.#toggleStatus,
+      unequipItem: RyuutamaBaseActorSheet.#unequipItem,
     },
     window: {
       resizable: true,
@@ -149,7 +149,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
         inputSelector: `[id="${context.rootId}-search.${key}"]`,
         contentSelector: `[data-search-container="${key}"]`,
         initial: "",
-        callback: RyuutamaActorSheet.#searchListings.bind(this),
+        callback: RyuutamaBaseActorSheet.#searchListings.bind(this),
         delay: 200,
       }));
     }
@@ -165,14 +165,14 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
     // Manage items.
     this._createContextMenu(
-      RyuutamaActorSheet.#createItemContextOptions.bind(this),
+      RyuutamaBaseActorSheet.#createItemContextOptions.bind(this),
       "[data-item-context]",
       { hookName: "get{}ItemContextOptions", parentClassHooks: false, fixed: true },
     );
 
     // Manage effects.
     this._createContextMenu(
-      RyuutamaActorSheet.#createActiveEffectContextOptions.bind(this),
+      RyuutamaBaseActorSheet.#createActiveEffectContextOptions.bind(this),
       "[data-effect-context]",
       { hookName: "Get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
     );
@@ -210,7 +210,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * Create context menu options for items.
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @returns {ContextMenuEntry[]}
    */
   static #createItemContextOptions() {
@@ -302,7 +302,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
 
   /**
    * Create context menu options for effects.
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @returns {ContextMenuEntry[]}
    */
   static #createActiveEffectContextOptions() {
@@ -342,7 +342,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {Event} event
    * @param {string} query
    * @param {RegExp} regex
@@ -360,7 +360,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -371,7 +371,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -383,7 +383,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -416,7 +416,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -433,7 +433,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -446,7 +446,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -459,7 +459,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -471,7 +471,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -483,7 +483,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -495,7 +495,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -506,7 +506,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -519,7 +519,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -531,7 +531,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -545,7 +545,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -561,7 +561,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -575,7 +575,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
@@ -587,7 +587,7 @@ export default class RyuutamaActorSheet extends RyuutamaDocumentSheet {
   /* -------------------------------------------------- */
 
   /**
-   * @this RyuutamaActorSheet
+   * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */

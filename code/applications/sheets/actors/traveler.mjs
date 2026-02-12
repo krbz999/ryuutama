@@ -1,4 +1,4 @@
-import RyuutamaActorSheet from "../actor-sheet.mjs";
+import RyuutamaBaseActorSheet from "./base.mjs";
 
 /**
  * @import RyuutamaActiveEffect from "../../../documents/active-effect.mjs";
@@ -7,9 +7,9 @@ import RyuutamaActorSheet from "../actor-sheet.mjs";
 
 /**
  * Ryuutama Traveler Sheet.
- * @extends RyuutamaActorSheet
+ * @extends RyuutamaBaseActorSheet
  */
-export default class RyuutamaTravelerSheet extends RyuutamaActorSheet {
+export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
   /** @override */
   static DEFAULT_OPTIONS = {
     position: {

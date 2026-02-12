@@ -1,10 +1,10 @@
-import RyuutamaActorSheet from "../actor-sheet.mjs";
+import RyuutamaBaseActorSheet from "./base.mjs";
 
 /**
  * Ryuutama Monster Sheet.
- * @extends RyuutamaActorSheet
+ * @extends RyuutamaBaseActorSheet
  */
-export default class RyuutamaMonsterSheet extends RyuutamaActorSheet {
+export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
   /** @override */
   static DEFAULT_OPTIONS = {
     window: {
