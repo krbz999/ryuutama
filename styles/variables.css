@@ -18,6 +18,10 @@
   --ryuutama-color-lightwood: #6b583d;
   --ryuutama-color-white: #efe6d8;
 
+  /* Journal Entries */
+  --ryuutama-color-aside: #f7f7d2;
+  --ryuutama-color-aside-corners: #89874f;
+
   --ryuutama-color-book-cover-blue: #5aadb7;
   --ryuutama-color-book-cover-gold: #f4b669;
   --ryuutama-color-book-altcover-green: #194125;
@@ -84,10 +88,7 @@
     --ryuutama-table-text-color: var(--ryuutama-color-black);
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-bisque);
 
-    --corner-tl: url("/systems/ryuutama/assets/official/layout/corner-dark-tl.svg");
-    --corner-tr: url("/systems/ryuutama/assets/official/layout/corner-dark-tr.svg");
-    --corner-br: url("/systems/ryuutama/assets/official/layout/corner-dark-br.svg");
-    --corner-bl: url("/systems/ryuutama/assets/official/layout/corner-dark-bl.svg");
+    --ryuutama-color-corner-decor: var(--ryuutama-color-book-altcover-gold);
 
     /* Lightness shade change for backdrops. Defaults to +10. */
     --backdrop-lightness-delta: -15;
@@ -126,6 +127,10 @@
     --c-background: var(--ryuutama-color-shadow-black);
     --c-text: rgb(245 245 220);
   }
+
+  .journal-entry.ryuutama, &.journal-entry.ryuutama {
+    --ryuutama-color-corner-decor: var(--ryuutama-color-aside-corners);
+  }
 }
 
 @scope (.theme-light) to (.themed) {
@@ -137,11 +142,7 @@
     --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
     --ryuutama-table-text-color: var(--ryuutama-color-black);
     --ryuutama-enriched-tooltip-border: var(--ryuutama-color-darkblue);
-
-    --corner-tl: url("/systems/ryuutama/assets/official/layout/corner-light-tl.svg");
-    --corner-tr: url("/systems/ryuutama/assets/official/layout/corner-light-tr.svg");
-    --corner-br: url("/systems/ryuutama/assets/official/layout/corner-light-br.svg");
-    --corner-bl: url("/systems/ryuutama/assets/official/layout/corner-light-bl.svg");
+    --ryuutama-color-corner-decor: var(--ryuutama-color-book-cover-gold);
   }
 
   /* Shared sheet styles. TODO: Will eventually apply to all actor sheets. */
@@ -171,5 +172,9 @@
     --c-primary: var(--ryuutama-color-book-cover-blue);
     --c-background: var(--ryuutama-color-shadow-white);
     --c-text: rgb(40 0 0);
+  }
+
+  .journal-entry.ryuutama, &.journal-entry.ryuutama {
+    --ryuutama-color-corner-decor: var(--ryuutama-color-aside-corners);
   }
 }

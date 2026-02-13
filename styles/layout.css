@@ -1,29 +1,34 @@
 .ryuutama {
   /* A rectangular section with filigree corner elements. */
   /* The '.bordered' modifier adds some inset and a 2px border. */
-  .filigree-section {
+  .filigree-section,
+  &.journal-entry aside.aside {
     position: relative;
 
     &::after {
       position: absolute;
       pointer-events: none;
       content: "";
-      inset: 0;
-      background:
-        var(--corner-tl) top left no-repeat,
-        var(--corner-tr) top right no-repeat,
-        var(--corner-br) bottom right no-repeat,
-        var(--corner-bl) bottom left no-repeat;
-      background-size: 2rem;
+      inset: var(--filigree-section-inset, 0);
+      mask:
+        url("/systems/ryuutama/assets/official/layout/corner-aside-tl.svg") top left no-repeat,
+        url("/systems/ryuutama/assets/official/layout/corner-aside-tr.svg") top right no-repeat,
+        url("/systems/ryuutama/assets/official/layout/corner-aside-br.svg") bottom right no-repeat,
+        url("/systems/ryuutama/assets/official/layout/corner-aside-bl.svg") bottom left no-repeat;
+      mask-size: 2rem;
+      background-color: var(--ryuutama-color-corner-decor);
     }
 
     &.bordered {
-      --inset: .5rem;
+      --filigree-section-inset: calc(.5rem + 2px);
       border: 2px solid var(--c-accent);
       border-radius: 2px;
 
-      &::after {
-        inset: var(--inset);
+      &::before {
+        position: absolute;
+        pointer-events: none;
+        content: "";
+        inset: .5rem;
         border: 2px solid var(--c-accent);
       }
     }
