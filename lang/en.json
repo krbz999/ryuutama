@@ -774,6 +774,7 @@
       "ActorSheet": "Ryuutama Actor Sheet",
       "CombatantSheet": "Ryuutama Combatant Sheet",
       "ItemSheet": "Ryuutama Item Sheet",
+      "JournalEntrySheet": "Ryuutama JournalEntry Sheet",
       "MonsterSheet": "Ryuutama Monster Sheet",
       "ReferencePageSheet": "Ryuutama Reference Page Sheet"
     },

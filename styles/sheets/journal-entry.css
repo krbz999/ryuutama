@@ -1,0 +1,57 @@
+.ryuutama.journal-entry {
+  aside.aside {
+    --filigree-section-inset: .5rem;
+    background-color: var(--ryuutama-color-aside);
+    box-shadow: 4px 4px 0 var(--ryuutama-color-aside-shadow);
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+
+    h4 {
+      font-family: var(--ryuutama-font-gothic);
+    }
+  }
+
+  aside.scrap {
+    background-image: url("/systems/ryuutama/assets/official/layout/scrap.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    padding: 1rem 2rem;
+
+    min-width: min(400px, 100%);
+    max-width: min(400px, 75%);
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-family: var(--ryuutama-font-gothic);
+    color: var(--ryuutama-color-header-2);
+  }
+
+  blockquote {
+    width: 75%;
+    margin: 0 auto;
+    min-width: min(400px, 100%);
+    background-color: rgb(255 255 255 / .25);
+    border-radius: .5rem;
+
+    p {
+      font-family: var(--ryuutama-font-gabriela);
+      margin: 0;
+    }
+
+    cite {
+      font-family: var(--ryuutama-font-gothic);
+
+      p:has(> &) {
+        text-align: end;
+        margin-right: 1rem;
+      }
+
+      &::before {
+        content: "—";
+        margin-right: .25rem;
+      }
+    }
+  }
+}
