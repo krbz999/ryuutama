@@ -44,6 +44,7 @@ declare module "./creature.mjs" {
         high: string;
       };
       statuses: Record<string, number>;
+      travel: boolean;
       value: number;
     };
     defense: {

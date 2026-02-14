@@ -3,6 +3,7 @@
   {{formGroup systemFields.condition.fields.immunities value=source.system.condition.immunities type="checkboxes" classes="stacked" labelAttr="name"}}
 
   {{#if (eq document.type "traveler")}}
+  {{formGroup systemFields.condition.fields.travel value=source.system.condition.travel rootId=rootId}}
   {{formGroup systemFields.condition.fields.rationing value=source.system.condition.rationing classes="slim" rootId=rootId}}
   {{formGroup systemFields.condition.fields.shape.fields.high value=source.system.condition.shape.high classes="slim" rootId=rootId}}
   {{/if}}

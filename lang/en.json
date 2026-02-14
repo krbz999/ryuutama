@@ -83,6 +83,7 @@
           "condition.rationing.label": "Rationing Penalty",
           "condition.shape.high.hint": "This ability has its die increased by 1 size (to a maximum of 12) when the actor's Condition is 10 or higher.",
           "condition.shape.high.label": "Tip-Top Shape",
+          "condition.travel.label": "Critical Travel Check Bonus",
           "condition.value.label": "Current Condition",
           "defense.modifiers.magical.label": "Magical",
           "defense.modifiers.physical.label": "Physical",

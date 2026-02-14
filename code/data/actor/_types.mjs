@@ -42,6 +42,9 @@
  * @property {string} [magic.item]                      The id of the spell being cast.
  * @property {Record<string, boolean>} [rollOptions]    Options for the roll. The effect of these depends on
  *                                                      the type of check being performed.
+ * @property {object} [travel]
+ * @property {boolean} [travel.performChanges=true]   If a travel check, perform the relevant changes
+ *                                                    depending on the result.
  */
 
 /* -------------------------------------------------- */

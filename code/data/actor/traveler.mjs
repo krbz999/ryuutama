@@ -146,6 +146,7 @@ export default class TravelerData extends CreatureData {
     this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
     this.magic = { seasons: new Set() };
     this.mastered = { weapons: new Set(), terrain: new Set(), weather: new Set() };
+    if (this.condition.travel) this.condition.value = this._source.condition.value + 1;
 
     // Status immunities are prepared prior to statuses in CreatureData.
     for (const si of this.advancements) {
@@ -547,6 +548,9 @@ export default class TravelerData extends CreatureData {
           : [ryuutama.config.weaponUnarmedTypes.unarmed.damage.ability]; // Unarmed
         break;
       case "initiative": roll.abilities = ["dexterity", "intelligence"]; break;
+      case "journey":
+        if (roll.journeyId === "travel") roll.travel = { performChanges: true };
+        break;
     }
   }
 }
