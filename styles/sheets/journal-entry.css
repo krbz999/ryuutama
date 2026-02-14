@@ -1,0 +1,177 @@
+.application.journal-entry {
+  background: burlywood;
+
+  * { scrollbar-color: var(--ryuutama-color-aside-corners) transparent; }
+
+  .window-header *,
+  .journal-sidebar * {
+    color: black;
+    border-color: transparent;
+  }
+
+  .toc {
+    scrollbar-gutter: stable;
+  }
+
+  .toc .active,
+  .toc .active + .category:has(+ .active) {
+    background: linear-gradient(
+      90deg,
+      hsl(from var(--ryuutama-color-aside-corners) h s l / .5),
+      transparent 25%
+    );
+
+    &.active {
+      border-color: var(--ryuutama-color-aside-corners);
+    }
+
+    &:has(~ .active) {
+      border-bottom-color: transparent;
+    }
+
+    ~ .active {
+      border-top-color: transparent;
+    }
+  }
+
+  .toc .level1 .headings {
+    margin-left: calc(2 * var(--level-indent));
+  }
+  .toc .level2 .headings {
+    margin-left: calc(3 * var(--level-indent));
+  }
+  .toc .level3 .headings {
+    margin-left: calc(4 * var(--level-indent));
+  }
+
+  .journal-entry-content {
+    background:
+      linear-gradient(90deg, burlywood, transparent 5%),
+      linear-gradient(180deg, burlywood, transparent 5%),
+      linear-gradient(270deg, burlywood, transparent 5%),
+      linear-gradient(0deg, burlywood, transparent 5%),
+      url("../../../../ui/parchment.jpg") repeat;
+  }
+
+  /* Journal Name */
+  .journal-header {
+    input {
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      color: black;
+    }
+  }
+
+  .journal-entry-page {
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    h1,
+    h2 {
+      border: none;
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      text-wrap: balance;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .journal-page-header {
+      h1 {
+        font-size: 60px;
+        text-align: center;
+        color: #ffffff;
+        font-family: var(--ryuutama-font-radley);
+        padding: 3rem 2rem;
+        margin: 0;
+        margin-bottom: 1rem;
+
+        .journal-page-header:has(> &) {
+          background: #cebc6a;
+          border-radius: .5rem;
+        }
+      }
+
+      h2 {
+        color: #a1224a;
+        font-family: var(--ryuutama-font-raleway);
+        margin-bottom: 1rem;
+      }
+    }
+
+    .journal-page-content {
+      color: rgb(34 34 34);
+
+      h2 {
+        color: #a1224a;
+        font-family: var(--ryuutama-font-raleway);
+        margin: 2rem 0 .5rem 0;
+      }
+
+      h3,
+      h4 {
+        font-family: var(--ryuutama-font-gothic);
+        color: rgb(34 34 34);
+      }
+
+      > p {
+        margin: 0;
+
+        + p {
+          text-indent: 1rem;
+        }
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        margin-left: 1rem;
+
+        &:is(.journal-page-content > &) li {
+          padding-left: 1rem;
+
+          &::marker {
+            content: "❁";
+          }
+        }
+      }
+
+      aside.aside {
+        padding: 1.75rem 1.75rem;
+        border-radius: .5rem;
+        background: #f7f7d2;
+        width: 75%;
+        margin: 1rem auto 0 auto;
+        min-width: min(100%, 400px);
+        filter: drop-shadow(.3rem .3rem 0 #aaa47c);
+        position: relative;
+        --ryuutama-color-corner-decor: var(--ryuutama-color-aside-corners);
+        --filigree-section-inset: .5rem;
+
+        p {
+          font-family: var(--ryuutama-font-raleway);
+        }
+
+        &::after {
+          position: absolute;
+          pointer-events: none;
+          content: "";
+          inset: var(--filigree-section-inset, 0);
+          mask:
+            url("/systems/ryuutama/assets/official/layout/corner-aside-tl.svg") top left no-repeat,
+            url("/systems/ryuutama/assets/official/layout/corner-aside-tr.svg") top right no-repeat,
+            url("/systems/ryuutama/assets/official/layout/corner-aside-br.svg") bottom right no-repeat,
+            url("/systems/ryuutama/assets/official/layout/corner-aside-bl.svg") bottom left no-repeat;
+          mask-size: 2rem;
+          background-color: var(--ryuutama-color-corner-decor);
+        }
+      }
+    }
+  }
+}
