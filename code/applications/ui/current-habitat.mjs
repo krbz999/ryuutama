@@ -34,6 +34,18 @@ export default class CurrentHabitat extends Application {
   /* -------------------------------------------------- */
 
   /**
+   * The current topology target number (terrain + weather).
+   * @type {number}
+   */
+  get targetNumber() {
+    const value = game.settings.get(ryuutama.id, CurrentHabitat.SETTING);
+    return ryuutama.config.terrainTypes[value.terrain].difficulty
+      + ryuutama.config.weatherTypes[value.weather].modifier;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Is the terrain menu currently expanded?
    * @type {boolean}
    */
@@ -72,7 +84,7 @@ export default class CurrentHabitat extends Application {
     const weatherConfig = ryuutama.config.weatherTypes[value.weather];
 
     return {
-      targetNumber: terrainConfig.difficulty + weatherConfig.modifier,
+      targetNumber: this.targetNumber,
       isGM: game.user.isGM,
 
       terrain: value.terrain,

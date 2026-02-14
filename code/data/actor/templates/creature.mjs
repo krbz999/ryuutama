@@ -11,7 +11,7 @@ import RyuutamaToken from "../../../canvas/placeables/token.mjs";
  * @import RyuutamaChatMessage from "../../../documents/chat-message.mjs";
  */
 
-const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { BooleanField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class CreatureData extends BaseData {
   /** @inheritdoc */
@@ -34,6 +34,7 @@ export default class CreatureData extends BaseData {
         shape: new SchemaField({
           high: new StringField({ required: true, blank: true, choices: () => ryuutama.config.abilityScores }),
         }),
+        travel: new BooleanField(),
         value: new NumberField({ nullable: false, initial: 4, integer: true, min: 2 }),
       }),
       defense: new SchemaField({
@@ -414,6 +415,8 @@ export default class CreatureData extends BaseData {
     const update = {};
     const effectIds = [];
     const actor = this.parent;
+    const isTraveler = actor.type === "traveler";
+    const isTravelCheck = (rollConfig.type === "journey") && (rollConfig.journeyId === "travel");
 
     // Consume a fumble point and MP due to concentration.
     const c = rollConfig.concentration ?? {};
@@ -440,6 +443,7 @@ export default class CreatureData extends BaseData {
     // Update condition score.
     if (rollConfig.condition?.updateScore) {
       update["system.condition.value"] = roll.total;
+      update["system.condition.travel"] = false;
 
       // Remove statuses.
       if (rollConfig.condition?.removeStatuses) {
@@ -470,6 +474,23 @@ export default class CreatureData extends BaseData {
       if (update["system.resources.mental.spent"] > actor.system.resources.mental.max) {
         ui.notifications.warn("RYUUTAMA.ROLL.WARNING.mentalUnavailable", { format: { name: actor.name } });
         return false;
+      }
+    }
+
+    // If a travel check, change hp or condition, depending.
+    if (isTraveler && isTravelCheck && rollConfig.travel?.performChanges) {
+      const tn = ui.habitat.targetNumber;
+      const hp = actor.system.resources.stamina;
+      switch (true) {
+        case roll.isCritical:
+          update["system.condition.travel"] = true;
+          break;
+        case roll.isFumble:
+          update["system.resources.stamina.spent"] = Math.ceil(hp.spent + hp.value * 3 / 4);
+          break;
+        case roll.total < tn:
+          update["system.resources.stamina.spent"] = Math.ceil(hp.spent + hp.value / 2);
+          break;
       }
     }
 
