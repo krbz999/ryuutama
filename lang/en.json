@@ -301,6 +301,9 @@
     },
 
     "CHAT": {
+      "CHECK": {
+        "grantFumble": "Grant Fumble Point"
+      },
       "DAMAGE": {
         "FIELDS": {},
         "applyDamage": "Apply Damage",

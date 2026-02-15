@@ -116,4 +116,20 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
     const data = await ryuutama.canvas.interaction.TokenPlacement.place(config);
     return ryuutama.canvas.interaction.TokenPlacement.createTokens(data);
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Grant every party member a fumble point.
+   * @returns {Promise<RyuutamaActor[]>}    A promise that resolves to the updated actors.
+   */
+  async grantFumblePoint() {
+    const actors = this.members
+      .map(m => m.actor)
+      .filter(a => a.type === "traveler");
+    const updates = actors.map(actor => {
+      return { _id: actor.id, "system.fumbles.value": actor.system.fumbles.value + 1 };
+    });
+    return getDocumentClass("Actor").updateDocuments(updates);
+  }
 }
