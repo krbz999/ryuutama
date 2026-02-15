@@ -199,6 +199,9 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     // Spells.
     context.spells = this.#prepareSpells(context);
 
+    // Statuses.
+    context.statuses = this.#prepareStatuses();
+
     return context;
   }
 
@@ -757,6 +760,28 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     };
 
     return { search, groups: sections };
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare statuses context.
+   * @returns {object[]}
+   */
+  #prepareStatuses() {
+    const immunities = this.document.system.condition.immunities;
+    const affected = this.document.system.condition.statuses;
+    return Object.entries(ryuutama.config.statusEffects).map(([status, data]) => {
+      const { img, name, _id } = data;
+      const immune = immunities.has(status);
+      const effect = this.document.effects.get(_id);
+      const strength = affected[status];
+      const suppressed = !!effect && !strength;
+      return {
+        img, name, status, immune, strength, suppressed,
+        active: !!effect,
+      };
+    });
   }
 
   /* -------------------------------------------------- */

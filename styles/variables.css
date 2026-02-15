@@ -97,9 +97,9 @@
 /* -------------------------------------------------- */
 
 @scope (.theme-dark) to (.themed) {
-  .ryuutama, &.ryuutama {
-    --ryuutama-sidebar-primary-party: var(--ryuutama-color-palevioletred);
+  --ryuutama-sidebar-primary-party: var(--ryuutama-color-palevioletred);
 
+  .ryuutama, &.ryuutama {
     --ryuutama-color-table-header: var(--ryuutama-color-darkorange);
     --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
     --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);
@@ -152,9 +152,9 @@
 }
 
 @scope (.theme-light) to (.themed) {
-  .ryuutama, &.ryuutama {
-    --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
+  --ryuutama-sidebar-primary-party: var(--ryuutama-color-tan);
 
+  .ryuutama, &.ryuutama {
     --ryuutama-color-table-header: var(--ryuutama-color-darkorange);
     --ryuutama-color-table-row-odd: var(--ryuutama-color-oldlace);
     --ryuutama-color-table-row-even: var(--ryuutama-color-bisque);

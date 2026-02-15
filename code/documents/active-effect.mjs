@@ -49,6 +49,14 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  async _preCreate(data, options, user) {
+    if ((await super._preCreate(data, options, user)) === false) return false;
+    if (this.parent?.type === "party") return false;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   _initializeSource(data = {}, options = {}) {
     if (!data.type || (data.type === "base")) data.type = "standard";
     return super._initializeSource(data, options);

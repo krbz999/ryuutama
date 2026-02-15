@@ -73,8 +73,12 @@
     "Actor": {
       "monster": {
         "htmlFields": [
-          "description.value",
-          "description.special.value"
+          "description.value"
+        ]
+      },
+      "party": {
+        "htmlFields": [
+          "description.value"
         ]
       },
       "traveler": {

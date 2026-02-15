@@ -1,0 +1,31 @@
+<section data-tab="{{tabs.members.id}}" data-group="{{tabs.members.group}}" class="{{tabs.members.cssClass}}">
+  <div class="contents">
+    {{#each members}}
+    <section class="member" data-member-id="{{actor.id}}">
+      <section class="avatar">
+        <img src="{{actor.img}}" alt="{{actor.name}}">
+      </section>
+      <section class="details">
+        <span class="title">{{actor.name}}</span>
+
+        <section class="resources">
+          <progress-bar class="stamina numeric-display {{#if hp.negative}} negative {{/if}}" id="{{rootId}}-stamina" data-pct="{{hp.pct}}" data-label="{{hp.pct}}%"></progress-bar>
+          <progress-bar class="mental numeric-display" id="{{rootId}}-mental" data-pct="{{mp.pct}}" data-label="{{mp.pct}}%"></progress-bar>
+        </section>
+      </section>
+      <section class="controls">
+        {{#if (and @root.isInteractive (not @root.disabled))}}
+        <a class="control" data-action="removeMember">
+          <i class="fa-solid fa-fw fa-trash" inert></i>
+        </a>
+        {{/if}}
+        {{#if (and @root.disabled canView)}}
+        <a class="control" data-action="showMember">
+          <i class="fa-solid fa-fw fa-magnifying-glass" inert></i>
+        </a>
+        {{/if}}
+      </section>
+    </section>
+    {{/each}}
+  </div>
+</section>
