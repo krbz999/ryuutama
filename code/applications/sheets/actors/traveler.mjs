@@ -26,36 +26,36 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
   /** @override */
   static PARTS = {
     sidebar: {
-      template: "systems/ryuutama/templates/sheets/traveler-sheet/sidebar.hbs",
+      template: "systems/ryuutama/templates/sheets/actors/traveler/sidebar.hbs",
     },
     navigation: {
-      template: "systems/ryuutama/templates/sheets/traveler-sheet/navigation.hbs",
+      template: "systems/ryuutama/templates/sheets/actors/traveler/navigation.hbs",
       templates: ["templates/generic/tab-navigation.hbs"],
     },
     attributes: {
-      template: "systems/ryuutama/templates/sheets/traveler-sheet/attributes.hbs",
+      template: "systems/ryuutama/templates/sheets/actors/traveler/attributes.hbs",
       classes: ["tab", "scrollable"],
       scrollable: [""],
     },
     spells: {
-      template: "systems/ryuutama/templates/sheets/traveler-sheet/spells.hbs",
-      templates: ["systems/ryuutama/templates/sheets/traveler-sheet/search.hbs"],
+      template: "systems/ryuutama/templates/sheets/actors/traveler/spells.hbs",
+      templates: ["systems/ryuutama/templates/sheets/actors/traveler/search.hbs"],
       classes: ["tab"],
       scrollable: [".spells"],
     },
     inventory: {
-      template: "systems/ryuutama/templates/sheets/traveler-sheet/inventory.hbs",
-      templates: ["systems/ryuutama/templates/sheets/traveler-sheet/search.hbs"],
+      template: "systems/ryuutama/templates/sheets/actors/traveler/inventory.hbs",
+      templates: ["systems/ryuutama/templates/sheets/actors/traveler/search.hbs"],
       classes: ["tab"],
       scrollable: [".inventory"],
     },
     effects: {
-      template: "systems/ryuutama/templates/sheets/traveler-sheet/effects.hbs",
+      template: "systems/ryuutama/templates/sheets/actors/traveler/effects.hbs",
       classes: ["tab", "scrollable"],
       scrollable: [""],
     },
     notes: {
-      template: "systems/ryuutama/templates/sheets/traveler-sheet/notes.hbs",
+      template: "systems/ryuutama/templates/sheets/actors/traveler/notes.hbs",
       templates: ["templates/generic/tab-navigation.hbs"],
       classes: ["tab", "scrollable"],
       scrollable: [""],

@@ -1,7 +1,7 @@
 <section data-tab="{{tabs.spells.id}}" class="{{tabs.spells.cssClass}}" data-group="{{tabs.spells.group}}">
   <div class="contents">
     {{!-- ITEM FILTERS --}}
-    {{> "systems/ryuutama/templates/sheets/traveler-sheet/search.hbs" search=spells.search}}
+    {{> "systems/ryuutama/templates/sheets/actors/traveler/search.hbs" search=spells.search}}
 
     <section class="spells" data-search-container="spells">
       {{#each spells.groups}}

@@ -186,7 +186,7 @@ Hooks.once("ready", () => {
 
   foundry.applications.handlebars.loadTemplates({
     // ACTOR PARTIALS
-    "actor-resources": "systems/ryuutama/templates/sheets/shared/resources.hbs",
+    "actor-resources": "systems/ryuutama/templates/sheets/actors/resources.hbs",
 
     // SHARED PARTIALS
     "document-list": "systems/ryuutama/templates/sheets/shared/document-list.hbs",

@@ -17,26 +17,26 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
   /** @override */
   static PARTS = {
     header: {
-      template: "systems/ryuutama/templates/sheets/monster-sheet/header.hbs",
+      template: "systems/ryuutama/templates/sheets/actors/monster/header.hbs",
       templates: ["templates/generic/tab-navigation.hbs"],
     },
     attributes: {
-      template: "systems/ryuutama/templates/sheets/monster-sheet/attributes.hbs",
+      template: "systems/ryuutama/templates/sheets/actors/monster/attributes.hbs",
       classes: ["tab", "standard-form", "scrollable"],
       scrollable: [""],
     },
     skills: {
-      template: "systems/ryuutama/templates/sheets/monster-sheet/skills.hbs",
+      template: "systems/ryuutama/templates/sheets/actors/monster/skills.hbs",
       classes: ["tab", "standard-form", "scrollable"],
       scrollable: [""],
     },
     details: {
-      template: "systems/ryuutama/templates/sheets/monster-sheet/details.hbs",
+      template: "systems/ryuutama/templates/sheets/actors/monster/details.hbs",
       classes: ["tab", "standard-form", "scrollable"],
       scrollable: [""],
     },
     effects: {
-      template: "systems/ryuutama/templates/sheets/monster-sheet/effects.hbs",
+      template: "systems/ryuutama/templates/sheets/actors/monster/effects.hbs",
       classes: ["tab", "standard-form", "scrollable"],
       scrollable: [""],
     },
