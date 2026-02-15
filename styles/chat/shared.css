@@ -27,6 +27,18 @@
 .chat-message.message [data-message-part] {
   button[data-action] {
     width: 100%;
+
+    ryuutama-icon svg {
+      padding: 2px;
+
+      button:disabled & {
+        --ryuutama-color-check-fumble: transparent;
+      }
+    }
+  }
+
+  .buttons {
+    margin-top: .5rem;
   }
 }
 

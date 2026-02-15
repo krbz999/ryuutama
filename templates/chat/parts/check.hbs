@@ -5,3 +5,12 @@
 <section class="check-rolls">
   {{#each ctx.rolls}}{{{this}}}{{/each}}
 </section>
+
+{{#if (and ctx.hasFumble user.isGM)}}
+<section class="buttons">
+  <button type="button" data-action="grantFumble" {{disabled part.grantedFumble}}>
+    <ryuutama-icon src="systems/ryuutama/assets/official/icons/check/fumble.svg" inert></ryuutama-icon>
+    <span>{{localize "RYUUTAMA.CHAT.CHECK.grantFumble"}}</span>
+  </button>
+</section>
+{{/if}}
