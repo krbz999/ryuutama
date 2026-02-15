@@ -1,5 +1,6 @@
 /**
  * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
+ * @import RyuutamaPartySheet from "../sheets/actors/party.mjs";
  */
 
 const { Application } = foundry.applications.api;
@@ -15,9 +16,10 @@ export default class CurrentHabitat extends Application {
       positioned: false,
     },
     actions: {
-      openMenu: CurrentHabitat.#openMenu,
       configureTerrain: CurrentHabitat.#configureTerrain,
       configureWeather: CurrentHabitat.#configureWeather,
+      openMenu: CurrentHabitat.#openMenu,
+      openParty: CurrentHabitat.#openParty,
     },
   };
 
@@ -172,6 +174,30 @@ export default class CurrentHabitat extends Application {
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
+  static #configureTerrain(event, target) {
+    const terrain = target.dataset.terrainId;
+    CurrentHabitat.updateHabitat({ terrain });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this CurrentHabitat
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #configureWeather(event, target) {
+    const weather = target.dataset.weatherId;
+    CurrentHabitat.updateHabitat({ weather });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this CurrentHabitat
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
   static #openMenu(event, target) {
     const type = target.dataset.menu;
     this.#terrainOpen = type === "terrain" ? !this.#terrain : type === "terrain";
@@ -185,21 +211,18 @@ export default class CurrentHabitat extends Application {
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
-  static #configureTerrain(event, target) {
-    const terrain = target.dataset.terrainId;
-    return CurrentHabitat.updateHabitat({ terrain });
-  }
+  static #openParty(event, target) {
+    const party = game.actors.party;
+    if (!party) {
+      ui.notifications.warn("RYUUTAMA.HABITAT.noPrimaryParty", { localize: true });
+      return;
+    }
 
-  /* -------------------------------------------------- */
-
-  /**
-   * @this CurrentHabitat
-   * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
-   */
-  static #configureWeather(event, target) {
-    const weather = target.dataset.weatherId;
-    return CurrentHabitat.updateHabitat({ weather });
+    /** @type {RyuutamaPartySheet} */
+    const sheet = party.sheet;
+    if (sheet.rendered && sheet.minimized) sheet.maximize();
+    else if (sheet.rendered) sheet.close();
+    else sheet.render({ force: true });
   }
 
   /* -------------------------------------------------- */

@@ -1,28 +1,35 @@
 #current-habitat {
+  --icon-size: 3.5rem;
+  --topography-size: 16rem;
   pointer-events: all;
-  width: 20rem;
+  width: calc(var(--icon-size) * 2 + var(--topography-size));
 
   .calendar {
     display: grid;
-    grid-template-columns: 1fr 6fr 1fr;
+    grid-template-columns: var(--icon-size) 1fr var(--icon-size);
     margin: .25rem 0;
+    anchor-name: --current-habitat-controls-left, --current-habitat-controls-right;
 
     .topography {
       display: grid;
-      font-size: 14px;
+      font-size: 12px;
       text-align: center;
       align-items: center;
+      margin: 0 2rem;
 
       .target-number {
-        font-size: 75%;
+        font-size: 16px;
       }
     }
 
-    .terrain, .weather {
+    .terrain,
+    .weather {
       padding: .25rem;
 
-      ryuutama-icon {
-        display: grid;
+      ryuutama-icon,
+      img {
+        border-radius: .5rem;
+        overflow: hidden;
       }
     }
   }
@@ -34,7 +41,8 @@
       display: none;
     }
 
-    menu.terrain, menu.weather {
+    menu.terrain,
+    menu.weather {
       width: 100%;
       display: none;
       gap: 5px;
@@ -44,7 +52,8 @@
         display: grid;
       }
 
-      li img, li ryuutama-icon {
+      li img,
+      li ryuutama-icon {
         border-radius: 10px;
         overflow: hidden;
       }
@@ -54,7 +63,9 @@
     }
   }
 
-  .calendar, .menus:has(.open) {
+  .calendar,
+  .menus:has(.open),
+  .controls {
     background: var(--background-color);
     border-radius: 7px;
   }
@@ -69,5 +80,35 @@
   .themed.theme-dark & {
     --background-color: var(--color-cool-5);
     --color-border: black;
+  }
+
+  /* Ouside controls */
+  .controls {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    align-self: anchor-center;
+
+    &:empty { display: none }
+
+    a[data-action] {
+      padding: .5rem;
+    }
+  }
+
+  @supports not (position-anchor: --var) {
+    .controls {
+      display: none;
+    }
+  }
+
+  .controls-left {
+    position-anchor: --current-habitat-controls-left;
+    right: calc(.25rem + anchor(left));
+  }
+
+  .controls-right {
+    position-anchor: --current-habitat-controls-right;
+    left: calc(.25rem + anchor(right));
   }
 }

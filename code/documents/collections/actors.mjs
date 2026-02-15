@@ -1,3 +1,7 @@
+/**
+ * @import RyuutamaActor from "../actor.mjs";
+ */
+
 export default class RyuutamaActors extends foundry.documents.collections.Actors {
   /**
    * The primary party.
