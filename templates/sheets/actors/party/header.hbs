@@ -1,0 +1,17 @@
+<section>
+  <section class="left-controls">
+    <h3 class="title">{{document.name}}</h3>
+    <a data-action="placeMembers" {{disabled (not header.canPlaceMembers)}}>
+      <i class="fa-solid fa-fw fa-bullseye" inert></i>
+      <span>{{localize "RYUUTAMA.ACTOR.PARTY.placeMembers"}}</span>
+    </a>
+  </section>
+
+  <section class="middle-controls">
+    <img src="{{document.img}}" alt="{{document.name}}">
+  </section>
+
+  <section class="right-controls">
+    <progress-bar class="stamina numeric-display {{#if header.hp.negative}} negative {{/if}}" id="{{header.hp.id}}-stamina-total" data-pct="{{header.hp.fill}}" data-label="{{header.hp.pct}}%"></progress-bar>
+  </section>
+</section>

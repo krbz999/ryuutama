@@ -117,31 +117,6 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
 
     context.collapsed = Object.fromEntries(Array.from(this.#collapsedSections).map(s => [s, true]));
 
-    // Abilities.
-    context.abilities = Object.keys(ryuutama.config.abilityScores).map(abi => {
-      return {
-        ability: abi,
-        icon: ryuutama.config.abilityScores[abi].icon,
-        label: ryuutama.config.abilityScores[abi].label,
-        value: this.document.system.abilities[abi],
-      };
-    });
-
-    // Status effects.
-    const immunities = this.document.system.condition.immunities;
-    const affected = this.document.system.condition.statuses;
-    context.statuses = Object.entries(ryuutama.config.statusEffects).map(([status, data]) => {
-      const { img, name, _id } = data;
-      const immune = immunities.has(status);
-      const effect = this.document.effects.get(_id);
-      const strength = affected[status];
-      const suppressed = !!effect && !strength;
-      return {
-        img, name, status, immune, strength, suppressed,
-        active: !!effect,
-      };
-    });
-
     // Set up search filters.
     for (const key of Object.keys(this.constructor.SEARCH)) {
       if (this.#searchFilters.get(key)) continue;

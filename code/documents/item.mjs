@@ -48,6 +48,14 @@ export default class RyuutamaItem extends foundry.documents.Item {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  async _preCreate(data, options, user) {
+    if ((await super._preCreate(data, options, user)) === false) return false;
+    if (this.parent?.type === "party") return false;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @override */
   getRollData() {
     const item = { ...this };

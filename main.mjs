@@ -55,7 +55,7 @@ Hooks.once("init", () => {
   CONFIG.Actor.collection = documents.collections.RyuutamaActors;
   CONFIG.Actor.documentClass = documents.RyuutamaActor;
   CONFIG.Actor.dataModels.monster = data.actor.MonsterData;
-  // CONFIG.Actor.dataModels.party = data.actor.PartyData;
+  CONFIG.Actor.dataModels.party = data.actor.PartyData;
   // CONFIG.Actor.dataModels.ryuujin = data.actor.RyuujinData;
   CONFIG.Actor.dataModels.traveler = data.actor.TravelerData;
 
@@ -124,7 +124,11 @@ Hooks.once("init", () => {
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Actor, ryuutama.id, applications.sheets.actors.RyuutamaTravelerSheet,
-    { label: "RYUUTAMA.SHEETS.ActorSheet", makeDefault: true, types: ["traveler"] },
+    { label: "RYUUTAMA.SHEETS.TravelerSheet", makeDefault: true, types: ["traveler"] },
+  );
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.Actor, ryuutama.id, applications.sheets.actors.RyuutamaPartySheet,
+    { label: "RYUUTAMA.SHEETS.PartySheet", makeDefault: true, types: ["party"] },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Actor, ryuutama.id, applications.sheets.actors.RyuutamaMonsterSheet,

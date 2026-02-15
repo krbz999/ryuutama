@@ -104,7 +104,8 @@
         }
       },
       "PARTY": {
-        "FIELDS": {}
+        "FIELDS": {},
+        "placeMembers": "Place Members"
       },
       "RYUUJIN": {
         "FIELDS": {}
@@ -152,6 +153,7 @@
         "details": "Details",
         "effects": "Effects",
         "inventory": "Inventory",
+        "members": "Party Members",
         "notes": "Notes",
         "skills": "Skills",
         "spells": "Magic"
@@ -772,11 +774,12 @@
     },
 
     "SHEETS": {
-      "ActorSheet": "Ryuutama Actor Sheet",
       "CombatantSheet": "Ryuutama Combatant Sheet",
       "ItemSheet": "Ryuutama Item Sheet",
       "MonsterSheet": "Ryuutama Monster Sheet",
-      "ReferencePageSheet": "Ryuutama Reference Page Sheet"
+      "PartySheet": "Ryuutama Party Sheet",
+      "ReferencePageSheet": "Ryuutama Reference Page Sheet",
+      "TravelerSheet": "Ryuutama Traveler Sheet"
     },
 
     "SIDEBAR": {
