@@ -12,7 +12,9 @@ export default class CheckRoll extends BaseRoll {
    */
   get isFumble() {
     if (!this._evaluated) throw new Error("Cannot check for state of a Check prior to evaluation.");
-    return this.dice.every(die => die.total === die.number);
+    return this.dice.every(die => {
+      return die.results.every(result => result.result === 1);
+    });
   }
 
   /* -------------------------------------------------- */
@@ -23,6 +25,10 @@ export default class CheckRoll extends BaseRoll {
    */
   get isCritical() {
     if (!this._evaluated) throw new Error("Cannot check for state of a Check prior to evaluation.");
-    return this.dice.every(die => die.total === (die.number * die.faces));
+    return this.dice.every(die => {
+      return die.results.every(result => result.result === 6);
+    }) || this.dice.every(die => {
+      return die.results.every(result => result.result === die.faces);
+    });
   }
 }
