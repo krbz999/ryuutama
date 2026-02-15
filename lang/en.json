@@ -369,6 +369,8 @@
     },
 
     "HABITAT": {
+      "noPrimaryParty": "No primary party has been assigned.",
+      "openParty": "Display Party",
       "targetNumber": "Target Number: {number}",
       "CONTEXT": {
         "viewFullImage": "View Full Image"
