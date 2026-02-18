@@ -1,3 +1,5 @@
+import RyuutamaPartySheet from "../applications/sheets/actors/party.mjs";
+
 export default class RyuutamaActor extends foundry.documents.Actor {
   /** @inheritdoc */
   _configure(options = {}) {
@@ -65,5 +67,19 @@ export default class RyuutamaActor extends foundry.documents.Actor {
    */
   async rollInitiative(...args) {
     throw new Error("Ryuutama | The `Actor#rollInitiative` method has been removed in favor of `Actor#system#rollInitiative`. Please use that instead.");
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onDelete(options, userId) {
+    // Remove party sheets and re-render them.
+    Object.values(this.apps).forEach(app => {
+      if (!(app instanceof RyuutamaPartySheet)) return;
+      delete this.apps[app.id];
+      if (app.rendered) app.render();
+    });
+
+    super._onDelete(options, userId);
   }
 }

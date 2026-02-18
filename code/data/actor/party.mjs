@@ -51,11 +51,18 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   prepareBaseData() {
     super.prepareBaseData();
-    this.members = Object.entries(this.members).reduce((acc, [id, data]) => {
-      const actor = game.actors.get(id);
-      if (this.validMember(actor)) acc.set(actor.id, Object.assign(data, { actor }));
-      return acc;
-    }, new foundry.utils.Collection());
+
+    Object.defineProperty(this, "members", {
+      enumerable: true,
+      writable: false,
+      get() {
+        return Object.entries(this._source.members).reduce((acc, [id, data]) => {
+          const actor = game.actors.get(id);
+          if (this.validMember(actor)) acc.set(actor.id, { ...data, actor });
+          return acc;
+        }, new foundry.utils.Collection());
+      },
+    });
   }
 
   /* -------------------------------------------------- */
