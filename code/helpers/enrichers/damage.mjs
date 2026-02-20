@@ -69,8 +69,9 @@ export function onRender(element) {
     if (tooltipActor instanceof foundry.documents.Actor) actors = [tooltipActor];
     else if (application?.document instanceof foundry.documents.Actor) actors = [application.document];
     else if (application?.document?.actor instanceof foundry.documents.Actor) actors = [application.document.actor];
-    else actors = Array.from(new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _)));
-    if (!actors.length) actors = [game.user.character];
+    else if (canvas?.tokens?.controlled.length)
+      actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
+    else actors = [game.user.character].filter(_ => _);
 
     const Cls = getDocumentClass("ChatMessage");
     const options = Object.fromEntries(element.dataset.properties.split(",").map(p => [p, true]));

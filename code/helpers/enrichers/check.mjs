@@ -39,16 +39,19 @@ export async function enricher(match, options = {}) {
   const anchor = document.createElement("A");
   elements.push(anchor);
   anchor.classList.add("enricher");
-  if (!label && !!config.formula) label = `[${config.formula}]`;
-
-  if (label) anchor.innerHTML = label.trim();
-  else if (config.subtype) anchor.innerHTML = typeConfig.subtypes[config.subtype].label;
-  else anchor.innerHTML = typeConfig.label;
 
   wrapper.dataset.type = config.type;
   if (config.subtype) wrapper.dataset.subtype = config.subtype;
-  if (config.formula) wrapper.dataset.formula = config.formula;
+  if (config.abilities.length) wrapper.dataset.abilities = config.abilities.join("|");
+  else if (config.formula) wrapper.dataset.formula = config.formula;
   anchor.dataset.tooltipText = game.i18n.localize("RYUUTAMA.ROLL.TYPES." + config.type);
+
+  if (!label && config.abilities.length)
+    label = `[${config.abilities.map(abi => ryuutama.config.abilityScores[abi].abbreviation).join(" + ")}]`;
+  else if (!label && config.formula) label = `[${config.formula}]`;
+  if (label) anchor.innerHTML = label.trim();
+  else if (config.subtype) anchor.innerHTML = typeConfig.subtypes[config.subtype].label;
+  else anchor.innerHTML = typeConfig.label;
 
   if (config.request) {
     const request = document.createElement("A");
@@ -71,12 +74,13 @@ export async function enricher(match, options = {}) {
  * @type {Function(HTMLEnrichedContentElement)}
  */
 export function onRender(element) {
-  const { type, subtype, formula } = element.dataset;
+  const { type, subtype, formula, abilities } = element.dataset;
   const rollConfig = { type };
   if ((type === "journey") && (subtype in ryuutama.config.checkTypes.journey.subtypes)) {
     rollConfig.journeyId = subtype;
   }
   if (formula) rollConfig.formula = formula;
+  else if (abilities) rollConfig.abilities = abilities.split("|");
   const options = Object.fromEntries(element.dataset.properties.split(",").map(p => [p, true]));
   rollConfig.rollOptions = options;
 
@@ -92,7 +96,9 @@ export function onRender(element) {
     if (tooltipActor instanceof foundry.documents.Actor) actors = [tooltipActor];
     else if (application?.document instanceof foundry.documents.Actor) actors = [application.document];
     else if (application?.document?.actor instanceof foundry.documents.Actor) actors = [application.document.actor];
-    else actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
+    else if (canvas?.tokens?.controlled.length)
+      actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
+    else actors = [game.user.character].filter(_ => _);
 
     const dialogConfig = { configure: !event.shiftKey };
     for (const actor of actors) {
@@ -169,8 +175,7 @@ export function chatMessage(message, chatData) {
  */
 function adjustConfig(config) {
   if (!("type" in config)) {
-    const type = config.values.find(k => k in ryuutama.config.checkTypes);
-    if (!type) return null;
+    const type = config.values.find(k => k in ryuutama.config.checkTypes) ?? "check";
     config.type = type;
   }
 
@@ -181,7 +186,13 @@ function adjustConfig(config) {
     if (subtype) config.subtype = subtype;
   }
 
-  if (!("formula" in config)) {
+  config.abilities = config.abilities?.split("|").map(key => filterAbilityKey(key)).filter(_ => _).slice(0, 2) ?? [];
+  config.values.forEach(k => {
+    const key = filterAbilityKey(k);
+    if (key && (config.abilities.length < 2)) config.abilities.push(key);
+  });
+
+  if (!("formula" in config) && !config.abilities.length) {
     const formula = config.values.find(k => !!k && foundry.dice.Roll.validate(k));
     if (formula) config.formula = formula;
   }
@@ -198,3 +209,15 @@ function adjustConfig(config) {
   // Show request.
   config.request ??= config.values.includes("request");
 }
+
+/* -------------------------------------------------- */
+
+const filterAbilityKey = key => {
+  key = key.toLowerCase().trim();
+  if (key in ryuutama.config.abilityScores) return key;
+
+  // Shorthand ability.
+  const [k] = Object.entries(ryuutama.config.abilityScores)
+    .find(([a, b]) => b.abbreviation.toLowerCase() === key) ?? [];
+  if (k) return k;
+};

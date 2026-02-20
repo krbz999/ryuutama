@@ -4,7 +4,7 @@ Enrichers can be written in description fields of actors or in items to perform 
 
 ## Check Enricher
 
-The `[[/check]]` enricher helps request and perform checks of various kinds. It has one required property, `type`, and several optional properties.
+The `[[/check]]` enricher helps request and perform checks of various kinds. It has one important property, `type`, and several optional properties.
 
 Example uses:
 - `[[/check accuracy]]` - displays as 'Accuracy Check' and will perform an accuracy check when clicked.
@@ -14,9 +14,16 @@ The valid check types are: "accuracy", "check" (for a generic check), "condition
 
 ### Options
 
+The `type` property is required, though will default to `check` for a generic check if omitted.
+
 When making a "journey" check, the `subtype` option is required, which can be one of three values: "camping", "direction", or "travel". For example, `[[/check type=journey subtype=camping]]`, or just `[[/check journey camping]]`, which will display as 'Camping Check'.
 
 Every type of check also supports the `formula` option if one wishes to fully replace the default that is derived from the actor's abilities. For example, `[[/check accuracy formula="2d4 + 1"]]`.
+To otherwise set default abilities, you can use the `abilities` property or write long or shorthand abilities. Each of these methods will produce an enricher for an [INT + INT] check:
+
+- `[[/check int intelligence]]`
+- `[[/check abilities="intelligence|intelligence"]]`
+- `[[/check formula="@stats.intelligence + @stats.intelligence"]]{[INT + INT]}`
 
 In addition, damage checks support additional options for damage-specific properties that modify how the resulting damage is applied. These are:
 
