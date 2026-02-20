@@ -821,15 +821,17 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
   /** @inheritdoc */
   async _onDropItem(event, item) {
-    const resolved = await super._onDropItem(event, item);
-    if (resolved) return resolved;
+    const toEquip = (item.parent === this.document)
+      && !!event.target.closest("[data-application-part=sidebar] .equipped")
+      && (item.type in this.document.system.equipped);
 
     // Equip the item if dropped onto the equipment section.
-    if (item.parent !== this.document) return false;
-    if (!event.target.closest("[data-application-part=sidebar] .equipped")) return false;
-    if (!(item.type in this.document.system.equipped)) return false;
-    await this.document.update({ [`system.equipped.${item.type}`]: item.id });
-    return true;
+    if (toEquip) {
+      await this.document.update({ [`system.equipped.${item.type}`]: item.id });
+      return true;
+    }
+
+    return super._onDropItem(event, item);
   }
 
   /* -------------------------------------------------- */
