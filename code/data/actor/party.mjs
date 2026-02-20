@@ -54,7 +54,6 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
 
     Object.defineProperty(this, "members", {
       enumerable: true,
-      writable: false,
       get() {
         return Object.entries(this._source.members).reduce((acc, [id, data]) => {
           const actor = game.actors.get(id);

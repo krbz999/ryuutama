@@ -2,10 +2,11 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 
 /**
  * @import {
- * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, DamageRollPropertyConfig, HerbTypeConfig,
- * ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, SeasonConfig, SpecialStatusEffectConfig, SpellCategoryConfig, SpellActivationTypeConfig,
+ * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, DamageRollPropertyConfig,
+ * HerbTypeConfig, ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, RationModifierConfig,
+ * RationTypeConfig, SeasonConfig, SpecialStatusEffectConfig, SpellCategoryConfig, SpellActivationTypeConfig,
  * SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig,
- * TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig
+ * TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig,
  * } from "./_types.mjs";
  */
 
@@ -363,6 +364,53 @@ export const monsterCategories = {
   },
 };
 Prelocalization.prelocalize(monsterCategories);
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, RationModifierConfig>}
+ */
+export const rationModifiers = {
+  disgusting: {
+    label: "RYUUTAMA.RATIONS.MODIFIER.disgusting",
+    prefix: true,
+  },
+  regular: {
+    label: "RYUUTAMA.RATIONS.MODIFIER.regular",
+  },
+  delicious: {
+    label: "RYUUTAMA.RATIONS.MODIFIER.delicious",
+    prefix: true,
+  },
+};
+Prelocalization.prelocalize(rationModifiers);
+
+/* -------------------------------------------------- */
+
+/**
+ * @type {Record<string, RationTypeConfig>}
+ */
+export const rationTypes = {
+  animalFeed: {
+    label: "RYUUTAMA.RATIONS.TYPE.animalFeed",
+    icon: "systems/ryuutama/assets/official/icons/ui/food.svg",
+  },
+  food: {
+    label: "RYUUTAMA.RATIONS.TYPE.food",
+    icon: "systems/ryuutama/assets/official/icons/ui/food.svg",
+    allowModifiers: true,
+  },
+  ration: {
+    label: "RYUUTAMA.RATIONS.TYPE.ration",
+    icon: "systems/ryuutama/assets/official/icons/ui/food.svg",
+    allowModifiers: true,
+  },
+  water: {
+    label: "RYUUTAMA.RATIONS.TYPE.water",
+    icon: "systems/ryuutama/assets/official/icons/ui/water.svg",
+  },
+};
+Prelocalization.prelocalize(rationTypes);
 
 /* -------------------------------------------------- */
 

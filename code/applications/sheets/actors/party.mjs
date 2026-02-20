@@ -8,6 +8,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
   /** @override */
   static DEFAULT_OPTIONS = {
     actions: {
+      consumeRation: RyuutamaPartySheet.#consumeRation,
       placeMembers: RyuutamaPartySheet.#placeMembers,
       removeMember: RyuutamaPartySheet.#removeMember,
       showMember: RyuutamaPartySheet.#showMember,
@@ -29,6 +30,11 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
       classes: ["tab"],
       scrollable: [".contents"],
     },
+    rations: {
+      template: "systems/ryuutama/templates/sheets/actors/party/rations.hbs",
+      classes: ["tab"],
+      scrollable: [".contents"],
+    },
     details: {
       template: "systems/ryuutama/templates/sheets/actors/party/details.hbs",
       classes: ["tab"],
@@ -43,6 +49,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
     primary: {
       tabs: [
         { id: "members" },
+        { id: "rations" },
         { id: "details" },
       ],
       initial: "members",
@@ -66,6 +73,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
 
     context.header = await this.#prepareHeader();
     context.members = await this.#prepareMembers();
+    context.rations = await this.#prepareRations();
     context.details = await this.#prepareDetails();
 
     return context;
@@ -136,6 +144,42 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Prepare rations context.
+   * @returns {Promise<{ type: string, rations: object[] }[]>}
+   */
+  async #prepareRations() {
+    const rations = {};
+
+    const makeTooltip = (actor, container, ration) => {
+      return [
+        `<p>${ration.label}</p>`,
+        `<p>${game.i18n.localize("TYPES.Item.container")}: ${container.name}</p>`,
+        `<p>${game.i18n.localize("RYUUTAMA.ACTOR.PARTY.actorOwner")}: ${actor.name}</p>`,
+      ].filterJoin("");
+    };
+
+    for (const { actor } of this.document.system.members) {
+      for (const container of actor.items.documentsByType.container) {
+        for (const type of Object.keys(ryuutama.config.rationTypes)) {
+          rations[type] ??= { type, label: ryuutama.config.rationTypes[type].label, rations: [] };
+          for (const ration of container.system.rations[type]) {
+            rations[type].rations.push({
+              ...ration, actor, container,
+              cssClass: [ration.modifier].filterJoin(" "),
+              disabled: !container.isOwner || !this.isEditable,
+              icon: ryuutama.config.rationTypes[type].icon,
+              tooltip: makeTooltip(actor, container, ration),
+            });
+          }
+        }
+      }
+    }
+    return Object.values(rations);
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _onRender(context, options) {
     await super._onRender(context, options);
@@ -162,6 +206,19 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
   async _onDropActor(event, actor) {
     await this.document.system.addMembers([actor]);
     return true;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaPartySheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #consumeRation(event, target) {
+    const { containerUuid, rationId } = target.closest(".ration").dataset;
+    const container = fromUuidSync(containerUuid);
+    container.system.removeRation(rationId);
   }
 
   /* -------------------------------------------------- */

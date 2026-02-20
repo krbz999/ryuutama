@@ -80,6 +80,23 @@
 /* -------------------------------------------------- */
 
 /**
+ * @typedef RationModifierConfig
+ * @property {string} label       Human-readable label.
+ * @property {boolean} [prefix]   Applies a prefix when this ration type is viewed.
+ */
+
+/* -------------------------------------------------- */
+
+/**
+ * @typedef RationTypeConfig
+ * @property {string} label               Human-readable label.
+ * @property {string} icon                File path of image asset to represent the type.
+ * @property {boolean} [allowModifiers]   Does this subtype allow for modifiers/prefixes?
+ */
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef SeasonConfig
  * @property {string} label   Human-readable label.
  */

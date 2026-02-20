@@ -7,6 +7,10 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     window: {
       contentClasses: ["standard-form"],
     },
+    actions: {
+      decreaseRation: RyuutamaItemSheet.#decreaseRation,
+      increaseRation: RyuutamaItemSheet.#increaseRation,
+    },
   };
 
   /* -------------------------------------------------- */
@@ -197,5 +201,29 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
     if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));
     return options;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaItemSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #decreaseRation(event, target) {
+    const type = target.closest("[data-ration-type]").dataset.rationType;
+    this.document.system.removeRations(1, type);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaItemSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #increaseRation(event, target) {
+    const type = target.closest("[data-ration-type]").dataset.rationType;
+    this.document.system.addRations(1, { type });
   }
 }

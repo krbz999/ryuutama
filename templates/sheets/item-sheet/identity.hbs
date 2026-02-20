@@ -1,9 +1,9 @@
 <section data-tab="{{tabs.identity.id}}" class="{{tabs.identity.cssClass}}" data-group="{{tabs.identity.group}}">
   {{!-- NAME --}}
-  {{formGroup fields.name value=(ifThen disabled document.name source.name) disabled=disabled classes="stacked"}}
+  {{formGroup fields.name value=(ifThen disabled document.name source.name) disabled=disabled classes="stacked" rootId=rootId}}
 
   {{!-- IMG --}}
-  {{formGroup fields.img value=(ifThen disabled document.img source.img) disabled=disabled classes="stacked"}}
+  {{formGroup fields.img value=(ifThen disabled document.img source.img) disabled=disabled classes="stacked" rootId=rootId}}
 
   {{!-- DESCRIPTION --}}
   {{#if disabled}}
