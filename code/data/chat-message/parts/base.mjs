@@ -31,7 +31,9 @@ export default class MessagePart extends foundry.abstract.DataModel {
         validate: value => value === this.TYPE,
         validationError: `must be equal to "${this.TYPE}"`,
       }),
-      rolls: new ArrayField(new JSONField()),
+      rolls: new ArrayField(new JSONField({
+        validate: MessagePart.#validateRoll,
+      })),
       flavor: new StringField({ required: true }),
     };
   }
@@ -163,5 +165,16 @@ export default class MessagePart extends foundry.abstract.DataModel {
       }
       return rolls;
     }, []);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Validate that Rolls belonging to the MessagePart are valid.
+   * @param {string} rollJSON   The serialized Roll data.
+   */
+  static #validateRoll(rollJSON) {
+    const roll = JSON.parse(rollJSON);
+    if (!roll.evaluated) throw new Error("Roll objects added to MessageParts must be evaluated.");
   }
 }

@@ -43,21 +43,21 @@ export default class ActionsModel extends foundry.abstract.DataModel {
 
   /**
    * Format all data to message parts.
-   * @returns {Record<string, object>}
+   * @returns {Promise<Record<string, object>>}
    */
-  toMessagePartData() {
+  async toMessagePartData() {
     const parts = [];
 
     // Effects
-    const effects = this.toEffectsPartData();
+    const effects = await this.toEffectsPartData();
     if (effects) parts.push(effects);
 
     // Damage
-    const damage = this.toDamagePartData();
+    const damage = await this.toDamagePartData();
     if (damage) parts.push(damage);
 
     // Healing
-    const healing = this.toHealingPartData();
+    const healing = await this.toHealingPartData();
     if (healing) parts.push(healing);
 
     return Object.fromEntries(parts.map(part => [foundry.utils.randomID(), part]));
@@ -67,9 +67,9 @@ export default class ActionsModel extends foundry.abstract.DataModel {
 
   /**
    * Format effects to part data.
-   * @returns {object|null}
+   * @returns {Promise<object|null>}
    */
-  toEffectsPartData() {
+  async toEffectsPartData() {
     return null;
   }
 
@@ -77,14 +77,15 @@ export default class ActionsModel extends foundry.abstract.DataModel {
 
   /**
    * Format damage to part data.
-   * @returns {object|null}
+   * @returns {Promise<object|null>}
    */
-  toDamagePartData() {
+  async toDamagePartData() {
     if (!this.damage.formula) return null;
     const partData = { type: "damage", rolls: [] };
     const properties = this.item.system.getRollOptions("damage").union(this.damage.properties);
     const options = Object.fromEntries(Array.from(properties).map(p => [p, true]));
     const roll = new ryuutama.dice.DamageRoll(this.damage.formula, this.item.getRollData(), options);
+    await roll.evaluate();
     partData.rolls.push(roll);
     return partData;
   }
@@ -93,13 +94,14 @@ export default class ActionsModel extends foundry.abstract.DataModel {
 
   /**
    * Format healing to part data.
-   * @returns {object|null}
+   * @returns {Promise<object|null>}
    */
-  toHealingPartData() {
+  async toHealingPartData() {
     if (!this.healing.formula) return null;
     const partData = { type: "healing", rolls: [] };
     const options = {};
     const roll = new ryuutama.dice.HealingRoll(this.healing.formula, this.item.getRollData(), options);
+    await roll.evaluate();
     partData.rolls.push(roll);
     return partData;
   }

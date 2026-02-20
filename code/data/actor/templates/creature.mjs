@@ -670,7 +670,7 @@ export default class CreatureData extends BaseData {
     messageData.content = `<p>@Embed[${spell.uuid} caption=false]</p>`;
 
     // Insert more parts here according to how the spell is configured.
-    Object.assign(messageData.system.parts, spell.system.actions.toMessagePartData());
+    Object.assign(messageData.system.parts, await spell.system.actions.toMessagePartData());
 
     const message = new Cls(messageData);
     return create ? Cls.create(message.toObject()) : message.toObject();
