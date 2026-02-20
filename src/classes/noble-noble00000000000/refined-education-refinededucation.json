@@ -4,7 +4,7 @@
   "type": "skill",
   "system": {
     "description": {
-      "value": "<p>After years of study under a learned tutor, you have memorized facts and trivia about many aspects of the world. You know more than the average person about history, famous people and well-traveled places.</p><p><strong>Skill Effect:</strong> Know detailed information about the things you see or hear.</p><p><strong>Usable Circumstances:</strong> Seeing or hearing something.</p><p><strong>Stat Used:</strong> [INT + INT]</p><p><strong>TN:</strong> GM's discretion</p>"
+      "value": "<p>After years of study under a learned tutor, you have memorized facts and trivia about many aspects of the world. You know more than the average person about history, famous people and well-traveled places.</p><p><strong>Skill Effect:</strong> Know detailed information about the things you see or hear.</p><p><strong>Usable Circumstances:</strong> Seeing or hearing something.</p><p><strong>Stat Used:</strong> [[/check int int]]</p><p><strong>TN:</strong> GM's discretion</p>"
     },
     "identifier": "refined-education",
     "source": {

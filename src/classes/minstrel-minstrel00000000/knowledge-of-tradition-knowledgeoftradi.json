@@ -4,7 +4,7 @@
   "type": "skill",
   "system": {
     "description": {
-      "value": "<p>The people you have met on your travels have taught you their old songs and legends. You have learned a great deal about the world in this way.</p><p><strong>Skill Effect:</strong> You can get more information about the things you see and hear.</p><p><strong>Usable Circumstances:</strong> Any time you come across something interesting</p><p><strong>Stat Used:</strong> [INT + INT]</p><p><strong>TN:</strong> GM's discretion</p>"
+      "value": "<p>The people you have met on your travels have taught you their old songs and legends. You have learned a great deal about the world in this way.</p><p><strong>Skill Effect:</strong> You can get more information about the things you see and hear.</p><p><strong>Usable Circumstances:</strong> Any time you come across something interesting</p><p><strong>Stat Used:</strong> [[/check int int]]</p><p><strong>TN:</strong> GM's discretion</p>"
     },
     "identifier": "knowledge-of-tradition",
     "source": {

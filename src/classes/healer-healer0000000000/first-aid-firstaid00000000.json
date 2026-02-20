@@ -4,7 +4,7 @@
   "type": "skill",
   "system": {
     "description": {
-      "value": "<p>You can relieve a character's status effect for one hour. This also reduces the strength of the status ailment by your current level. If this reduces the strength of the status ailment to 0 or below, the status effect is immediately cured. A character may only receive First Aid once per day, regardless of whether or not the check is successful.</p><p><strong>Skill Effect:</strong> Relieve a character's status effect for 1 hour. Then, reduce that status effect's strength permanently by a number equal to the Healer's level.</p><p><strong>Usable Circumstances:</strong> A character with a status effect who has not yet received first aid today</p><p><strong>Stat Used:</strong> [INT + SPI]</p><p><strong>TN:</strong> Status effect's strength</p>"
+      "value": "<p>You can relieve a character's status effect for one hour. This also reduces the strength of the status ailment by your current level. If this reduces the strength of the status ailment to 0 or below, the status effect is immediately cured. A character may only receive First Aid once per day, regardless of whether or not the check is successful.</p><p><strong>Skill Effect:</strong> Relieve a character's status effect for 1 hour. Then, reduce that status effect's strength permanently by a number equal to the Healer's level.</p><p><strong>Usable Circumstances:</strong> A character with a status effect who has not yet received first aid today</p><p><strong>Stat Used:</strong> [[/check int spi]]</p><p><strong>TN:</strong> Status effect's strength</p>"
     },
     "identifier": "first-aid",
     "source": {

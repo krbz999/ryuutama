@@ -4,7 +4,7 @@
   "type": "skill",
   "system": {
     "description": {
-      "value": "<p>You heal a companion's injuries by creating a secret remedy from Healing Herbs and water. Any Healing Herb may be used, but the process takes time, so this skill is less effective if used during combat.</p><p><strong>Skill Effect:</strong> Target character recovers HP equal to the result of [INT + SPI]. During combat, recover only the result of [INT] (only 1 die.)</p><p><strong>Usable Circumstances:</strong> Spend 1 Healing Herb</p><p><strong>Stat Used:</strong> [INT + SPI] (During combat, [INT] only)</p><p><strong>TN:</strong> None</p>"
+      "value": "<p>You heal a companion's injuries by creating a secret remedy from Healing Herbs and water. Any Healing Herb may be used, but the process takes time, so this skill is less effective if used during combat.</p><p><strong>Skill Effect:</strong> Target character recovers HP equal to the result of [INT + SPI]. During combat, recover only the result of [INT] (only 1 die.)</p><p><strong>Usable Circumstances:</strong> Spend 1 Healing Herb</p><p><strong>Stat Used:</strong> [[/check int spi]] (During combat, [[/check int]] only)</p><p><strong>TN:</strong> None</p>"
     },
     "identifier": "healing",
     "source": {

@@ -4,7 +4,7 @@
   "type": "skill",
   "system": {
     "description": {
-      "value": "<p>Due to your long years of tutelage and experience in noble society, you are aware of the importance of proper etiquette. When speaking to someone of rank or status, you are able to leave them with a positive impression of you when you win a contested Etiquette check.</p><p><strong>Skill Effect:</strong> Leave a positive impression on someone of high rank or status.</p><p><strong>Usable Circumstances:</strong> Conversing with someone of rank or status</p><p><strong>Stat Used:</strong> [DEX + INT]</p><p><strong>TN:</strong> contested</p>"
+      "value": "<p>Due to your long years of tutelage and experience in noble society, you are aware of the importance of proper etiquette. When speaking to someone of rank or status, you are able to leave them with a positive impression of you when you win a contested Etiquette check.</p><p><strong>Skill Effect:</strong> Leave a positive impression on someone of high rank or status.</p><p><strong>Usable Circumstances:</strong> Conversing with someone of rank or status</p><p><strong>Stat Used:</strong> [[/check dex int]]</p><p><strong>TN:</strong> contested</p>"
     },
     "identifier": "etiquette",
     "source": {
