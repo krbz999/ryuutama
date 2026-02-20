@@ -1,5 +1,8 @@
 name: Release Creation
 
+env:
+  NODE_VERSION: 22
+
 on:
   release:
     types: [published]
@@ -32,7 +35,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: '20.10.0'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
       # `npm ci` is recommended:
@@ -53,7 +56,6 @@ jobs:
 
       # Create a release for this specific version.
       - name: Update Release with Files
-        if: "!github.event.release.prerelease"
         id: create_version_release
         uses: ncipollo/release-action@v1
         with:
