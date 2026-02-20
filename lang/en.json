@@ -105,7 +105,9 @@
       },
       "PARTY": {
         "FIELDS": {},
-        "placeMembers": "Place Members"
+        "actorOwner": "Owner",
+        "placeMembers": "Place Members",
+        "removeRation": "Remove Ration"
       },
       "RYUUJIN": {
         "FIELDS": {}
@@ -155,6 +157,7 @@
         "inventory": "Inventory",
         "members": "Party Members",
         "notes": "Notes",
+        "rations": "Food & Water",
         "skills": "Skills",
         "spells": "Magic"
       },
@@ -723,6 +726,21 @@
       "ITEMS": "Items",
       "SPELLS": "Spells",
       "TABLES": "Tables"
+    },
+
+    "RATIONS": {
+      "MODIFIER": {
+        "disgusting": "Disgusting",
+        "regular": "Regular",
+        "delicious": "Delicious"
+      },
+      "TYPE": {
+        "animalFeed": "Animal Feed",
+        "food": "Food",
+        "ration": "Ration",
+        "water": "Water"
+      },
+      "rationLabel": "{prefix} {type}"
     },
 
     "REQUESTOR": {

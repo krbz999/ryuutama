@@ -110,6 +110,58 @@
     }
   }
 
+  [data-application-part=rations] {
+    overflow: hidden;
+
+    .contents {
+      overflow: auto;
+      scrollbar-gutter: stable;
+      gap: 1rem;
+      display: grid;
+      grid-template-rows: 1fr;
+      height: 100%;
+    }
+
+    .rations {
+      display: grid;
+      gap: .5rem;
+
+      .ration-category {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: .25rem;
+
+        .ration {
+          flex: 0 0 50px;
+          position: relative;
+
+          &.disgusting {
+            --ryuutama-color-food-fill: rgb(17, 61, 17);
+          }
+          &.delicious {
+            --ryuutama-color-food-fill: rgb(209, 207, 112);
+          }
+
+          .control {
+            position: absolute;
+            inset: 0 0 auto auto;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 300ms ease-in;
+            aspect-ratio: 1;
+            color: red;
+            text-shadow: 0 0 .1rem black;
+
+            .ration:hover & {
+              opacity: 1;
+              pointer-events: unset;
+            }
+          }
+        }
+      }
+    }
+  }
+
   [data-application-part=details] {
     overflow: hidden;
     height: 100%;

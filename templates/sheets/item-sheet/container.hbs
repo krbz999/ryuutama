@@ -1,10 +1,22 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
   {{!-- PRICE --}}
-  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.total source.system.price.value) disabled=disabled classes="slim" placeholder="1"}}
+  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.total source.system.price.value) disabled=disabled classes="slim" placeholder="1" rootId=rootId}}
 
   {{!-- CONTAINER SIZE --}}
-  {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.total source.system.size.value) disabled=disabled classes="slim"}}
+  {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.total source.system.size.value) disabled=disabled classes="slim" rootId=rootId}}
 
   {{!-- CAPACITY --}}
-  {{formGroup systemFields.capacity.fields.max value=(ifThen disabled document.system.capacity.max source.system.capacity.max) disabled=disabled placeholder="-" classes="slim"}}
+  {{formGroup systemFields.capacity.fields.max value=(ifThen disabled document.system.capacity.max source.system.capacity.max) disabled=disabled placeholder="-" classes="slim" rootId=rootId}}
+
+  {{!-- RATIONS --}}
+  {{#each container.rations as |rations type|}}
+  <div class="form-group slim" data-ration-type="{{type}}">
+    <span>{{rations.label}}</span>
+    <div class="form-fields">
+      <button type="button" data-action="decreaseRation" class="icon fa-solid fa-minus" {{disabled (not @root.editable)}}></button>
+      <span>{{rations.entries.length}}</span>
+      <button type="button" data-action="increaseRation" class="icon fa-solid fa-plus" {{disabled (not @root.editable)}}></button>
+    </div>
+  </div>
+  {{/each}}
 </section>

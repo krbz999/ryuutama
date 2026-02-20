@@ -1,0 +1,23 @@
+<section data-tab="{{tabs.rations.id}}" data-group="{{tabs.rations.group}}" class="{{tabs.rations.cssClass}}">
+  <div class="contents">
+    <section class="rations">
+      {{#each rations as |category|}}
+      {{#if category.rations.length}}
+      <h3>{{category.label}} ({{category.rations.length}})</h3>
+      <section class="ration-category" data-type="{{category.type}}">
+        {{#each category.rations}}
+        <div class="ration {{cssClass}}" data-container-uuid="{{container.uuid}}" data-ration-id="{{id}}" data-tooltip-direction="UP">
+          <ryuutama-icon src="{{icon}}" data-tooltip-html="{{tooltip}}"></ryuutama-icon>
+          {{#unless disabled}}
+          <a class="control" data-action="consumeRation" data-tooltip="RYUUTAMA.ACTOR.PARTY.removeRation">
+            <i class="fa-solid fa-fw fa-times" inert></i>
+          </a>
+          {{/unless}}
+        </div>
+        {{/each}}
+      </section>
+      {{/if}}
+      {{/each}}
+    </section>
+  </div>
+</section>
