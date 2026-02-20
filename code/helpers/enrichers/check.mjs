@@ -46,6 +46,8 @@ export async function enricher(match, options = {}) {
   else if (config.formula) wrapper.dataset.formula = config.formula;
   anchor.dataset.tooltipText = game.i18n.localize("RYUUTAMA.ROLL.TYPES." + config.type);
 
+  const typeConfig = ryuutama.config.checkTypes[config.type];
+
   if (!label && config.abilities.length)
     label = `[${config.abilities.map(abi => ryuutama.config.abilityScores[abi].abbreviation).join(" + ")}]`;
   else if (!label && config.formula) label = `[${config.formula}]`;
