@@ -4,7 +4,7 @@
   "type": "skill",
   "system": {
     "description": {
-      "value": "<p>You are able to catch small wild animals for food. This skill is used just before the camp check is made, however, if you decide to go hunting, you cannot also help set up camp. The higher the result of the check, the more food you catch.</p><p><strong>Skill Effect:</strong> Receive a number of rations equal to Check result – target number, but cannot participate in the camp check. Critical: All food is Delicious. Fumble: Afflicted by [Injury: 6] status effect</p><p><strong>Usable Circumstances:</strong> Before camp check, once per day</p><p><strong>Stat Used:</strong> [DEX + INT]</p><p><strong>TN:</strong> Topography</p>"
+      "value": "<p>You are able to catch small wild animals for food. This skill is used just before the camp check is made, however, if you decide to go hunting, you cannot also help set up camp. The higher the result of the check, the more food you catch.</p><p><strong>Skill Effect:</strong> Receive a number of rations equal to Check result – target number, but cannot participate in the camp check. Critical: All food is Delicious. Fumble: Afflicted by [Injury: 6] status effect</p><p><strong>Usable Circumstances:</strong> Before camp check, once per day</p><p><strong>Stat Used:</strong> [[/check dex int]]</p><p><strong>TN:</strong> Topography</p>"
     },
     "identifier": "hunting",
     "source": {
