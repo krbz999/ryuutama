@@ -89,22 +89,14 @@
       text-shadow: none;
       border: 1px solid var(--c-accent);
       flex: 1;
-      background: var(--c-secondary);
-      position: relative;
-      &::before {
-        content: "";
-        inset: 0;
-        background: var(--c-background);
-        position: absolute;
-        z-index: -1;
-      }
+      background: linear-gradient(
+        0deg,
+        var(--c-secondary),
+        hsl(from var(--c-secondary) h s l / .5)
+      ), var(--c-background);
 
       &.active {
-        background: linear-gradient(
-          180deg,
-          var(--c-secondary),
-          hsl(from var(--c-secondary) h calc(s + 30) l)
-        );
+        background: hsl(from var(--c-secondary) h s calc(l + 0));
       }
     }
 
@@ -121,7 +113,9 @@
           border-bottom: none;
           flex: 0 0 75px;
           height: 85%;
-          transition: 300ms ease-out;
+          transition:
+            300ms ease-out,
+            background 0ms;
 
           &.active {
             height: 100%;
