@@ -80,7 +80,13 @@ export function onRender(element) {
     rollConfig.journeyId = subtype;
   }
   if (formula) rollConfig.formula = formula;
-  else if (abilities) rollConfig.abilities = abilities.split("|");
+  else if (abilities) {
+    rollConfig.abilities = abilities.split("|");
+    if (type === "damage") {
+      rollConfig.ability = rollConfig.abilities[0];
+      delete rollConfig.abilities;
+    }
+  }
   const options = Object.fromEntries(element.dataset.properties.split(",").map(p => [p, true]));
   rollConfig.rollOptions = options;
 
