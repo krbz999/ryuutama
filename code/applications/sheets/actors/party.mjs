@@ -104,13 +104,14 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
    * @returns {Promise<object>}
    */
   async #prepareHeader() {
-    const { value, max } = this.document.system.members.reduce((acc, { actor }) => {
+    const members = this.document.system.members;
+    const { value, max } = members.reduce((acc, { actor }) => {
       const { value, max } = actor.system.resources.stamina;
       return { value: acc.value + value, max: acc.max + max };
     }, { value: 0, max: 0 });
-    const pct = Math.floor(value / max * 100);
+    const pct = max ? Math.floor(value / max * 100) : 100;
     return {
-      canPlaceMembers: game.user.isGM && canvas?.ready,
+      canPlaceMembers: game.user.isGM && canvas?.ready && members.size,
       hp: {
         value, max,
         pct: Math.clamp(pct, -100, 100),
