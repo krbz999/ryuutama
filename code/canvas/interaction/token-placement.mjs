@@ -141,6 +141,7 @@ export default class TokenPlacement {
       if (tokenData.randomImg) tokenData.texture.src = prototypeToken.actor.img;
       const Cls = foundry.utils.getDocumentClass("Token");
       const doc = new Cls(tokenData, { parent: canvas.scene });
+      doc.object._previewType = "creation";
       this.#placements.push({ prototypeToken, x: 0, y: 0, rotation: tokenData.rotation ?? 0 });
       this.#previews.push(doc);
     }
