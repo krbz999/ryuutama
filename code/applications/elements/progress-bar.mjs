@@ -112,6 +112,9 @@ export default class ProgressBar extends HTMLElement {
     const id = this.id;
     if (!id) return;
 
+    // Remove errors on firefox: https://developer.mozilla.org/en-US/docs/Web/API/Element/computedStyleMap
+    if (!(typeof this.#bar.computedStyleMap === "function")) return;
+
     const stored = ProgressBar.storage.get(id) ?? null;
     const bar = this.#bar;
     const property = this.classList.contains("vertical") ? "top" : "right";
