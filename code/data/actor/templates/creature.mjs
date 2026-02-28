@@ -360,9 +360,9 @@ export default class CreatureData extends BaseData {
 
       case "journey":
         switch (rollConfig.journeyId) {
+          case "camping": roll.abilities = ["dexterity", "intelligence"]; break;
+          case "direction": roll.abilities = ["intelligence", "intelligence"]; break;
           case "travel": roll.abilities = ["strength", "dexterity"]; break;
-          case "camping": roll.abilities = ["intelligence", "intelligence"]; break;
-          case "direction": roll.abilities = ["dexterity", "intelligence"]; break;
           default: throw new Error(`Invalid journeyId '${rollConfig.journeyId}' for a journey check.`);
         }
         break;
