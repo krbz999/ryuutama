@@ -41,8 +41,7 @@
   .name-plaque {
     text-align: center;
     font-weight: normal;
-    height: 0;
-    min-height: fit-content;
+    height: fit-content;
     padding: .5rem .5rem;
     border: 2px solid var(--c-accent);
     box-shadow: 2px 2px .15rem var(--ryuutama-color-black);
