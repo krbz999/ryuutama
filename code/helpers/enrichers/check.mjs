@@ -55,7 +55,9 @@ export async function enricher(match, options = {}) {
   else if (config.subtype) anchor.innerHTML = typeConfig.subtypes[config.subtype].label;
   else anchor.innerHTML = typeConfig.label;
 
-  if (config.request) {
+  const request = config.request && (game.user.isGM || options.secrets || options.relativeTo?.isOwner);
+
+  if (request) {
     const request = document.createElement("A");
     request.innerHTML = "<i class=\"fa-solid fa-bullhorn\"></i>";
     request.classList.add("request");
