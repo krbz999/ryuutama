@@ -84,7 +84,7 @@ export default class StatsAdvancement extends Advancement {
   async _prepareAdvancementContext(context, options) {
     await super._prepareAdvancementContext(context, options);
     context.typeOptions = Object.entries(StatsAdvancement.STARTING_SCORES).map(([k, v]) => {
-      return { value: k, label: game.i18n.localize(v.label) };
+      return { value: k, label: _loc(v.label) };
     });
   }
 

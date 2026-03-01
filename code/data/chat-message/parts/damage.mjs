@@ -43,7 +43,7 @@ export default class DamagePart extends CheckPart {
   prepareData() {
     super.prepareData();
     this.rolls = this.rolls.filter(roll => roll instanceof ryuutama.dice.DamageRoll);
-    this.flavor ||= game.i18n.localize("RYUUTAMA.CHAT.DAMAGE.defaultRollFlavor");
+    this.flavor ||= _loc("RYUUTAMA.CHAT.DAMAGE.defaultRollFlavor");
   }
 
   /* -------------------------------------------------- */

@@ -30,7 +30,7 @@ export default class AbilityConfig extends DocumentConfig {
 
   /** @override */
   get title() {
-    return game.i18n.format("RYUUTAMA.ABILITIES.CONFIG.title", {
+    return _loc("RYUUTAMA.ABILITIES.CONFIG.title", {
       ability: ryuutama.config.abilityScores[this.ability].label,
       name: this.document.name,
     });

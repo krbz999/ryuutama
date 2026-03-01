@@ -2,10 +2,10 @@
  * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
-export default class StandardData extends foundry.abstract.TypeDataModel {
+export default class StandardData extends foundry.data.ActiveEffectTypeDataModel {
   /** @override */
   static defineSchema() {
-    return {};
+    return Object.assign(super.defineSchema(), {});
   }
 
   /* -------------------------------------------------- */

@@ -38,7 +38,7 @@ export default class HealingPart extends MessagePart {
   prepareData() {
     super.prepareData();
     this.rolls = this.rolls.filter(roll => roll instanceof ryuutama.dice.HealingRoll);
-    this.flavor ||= game.i18n.localize("RYUUTAMA.CHAT.HEALING.defaultRollFlavor");
+    this.flavor ||= _loc("RYUUTAMA.CHAT.HEALING.defaultRollFlavor");
   }
 
   /* -------------------------------------------------- */

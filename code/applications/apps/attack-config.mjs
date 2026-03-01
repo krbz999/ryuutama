@@ -13,7 +13,7 @@ export default class AttackConfig extends DocumentConfig {
 
   /** @override */
   get title() {
-    return game.i18n.format("RYUUTAMA.ATTACK.title", { name: this.document.name });
+    return _loc("RYUUTAMA.ATTACK.title", { name: this.document.name });
   }
 
   /* -------------------------------------------------- */

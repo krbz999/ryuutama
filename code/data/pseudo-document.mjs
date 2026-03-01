@@ -190,7 +190,7 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
    */
   prepareDerivedData() {
     if (!this.name) {
-      this.name = game.i18n.localize(`TYPES.${this.documentName}.${this.type}`);
+      this.name = _loc(`TYPES.${this.documentName}.${this.type}`);
     }
   }
 
@@ -248,7 +248,7 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
   static async createDialog(data = {}, { parent, ...operation } = {}) {
     const { createFormGroup, createSelectInput, createTextInput } = foundry.applications.fields;
     const options = Object.keys(this.documentConfig).map(type => {
-      return { value: type, label: game.i18n.localize(`TYPES.${this.documentName}.${type}`) };
+      return { value: type, label: _loc(`TYPES.${this.documentName}.${type}`) };
     });
     const content = [
       createFormGroup({
@@ -264,7 +264,7 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
     const result = await foundry.applications.api.Dialog.input({
       content,
       window: {
-        title: game.i18n.format("DOCUMENT.New", { type: game.i18n.localize(`DOCUMENT.${this.documentName}`) }),
+        title: _loc("DOCUMENT.New", { type: _loc(`DOCUMENT.${this.documentName}`) }),
       },
     });
     if (!result) return null;
@@ -283,7 +283,7 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
       throw new Error(`The pseudo-document '${this.id}' does not exist in the pseudo-document collection!`);
     }
     Object.assign(operation, { pseudo: { operation: "delete", type: this.documentName, uuid: this.uuid } });
-    const update = { [`${this.fieldPath}.-=${this.id}`]: null };
+    const update = { [`${this.fieldPath}.${this.id}`]: _del };
     await this.document.update(update, operation);
     return this;
   }
@@ -299,7 +299,7 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
       throw new Error(`The pseudo-document '${this.id}' does not exist in the pseudo-document collection!`);
     }
     const activityData = foundry.utils.mergeObject(this.toObject(), {
-      name: game.i18n.format("DOCUMENT.CopyOf", { name: this.name }),
+      name: _loc("DOCUMENT.CopyOf", { name: this.name }),
     });
     return this.constructor.create(activityData, { parent: this.document });
   }

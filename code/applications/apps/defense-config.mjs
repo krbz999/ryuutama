@@ -13,7 +13,7 @@ export default class DefenseConfig extends DocumentConfig {
 
   /** @override */
   get title() {
-    return game.i18n.format("RYUUTAMA.DEFENSE.title", { name: this.document.name });
+    return _loc("RYUUTAMA.DEFENSE.title", { name: this.document.name });
   }
 
   /* -------------------------------------------------- */
@@ -21,7 +21,7 @@ export default class DefenseConfig extends DocumentConfig {
   /** @inheritdoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    context.armorLabel = game.i18n.localize(
+    context.armorLabel = _loc(
       this.document.type === "traveler"
         ? "RYUUTAMA.ACTOR.TRAVELER.baseDefensePoints"
         : "RYUUTAMA.ACTOR.MONSTER.baseArmor",

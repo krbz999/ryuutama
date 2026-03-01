@@ -105,8 +105,8 @@ export default class Advancement extends PseudoDocument {
   async _prepareAdvancementContext(context, options) {
     context.fields = this.schema.fields;
     context.advancement = this;
-    context.title = game.i18n.format("RYUUTAMA.PSEUDO.ADVANCEMENT.configureTitle", {
-      name: game.i18n.localize(`TYPES.Advancement.${this.type}`),
+    context.title = _loc("RYUUTAMA.PSEUDO.ADVANCEMENT.configureTitle", {
+      name: _loc(`TYPES.Advancement.${this.type}`),
     });
   }
 

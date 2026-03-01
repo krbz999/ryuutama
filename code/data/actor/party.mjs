@@ -91,7 +91,7 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
       return acc;
     }, {});
     ids.forEach(id => update[id] = {});
-    await this.parent.update({ "system.==members": update });
+    await this.parent.update({ "system.members": _replace(update) });
     return this.parent;
   }
 
@@ -105,7 +105,7 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
   async removeMembers(actors = []) {
     const update = {};
     actors.forEach(actor => {
-      if (this.validMember(actor) && this.members.has(actor.id)) update[`-=${actor.id}`] = null;
+      if (this.validMember(actor) && this.members.has(actor.id)) update[actor.id] = _del;
     });
     await this.parent.update({ "system.members": update });
     return this.parent;

@@ -99,7 +99,7 @@ export default class ContainerData extends BaseData {
           const { label, allowModifiers } = ryuutama.config.rationTypes[this.type];
           const m = ryuutama.config.rationModifiers[this.modifier];
           if (allowModifiers && m.prefix)
-            return game.i18n.format("RYUUTAMA.RATIONS.rationLabel", { type: label, prefix: m.label });
+            return _loc("RYUUTAMA.RATIONS.rationLabel", { type: label, prefix: m.label });
           return label;
         },
       });
@@ -162,7 +162,7 @@ export default class ContainerData extends BaseData {
    */
   async removeRation(id) {
     if (!(id in this.rations)) throw new Error(`No ration with id '${id}' exists on this container.`);
-    await this.parent.update({ [`system.rations.-=${id}`]: null });
+    await this.parent.update({ [`system.rations.${id}`]: _del });
     return this.parent;
   }
 
@@ -181,7 +181,7 @@ export default class ContainerData extends BaseData {
       throw new Error(`Container does not have ${quantity} rations of type '${type}' to remove (${ids.length}).`);
     }
     const update = {};
-    ids.forEach(id => update[`system.rations.-=${id}`] = null);
+    ids.forEach(id => update[`system.rations.${id}`] = _del);
     await this.parent.update(update);
     return this.parent;
   }

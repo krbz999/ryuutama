@@ -73,7 +73,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
   prepareDerivedData() {
     super.prepareDerivedData();
     Object.entries(this.objects).forEach(([id, o]) => {
-      o.name ||= game.i18n.localize("RYUUTAMA.COMBAT.STANDARD.FIELDS.objects.element.name.placeholder");
+      o.name ||= _loc("RYUUTAMA.COMBAT.STANDARD.FIELDS.objects.element.name.placeholder");
       Object.defineProperty(o, "id", { value: id, writable: false, enumerable: false });
     });
   }
@@ -95,7 +95,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
         {},
         {
           name: `system.objects.${id}.name`,
-          placeholder: game.i18n.localize("RYUUTAMA.COMBAT.STANDARD.FIELDS.objects.element.name.placeholder"),
+          placeholder: _loc("RYUUTAMA.COMBAT.STANDARD.FIELDS.objects.element.name.placeholder"),
           autofocus: ids[0] === id,
         },
       ));
@@ -129,7 +129,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
    * @returns {Promise<RyuutamaCombat>}
    */
   async removeObject(id) {
-    return this.parent.update({ [`system.objects.-=${id}`]: null });
+    return this.parent.update({ [`system.objects.${id}`]: _del });
   }
 
   /* -------------------------------------------------- */
@@ -163,7 +163,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
     const isGM = game.user.isGM;
 
     const header = foundry.utils.parseHTML(`<h4 class="divider">
-      <span>${game.i18n.localize("RYUUTAMA.COMBAT.STANDARD.objects")}<span>
+      <span>${_loc("RYUUTAMA.COMBAT.STANDARD.objects")}<span>
     </h4>`);
     if (isGM) {
       header.insertAdjacentHTML("beforeend",

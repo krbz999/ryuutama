@@ -30,10 +30,6 @@ export default class CreatureData extends BaseData {
     return Object.assign(super.defineSchema(), {
       condition: new SchemaField({
         immunities: new SetField(new StringField({ choices: () => ryuutama.config.statusEffects })),
-        rationing: new NumberField({ nullable: false, initial: 0, min: 0, integer: true }),
-        shape: new SchemaField({
-          high: new StringField({ required: true, blank: true, choices: () => ryuutama.config.abilityScores }),
-        }),
         travel: new BooleanField(),
         value: new NumberField({ nullable: false, initial: 4, integer: true, min: 2 }),
       }),
@@ -282,11 +278,11 @@ export default class CreatureData extends BaseData {
    * @returns {Promise<object>}
    */
   async _createCheckMessage(roll, rollConfig, dialogConfig, messageConfig) {
-    const type = game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
+    const type = _loc(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
     const abilities = game.i18n
       .getListFormatter()
       .format(rollConfig.abilities?.map(abi => ryuutama.config.abilityScores[abi].label) ?? []);
-    const flavor = game.i18n.format(
+    const flavor = _loc(
       `RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`,
       { type, abilities },
     );
@@ -314,7 +310,7 @@ export default class CreatureData extends BaseData {
    * @returns {string}
    */
   static _createCheckLabel(rollConfig) {
-    const typeLabel = game.i18n.format(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
+    const typeLabel = _loc(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
     const subtitle = (rollConfig.type === "journey")
       ? ryuutama.config.checkTypes.journey.subtypes[rollConfig.journeyId].label
       : null;

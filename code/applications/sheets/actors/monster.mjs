@@ -121,9 +121,9 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
         img, name, status, immune, effect, strength, suppressed,
         active: strength > 0,
         label: suppressed
-          ? game.i18n.format("RYUUTAMA.ACTOR.statusSuppressed", { strength: effect.system.strength.value })
+          ? _loc("RYUUTAMA.ACTOR.statusSuppressed", { strength: effect.system.strength.value })
           : immune
-            ? game.i18n.localize("RYUUTAMA.ACTOR.statusImmune")
+            ? _loc("RYUUTAMA.ACTOR.statusImmune")
             : strength,
       };
     });
@@ -175,7 +175,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
 
     // Level.
     let level = this.document.system.details.level;
-    level = game.i18n.format("RYUUTAMA.ACTOR.TAGS.level", { level });
+    level = _loc("RYUUTAMA.ACTOR.TAGS.level", { level });
     tags.push({ tag: level, tooltip: level });
 
     // Category.
@@ -183,14 +183,14 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
       const tag = ryuutama.config.monsterCategories[this.document.system.details.category].label;
       tags.push({
         tag,
-        tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.category", { category: tag }),
+        tooltip: _loc("RYUUTAMA.ACTOR.TAGS.category", { category: tag }),
       });
     }
 
     // Dragonica number.
     if (this.document.system.details.dragonica) {
       const tag = `#${this.document.system.details.dragonica.paddedString(3)}`;
-      const tooltip = game.i18n.format("RYUUTAMA.ACTOR.TAGS.dragonica", { number: tag });
+      const tooltip = _loc("RYUUTAMA.ACTOR.TAGS.dragonica", { number: tag });
       tags.push({ tag, tooltip });
     }
 
@@ -198,7 +198,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
     const label = ryuutama.config.seasons[this.document.system.environment.season]?.label;
     if (label) tags.push({
       tag: label,
-      tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.season", { season: label }),
+      tooltip: _loc("RYUUTAMA.ACTOR.TAGS.season", { season: label }),
     });
 
     return tags;

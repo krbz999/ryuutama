@@ -44,7 +44,7 @@ export async function enricher(match, options = {}) {
   if (config.subtype) wrapper.dataset.subtype = config.subtype;
   if (config.abilities.length) wrapper.dataset.abilities = config.abilities.join("|");
   else if (config.formula) wrapper.dataset.formula = config.formula;
-  anchor.dataset.tooltipText = game.i18n.localize("RYUUTAMA.ROLL.TYPES." + config.type);
+  anchor.dataset.tooltipText = _loc("RYUUTAMA.ROLL.TYPES." + config.type);
 
   const typeConfig = ryuutama.config.checkTypes[config.type];
 
