@@ -27,9 +27,15 @@ export default class CreatureData extends BaseData {
       });
     };
 
+    const statuses = Object.keys(ryuutama.config.statusEffects).reduce((acc, s) => {
+      acc[s] = new NumberField({ persisted: false, initial: null });
+      return acc;
+    }, {});
+
     return Object.assign(super.defineSchema(), {
       condition: new SchemaField({
         immunities: new SetField(new StringField({ choices: () => ryuutama.config.statusEffects })),
+        statuses: new SchemaField(statuses, { persisted: false }),
         travel: new BooleanField(),
         value: new NumberField({ nullable: false, initial: 4, integer: true, min: 2 }),
       }),
@@ -160,14 +166,14 @@ export default class CreatureData extends BaseData {
    * Prepare condition and statuses.
    */
   #prepareStatuses() {
-    const { value: condition, immunities } = this.condition;
-    const statuses = this.condition.statuses = {};
+    const { value: condition, immunities, statuses } = this.condition;
 
     for (const [id, { _id }] of Object.entries(ryuutama.config.statusEffects)) {
       const effect = this.parent.effects.get(_id);
       const { value: strength, bypass } = effect?.system.strength ?? {};
-      if (!effect || (!bypass && (strength < condition)) || (id in statuses) || immunities.has(id)) continue;
-      statuses[id] = strength;
+      statuses[id] = (!effect || (!bypass && (strength < condition)) || immunities.has(id))
+        ? null
+        : strength;
     }
   }
 
@@ -180,7 +186,9 @@ export default class CreatureData extends BaseData {
     // In case of doubled data prep, ensure the object is entirely source data. An error is otherwise thrown.
     for (const k in this.abilities) this.abilities[k] = { ...this._source.abilities[k] };
 
-    for (const id in this.condition.statuses) {
+    const statuses = this.condition.statuses;
+    for (const id of Object.keys(ryuutama.config.statusEffects)) {
+      if (!statuses[id]) continue;
       let abilities;
       switch (id) {
         case "injury": abilities = ["dexterity"]; break;
@@ -190,7 +198,6 @@ export default class CreatureData extends BaseData {
         case "shock":
         case "sickness": abilities = ["strength", "dexterity", "intelligence", "spirit"]; break;
       }
-      if (!abilities) continue;
       for (const ability of abilities) this.schema.getField(`abilities.${ability}.value`).increase(this.parent, -1);
     }
   }
