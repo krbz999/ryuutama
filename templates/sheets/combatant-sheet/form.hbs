@@ -1,17 +1,17 @@
 <section>
   {{!-- REPRESENTED ACTOR --}}
   <div class="form-group">
-    <label>{{localize "COMBAT.CombatantActor"}}</label>
+    <label for="{{rootId}}-actorId">{{localize "COMBATANT.FIELDS.actorId.label"}}</label>
     <div class="form-fields">
-      <input type="text" name="actorName" value="{{document.actor.name}}" disabled>
+      <input type="text" name="actorId" id="{{rootId}}-actorId" value="{{document.actor.name}}" disabled>
     </div>
   </div>
 
   {{!-- REPRESENTED TOKEN --}}
   <div class="form-group">
-    <label>{{localize "COMBAT.CombatantToken"}}</label>
+    <label for="{{rootId}}-tokenId">{{localize "COMBATANT.FIELDS.tokenId.label"}}</label>
     <div class="form-fields">
-      <input type="text" name="tokenName" value="{{document.token.name}}" disabled>
+      <input type="text" name="tokenId" id="{{rootId}}-tokenId" value="{{document.actor.name}}" disabled>
     </div>
   </div>
 
@@ -29,16 +29,15 @@
 
   {{!-- STATUSES --}}
   <div class="form-group">
-    <label>{{localize "COMBAT.CombatantStatus"}}</label>
+    <span class="label">{{localize "COMBATANT.Status"}}</span>
     <div class="form-fields">
       <label class="checkbox">
-        <input type="checkbox" name="hidden" {{checked source.hidden}}>
-        <span>{{localize "COMBAT.CombatantHidden"}}</span>
+        {{formInput fields.hidden value=source.hidden}}
+        {{localize "COMBATANT.FIELDS.hidden.label"}}
       </label>
-
       <label class="checkbox">
-        <input type="checkbox" name="defeated" {{checked source.defeated}}>
-        <span>{{localize "COMBAT.CombatantDefeated"}}</span>
+        {{formInput fields.hidden value=source.defeated}}
+        {{localize "COMBATANT.FIELDS.defeated.label"}}
       </label>
     </div>
   </div>
