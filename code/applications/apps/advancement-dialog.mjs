@@ -95,7 +95,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /** @override */
   get title() {
-    return game.i18n.format("RYUUTAMA.PSEUDO.ADVANCEMENT.title", {
+    return _loc("RYUUTAMA.PSEUDO.ADVANCEMENT.title", {
       name: this.actor.name,
       nth: this.options.level.ordinalString(),
     });

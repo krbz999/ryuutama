@@ -124,7 +124,7 @@ export default class HerbData extends BaseData {
       return details ? `${typeLabel} (${details})` : typeLabel;
     }
 
-    const levelLabel = game.i18n.localize(`RYUUTAMA.ITEM.HERB.terrainLevel${level}`);
+    const levelLabel = _loc(`RYUUTAMA.ITEM.HERB.terrainLevel${level}`);
     return details ? `${levelLabel} (${details})` : levelLabel;
   }
 
@@ -138,15 +138,15 @@ export default class HerbData extends BaseData {
     );
 
     const herbLevelOptions = Array.fromRange(5, 1).map(n => {
-      return { value: n, label: game.i18n.localize(`RYUUTAMA.ITEM.HERB.terrainLevel${n}`) };
+      return { value: n, label: _loc(`RYUUTAMA.ITEM.HERB.terrainLevel${n}`) };
     });
-    const herbTypes = [{ value: "", label: game.i18n.localize("RYUUTAMA.ITEM.HERB.anyTerrain") }];
+    const herbTypes = [{ value: "", label: _loc("RYUUTAMA.ITEM.HERB.anyTerrain") }];
     for (const k in ryuutama.config.terrainTypes) {
       const { label, level } = ryuutama.config.terrainTypes[k];
       if (level === this.terrain.level) herbTypes.push({
         label,
         value: k,
-        group: game.i18n.localize("RYUUTAMA.ITEM.HERB.specificTerrain"),
+        group: _loc("RYUUTAMA.ITEM.HERB.specificTerrain"),
       });
     }
     context.herbTypes = herbTypes;

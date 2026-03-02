@@ -155,8 +155,8 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
     const makeTooltip = (actor, container, ration) => {
       return [
         `<p>${ration.label}</p>`,
-        `<p>${game.i18n.localize("TYPES.Item.container")}: ${container.name}</p>`,
-        `<p>${game.i18n.localize("RYUUTAMA.ACTOR.PARTY.actorOwner")}: ${actor.name}</p>`,
+        `<p>${_loc("TYPES.Item.container")}: ${container.name}</p>`,
+        `<p>${_loc("RYUUTAMA.ACTOR.PARTY.actorOwner")}: ${actor.name}</p>`,
       ].filterJoin("");
     };
 

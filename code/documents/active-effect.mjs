@@ -11,13 +11,13 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
 
         const result = await foundry.applications.api.Dialog.input({
           window: {
-            title: `${game.i18n.localize("RYUUTAMA.EFFECT.STATUS.HUD_APPLY.title")}: ${effectData.name}`,
+            title: `${_loc("RYUUTAMA.EFFECT.STATUS.HUD_APPLY.title")}: ${effectData.name}`,
           },
           position: {
             width: 420,
           },
           content: [
-            fields.value.toFormGroup({ rootId }, { autofocus: true, value: 4, placeholder: "4" }).outerHTML,
+            fields.value.toFormGroup({ rootId }, { autofocus: true, value: 4 }).outerHTML,
             fields.bypass.toFormGroup({ rootId }, {}).outerHTML,
           ].join(""),
         });
@@ -39,7 +39,7 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
       if (change.key.startsWith("system.mastered.weapons.")) {
         const weapon = change.key.slice("system.mastered.weapons.".length);
         change.key = "system.mastered.weapons";
-        change.mode = CONST.ACTIVE_EFFECT_MODES.ADD,
+        change.mode = "add",
         change.value = weapon || "";
       }
     }
@@ -60,15 +60,5 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
   _initializeSource(data = {}, options = {}) {
     if (!data.type || (data.type === "base")) data.type = "standard";
     return super._initializeSource(data, options);
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  _applyAdd(actor, change, current, delta, changes) {
-    switch (foundry.utils.getType(current)) {
-      case "Set": current.add(delta); break;
-      default: return super._applyAdd(actor, change, current, delta, changes);
-    }
   }
 }

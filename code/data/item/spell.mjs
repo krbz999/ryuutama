@@ -91,7 +91,7 @@ export default class SpellData extends BaseData {
     super.prepareDerivedData();
 
     if (this.spell.activation.mental) {
-      this.spell.costLabel = game.i18n.format("RYUUTAMA.ITEM.SPELL.costLabel", { mp: this.spell.activation.mental });
+      this.spell.costLabel = _loc("RYUUTAMA.ITEM.SPELL.costLabel", { mp: this.spell.activation.mental });
     }
 
     this.spell.activation.label = ryuutama.config.spellActivationTypes[this.spell.activation.cast].label;
@@ -99,7 +99,7 @@ export default class SpellData extends BaseData {
     this.spell.duration.label = this.spell.duration.type === "special"
       ? this.spell.duration.custom
       : ryuutama.config.spellDurationTypes[this.spell.duration.type].units
-        ? game.i18n.format("RYUUTAMA.ITEM.SPELL.durationLabel", {
+        ? _loc("RYUUTAMA.ITEM.SPELL.durationLabel", {
           type: ryuutama.config.spellDurationTypes[this.spell.duration.type].label,
           units: this.spell.duration.value,
         })
@@ -135,7 +135,7 @@ export default class SpellData extends BaseData {
     context.spell.duration.units = !!ryuutama.config.spellDurationTypes[context.spell.duration.type]?.units;
     context.spell.duration.special = context.spell.duration.type === "special";
 
-    const seasonal = game.i18n.localize("RYUUTAMA.ITEM.SPELL.CATEGORIES.seasonal");
+    const seasonal = _loc("RYUUTAMA.ITEM.SPELL.CATEGORIES.seasonal");
     context.spell.magicOptions = Object.entries(ryuutama.config.spellCategories).map(([k, v]) => {
       return { value: k, label: v.label, group: k === "incantation" ? undefined : seasonal };
     });

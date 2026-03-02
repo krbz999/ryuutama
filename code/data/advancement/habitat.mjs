@@ -53,8 +53,8 @@ export default class HabitatAdvancement extends Advancement {
   async _prepareAdvancementContext(context, options) {
     await super._prepareAdvancementContext(context, options);
     context.typeOptions = [
-      { value: "terrain", label: game.i18n.localize("RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.optionTerrain") },
-      { value: "weather", label: game.i18n.localize("RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.optionWeather") },
+      { value: "terrain", label: _loc("RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.optionTerrain") },
+      { value: "weather", label: _loc("RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.optionWeather") },
     ];
 
     context.showTerrains = this.choice.type === "terrain";

@@ -13,6 +13,6 @@ export default class ConditionConfig extends DocumentConfig {
 
   /** @override */
   get title() {
-    return game.i18n.format("RYUUTAMA.CONDITION.title", { name: this.document.name });
+    return _loc("RYUUTAMA.CONDITION.title", { name: this.document.name });
   }
 }

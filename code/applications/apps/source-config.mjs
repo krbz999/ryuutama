@@ -25,7 +25,7 @@ export default class SourceConfig extends DocumentConfig {
 
   /** @override */
   get title() {
-    return game.i18n.format("RYUUTAMA.SOURCE.title", { name: this.document.name });
+    return _loc("RYUUTAMA.SOURCE.title", { name: this.document.name });
   }
 
   /* -------------------------------------------------- */

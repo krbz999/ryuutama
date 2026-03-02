@@ -30,8 +30,8 @@ export default class ResourceConfig extends DocumentConfig {
 
   /** @override */
   get title() {
-    return game.i18n.format("RYUUTAMA.RESOURCE.title", {
-      resource: game.i18n.localize(`RYUUTAMA.RESOURCE.${this.resource}`),
+    return _loc("RYUUTAMA.RESOURCE.title", {
+      resource: _loc(`RYUUTAMA.RESOURCE.${this.resource}`),
       name: this.document.name,
     });
   }

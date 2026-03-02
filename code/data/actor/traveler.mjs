@@ -6,12 +6,12 @@ import CreatureData from "./templates/creature.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
-const { ColorField, HTMLField, NumberField, SchemaField } = foundry.data.fields;
+const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class TravelerData extends CreatureData {
   /** @override */
   static defineSchema() {
-    return Object.assign(super.defineSchema(), {
+    const schema = Object.assign(super.defineSchema(), {
       abilities: new SchemaField(Object.keys(ryuutama.config.abilityScores).reduce((acc, ability) => {
         acc[ability] = new SchemaField({ value: new ryuutama.data.fields.AbilityScoreField({ restricted: true }) });
         return acc;
@@ -22,12 +22,19 @@ export default class TravelerData extends CreatureData {
         hometown: new HTMLField(),
         notes: new HTMLField(),
       }),
+      capacity: new SchemaField({
+        bonus: new NumberField({ initial: 0 }),
+      }, { persisted: false }),
       details: new SchemaField({
         color: new ColorField(),
         exp: new SchemaField({
           value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
         }),
         level: new NumberField({ nullable: false, integer: true, initial: 0, min: 0, max: 10 }),
+        type: new SchemaField(
+          Object.keys(ryuutama.config.travelerTypes)
+            .reduce((acc, type) => Object.assign(acc, { [type]: new NumberField({ initial: 0 }) }), {}),
+          { persisted: false }),
       }),
       equipped: new SchemaField({
         weapon: new LocalDocumentField(foundry.documents.Item, { subtype: "weapon" }),
@@ -45,7 +52,24 @@ export default class TravelerData extends CreatureData {
       gold: new SchemaField({
         value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
       }),
+      magic: new SchemaField({
+        seasons: new SetField(new StringField()),
+      }, { persisted: false }),
+      mastered: new SchemaField({
+        terrain: new SetField(new StringField()),
+        weapons: new SetField(new StringField()),
+        weather: new SetField(new StringField()),
+      }, { persisted: false }),
     });
+
+    schema.condition.extendFields({
+      rationing: new NumberField({ nullable: false, initial: 0, min: 0, integer: true }),
+      shape: new SchemaField({
+        high: new StringField({ required: true, blank: true, choices: () => ryuutama.config.abilityScores }),
+      }),
+    });
+
+    return schema;
   }
 
   /* -------------------------------------------------- */
@@ -103,23 +127,6 @@ export default class TravelerData extends CreatureData {
 
   /* -------------------------------------------------- */
 
-  /**
-   * How many incantation spells can the actor learn?
-   * @type {number}
-   */
-  get incantationSpells() {
-    foundry.utils.logCompatibilityWarning("Ryuutama | TravelerData#incantationSpells is deprecated.", {
-      since: "1.4.0",
-      until: "2.0.0",
-      once: false,
-      mode: CONST.COMPATIBILITY_MODES.WARNING,
-      details: "Use TravelerData#magic.incantation.max instead.",
-    });
-    return this.magic.incantation.max;
-  }
-
-  /* -------------------------------------------------- */
-
   /** @inheritdoc */
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
@@ -141,11 +148,9 @@ export default class TravelerData extends CreatureData {
 
   /** @inheritdoc */
   prepareBaseData() {
-    this.capacity = { bonus: 0 };
     this.classes = Object.fromEntries(this.parent.items.documentsByType.class.map(cls => [cls.identifier, cls]));
-    this.details.type = Object.fromEntries(Object.keys(ryuutama.config.travelerTypes).map(k => [k, 0]));
-    this.magic = { seasons: new Set() };
-    this.mastered = { weapons: new Set(), terrain: new Set(), weather: new Set() };
+
+    // Add a +1 bonus from a critical travel check. TODO: Consider moving to AE.
     if (this.condition.travel) this.condition.value = this._source.condition.value + 1;
 
     // Status immunities are prepared prior to statuses in CreatureData.

@@ -55,7 +55,7 @@ export default class AbilityScoreField extends NumberField {
     const value = foundry.utils.getProperty(actor, path);
     const change = {
       key: this.fieldPath,
-      mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+      mode: "add",
       value: String(delta),
     };
     const final = this._applyChangeAdd(value, delta, actor, change);

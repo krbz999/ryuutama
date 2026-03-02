@@ -100,8 +100,8 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
 
   /** @override */
   get title() {
-    return game.i18n.format("RYUUTAMA.ROLL.title", {
-      type: game.i18n.localize(`RYUUTAMA.ROLL.TYPES.${this.#configurations.rollConfig.type}`),
+    return _loc("RYUUTAMA.ROLL.title", {
+      type: _loc(`RYUUTAMA.ROLL.TYPES.${this.#configurations.rollConfig.type}`),
       name: this.actor.name,
     });
   }
@@ -174,7 +174,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
       case "accuracy":
         if (this.actor.type === "traveler") {
           if (weapon && weapon.system.isUsable) context.subtitle = weapon.name;
-          else if (weapon) context.subtitle = game.i18n.format("RYUUTAMA.ROLL.weaponBroken", { weapon: weapon.name });
+          else if (weapon) context.subtitle = _loc("RYUUTAMA.ROLL.weaponBroken", { weapon: weapon.name });
           else context.subtitle = ryuutama.config.weaponUnarmedTypes.unarmed.label;
         }
         break;

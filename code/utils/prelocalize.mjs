@@ -10,7 +10,7 @@ export default function prelocalize(record, { properties = ["label"] } = {}) {
     for (const p of properties) {
       const unlocalized = foundry.utils.getProperty(record[k], p);
       if (!unlocalized || !game.i18n.has(unlocalized)) continue;
-      foundry.utils.setProperty(record[k], p, game.i18n.localize(unlocalized));
+      foundry.utils.setProperty(record[k], p, _loc(unlocalized));
     }
   }
 }

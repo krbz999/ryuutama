@@ -234,7 +234,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     const format = key => {
       const v = modifiers[key];
       if (!v) return null;
-      return game.i18n.format(`RYUUTAMA.ACTOR.TRAVELER.damageReduction${key.capitalize()}`, {
+      return _loc(`RYUUTAMA.ACTOR.TRAVELER.damageReduction${key.capitalize()}`, {
         value: ryuutama.utils.formatNumber(v),
       });
     };
@@ -245,7 +245,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       dp: {
         value: total,
         breakdown: [
-          game.i18n.format("RYUUTAMA.ACTOR.TRAVELER.defensePoints", { value: total }),
+          _loc("RYUUTAMA.ACTOR.TRAVELER.defensePoints", { value: total }),
           format("physical"),
           format("magical"),
         ].filter(_ => _).map(s => `<p>${s}</p>`).join(""),
@@ -253,8 +253,8 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       dv: {
         value: this.document.system.defenseValue || "—",
         breakdown: [
-          game.i18n.format("RYUUTAMA.ACTOR.TRAVELER.shieldDodge", { value: this.document.system.defense.dodge }),
-          game.i18n.format("RYUUTAMA.ACTOR.TRAVELER.initiative", { value: this.document.system.combatantInitiative ?? "—" }),
+          _loc("RYUUTAMA.ACTOR.TRAVELER.shieldDodge", { value: this.document.system.defense.dodge }),
+          _loc("RYUUTAMA.ACTOR.TRAVELER.initiative", { value: this.document.system.combatantInitiative ?? "—" }),
         ].filter(_ => _).map(s => `<P>${s}</p>`).join(""),
       },
     };
@@ -284,7 +284,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       high: condition >= 10,
       low: condition <= 2,
     };
-    ctx.label = game.i18n.format(
+    ctx.label = _loc(
       ctx.high ? "RYUUTAMA.ACTOR.TRAVELER.conditionHigh" : "RYUUTAMA.ACTOR.TRAVELER.conditionLow",
       { ability: ctx.ability });
     ctx.active = ctx.high || ctx.low;
@@ -352,8 +352,8 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     };
 
     for (const s of Object.values(sections)) {
-      s.label = game.i18n.localize(s.label);
-      s.attributeLabel = game.i18n.localize(s.attributeLabel);
+      s.label = _loc(s.label);
+      s.attributeLabel = _loc(s.attributeLabel);
       s.controlWidgets = s.create && this.isInteractive ? `
       <a data-action="createEffect" data-disabled="${s.disabled}">
         <i class="fa-solid fa-fw fa-plus" inert></i>
@@ -400,7 +400,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       const item = this.document.system.equipped[type];
       equipped[type] = {
         item, type,
-        label: game.i18n.localize(`TYPES.Item.${type}`),
+        label: _loc(`TYPES.Item.${type}`),
       };
     }
     if (!this.document.system.canEquipShield) delete equipped.shield;
@@ -423,7 +423,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       button: !context.disabled && context.isInteractive && (level < 10),
       hideBar: level === 10,
       tag: level,
-      tooltip: game.i18n.format("RYUUTAMA.ACTOR.TAGS.level", { level }),
+      tooltip: _loc("RYUUTAMA.ACTOR.TAGS.level", { level }),
     };
   }
 
@@ -477,7 +477,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       if (label && iconSmall) habitats.push({
         isSVG: iconSmall.endsWith(".svg"),
         icon: iconSmall,
-        label: game.i18n.format("RYUUTAMA.ACTOR.TAGS.specialtyTerrain", { terrain: label }),
+        label: _loc("RYUUTAMA.ACTOR.TAGS.specialtyTerrain", { terrain: label }),
         dataset: { "tooltip-text": label },
       });
     }
@@ -487,7 +487,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       if (label && icon) habitats.push({
         icon,
         isSVG: icon.endsWith(".svg"),
-        label: game.i18n.format("RYUUTAMA.ACTOR.TAGS.specialtyWeather", { weather: label }),
+        label: _loc("RYUUTAMA.ACTOR.TAGS.specialtyWeather", { weather: label }),
         dataset: { "tooltip-text": label },
       });
     }
@@ -499,7 +499,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       if (!icon) continue;
       weapons.push({
         icon,
-        label: game.i18n.format("RYUUTAMA.ACTOR.TAGS.masteredWeapon", { weapon: label }),
+        label: _loc("RYUUTAMA.ACTOR.TAGS.masteredWeapon", { weapon: label }),
         isSVG: icon.endsWith(".svg"),
         dataset: { "tooltip-text": label },
       });
@@ -541,7 +541,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
         sort: CONFIG.Item.dataModels[type].metadata.sort,
         cssClass: [state === 1 ? "active" : null, state === -1 ? "inactive" : null].filterJoin(" "),
         id: "type",
-        label: game.i18n.localize(`TYPES.Item.${type}Pl`),
+        label: _loc(`TYPES.Item.${type}Pl`),
         option: type,
       };
     };
@@ -565,8 +565,8 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       return {
         sort: CONFIG.Item.dataModels[type].metadata.sort,
         durability,
-        labelPlural: game.i18n.localize(`TYPES.Item.${type}Pl`),
-        attributeLabel: durability ? game.i18n.localize("RYUUTAMA.ACTOR.durability") : null,
+        labelPlural: _loc(`TYPES.Item.${type}Pl`),
+        attributeLabel: durability ? _loc("RYUUTAMA.ACTOR.durability") : null,
         items: items.map(item => ({
           document: item,
           attribute: durability ? makeDur(item) : null,
@@ -589,7 +589,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
         const section = makeSection(type);
         if (section) groups.push(section);
       } else {
-        if (!groups.length) groups.push({ labelPlural: game.i18n.localize("DOCUMENT.Items"), items: [] });
+        if (!groups.length) groups.push({ labelPlural: _loc("DOCUMENT.Items"), items: [] });
         for (const item of this.document.items.documentsByType[type]) {
           groups[0].items.push({
             document: item,
@@ -623,7 +623,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       allowCategorizationToggle: true,
       categoryCssClass: catMode === 1 ? "boxes-stacked" : "box",
       cssClass: sortMode === "m" ? "1-9" : "a-z",
-      placeholder: game.i18n.format("SIDEBAR.Search", { types: game.i18n.localize("DOCUMENT.Items") }),
+      placeholder: _loc("SIDEBAR.Search", { types: _loc("DOCUMENT.Items") }),
       expanded: this.expandedFilters.has(key),
       options: menuOptions,
     };
@@ -651,7 +651,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
     if (groups.has("other")) {
       sections.push({
-        label: game.i18n.localize("RYUUTAMA.TRAVELER.otherSkills"),
+        label: _loc("RYUUTAMA.TRAVELER.otherSkills"),
         entries: groups.get("other").map(item => ({ document: item, dataset: { "item-context": "" } })),
       });
       groups.delete("other");
@@ -659,7 +659,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
     for (const [classItem, skills] of groups.entries()) {
       sections.unshift({
-        label: game.i18n.format("RYUUTAMA.TRAVELER.skillSectionLabel", { name: classItem.name }),
+        label: _loc("RYUUTAMA.TRAVELER.skillSectionLabel", { name: classItem.name }),
         entries: skills.map(skill => ({ document: skill, dataset: { "item-context": "" } })),
       });
     }
@@ -695,7 +695,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
         label,
         key: category,
         documents: [],
-        attributeLabel: game.i18n.localize("RYUUTAMA.ACTOR.spellLevel"),
+        attributeLabel: _loc("RYUUTAMA.ACTOR.spellLevel"),
       };
       for (const level of ["low", "mid", "high"]) {
         const spells = byLevel[level] ?? [];
@@ -754,7 +754,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       key,
       allowCategorizationToggle: false,
       cssClass: sortMode === "m" ? "1-9" : "a-z",
-      placeholder: game.i18n.format("SIDEBAR.Search", { types: game.i18n.localize("TYPES.Item.spellPl") }),
+      placeholder: _loc("SIDEBAR.Search", { types: _loc("TYPES.Item.spellPl") }),
       expanded: this.expandedFilters.has(key),
       options: menuOptions,
     };

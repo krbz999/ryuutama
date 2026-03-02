@@ -44,7 +44,7 @@ export async function enricher(match, options = {}) {
   if (config.subtype) wrapper.dataset.subtype = config.subtype;
   if (config.abilities.length) wrapper.dataset.abilities = config.abilities.join("|");
   else if (config.formula) wrapper.dataset.formula = config.formula;
-  anchor.dataset.tooltipText = game.i18n.localize("RYUUTAMA.ROLL.TYPES." + config.type);
+  anchor.dataset.tooltipText = _loc("RYUUTAMA.ROLL.TYPES." + config.type);
 
   const typeConfig = ryuutama.config.checkTypes[config.type];
 
@@ -140,14 +140,9 @@ export function onRender(element) {
 
 /* -------------------------------------------------- */
 
-/**
- * The function that runs to interpret message contents for a check.
- * @param {string} message
- * @param {{ speaker: object, userId: string }} chatData
- */
-export function chatMessage(message, chatData) {
-  let config = message.match(chatPattern).groups.config;
-  config = ryuutama.utils.parseEnricherConfig(config);
+/** @type {ChatCommandCallback} */
+export function chatMessage(command, match, chatData, createOptions) {
+  const config = ryuutama.utils.parseEnricherConfig(match.groups.config);
   if (adjustConfig(config) === null) return;
 
   const Cls = getDocumentClass("ChatMessage");
@@ -158,7 +153,7 @@ export function chatMessage(message, chatData) {
   const rollConfig = { type, journeyId: subtype, formula, rollOptions: options };
   if (!actor && !request) {
     ui.notifications.error("RYUUTAMA.CHAT.warnNoActorFoundForCommand", { localize: true });
-    return;
+    return false;
   }
 
   if (request) {
@@ -174,6 +169,8 @@ export function chatMessage(message, chatData) {
   } else {
     actor.system.rollCheck(rollConfig);
   }
+
+  return false;
 }
 
 /* -------------------------------------------------- */

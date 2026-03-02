@@ -43,7 +43,7 @@ export default class Prelocalization {
           console.warn(`Source attempted registered with missing data: '${short}' / '${long}'`);
           return;
         }
-        long = game.i18n.localize(long);
+        long = _loc(long);
         if (short in config) {
           console.warn(`Duplicate source attempted registered: '${short}' / '${long}'`);
           return;

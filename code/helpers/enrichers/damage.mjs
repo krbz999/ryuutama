@@ -85,14 +85,9 @@ export function onRender(element) {
 
 /* -------------------------------------------------- */
 
-/**
- * The function that runs to interpret message contents for a damage roll.
- * @param {string} message
- * @param {{ speaker: object, userId: string }} chatData
- */
-export function chatMessage(message, chatData) {
-  let config = message.match(chatPattern).groups.config;
-  config = ryuutama.utils.parseEnricherConfig(config);
+/** @type {ChatCommandCallback} */
+export function chatMessage(command, match, chatData, createOptions) {
+  const config = ryuutama.utils.parseEnricherConfig(match.groups.config);
   if (adjustConfig(config) === null) return;
 
   const Cls = getDocumentClass("ChatMessage");
@@ -100,6 +95,7 @@ export function chatMessage(message, chatData) {
   const options = Object.fromEntries(Array.from(config.properties).map(p => [p, true]));
   const roll = new ryuutama.dice.DamageRoll(config.formula, actor?.getRollData(), options);
   roll.toMessage({ speaker: chatData.speaker });
+  return false;
 }
 
 /* -------------------------------------------------- */

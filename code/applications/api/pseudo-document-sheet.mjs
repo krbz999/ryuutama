@@ -85,7 +85,7 @@ export default class RyuutamaPseudoDocumentSheet extends HandlebarsApplicationMi
   /** @inheritdoc */
   get title() {
     const { documentName, name } = this.pseudoDocument;
-    return `${game.i18n.localize(`DOCUMENT.${documentName}`)}: ${name}`;
+    return `${_loc(`DOCUMENT.${documentName}`)}: ${name}`;
   }
 
   /* -------------------------------------------------- */
@@ -162,7 +162,7 @@ export default class RyuutamaPseudoDocumentSheet extends HandlebarsApplicationMi
   /** @inheritdoc */
   async _renderFrame(options) {
     const frame = await super._renderFrame(options);
-    const copyLabel = game.i18n.localize("SHEETS.CopyUuid");
+    const copyLabel = _loc("SHEETS.CopyUuid");
 
     const properties = Object.entries({
       type: "button",
@@ -306,7 +306,7 @@ export default class RyuutamaPseudoDocumentSheet extends HandlebarsApplicationMi
     const pseudo = this.pseudoDocument;
     const id = (event.button === 2) ? pseudo.id : pseudo.uuid;
     const type = (event.button === 2) ? "id" : "uuid";
-    const label = game.i18n.localize(`DOCUMENT.${pseudo.documentName}`);
+    const label = _loc(`DOCUMENT.${pseudo.documentName}`);
     game.clipboard.copyPlainText(id);
     ui.notifications.info("DOCUMENT.IdCopiedClipboard", { format: { label, type, id } });
   }

@@ -105,6 +105,13 @@ Hooks.once("init", () => {
 
   CONFIG.ux.TooltipManager = helpers.interaction.RyuutamaTooltipManager;
 
+  // Assign chat commands.
+  for (const enricher of Object.values(helpers.enrichers)) {
+    const { id, chatPattern: rgx, chatMessage: fn } = enricher;
+    if (id && (rgx instanceof RegExp) && (typeof fn === "function"))
+      CONFIG.ui.chat.CHAT_COMMANDS[id] = { rgx, fn };
+  }
+
   // Assign rolls.
   CONFIG.Dice.rolls.unshift(dice.HealingRoll);
   CONFIG.Dice.rolls.unshift(dice.DamageRoll);
@@ -144,12 +151,12 @@ Hooks.once("init", () => {
   );
 
   // Register status effects.
-  // TODO: This becomes a Record in v14.
-  CONFIG.statusEffects = Object.entries(config.statusEffects).map(([id, { _id, img, name, hud }]) => {
-    return { id, _id, img, name, hud };
+  CONFIG.statusEffects = {};
+  Object.entries(config.statusEffects).forEach(([id, { _id, img, name, hud }]) => {
+    CONFIG.statusEffects[id] = { id, _id, img, name, hud };
   });
   Object.entries(config.specialStatusEffects).forEach(([id, effectData]) => {
-    CONFIG.statusEffects.push({ ...effectData, id });
+    CONFIG.statusEffects[id] = { id, ...effectData };
   });
   CONFIG.specialStatusEffects.DEFEATED = "defeated";
 });
@@ -197,14 +204,4 @@ Hooks.once("ready", () => {
 
 Hooks.once("renderPlayers", () => {
   ui.habitat.render({ force: true });
-});
-
-/* -------------------------------------------------- */
-
-Hooks.on("chatMessage", (chatLog, message, chatData) => {
-  for (const { chatPattern, chatMessage } of Object.values(helpers.enrichers)) {
-    if (!chatPattern?.test(message)) continue;
-    chatMessage(message, chatData);
-    return false;
-  }
 });

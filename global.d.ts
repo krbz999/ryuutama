@@ -18,6 +18,8 @@ declare global {
   const fromUuid = foundry.utils.fromUuid;
   const fromUuidSync = foundry.utils.fromUuidSync;
   const getDocumentClass = foundry.utils.getDocumentClass;
+  const _del = new foundry.data.operators.ForcedDeletion();
+  const _replace = new foundry.data.operators.ForcedReplacement();
 
   namespace ui {
     let habitat: CurrentHabitat;
