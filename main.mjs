@@ -105,6 +105,13 @@ Hooks.once("init", () => {
 
   CONFIG.ux.TooltipManager = helpers.interaction.RyuutamaTooltipManager;
 
+  // Assign chat commands.
+  for (const enricher of Object.values(helpers.enrichers)) {
+    const { id, chatPattern: rgx, chatMessage: fn } = enricher;
+    if (id && (rgx instanceof RegExp) && (typeof fn === "function"))
+      CONFIG.ui.chat.CHAT_COMMANDS[id] = { rgx, fn };
+  }
+
   // Assign rolls.
   CONFIG.Dice.rolls.unshift(dice.HealingRoll);
   CONFIG.Dice.rolls.unshift(dice.DamageRoll);
@@ -197,14 +204,4 @@ Hooks.once("ready", () => {
 
 Hooks.once("renderPlayers", () => {
   ui.habitat.render({ force: true });
-});
-
-/* -------------------------------------------------- */
-
-Hooks.on("chatMessage", (chatLog, message, chatData) => {
-  for (const { chatPattern, chatMessage } of Object.values(helpers.enrichers)) {
-    if (!chatPattern?.test(message)) continue;
-    chatMessage(message, chatData);
-    return false;
-  }
 });
