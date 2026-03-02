@@ -153,6 +153,18 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
       "[data-effect-context]",
       { hookName: "Get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
     );
+
+    // const menu = new foundry.applications.ux.FilterMenu(
+    //   this.element,
+    //   "[data-action=toggleFilterList]",
+    //   { menuItems: () => context.inventory.search.options
+    //     .map(opt => ({
+    //       ...opt,
+    //       onClick: (event, target) => RyuutamaBaseActorSheet.#toggleFilterOption.call(this, event, target, opt.option, opt.id),
+    //       classes: opt.cssClass,
+    //     })),
+    //   },
+    // );
   }
 
   /* -------------------------------------------------- */
@@ -523,7 +535,9 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
-  static #toggleFilterOption(event, target) {
+  static #toggleFilterOption(event, target/**, option, id*/) {
+    // console.warn(event, target, option, id);
+    // console.warn(event.target, event.currentTarget);
     const { id, option } = target.dataset;
     const key = target.closest("[data-search]").dataset.search;
     const state = this.search.cycle(key, id, option, event.button === 2);
