@@ -14,6 +14,7 @@ export default class Prelocalization {
    * @returns {void}
    */
   static prelocalize(record, options) {
+    if (options?.deepFreeze) Object.freeze(record);
     this.toLocalize.push([record, options]);
   }
 

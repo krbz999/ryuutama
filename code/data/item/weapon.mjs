@@ -39,7 +39,7 @@ export default class WeaponData extends PhysicalData {
             required: true,
             blank: false,
             initial: "strength",
-            choices: () => ryuutama.config.abilityScores,
+            choices: () => ryuutama.CONST.ABILITY_SCORES,
           }),
           { min: 2, max: 2, initial: ["strength", "strength"] },
         ),
@@ -50,7 +50,7 @@ export default class WeaponData extends PhysicalData {
       }),
       damage: new SchemaField({
         ability: new StringField({
-          required: true, blank: false, choices: () => ryuutama.config.abilityScores, initial: "strength",
+          required: true, blank: false, choices: () => ryuutama.CONST.ABILITY_SCORES, initial: "strength",
         }),
         bonus: new NumberField({ nullable: true, integer: true, initial: null }),
       }),
@@ -124,10 +124,10 @@ export default class WeaponData extends PhysicalData {
       ? ryuutama.config.weaponUnarmedTypes.improvised.label
       : ryuutama.config.weaponTypes[this.category.value].label;
     this.accuracy.label = this.accuracy.abilities
-      .map(ability => `${ryuutama.config.abilityScores[ability].abbreviation}`)
+      .map(ability => `${ryuutama.CONST.ABILITY_SCORES[ability].abbreviation}`)
       .filterJoin(" + ") + (this.accuracy.bonus ? ` ${this.accuracy.bonus.signedString()}` : "");
     this.damage.label =
-      `${ryuutama.config.abilityScores[this.damage.ability].abbreviation}`
+      `${ryuutama.CONST.ABILITY_SCORES[this.damage.ability].abbreviation}`
          + (this.damage.bonus ? ` ${this.damage.bonus.signedString()}` : "");
   }
 }

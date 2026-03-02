@@ -49,7 +49,7 @@ export async function enricher(match, options = {}) {
   const typeConfig = ryuutama.config.checkTypes[config.type];
 
   if (!label && config.abilities.length)
-    label = `[${config.abilities.map(abi => ryuutama.config.abilityScores[abi].abbreviation).join(" + ")}]`;
+    label = `[${config.abilities.map(abi => ryuutama.CONST.ABILITY_SCORES[abi].abbreviation).join(" + ")}]`;
   else if (!label && config.formula) label = `[${config.formula}]`;
   if (label) anchor.innerHTML = label.trim();
   else if (config.subtype) anchor.innerHTML = typeConfig.subtypes[config.subtype].label;
@@ -221,10 +221,10 @@ function adjustConfig(config) {
 
 const filterAbilityKey = key => {
   key = key.toLowerCase().trim();
-  if (key in ryuutama.config.abilityScores) return key;
+  if (key in ryuutama.CONST.ABILITY_SCORES) return key;
 
   // Shorthand ability.
-  const [k] = Object.entries(ryuutama.config.abilityScores)
+  const [k] = Object.entries(ryuutama.CONST.ABILITY_SCORES)
     .find(([a, b]) => b.abbreviation.toLowerCase() === key) ?? [];
   if (k) return k;
 };

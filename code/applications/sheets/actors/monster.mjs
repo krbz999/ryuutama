@@ -99,11 +99,11 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
     }
 
     // Abilities.
-    context.abilities = Object.keys(ryuutama.config.abilityScores).map(abi => {
+    context.abilities = Object.keys(ryuutama.CONST.ABILITY_SCORES).map(abi => {
       return {
         ability: abi,
-        icon: ryuutama.config.abilityScores[abi].icon,
-        label: ryuutama.config.abilityScores[abi].abbreviation,
+        icon: ryuutama.CONST.ABILITY_SCORES[abi].icon,
+        label: ryuutama.CONST.ABILITY_SCORES[abi].abbreviation,
         value: this.document.system.abilities[abi],
       };
     });

@@ -71,7 +71,7 @@ export default class StatsAdvancement extends Advancement {
   get isConfigured() {
     const type = this.choice.type;
     const set = [...StatsAdvancement.STARTING_SCORES[type].stats];
-    for (const k in ryuutama.config.abilityScores) {
+    for (const k of Object.keys(ryuutama.CONST.ABILITY_SCORES)) {
       const value = this.choice.chosen[k];
       set.findSplice(v => v === value);
     }
@@ -93,7 +93,7 @@ export default class StatsAdvancement extends Advancement {
   /** @override */
   async _getAdvancementResults(actor) {
     const update = {};
-    for (const k in ryuutama.config.abilityScores) {
+    for (const k of Object.keys(ryuutama.CONST.ABILITY_SCORES)) {
       update[`system.abilities.${k}.value`] = this.choice.chosen[k];
     }
 

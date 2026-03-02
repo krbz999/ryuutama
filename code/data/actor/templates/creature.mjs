@@ -288,7 +288,7 @@ export default class CreatureData extends BaseData {
     const type = _loc(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
     const abilities = game.i18n
       .getListFormatter()
-      .format(rollConfig.abilities?.map(abi => ryuutama.config.abilityScores[abi].label) ?? []);
+      .format(rollConfig.abilities?.map(abi => ryuutama.CONST.ABILITY_SCORES[abi].label) ?? []);
     const flavor = _loc(
       `RYUUTAMA.ROLL.messageFlavor${rollConfig.abilities?.length ? "Abilities" : ""}`,
       { type, abilities },

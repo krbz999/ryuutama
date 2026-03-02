@@ -12,39 +12,13 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 
 /* -------------------------------------------------- */
 
-/**
- * @type {Record<string, AbilityScoreConfig>}
- */
-export const abilityScores = {
-  strength: {
-    label: "RYUUTAMA.ABILITIES.strength",
-    abbreviation: "RYUUTAMA.ABILITIES.strengthAbbr",
-    icon: "systems/ryuutama/assets/official/icons/stats/strength.svg",
-  },
-  dexterity: {
-    label: "RYUUTAMA.ABILITIES.dexterity",
-    abbreviation: "RYUUTAMA.ABILITIES.dexterityAbbr",
-    icon: "systems/ryuutama/assets/official/icons/stats/dexterity.svg",
-  },
-  intelligence: {
-    label: "RYUUTAMA.ABILITIES.intelligence",
-    abbreviation: "RYUUTAMA.ABILITIES.intelligenceAbbr",
-    icon: "systems/ryuutama/assets/official/icons/stats/intelligence.svg",
-  },
-  spirit: {
-    label: "RYUUTAMA.ABILITIES.spirit",
-    abbreviation: "RYUUTAMA.ABILITIES.spiritAbbr",
-    icon: "systems/ryuutama/assets/official/icons/stats/spirit.svg",
-  },
-};
-Prelocalization.prelocalize(abilityScores, { properties: ["label", "abbreviation"] });
-
-/* -------------------------------------------------- */
+const config = {};
+export default config;
 
 /**
  * @type {Record<number, Set<string>>}
  */
-export const advancement = {
+config.advancement = {
   1: new Set(["class", "stats", "weapon", "type"]),
   2: new Set(["resource", "statIncrease"]),
   3: new Set(["resource", "habitat"]),
@@ -64,7 +38,7 @@ export const advancement = {
 /**
  * @type {Record<string, AnimalModifierConfig>}
  */
-export const animalModifiers = {
+config.animalModifiers = {
   baby: {
     label: "RYUUTAMA.ITEM.ANIMAL.MODIFIERS.baby",
     cost: 3 / 10,
@@ -96,14 +70,14 @@ export const animalModifiers = {
     additive: true,
   },
 };
-Prelocalization.prelocalize(animalModifiers);
+Prelocalization.prelocalize(config.animalModifiers);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, AnimalTypeConfig>}
  */
-export const animalTypes = {
+config.animalTypes = {
   riding: {
     label: "RYUUTAMA.ITEM.ANIMAL.TYPES.riding",
     price: 900,
@@ -129,14 +103,14 @@ export const animalTypes = {
     price: 300,
   },
 };
-Prelocalization.prelocalize(animalTypes);
+Prelocalization.prelocalize(config.animalTypes);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, CheckTypeConfig>}
  */
-export const checkTypes = {
+config.checkTypes = {
   accuracy: {
     label: "RYUUTAMA.ROLL.TYPES.accuracy",
   },
@@ -167,15 +141,15 @@ export const checkTypes = {
     },
   },
 };
-Prelocalization.prelocalize(checkTypes);
-Prelocalization.prelocalize(checkTypes.journey.subtypes);
+Prelocalization.prelocalize(config.checkTypes);
+Prelocalization.prelocalize(config.checkTypes.journey.subtypes);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, DamageRollPropertyConfig>}
  */
-export const damageRollProperties = {
+config.damageRollProperties = {
   damageMental: {
     label: "RYUUTAMA.DAMAGE.PROPERTIES.damageMental",
     icon: "systems/ryuutama/assets/icons/bolt-eye.svg",
@@ -200,12 +174,12 @@ export const damageRollProperties = {
     hidden: true,
   },
 };
-Prelocalization.prelocalize(damageRollProperties);
+Prelocalization.prelocalize(config.damageRollProperties);
 
 /* -------------------------------------------------- */
 
 /** @type {number[]} */
-export const experienceLevels = [
+config.experienceLevels = [
   0,
   100,
   600,
@@ -223,7 +197,7 @@ export const experienceLevels = [
 /**
  * @type {Record<string, HerbTypeConfig>}
  */
-export const herbTypes = {
+config.herbTypes = {
   enhance: {
     label: "RYUUTAMA.ITEM.HERB.CATEGORIES.enhance",
   },
@@ -234,14 +208,14 @@ export const herbTypes = {
     label: "RYUUTAMA.ITEM.HERB.CATEGORIES.physical",
   },
 };
-Prelocalization.prelocalize(herbTypes);
+Prelocalization.prelocalize(config.herbTypes);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, ItemModifierConfig>}
  */
-export const itemModifiers = {
+config.itemModifiers = {
   beautiful: {
     label: "RYUUTAMA.ITEM.MODIFIERS.beautiful",
     cost: 2,
@@ -312,14 +286,14 @@ export const itemModifiers = {
     magical: true,
   },
 };
-Prelocalization.prelocalize(itemModifiers);
+Prelocalization.prelocalize(config.itemModifiers);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<number, ItemSizeConfig>}
  */
-export const itemSizes = {
+config.itemSizes = {
   1: {
     label: "RYUUTAMA.ITEM.SIZES.size1",
   },
@@ -330,14 +304,14 @@ export const itemSizes = {
     label: "RYUUTAMA.ITEM.SIZES.size5",
   },
 };
-Prelocalization.prelocalize(itemSizes);
+Prelocalization.prelocalize(config.itemSizes);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, MonsterCategoryConfig>}
  */
-export const monsterCategories = {
+config.monsterCategories = {
   demonstone: {
     label: "RYUUTAMA.MONSTER.CATEGORIES.demonstone",
     statusImmunities: "body",
@@ -363,14 +337,14 @@ export const monsterCategories = {
     statusImmunities: "all",
   },
 };
-Prelocalization.prelocalize(monsterCategories);
+Prelocalization.prelocalize(config.monsterCategories);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, RationModifierConfig>}
  */
-export const rationModifiers = {
+config.rationModifiers = {
   disgusting: {
     label: "RYUUTAMA.RATIONS.MODIFIER.disgusting",
     prefix: true,
@@ -383,14 +357,14 @@ export const rationModifiers = {
     prefix: true,
   },
 };
-Prelocalization.prelocalize(rationModifiers);
+Prelocalization.prelocalize(config.rationModifiers);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, RationTypeConfig>}
  */
-export const rationTypes = {
+config.rationTypes = {
   animalFeed: {
     label: "RYUUTAMA.RATIONS.TYPE.animalFeed",
     icon: "systems/ryuutama/assets/official/icons/ui/food.svg",
@@ -410,7 +384,7 @@ export const rationTypes = {
     icon: "systems/ryuutama/assets/official/icons/ui/water.svg",
   },
 };
-Prelocalization.prelocalize(rationTypes);
+Prelocalization.prelocalize(config.rationTypes);
 
 /* -------------------------------------------------- */
 
@@ -418,14 +392,14 @@ Prelocalization.prelocalize(rationTypes);
  * Reference object, identifiers and uuids of pages.
  * @type {Record<string, string>}
  */
-export const references = {};
+config.references = {};
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, SeasonConfig>}
  */
-export const seasons = {
+config.seasons = {
   spring: {
     label: "RYUUTAMA.SEASONS.spring",
   },
@@ -439,14 +413,14 @@ export const seasons = {
     label: "RYUUTAMA.SEASONS.winter",
   },
 };
-Prelocalization.prelocalize(seasons);
+Prelocalization.prelocalize(config.seasons);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, string>}
  */
-export const sources = {};
+config.sources = {};
 
 /* -------------------------------------------------- */
 /*   SPELLS                                           */
@@ -455,7 +429,7 @@ export const sources = {};
 /**
  * @type {Record<string, SpellCategoryConfig>}
  */
-export const spellCategories = {
+config.spellCategories = {
   incantation: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.incantation",
   },
@@ -476,14 +450,14 @@ export const spellCategories = {
     icon: "systems/ryuutama/assets/official/icons/magic/winter.svg",
   },
 };
-Prelocalization.prelocalize(spellCategories);
+Prelocalization.prelocalize(config.spellCategories);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, SpellActivationTypeConfig>}
  */
-export const spellActivationTypes = {
+config.spellActivationTypes = {
   normal: {
     label: "RYUUTAMA.ITEM.SPELL.ACTIVATION.normal",
   },
@@ -491,14 +465,14 @@ export const spellActivationTypes = {
     label: "RYUUTAMA.ITEM.SPELL.ACTIVATION.ritual",
   },
 };
-Prelocalization.prelocalize(spellActivationTypes);
+Prelocalization.prelocalize(config.spellActivationTypes);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, SpellDurationTypeConfig>}
  */
-export const spellDurationTypes = {
+config.spellDurationTypes = {
   hours: {
     label: "RYUUTAMA.ITEM.SPELL.DURATION.hours",
     units: true,
@@ -528,14 +502,14 @@ export const spellDurationTypes = {
     label: "RYUUTAMA.ITEM.SPELL.DURATION.special",
   },
 };
-Prelocalization.prelocalize(spellDurationTypes);
+Prelocalization.prelocalize(config.spellDurationTypes);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, SpellLevelConfig>}
  */
-export const spellLevels = {
+config.spellLevels = {
   low: {
     label: "RYUUTAMA.ITEM.SPELL.LEVEL.low",
   },
@@ -546,14 +520,14 @@ export const spellLevels = {
     label: "RYUUTAMA.ITEM.SPELL.LEVEL.high",
   },
 };
-Prelocalization.prelocalize(spellLevels);
+Prelocalization.prelocalize(config.spellLevels);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, SpellRangeTypeConfig>}
  */
-export const spellRangeTypes = {
+config.spellRangeTypes = {
   touch: {
     label: "RYUUTAMA.ITEM.SPELL.RANGE.touch",
   },
@@ -573,14 +547,14 @@ export const spellRangeTypes = {
     label: "RYUUTAMA.ITEM.SPELL.RANGE.special",
   },
 };
-Prelocalization.prelocalize(spellRangeTypes);
+Prelocalization.prelocalize(config.spellRangeTypes);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, StatusEffectConfig>}
  */
-export const statusEffects = {
+config.statusEffects = {
   injury: {
     _id: "injury0000000000",
     category: "body",
@@ -618,14 +592,14 @@ export const statusEffects = {
     name: "RYUUTAMA.STATUSES.shock",
   },
 };
-Prelocalization.prelocalize(statusEffects, { properties: ["name"] });
+Prelocalization.prelocalize(config.statusEffects, { properties: ["name"] });
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, SpecialStatusEffectConfig>}
  */
-export const specialStatusEffects = {
+config.specialStatusEffects = {
   defeated: {
     _id: "defeated00000000",
     hud: false,
@@ -639,7 +613,7 @@ export const specialStatusEffects = {
 /**
  * @type {Record<string, TerrainTypeConfig>}
  */
-export const terrainTypes = {
+config.terrainTypes = {
   grassland: {
     label: "RYUUTAMA.TERRAIN.grassland",
     level: 1,
@@ -724,14 +698,14 @@ export const terrainTypes = {
     iconSmall: "systems/ryuutama/assets/official/icons/terrains/alpine-sm.webp",
   },
 };
-Prelocalization.prelocalize(terrainTypes);
+Prelocalization.prelocalize(config.terrainTypes);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, TravelerTypeConfig>}
  */
-export const travelerTypes = {
+config.travelerTypes = {
   attack: {
     label: "RYUUTAMA.TRAVELER.TYPES.attack",
     icon: "systems/ryuutama/assets/official/icons/types/attack.svg",
@@ -745,14 +719,14 @@ export const travelerTypes = {
     icon: "systems/ryuutama/assets/official/icons/types/magic.svg",
   },
 };
-Prelocalization.prelocalize(travelerTypes);
+Prelocalization.prelocalize(config.travelerTypes);
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, WeaponTypeConfig>}
  */
-export const weaponTypes = {
+config.weaponTypes = {
   axe: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.axe",
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.axePl",
@@ -790,14 +764,14 @@ export const weaponTypes = {
     icon: "systems/ryuutama/assets/icons/weapons/polearm.svg",
   },
 };
-Prelocalization.prelocalize(weaponTypes, { properties: ["label", "labelPlural"] });
+Prelocalization.prelocalize(config.weaponTypes, { properties: ["label", "labelPlural"] });
 
 /* -------------------------------------------------- */
 
 /**
  * @type {Record<string, UnarmedConfiguration>}
  */
-export const weaponUnarmedTypes = {
+config.weaponUnarmedTypes = {
   unarmed: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.unarmed",
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.unarmedPl",
@@ -824,13 +798,13 @@ export const weaponUnarmedTypes = {
     },
   },
 };
-Prelocalization.prelocalize(weaponUnarmedTypes, { properties: ["label", "labelPlural"] });
+Prelocalization.prelocalize(config.weaponUnarmedTypes, { properties: ["label", "labelPlural"] });
 
 /* -------------------------------------------------- */
 
-export const weaponCategories = {
-  ...weaponTypes,
-  ...weaponUnarmedTypes,
+config.weaponCategories = {
+  ...config.weaponTypes,
+  ...config.weaponUnarmedTypes,
 };
 
 /* -------------------------------------------------- */
@@ -838,7 +812,7 @@ export const weaponCategories = {
 /**
  * @type {Record<string, WeatherTypeConfig>}
  */
-export const weatherTypes = {
+config.weatherTypes = {
   clearSkies: {
     label: "RYUUTAMA.WEATHER.clearSkies",
     modifier: 0,
@@ -910,4 +884,21 @@ export const weatherTypes = {
     icon: "systems/ryuutama/assets/official/icons/weathers/blizzard.svg",
   },
 };
-Prelocalization.prelocalize(weatherTypes);
+Prelocalization.prelocalize(config.weatherTypes);
+
+/* -------------------------------------------------- */
+/*   Deprecations                                     */
+/* -------------------------------------------------- */
+
+Object.defineProperty(config, "abilityScores", {
+  get() {
+    foundry.utils.logCompatibilityWarning(
+      "The 'ryuutama.config.abilityScores' object has been moved to 'ryuutama.CONST.ABILITY_SCORES'.",
+      {
+        since: "2.0.0", until: "2.1.0", once: true,
+        details: "Configuration of this object is not supported.",
+      },
+    );
+    return ryuutama.CONST.ABILITY_SCORES;
+  },
+});

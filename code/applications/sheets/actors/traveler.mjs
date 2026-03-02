@@ -213,9 +213,9 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
    */
   #prepareAbilities() {
     const abilities = [];
-    for (const ability of Object.keys(ryuutama.config.abilityScores)) {
+    for (const ability of Object.keys(ryuutama.CONST.ABILITY_SCORES)) {
       abilities.push({
-        ...ryuutama.config.abilityScores[ability],
+        ...ryuutama.CONST.ABILITY_SCORES[ability],
         ability,
         value: this.document.system.abilities[ability],
       });
@@ -280,7 +280,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
   #prepareCondition() {
     const condition = this.document.system.condition.value;
     const ctx = {
-      ability: ryuutama.config.abilityScores[this.document.system.condition.shape.high]?.label ?? "−",
+      ability: ryuutama.CONST.ABILITY_SCORES[this.document.system.condition.shape.high]?.label ?? "−",
       high: condition >= 10,
       low: condition <= 2,
     };
@@ -288,7 +288,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       ctx.high ? "RYUUTAMA.ACTOR.TRAVELER.conditionHigh" : "RYUUTAMA.ACTOR.TRAVELER.conditionLow",
       { ability: ctx.ability });
     ctx.active = ctx.high || ctx.low;
-    if (ctx.high) ctx.abilityIcon = ryuutama.config.abilityScores[this.document.system.condition.shape.high]?.icon;
+    if (ctx.high) ctx.abilityIcon = ryuutama.CONST.ABILITY_SCORES[this.document.system.condition.shape.high]?.icon;
     return ctx;
   }
 

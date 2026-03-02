@@ -3,14 +3,17 @@
  * @param {Record<*, object>} record    The record whose entries to localize.
  * @param {object} [options={}]
  * @param {string[]} [options.properties]   The properties to replace.
+ * @param {boolean} [options.deepFreeze]    Deep freeze the object after localization?
  * @returns {void}
  */
-export default function prelocalize(record, { properties = ["label"] } = {}) {
-  for (const k in record) {
+export default function prelocalize(record, { properties = ["label"], deepFreeze = false } = {}) {
+  for (const k of Object.keys(record)) {
     for (const p of properties) {
       const unlocalized = foundry.utils.getProperty(record[k], p);
       if (!unlocalized || !game.i18n.has(unlocalized)) continue;
       foundry.utils.setProperty(record[k], p, _loc(unlocalized));
     }
   }
+
+  if (deepFreeze) foundry.utils.deepFreeze(record);
 }

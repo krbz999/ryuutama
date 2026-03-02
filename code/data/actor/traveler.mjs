@@ -12,7 +12,7 @@ export default class TravelerData extends CreatureData {
   /** @override */
   static defineSchema() {
     const schema = Object.assign(super.defineSchema(), {
-      abilities: new SchemaField(Object.keys(ryuutama.config.abilityScores).reduce((acc, ability) => {
+      abilities: new SchemaField(Object.keys(ryuutama.CONST.ABILITY_SCORES).reduce((acc, ability) => {
         acc[ability] = new SchemaField({ value: new ryuutama.data.fields.AbilityScoreField({ restricted: true }) });
         return acc;
       }, {})),
@@ -65,7 +65,7 @@ export default class TravelerData extends CreatureData {
     schema.condition.extendFields({
       rationing: new NumberField({ nullable: false, initial: 0, min: 0, integer: true }),
       shape: new SchemaField({
-        high: new StringField({ required: true, blank: true, choices: () => ryuutama.config.abilityScores }),
+        high: new StringField({ required: true, blank: true, choices: () => ryuutama.CONST.ABILITY_SCORES }),
       }),
     });
 
