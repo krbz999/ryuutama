@@ -525,9 +525,11 @@
           "category.value.label": "Type",
           "spell.activation.cast.label": "Casting Time",
           "spell.activation.mental.label": "MP Cost",
+          "spell.duration.custom.placeholder": "Special duration",
           "spell.level.label": "Spell Level",
           "spell.range.value.label": "Range",
-          "spell.target.custom.label": "Targets"
+          "spell.target.custom.label": "Targets",
+          "spell.target.custom.placeholder": "E.g. '1 person'"
         },
         "ACTIVATION": {
           "normal": "Normal Spell",
@@ -569,8 +571,6 @@
         "costLabel": "{mp} MP",
         "duration": "Duration",
         "durationLabel": "{units} {type}",
-        "specialDuration": "Special duration",
-        "targetPlaceholder": "E.g. '1 person'",
         "timing": "Spell Timing"
       },
 

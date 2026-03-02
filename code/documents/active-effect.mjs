@@ -17,7 +17,7 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
             width: 420,
           },
           content: [
-            fields.value.toFormGroup({ rootId }, { autofocus: true, value: 4, placeholder: "4" }).outerHTML,
+            fields.value.toFormGroup({ rootId }, { autofocus: true, value: 4 }).outerHTML,
             fields.bypass.toFormGroup({ rootId }, {}).outerHTML,
           ].join(""),
         });

@@ -13,7 +13,7 @@
     {{formGroup systemFields.spell.fields.level value=(ifThen disabled document.system.spell.level source.system.spell.level) disabled=disabled classes="slim"}}
 
     {{!-- TARGET --}}
-    {{formGroup systemFields.spell.fields.target.fields.custom value=(ifThen disabled document.system.spell.target.custom source.system.spell.target.custom) disabled=disabled placeholder=(localize "RYUUTAMA.ITEM.SPELL.targetPlaceholder")}}
+    {{formGroup systemFields.spell.fields.target.fields.custom value=(ifThen disabled document.system.spell.target.custom source.system.spell.target.custom) disabled=disabled}}
 
     {{!-- RANGE --}}
     {{formGroup systemFields.spell.fields.range.fields.value value=(ifThen disabled document.system.spell.range.value source.system.spell.range.value) disabled=disabled classes="slim"}}
@@ -39,7 +39,7 @@
       </div>
     </div>
     {{#if spell.duration.special}}
-    {{formInput systemFields.spell.fields.duration.fields.custom value=(ifThen disabled document.system.spell.duration.custom source.system.spell.duration.custom) disabled=disabled placeholder=(localize "RYUUTAMA.ITEM.SPELL.specialDuration")}}
+    {{formInput systemFields.spell.fields.duration.fields.custom value=(ifThen disabled document.system.spell.duration.custom source.system.spell.duration.custom) disabled=disabled}}
     {{/if}}
   </fieldset>
 </section>

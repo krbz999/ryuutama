@@ -93,11 +93,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
       const nameField = this.schema.getField("objects.element.name");
       content.insertAdjacentElement("beforeend", nameField.toFormGroup(
         {},
-        {
-          name: `system.objects.${id}.name`,
-          placeholder: _loc("RYUUTAMA.COMBAT.STANDARD.FIELDS.objects.element.name.placeholder"),
-          autofocus: ids[0] === id,
-        },
+        { name: `system.objects.${id}.name`, autofocus: ids[0] === id },
       ));
     }
     const configuration = await foundry.applications.api.Dialog.input({ content });
