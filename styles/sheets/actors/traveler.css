@@ -624,13 +624,7 @@
     filter: drop-shadow(0 0 var(--shadow-spread, .1rem) var(--ryuutama-color-shadow-black));
   }
 
-  .controls-dropdown,
   .window-resize-handle {
-    z-index: 2;
-  }
-
-  /* The dropdown is always below the full header, can probably revisit this in v14. */
-  .controls-dropdown {
-    top: 2.5rem;
+    z-index: 1;
   }
 }

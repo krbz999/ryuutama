@@ -144,12 +144,12 @@ Hooks.once("init", () => {
   );
 
   // Register status effects.
-  // TODO: This becomes a Record in v14.
-  CONFIG.statusEffects = Object.entries(config.statusEffects).map(([id, { _id, img, name, hud }]) => {
-    return { id, _id, img, name, hud };
+  CONFIG.statusEffects = {};
+  Object.entries(config.statusEffects).forEach(([id, { _id, img, name, hud }]) => {
+    CONFIG.statusEffects[id] = { id, _id, img, name, hud };
   });
   Object.entries(config.specialStatusEffects).forEach(([id, effectData]) => {
-    CONFIG.statusEffects.push({ ...effectData, id });
+    CONFIG.statusEffects[id] = { id, ...effectData };
   });
   CONFIG.specialStatusEffects.DEFEATED = "defeated";
 });
