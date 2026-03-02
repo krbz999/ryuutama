@@ -156,7 +156,7 @@ export default class CurrentHabitat extends Application {
       {
         label: "RYUUTAMA.HABITAT.CONTEXT.viewFullImage",
         icon: "fa-solid fa-fw fa-image",
-        onClick: target => {
+        onClick: (event, target) => {
           const terrain = target.dataset.terrainId;
           const { icon: src, label: title } = ryuutama.config.terrainTypes[terrain];
           const application = new foundry.applications.apps.ImagePopout({ src, window: { title } });
