@@ -1,4 +1,5 @@
 export { default as applyStatus } from "./apply-status.mjs";
+export { default as contextualActors } from "./contextual-actors.mjs";
 export { default as createDefaultIdentifier } from "./create-default-identifier.mjs";
 export { default as formatNumber } from "./format-number.mjs";
 export { default as isValidIdentifier } from "./is-valid-identifier.mjs";

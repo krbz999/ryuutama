@@ -62,17 +62,7 @@ export function onRender(element) {
   if (enricher._hasEvent) return;
   enricher._hasEvent = true;
   enricher.addEventListener("click", async (event) => {
-    const target = event.currentTarget;
-    const application = foundry.applications.instances.get(target.closest(".application")?.id);
-    const tooltipActor = fromUuidSync(target.closest(".locked-tooltip [data-actor-uuid]")?.dataset.actorUuid);
-    let actors = [];
-    if (tooltipActor instanceof foundry.documents.Actor) actors = [tooltipActor];
-    else if (application?.document instanceof foundry.documents.Actor) actors = [application.document];
-    else if (application?.document?.actor instanceof foundry.documents.Actor) actors = [application.document.actor];
-    else if (canvas?.tokens?.controlled.length)
-      actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
-    else actors = [game.user.character].filter(_ => _);
-
+    const actors = ryuutama.utils.contextualActors(event.currentTarget);
     const Cls = getDocumentClass("ChatMessage");
     const options = Object.fromEntries(element.dataset.properties.split(",").map(p => [p, true]));
     for (const actor of actors) {

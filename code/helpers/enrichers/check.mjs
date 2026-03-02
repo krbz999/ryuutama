@@ -94,21 +94,13 @@ export function onRender(element) {
   const options = Object.fromEntries(element.dataset.properties.split(",").map(p => [p, true]));
   rollConfig.rollOptions = options;
 
+  /** @type {HTMLElement} */
   const enricher = element.querySelector(".enricher");
   if (enricher._hasEvent) return;
   enricher._hasEvent = true;
 
   enricher.addEventListener("click", async (event) => {
-    const target = event.currentTarget;
-    const application = foundry.applications.instances.get(target.closest(".application")?.id);
-    const tooltipActor = fromUuidSync(target.closest(".locked-tooltip [data-actor-uuid]")?.dataset.actorUuid);
-    let actors = [];
-    if (tooltipActor instanceof foundry.documents.Actor) actors = [tooltipActor];
-    else if (application?.document instanceof foundry.documents.Actor) actors = [application.document];
-    else if (application?.document?.actor instanceof foundry.documents.Actor) actors = [application.document.actor];
-    else if (canvas?.tokens?.controlled.length)
-      actors = new Set(canvas.tokens.controlled.map(token => token.actor).filter(_ => _));
-    else actors = [game.user.character].filter(_ => _);
+    const actors = ryuutama.utils.contextualActors(event.currentTarget);
 
     const dialogConfig = { configure: !event.shiftKey };
     for (const actor of actors) {
@@ -117,24 +109,18 @@ export function onRender(element) {
   });
 
   element.querySelector(".request")?.addEventListener("click", event => {
-    const target = event.currentTarget;
-    const application = foundry.applications.instances.get(target.closest(".application")?.id);
-    const tooltipActor = fromUuidSync(target.closest(".locked-tooltip [data-actor-uuid]")?.dataset.actorUuid);
-    let actor;
-    if (tooltipActor instanceof foundry.documents.Actor) actor = tooltipActor;
-    else if (application?.document instanceof foundry.documents.Actor) actor = application.document;
-    else if (application?.document?.actor instanceof foundry.documents.Actor) actor = application.document.actor;
-
+    const Cls = getDocumentClass("ChatMessage");
+    const actor = ryuutama.utils.contextualActors(event.currentTarget).first();
     const messageData = {
       type: "standard",
-      speaker: getDocumentClass("ChatMessage").getSpeaker({ actor }),
+      speaker: Cls.getSpeaker({ actor }),
       system: {
         parts: {
           [foundry.utils.randomID()]: { type: "request", check: { configuration: rollConfig } },
         },
       },
     };
-    getDocumentClass("ChatMessage").create(messageData);
+    Cls.create(messageData);
   });
 }
 
@@ -148,9 +134,23 @@ export function chatMessage(command, match, chatData, createOptions) {
   const Cls = getDocumentClass("ChatMessage");
   const actor = Cls.getSpeakerActor(chatData.speaker);
 
-  const { type, subtype, formula, request, properties } = config;
+  const { type, subtype, formula, abilities, request, properties } = config;
+  const rollConfig = { type };
+
+  if ((type === "journey") && (subtype in ryuutama.config.checkTypes.journey.subtypes)) {
+    rollConfig.journeyId = subtype;
+  }
+  if (formula) rollConfig.formula = formula;
+  else if (abilities) {
+    rollConfig.abilities = abilities;
+    if (type === "damage") {
+      rollConfig.ability = rollConfig.abilities[0];
+      delete rollConfig.abilities;
+    }
+  }
   const options = Object.fromEntries(Array.from(properties ?? []).map(p => [p, true]));
-  const rollConfig = { type, journeyId: subtype, formula, rollOptions: options };
+  rollConfig.rollOptions = options;
+
   if (!actor && !request) {
     ui.notifications.error("RYUUTAMA.CHAT.warnNoActorFoundForCommand", { localize: true });
     return false;
