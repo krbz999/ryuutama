@@ -371,7 +371,8 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
    * @returns {Promise}         Whether the drop was fully resolved, either truthy or falsy.
    */
   async _onDropFolder(event, folder) {
-    const folders = (game.release.generation < 14) && folder.inCompendium
+    // TODO: Simplify in v14 when https://github.com/foundryvtt/foundryvtt/issues/13397 is resolved.
+    const folders = folder.inCompendium
       ? [folder].concat(folder.collection.folders.filter(f => f.getParentFolders().includes(folder)))
       : [folder].concat(folder.getSubfolders(true));
     let documents = folders.flatMap(folder => folder.contents);

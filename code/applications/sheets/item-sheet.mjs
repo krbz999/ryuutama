@@ -1,5 +1,9 @@
 import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
 
+/**
+ * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
+ */
+
 export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /** @override */
   static DEFAULT_OPTIONS = {
@@ -175,31 +179,29 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     /** @type {ContextMenuEntry[]} */
     const options = [
       {
-        name: "RYUUTAMA.ITEM.CONTEXT.EFFECT.edit",
+        label: "RYUUTAMA.ITEM.CONTEXT.EFFECT.edit",
         icon: "fa-solid fa-fw fa-edit",
-        callback: target => getItem(target).sheet.render({ force: true }),
+        onClick: target => getItem(target).sheet.render({ force: true }),
       },
       {
-        name: "RYUUTAMA.ITEM.CONTEXT.EFFECT.delete",
+        label: "RYUUTAMA.ITEM.CONTEXT.EFFECT.delete",
         icon: "fa-solid fa-fw fa-trash",
-        callback: target => getItem(target).deleteDialog(),
-        condition: () => this.isEditable,
+        onClick: target => getItem(target).deleteDialog(),
+        visible: () => this.isEditable,
       },
       {
-        name: "RYUUTAMA.ITEM.CONTEXT.EFFECT.disable",
+        label: "RYUUTAMA.ITEM.CONTEXT.EFFECT.disable",
         icon: "fa-solid fa-fw fa-times",
-        callback: target => getItem(target).update({ disabled: true }),
-        condition: target => this.isEditable && !getItem(target).disabled,
+        onClick: target => getItem(target).update({ disabled: true }),
+        visible: target => this.isEditable && !getItem(target).disabled,
       },
       {
-        name: "RYUUTAMA.ITEM.CONTEXT.EFFECT.enable",
+        label: "RYUUTAMA.ITEM.CONTEXT.EFFECT.enable",
         icon: "fa-solid fa-fw fa-check",
-        callback: target => getItem(target).update({ disabled: false }),
-        condition: target => this.isEditable && getItem(target).disabled,
+        onClick: target => getItem(target).update({ disabled: false }),
+        visible: target => this.isEditable && getItem(target).disabled,
       },
     ];
-
-    if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));
     return options;
   }
 

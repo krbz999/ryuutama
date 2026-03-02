@@ -151,11 +151,12 @@ export default class CurrentHabitat extends Application {
    * @returns {ContextMenuEntry[]}
    */
   static #createContextMenuOptions() {
+    /** @type {ContextMenuEntry[]} */
     const options = [
       {
-        name: "RYUUTAMA.HABITAT.CONTEXT.viewFullImage",
+        label: "RYUUTAMA.HABITAT.CONTEXT.viewFullImage",
         icon: "fa-solid fa-fw fa-image",
-        callback: target => {
+        onClick: target => {
           const terrain = target.dataset.terrainId;
           const { icon: src, label: title } = ryuutama.config.terrainTypes[terrain];
           const application = new foundry.applications.apps.ImagePopout({ src, window: { title } });
@@ -163,7 +164,6 @@ export default class CurrentHabitat extends Application {
         },
       },
     ];
-    if (game.release.generation < 14) options.forEach(o => o.icon = `<i class="${o.icon}"></i>`);
     return options;
   }
 

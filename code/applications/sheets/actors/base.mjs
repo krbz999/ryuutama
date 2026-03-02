@@ -194,26 +194,26 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
     /** @type {ContextMenuEntry[]} */
     const options = [
       {
-        name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.view",
+        label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.view",
         icon: "fa-solid fa-fw fa-eye",
-        callback: target => getItem(target).sheet.render({ force: true, mode: 1 }),
+        onClick: target => getItem(target).sheet.render({ force: true, mode: 1 }),
       },
       {
-        name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.edit",
+        label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.edit",
         icon: "fa-solid fa-fw fa-edit",
-        callback: target => getItem(target).sheet.render({ force: true, mode: 0 }),
+        onClick: target => getItem(target).sheet.render({ force: true, mode: 0 }),
       },
       {
-        name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.delete",
+        label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.delete",
         icon: "fa-solid fa-fw fa-trash",
-        callback: target => getItem(target).deleteDialog(),
-        condition: target => this.isEditable && (getItem(target).type !== "class"),
+        onClick: target => getItem(target).deleteDialog(),
+        visible: target => this.isEditable && (getItem(target).type !== "class"),
       },
       {
         group: "system",
-        name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.equip",
+        label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.equip",
         icon: "fa-solid fa-fw fa-shield",
-        condition: target => {
+        visible: target => {
           if (!this.isEditable || (this.document.type !== "traveler")) return false;
           const item = getItem(target);
           if ((item.type === "shield") && !this.document.system.canEquipShield) return false;
@@ -221,55 +221,53 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
           const equipped = this.document.system.equipped[item.type];
           return equipped !== item;
         },
-        callback: target => {
+        onClick: target => {
           const item = getItem(target);
           this.document.update({ [`system.equipped.${item.type}`]: item.id });
         },
       },
       {
         group: "system",
-        name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.unequip",
+        label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.unequip",
         icon: "fa-solid fa-fw fa-shield-alt",
-        condition: target => {
+        visible: target => {
           const item = getItem(target);
           return this.isEditable && (this.document.type === "traveler")
             && (this.document.system.equipped[item.type] === item);
         },
-        callback: target => {
+        onClick: target => {
           const item = getItem(target);
           this.document.update({ [`system.equipped.${item.type}`]: null });
         },
       },
       {
         group: "system",
-        name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.assignSpecialAbility",
+        label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.assignSpecialAbility",
         icon: "fa-solid fa-fw fa-star",
-        condition: target => {
+        visible: target => {
           if (this.document.type !== "monster") return false;
           const item = getItem(target);
           const isSpecial = this.document.getFlag(ryuutama.id, "specialAbility") === item.id;
           return (item.type === "skill") && !isSpecial;
         },
-        callback: target => {
+        onClick: target => {
           const item = getItem(target);
           this.document.setFlag(ryuutama.id, "specialAbility", item.id);
         },
       },
       {
         group: "system",
-        name: "RYUUTAMA.ACTOR.CONTEXT.ITEM.castSpell",
+        label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.castSpell",
         icon: "fa-solid fa-fw fa-book",
-        condition: target => {
+        visible: target => {
           const item = getItem(target);
           return (typeof this.document.system.castSpell === "function") && (item.type === "spell");
         },
-        callback: target => {
+        onClick: target => {
           this.document.system.castSpell(getItem(target));
         },
       },
     ];
-
-    if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));
     return options;
   }
 
@@ -286,31 +284,29 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
     /** @type {ContextMenuEntry[]} */
     const options = [
       {
-        name: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.edit",
+        label: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.edit",
         icon: "fa-solid fa-fw fa-edit",
-        callback: target => getItem(target).sheet.render({ force: true }),
+        onClick: target => getItem(target).sheet.render({ force: true }),
       },
       {
-        name: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.delete",
+        label: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.delete",
         icon: "fa-solid fa-fw fa-trash",
-        callback: target => getItem(target).deleteDialog(),
-        condition: target => (getItem(target).parent === this.document) && this.isEditable,
+        onClick: target => getItem(target).deleteDialog(),
+        visible: target => (getItem(target).parent === this.document) && this.isEditable,
       },
       {
-        name: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.disable",
+        label: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.disable",
         icon: "fa-solid fa-fw fa-times",
-        callback: target => getItem(target).update({ disabled: true }),
-        condition: target => this.isEditable && !getItem(target).disabled,
+        onClick: target => getItem(target).update({ disabled: true }),
+        visible: target => this.isEditable && !getItem(target).disabled,
       },
       {
-        name: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.enable",
+        label: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.enable",
         icon: "fa-solid fa-fw fa-check",
-        callback: target => getItem(target).update({ disabled: false }),
-        condition: target => this.isEditable && getItem(target).disabled,
+        onClick: target => getItem(target).update({ disabled: false }),
+        visible: target => this.isEditable && getItem(target).disabled,
       },
     ];
-
-    if (game.release.generation < 14) return options.map(k => ({ ...k, icon: `<i class="${k.icon}"></i>` }));
     return options;
   }
 
