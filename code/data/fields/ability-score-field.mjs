@@ -80,6 +80,21 @@ export default class AbilityScoreField extends NumberField {
   /* -------------------------------------------------- */
 
   /** @override */
+  _applyChangeSubtract(value, delta, model, change) {
+    if (![-1, 1].includes(delta)) return value;
+
+    const options = this.BASE_OPTIONS;
+    if (delta === 1) options.reverse();
+
+    const index = options.indexOf(value);
+    if (index === -1) return 4;
+
+    return options[index + 1] ?? options.at(-1);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
   _applyChangeOverride(value, delta, model, change) {
     if (!this.VALUES.includes(delta)) return value;
     return delta;
