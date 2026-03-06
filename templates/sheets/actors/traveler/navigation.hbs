@@ -1,4 +1,24 @@
 <section>
+  {{!-- EXPERIENCE --}}
+  <section class="experience">
+    {{#if exp.hasAction}}
+    <a class="level" data-action="advance">
+      <span>{{exp.label}}</span>
+      {{#if exp.isMax}}
+      <i class="fa-solid fa-arrow-up" inert></i>
+      {{/if}}
+    </a>
+    {{else}}
+    <span class="level">
+      <span>{{exp.label}}</span>
+    </span>
+    {{/if}}
+    </span>
+    {{#with document.system.details.exp}}
+    <progress-bar data-name="system.details.exp.value" class="numeric-display exp" id="{{@root.rootId}}-exp" data-input data-value="{{value}}" data-pct="{{pct}}" data-label="{{value}} / {{max}}"></progress-bar>
+    {{/with}}
+  </section>
+
   {{!-- NAVIGATION --}}
   <section class="accented-tabs main-tabs">
     {{> "templates/generic/tab-navigation.hbs" tabs=tabs}}

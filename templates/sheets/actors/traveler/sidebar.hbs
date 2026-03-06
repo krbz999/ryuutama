@@ -78,29 +78,6 @@
       <input type="text" name="system.fumbles.value" value="{{fumbles.value}}" class="delta value" placeholder="0">
       <a data-action="adjustFumbles" class="fa-solid fa-fw fa-plus" data-direction="UP" {{disabled fumbles.disableUp}}></a>
     </section>
-
-    {{!-- EXP --}}
-    {{#unless exp.hideBar}}
-    <section class="experience label-progress">
-      {{#if exp.button}}
-      <a class="exp-level" data-action="advance" data-tooltip-text="{{exp.tooltip}}" {{disabled (not editable)}}>
-        {{#if exp.arrow}}<i class="fa-solid fa-fw fa-arrow-up" inert></i>
-        {{else}}<span>{{exp.tag}}</span>
-        {{/if}}
-      </a>
-      {{else}}
-      <span class="exp-level" data-tooltip-text="{{exp.tooltip}}">{{exp.tag}}</span>
-      {{/if}}
-
-      {{#if exp.hideBar}}
-      <span></span>
-      {{else}}
-      {{#with document.system.details.exp}}
-      <progress-bar data-name="system.details.exp.value" class="numeric-display exp" id="{{@root.rootId}}-exp" data-input data-value="{{value}}" data-pct="{{pct}}" data-label="{{value}} / {{max}}"></progress-bar>
-      {{/with}}
-      {{/if}}
-    </section>
-    {{/unless}}
   </section>
 
   {{!-- EQUIPPED --}}

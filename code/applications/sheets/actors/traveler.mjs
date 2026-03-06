@@ -419,11 +419,10 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     const exp = this.document.system.details.exp;
     return {
       ...exp,
-      arrow: exp.pct === 100,
-      button: !context.disabled && context.isInteractive && (level < 10),
-      hideBar: level === 10,
-      tag: level,
-      tooltip: _loc("RYUUTAMA.ACTOR.TAGS.level", { level }),
+      level,
+      hasAction: context.isInteractive && (level < 10),
+      isMax: exp.pct === 100,
+      label: _loc("RYUUTAMA.ACTOR.TRAVELER.level", { level }),
     };
   }
 

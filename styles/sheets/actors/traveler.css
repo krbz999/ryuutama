@@ -9,7 +9,7 @@
   &:not(.minimizing, .maximizing, .minimized) {
     min-width: var(--min-width);
     min-height: var(--min-height);
-    --header-height: 10rem;
+    --header-height: 5rem;
 
     .window-header {
       padding: .35rem .5rem;
@@ -255,25 +255,6 @@
       }
     }
 
-    .experience {
-      display: grid;
-      grid-template-columns: 2rem 1fr;
-
-      .exp-level {
-        mask: url("/systems/ryuutama/assets/icons/hexagon.svg") no-repeat;
-        background: var(--c-accent);
-        height: 2rem;
-        width: 2rem;
-        place-content: center;
-        text-align: center;
-        color: var(--ryuutama-color-black);
-      }
-
-      progress-bar.exp {
-        border-color: var(--c-accent);
-      }
-    }
-
     .abilities {
       --ryuutama-color-stats: transparent;
       display: grid;
@@ -319,13 +300,25 @@
     grid-area: navigation;
     margin-top: var(--header-height);
 
-    .classes {
-      display: flex;
-      gap: .5rem;
-      margin-bottom: .5rem;
+    .experience {
+      display: grid;
+      margin: 0 2rem 2rem 2rem;
+      width: min(30rem, 80%);
 
-      .banner-label {
-        flex: 1;
+      .level {
+        border: 1px solid var(--c-accent);
+        border-bottom: none;
+        border-radius: 3px 3px 0 0;
+        width: fit-content;
+        margin-left: .5rem;
+        padding: .1rem .5rem;
+        background: var(--c-primary);
+      }
+
+      progress-bar.exp {
+        border-color: var(--c-accent);
+        font-size: 10px;
+        color: white;
       }
     }
   }
@@ -620,7 +613,8 @@
   .fumbles ryuutama-icon,
   .defense-icon,
   .filters search .controls,
-  .gold > label {
+  .gold > label,
+  .experience {
     filter: drop-shadow(0 0 var(--shadow-spread, .1rem) var(--ryuutama-color-shadow-black));
   }
 
