@@ -146,6 +146,7 @@
         "incantationLearned": "Learned Incantation Spells",
         "incantationSpells": "Incantations",
         "initiative": "Initiative: {value}",
+        "level": "Level {level}",
         "seasonAffinity": "Affinity",
         "shieldDodge": "Shield Dodge Value: {value}"
       },
@@ -184,7 +185,6 @@
       "TAGS": {
         "category": "Category: {category}",
         "dragonica": "Dragonica No. {number}",
-        "level": "Level {level}",
         "masteredWeapon": "Mastered Weapon: {weapon}",
         "season": "Season: {season}",
         "specialtyTerrain": "Terrain Specialty: {terrain}",

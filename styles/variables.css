@@ -38,6 +38,7 @@
   --ryuutama-color-resource-stamina-negative: var(--ryuutama-color-indianred);
   --ryuutama-color-resource-mental: var(--ryuutama-color-darkblue);
   --ryuutama-color-resource-default: var(--ryuutama-color-black);
+  --ryuutama-color-exp: rgb(67, 67, 160);
 
   --ryuutama-color-statuses-body: var(--ryuutama-color-mediumvioletred);
   --ryuutama-color-statuses-mind: var(--ryuutama-color-steelblue-light);

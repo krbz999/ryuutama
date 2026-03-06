@@ -73,7 +73,7 @@ progress-bar {
     }
   }
   &.exp {
-    --color: var(--c-secondary);
+    --color: var(--ryuutama-color-exp);
   }
 }
 
