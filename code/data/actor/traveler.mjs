@@ -23,7 +23,7 @@ export default class TravelerData extends CreatureData {
         notes: new HTMLField(),
       }),
       capacity: new SchemaField({
-        bonus: new NumberField({ initial: 0 }),
+        bonus: new NumberField({ initial: 0, integer: true, min: 0 }),
       }, { persisted: false }),
       details: new SchemaField({
         color: new ColorField(),
@@ -33,7 +33,10 @@ export default class TravelerData extends CreatureData {
         level: new NumberField({ nullable: false, integer: true, initial: 0, min: 0, max: 10 }),
         type: new SchemaField(
           Object.keys(ryuutama.config.travelerTypes)
-            .reduce((acc, type) => Object.assign(acc, { [type]: new NumberField({ initial: 0 }) }), {}),
+            .reduce(
+              (acc, type) => Object.assign(acc, { [type]: new NumberField({ initial: 0, min: 0, integer: true }) }),
+              {},
+            ),
           { persisted: false }),
       }),
       equipped: new SchemaField({
@@ -56,6 +59,7 @@ export default class TravelerData extends CreatureData {
         seasons: new SetField(new StringField()),
       }, { persisted: false }),
       mastered: new SchemaField({
+        dragonFavor: new StringField({ required: true, choices: () => ryuutama.config.seasons, blank: true }),
         terrain: new SetField(new StringField()),
         weapons: new SetField(new StringField()),
         weather: new SetField(new StringField()),
@@ -67,6 +71,12 @@ export default class TravelerData extends CreatureData {
       shape: new SchemaField({
         high: new StringField({ required: true, blank: true, choices: () => ryuutama.config.abilityScores }),
       }),
+    });
+
+    ["stamina", "mental"].forEach(r => {
+      schema.resources.get(r).extendFields({
+        advancement: new NumberField({ initial: 0, persisted: false, integer: true, min: 0 }),
+      });
     });
 
     return schema;
@@ -288,9 +298,6 @@ export default class TravelerData extends CreatureData {
       const src = this._source.resources[key];
 
       resource.typeBonus = typeBonus;
-      resource.advancement = this.advancements.documentsByType.resource
-        .reduce((acc, advancement) => acc + advancement.choice.chosen[key], 0);
-
       resource.max = src.max
         + resource.bonuses.flat
         + resource.gear
@@ -404,35 +411,49 @@ export default class TravelerData extends CreatureData {
     }
     actor._advancing = true;
 
-    const results = await ryuutama.applications.apps.AdvancementDialog.create(actor, { level: level + 1 });
+    const results = await ryuutama.applications.apps.AdvancementDialog.create({ actor, level: level + 1 });
     if (!results) {
       delete actor._advancing;
       return null;
     }
 
-    const actorUpdate = {};
-    const itemData = [];
-    const itemUpdates = [];
-    for (const { result, type } of results) {
-      switch (type) {
-        case "advancement":
-          await ryuutama.data.advancement.Advancement.create(result.toObject(), { parent: actor, advancement: true });
-          break;
-        case "actor":
-          foundry.utils.mergeObject(actorUpdate, result);
-          break;
-        case "items":
-          itemData.push(...result);
-          break;
-        case "itemUpdates":
-          itemUpdates.push(...result);
-          break;
+    const nodes = [];
+    const gather = n => {
+      if (!n) return;
+      for (const node of n) {
+        nodes.push(node);
+        if (node.selected) gather(node.children);
       }
-    }
+    };
+    gather(results);
 
-    foundry.utils.setProperty(actorUpdate, "system.details.level", level + 1);
-    await actor.update(actorUpdate, { advancement: true });
-    await actor.createEmbeddedDocuments("Item", itemData, { keepId: true, advancement: true });
+    let { Item: items, ActiveEffect: effects } = (await Promise.all(nodes.map(node => node._toData())))
+      .reduce((acc, d) => {
+        if (d) acc[d.type].push(d.data);
+        return acc;
+      }, { ActiveEffect: [], Item: [] });
+    effects.forEach(e => e.system.level = level + 1);
+
+    // Updates to existing items.
+    const itemUpdates = [];
+
+    // Items with the same type and identifier as an existing item should not be created.
+    items = items.filter(itemData => {
+      const id = itemData.system.identifier || ryuutama.utils.createDefaultIdentifier(itemData.name);
+      const existing = actor.items.documentsByType[itemData.type].find(item => item.identifier === id);
+      if (!existing) return true;
+      if (itemData.type === "class") {
+        // Class items should be upgraded.
+        itemUpdates.push({ _id: existing.id, "system.tier": existing.system.tier + 1 });
+      }
+      return false;
+    });
+
+    const update = {};
+    foundry.utils.setProperty(update, "system.details.level", level + 1);
+    await actor.update(update, { advancement: true });
+    await actor.createEmbeddedDocuments("ActiveEffect", effects, { advancement: true });
+    await actor.createEmbeddedDocuments("Item", items, { advancement: true });
     await actor.updateEmbeddedDocuments("Item", itemUpdates, { advancement: true });
 
     delete actor._advancing;

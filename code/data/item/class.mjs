@@ -84,5 +84,8 @@ export default class ClassData extends BaseData {
     if (!this.identifier) {
       this.parent.updateSource({ "system.identifier": ryuutama.utils.createDefaultIdentifier(this.parent.name) });
     }
+
+    // Reset tier.
+    if (!this.parent.isEmbedded) this.parent.updateSource({ "system.tier": 1 });
   }
 }

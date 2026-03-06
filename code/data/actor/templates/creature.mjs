@@ -28,7 +28,7 @@ export default class CreatureData extends BaseData {
     };
 
     const statuses = Object.keys(ryuutama.config.statusEffects).reduce((acc, s) => {
-      acc[s] = new NumberField({ persisted: false, initial: null });
+      acc[s] = new NumberField({ initial: 0, min: 0, integer: true });
       return acc;
     }, {});
 
@@ -171,9 +171,7 @@ export default class CreatureData extends BaseData {
     for (const [id, { _id }] of Object.entries(ryuutama.config.statusEffects)) {
       const effect = this.parent.effects.get(_id);
       const { value: strength, bypass } = effect?.system.strength ?? {};
-      statuses[id] = (!effect || (!bypass && (strength < condition)) || immunities.has(id))
-        ? null
-        : strength;
+      statuses[id] = (!effect || (!bypass && (strength < condition)) || immunities.has(id)) ? null : strength;
     }
   }
 

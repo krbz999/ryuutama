@@ -1,13 +1,11 @@
-import AdvancementChain from "../../utils/advancement/chain.mjs";
-
 /**
+ * @import Node from "../../data/advancement/components/node.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
- * @import Advancement from "../../data/advancement/advancement.mjs";
  */
 
-const { Application, HandlebarsApplicationMixin } = foundry.applications.api;
+const { Application } = foundry.applications.api;
 
-export default class AdvancementDialog extends HandlebarsApplicationMixin(Application) {
+export default class AdvancementDialog extends Application {
   /** @override */
   static DEFAULT_OPTIONS = {
     classes: ["advancement-dialog"],
@@ -15,33 +13,17 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     form: {
       submitOnChange: false,
       closeOnSubmit: true,
-      handler: AdvancementDialog.#onSubmit,
+      handler: AdvancementDialog.#submit,
     },
-    window: {
-      contentClasses: ["standard-form"],
-    },
+    window: {},
     position: {
       width: 580,
       height: "auto",
     },
     actions: {},
     actor: null,
-    chain: null,
     level: null,
-  };
-
-  /* -------------------------------------------------- */
-
-  /** @override */
-  static PARTS = {
-    advancements: {
-      template: "systems/ryuutama/templates/apps/advancement-dialog/advancements.hbs",
-      classes: ["scrollable"],
-      scrollable: [""],
-    },
-    footer: {
-      template: "templates/generic/form-footer.hbs",
-    },
+    nodes: null,
   };
 
   /* -------------------------------------------------- */
@@ -57,34 +39,18 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------------- */
 
   /**
-   * @type {Record<string, typeof Advancement>}
+   * A clone of the actor used as reference for the progress.
+   * @type {RyuutamaActor}
    */
-  get advancementClasses() {
-    const types = ryuutama.config.advancement[this.options.level];
-    const classes = {};
-    for (const type of types) {
-      const Cls = ryuutama.data.advancement.Advancement.documentConfig[type];
-      if (Cls) classes[type] = Cls;
-      else console.warn(`The type '${type}' is not a valid Advancement subclass.`);
-    }
-    return classes;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * The internal advancement chain.
-   * @type {AdvancementChain}
-   */
-  get chain() {
-    return this.options.chain;
+  get clone() {
+    return this.actor.clone({}, { keepId: true });
   }
 
   /* -------------------------------------------------- */
 
   /**
    * The data that will be submitted.
-   * @type {object[]|null}
+   * @type {Node[]|null}
    */
   #config = null;
   get config() {
@@ -103,67 +69,71 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
-  async _prepareContext(options) {
-    const context = await super._prepareContext(options);
-    context.actor = this.actor;
-    return context;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _preparePartContext(partId, context, options) {
-    context = await super._preparePartContext(partId, context, options);
-
-    switch (partId) {
-      case "footer":
-        context.buttons = [{
-          label: "Confirm", icon: "fa-solid fa-check", type: "submit", disabled: !this.chain.isConfigured,
-        }];
-        break;
-      case "advancements":
-        context.advancementIds = options.parts.filter(part => !["footer", "advancements"].includes(part));
-        break;
-      default:
-        // It is assumed that the part id is equal to a node's id.
-        await this.chain.get(partId).advancement._prepareAdvancementContext(context, options);
-        break;
-    }
-
-    context.rootId = [this.id, partId].join("-");
-    return context;
-  }
-
-  /* -------------------------------------------------- */
-
   /** @override */
-  _configureRenderParts(options) {
-    let parts = {};
+  async _prepareContext(options) {
+    for (const node of this.options.nodes) await node.setupChoices();
+    const roots = this.options.nodes;
 
-    for (const nodes of this.chain.nodes.values()) {
-      for (const node of nodes) {
-        const id = node.id;
-        parts[id] = {
-          id,
-          template: node.advancement.constructor.CONFIGURE_TEMPLATE,
-          classes: ["standard-form", "advancement"],
-          forms: {
-            form: {
-              submitOnChange: true,
-              closeOnSubmit: false,
-            },
-          },
-        };
+    // Utility method to iterate through the node tree.
+    const loop = (acc, nodes) => {
+      if (!nodes) return acc;
+      for (const n of nodes) {
+        acc.push(n);
+        if (n.selected) loop(acc, n.children);
+      }
+      return acc;
+    };
+
+    // Whether the submit button is disabled.
+    let configured = true;
+
+    const elements = [];
+    const nodes = [];
+    for (const node of roots) {
+      const html = node._toHTML();
+      const header = foundry.utils.parseHTML(`<h4>${node.label}</h4>`);
+      const frame = foundry.utils.parseHTML("<section></section>");
+      frame.insertAdjacentElement("afterbegin", header);
+      frame.insertAdjacentElement("beforeend", html);
+
+      node._addEventListeners(this, html);
+      elements.push(frame);
+
+      configured = configured && node.isConfigured;
+      nodes.push(node);
+
+      const children = loop([], node.children);
+      for (const c of children) {
+        const h = c._toHTML();
+        c._addEventListeners(this, h);
+        frame.insertAdjacentElement("beforeend", h);
+        configured = configured && c.isConfigured;
+        nodes.push(c);
       }
     }
 
-    parts = { ...super._configureRenderParts(options), ...parts };
-    if (!options.isFirstRender) {
-      delete parts.advancements;
-      delete parts.footer;
+    if (configured) {
+      // Iterate through same-type nodes to determine disabled state.
+      const types = ryuutama.data.advancement.components.Node.TYPES;
+      const grouped = Object.groupBy(nodes, node => {
+        const Cls = node.constructor;
+        const type = Object.entries(types).find(e => e[1] === Cls)[0];
+        return type;
+      });
+      for (const [type, nodes] of Object.entries(grouped)) {
+        if (!configured || (nodes.length < 2)) continue;
+        // Safe to filter here cus unconfigured nodes have already done their job.
+        const values = nodes.map(n => n.selected?.value).filter(_ => _);
+        configured = configured && (values.length === new Set(values).size);
+      }
     }
-    return parts;
+
+    return {
+      elements,
+      nodes,
+      roots,
+      disabled: !configured,
+    };
   }
 
   /* -------------------------------------------------- */
@@ -179,115 +149,58 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /** @override */
   _replaceHTML(result, content, options) {
-    if (options.isFirstRender) return super._replaceHTML(result, content, options);
-    content = this.element.querySelector("[data-application-part=advancements]");
-    return super._replaceHTML(result, content, options);
+    content.replaceChildren(...result);
   }
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
-  async _preRender(context, options) {
-    await super._preRender(context, options);
-    if (!options.isFirstRender) {
-      for (const form of this.element.querySelectorAll("form.advancement")) {
-        const node = this.chain.get(form.dataset.applicationPart);
-        if (!node) form.remove();
-      }
-    }
+  /** @override */
+  async _renderHTML(context, options) {
+    const { disabled, elements } = context;
+
+    const footer = foundry.utils.parseHTML(`
+      <footer class="form-footer">
+        <button type="submit">${_loc("RYUUTAMA.ADVANCEMENT.confirm")}</button>
+      </footer>`,
+    );
+    footer.querySelector("[type=submit]").disabled = disabled;
+    elements.push(footer);
+
+    return elements;
   }
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
-  async _onRender(context, options) {
-    await super._onRender(context, options);
-
-    for (const form of this.element.querySelectorAll("form.advancement:not([data-order])")) {
-      const node = this.chain.get(form.dataset.applicationPart);
-      form.style.setProperty("order", node.index);
-      form.dataset.order = node.index;
-    }
-
-    for (const input of this.element.querySelectorAll("input[type=number], input[type=text].delta")) {
-      input.addEventListener("focus", () => input.select());
-      if (input.classList.contains("delta")) {
-        input.addEventListener("change", () => ryuutama.utils.parseInputDelta(input, this.document));
-      }
-    }
-
-    if (!options.isFirstRender) this.element.querySelector("button[type=submit]").disabled = !this.chain.isConfigured;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _onChangeForm(formConfig, event) {
-    super._onChangeForm(formConfig, event);
-    if (event.currentTarget.id === this.element.id) return;
-
-    const form = event.currentTarget;
-    const partId = form.dataset.applicationPart;
-
-    // It is assumed the part id is equal to the node's id.
-    const node = this.chain.get(partId);
-    if (!node) {
-      throw new Error(`No node was found for part [${partId}].`);
-    }
-
-    const formData = new foundry.applications.ux.FormDataExtended(form);
-    node.advancement.updateSource(foundry.utils.expandObject(formData.object));
-    await node._initializeLeafNodes();
-
-    // Re-render this specific part as well as all parts of descendant nodes that are not rendered.
-    const parts = [node.id];
-    for (const n of node.descendants()) {
-      if (!this.element.querySelector(`[data-application-part="${n.id}"]`)) parts.push(n.id);
-    }
-    this.render({ parts });
+  /**
+   * @this AdvancementDialog
+   */
+  static #submit() {
+    this.#config = this.options.nodes;
   }
 
   /* -------------------------------------------------- */
 
   /**
    * Create an instance of this application the result of which can be awaited.
-   * @param {RyuutamaActor} actor         The actor advancing.
-   * @param {object} [options={}]
-   * @param {number} [options.level]      The level to which the actor is advancing.
-   * @returns {Promise<object[]|null>}    A promise that resolves to data used for advancement injection,
-   *                                      or `null` if the dialog was cancelled.
+   * @param {object} options
+   * @param {RyuutamaActor} options.actor   The actor advancing.
+   * @param {number} [options.level]          The level to which the actor is advancing.
+   * @returns {Promise<object[]|null>}      A promise that resolves to data used for advancement injection,
+   *                                        or `null` if the dialog was cancelled.
    */
-  static async create(actor, { level } = {}) {
+  static async create({ actor, level }) {
     level ??= actor.system.details.level + 1;
-
-    const chain = new AdvancementChain(actor, level);
-    await chain.initializeRoots();
+    const nodes = [];
+    for (const type of ryuutama.config.advancement[level]) {
+      const Cls = ryuutama.data.advancement.components.Node.TYPES[type];
+      nodes.push(new Cls({ actor }));
+    }
 
     const { promise, resolve } = Promise.withResolvers();
-    const application = new this({ actor, chain, level });
+    const application = new this({ actor, level, nodes });
+
     application.addEventListener("close", () => resolve(application.config), { once: true });
     application.render({ force: true });
     return promise;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Submit the form.
-   * @this AdvancementDialog
-   */
-  static async #onSubmit() {
-    if (!this.chain.isConfigured) {
-      this.#config = null;
-      return;
-    }
-
-    this.#config = [];
-    for (const nodes of this.chain.nodes.values()) {
-      for (const node of nodes) {
-        const results = await node.advancement._getAdvancementResults(this.actor);
-        this.#config.push(...results);
-      }
-    }
   }
 }

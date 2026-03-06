@@ -1,7 +1,78 @@
 .ryuutama.advancement-dialog {
-  [data-application-part=advancements] {
+  .resource-increase {
     display: flex;
-    flex-direction: column;
-    gap: 1em;
+    justify-content: center;
+    gap: .5rem;
+
+    a[data-choice] {
+      background: var(--c);
+      height: 2rem;
+      width: 2rem;
+      display: block;
+      text-align: center;
+      place-content: center;
+
+      &:not(.active) {
+        opacity: .5;
+      }
+
+      &.hp {
+        --c: var(--ryuutama-color-resource-stamina);
+      }
+      &.mp {
+        --c: var(--ryuutama-color-resource-mental);
+      }
+
+      &:first-of-type {
+        border-radius: 50% 0 0 50%;
+      }
+      &:last-of-type {
+        border-radius: 0 50% 50% 0;
+      }
+    }
+  }
+
+  h4:not(:first-child) {
+    margin-top: 1rem;
+  }
+
+  .class-list,
+  .mastered-weapon,
+  .traveler-type,
+  .spell-category,
+  .stat-increase,
+  .habitat-weather,
+  .habitat-terrain,
+  .status-immunity,
+  .dragon-favor {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: .5rem;
+
+    [data-choice] {
+      opacity: .5;
+      fill: transparent;
+      transition: all 200ms ease-out;
+      --ryuutama-color-archetype: transparent;
+      --ryuutama-color-stats: transparent;
+      flex: 0 0 4rem;
+
+      &.active,
+      &:hover {
+        opacity: 1;
+        filter: drop-shadow(0 0 .5rem var(--ryuutama-color-palevioletred));
+      }
+
+      &[disabled] {
+        opacity: .5;
+        filter: none;
+      }
+    }
+  }
+
+  .class-list [data-choice] {
+    flex: 0 0 7rem;
   }
 }

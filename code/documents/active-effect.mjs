@@ -61,4 +61,12 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
     if (!data.type || (data.type === "base")) data.type = "standard";
     return super._initializeSource(data, options);
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _displayScrollingStatus(enabled) {
+    if (this.system.scrollingText === false) return;
+    return super._displayScrollingStatus(enabled);
+  }
 }

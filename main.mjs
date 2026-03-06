@@ -49,6 +49,7 @@ Hooks.once("init", () => {
   Hooks.on("openDetachedWindow", (id, window) => defineElements(window));
 
   CONFIG.ActiveEffect.documentClass = documents.RyuutamaActiveEffect;
+  CONFIG.ActiveEffect.dataModels.advancement = data.effect.AdvancementData;
   CONFIG.ActiveEffect.dataModels.standard = data.effect.StandardData;
   CONFIG.ActiveEffect.dataModels.status = data.effect.StatusData;
 

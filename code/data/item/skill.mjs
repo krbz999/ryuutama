@@ -79,6 +79,9 @@ export default class SkillData extends BaseData {
     if (!this.identifier) {
       this.parent.updateSource({ "system.identifier": ryuutama.utils.createDefaultIdentifier(this.parent.name) });
     }
+
+    // Remove origin class.
+    if (!this.parent.isEmbedded) this.parent.updateSource({ [`flags.${ryuutama.id}.originClass`]: _del });
   }
 
   /* -------------------------------------------------- */

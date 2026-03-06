@@ -67,6 +67,7 @@
   },
   "documentTypes": {
     "ActiveEffect": {
+      "advancement": {},
       "standard": {},
       "status": {}
     },

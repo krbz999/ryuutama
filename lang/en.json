@@ -5,6 +5,7 @@
   },
   "TYPES": {
     "ActiveEffect": {
+      "advancement": "Advancement",
       "standard": "Standard Effect",
       "standardPl": "Standard Effects",
       "status": "Status Effect",
@@ -183,6 +184,7 @@
       },
       "TAGS": {
         "category": "Category: {category}",
+        "dragonFavor": "Favor of the Seasonal Dragons: {season}",
         "dragonica": "Dragonica No. {number}",
         "level": "Level {level}",
         "masteredWeapon": "Mastered Weapon: {weapon}",
@@ -270,6 +272,23 @@
         "title": "Configure {ability}: {name}",
         "base": "Base Value"
       }
+    },
+    "ADVANCEMENT": {
+      "chooseHabitatType": "Choose Type",
+      "class": "Class",
+      "classSkill": "Class Skill",
+      "confirm": "Confirm Advancement",
+      "dragonFavor": "Favor of the Seasonal Dragons",
+      "habitat": "Habitat",
+      "masteredWeapon": "Mastered Weapon",
+      "resourceIncrease": "Resource Increase",
+      "resourceIncreaseLabel": "+{hp} HP & +{mp} MP",
+      "seasonalMagicCategory": "Seasonal Magic Category",
+      "statIncrease": "Stat Increase",
+      "statusEffectImmunity": "Status Effect Immunity",
+      "terrainSpecialty": "Terrain Specialty",
+      "travelerType": "Type",
+      "weatherSpecialty": "Weather Specialty"
     },
     "ATTACK": {
       "title": "Configure Attack: {name}"

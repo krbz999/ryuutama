@@ -1,5 +1,6 @@
-export { default as Advancement } from "./advancement.mjs";
+export * as components from "./components/_module.mjs";
 
+export { default as Advancement } from "./advancement.mjs";
 export { default as ClassAdvancement } from "./class.mjs";
 export { default as HabitatAdvancement } from "./habitat.mjs";
 export { default as ResourceAdvancement } from "./resource.mjs";
