@@ -30,7 +30,7 @@ export default class StatusImmunityAdvancement extends Advancement {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PSEUDO.ADVANCEMENT.STATUS",
+    "RYUUTAMA.ADVANCEMENT.STATUS_IMMUNITY",
   ];
 
   /* -------------------------------------------------- */
