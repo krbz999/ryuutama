@@ -59,7 +59,7 @@ export default class WeaponAdvancement extends Advancement {
    * @returns {boolean}
    */
   #sameWeaponChoice(type) {
-    return this.chain.nodes.values().some(node => {
+    return this.chain.nodes(true).some(node => {
       const a = node.advancement;
       return (a.type === "weapon") && (a !== this) && (a.choice.chosen === type);
     });

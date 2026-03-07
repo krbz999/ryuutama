@@ -50,7 +50,7 @@ export default class AdvancementChain {
    * @type {boolean}
    */
   get isConfigured() {
-    return this.nodes.values().every(node => node.isConfigured);
+    return this.nodes().every(node => node.isConfigured);
   }
 
   /* -------------------------------------------------- */
@@ -68,12 +68,9 @@ export default class AdvancementChain {
 
   /**
    * Nodes in the chain.
-   * @type {Map<string, AdvancementNode>}
+   * @type {Set<AdvancementNode>}
    */
-  #nodes = new Map();
-  get nodes() {
-    return this.#nodes;
-  }
+  roots = new Set();
 
   /* -------------------------------------------------- */
 
@@ -86,8 +83,8 @@ export default class AdvancementChain {
     const types = ryuutama.config.advancement[this.level];
     for (const type of types) {
       const node = new AdvancementNode({ type, chain: this });
-      this.addNode(node);
-      await node._initializeLeafNodes();
+      this.#addNode(node);
+      if (node.isConfigured) await node._initializeLeafNodes();
     }
     this.#initialized = true;
   }
@@ -95,34 +92,31 @@ export default class AdvancementChain {
   /* -------------------------------------------------- */
 
   /**
-   * Add a node.
+   * Add a root node.
    * @param {AdvancementNode} node
    */
-  addNode(node) {
-    this.#nodes.set(node.id, node);
+  #addNode(node) {
+    this.roots.add(node);
   }
 
   /* -------------------------------------------------- */
 
   /**
-   * Remove a node.
-   * @param {AdvancementNode} node
-   */
-  removeNode(node) {
-    const has = this.nodes.has(node.id);
-    if (!has) throw new Error("Node not found in Chain nodes map.");
-    this.nodes.delete(node.id);
-    node.children.forEach(node => this.removeNode(node));
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Retrieve a node by its id.
+   * Retrieve a root node by its id.
    * @type {string}
    * @returns {AdvancementNode|null}
    */
   get(nodeId) {
-    return this.nodes.get(nodeId) ?? null;
+    return this.nodes().find(node => node.id === nodeId) ?? null;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @override */
+  * nodes(activeOnly = false) {
+    for (const root of this.roots) {
+      yield root;
+      for (const node of root.descendants(activeOnly)) yield node;
+    }
   }
 }

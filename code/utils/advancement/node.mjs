@@ -8,10 +8,18 @@
  * A node of an advancement chain.
  */
 export default class AdvancementNode {
+  /**
+   * A node of an advancement chain.
+   * @param {object} config
+   * @param {AdvancementChain} config.chain
+   * @param {string} config.type
+   * @param {AdvancementNode} [config.parent]
+   */
   constructor({ chain, type, parent = null }) {
     this.#chain = chain;
     this.#type = type;
     this.#parent = parent;
+    parent?.children.add(this);
 
     this.initializeNode();
   }
@@ -52,11 +60,9 @@ export default class AdvancementNode {
 
   /**
    * Advancement nodes that have this node as a parent.
-   * @type {AdvancementNode[]}
+   * @type {Set<AdvancementNode>}
    */
-  get children() {
-    return this.chain.nodes.values().filter(node => node.parent === this);
-  }
+  children = new Set();
 
   /* -------------------------------------------------- */
 
@@ -83,6 +89,14 @@ export default class AdvancementNode {
   get id() {
     return this.#advancement.id;
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Has this node been initialized?
+   * @type {boolean}
+   */
+  _initialized = false;
 
   /* -------------------------------------------------- */
 
@@ -133,6 +147,9 @@ export default class AdvancementNode {
    * @returns {Advancement}
    */
   initializeNode() {
+    if (this._initialized) {
+      throw new Error("You cannot re-initialize a node.");
+    }
     const Cls = ryuutama.data.advancement.Advancement.documentConfig[this.type];
     const advancement = new Cls({ level: this.level, type: this.type }, {
       chain: this.chain,
@@ -140,6 +157,7 @@ export default class AdvancementNode {
       parent: this.actor,
     });
     this.#advancement = advancement;
+    this._initialized = true;
     return this.advancement;
   }
 
@@ -150,36 +168,29 @@ export default class AdvancementNode {
    * @returns {Promise<void>}
    */
   async _initializeLeafNodes() {
-    const children = this.children;
-    const types = await this.advancement._getChildTypes();
-    for (const type of types) {
-      // Child already exists, do nothing.
-      const child = children.find(child => child.type === type);
-      if (child) {
-        children.splice(children.indexOf(child), 1);
-        continue;
-      }
-
-      // Create new child (and its children).
+    this.children.clear();
+    if (!this.isConfigured) return;
+    for (const type of await this.advancement._getChildTypes()) {
+      /** @type {AdvancementNode} */
       const node = new this.constructor({ type, chain: this.chain, parent: this });
-      this.chain.addNode(node);
+      this.children.add(node);
       await node._initializeLeafNodes();
     }
-
-    // Remove no-longer valid children.
-    for (const node of children) this.chain.removeNode(node);
   }
 
   /* -------------------------------------------------- */
 
   /**
    * Traverse descendant nodes.
+   * @param {boolean} [activeOnly]    Only yield initialized nodes?
    * @yields {AdvancementNode}
    */
-  * descendants() {
+  * descendants(activeOnly = false) {
     for (const child of this.children) {
-      yield child;
-      yield* child.descendants();
+      if (!activeOnly || child._initialized) {
+        yield child;
+        yield* child.descendants(activeOnly);
+      }
     }
   }
 }

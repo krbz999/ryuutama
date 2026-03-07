@@ -141,7 +141,8 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   _configureRenderParts(options) {
     let parts = {};
 
-    this.chain.nodes.forEach(node => {
+    const makePart = node => {
+      if (!node._initialized) return;
       const id = node.id;
       parts[id] = {
         id,
@@ -154,7 +155,9 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
           },
         },
       };
-    });
+    };
+
+    for (const node of this.chain.nodes(true)) makePart(node);
 
     parts = { ...super._configureRenderParts(options), ...parts };
     if (!options.isFirstRender) {
@@ -260,7 +263,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     }
 
     this.#config = [];
-    for (const node of this.chain.nodes.values()) {
+    for (const node of this.chain.nodes(true)) {
       const results = await node.advancement._getAdvancementResults(this.actor);
       this.#config.push(...results);
     }
