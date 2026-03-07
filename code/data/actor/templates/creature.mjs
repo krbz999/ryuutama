@@ -137,7 +137,7 @@ export default class CreatureData extends BaseData {
   _onUpdate(changed, options, userId) {
     super._onUpdate(changed, options, userId);
 
-    if (options[ryuutama.id]?.hp?.[this.parent.uuid]) {
+    if (this.parent.uuid in (options[ryuutama.id]?.hp ?? {})) {
       const delta = options[ryuutama.id].hp[this.parent.uuid] - this.resources.stamina.spent;
       CreatureData.#displayScrollingDamageNumbers(this.parent, delta);
     }
