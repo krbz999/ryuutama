@@ -50,12 +50,7 @@ export default class AdvancementChain {
    * @type {boolean}
    */
   get isConfigured() {
-    for (const nodes of this.nodes.values()) {
-      for (const node of nodes) {
-        if (!node.isConfigured) return false;
-      }
-    }
-    return true;
+    return this.nodes.values().every(node => node.isConfigured);
   }
 
   /* -------------------------------------------------- */
@@ -72,8 +67,8 @@ export default class AdvancementChain {
   /* -------------------------------------------------- */
 
   /**
-   * Nodes in the chain, categorized by the advancement type.
-   * @type {Map<string, AdvancementNode[]>}
+   * Nodes in the chain.
+   * @type {Map<string, AdvancementNode>}
    */
   #nodes = new Map();
   get nodes() {
@@ -102,12 +97,9 @@ export default class AdvancementChain {
   /**
    * Add a node.
    * @param {AdvancementNode} node
-   * @returns {true}
    */
   addNode(node) {
-    if (!this.#nodes.get(node.type)) this.#nodes.set(node.type, []);
-    this.#nodes.get(node.type).push(node);
-    return true;
+    this.#nodes.set(node.id, node);
   }
 
   /* -------------------------------------------------- */
@@ -117,11 +109,10 @@ export default class AdvancementChain {
    * @param {AdvancementNode} node
    */
   removeNode(node) {
-    const nodes = this.nodes.get(node.type);
-    const result = nodes.findSplice(n => n === node);
-    if (result !== null) {
-      for (const child of node.children) this.removeNode(child);
-    }
+    const has = this.nodes.has(node.id);
+    if (!has) throw new Error("Node not found in Chain nodes map.");
+    this.nodes.delete(node.id);
+    node.children.forEach(node => this.removeNode(node));
   }
 
   /* -------------------------------------------------- */
@@ -132,11 +123,6 @@ export default class AdvancementChain {
    * @returns {AdvancementNode|null}
    */
   get(nodeId) {
-    for (const nodes of this.nodes.values()) {
-      for (const node of nodes) {
-        if (node.id === nodeId) return node;
-      }
-    }
-    return null;
+    return this.nodes.get(nodeId) ?? null;
   }
 }

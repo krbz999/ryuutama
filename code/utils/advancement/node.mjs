@@ -55,13 +55,7 @@ export default class AdvancementNode {
    * @type {AdvancementNode[]}
    */
   get children() {
-    const children = [];
-    for (const nodes of this.chain.nodes.values()) {
-      for (const node of nodes) {
-        if (node.parent === this) children.push(node);
-      }
-    }
-    return children;
+    return this.chain.nodes.values().filter(node => node.parent === this);
   }
 
   /* -------------------------------------------------- */
@@ -88,29 +82,6 @@ export default class AdvancementNode {
    */
   get id() {
     return this.#advancement.id;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * A sorting index in the application for the form of this node.
-   * @type {number}
-   */
-  get index() {
-    if (this.parent) {
-      const first = this.parent.index + 1;
-      const second = this.parent.children.indexOf(this) + 1;
-      return first * 10 + second;
-    }
-
-    let i = 0;
-    loop: for (const nodes of this.chain.nodes.values()) {
-      for (const node of nodes) {
-        if (node === this) break loop;
-        if (!node.depth) i++;
-      }
-    }
-    return i;
   }
 
   /* -------------------------------------------------- */

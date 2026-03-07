@@ -1,8 +1,8 @@
 import AdvancementChain from "../../utils/advancement/chain.mjs";
 
 /**
- * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import Advancement from "../../data/advancement/advancement.mjs";
+ * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
 const { Application, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -141,22 +141,20 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   _configureRenderParts(options) {
     let parts = {};
 
-    for (const nodes of this.chain.nodes.values()) {
-      for (const node of nodes) {
-        const id = node.id;
-        parts[id] = {
-          id,
-          template: node.advancement.constructor.CONFIGURE_TEMPLATE,
-          classes: ["standard-form", "advancement"],
-          forms: {
-            form: {
-              submitOnChange: true,
-              closeOnSubmit: false,
-            },
+    this.chain.nodes.forEach(node => {
+      const id = node.id;
+      parts[id] = {
+        id,
+        template: node.advancement.constructor.CONFIGURE_TEMPLATE,
+        classes: ["standard-form", "advancement"],
+        forms: {
+          form: {
+            submitOnChange: true,
+            closeOnSubmit: false,
           },
-        };
-      }
-    }
+        },
+      };
+    });
 
     parts = { ...super._configureRenderParts(options), ...parts };
     if (!options.isFirstRender) {
@@ -187,27 +185,8 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  async _preRender(context, options) {
-    await super._preRender(context, options);
-    if (!options.isFirstRender) {
-      for (const form of this.element.querySelectorAll("form.advancement")) {
-        const node = this.chain.get(form.dataset.applicationPart);
-        if (!node) form.remove();
-      }
-    }
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
   async _onRender(context, options) {
     await super._onRender(context, options);
-
-    for (const form of this.element.querySelectorAll("form.advancement:not([data-order])")) {
-      const node = this.chain.get(form.dataset.applicationPart);
-      form.style.setProperty("order", node.index);
-      form.dataset.order = node.index;
-    }
 
     for (const input of this.element.querySelectorAll("input[type=number], input[type=text].delta")) {
       input.addEventListener("focus", () => input.select());
@@ -237,14 +216,12 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
     const formData = new foundry.applications.ux.FormDataExtended(form);
     node.advancement.updateSource(foundry.utils.expandObject(formData.object));
+    for (const d of node.descendants()) {
+      this.element.querySelector(`[data-application-part="${d.id}"]`)?.remove();
+    }
     await node._initializeLeafNodes();
 
-    // Re-render this specific part as well as all parts of descendant nodes that are not rendered.
-    const parts = [node.id];
-    for (const n of node.descendants()) {
-      if (!this.element.querySelector(`[data-application-part="${n.id}"]`)) parts.push(n.id);
-    }
-    this.render({ parts });
+    this.render();
   }
 
   /* -------------------------------------------------- */
@@ -283,11 +260,9 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     }
 
     this.#config = [];
-    for (const nodes of this.chain.nodes.values()) {
-      for (const node of nodes) {
-        const results = await node.advancement._getAdvancementResults(this.actor);
-        this.#config.push(...results);
-      }
+    for (const node of this.chain.nodes.values()) {
+      const results = await node.advancement._getAdvancementResults(this.actor);
+      this.#config.push(...results);
     }
   }
 }
