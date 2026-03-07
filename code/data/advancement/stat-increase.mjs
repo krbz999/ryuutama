@@ -10,7 +10,14 @@ export default class StatIncreaseAdvancement extends Advancement {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
-        chosen: new StringField({ blank: true, required: true, choices: () => ryuutama.config.abilityScores }),
+        chosen: new StringField({
+          blank: true,
+          required: true,
+          choices: () => Object.fromEntries(
+            Object.values(ryuutama.CONST.ABILITIES)
+              .map(key => [key, ryuutama.config.abilityScores[key].label]),
+          ),
+        }),
       }),
     });
   }
@@ -51,9 +58,9 @@ export default class StatIncreaseAdvancement extends Advancement {
       return base;
     };
 
-    context.abilityOptions = Object.entries(ryuutama.config.abilityScores)
-      .filter(([k, v]) => getScore(k) < 12)
-      .map(([k, v]) => ({ value: k, label: v.label }));
+    context.abilityOptions = Object.values(ryuutama.CONST.ABILITIES)
+      .filter(k => getScore(k) < 12)
+      .map(k => ({ value: k, label: ryuutama.config.abilityScores[k].label }));
   }
 
   /* -------------------------------------------------- */

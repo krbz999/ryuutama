@@ -139,7 +139,9 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     const context = await super._prepareContext(options);
     context.configurations = this.#configurations;
 
-    context.abilityOptions = foundry.utils.deepClone(ryuutama.config.abilityScores);
+    context.abilityOptions = Object.fromEntries(
+      Object.values(ryuutama.CONST.ABILITIES).map(k => [k, ryuutama.config.abilityScores[k]]),
+    );
     const [abi1, abi2] = this.#configurations.rollConfig.abilities ?? [];
     context.abilities = { abi1, abi2 };
 

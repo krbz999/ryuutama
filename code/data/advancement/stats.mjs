@@ -71,8 +71,8 @@ export default class StatsAdvancement extends Advancement {
   get isConfigured() {
     const type = this.choice.type;
     const set = [...StatsAdvancement.STARTING_SCORES[type].stats];
-    for (const k in ryuutama.config.abilityScores) {
-      const value = this.choice.chosen[k];
+    for (const key of Object.values(ryuutama.CONST.ABILITIES)) {
+      const value = this.choice.chosen[key];
       set.findSplice(v => v === value);
     }
     return !set.length;
@@ -93,8 +93,8 @@ export default class StatsAdvancement extends Advancement {
   /** @inheritdoc */
   async _getAdvancementResults(actor) {
     const update = {};
-    for (const k in ryuutama.config.abilityScores) {
-      update[`system.abilities.${k}.value`] = this.choice.chosen[k];
+    for (const key of Object.values(ryuutama.CONST.ABILITIES)) {
+      update[`system.abilities.${key}.value`] = this.choice.chosen[key];
     }
 
     update["system.resources.stamina.max"] = 2 * update["system.abilities.strength.value"];
