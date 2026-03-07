@@ -38,8 +38,11 @@ export default class WeaponData extends PhysicalData {
           new StringField({
             required: true,
             blank: false,
-            initial: "strength",
-            choices: () => ryuutama.config.abilityScores,
+            initial: ryuutama.CONST.ABILITIES.STRENGTH,
+            choices: () => Object.fromEntries(
+              Object.values(ryuutama.CONST.ABILITIES)
+                .map(key => [key, ryuutama.config.abilityScores[key].label]),
+            ),
           }),
           { min: 2, max: 2, initial: ["strength", "strength"] },
         ),
@@ -50,7 +53,13 @@ export default class WeaponData extends PhysicalData {
       }),
       damage: new SchemaField({
         ability: new StringField({
-          required: true, blank: false, choices: () => ryuutama.config.abilityScores, initial: "strength",
+          required: true,
+          blank: false,
+          initial: ryuutama.CONST.ABILITIES.STRENGTH,
+          choices: () => Object.fromEntries(
+            Object.values(ryuutama.CONST.ABILITIES)
+              .map(key => [key, ryuutama.config.abilityScores[key].label]),
+          ),
         }),
         bonus: new NumberField({ nullable: true, integer: true, initial: null }),
       }),

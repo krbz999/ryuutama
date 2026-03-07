@@ -221,10 +221,12 @@ function adjustConfig(config) {
 
 const filterAbilityKey = key => {
   key = key.toLowerCase().trim();
-  if (key in ryuutama.config.abilityScores) return key;
+  if (Object.values(ryuutama.CONST.ABILITIES).includes(key)) return key;
 
   // Shorthand ability.
-  const [k] = Object.entries(ryuutama.config.abilityScores)
-    .find(([a, b]) => b.abbreviation.toLowerCase() === key) ?? [];
-  if (k) return k;
+  const k = Object.values(ryuutama.CONST.ABILITIES).find(key => {
+    const abbr = ryuutama.config.abilityScores[key].abbreviation.toLowerCase();
+    return abbr === key;
+  });
+  return k;
 };

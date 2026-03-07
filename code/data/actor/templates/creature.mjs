@@ -33,7 +33,15 @@ export default class CreatureData extends BaseData {
       return acc;
     }, {});
 
+    const abilities = Object.values(ryuutama.CONST.ABILITIES).reduce((acc, key) => {
+      acc[key] = new SchemaField({
+        value: new ryuutama.data.fields.AbilityScoreField({ restricted: true }),
+      });
+      return acc;
+    }, {});
+
     return Object.assign(super.defineSchema(), {
+      abilities: new SchemaField(abilities),
       condition: new SchemaField({
         immunities: new SetField(new StringField({ choices: () => ryuutama.config.statusEffects })),
         statuses: new SchemaField(statuses, { persisted: false }),
