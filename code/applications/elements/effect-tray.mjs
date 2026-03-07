@@ -4,7 +4,7 @@
  */
 
 export default class EffectTray extends HTMLElement {
-  /** @override */
+  /** @inheritdoc */
   static tagName = "effect-tray";
 
   /* -------------------------------------------------- */
@@ -25,7 +25,7 @@ export default class EffectTray extends HTMLElement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   connectedCallback() {
     this.#message = game.messages.get(this.closest("[data-message-id]").dataset.messageId);
     if (!this.#message) {
@@ -75,7 +75,7 @@ export default class EffectTray extends HTMLElement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   disconnectedCallback() {
     Hooks.off("controlToken", this.#hookId);
   }

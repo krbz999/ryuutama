@@ -1,5 +1,5 @@
 export default class BaseData extends foundry.abstract.TypeDataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {
       source: new ryuutama.data.fields.SourceField(),
@@ -8,7 +8,7 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     "RYUUTAMA.ACTOR",
     "RYUUTAMA.SOURCE",

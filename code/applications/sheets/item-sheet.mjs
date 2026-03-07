@@ -5,7 +5,7 @@ import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
  */
 
 export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     position: { width: 400 },
     window: {
@@ -19,7 +19,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     navigation: {
       template: "templates/generic/tab-navigation.hbs",
@@ -48,7 +48,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TABS = {
     primary: {
       tabs: [
@@ -64,14 +64,14 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get title() {
     return this.document.name;
   }
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _configureRenderParts(options) {
     const details = this.document.system.constructor.DETAILS_TEMPLATE;
     const parts = foundry.utils.deepClone(this.constructor.PARTS);

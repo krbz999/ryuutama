@@ -41,14 +41,14 @@ export default class FormulaField extends foundry.data.fields.StringField {
   /*   Active Effect Integration                        */
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _castChangeDelta(delta) {
     return this._cast(delta).trim();
   }
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _applyChangeAdd(value, delta, model, change) {
     if (!value) return delta;
     const operator = delta.startsWith("-") ? "-" : "+";
@@ -58,7 +58,7 @@ export default class FormulaField extends foundry.data.fields.StringField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _applyChangeMultiply(value, delta, model, change) {
     if (!value) return value;
     const terms = new foundry.dice.Roll(value).terms;
@@ -68,7 +68,7 @@ export default class FormulaField extends foundry.data.fields.StringField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _applyChangeUpgrade(value, delta, model, change) {
     if (!value) return delta;
     const terms = new foundry.dice.Roll(value).terms;
@@ -78,7 +78,7 @@ export default class FormulaField extends foundry.data.fields.StringField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _applyChangeDowngrade(value, delta, model, change) {
     if (!value) return delta;
     const terms = new foundry.dice.Roll(value).terms;

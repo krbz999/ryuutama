@@ -17,12 +17,12 @@ export default class StatusImmunityAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TYPE = "statusImmunity";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/status-immunity.hbs";
 
   /* -------------------------------------------------- */
@@ -35,7 +35,7 @@ export default class StatusImmunityAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get isConfigured() {
     return !!this.choice.chosen;
   }

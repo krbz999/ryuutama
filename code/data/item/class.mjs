@@ -51,12 +51,12 @@ export default class ClassData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/class.hbs";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _prepareSubtypeContext(sheet, context, options) {
     context.identifierPlaceholder = ryuutama.utils.createDefaultIdentifier(this.parent._source.name);
     if (context.disabled) {

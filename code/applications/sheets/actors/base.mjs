@@ -13,7 +13,7 @@ import RyuutamaDocumentSheet from "../../api/document-sheet.mjs";
  * @extends RyuutamaDocumentSheet
  */
 export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     actions: {
       advance: RyuutamaBaseActorSheet.#advance,
@@ -57,7 +57,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get title() {
     return this.document.name;
   }

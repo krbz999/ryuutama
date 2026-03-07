@@ -10,7 +10,7 @@ export default class IconElement extends HTMLElement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static tagName = "ryuutama-icon";
 
   /* -------------------------------------------------- */
@@ -28,7 +28,7 @@ export default class IconElement extends HTMLElement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   connectedCallback() {
     const insertElement = html => {
       if (!html) return;

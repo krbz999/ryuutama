@@ -1,7 +1,7 @@
 import CheckRoll from "./check-roll.mjs";
 
 export default class DamageRoll extends CheckRoll {
-  /** @override */
+  /** @inheritdoc */
   static PART_TYPE = "damage";
 
   /* -------------------------------------------------- */

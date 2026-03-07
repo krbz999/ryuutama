@@ -8,7 +8,7 @@ import AdvancementChain from "../../utils/advancement/chain.mjs";
 const { Application, HandlebarsApplicationMixin } = foundry.applications.api;
 
 export default class AdvancementDialog extends HandlebarsApplicationMixin(Application) {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     classes: ["advancement-dialog"],
     tag: "form",
@@ -32,7 +32,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     advancements: {
       template: "systems/ryuutama/templates/apps/advancement-dialog/advancements.hbs",
@@ -93,7 +93,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get title() {
     return _loc("RYUUTAMA.PSEUDO.ADVANCEMENT.title", {
       name: this.actor.name,
@@ -137,7 +137,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _configureRenderParts(options) {
     let parts = {};
 
@@ -178,7 +178,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _replaceHTML(result, content, options) {
     if (options.isFirstRender) return super._replaceHTML(result, content, options);
     content = this.element.querySelector("[data-application-part=advancements]");

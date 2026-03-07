@@ -1,7 +1,7 @@
 const { HTMLField } = foundry.data.fields;
 
 export default class ReferenceData extends foundry.abstract.TypeDataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {
       tooltip: new HTMLField(),
@@ -41,7 +41,7 @@ export default class ReferenceData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async toEmbed(config, options = {}) {
     config.long = (config.long === true) || (config.values.includes("long"));
     const text = config.long || !this.tooltip ? this.parent.text.content : this.tooltip;

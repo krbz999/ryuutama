@@ -17,12 +17,12 @@ export default class StatIncreaseAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TYPE = "statIncrease";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/stat-increase.hbs";
 
   /* -------------------------------------------------- */
@@ -35,7 +35,7 @@ export default class StatIncreaseAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get isConfigured() {
     return !!this.choice.chosen;
   }
@@ -58,7 +58,7 @@ export default class StatIncreaseAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _getAdvancementResults(actor) {
     const ability = this.choice.chosen;
     const update = { [`system.abilities.${ability}.value`]: actor.system._source.abilities[ability].value + 2 };

@@ -1,5 +1,5 @@
 export default class BaseRoll extends foundry.dice.Roll {
-  /** @override */
+  /** @inheritdoc */
   static CHAT_TEMPLATE = "systems/ryuutama/templates/dice/roll.hbs";
 
   /* -------------------------------------------------- */
@@ -12,7 +12,7 @@ export default class BaseRoll extends foundry.dice.Roll {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async toMessage(messageData = {}, { messageMode, rollMode, create = true } = {}) {
     // Fall back to default message creation for irrelevant rolls.
     if (!this.constructor.PART_TYPE) return super.toMessage(messageData, { messageMode, create });

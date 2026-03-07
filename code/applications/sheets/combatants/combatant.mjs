@@ -1,5 +1,5 @@
 export default class RyuutamaCombatantSheet extends foundry.applications.sheets.CombatantConfig {
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     form: {
       template: "systems/ryuutama/templates/sheets/combatant-sheet/form.hbs",

@@ -10,7 +10,7 @@ import RyuutamaBaseActorSheet from "./base.mjs";
  * @extends RyuutamaBaseActorSheet
  */
 export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     position: {
       width: 680,
@@ -23,7 +23,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     sidebar: {
       template: "systems/ryuutama/templates/sheets/actors/traveler/sidebar.hbs",
@@ -64,7 +64,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TABS = {
     primary: {
       tabs: [
@@ -89,7 +89,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static SEARCH = {
     inventory: {
       locked: [

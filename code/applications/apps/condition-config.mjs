@@ -1,7 +1,7 @@
 import DocumentConfig from "../api/document-config.mjs";
 
 export default class ConditionConfig extends DocumentConfig {
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     form: {
       template: "systems/ryuutama/templates/apps/condition-config/form.hbs",
@@ -11,7 +11,7 @@ export default class ConditionConfig extends DocumentConfig {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get title() {
     return _loc("RYUUTAMA.CONDITION.title", { name: this.document.name });
   }

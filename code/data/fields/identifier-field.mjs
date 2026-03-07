@@ -9,7 +9,7 @@ export default class IdentifierField extends foundry.data.fields.StringField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _validateType(value) {
     if (!ryuutama.utils.isValidIdentifier(value)) {
       throw new Error(_loc("RYUUTAMA.ITEM.identifierError"));

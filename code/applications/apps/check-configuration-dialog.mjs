@@ -27,7 +27,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     document: null,
     tag: "form",
@@ -46,7 +46,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     formula: {
       template: "systems/ryuutama/templates/apps/check-configuration-dialog/formula.hbs",
@@ -98,7 +98,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get title() {
     return _loc("RYUUTAMA.ROLL.title", {
       type: _loc(`RYUUTAMA.ROLL.TYPES.${this.#configurations.rollConfig.type}`),

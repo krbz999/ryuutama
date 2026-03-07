@@ -11,7 +11,7 @@ export default class DamagePart extends CheckPart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static ACTIONS = {
     applyDamage: DamagePart.#applyDamage,
     rollDamage: DamagePart.#rollDamage,
@@ -19,7 +19,7 @@ export default class DamagePart extends CheckPart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TEMPLATE = "systems/ryuutama/templates/chat/parts/damage.hbs";
 
   /* -------------------------------------------------- */

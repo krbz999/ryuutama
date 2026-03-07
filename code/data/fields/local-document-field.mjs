@@ -52,7 +52,7 @@ export default class LocalDocumentField extends foundry.data.fields.DocumentIdFi
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _cast(value) {
     if (typeof value === "string") return value;
     if (value instanceof this.model) {

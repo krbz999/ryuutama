@@ -39,7 +39,7 @@ export default class SpellData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       actions: new EmbeddedDataField(ActionsModel),
@@ -81,7 +81,7 @@ export default class SpellData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/spell.hbs";
 
   /* -------------------------------------------------- */
@@ -125,7 +125,7 @@ export default class SpellData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _prepareSubtypeContext(sheet, context, options) {
     context.spell = { duration: {} };
 
@@ -143,7 +143,7 @@ export default class SpellData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   isEffectSuppressed(effect) {
     return super.isEffectSuppressed(effect);
   }

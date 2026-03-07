@@ -16,7 +16,7 @@ const { HandlebarsApplicationMixin, DocumentSheet } = foundry.applications.api;
  * @mixes HandlebarsApplicationMixin
  */
 export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(DocumentSheet) {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     form: {
       submitOnChange: true,

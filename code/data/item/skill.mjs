@@ -39,7 +39,7 @@ export default class SkillData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/skill.hbs";
 
   /* -------------------------------------------------- */
@@ -83,7 +83,7 @@ export default class SkillData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _prepareSubtypeContext(sheet, context, options) {
     context.identifierPlaceholder = ryuutama.utils.createDefaultIdentifier(this.parent._source.name);
   }

@@ -1,7 +1,7 @@
 import BaseRoll from "./base-roll.mjs";
 
 export default class CheckRoll extends BaseRoll {
-  /** @override */
+  /** @inheritdoc */
   static PART_TYPE = "check";
 
   /* -------------------------------------------------- */

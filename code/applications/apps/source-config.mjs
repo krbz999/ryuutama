@@ -1,7 +1,7 @@
 import DocumentConfig from "../api/document-config.mjs";
 
 export default class SourceConfig extends DocumentConfig {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     position: {
       width: 480,
@@ -13,7 +13,7 @@ export default class SourceConfig extends DocumentConfig {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     form: {
       template: "systems/ryuutama/templates/apps/source-config/form.hbs",
@@ -23,7 +23,7 @@ export default class SourceConfig extends DocumentConfig {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get title() {
     return _loc("RYUUTAMA.SOURCE.title", { name: this.document.name });
   }

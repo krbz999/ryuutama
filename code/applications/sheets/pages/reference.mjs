@@ -1,5 +1,5 @@
 export default class ReferencePageSheet extends foundry.applications.sheets.journal.JournalEntryPageProseMirrorSheet {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     classes: ["reference"],
     window: {
@@ -9,7 +9,7 @@ export default class ReferencePageSheet extends foundry.applications.sheets.jour
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static EDIT_PARTS = {
     header: {
       template: "templates/journal/parts/page-header.hbs",

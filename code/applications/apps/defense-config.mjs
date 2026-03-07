@@ -1,7 +1,7 @@
 import DocumentConfig from "../api/document-config.mjs";
 
 export default class DefenseConfig extends DocumentConfig {
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     form: {
       template: "systems/ryuutama/templates/apps/defense-config/form.hbs",
@@ -11,7 +11,7 @@ export default class DefenseConfig extends DocumentConfig {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get title() {
     return _loc("RYUUTAMA.DEFENSE.title", { name: this.document.name });
   }

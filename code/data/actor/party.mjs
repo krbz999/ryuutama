@@ -6,7 +6,7 @@
 const { HTMLField, SchemaField, TypedObjectField } = foundry.data.fields;
 
 export default class PartyData extends foundry.abstract.TypeDataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {
       description: new SchemaField({

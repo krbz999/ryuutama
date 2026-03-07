@@ -3,7 +3,7 @@ import PhysicalData from "./physical.mjs";
 const { SchemaField, StringField } = foundry.data.fields;
 
 export default class GearData extends PhysicalData {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       gear: new SchemaField({
@@ -22,7 +22,7 @@ export default class GearData extends PhysicalData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/gear.hbs";
 
   /* -------------------------------------------------- */

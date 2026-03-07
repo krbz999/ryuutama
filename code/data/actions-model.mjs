@@ -8,7 +8,7 @@ const { SchemaField, SetField, StringField } = foundry.data.fields;
  * An embedded model for items that perform actions.
  */
 export default class ActionsModel extends foundry.abstract.DataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {
       damage: new SchemaField({
@@ -24,7 +24,7 @@ export default class ActionsModel extends foundry.abstract.DataModel {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     "RYUUTAMA.ITEM.ACTIONS",
   ];

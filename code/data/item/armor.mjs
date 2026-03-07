@@ -52,7 +52,7 @@ export default class ArmorData extends PhysicalData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/armor.hbs";
 
   /* -------------------------------------------------- */

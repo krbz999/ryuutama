@@ -24,7 +24,7 @@ export default class Advancement extends PseudoDocument {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static get documentConfig() {
     return {
       [ryuutama.data.advancement.ClassAdvancement.TYPE]: ryuutama.data.advancement.ClassAdvancement,
@@ -40,12 +40,12 @@ export default class Advancement extends PseudoDocument {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static documentName = "Advancement";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static embedded = "advancements";
 
   /* -------------------------------------------------- */

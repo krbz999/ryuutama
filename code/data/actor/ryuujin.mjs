@@ -1,5 +1,5 @@
 export default class RyuujinData extends foundry.abstract.TypeDataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {};
   }

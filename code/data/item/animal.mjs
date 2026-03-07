@@ -57,7 +57,7 @@ export default class AnimalData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/animal.hbs";
 
   /* -------------------------------------------------- */
@@ -127,7 +127,7 @@ export default class AnimalData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _prepareSubtypeContext(sheet, context, options) {
     // Prepare modifiers.
     const config = ryuutama.config.animalModifiers;

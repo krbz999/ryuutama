@@ -4,7 +4,7 @@ const { TypedObjectField, TypedSchemaField } = foundry.data.fields;
 const { handlebars } = foundry.applications;
 
 export default class StandardData extends foundry.abstract.TypeDataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {
       parts: new TypedObjectField(

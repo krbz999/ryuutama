@@ -47,7 +47,7 @@ export default class Ability {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   toString() {
     return `1d${this.faces}`;
   }

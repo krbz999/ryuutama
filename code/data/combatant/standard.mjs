@@ -1,7 +1,7 @@
 const { SchemaField, StringField } = foundry.data.fields;
 
 export default class StandardData extends foundry.abstract.TypeDataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {
       initiative: new SchemaField({
@@ -12,7 +12,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     "RYUUTAMA.COMBATANT.STANDARD",
   ];

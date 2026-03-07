@@ -7,14 +7,14 @@ export default class HealingPart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static ACTIONS = {
     applyHealing: HealingPart.#applyHealing,
   };
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TEMPLATE = "systems/ryuutama/templates/chat/parts/healing.hbs";
 
   /* -------------------------------------------------- */

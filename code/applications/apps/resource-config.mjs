@@ -1,14 +1,14 @@
 import DocumentConfig from "../api/document-config.mjs";
 
 export default class ResourceConfig extends DocumentConfig {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     resource: null,
   };
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     form: {
       template: "systems/ryuutama/templates/apps/resource-config/form.hbs",
@@ -28,7 +28,7 @@ export default class ResourceConfig extends DocumentConfig {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get title() {
     return _loc("RYUUTAMA.RESOURCE.title", {
       resource: _loc(`RYUUTAMA.RESOURCE.${this.resource}`),

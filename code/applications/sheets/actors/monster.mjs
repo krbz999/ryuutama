@@ -5,7 +5,7 @@ import RyuutamaBaseActorSheet from "./base.mjs";
  * @extends RyuutamaBaseActorSheet
  */
 export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     window: {
       resizable: false,
@@ -14,7 +14,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     header: {
       template: "systems/ryuutama/templates/sheets/actors/monster/header.hbs",
@@ -44,7 +44,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TABS = {
     primary: {
       tabs: [

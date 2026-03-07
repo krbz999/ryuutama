@@ -30,7 +30,7 @@ export default class HerbData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       category: new SchemaField({
@@ -67,7 +67,7 @@ export default class HerbData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/herb.hbs";
 
   /* -------------------------------------------------- */
@@ -130,7 +130,7 @@ export default class HerbData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _prepareSubtypeContext(sheet, context, options) {
     context.enriched.effect = await CONFIG.ux.TextEditor.enrichHTML(
       this.description.effect,

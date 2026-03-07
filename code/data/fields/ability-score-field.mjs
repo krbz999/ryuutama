@@ -64,7 +64,7 @@ export default class AbilityScoreField extends NumberField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _applyChangeAdd(value, delta, model, change) {
     if (![-1, 1].includes(delta)) return value;
 
@@ -79,7 +79,7 @@ export default class AbilityScoreField extends NumberField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _applyChangeSubtract(value, delta, model, change) {
     if (![-1, 1].includes(delta)) return value;
 
@@ -94,7 +94,7 @@ export default class AbilityScoreField extends NumberField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _applyChangeOverride(value, delta, model, change) {
     if (!this.VALUES.includes(delta)) return value;
     return delta;
@@ -102,14 +102,14 @@ export default class AbilityScoreField extends NumberField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _applyChangeMultiply(value, delta, model, change) {
     return value;
   }
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _applyChangeUpgrade(value, delta, model, change) {
     const options = this.BASE_OPTIONS;
     if (!options.includes(delta)) return value;
@@ -118,7 +118,7 @@ export default class AbilityScoreField extends NumberField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _applyChangeDowngrade(value, delta, model, change) {
     const options = this.BASE_OPTIONS;
     if (!options.includes(delta)) return value;

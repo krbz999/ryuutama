@@ -15,7 +15,7 @@ export default class DamageData extends MessageData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {};
   }
@@ -55,14 +55,14 @@ export default class DamageData extends MessageData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _prepareContext(context) {
     context.rolls = await Promise.all(this.damageRolls.map(roll => roll.render()));
   }
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _attachPartListeners(partId, element, context) {
     if (partId !== "damageTray") return;
 

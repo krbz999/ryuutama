@@ -11,7 +11,7 @@ export default class ProgressBar extends HTMLElement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static tagName = "progress-bar";
 
   /* -------------------------------------------------- */
@@ -67,7 +67,7 @@ export default class ProgressBar extends HTMLElement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   connectedCallback() {
     const { value, pct, label, input, name } = this.dataset;
     this.#appId = this.closest(".application")?.id ?? null;
@@ -98,7 +98,7 @@ export default class ProgressBar extends HTMLElement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   disconnectedCallback() {
     if (this.app?.state <= 0) ProgressBar.storage.delete(this.id);
   }

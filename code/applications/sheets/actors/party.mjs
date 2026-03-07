@@ -5,7 +5,7 @@ import RyuutamaBaseActorSheet from "./base.mjs";
  */
 
 export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     actions: {
       consumeRation: RyuutamaPartySheet.#consumeRation,
@@ -17,7 +17,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     header: {
       template: "systems/ryuutama/templates/sheets/actors/party/header.hbs",
@@ -44,7 +44,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TABS = {
     primary: {
       tabs: [
@@ -203,7 +203,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _onDropActor(event, actor) {
     await this.document.system.addMembers([actor]);
     return true;

@@ -7,11 +7,11 @@ export default class RollPart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static ACTIONS = {};
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TEMPLATE = "systems/ryuutama/templates/chat/parts/roll.hbs";
 }

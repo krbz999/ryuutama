@@ -32,7 +32,7 @@ export default class ContainerData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       capacity: new SchemaField({
@@ -53,7 +53,7 @@ export default class ContainerData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/container.hbs";
 
   /* -------------------------------------------------- */
@@ -122,7 +122,7 @@ export default class ContainerData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _prepareSubtypeContext(sheet, context, options) {
     const ctx = context.container = {
       rations: {},

@@ -34,17 +34,17 @@ export default class ClassAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TYPE = "class";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/class.hbs";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get isConfigured() {
     const item = fromUuidSync(this.choice.chosen);
     if (!item) return false;

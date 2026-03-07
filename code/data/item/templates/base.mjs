@@ -20,7 +20,7 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {
       description: new SchemaField(this.HTMLFields),
@@ -31,7 +31,7 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     "RYUUTAMA.ITEM",
     "RYUUTAMA.SOURCE",
@@ -83,7 +83,7 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async toEmbed(config, options = {}) {
     const enriched = await CONFIG.ux.TextEditor.enrichHTML(this.description.value, {
       ...options,

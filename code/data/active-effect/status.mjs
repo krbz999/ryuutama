@@ -3,7 +3,7 @@ import StandardData from "./standard.mjs";
 const { BooleanField, NumberField, SchemaField } = foundry.data.fields;
 
 export default class StatusData extends StandardData {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       strength: new SchemaField({

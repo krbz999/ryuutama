@@ -8,7 +8,7 @@ import RyuutamaActor from "../../documents/actor.mjs";
 const { Application, HandlebarsApplicationMixin } = foundry.applications.api;
 
 export default class RollRequestor extends HandlebarsApplicationMixin(Application) {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     tag: "form",
     classes: ["requestor"],
@@ -35,7 +35,7 @@ export default class RollRequestor extends HandlebarsApplicationMixin(Applicatio
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     requests: {
       root: true,

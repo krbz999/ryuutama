@@ -3,7 +3,7 @@ import CreatureData from "./templates/creature.mjs";
 const { HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
 export default class MonsterData extends CreatureData {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       abilities: new SchemaField(Object.keys(ryuutama.config.abilityScores).reduce((acc, ability) => {

@@ -14,19 +14,19 @@ export default class EffectPart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static ACTIONS = {
     applyEffects: EffectPart.#applyEffects,
   };
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TEMPLATE = "systems/ryuutama/templates/chat/parts/effect.hbs";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       effects: new ArrayField(new DocumentUUIDField({ embedded: true, type: "ActiveEffect" })),
@@ -67,7 +67,7 @@ export default class EffectPart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get visible() {
     return game.user.isGM;
   }

@@ -22,12 +22,12 @@ export default class WeaponAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TYPE = "weapon";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/weapon.hbs";
 
   /* -------------------------------------------------- */
@@ -40,7 +40,7 @@ export default class WeaponAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get isConfigured() {
     if (!this.isEphemeral) return !!this.choice.chosen;
 

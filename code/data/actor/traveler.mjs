@@ -9,7 +9,7 @@ import CreatureData from "./templates/creature.mjs";
 const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class TravelerData extends CreatureData {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     const schema = Object.assign(super.defineSchema(), {
       abilities: new SchemaField(Object.keys(ryuutama.config.abilityScores).reduce((acc, ability) => {
@@ -120,7 +120,7 @@ export default class TravelerData extends CreatureData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get defenseValue() {
     return Math.max(this.combatantInitiative, this.defense.dodge);
   }

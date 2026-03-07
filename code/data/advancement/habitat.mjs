@@ -21,12 +21,12 @@ export default class HabitatAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TYPE = "habitat";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/habitat.hbs";
 
   /* -------------------------------------------------- */
@@ -39,7 +39,7 @@ export default class HabitatAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get isConfigured() {
     const { type, chosen } = this.choice;
     const { terrain, weather } = this.document.system.mastered;

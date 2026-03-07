@@ -29,7 +29,7 @@ export default class PseudoDocumentCollectionField extends TypedObjectField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static hierarchical = true;
 
   /* -------------------------------------------------- */
@@ -71,7 +71,7 @@ export default class PseudoDocumentCollectionField extends TypedObjectField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _updateCommit(source, key, value, diff, options) {
     let src = source[key];
 
@@ -118,7 +118,7 @@ class PseudoDocumentField extends ObjectField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static recursive = true;
 
   /* -------------------------------------------------- */
@@ -157,7 +157,7 @@ class PseudoDocumentField extends ObjectField {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _updateCommit(source, key, value, diff, options) {
     const s = source[key];
 

@@ -3,7 +3,7 @@
  */
 
 export default class StandardData extends foundry.data.ActiveEffectTypeDataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {});
   }

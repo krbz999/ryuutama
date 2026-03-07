@@ -28,12 +28,12 @@ export default class StatsAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TYPE = "stats";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/stats.hbs";
 
   /* -------------------------------------------------- */
@@ -67,7 +67,7 @@ export default class StatsAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get isConfigured() {
     const type = this.choice.type;
     const set = [...StatsAdvancement.STARTING_SCORES[type].stats];
@@ -90,7 +90,7 @@ export default class StatsAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _getAdvancementResults(actor) {
     const update = {};
     for (const k in ryuutama.config.abilityScores) {

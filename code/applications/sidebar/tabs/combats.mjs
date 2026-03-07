@@ -1,5 +1,5 @@
 export default class RyuutamaCombatTracker extends foundry.applications.sidebar.tabs.CombatTracker {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     actions: {
       addObjects: RyuutamaCombatTracker.#addObjects,

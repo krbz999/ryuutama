@@ -10,7 +10,7 @@ export default class RyuutamaToken extends foundry.canvas.placeables.Token {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _drawBar(number, bar, data) {
     const pct = this.#getBarPercentage(data);
     const { width, height } = this.document.getSize();

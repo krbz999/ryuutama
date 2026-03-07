@@ -14,7 +14,7 @@ export default class RequestPart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static ACTIONS = {
     rollRequest: RequestPart.#rollRequest,
     rerollRequest: RequestPart.#rerollRequest,
@@ -22,7 +22,7 @@ export default class RequestPart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TEMPLATE = "systems/ryuutama/templates/chat/parts/request.hbs";
 
   /* -------------------------------------------------- */

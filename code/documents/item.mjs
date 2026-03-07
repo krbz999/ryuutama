@@ -10,7 +10,7 @@ export default class RyuutamaItem extends foundry.documents.Item {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static getDefaultArtwork(itemData) {
     let img = this.DEFAULT_ICON;
 
@@ -56,7 +56,7 @@ export default class RyuutamaItem extends foundry.documents.Item {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   getRollData() {
     const item = { ...this };
     const rollData = this.actor?.getRollData() ?? {};

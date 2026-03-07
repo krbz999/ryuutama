@@ -20,12 +20,12 @@ export default class ResourceAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TYPE = "resource";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/resource.hbs";
 
   /* -------------------------------------------------- */
@@ -38,7 +38,7 @@ export default class ResourceAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get isConfigured() {
     const { stamina, mental } = this.choice.chosen;
     return stamina + mental === 3;

@@ -7,7 +7,7 @@
 const { BooleanField, ForeignDocumentField, SchemaField, StringField, TypedObjectField } = foundry.data.fields;
 
 export default class StandardData extends foundry.abstract.TypeDataModel {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {
       battlefield: new SchemaField({
@@ -24,7 +24,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     "RYUUTAMA.COMBAT.STANDARD",
   ];

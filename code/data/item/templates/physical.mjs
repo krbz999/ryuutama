@@ -3,7 +3,7 @@ import BaseData from "./base.mjs";
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class PhysicalData extends BaseData {
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       durability: new SchemaField({
@@ -147,7 +147,7 @@ export default class PhysicalData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _prepareSubtypeContext(sheet, context, options) {
     // Prepare modifiers.
     const config = ryuutama.config.itemModifiers;

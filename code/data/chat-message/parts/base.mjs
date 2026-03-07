@@ -21,7 +21,7 @@ export default class MessagePart extends foundry.abstract.DataModel {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static defineSchema() {
     return {
       type: new StringField({

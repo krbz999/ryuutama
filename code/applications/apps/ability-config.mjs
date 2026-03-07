@@ -1,14 +1,14 @@
 import DocumentConfig from "../api/document-config.mjs";
 
 export default class AbilityConfig extends DocumentConfig {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     ability: null,
   };
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static PARTS = {
     form: {
       template: "systems/ryuutama/templates/apps/ability-config/form.hbs",
@@ -28,7 +28,7 @@ export default class AbilityConfig extends DocumentConfig {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get title() {
     return _loc("RYUUTAMA.ABILITIES.CONFIG.title", {
       ability: ryuutama.config.abilityScores[this.ability].label,

@@ -12,11 +12,11 @@ export default class RyuutamaCombatant extends foundry.documents.Combatant {
   /* -------------------------------------------------- */
 
   /**
+   * Roll initiative.
    * @param {CheckRollConfig} [rollConfig={}]
    * @param {CheckDialogConfig} [dialogConfig={}]
    * @param {CheckMessageConfig} [messageConfig={}]
-   * @returns {Promise<RyuutamaCombatant>}
-   * @override
+   * @returns {Promise<this>}
    */
   async rollInitiative(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     if (typeof rollConfig === "string") {

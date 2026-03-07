@@ -18,12 +18,12 @@ export default class TypeAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TYPE = "type";
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static CONFIGURE_TEMPLATE = "systems/ryuutama/templates/apps/advancement/type.hbs";
 
   /* -------------------------------------------------- */
@@ -36,7 +36,7 @@ export default class TypeAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   get isConfigured() {
     const { chosen, magic } = this.choice;
     switch (chosen) {
@@ -55,7 +55,7 @@ export default class TypeAdvancement extends Advancement {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _getChildTypes() {
     const types = new Set();
     if (this.choice.chosen === "attack") types.add("weapon");

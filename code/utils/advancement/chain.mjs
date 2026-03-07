@@ -112,7 +112,7 @@ export default class AdvancementChain {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   * nodes(activeOnly = false) {
     for (const root of this.roots) {
       yield root;

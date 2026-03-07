@@ -11,7 +11,7 @@ export default class RyuutamaGamePause extends foundry.applications.ui.GamePause
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _renderHTML(context, options) {
     const img = document.createElement("ryuutama-icon");
     img.src = context.icon;

@@ -9,14 +9,14 @@ export default class CheckPart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static ACTIONS = {
     grantFumble: CheckPart.#grantFumble,
   };
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   static TEMPLATE = "systems/ryuutama/templates/chat/parts/check.hbs";
 
   /* -------------------------------------------------- */
@@ -30,7 +30,7 @@ export default class CheckPart extends MessagePart {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _onCreate(data, options, userId) {
     const [messageId, partId] = this.message.flags[ryuutama.id]?.requestId?.split(".") ?? [];
     const request = game.messages.get(messageId)?.system.parts?.[partId];

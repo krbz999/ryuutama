@@ -6,7 +6,7 @@
 const { Application } = foundry.applications.api;
 
 export default class CurrentHabitat extends Application {
-  /** @override */
+  /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     id: "current-habitat",
     classes: ["faded-ui", "ui-control"],
@@ -77,7 +77,7 @@ export default class CurrentHabitat extends Application {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _prepareContext(options) {
     const value = game.settings.get(ryuutama.id, CurrentHabitat.SETTING);
 
@@ -105,7 +105,7 @@ export default class CurrentHabitat extends Application {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _insertElement(element) {
     element.classList.add(ryuutama.id);
     document.querySelector("#ui-top #loading").insertAdjacentElement("beforebegin", element);
@@ -113,7 +113,7 @@ export default class CurrentHabitat extends Application {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   async _renderHTML(context, options) {
     const htmlString = await foundry.applications.handlebars.renderTemplate(
       "systems/ryuutama/templates/ui/current-habitat/section.hbs", context,
@@ -123,7 +123,7 @@ export default class CurrentHabitat extends Application {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   _replaceHTML(result, content, options) {
     content.replaceChildren(...result);
   }
