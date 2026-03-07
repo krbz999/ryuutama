@@ -27,7 +27,7 @@ export default class RyuutamaActor extends foundry.documents.Actor {
 
   /* -------------------------------------------------- */
 
-  /** @override */
+  /** @inheritdoc */
   getRollData() {
     const rollData = this.system.getRollData?.() ?? { ...this.system };
     rollData.name = this.name;
@@ -41,19 +41,14 @@ export default class RyuutamaActor extends foundry.documents.Actor {
     if (!isBar) return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
 
     const schema = this.system.schema.getField(attribute);
-    const object = foundry.utils.getProperty(this.system, attribute);
+    const isSpent = (schema.get("value")?.options.persisted === false) && schema.has("spent");
+    if (!isSpent) return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
 
-    const isSpent = !schema.has("value") && schema.has("spent");
-    const current = isSpent ? object.spent : object.value;
-    const update = isDelta
-      ? current + (isSpent ? -value : value)
-      : isSpent ? (object.max - value) : value;
-    if (update === current) return this;
+    const { spent, max } = foundry.utils.getProperty(this.system, attribute);
+    const update = isDelta ? spent - value : max - value;
+    if (update === spent) return this;
 
-    const allowNegative = attribute === "resources.stamina";
-    const updates = {
-      [`system.${attribute}.${isSpent ? "spent" : "value"}`]: Math.clamp(update, 0, allowNegative ? Infinity : object.max),
-    };
+    const updates = { [`system.${attribute}.spent`]: update };
 
     const allowed = Hooks.call("modifyTokenAttribute", { attribute, value, isDelta, isBar }, updates, this);
     return (allowed === false) ? this : this.update(updates);

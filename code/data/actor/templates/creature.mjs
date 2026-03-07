@@ -24,6 +24,7 @@ export default class CreatureData extends BaseData {
         }),
         max: new NumberField({ integer: true, nullable: true, initial: null, min: 0 }),
         spent: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
+        value: new NumberField({ integer: true, initial: 0, persisted: false }),
       });
     };
 
