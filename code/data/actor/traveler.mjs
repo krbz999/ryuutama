@@ -6,7 +6,9 @@ import CreatureData from "./templates/creature.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
-const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+const {
+  ColorField, HTMLField, NumberField, SchemaField, SetField, StringField, TypedObjectField, TypedSchemaField,
+} = foundry.data.fields;
 
 export default class TravelerData extends CreatureData {
   /** @inheritdoc */
@@ -16,7 +18,10 @@ export default class TravelerData extends CreatureData {
         acc[ability] = new SchemaField({ value: new ryuutama.data.fields.AbilityScoreField({ restricted: true }) });
         return acc;
       }, {})),
-      advancements: new ryuutama.data.fields.PseudoDocumentCollectionField(Advancement),
+      advancements: new TypedObjectField(
+        new TypedSchemaField(Advancement.TYPES),
+        { validateKey: key => foundry.data.validators.isValidId(key) },
+      ),
       background: new SchemaField({
         appearance: new HTMLField(),
         hometown: new HTMLField(),
@@ -77,7 +82,6 @@ export default class TravelerData extends CreatureData {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.TRAVELER",
     "RYUUTAMA.ACTOR.TRAVELER",
   ];
 
@@ -148,20 +152,24 @@ export default class TravelerData extends CreatureData {
 
   /** @inheritdoc */
   prepareBaseData() {
+    Object.entries(this.advancements).forEach(([id, adv]) => {
+      Object.defineProperty(adv, "id", { value: id, writable: false, enumerable: true });
+    });
+
     this.classes = Object.fromEntries(this.parent.items.documentsByType.class.map(cls => [cls.identifier, cls]));
 
     // Add a +1 bonus from a critical travel check. TODO: Consider moving to AE.
     if (this.condition.travel) this.condition.value = this._source.condition.value + 1;
 
     // Status immunities are prepared prior to statuses in CreatureData.
-    for (const si of this.advancements) {
+    for (const si of Object.values(this.advancements)) {
       if (si.isConfigured && (si.type === "statusImmunity")) this.#prepareStatusImmunityAdvancement(si);
     }
 
     super.prepareBaseData();
 
     // Types, Habitat, Status Immunities, and Mastered Weapons.
-    for (const advancement of this.advancements) {
+    for (const advancement of Object.values(this.advancements)) {
       if (!advancement.isConfigured) continue;
       switch (advancement.type) {
         case "type": this.#prepareTypeAdvancement(advancement); break;
@@ -230,7 +238,7 @@ export default class TravelerData extends CreatureData {
     this.#prepareExp();
     this.#prepareIncantationSpells();
 
-    for (const advancement of this.advancements) advancement.prepareDerivedData();
+    // for (const advancement of Object.values(this.advancements)) advancement.prepareDerivedData();
   }
 
   /* -------------------------------------------------- */
@@ -288,7 +296,8 @@ export default class TravelerData extends CreatureData {
       const src = this._source.resources[key];
 
       resource.typeBonus = typeBonus;
-      resource.advancement = this.advancements.documentsByType.resource
+      resource.advancement = Object.values(this.advancements)
+        .filter(a => a.type === "resource")
         .reduce((acc, advancement) => acc + advancement.choice.chosen[key], 0);
 
       resource.max = src.max
@@ -372,7 +381,7 @@ export default class TravelerData extends CreatureData {
   #prepareIncantationSpells() {
     this.magic ??= {};
     const inc = this.magic.incantation = { value: 0, max: 0 };
-    for (const advancement of this.advancements.documentsByType.type) {
+    for (const advancement of Object.values(this.advancements).filter(a => a.type === "type")) {
       const chosen = advancement.choice.chosen;
       if (chosen !== "magic") continue;
       const levels = Math.max(0, this.details.level - advancement.level + 1);
@@ -416,7 +425,7 @@ export default class TravelerData extends CreatureData {
     for (const { result, type } of results) {
       switch (type) {
         case "advancement":
-          await ryuutama.data.advancement.Advancement.create(result.toObject(), { parent: actor, advancement: true });
+          foundry.utils.mergeObject(actorUpdate, { [`system.advancements.${result.id}`]: result.toObject() });
           break;
         case "actor":
           foundry.utils.mergeObject(actorUpdate, result);

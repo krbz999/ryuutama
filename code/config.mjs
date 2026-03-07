@@ -339,27 +339,27 @@ Prelocalization.prelocalize(itemSizes);
  */
 export const monsterCategories = {
   demonstone: {
-    label: "RYUUTAMA.MONSTER.CATEGORIES.demonstone",
+    label: "RYUUTAMA.ACTOR.MONSTER.CATEGORIES.demonstone",
     statusImmunities: "body",
   },
   demon: {
-    label: "RYUUTAMA.MONSTER.CATEGORIES.demon",
+    label: "RYUUTAMA.ACTOR.MONSTER.CATEGORIES.demon",
   },
   intelligent: {
-    label: "RYUUTAMA.MONSTER.CATEGORIES.intelligent",
+    label: "RYUUTAMA.ACTOR.MONSTER.CATEGORIES.intelligent",
   },
   magical: {
-    label: "RYUUTAMA.MONSTER.CATEGORIES.magical",
+    label: "RYUUTAMA.ACTOR.MONSTER.CATEGORIES.magical",
     statusImmunities: "mind",
   },
   phantomBeast: {
-    label: "RYUUTAMA.MONSTER.CATEGORIES.phantomBeast",
+    label: "RYUUTAMA.ACTOR.MONSTER.CATEGORIES.phantomBeast",
   },
   phantomPlant: {
-    label: "RYUUTAMA.MONSTER.CATEGORIES.phantomPlant",
+    label: "RYUUTAMA.ACTOR.MONSTER.CATEGORIES.phantomPlant",
   },
   undead: {
-    label: "RYUUTAMA.MONSTER.CATEGORIES.undead",
+    label: "RYUUTAMA.ACTOR.MONSTER.CATEGORIES.undead",
     statusImmunities: "all",
   },
 };
@@ -733,15 +733,15 @@ Prelocalization.prelocalize(terrainTypes);
  */
 export const travelerTypes = {
   attack: {
-    label: "RYUUTAMA.TRAVELER.TYPES.attack",
+    label: "RYUUTAMA.ACTOR.TRAVELER.TYPES.attack",
     icon: "systems/ryuutama/assets/official/icons/types/attack.svg",
   },
   technical: {
-    label: "RYUUTAMA.TRAVELER.TYPES.technical",
+    label: "RYUUTAMA.ACTOR.TRAVELER.TYPES.technical",
     icon: "systems/ryuutama/assets/official/icons/types/technical.svg",
   },
   magic: {
-    label: "RYUUTAMA.TRAVELER.TYPES.magic",
+    label: "RYUUTAMA.ACTOR.TRAVELER.TYPES.magic",
     icon: "systems/ryuutama/assets/official/icons/types/magic.svg",
   },
 };

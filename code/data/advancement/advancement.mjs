@@ -1,32 +1,47 @@
-import PseudoDocument from "../pseudo-document.mjs";
-
 /**
  * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
-const { NumberField } = foundry.data.fields;
+const { DocumentTypeField, NumberField, StringField } = foundry.data.fields;
 
-export default class Advancement extends PseudoDocument {
+export default class Advancement extends foundry.abstract.DataModel {
   /** @inheritdoc */
   static defineSchema() {
-    return Object.assign(super.defineSchema(), {
+    return {
       level: new NumberField({ nullable: false, integer: true, min: 1, max: 10, initial: 1 }),
-    });
+      type: new StringField({
+        blank: false,
+        required: true,
+        initial: () => this.TYPE,
+        validate: value => value === this.TYPE,
+        validationError: `must be equal to ${this.TYPE}`,
+      }),
+    };
   }
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
-    ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PSEUDO.ADVANCEMENT",
+    "RYUUTAMA.ADVANCEMENT",
   ];
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
-  static get documentConfig() {
-    return {
+  /**
+   * The advancement subtype.
+   * @type {string}
+   */
+  static TYPE;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The advancement subtypes.
+   * @type {Record<string, typeof Advancement>}
+   */
+  static get TYPES() {
+    return Advancement.#TYPES ??= {
       [ryuutama.data.advancement.ClassAdvancement.TYPE]: ryuutama.data.advancement.ClassAdvancement,
       [ryuutama.data.advancement.HabitatAdvancement.TYPE]: ryuutama.data.advancement.HabitatAdvancement,
       [ryuutama.data.advancement.ResourceAdvancement.TYPE]: ryuutama.data.advancement.ResourceAdvancement,
@@ -37,16 +52,7 @@ export default class Advancement extends PseudoDocument {
       [ryuutama.data.advancement.WeaponAdvancement.TYPE]: ryuutama.data.advancement.WeaponAdvancement,
     };
   }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  static documentName = "Advancement";
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  static embedded = "advancements";
+  static #TYPES;
 
   /* -------------------------------------------------- */
 
@@ -62,8 +68,16 @@ export default class Advancement extends PseudoDocument {
   get document() {
     // If constructed as part of advancement, the document is the direct parent.
     if (this.isEphemeral) return this.parent;
-    return super.document;
+    return this.parent.parent;
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Unique id of this advancement.
+   * @type {string}
+   */
+  id;
 
   /* -------------------------------------------------- */
 
@@ -105,9 +119,6 @@ export default class Advancement extends PseudoDocument {
   async _prepareAdvancementContext(context, options) {
     context.fields = this.schema.fields;
     context.advancement = this;
-    context.title = _loc("RYUUTAMA.PSEUDO.ADVANCEMENT.configureTitle", {
-      name: _loc(`TYPES.Advancement.${this.type}`),
-    });
   }
 
   /* -------------------------------------------------- */

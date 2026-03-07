@@ -41,7 +41,7 @@ export default class StatsAdvancement extends Advancement {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PSEUDO.ADVANCEMENT.STATS",
+    "RYUUTAMA.ADVANCEMENT.STATS",
   ];
 
   /* -------------------------------------------------- */
@@ -52,15 +52,15 @@ export default class StatsAdvancement extends Advancement {
    */
   static STARTING_SCORES = Object.freeze({
     average: {
-      label: "RYUUTAMA.PSEUDO.ADVANCEMENT.STATS.average",
+      label: "RYUUTAMA.ADVANCEMENT.STATS.average",
       stats: [6, 6, 6, 6],
     },
     standard: {
-      label: "RYUUTAMA.PSEUDO.ADVANCEMENT.STATS.standard",
+      label: "RYUUTAMA.ADVANCEMENT.STATS.standard",
       stats: [4, 6, 6, 8],
     },
     specialized: {
-      label: "RYUUTAMA.PSEUDO.ADVANCEMENT.STATS.specialized",
+      label: "RYUUTAMA.ADVANCEMENT.STATS.specialized",
       stats: [4, 4, 8, 8],
     },
   });

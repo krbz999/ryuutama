@@ -150,12 +150,13 @@ export default class AdvancementNode {
     if (this._initialized) {
       throw new Error("You cannot re-initialize a node.");
     }
-    const Cls = ryuutama.data.advancement.Advancement.documentConfig[this.type];
+    const Cls = ryuutama.data.advancement.Advancement.TYPES[this.type];
     const advancement = new Cls({ level: this.level, type: this.type }, {
       chain: this.chain,
       isEphemeral: true,
       parent: this.actor,
     });
+    advancement.id = foundry.utils.randomID();
     this.#advancement = advancement;
     this._initialized = true;
     return this.advancement;

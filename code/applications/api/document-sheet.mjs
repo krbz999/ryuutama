@@ -329,7 +329,6 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
       case "Actor": return this._onDropActor(event, model);
       case "Folder": return this._onDropFolder(event, model);
       case "Item": return this._onDropItem(event, model);
-      case "Advancement": return this._onDropAdvancement(event, model);
     }
   }
 
@@ -432,14 +431,4 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
     await this.document.updateEmbeddedDocuments("Item", updates);
     return true;
   }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Handle drop events of an advancement pseudo-document.
-   * @param {DragEvent} event           Initiating drop event.
-   * @param {Advancement} advancement   The dropped advancement.
-   * @returns {Promise}                 Whether the drop was fully resolved, either truthy or falsy.
-   */
-  async _onDropAdvancement(event, advancement) {}
 }

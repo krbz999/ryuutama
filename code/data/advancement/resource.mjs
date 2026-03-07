@@ -33,7 +33,7 @@ export default class ResourceAdvancement extends Advancement {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PSEUDO.ADVANCEMENT.RESOURCE",
+    "RYUUTAMA.ADVANCEMENT.RESOURCE",
   ];
 
   /* -------------------------------------------------- */

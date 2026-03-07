@@ -39,7 +39,7 @@ export default class MonsterData extends CreatureData {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.MONSTER",
+    "RYUUTAMA.ACTOR.MONSTER",
   ];
 
   /* -------------------------------------------------- */

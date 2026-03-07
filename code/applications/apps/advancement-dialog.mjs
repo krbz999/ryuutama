@@ -63,7 +63,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     const types = ryuutama.config.advancement[this.options.level];
     const classes = {};
     for (const type of types) {
-      const Cls = ryuutama.data.advancement.Advancement.documentConfig[type];
+      const Cls = ryuutama.data.advancement.Advancement.TYPES[type];
       if (Cls) classes[type] = Cls;
       else console.warn(`The type '${type}' is not a valid Advancement subclass.`);
     }
@@ -95,7 +95,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
   /** @inheritdoc */
   get title() {
-    return _loc("RYUUTAMA.PSEUDO.ADVANCEMENT.title", {
+    return _loc("RYUUTAMA.ADVANCEMENT.title", {
       name: this.actor.name,
       nth: this.options.level.ordinalString(),
     });

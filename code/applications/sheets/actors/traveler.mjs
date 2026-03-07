@@ -476,7 +476,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       if (label && iconSmall) habitats.push({
         isSVG: iconSmall.endsWith(".svg"),
         icon: iconSmall,
-        label: _loc("RYUUTAMA.ACTOR.TAGS.specialtyTerrain", { terrain: label }),
+        label: _loc("RYUUTAMA.ACTOR.TRAVELER.specialtyTerrain", { terrain: label }),
         dataset: { "tooltip-text": label },
       });
     }
@@ -486,7 +486,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       if (label && icon) habitats.push({
         icon,
         isSVG: icon.endsWith(".svg"),
-        label: _loc("RYUUTAMA.ACTOR.TAGS.specialtyWeather", { weather: label }),
+        label: _loc("RYUUTAMA.ACTOR.TRAVELER.specialtyWeather", { weather: label }),
         dataset: { "tooltip-text": label },
       });
     }
@@ -498,7 +498,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       if (!icon) continue;
       weapons.push({
         icon,
-        label: _loc("RYUUTAMA.ACTOR.TAGS.masteredWeapon", { weapon: label }),
+        label: _loc("RYUUTAMA.ACTOR.TRAVELER.masteredWeapon", { weapon: label }),
         isSVG: icon.endsWith(".svg"),
         dataset: { "tooltip-text": label },
       });
@@ -650,7 +650,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
     if (groups.has("other")) {
       sections.push({
-        label: _loc("RYUUTAMA.TRAVELER.otherSkills"),
+        label: _loc("RYUUTAMA.ACTOR.TRAVELER.otherSkills"),
         entries: groups.get("other").map(item => ({ document: item, dataset: { "item-context": "" } })),
       });
       groups.delete("other");
@@ -658,7 +658,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
     for (const [classItem, skills] of groups.entries()) {
       sections.unshift({
-        label: _loc("RYUUTAMA.TRAVELER.skillSectionLabel", { name: classItem.name }),
+        label: _loc("RYUUTAMA.ACTOR.TRAVELER.skillSectionLabel", { name: classItem.name }),
         entries: skills.map(skill => ({ document: skill, dataset: { "item-context": "" } })),
       });
     }
