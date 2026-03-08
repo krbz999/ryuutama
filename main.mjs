@@ -1,6 +1,7 @@
 import * as applications from "./code/applications/_module.mjs";
 import * as canvas from "./code/canvas/_module.mjs";
 import * as config from "./code/config.mjs";
+import * as constants from "./code/constants.mjs";
 import * as data from "./code/data/_module.mjs";
 import * as dice from "./code/dice/_module.mjs";
 import * as documents from "./code/documents/_module.mjs";
@@ -18,6 +19,7 @@ globalThis.ryuutama = {
   documents,
   helpers,
   utils,
+  CONST: constants,
   id: "ryuutama",
 };
 
