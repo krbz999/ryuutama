@@ -5,11 +5,15 @@ const { HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields
 export default class MonsterData extends CreatureData {
   /** @inheritdoc */
   static defineSchema() {
+    const abilities = Object.values(ryuutama.CONST.ABILITIES).reduce((acc, key) => {
+      acc[key] = new SchemaField({
+        value: new ryuutama.data.fields.AbilityScoreField({ restricted: false }),
+      });
+      return acc;
+    }, {});
+
     return Object.assign(super.defineSchema(), {
-      abilities: new SchemaField(Object.keys(ryuutama.config.abilityScores).reduce((acc, ability) => {
-        acc[ability] = new SchemaField({ value: new ryuutama.data.fields.AbilityScoreField({ restricted: false }) });
-        return acc;
-      }, {})),
+      abilities: new SchemaField(abilities),
       attack: new SchemaField({
         accuracy: new ryuutama.data.fields.FormulaField(),
         damage: new ryuutama.data.fields.FormulaField(),

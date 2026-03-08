@@ -212,15 +212,13 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
    * @returns {object[]}
    */
   #prepareAbilities() {
-    const abilities = [];
-    for (const ability of Object.keys(ryuutama.config.abilityScores)) {
-      abilities.push({
-        ...ryuutama.config.abilityScores[ability],
+    return Object.entries(ryuutama.CONST.ABILITIES._toConfig).map(([ability, config]) => {
+      return {
+        ...config,
         ability,
         value: this.document.system.abilities[ability],
-      });
-    }
-    return abilities;
+      };
+    });
   }
 
   /* -------------------------------------------------- */
@@ -279,16 +277,17 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
    */
   #prepareCondition() {
     const condition = this.document.system.condition.value;
+    const high = ryuutama.config.abilityScores[this.document.system.condition.shape.high];
     const ctx = {
-      ability: ryuutama.config.abilityScores[this.document.system.condition.shape.high]?.label ?? "−",
+      ability: high.label,
       high: condition >= 10,
       low: condition <= 2,
+      abilityIcon: high.icon,
     };
-    ctx.label = _loc(
-      ctx.high ? "RYUUTAMA.ACTOR.TRAVELER.conditionHigh" : "RYUUTAMA.ACTOR.TRAVELER.conditionLow",
-      { ability: ctx.ability });
-    ctx.active = ctx.high || ctx.low;
-    if (ctx.high) ctx.abilityIcon = ryuutama.config.abilityScores[this.document.system.condition.shape.high]?.icon;
+
+    if (ctx.high) ctx.tooltip = _loc("RYUUTAMA.ACTOR.TRAVELER.conditionHigh", { ability: ctx.ability });
+    else if (ctx.low) ctx.tooltip = _loc("RYUUTAMA.ACTOR.TRAVELER.conditionLow");
+
     return ctx;
   }
 

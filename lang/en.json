@@ -132,8 +132,7 @@
         },
         "baseDefensePoints": "Base Defense Points",
         "capacity": "Capacity",
-        "conditionHigh": "Bonus: {ability}",
-        "conditionHighTooltip": "Tip-Top Shape",
+        "conditionHigh": "Tip-Top Shape: {ability}",
         "conditionLow": "Out of Shape",
         "damageReductionMagical": "Magical: {value}",
         "damageReductionPhysical": "Physical: {value}",
@@ -147,6 +146,7 @@
         "incantationSpells": "Incantations",
         "initiative": "Initiative: {value}",
         "level": "Level {level}",
+        "rollCondition": "Roll Condition Check",
         "seasonAffinity": "Affinity",
         "shieldDodge": "Shield Dodge Value: {value}"
       },
