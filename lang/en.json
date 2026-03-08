@@ -1,8 +1,4 @@
 {
-  "DOCUMENT": {
-    "Advancement": "Advancement",
-    "AdvancementPl": "Advancements"
-  },
   "TYPES": {
     "ActiveEffect": {
       "standard": "Standard Effect",
@@ -19,24 +15,6 @@
       "ryuujinPl": "Ryuujin",
       "traveler": "Traveler",
       "travelerPl": "Travelers"
-    },
-    "Advancement": {
-      "class": "Class",
-      "classPl": "Classes",
-      "habitat": "Terrain / Weather Specialty",
-      "habitatPl": "Terrain / Weather Specialties",
-      "resource": "Resource Increase",
-      "resourcePl": "Resource Increases",
-      "type": "Type",
-      "typePl": "Types",
-      "statIncrease": "Stat Increase",
-      "statIncreasePl": "Stat Increases",
-      "stats": "Starting Stats",
-      "statsPl": "Starting Stats",
-      "statusImmunity": "Status Immunity",
-      "statusImmunityPl": "Status Immunities",
-      "weapon": "Mastered Weapon",
-      "weaponPl": "Mastered Weapons"
     },
     "Item": {
       "accessory": "Accessory",
@@ -113,23 +91,62 @@
         "FIELDS": {}
       },
       "MONSTER": {
-        "FIELDS": {},
+        "FIELDS": {
+          "attack.accuracy.label": "Accuracy Formula",
+          "attack.damage.label": "Damage Formula",
+          "description.special.name.label": "Special Ability",
+          "description.value.label": "Description",
+          "details.category.label": "Monster Category",
+          "details.dragonica.label": "Dragonica No.",
+          "details.level.label": "Level",
+          "environment.season.label": "Season",
+          "initiative.value.label": "Initiative"
+        },
+        "CATEGORIES": {
+          "demon": "Demon",
+          "demonstone": "Demonstone",
+          "intelligent": "Intelligent Race",
+          "magical": "Magical Creature",
+          "phantomBeast": "Phantom Beast",
+          "phantomPlant": "Phantom Plant",
+          "undead": "Undead"
+        },
         "armor": "Armor",
-        "physical": "Phys",
-        "magical": "Mag",
         "baseArmor": "Base Armor",
+        "category": "Category: {category}",
         "configureAttack": "Configure Attack",
+        "dragonica": "Dragonica No. {number}",
         "effectDuration": "Duration",
         "effectSource": "Source",
-        "inventory": "Inventory"
+        "inventory": "Inventory",
+        "level": "Level {level}",
+        "magical": "Mag",
+        "monsterDetails": "Monster Details",
+        "physical": "Phys",
+        "season": "Season: {season}",
+        "specialAbility": "Special Ability"
       },
       "TRAVELER": {
-        "FIELDS": {},
+        "FIELDS": {
+          "background.appearance.label": "Appearance",
+          "background.hometown.label": "Hometown / Reason for Travel",
+          "background.notes.label": "Notes",
+          "details.exp.label": "EXP",
+          "details.level.label": "Level",
+          "fumbles.value.label": "Fumble Points",
+          "gold.value.label": "Gold"
+        },
         "noteTabs": {
           "appearance": "Appearance",
           "hometown": "Hometown / Reason for Travel",
           "notes": "Notes"
         },
+        "TYPES": {
+          "attack": "Attack Type",
+          "magic": "Magic Type",
+          "technical": "Technical Type"
+        },
+        "abilities": "Abilities",
         "baseDefensePoints": "Base Defense Points",
         "capacity": "Capacity",
         "conditionHigh": "Tip-Top Shape: {ability}",
@@ -146,9 +163,14 @@
         "incantationSpells": "Incantations",
         "initiative": "Initiative: {value}",
         "level": "Level {level}",
+        "masteredWeapon": "Mastered Weapon: {weapon}",
+        "otherSkills": "Other Skills",
         "rollCondition": "Roll Condition Check",
         "seasonAffinity": "Affinity",
-        "shieldDodge": "Shield Dodge Value: {value}"
+        "shieldDodge": "Shield Dodge Value: {value}",
+        "skillSectionLabel": "{name} Skills",
+        "specialtyTerrain": "Terrain Specialty: {terrain}",
+        "specialtyWeather": "Weather Specialty: {weather}"
       },
 
       "TABS": {
@@ -182,14 +204,6 @@
           "classTag": "Class: {name}"
         }
       },
-      "TAGS": {
-        "category": "Category: {category}",
-        "dragonica": "Dragonica No. {number}",
-        "masteredWeapon": "Mastered Weapon: {weapon}",
-        "season": "Season: {season}",
-        "specialtyTerrain": "Terrain Specialty: {terrain}",
-        "specialtyWeather": "Weather Specialty: {weather}"
-      },
       "activeEffects": "Active Effects",
       "condition": "Condition",
       "defenseMagical": "Mag {value}",
@@ -212,49 +226,6 @@
       "statusSuppressedS": "S",
       "temporaryEffects": "Temporary Effects"
     },
-    "MONSTER": {
-      "FIELDS": {
-        "attack.accuracy.label": "Accuracy Formula",
-        "attack.damage.label": "Damage Formula",
-        "description.special.name.label": "Special Ability",
-        "description.value.label": "Description",
-        "details.category.label": "Monster Category",
-        "details.dragonica.label": "Dragonica No.",
-        "details.level.label": "Level",
-        "environment.season.label": "Season",
-        "initiative.value.label": "Initiative"
-      },
-      "CATEGORIES": {
-        "demonstone": "Demonstone",
-        "demon": "Demon",
-        "intelligent": "Intelligent Race",
-        "magical": "Magical Creature",
-        "phantomBeast": "Phantom Beast",
-        "phantomPlant": "Phantom Plant",
-        "undead": "Undead"
-      },
-      "specialAbility": "Special Ability",
-      "monsterDetails": "Monster Details"
-    },
-    "TRAVELER": {
-      "FIELDS": {
-        "background.appearance.label": "Appearance",
-        "background.hometown.label": "Hometown / Reason for Travel",
-        "background.notes.label": "Notes",
-        "details.exp.label": "EXP",
-        "details.level.label": "Level",
-        "fumbles.value.label": "Fumble Points",
-        "gold.value.label": "Gold"
-      },
-      "TYPES": {
-        "attack": "Attack Type",
-        "magic": "Magic Type",
-        "technical": "Technical Type"
-      },
-      "abilities": "Abilities",
-      "skillSectionLabel": "{name} Skills",
-      "otherSkills": "Other Skills"
-    },
 
     "ABILITIES": {
       "strength": "Strength",
@@ -271,6 +242,89 @@
         "base": "Base Value"
       }
     },
+
+    "ADVANCEMENT": {
+      "FIELDS": {},
+      "title": "Level Up: {name} - {nth} Level",
+
+      "CLASS": {
+        "label": "Configure Class",
+        "FIELDS": {
+          "choice.chosen.label": "Class Item",
+          "choice.chosen.placeholder": "Enter UUID or Drop Class Item"
+        }
+      },
+
+      "HABITAT": {
+        "label": "Configure Terrain / Weather Specialty",
+        "FIELDS": {
+          "choice.chosen.terrain.label": "Terrain Type",
+          "choice.chosen.weather.label": "Weather Pattern",
+          "choice.type.label": "Subtype",
+          "choice.type.hint": "Choose 1 from the twenty-two types of terrain and weather patterns. You gain a +2 bonus to any rolls involving that terrain or weather."
+        },
+        "optionTerrain": "Terrain",
+        "optionWeather": "Weather"
+      },
+
+      "STAT_INCREASE": {
+        "label": "Configure Stat Increase",
+        "FIELDS": {
+          "choice.chosen.label": "Chosen Ability",
+          "choice.chosen.hint": "Every even level, you can choose one ability from [STR], [DEX], [INT], and [SPI] to increase by 1 die size (to a maximum of d12)."
+        }
+      },
+
+      "RESOURCE": {
+        "label": "Configure Resource Increase",
+        "FIELDS": {
+          "choice.chosen.stamina.label": "HP",
+          "choice.chosen.mental.label": "MP"
+        },
+        "hint": "Each level, you gain three points to divide between HP and MP."
+      },
+
+      "STATS": {
+        "label": "Configure Starting Stats",
+        "FIELDS": {
+          "choice.type.label": "Ability Score Set",
+          "choice.type.hint": "Choose your starting ability scores from one of the three sets, arranged the way you prefer between the four abilities.",
+          "choice.chosen.strength.label": "Strength",
+          "choice.chosen.dexterity.label": "Dexterity",
+          "choice.chosen.intelligence.label": "Intelligence",
+          "choice.chosen.spirit.label": "Spirit"
+        },
+        "average": "Average (6, 6, 6, 6)",
+        "standard": "Standard (4, 6, 6, 8)",
+        "specialized": "Specialized (4, 4, 8, 8)"
+      },
+
+      "STATUS_IMMUNITY": {
+        "label": "Configure Status Immunity",
+        "FIELDS": {
+          "choice.chosen.label": "Chosen Status Effect",
+          "choice.chosen.hint": "Choose one of the six status effects. You are immune to that effect from now on."
+        }
+      },
+
+      "TYPE": {
+        "label": "Configure Type",
+        "FIELDS": {
+          "choice.chosen.label": "Chosen Type",
+          "choice.chosen.hint": "Choose one of the three archetypes. If you choose one that you already have, the abilities are cumulative.",
+          "choice.magic.label": "Seasonal Magic"
+        }
+      },
+
+      "WEAPON": {
+        "label": "Configure Mastered Weapon",
+        "FIELDS": {
+          "choice.chosen.label": "Chosen Weapon",
+          "choice.chosen.hint": "Choose a weapon type to master. Making an attack with a weapon type that you have not mastered incurs a 1 HP penalty with each attack."
+        }
+      }
+    },
+
     "ATTACK": {
       "title": "Configure Attack: {name}"
     },
@@ -635,87 +689,6 @@
       "REFERENCE": {
         "FIELDS": {
           "tooltip.label": "Tooltip"
-        }
-      }
-    },
-
-    "PSEUDO": {
-      "FIELDS": {
-        "name.label": "Name",
-        "img.label": "Image Path"
-      },
-
-      "ADVANCEMENT": {
-        "FIELDS": {},
-        "configureTitle": "Configure {name}",
-        "title": "Level Up: {name} - {nth} Level",
-
-        "CLASS": {
-          "FIELDS": {
-            "choice.chosen.label": "Class Item"
-          }
-        },
-
-        "HABITAT": {
-          "FIELDS": {
-            "choice.chosen.terrain.label": "Terrain Type",
-            "choice.chosen.weather.label": "Weather Pattern",
-            "choice.type.label": "Subtype"
-          },
-          "optionTerrain": "Terrain",
-          "optionWeather": "Weather",
-          "hint": "Choose 1 from the twenty-two types of terrain and weather patterns. You gain a +2 bonus to any rolls involving that terrain or weather."
-        },
-
-        "INCREASE": {
-          "FIELDS": {
-            "choice.chosen.label": "Chosen Ability"
-          },
-          "hint": "Every even level, you can choose one ability from [STR], [DEX], [INT], and [SPI] to increase by 1 die size (to a maximum of d12)."
-        },
-
-        "RESOURCE": {
-          "FIELDS": {
-            "choice.chosen.stamina.label": "HP",
-            "choice.chosen.mental.label": "MP"
-          },
-          "hint": "Each level, you gain three points to divide between HP and MP."
-        },
-
-        "STATS": {
-          "FIELDS": {
-            "choice.type.label": "Ability Score Set",
-            "choice.chosen.strength.label": "Strength",
-            "choice.chosen.dexterity.label": "Dexterity",
-            "choice.chosen.intelligence.label": "Intelligence",
-            "choice.chosen.spirit.label": "Spirit"
-          },
-          "average": "Average (6, 6, 6, 6)",
-          "standard": "Standard (4, 6, 6, 8)",
-          "specialized": "Specialized (4, 4, 8, 8)",
-          "hint": "Choose your starting ability scores from one of the three sets, arranged the way you prefer between the four abilities."
-        },
-
-        "STATUS": {
-          "FIELDS": {
-            "choice.chosen.label": "Chosen Status Effect"
-          },
-          "hint": "Choose one of the six status effects. You are immune to that effect from now on."
-        },
-
-        "TYPE": {
-          "FIELDS": {
-            "choice.chosen.label": "Chosen Type",
-            "choice.magic.label": "Seasonal Magic"
-          },
-          "hint": "Choose one of the three character types. If you choose one that you already have, the abilities are cumulative."
-        },
-
-        "WEAPON": {
-          "FIELDS": {
-            "choice.chosen.label": "Chosen Weapon"
-          },
-          "hint": "Choose a weapon type to master. Making an attack with a weapon type that you have not mastered incurs a 1 HP penalty with each attack."
         }
       }
     },

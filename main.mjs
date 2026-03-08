@@ -60,6 +60,7 @@ Hooks.once("init", () => {
   CONFIG.Actor.dataModels.party = data.actor.PartyData;
   // CONFIG.Actor.dataModels.ryuujin = data.actor.RyuujinData;
   CONFIG.Actor.dataModels.traveler = data.actor.TravelerData;
+  CONFIG.Actor.defaultType = "traveler";
 
   CONFIG.ChatMessage.documentClass = documents.RyuutamaChatMessage;
   CONFIG.ChatMessage.dataModels.damage = data.message.DamageData;
@@ -166,23 +167,24 @@ Hooks.once("init", () => {
 /* -------------------------------------------------- */
 
 Hooks.once("i18nInit", () => {
+  // Prelocalize the configs.
   for (const [record, options] of helpers.Prelocalization.toLocalize) {
     utils.prelocalize(record, options);
   }
   helpers.Prelocalization.toLocalize = [];
 
-  for (const DM of Object.values(data.advancement.Advancement.documentConfig)) {
-    foundry.helpers.Localization.localizeDataModel(DM);
-  }
+  // Prelocalize datamodels.
+  Object.values(data.advancement.Advancement.TYPES).forEach(model => {
+    foundry.helpers.Localization.localizeDataModel(model);
+  });
 
+  // Configure and localize sources.
   helpers.Prelocalization.configureSources();
 });
 
 /* -------------------------------------------------- */
 
 Hooks.once("setup", () => {
-  CONFIG.Actor.defaultType = game.user.isGM ? "monster" : "traveler";
-
   Handlebars.registerHelper({
     "ryuutama-tooltip": helpers.interaction.RyuutamaTooltipManager.handlebarsHelper,
   });

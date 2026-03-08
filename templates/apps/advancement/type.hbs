@@ -1,8 +1,7 @@
 <form>
   <fieldset>
-    <legend>{{title}}</legend>
+    <legend>{{localize "RYUUTAMA.ADVANCEMENT.TYPE.label"}}</legend>
     {{formGroup fields.choice.fields.chosen value=advancement.choice.chosen rootId=rootId classes="slim"}}
-    <p class="hint">{{localize "RYUUTAMA.PSEUDO.ADVANCEMENT.TYPE.hint"}}</p>
     {{#if showMagic}}
     {{formGroup fields.choice.fields.magic value=advancement.choice.magic rootId=rootId classes="slim"}}
     {{/if}}

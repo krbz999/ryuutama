@@ -11,4 +11,3 @@ export * as fields from "./fields/_module.mjs";
 
 export { default as Ability } from "./ability.mjs";
 export { default as ActionsModel } from "./actions-model.mjs";
-export { default as PseudoDocument } from "./pseudo-document.mjs";
