@@ -35,7 +35,7 @@ export default class WeaponAdvancement extends Advancement {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PSEUDO.ADVANCEMENT.WEAPON",
+    "RYUUTAMA.ADVANCEMENT.WEAPON",
   ];
 
   /* -------------------------------------------------- */

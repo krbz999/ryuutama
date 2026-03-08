@@ -34,7 +34,7 @@ export default class HabitatAdvancement extends Advancement {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT",
+    "RYUUTAMA.ADVANCEMENT.HABITAT",
   ];
 
   /* -------------------------------------------------- */
@@ -53,8 +53,8 @@ export default class HabitatAdvancement extends Advancement {
   async _prepareAdvancementContext(context, options) {
     await super._prepareAdvancementContext(context, options);
     context.typeOptions = [
-      { value: "terrain", label: _loc("RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.optionTerrain") },
-      { value: "weather", label: _loc("RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.optionWeather") },
+      { value: "terrain", label: _loc("RYUUTAMA.ADVANCEMENT.HABITAT.optionTerrain") },
+      { value: "weather", label: _loc("RYUUTAMA.ADVANCEMENT.HABITAT.optionWeather") },
     ];
 
     context.showTerrains = this.choice.type === "terrain";

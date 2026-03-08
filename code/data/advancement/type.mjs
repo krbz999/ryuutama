@@ -31,7 +31,7 @@ export default class TypeAdvancement extends Advancement {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PSEUDO.ADVANCEMENT.TYPE",
+    "RYUUTAMA.ADVANCEMENT.TYPE",
   ];
 
   /* -------------------------------------------------- */

@@ -1,6 +1,6 @@
 <form>
   <fieldset>
-    <legend>{{title}}</legend>
+    <legend>{{localize "RYUUTAMA.ADVANCEMENT.HABITAT.label"}}</legend>
     {{formGroup fields.choice.fields.type options=typeOptions value=advancement.choice.type rootId=rootId}}
 
     {{#if showTerrains}}
@@ -10,6 +10,5 @@
     {{#if showWeathers}}
     {{formGroup fields.choice.fields.chosen.fields.weather value=advancement.choice.chosen.weather rootId=rootId classes="slim"}}
     {{/if}}
-    <p class="hint">{{localize "RYUUTAMA.PSEUDO.ADVANCEMENT.HABITAT.hint"}}</p>
   </fieldset>
 </form>

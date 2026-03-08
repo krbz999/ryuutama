@@ -2,32 +2,6 @@ import RyuutamaPartySheet from "../applications/sheets/actors/party.mjs";
 
 export default class RyuutamaActor extends foundry.documents.Actor {
   /** @inheritdoc */
-  _configure(options = {}) {
-    super._configure(options);
-
-    const collections = {};
-    for (const field of CONFIG.Actor.dataModels[this._source.type]?.schema ?? []) {
-      if (!field.constructor.hierarchical || !field.constructor.implementation) continue;
-
-      const data = this._source.system[field.name] ?? {};
-      const documentClass = field.constructor.implementation.documentClasses[field.name];
-      const c = collections[documentClass.documentName] = new field.constructor.implementation(field.name, data);
-      Object.defineProperty(this, field.name, { value: c, writable: false });
-    }
-
-    Object.defineProperty(this, "pseudoCollections", { value: Object.seal(collections), writable: false });
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  getEmbeddedCollection(embeddedName) {
-    return this.pseudoCollections[embeddedName] ?? super.getEmbeddedCollection(embeddedName);
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
   getRollData() {
     const rollData = this.system.getRollData?.() ?? { ...this.system };
     rollData.name = this.name;

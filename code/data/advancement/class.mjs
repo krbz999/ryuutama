@@ -29,7 +29,7 @@ export default class ClassAdvancement extends Advancement {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PSEUDO.ADVANCEMENT.CLASS",
+    "RYUUTAMA.ADVANCEMENT.CLASS",
   ];
 
   /* -------------------------------------------------- */

@@ -34,7 +34,7 @@ export default class StatIncreaseAdvancement extends Advancement {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PSEUDO.ADVANCEMENT.INCREASE",
+    "RYUUTAMA.ADVANCEMENT.STAT_INCREASE",
   ];
 
   /* -------------------------------------------------- */
