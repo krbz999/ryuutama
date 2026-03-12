@@ -63,7 +63,6 @@ Hooks.once("init", () => {
   CONFIG.Actor.defaultType = "traveler";
 
   CONFIG.ChatMessage.documentClass = documents.RyuutamaChatMessage;
-  CONFIG.ChatMessage.dataModels.damage = data.message.DamageData;
   CONFIG.ChatMessage.dataModels.standard = data.message.StandardData;
 
   CONFIG.Combat.documentClass = documents.RyuutamaCombat;

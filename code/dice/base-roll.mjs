@@ -15,23 +15,23 @@ export default class BaseRoll extends foundry.dice.Roll {
   /** @inheritdoc */
   async toMessage(messageData = {}, { messageMode, rollMode, create = true } = {}) {
     // Fall back to default message creation for irrelevant rolls.
-    if (!this.constructor.PART_TYPE) return super.toMessage(messageData, { messageMode, create });
+    if (!this.constructor.PART_TYPE) return super.toMessage(messageData, { messageMode, rollMode, create });
 
     messageMode ||= game.settings.get("core", "messageMode");
 
     if (!this._evaluated) await this.evaluate({ allowInteractive: messageMode !== "blind" });
 
     messageData = foundry.utils.mergeObject({
-      type: "standard",
-      system: {},
       author: game.user.id,
       sound: CONFIG.sounds.dice,
+      system: {},
+      type: "standard",
     }, messageData);
     messageData.system.parts = {
       [foundry.utils.randomID()]: {
+        flavor: messageData.flavor,
         rolls: [this],
         type: this.constructor.PART_TYPE,
-        flavor: messageData.flavor,
       },
     };
     delete messageData.flavor;
