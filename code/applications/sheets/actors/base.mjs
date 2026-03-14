@@ -384,7 +384,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
         break;
     }
     if (!application) return;
-    application.render({ force: true, window: { windowId: this.window.windowId } });
+    this.renderChild(application);
   }
 
   /* -------------------------------------------------- */
@@ -395,13 +395,14 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static #configurePrototypeToken(event, target) {
-    new CONFIG.Token.prototypeSheetClass({
+    const application = new CONFIG.Token.prototypeSheetClass({
       prototype: this.document.prototypeToken,
       position: {
         left: Math.max(this.position.left - 560 - 10, 10),
         top: this.position.top,
       },
-    }).render({ force: true, window: { windowId: this.window.windowId } });
+    });
+    this.renderChild(application);
   }
 
   /* -------------------------------------------------- */
