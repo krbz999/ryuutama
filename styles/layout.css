@@ -81,6 +81,10 @@
       border-top: none;
       gap: 0;
       border-color: var(--c-accent);
+
+      /* Overrides for v14 style changes. */
+      margin-top: initial;
+      margin-inline: initial;
     }
 
     [data-tab] {
