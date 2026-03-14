@@ -2,6 +2,15 @@ import RyuutamaPartySheet from "../applications/sheets/actors/party.mjs";
 
 export default class RyuutamaActor extends foundry.documents.Actor {
   /** @inheritdoc */
+  static async createDialog(data = {}, createOptions = {}, options = {}, renderOptions = {}) {
+    foundry.utils.setProperty(options, "position.width", 400);
+    if (("left" in options.position)) options.position.left -= 80;
+    return super.createDialog(data, createOptions, options, renderOptions);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   getRollData() {
     const rollData = this.system.getRollData?.() ?? { ...this.system };
     rollData.name = this.name;

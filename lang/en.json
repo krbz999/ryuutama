@@ -1,5 +1,12 @@
 {
   "TYPES": {
+    "HINTS": {
+      "Actor": {
+        "monster": "An animal or monster that roams the wilderness.",
+        "party": "An organizational actor for displaying overworld position and managing the entire party.",
+        "traveler": "A player character that embarks on a journey through unknown lands."
+      }
+    },
     "ActiveEffect": {
       "standard": "Standard Effect",
       "standardPl": "Standard Effects",
