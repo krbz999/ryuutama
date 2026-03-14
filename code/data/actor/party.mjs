@@ -118,9 +118,10 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
    * @returns {Promise<RyuutamaTokenDocument[]>}    A promise that resolves to the created tokens.
    */
   async placeMembers() {
-    const config = { tokens: this.members.map(m => m.actor.prototypeToken) };
-    const data = await ryuutama.canvas.interaction.TokenPlacement.place(config);
-    return ryuutama.canvas.interaction.TokenPlacement.createTokens(data);
+    const promises = this.members.map(m => m.actor.getTokenDocument());
+    const tokens = await Promise.all(promises);
+    const data = tokens.map(token => token.toObject());
+    return canvas.tokens.placeTokens(data, { create: true });
   }
 
   /* -------------------------------------------------- */

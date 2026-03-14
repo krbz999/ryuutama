@@ -28,6 +28,11 @@
  */
 export default class TokenPlacement {
   constructor(config) {
+    foundry.utils.logCompatibilityWarning("Ryuutama | The 'TokenPlacement' utility class has been deprecated.", {
+      since: "2.0.0",
+      until: "2.1.0",
+      details: "Use the native 'canvas.tokens.placeTokens' method instead.",
+    });
     this.config = config;
   }
 
