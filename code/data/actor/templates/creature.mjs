@@ -161,11 +161,13 @@ export default class CreatureData extends BaseData {
     Object.values(ryuutama.CONST.ABILITIES).forEach(ability => {
       Object.defineProperties(this.abilities[ability], {
         die: {
+          enumerable: true,
           get() {
             return `d${this.faces}`;
           },
         },
         faces: {
+          enumerable: true,
           get() {
             return this.value;
           },
