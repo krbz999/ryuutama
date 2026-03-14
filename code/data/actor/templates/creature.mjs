@@ -158,7 +158,25 @@ export default class CreatureData extends BaseData {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    for (const k in this.abilities) this.abilities[k] = new ryuutama.data.Ability(this.abilities[k].value);
+    Object.values(ryuutama.CONST.ABILITIES).forEach(ability => {
+      Object.defineProperties(this.abilities[ability], {
+        die: {
+          get() {
+            return `d${this.faces}`;
+          },
+        },
+        faces: {
+          get() {
+            return this.value;
+          },
+        },
+        toString: {
+          value: function() {
+            return `1d${this.faces}`;
+          },
+        },
+      });
+    });
   }
 
   /* -------------------------------------------------- */
@@ -184,9 +202,6 @@ export default class CreatureData extends BaseData {
    * Prepare abilities.
    */
   _prepareAbilities() {
-    // In case of doubled data prep, ensure the object is entirely source data. An error is otherwise thrown.
-    for (const k in this.abilities) this.abilities[k] = { ...this._source.abilities[k] };
-
     const statuses = this.condition.statuses;
     for (const id of Object.keys(ryuutama.config.statusEffects)) {
       if (!statuses[id]) continue;
