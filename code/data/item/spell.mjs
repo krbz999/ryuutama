@@ -60,7 +60,7 @@ export default class SpellData extends BaseData {
           type: new StringField({ required: true, initial: "instant", choices: () => ryuutama.config.spellDurationTypes }),
           custom: new StringField({ required: true }),
         }),
-        level: new StringField({ required: true, initial: "low", choices: () => ryuutama.config.spellLevels }),
+        level: new StringField({ required: true, initial: "low", choices: ryuutama.CONST.SPELL_LEVELS._toConfig }),
         range: new SchemaField({
           value: new StringField({ required: true, initial: "touch", choices: () => ryuutama.config.spellRangeTypes }),
         }),

@@ -28,7 +28,7 @@ export default class SpellRegistry {
    * Spells categorized by level (low, mid, high).
    * @type {Record<Level, Map<string, Set<string>>>}
    */
-  #byLevel = Object.fromEntries(Object.keys(ryuutama.config.spellLevels).map(key => [key, new Map()]));
+  #byLevel = Object.fromEntries(Object.values(ryuutama.CONST.SPELL_LEVELS).map(key => [key, new Map()]));
 
   /* -------------------------------------------------- */
 

@@ -53,3 +53,16 @@ export const SPELL_CATEGORIES = {
   WINTER: "winter",
 };
 toConfig(SPELL_CATEGORIES, "spellCategories");
+
+/* -------------------------------------------------- */
+
+/**
+ * Spell levels.
+ * @enum {string}
+ */
+export const SPELL_LEVELS = {
+  LOW: "low",
+  MID: "mid",
+  HIGH: "high",
+};
+toConfig(SPELL_LEVELS, "spellLevels");

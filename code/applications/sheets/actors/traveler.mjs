@@ -127,7 +127,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
           id: "level",
           field: "system.spell.level",
           operator: foundry.applications.ux.SearchFilter.OPERATORS.CONTAINS,
-          value: () => Object.keys(ryuutama.config.spellLevels),
+          value: () => Object.values(ryuutama.CONST.SPELL_LEVELS),
         },
       ],
     },
@@ -737,10 +737,13 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       });
     }
 
-    for (const level of ["low", "mid", "high"]) {
+    for (const level of Object.values(ryuutama.CONST.SPELL_LEVELS)) {
       const state = this.search.get("spells", "level", level);
       menuOptions.push({
-        cssClass: [state === 1 ? "active" : null, state === -1 ? "inactive" : null].filterJoin(" "),
+        cssClass: [
+          (state === 1) ? "active" : null,
+          (state === -1) ? "inactive" : null,
+        ].filterJoin(" "),
         id: "level",
         label: ryuutama.config.spellLevels[level].label,
         option: level,
