@@ -23,11 +23,11 @@ export default class RyuutamaCombatTracker extends foundry.applications.sidebar.
   /** @inheritdoc */
   _getEntryContextOptions() {
     const options = super._getEntryContextOptions();
-    const index = options.findIndex(o => o.name === "COMBAT.CombatantReroll");
+    const index = options.findIndex(o => o.label === "COMBATANT.ACTIONS.Reroll");
 
     const option = {
       label: "RYUUTAMA.COMBAT.rollDelayed",
-      icon: "<i class='fa-solid fa-dice-d20'></i>",
+      icon: "fa-solid fa-dice-d20",
       visible: target => this.viewed.combatants.get(target.dataset.combatantId).isOwner,
       onClick: (event, target) => {
         const combatant = this.viewed.combatants.get(target.dataset.combatantId);
