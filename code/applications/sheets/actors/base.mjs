@@ -197,24 +197,24 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
     const options = [
       {
         label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.view",
-        icon: "fa-solid fa-fw fa-eye",
+        icon: "fa-solid fa-eye",
         onClick: (event, target) => getItem(target).sheet.render({ force: true, mode: 1 }),
       },
       {
         label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.edit",
-        icon: "fa-solid fa-fw fa-edit",
+        icon: "fa-solid fa-edit",
         onClick: (event, target) => getItem(target).sheet.render({ force: true, mode: 0 }),
       },
       {
         label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.delete",
-        icon: "fa-solid fa-fw fa-trash",
+        icon: "fa-solid fa-trash",
         onClick: (event, target) => getItem(target).deleteDialog(),
         visible: target => this.isEditable && (getItem(target).type !== "class"),
       },
       {
         group: "system",
         label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.equip",
-        icon: "fa-solid fa-fw fa-shield",
+        icon: "fa-solid fa-shield",
         visible: target => {
           if (!this.isEditable || (this.document.type !== "traveler")) return false;
           const item = getItem(target);
@@ -231,7 +231,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
       {
         group: "system",
         label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.unequip",
-        icon: "fa-solid fa-fw fa-shield-alt",
+        icon: "fa-solid fa-shield-alt",
         visible: target => {
           const item = getItem(target);
           return this.isEditable && (this.document.type === "traveler")
@@ -245,7 +245,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
       {
         group: "system",
         label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.assignSpecialAbility",
-        icon: "fa-solid fa-fw fa-star",
+        icon: "fa-solid fa-star",
         visible: target => {
           if (this.document.type !== "monster") return false;
           const item = getItem(target);
@@ -260,7 +260,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
       {
         group: "system",
         label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.castSpell",
-        icon: "fa-solid fa-fw fa-book",
+        icon: "fa-solid fa-book",
         visible: target => {
           const item = getItem(target);
           return (typeof this.document.system.castSpell === "function") && (item.type === "spell");
@@ -287,24 +287,24 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
     const options = [
       {
         label: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.edit",
-        icon: "fa-solid fa-fw fa-edit",
+        icon: "fa-solid fa-edit",
         onClick: (event, target) => getItem(target).sheet.render({ force: true }),
       },
       {
         label: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.delete",
-        icon: "fa-solid fa-fw fa-trash",
+        icon: "fa-solid fa-trash",
         onClick: (event, target) => getItem(target).deleteDialog(),
         visible: target => (getItem(target).parent === this.document) && this.isEditable,
       },
       {
         label: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.disable",
-        icon: "fa-solid fa-fw fa-times",
+        icon: "fa-solid fa-times",
         onClick: (event, target) => getItem(target).update({ disabled: true }),
         visible: target => this.isEditable && !getItem(target).disabled,
       },
       {
         label: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.enable",
-        icon: "fa-solid fa-fw fa-check",
+        icon: "fa-solid fa-check",
         onClick: (event, target) => getItem(target).update({ disabled: false }),
         visible: target => this.isEditable && getItem(target).disabled,
       },

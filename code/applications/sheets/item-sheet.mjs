@@ -181,24 +181,24 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     const options = [
       {
         label: "RYUUTAMA.ITEM.CONTEXT.EFFECT.edit",
-        icon: "fa-solid fa-fw fa-edit",
+        icon: "fa-solid fa-edit",
         onClick: (event, target) => getItem(target).sheet.render({ force: true }),
       },
       {
         label: "RYUUTAMA.ITEM.CONTEXT.EFFECT.delete",
-        icon: "fa-solid fa-fw fa-trash",
+        icon: "fa-solid fa-trash",
         onClick: (event, target) => getItem(target).deleteDialog(),
         visible: () => this.isEditable,
       },
       {
         label: "RYUUTAMA.ITEM.CONTEXT.EFFECT.disable",
-        icon: "fa-solid fa-fw fa-times",
+        icon: "fa-solid fa-times",
         onClick: (event, target) => getItem(target).update({ disabled: true }),
         visible: target => this.isEditable && !getItem(target).disabled,
       },
       {
         label: "RYUUTAMA.ITEM.CONTEXT.EFFECT.enable",
-        icon: "fa-solid fa-fw fa-check",
+        icon: "fa-solid fa-check",
         onClick: (event, target) => getItem(target).update({ disabled: false }),
         visible: target => this.isEditable && getItem(target).disabled,
       },

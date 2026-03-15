@@ -5,7 +5,7 @@ export default class RyuutamaActorDirectory extends foundry.applications.sidebar
     const getActor = target => game.actors.get(target.dataset.entryId);
     options.push({
       label: "RYUUTAMA.SIDEBAR.ACTORS.contextMenuAssignPrimaryParty",
-      icon: "fa-solid fa-fw fa-medal",
+      icon: "fa-solid fa-medal",
       visible: target => {
         const actor = getActor(target);
         return game.user.isGM && (actor.type === "party") && (actor !== game.actors.party);
@@ -14,7 +14,7 @@ export default class RyuutamaActorDirectory extends foundry.applications.sidebar
       group: "system",
     }, {
       label: "RYUUTAMA.SIDEBAR.ACTORS.contextMenuRemovePrimaryParty",
-      icon: "fa-solid fa-fw fa-times",
+      icon: "fa-solid fa-times",
       visible: target => game.user.isGM && (getActor(target) === game.actors.party),
       onClick: () => game.actors.unsetParty(),
       group: "system",

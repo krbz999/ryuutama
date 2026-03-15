@@ -155,7 +155,7 @@ export default class CurrentHabitat extends Application {
     const options = [
       {
         label: "RYUUTAMA.HABITAT.CONTEXT.viewFullImage",
-        icon: "fa-solid fa-fw fa-image",
+        icon: "fa-solid fa-image",
         onClick: (event, target) => {
           const terrain = target.dataset.terrainId;
           const { icon: src, label: title } = ryuutama.config.terrainTypes[terrain];
