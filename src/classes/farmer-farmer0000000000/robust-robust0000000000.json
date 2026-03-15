@@ -8,7 +8,8 @@
     },
     "identifier": "robust",
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "img": "icons/magic/control/buff-strength-muscle-damage-orange.webp",
@@ -20,23 +21,22 @@
       "disabled": false,
       "type": "standard",
       "_id": "34GDYwrxiEQRacfj",
-      "system": {},
-      "changes": [
-        {
-          "key": "system.capacity.bonus",
-          "mode": 2,
-          "value": "3",
-          "priority": null
-        }
-      ],
+      "system": {
+        "changes": [
+          {
+            "key": "system.capacity.bonus",
+            "value": 3,
+            "priority": null,
+            "type": "add",
+            "phase": "initial"
+          }
+        ]
+      },
       "duration": {
-        "startTime": null,
-        "combat": null,
-        "seconds": null,
-        "rounds": null,
-        "turns": null,
-        "startRound": null,
-        "startTurn": null
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
       },
       "description": "<p>@Embed[Compendium.ryuutama.classes.Item.robust0000000000 caption=false]</p>",
       "origin": null,
@@ -48,13 +48,16 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.351",
+        "coreVersion": "14.356",
         "systemId": "ryuutama",
-        "systemVersion": "1.2.0",
-        "createdTime": 1764867774323,
+        "systemVersion": "2.0.0",
+        "createdTime": 1773588618423,
         "modifiedTime": null,
         "lastModifiedBy": "ryuutama00000000"
       },
+      "start": null,
+      "showIcon": 1,
+      "folder": null,
       "_key": "!items.effects!robust0000000000.34GDYwrxiEQRacfj"
     }
   ],
@@ -68,10 +71,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.356",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760283836382,
+    "systemVersion": "2.0.0",
+    "createdTime": 1773588618423,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

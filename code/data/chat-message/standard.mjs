@@ -17,11 +17,11 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  static migrateData(source) {
+  static migrateData(source, options, _state) {
     if (Array.isArray(source?.parts)) {
       source.parts = Object.fromEntries(source.parts.map(part => [foundry.utils.randomID(), part]));
     }
-    return super.migrateData(source);
+    return super.migrateData(source, options, _state);
   }
 
   /* -------------------------------------------------- */

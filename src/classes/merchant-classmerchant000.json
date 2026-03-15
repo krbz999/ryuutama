@@ -5,14 +5,21 @@
       "value": "<p><em>A traveling tradesman who exchanges goods from various locales for gold and jewels. The Merchant has skills that allow them to buy goods cheaply and sell them for a higher price. They are also good at negotiations using conversational skills.</em></p><p><strong>Example Jobs:</strong> trader, store owner, caravan leader, etc.</p><p><strong>Example Actions:</strong> selling, buying, trading, carrying, etc.</p>"
     },
     "skills": [
-      "Compendium.ryuutama.classes.Item.wellspoken000000",
-      "Compendium.ryuutama.classes.Item.animalowner00001",
-      "Compendium.ryuutama.classes.Item.trader0000000000"
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.wellspoken000000"
+      },
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.animalowner00001"
+      },
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.trader0000000000"
+      }
     ],
     "identifier": "merchant",
     "tier": 1,
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "_id": "classmerchant000",
@@ -29,10 +36,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.356",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1763295682370,
+    "systemVersion": "2.0.0",
+    "createdTime": 1773588618420,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

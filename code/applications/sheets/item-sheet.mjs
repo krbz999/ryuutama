@@ -14,6 +14,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     actions: {
       decreaseRation: RyuutamaItemSheet.#decreaseRation,
       increaseRation: RyuutamaItemSheet.#increaseRation,
+      removeSkill: RyuutamaItemSheet.#removeSkill,
     },
   };
 
@@ -207,6 +208,21 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  async _onDropItem(event, item) {
+    const target = event.target;
+    const isSkillDrop = target.classList.contains("droparea")
+      && (this.document.type === "class")
+      && (item.type === "skill");
+    if (!isSkillDrop) return super._onDropItem(event, item);
+    await this.document.update({
+      "system.skills": this.document.system.toObject().skills.concat({ uuid: item.uuid }),
+    });
+    return true;
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * @this RyuutamaItemSheet
    * @param {PointerEvent} event    The initiating click event.
@@ -227,5 +243,19 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   static #increaseRation(event, target) {
     const type = target.closest("[data-ration-type]").dataset.rationType;
     this.document.system.addRations(1, { type });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaItemSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #removeSkill(event, target) {
+    const uuid = target.closest("[data-uuid]").dataset.uuid;
+    const skills = this.document.system.toObject().skills;
+    skills.findSplice(s => s.uuid === uuid);
+    this.document.update({ "system.skills": skills });
   }
 }

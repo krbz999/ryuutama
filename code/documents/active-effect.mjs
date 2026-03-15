@@ -34,7 +34,7 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  static migrateData(source) {
+  static migrateData(source, options, _state) {
     for (const change of source.changes ?? []) {
       if (change.key.startsWith("system.mastered.weapons.")) {
         const weapon = change.key.slice("system.mastered.weapons.".length);
@@ -43,7 +43,7 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
         change.value = weapon || "";
       }
     }
-    return super.migrateData(source);
+    return super.migrateData(source, options, _state);
   }
 
   /* -------------------------------------------------- */

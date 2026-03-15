@@ -5,14 +5,21 @@
       "value": "<p><em>A traveler among travelers, who roams from town to town performing songs or dances. The Minstrel has a wide array of skills that can help the party in a variety of situations.</em></p><p><strong>Example Jobs:</strong> dancer, musician, minstrel, etc.</p><p><strong>Example Actions:</strong> dancing, singing, storytelling, etc.</p>"
     },
     "skills": [
-      "Compendium.ryuutama.classes.Item.welltraveled0000",
-      "Compendium.ryuutama.classes.Item.knowledgeoftradi",
-      "Compendium.ryuutama.classes.Item.music00000000000"
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.welltraveled0000"
+      },
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.knowledgeoftradi"
+      },
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.music00000000000"
+      }
     ],
     "identifier": "minstrel",
     "tier": 1,
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "_id": "classminstrel000",
@@ -29,10 +36,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.356",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1763295586193,
+    "systemVersion": "2.0.0",
+    "createdTime": 1773588618420,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

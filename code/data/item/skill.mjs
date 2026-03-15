@@ -46,7 +46,7 @@ export default class SkillData extends BaseData {
 
   /**
    * The origin class of this skill.
-   * @type {RyuutamaItem}
+   * @type {RyuutamaItem|null}
    */
   get originClass() {
     const item = this.parent;

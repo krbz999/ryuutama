@@ -538,8 +538,9 @@
           "skills.label": "Skills",
           "skills.hint": "Enter uuids of Skill items that will be granted when this class is chosen."
         },
-        "skills": "Skills",
-        "creationWarning": "A class item can only be created on an actor via advancement."
+        "creationWarning": "A class item can only be created on an actor via advancement.",
+        "dropSkill": "Drop a Skill item here.",
+        "skills": "Skills"
       },
 
       "CONTAINER": {

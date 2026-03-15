@@ -73,12 +73,12 @@ export default class HerbData extends BaseData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  static migrateData(source) {
+  static migrateData(source, options, _state) {
     if ("level" in source) {
       foundry.utils.setProperty(source, "terrain.level", source.level);
       delete source.level;
     }
-    return super.migrateData(source);
+    return super.migrateData(source, options, _state);
   }
 
   /* -------------------------------------------------- */

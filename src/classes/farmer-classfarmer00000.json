@@ -5,14 +5,21 @@
       "value": "<p><em>A worker who lives in harmony with the bounty of nature. In order to reap their harvest, they must set their hand to a number of different tasks, giving them practice with a single skill from another class.</em></p><p><strong>Example Jobs:</strong> farmer, breeder, milkmaid, etc.</p><p><strong>Example Actions:</strong> farming, planting, hauling, etc.</p>"
     },
     "skills": [
-      "Compendium.ryuutama.classes.Item.robust0000000000",
-      "Compendium.ryuutama.classes.Item.animalowner00000",
-      "Compendium.ryuutama.classes.Item.sidejob000000000"
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.robust0000000000"
+      },
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.animalowner00000"
+      },
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.sidejob000000000"
+      }
     ],
     "identifier": "farmer",
     "tier": 1,
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "_id": "classfarmer00000",
@@ -29,10 +36,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.356",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1763295877604,
+    "systemVersion": "2.0.0",
+    "createdTime": 1773588618420,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

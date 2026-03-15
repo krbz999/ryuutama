@@ -5,14 +5,21 @@
       "value": "<p><em>A medic respected by all for their skill in using herbs to cure illnesses and heal injuries. You'll want to make sure you have a Healer with you if you are traveling in dangerous areas.</em></p><p><strong>Example Jobs:</strong> doctor, pharmacist, alchemist, herbalist etc.</p><p><strong>Example Actions:</strong> cure, operate, heal, etc.</p>"
     },
     "skills": [
-      "Compendium.ryuutama.classes.Item.healing000000000",
-      "Compendium.ryuutama.classes.Item.firstaid00000000",
-      "Compendium.ryuutama.classes.Item.herbgathering000"
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.healing000000000"
+      },
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.firstaid00000000"
+      },
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.herbgathering000"
+      }
     ],
     "identifier": "healer",
     "tier": 1,
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "_id": "classhealer00000",
@@ -29,10 +36,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.356",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1763295844701,
+    "systemVersion": "2.0.0",
+    "createdTime": 1773588618420,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

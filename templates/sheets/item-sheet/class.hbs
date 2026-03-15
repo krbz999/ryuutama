@@ -1,15 +1,20 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
   {{formGroup systemFields.identifier value=(ifThen disabled document.identifier source.system.identifier) disabled=disabled placeholder=identifierPlaceholder}}
 
-  {{#if disabled}}
+  {{#unless disabled}}
+  <div class="droparea">
+    <p>{{localize "RYUUTAMA.ITEM.CLASS.dropSkill"}}</p>
+  </div>
+  {{/unless}}
+
   {{#each classSkills}}
   <section class="description">
     <h4 data-uuid="{{item.uuid}}">
       <a data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}" data-action="renderDocument">{{item.name}}</a>
+      {{#unless @root.disabled}}
+      <button type="button" class="icon fa-solid fa-trash" data-action="removeSkill"></button>
+      {{/unless}}
     </h4>
   </section>
   {{/each}}
-  {{else}}
-  {{formGroup systemFields.skills value=source.system.skills classes="stacked"}}
-  {{/if}}
 </section>

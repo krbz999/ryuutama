@@ -5,14 +5,21 @@
       "value": "<p><em>A member of a noble house, accomplished in both the literary and military arts as well as instructed in proper etiquette. However, Nobles are not quite suited to the life outdoors and are not very good at traveling.</em></p><p><strong>Example Jobs:</strong> knight, samurai, daimyo, lord, etc.</p><p><strong>Example Actions:</strong> giving orders, protecting, studying, etc.</p>"
     },
     "skills": [
-      "Compendium.ryuutama.classes.Item.etiquette0000000",
-      "Compendium.ryuutama.classes.Item.refinededucation",
-      "Compendium.ryuutama.classes.Item.weapongrace00000"
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.etiquette0000000"
+      },
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.refinededucation"
+      },
+      {
+        "uuid": "Compendium.ryuutama.classes.Item.weapongrace00000"
+      }
     ],
     "identifier": "noble",
     "tier": 1,
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "_id": "classnoble000000",
@@ -29,10 +36,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.356",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1763295483386,
+    "systemVersion": "2.0.0",
+    "createdTime": 1773588618421,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

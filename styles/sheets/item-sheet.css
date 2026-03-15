@@ -3,4 +3,12 @@
     flex: 0 0 2.5rem;
     text-align: center;
   }
+
+  .droparea {
+    border: 1px dashed rgb(95, 88, 47);
+    border-radius: .5rem;
+    padding: 1rem;
+    text-align: center;
+    font-style: italic;
+  }
 }
