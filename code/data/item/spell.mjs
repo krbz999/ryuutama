@@ -46,7 +46,7 @@ export default class SpellData extends BaseData {
       category: new SchemaField({
         value: new StringField({
           required: true, initial: "incantation",
-          choices: () => ryuutama.config.spellCategories,
+          choices: ryuutama.CONST.SPELL_CATEGORIES._toConfig,
         }),
       }),
       spell: new SchemaField({
@@ -136,9 +136,15 @@ export default class SpellData extends BaseData {
     context.spell.duration.special = context.spell.duration.type === "special";
 
     const seasonal = _loc("RYUUTAMA.ITEM.SPELL.CATEGORIES.seasonal");
-    context.spell.magicOptions = Object.entries(ryuutama.config.spellCategories).map(([k, v]) => {
-      return { value: k, label: v.label, group: k === "incantation" ? undefined : seasonal };
-    });
+    context.spell.magicOptions = Object.values(ryuutama.CONST.SPELL_CATEGORIES)
+      .map(category => {
+        const { label, isSeasonal } = ryuutama.config.spellCategories[category];
+        return {
+          label,
+          value: category,
+          group: isSeasonal ? seasonal : undefined,
+        };
+      });
   }
 
   /* -------------------------------------------------- */

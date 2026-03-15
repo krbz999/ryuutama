@@ -462,18 +462,22 @@ export const spellCategories = {
   spring: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.spring",
     icon: "systems/ryuutama/assets/official/icons/magic/spring.svg",
+    isSeasonal: true,
   },
   summer: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.summer",
     icon: "systems/ryuutama/assets/official/icons/magic/summer.svg",
+    isSeasonal: true,
   },
   autumn: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.autumn",
     icon: "systems/ryuutama/assets/official/icons/magic/fall.svg",
+    isSeasonal: true,
   },
   winter: {
     label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.winter",
     icon: "systems/ryuutama/assets/official/icons/magic/winter.svg",
+    isSeasonal: true,
   },
 };
 Prelocalization.prelocalize(spellCategories);

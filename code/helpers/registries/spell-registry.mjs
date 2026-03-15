@@ -20,7 +20,7 @@ export default class SpellRegistry {
    * Spells categorized by category.
    * @type {Record<Season, Map<string, Set<string>>>}
    */
-  #byCategory = Object.fromEntries(Object.keys(ryuutama.config.spellCategories).map(key => [key, new Map()]));
+  #byCategory = Object.fromEntries(Object.values(ryuutama.CONST.SPELL_CATEGORIES).map(key => [key, new Map()]));
 
   /* -------------------------------------------------- */
 

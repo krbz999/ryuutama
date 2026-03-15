@@ -121,7 +121,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
           id: "category",
           field: "system.category.value",
           operator: foundry.applications.ux.SearchFilter.OPERATORS.CONTAINS,
-          value: () => Object.keys(ryuutama.config.spellCategories),
+          value: () => Object.values(ryuutama.CONST.SPELL_CATEGORIES),
         },
         {
           id: "level",
@@ -684,7 +684,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     const menuOptions = [];
     const sections = [];
     const byCategory = Object.groupBy(this.document.items.documentsByType.spell, spell => spell.system.category.value);
-    for (const category of Object.keys(ryuutama.config.spellCategories)) {
+    for (const category of Object.values(ryuutama.CONST.SPELL_CATEGORIES)) {
       const items = byCategory[category] ?? [];
       if (!items.length && ignoreSection(category)) continue;
       const { label, icon } = ryuutama.config.spellCategories[category];
@@ -727,7 +727,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
         section.controlWidgets = `<img src="${icon}" data-tooltip="RYUUTAMA.ACTOR.TRAVELER.seasonAffinity">`;
     }
 
-    for (const key of Object.keys(ryuutama.config.spellCategories)) {
+    for (const key of Object.values(ryuutama.CONST.SPELL_CATEGORIES)) {
       const state = this.search.get("spells", "category", key);
       menuOptions.push({
         cssClass: [state === 1 ? "active" : null, state === -1 ? "inactive" : null].filterJoin(" "),

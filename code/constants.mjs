@@ -38,3 +38,18 @@ toConfig(ABILITIES, "abilityScores");
  */
 export const ITEM_SIZES = [1, 3, 5];
 toConfig(ITEM_SIZES, "itemSizes");
+
+/* -------------------------------------------------- */
+
+/**
+ * Spell categories.
+ * @enum {string}
+ */
+export const SPELL_CATEGORIES = {
+  INCANTATION: "incantation",
+  SPRING: "spring",
+  SUMMER: "summer",
+  AUTUMN: "autumn",
+  WINTER: "winter",
+};
+toConfig(SPELL_CATEGORIES, "spellCategories");
