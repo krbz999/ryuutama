@@ -30,3 +30,11 @@ export const ABILITIES = {
   SPIRIT: "spirit",
 };
 toConfig(ABILITIES, "abilityScores");
+
+/* -------------------------------------------------- */
+
+/**
+ * @enum {number}
+ */
+export const ITEM_SIZES = [1, 3, 5];
+toConfig(ITEM_SIZES, "itemSizes");

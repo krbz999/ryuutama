@@ -46,7 +46,7 @@ export default class ContainerData extends BaseData {
         { validateKey: key => foundry.data.validators.isValidId(key) },
       ),
       size: new SchemaField({
-        value: new NumberField({ nullable: false, initial: 1, choices: () => ryuutama.config.itemSizes }),
+        value: new NumberField({ nullable: false, initial: 1, choices: ryuutama.CONST.ITEM_SIZES._toConfig }),
       }),
     });
   }

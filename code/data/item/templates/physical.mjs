@@ -14,7 +14,7 @@ export default class PhysicalData extends BaseData {
         value: new NumberField({ nullable: false, initial: 1, min: 0, integer: true }),
       }),
       size: new SchemaField({
-        value: new NumberField({ nullable: false, initial: 1, choices: () => ryuutama.config.itemSizes }),
+        value: new NumberField({ nullable: false, initial: 1, choices: ryuutama.CONST.ITEM_SIZES._toConfig }),
       }),
     });
   }
