@@ -66,7 +66,7 @@ export default class ClassAdvancement extends Advancement {
 
   /** @inheritdoc */
   async _getAdvancementResults(actor) {
-    const results = await super._getAdvancementResults(actor);
+    const results = [];
 
     const classItem = await fromUuid(this.choice.chosen);
     const skills = await Promise.all(classItem.system.skills.map(uuid => fromUuid(uuid)));

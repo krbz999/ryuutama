@@ -137,9 +137,9 @@ export default class Advancement extends foundry.abstract.DataModel {
   /**
    * Return advancement types that should be available choices
    * depending on this advancement's current configuration.
-   * @returns {Promise<Set<string>>}
+   * @returns {Promise<object[]>}   A promise that resolves to an array of objects, each of which must contain 'type'.
    */
-  async _getChildTypes() {
-    return new Set();
+  async _getChildNodeConfigurations() {
+    return [];
   }
 }

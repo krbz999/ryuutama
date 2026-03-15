@@ -171,9 +171,9 @@ export default class AdvancementNode {
   async _initializeLeafNodes() {
     this.children.clear();
     if (!this.isConfigured) return;
-    for (const type of await this.advancement._getChildTypes()) {
+    for (const c of await this.advancement._getChildNodeConfigurations()) {
       /** @type {AdvancementNode} */
-      const node = new this.constructor({ type, chain: this.chain, parent: this });
+      const node = new this.constructor({ type: c.type, chain: this.chain, parent: this });
       this.children.add(node);
       await node._initializeLeafNodes();
     }
