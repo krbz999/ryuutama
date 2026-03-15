@@ -61,4 +61,14 @@ export default class RyuutamaCombat extends foundry.documents.Combat {
     await this.updateEmbeddedDocuments("Combatant", updates, { render: false, turnEvents: false });
     return super.nextRound();
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    this.combatants.forEach(c => {
+      c.actor?.render(false, { context: "deleteCombat" });
+    });
+  }
 }

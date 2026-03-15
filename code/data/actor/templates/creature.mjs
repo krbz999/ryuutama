@@ -76,7 +76,7 @@ export default class CreatureData extends BaseData {
    */
   get defenseValue() {
     const combatant = game.combat?.combatants.find(c => c.actor === this.parent);
-    return combatant ? combatant.initiative : null;
+    return Number.isNumeric(combatant?.initiative) ? parseInt(combatant.initiative) : null;
   }
 
   /* -------------------------------------------------- */

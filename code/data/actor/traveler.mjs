@@ -116,7 +116,7 @@ export default class TravelerData extends CreatureData {
    */
   get combatantInitiative() {
     const combatant = game.combat?.combatants.find(c => c.actor === this.parent);
-    return combatant?.initiative ?? null;
+    return Number.isNumeric(combatant?.initiative) ? parseInt(combatant.initiative) : null;
   }
 
   /* -------------------------------------------------- */
