@@ -70,6 +70,19 @@ toConfig(ITEM_SIZES, "itemSizes");
 /* -------------------------------------------------- */
 
 /**
+ * Ration modifiers, which are exclusive.
+ * @enum {string}
+ */
+export const RATION_MODIIFERS = {
+  DISGUSTING: "disgusting",
+  NORMAL: "regular",
+  DELICIOUS: "delicious",
+};
+toConfig(RATION_MODIIFERS, "rationModifiers");
+
+/* -------------------------------------------------- */
+
+/**
  * Ration types.
  * @enum {string}
  */

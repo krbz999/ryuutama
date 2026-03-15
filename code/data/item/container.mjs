@@ -200,7 +200,7 @@ export default class ContainerData extends BaseData {
       throw new Error(`A ration of type '${ration.type}' does not allow for modifiers.`);
     }
 
-    const modifiers = Object.keys(ryuutama.config.rationModifiers);
+    const modifiers = Object.values(ryuutama.CONST.RATION_MODIIFERS);
     if (direction === -1) modifiers.reverse();
 
     const modifier = modifiers[modifiers.indexOf(ration.modifier) + 1];
@@ -236,8 +236,8 @@ function rationTypes() {
       d.modifier = new StringField({
         required: true,
         blank: false,
-        initial: "regular",
-        choices: () => ryuutama.config.rationModifiers,
+        initial: ryuutama.CONST.RATION_MODIIFERS.NORMAL,
+        choices: ryuutama.CONST.RATION_MODIIFERS._toConfig,
       });
     }
   });
