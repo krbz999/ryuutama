@@ -11,7 +11,6 @@ export default class AbilityScoreField extends NumberField {
       nullable: false,
       required: true,
       initial: 4,
-      restricted: false,
       integer: true,
       min: 2,
       max: 20,
@@ -26,7 +25,7 @@ export default class AbilityScoreField extends NumberField {
    */
   get BASE_OPTIONS() {
     const options = this.VALUES;
-    if (this.options.restricted) {
+    if (this.isRestricted) {
       options.shift();
       options.pop();
     }
@@ -41,6 +40,16 @@ export default class AbilityScoreField extends NumberField {
    */
   get VALUES() {
     return [2, 4, 6, 8, 10, 12, 20];
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Are abilities restricted to 4-12, excluding 2 and 20?
+   * @type {boolean}
+   */
+  get isRestricted() {
+    return this.parent.options.restricted;
   }
 
   /* -------------------------------------------------- */

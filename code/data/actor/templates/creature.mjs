@@ -11,7 +11,7 @@ import RyuutamaToken from "../../../canvas/placeables/token.mjs";
  * @import RyuutamaChatMessage from "../../../documents/chat-message.mjs";
  */
 
-const { BooleanField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { BooleanField, EmbeddedDataField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class CreatureData extends BaseData {
   /** @inheritdoc */
@@ -28,12 +28,18 @@ export default class CreatureData extends BaseData {
       });
     };
 
+    const abilities = Object.values(ryuutama.CONST.ABILITIES).reduce((acc, key) => {
+      acc[key] = new EmbeddedDataField(ryuutama.data.AbilityModel, { restricted: this.RESTRICTED_ABILITIES ?? false });
+      return acc;
+    }, {});
+
     const statuses = Object.values(ryuutama.CONST.STATUS_EFFECTS).reduce((acc, status) => {
       acc[status] = new NumberField({ persisted: false, initial: null });
       return acc;
     }, {});
 
     return Object.assign(super.defineSchema(), {
+      abilities: new SchemaField(abilities),
       condition: new SchemaField({
         immunities: new SetField(new StringField({ choices: ryuutama.CONST.STATUS_EFFECTS._toConfig })),
         statuses: new SchemaField(statuses, { persisted: false }),
@@ -151,34 +157,6 @@ export default class CreatureData extends BaseData {
 
     this.#prepareStatuses();
     this._prepareAbilities();
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  prepareDerivedData() {
-    super.prepareDerivedData();
-    Object.values(ryuutama.CONST.ABILITIES).forEach(ability => {
-      Object.defineProperties(this.abilities[ability], {
-        die: {
-          enumerable: true,
-          get() {
-            return `d${this.faces}`;
-          },
-        },
-        faces: {
-          enumerable: true,
-          get() {
-            return this.value;
-          },
-        },
-        toString: {
-          value: function() {
-            return `1d${this.faces}`;
-          },
-        },
-      });
-    });
   }
 
   /* -------------------------------------------------- */

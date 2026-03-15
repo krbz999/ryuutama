@@ -11,18 +11,19 @@ const {
 } = foundry.data.fields;
 
 export default class TravelerData extends CreatureData {
+  static {
+    /**
+     * Are abilities restricted to 4-12, excluding 2 and 20?
+     * @type {boolean}
+     */
+    Object.defineProperty(this, "RESTRICTED_ABILITIES", { value: true, writable: false });
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static defineSchema() {
-    const abilities = Object.values(ryuutama.CONST.ABILITIES).reduce((acc, key) => {
-      acc[key] = new SchemaField({
-        advancement: new NumberField({ persisted: false, integer: true, initial: 0, min: 0 }),
-        value: new ryuutama.data.fields.AbilityScoreField({ restricted: true }),
-      });
-      return acc;
-    }, {});
-
     const schema = Object.assign(super.defineSchema(), {
-      abilities: new SchemaField(abilities),
       advancements: new TypedObjectField(
         new TypedSchemaField(Advancement.TYPES),
         { validateKey: key => foundry.data.validators.isValidId(key) },
