@@ -38,7 +38,11 @@ export default class AnimalData extends BaseData {
         riders: new NumberField({ nullable: true, integer: true, initial: null, min: 0 }),
       }),
       category: new SchemaField({
-        value: new StringField({ required: true, initial: "pet", choices: () => ryuutama.config.animalTypes }),
+        value: new StringField({
+          required: true,
+          initial: ryuutama.CONST.ANIMAL_TYPES.PET,
+          choices: ryuutama.CONST.ANIMAL_TYPES._toConfig,
+        }),
       }),
       modifiers: new SetField(new StringField()),
       price: new SchemaField({
@@ -138,8 +142,10 @@ export default class AnimalData extends BaseData {
       if (v.hidden && !isEditable && !this.modifiers.has(k)) continue;
       choices[k] = { value: k, label: v.label };
     }
+
     // 'Well-Traveled' applies only to Riding Animals.
-    if (!["riding", "ridingLarge"].includes(this.category.value)) delete choices.wellTraveled;
+    if (![ryuutama.CONST.ANIMAL_TYPES.RIDING, ryuutama.CONST.ANIMAL_TYPES.RIDING_LARGE].includes(this.category.value))
+      delete choices.wellTraveled;
     for (const k of this._source.modifiers) {
       if (!(k in choices)) choices[k] = { value: k, label: k };
     }

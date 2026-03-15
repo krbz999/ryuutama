@@ -34,6 +34,21 @@ toConfig(ABILITIES, "abilityScores");
 /* -------------------------------------------------- */
 
 /**
+ * Animal subtypes.
+ * @enum {string}
+ */
+export const ANIMAL_TYPES = {
+  RIDING: "riding",
+  RIDING_LARGE: "ridingLarge",
+  PACK_ANIMAL: "pack",
+  PACK_ANIMAL_LARGE: "packLarge",
+  PET: "pet",
+};
+toConfig(ANIMAL_TYPES, "animalTypes");
+
+/* -------------------------------------------------- */
+
+/**
  * @enum {number}
  */
 export const ITEM_SIZES = [1, 3, 5];
