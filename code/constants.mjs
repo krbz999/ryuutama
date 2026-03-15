@@ -84,6 +84,18 @@ toConfig(RATION_TYPES, "rationTypes");
 /* -------------------------------------------------- */
 
 /**
+ * Spell activation types.
+ * @enum {string}
+ */
+export const SPELL_ACTIVATIONS = {
+  NORMAL: "normal",
+  RITUAL: "ritual",
+};
+toConfig(SPELL_ACTIVATIONS, "spellActivationTypes");
+
+/* -------------------------------------------------- */
+
+/**
  * Spell categories.
  * @enum {string}
  */
@@ -99,6 +111,24 @@ toConfig(SPELL_CATEGORIES, "spellCategories");
 /* -------------------------------------------------- */
 
 /**
+ * Spell duration types.
+ * @enum {string}
+ */
+export const SPELL_DURATIONS = {
+  HOUR: "hours",
+  ROUND: "rounds",
+  INSTANT: "instant",
+  MINUTE: "minutes",
+  DAY: "days",
+  RITUAL: "ritual",
+  PERMANENT: "permanent",
+  SPECIAL: "special",
+};
+toConfig(SPELL_DURATIONS, "spellDurationTypes");
+
+/* -------------------------------------------------- */
+
+/**
  * Spell levels.
  * @enum {string}
  */
@@ -108,6 +138,22 @@ export const SPELL_LEVELS = {
   HIGH: "high",
 };
 toConfig(SPELL_LEVELS, "spellLevels");
+
+/* -------------------------------------------------- */
+
+/**
+ * Spell range types.
+ * @enum {string}
+ */
+export const SPELL_RANGES = {
+  TOUCH: "touch",
+  CASTER: "caster",
+  AREA_CLOSE: "closeArea",
+  AREA_ALL: "allAreas",
+  ANY: "any",
+  SPECIAL: "special",
+};
+toConfig(SPELL_RANGES, "spellRangeTypes");
 
 /* -------------------------------------------------- */
 

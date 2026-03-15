@@ -45,24 +45,41 @@ export default class SpellData extends BaseData {
       actions: new EmbeddedDataField(ActionsModel),
       category: new SchemaField({
         value: new StringField({
-          required: true, initial: "incantation",
+          required: true,
+          initial: ryuutama.CONST.SPELL_CATEGORIES.INCANTATION,
           choices: ryuutama.CONST.SPELL_CATEGORIES._toConfig,
         }),
       }),
       spell: new SchemaField({
         activation: new SchemaField({
-          cast: new StringField({ required: true, initial: "normal", choices: () => ryuutama.config.spellActivationTypes }),
+          cast: new StringField({
+            required: true,
+            initial: ryuutama.CONST.SPELL_ACTIVATIONS.NORMAL,
+            choices: ryuutama.CONST.SPELL_ACTIVATIONS._toConfig,
+          }),
           mental: new NumberField({ initial: null, nullable: true, integer: true, min: 0 }),
         }),
         duration: new SchemaField({
           // TODO: allow for dice (eg 'd4 rounds')
           value: new NumberField({ initial: 1, nullable: false, integer: true, min: 1 }),
-          type: new StringField({ required: true, initial: "instant", choices: () => ryuutama.config.spellDurationTypes }),
+          type: new StringField({
+            required: true,
+            initial: ryuutama.CONST.SPELL_DURATIONS.INSTANT,
+            choices: ryuutama.CONST.SPELL_DURATIONS._toConfig,
+          }),
           custom: new StringField({ required: true }),
         }),
-        level: new StringField({ required: true, initial: "low", choices: ryuutama.CONST.SPELL_LEVELS._toConfig }),
+        level: new StringField({
+          required: true,
+          initial: ryuutama.CONST.SPELL_LEVELS.LOW,
+          choices: ryuutama.CONST.SPELL_LEVELS._toConfig,
+        }),
         range: new SchemaField({
-          value: new StringField({ required: true, initial: "touch", choices: () => ryuutama.config.spellRangeTypes }),
+          value: new StringField({
+            required: true,
+            initial: ryuutama.CONST.SPELL_RANGES.TOUCH,
+            choices: ryuutama.CONST.SPELL_RANGES._toConfig,
+          }),
         }),
         target: new SchemaField({
           custom: new StringField({ required: true }),
@@ -95,18 +112,13 @@ export default class SpellData extends BaseData {
     }
 
     this.spell.activation.label = ryuutama.config.spellActivationTypes[this.spell.activation.cast].label;
-
+    const config = ryuutama.config.spellDurationTypes[this.spell.duration.type];
     this.spell.duration.label = this.spell.duration.type === "special"
       ? this.spell.duration.custom
-      : ryuutama.config.spellDurationTypes[this.spell.duration.type].units
-        ? _loc("RYUUTAMA.ITEM.SPELL.durationLabel", {
-          type: ryuutama.config.spellDurationTypes[this.spell.duration.type].label,
-          units: this.spell.duration.value,
-        })
-        : ryuutama.config.spellDurationTypes[this.spell.duration.type].label;
-
+      : config.units
+        ? _loc("RYUUTAMA.ITEM.SPELL.durationLabel", { type: config.label, units: this.spell.duration.value })
+        : config.label;
     this.spell.range.label = ryuutama.config.spellRangeTypes[this.spell.range.value].label;
-
     this.spell.target.label = this.spell.target.custom;
   }
 
@@ -132,7 +144,7 @@ export default class SpellData extends BaseData {
     context.spell.duration.type = context.disabled
       ? this.spell.duration.type
       : this._source.spell.duration.type;
-    context.spell.duration.units = !!ryuutama.config.spellDurationTypes[context.spell.duration.type]?.units;
+    context.spell.duration.units = !!ryuutama.config.spellDurationTypes[context.spell.duration.type].units;
     context.spell.duration.special = context.spell.duration.type === "special";
 
     const seasonal = _loc("RYUUTAMA.ITEM.SPELL.CATEGORIES.seasonal");
