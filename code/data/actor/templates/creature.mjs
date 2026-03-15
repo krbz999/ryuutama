@@ -510,7 +510,7 @@ export default class CreatureData extends BaseData {
           ? `max(@combatant.initiative, ${roll.total})`
           : Math.max(combatant.initiative, roll.total);
       if (rollConfig.initiative?.delayed) await combatant.update({ "system.initiative.value": total });
-      else await combatant.update({ initiative: total });
+      else await combatant.update({ initiative: total + this.condition.value / 100 });
     }
   }
 

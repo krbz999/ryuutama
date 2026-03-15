@@ -68,6 +68,7 @@ Hooks.once("init", () => {
   CONFIG.Combat.documentClass = documents.RyuutamaCombat;
   CONFIG.Combat.dataModels.standard = data.combat.StandardData;
   CONFIG.Combat.fallbackTurnMarker = documents.RyuutamaCombat.TURN_MARKER;
+  CONFIG.Combat.initiative.decimals = 0;
 
   CONFIG.Combatant.documentClass = documents.RyuutamaCombatant;
   CONFIG.Combatant.dataModels.standard = data.combatant.StandardData;
