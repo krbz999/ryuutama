@@ -57,6 +57,20 @@ toConfig(ITEM_SIZES, "itemSizes");
 /* -------------------------------------------------- */
 
 /**
+ * Ration types.
+ * @enum {string}
+ */
+export const RATION_TYPES = {
+  ANIMAL_FEED: "animalFeed",
+  FOOD: "food",
+  RATION: "ration",
+  WATER: "water",
+};
+toConfig(RATION_TYPES, "rationTypes");
+
+/* -------------------------------------------------- */
+
+/**
  * Spell categories.
  * @enum {string}
  */

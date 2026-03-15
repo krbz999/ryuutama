@@ -82,7 +82,7 @@ export default class ContainerData extends BaseData {
     super.prepareDerivedData();
     this.size.total = this.size.value;
 
-    Object.defineProperties(this.rations, Object.keys(ryuutama.config.rationTypes).reduce((acc, k) => {
+    Object.defineProperties(this.rations, Object.values(ryuutama.CONST.RATION_TYPES).reduce((acc, k) => {
       acc[k] = {
         value: [],
         enumerable: false,
@@ -111,7 +111,7 @@ export default class ContainerData extends BaseData {
       delicious: 1,
       disgusting: 2,
     };
-    for (const type of Object.keys(ryuutama.config.rationTypes)) {
+    for (const type of Object.values(ryuutama.CONST.RATION_TYPES)) {
       this.rations[type].sort((a, b) => {
         a = m[a.modifier ?? "regular"];
         b = m[b.modifier ?? "regular"];
@@ -127,7 +127,7 @@ export default class ContainerData extends BaseData {
     const ctx = context.container = {
       rations: {},
     };
-    Object.keys(ryuutama.config.rationTypes).forEach(type => {
+    Object.values(ryuutama.CONST.RATION_TYPES).forEach(type => {
       ctx.rations[type] = {
         entries: sheet.document.system.rations[type],
         label: ryuutama.config.rationTypes[type].label,
@@ -222,19 +222,21 @@ export default class ContainerData extends BaseData {
 function rationTypes() {
   const rationTypes = {};
 
-  Object.entries(ryuutama.config.rationTypes).forEach(([k, v]) => {
-    const d = rationTypes[k] = {};
+  Object.values(ryuutama.CONST.RATION_TYPES).forEach(type => {
+    const d = rationTypes[type] = {};
     d.type = new StringField({
       required: true,
       blank: false,
-      initial: k,
-      validate: value => value === k,
-      validationError: `can only be '${k}'`,
+      initial: type,
+      validate: value => value === type,
+      validationError: `can only be '${type}'`,
     });
 
-    if (v.allowModifiers) {
+    if (ryuutama.config.rationTypes[type].allowModifiers) {
       d.modifier = new StringField({
-        required: true, blank: false, initial: "regular",
+        required: true,
+        blank: false,
+        initial: "regular",
         choices: () => ryuutama.config.rationModifiers,
       });
     }

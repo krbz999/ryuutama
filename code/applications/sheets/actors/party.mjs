@@ -162,8 +162,12 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
 
     for (const { actor } of this.document.system.members) {
       for (const container of actor.items.documentsByType.container) {
-        for (const type of Object.keys(ryuutama.config.rationTypes)) {
-          rations[type] ??= { type, label: ryuutama.config.rationTypes[type].label, rations: [] };
+        for (const type of Object.values(ryuutama.CONST.RATION_TYPES)) {
+          rations[type] ??= {
+            type,
+            label: ryuutama.config.rationTypes[type].label,
+            rations: [],
+          };
           for (const ration of container.system.rations[type]) {
             rations[type].rations.push({
               ...ration, actor, container,
