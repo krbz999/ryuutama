@@ -32,7 +32,7 @@ export default class EffectPart extends MessagePart {
       effects: new ArrayField(new DocumentUUIDField({ embedded: true, type: "ActiveEffect" })),
       statuses: new TypedObjectField(
         new NumberField({ min: 2, max: 20, integer: true, nullable: false, initial: 4 }),
-        { validateKey: key => key in ryuutama.config.statusEffects },
+        { validateKey: key => Object.values(ryuutama.CONST.STATUS_EFFECTS).includes(key) },
       ),
     });
   }

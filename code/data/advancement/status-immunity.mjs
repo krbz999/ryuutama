@@ -10,7 +10,7 @@ export default class StatusImmunityAdvancement extends Advancement {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
-        chosen: new StringField({ blank: true, required: true, choices: () => ryuutama.config.statusEffects }),
+        chosen: new StringField({ blank: true, required: true, choices: ryuutama.CONST.STATUS_EFFECTS._toConfig }),
       }),
     });
   }

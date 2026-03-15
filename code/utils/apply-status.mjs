@@ -1,6 +1,6 @@
 /**
  * Apply a status of a certain strength.
- * @param {string} statusId   A key found in `config.statusEffects`.
+ * @param {string} statusId   A value found in `ryuutama.CONST.STATUS_EFFECTS`.
  * @param {number} strength   The strength of the status.
  * @returns {Promise<void>}   A promise that resolves once all actors have had statuses applied.
  */

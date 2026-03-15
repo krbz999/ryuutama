@@ -772,8 +772,8 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
   #prepareStatuses() {
     const immunities = this.document.system.condition.immunities;
     const affected = this.document.system.condition.statuses;
-    return Object.entries(ryuutama.config.statusEffects).map(([status, data]) => {
-      const { img, name, _id } = data;
+    return Object.values(ryuutama.CONST.STATUS_EFFECTS).map(status => {
+      const { img, name, _id } = ryuutama.config.statusEffects[status];
       const immune = immunities.has(status);
       const effect = this.document.effects.get(_id);
       const strength = affected[status];

@@ -28,14 +28,14 @@ export default class CreatureData extends BaseData {
       });
     };
 
-    const statuses = Object.keys(ryuutama.config.statusEffects).reduce((acc, s) => {
-      acc[s] = new NumberField({ persisted: false, initial: null });
+    const statuses = Object.values(ryuutama.CONST.STATUS_EFFECTS).reduce((acc, status) => {
+      acc[status] = new NumberField({ persisted: false, initial: null });
       return acc;
     }, {});
 
     return Object.assign(super.defineSchema(), {
       condition: new SchemaField({
-        immunities: new SetField(new StringField({ choices: () => ryuutama.config.statusEffects })),
+        immunities: new SetField(new StringField({ choices: ryuutama.CONST.STATUS_EFFECTS._toConfig })),
         statuses: new SchemaField(statuses, { persisted: false }),
         travel: new BooleanField(),
         value: new NumberField({ nullable: false, initial: 4, integer: true, min: 2 }),
@@ -188,14 +188,12 @@ export default class CreatureData extends BaseData {
    */
   #prepareStatuses() {
     const { value: condition, immunities, statuses } = this.condition;
-
-    for (const [id, { _id }] of Object.entries(ryuutama.config.statusEffects)) {
+    Object.values(ryuutama.CONST.STATUS_EFFECTS).forEach(status => {
+      const _id = ryuutama.config.statusEffects[status]._id;
       const effect = this.parent.effects.get(_id);
       const { value: strength, bypass } = effect?.system.strength ?? {};
-      statuses[id] = (!effect || (!bypass && (strength < condition)) || immunities.has(id))
-        ? null
-        : strength;
-    }
+      statuses[status] = (!effect || (!bypass && (strength < condition)) || immunities.has(status)) ? null : strength;
+    });
   }
 
   /* -------------------------------------------------- */
@@ -205,19 +203,19 @@ export default class CreatureData extends BaseData {
    */
   _prepareAbilities() {
     const statuses = this.condition.statuses;
-    for (const id of Object.keys(ryuutama.config.statusEffects)) {
-      if (!statuses[id]) continue;
+    Object.values(ryuutama.CONST.STATUS_EFFECTS).forEach(status => {
+      if (!statuses[status]) return;
       let abilities;
-      switch (id) {
-        case "injury": abilities = ["dexterity"]; break;
-        case "poison": abilities = ["strength"]; break;
-        case "exhaustion": abilities = ["spirit"]; break;
-        case "muddled": abilities = ["intelligence"]; break;
-        case "shock":
-        case "sickness": abilities = ["strength", "dexterity", "intelligence", "spirit"]; break;
+      switch (status) {
+        case ryuutama.CONST.STATUS_EFFECTS.INJURY: abilities = [ryuutama.CONST.ABILITIES.DEXTERITY]; break;
+        case ryuutama.CONST.STATUS_EFFECTS.POISON: abilities = [ryuutama.CONST.ABILITIES.STRENGTH]; break;
+        case ryuutama.CONST.STATUS_EFFECTS.EXHAUSTION: abilities = [ryuutama.CONST.ABILITIES.SPIRIT]; break;
+        case ryuutama.CONST.STATUS_EFFECTS.MUDDLED: abilities = [ryuutama.CONST.ABILITIES.INTELLIGENCE]; break;
+        case ryuutama.CONST.STATUS_EFFECTS.SHOCK:
+        case ryuutama.CONST.STATUS_EFFECTS.SICKNESS: abilities = Object.values(ryuutama.CONST.ABILITIES); break;
       }
       for (const ability of abilities) this.schema.getField(`abilities.${ability}.value`).increase(this.parent, -1);
-    }
+    });
   }
 
   /* -------------------------------------------------- */

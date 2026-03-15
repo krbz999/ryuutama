@@ -24,7 +24,7 @@ export async function enricher(match, options = {}) {
   config = ryuutama.utils.parseEnricherConfig(config);
 
   if (!("id" in config)) {
-    const id = config.values.find(k => k in ryuutama.config.statusEffects);
+    const id = config.values.find(k => Object.values(ryuutama.CONST.STATUS_EFFECTS).includes(k));
     if (!id) return null;
     config.id = id;
   }

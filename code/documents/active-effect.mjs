@@ -2,7 +2,7 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
   /** @inheritdoc */
   static async _fromStatusEffect(statusId, effectData, options) {
     // Select the strength of the status.
-    if (statusId in ryuutama.config.statusEffects) {
+    if (Object.values(ryuutama.CONST.STATUS_EFFECTS).includes(statusId)) {
       effectData.type = "status";
       if (!("strength" in options)) {
         const fields = CONFIG.ActiveEffect.dataModels.status.schema.fields.strength.fields;

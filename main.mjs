@@ -154,7 +154,8 @@ Hooks.once("init", () => {
 
   // Register status effects.
   CONFIG.statusEffects = {};
-  Object.entries(config.statusEffects).forEach(([id, { _id, img, name, hud }]) => {
+  Object.values(constants.STATUS_EFFECTS).forEach(id => {
+    const { _id, img, name, hud } = config.statusEffects[id];
     CONFIG.statusEffects[id] = { id, _id, img, name, hud };
   });
   Object.entries(config.specialStatusEffects).forEach(([id, effectData]) => {

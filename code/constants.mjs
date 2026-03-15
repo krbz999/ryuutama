@@ -66,3 +66,19 @@ export const SPELL_LEVELS = {
   HIGH: "high",
 };
 toConfig(SPELL_LEVELS, "spellLevels");
+
+/* -------------------------------------------------- */
+
+/**
+ * Status effects.
+ * @enum {string}
+ */
+export const STATUS_EFFECTS = {
+  INJURY: "injury",
+  POISON: "poison",
+  SICKNESS: "sickness",
+  EXHAUSTION: "exhaustion",
+  MUDDLED: "muddled",
+  SHOCK: "shock",
+};
+toConfig(STATUS_EFFECTS, "statusEffects");
