@@ -2,21 +2,21 @@ export default class RyuutamaActorDirectory extends foundry.applications.sidebar
   /** @inheritdoc */
   _getEntryContextOptions() {
     const options = super._getEntryContextOptions();
-    const getActor = li => game.actors.get(li.dataset.entryId);
+    const getActor = target => game.actors.get(target.dataset.entryId);
     options.push({
-      name: "RYUUTAMA.SIDEBAR.ACTORS.contextMenuAssignPrimaryParty",
-      icon: "<i class='fa-solid fa-fw fa-medal'></i>",
-      condition: (li) => {
-        const actor = getActor(li);
+      label: "RYUUTAMA.SIDEBAR.ACTORS.contextMenuAssignPrimaryParty",
+      icon: "fa-solid fa-fw fa-medal",
+      visible: target => {
+        const actor = getActor(target);
         return game.user.isGM && (actor.type === "party") && (actor !== game.actors.party);
       },
-      callback: (li) => game.actors.setParty(getActor(li)),
+      onClick: (event, target) => game.actors.setParty(getActor(target)),
       group: "system",
     }, {
-      name: "RYUUTAMA.SIDEBAR.ACTORS.contextMenuRemovePrimaryParty",
-      icon: "<i class='fa-solid fa-fw fa-times'></i>",
-      condition: (li) => game.user.isGM && (getActor(li) === game.actors.party),
-      callback: (li) => game.actors.unsetParty(),
+      label: "RYUUTAMA.SIDEBAR.ACTORS.contextMenuRemovePrimaryParty",
+      icon: "fa-solid fa-fw fa-times",
+      visible: target => game.user.isGM && (getActor(target) === game.actors.party),
+      onClick: () => game.actors.unsetParty(),
       group: "system",
     });
     return options;
