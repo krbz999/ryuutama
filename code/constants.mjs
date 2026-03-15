@@ -49,6 +49,19 @@ toConfig(ANIMAL_TYPES, "animalTypes");
 /* -------------------------------------------------- */
 
 /**
+ * Herb types.
+ * @enum {string}
+ */
+export const HERB_TYPES = {
+  ENHANCE: "enhance",
+  MENTAL: "mental",
+  PHYSICAL: "physical",
+};
+toConfig(HERB_TYPES, "herbTypes");
+
+/* -------------------------------------------------- */
+
+/**
  * @enum {number}
  */
 export const ITEM_SIZES = [1, 3, 5];
