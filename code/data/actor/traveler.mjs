@@ -434,7 +434,7 @@ export default class TravelerData extends CreatureData {
       return null;
     }
 
-    const actorUpdate = {};
+    const actorUpdate = { _id: actor.id };
     const itemData = [];
     const itemUpdates = [];
     for (const { result, type } of results) {
@@ -455,9 +455,27 @@ export default class TravelerData extends CreatureData {
     }
 
     foundry.utils.setProperty(actorUpdate, "system.details.level", level + 1);
-    await actor.update(actorUpdate, { advancement: true });
-    await actor.createEmbeddedDocuments("Item", itemData, { keepId: true, advancement: true });
-    await actor.updateEmbeddedDocuments("Item", itemUpdates, { advancement: true });
+
+    await foundry.documents.modifyBatch([{
+      action: "update",
+      advancement: true,
+      documentName: "Actor",
+      parent: actor.parent,
+      updates: [actorUpdate],
+    }, {
+      action: "create",
+      advancement: true,
+      data: itemData,
+      documentName: "Item",
+      keepId: true,
+      parent: actor,
+    }, {
+      action: "update",
+      advancement: true,
+      documentName: "Item",
+      parent: actor,
+      updates: itemUpdates,
+    }]);
 
     delete actor._advancing;
     return actor;

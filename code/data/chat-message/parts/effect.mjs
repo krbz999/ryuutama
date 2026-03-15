@@ -141,27 +141,55 @@ export default class EffectPart extends MessagePart {
     const toDelete = [];
     const toCreate = [];
 
-    for (const effect of effects) {
+    effects.forEach(effect => {
       const existing = actor.effects.find(e => e.origin === effect.uuid);
       if (existing) toDelete.push(existing.id);
-
       const data = effect.toObject();
       data.origin = effect.uuid;
       toCreate.push(data);
-    }
+    });
 
-    await Promise.all([
-      foundry.utils.isEmpty(toDelete) ? null : actor.deleteEmbeddedDocuments("ActiveEffect", toDelete),
-      foundry.utils.isEmpty(toCreate) ? null : actor.createEmbeddedDocuments("ActiveEffect", toCreate),
-    ]);
-
-    for (const [statusId, strength] of Object.entries(statuses)) {
-      const effect = await getDocumentClass("ActiveEffect").fromStatusEffect(statusId, { strength });
+    const updateStatuses = [];
+    const createStatuses = [];
+    for (const [status, strength] of Object.entries(statuses)) {
+      const effect = await getDocumentClass("ActiveEffect").fromStatusEffect(status, { strength });
       if (actor.effects.has(effect.id)) {
-        await actor.effects.get(effect.id).update(effect.toObject(), { diff: false, recursive: false });
+        updateStatuses.push({ _id: effect.id, system: _replace(effect.toObject().system) });
       } else {
-        await actor.createEmbeddedDocuments("ActiveEffect", [effect.toObject()], { keepId: true });
+        createStatuses.push(effect.toObject());
       }
     }
+
+    return foundry.documents.modifyBatch([
+      {
+        action: "delete",
+        parent: actor,
+        documentName: "ActiveEffect",
+        ids: toDelete,
+      },
+      {
+        action: "create",
+        parent: actor,
+        documentName: "ActiveEffect",
+        data: toCreate,
+      },
+
+      // Statuses
+      {
+        action: "update",
+        updates: updateStatuses,
+        documentName: "ActiveEffect",
+        parent: actor,
+        diff: false,
+        recursive: false,
+      },
+      {
+        action: "create",
+        data: createStatuses,
+        documentName: "ActiveEffect",
+        parent: actor,
+        keepId: true,
+      },
+    ]);
   }
 }
