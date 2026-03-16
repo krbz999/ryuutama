@@ -69,7 +69,7 @@ export default class ClassAdvancement extends Advancement {
     const results = [];
 
     const classItem = await fromUuid(this.choice.chosen);
-    const skills = await Promise.all(classItem.system.skills.map(uuid => fromUuid(uuid)));
+    const skills = await classItem.system._getSkillItems();
 
     const itemData = [];
 
