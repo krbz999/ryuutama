@@ -219,14 +219,19 @@ function adjustConfig(config) {
 
 /* -------------------------------------------------- */
 
+/**
+ * Find a value in `ryuutama.CONST.ABILITIES` that corresponds to a given string.
+ * @param {string} key
+ * @returns {string|null}
+ */
 const filterAbilityKey = key => {
   key = key.toLowerCase().trim();
-  if (Object.values(ryuutama.CONST.ABILITIES).includes(key)) return key;
 
-  // Shorthand ability.
-  const k = Object.values(ryuutama.CONST.ABILITIES).find(key => {
-    const abbr = ryuutama.config.abilityScores[key].abbreviation.toLowerCase();
-    return abbr === key;
-  });
-  return k;
+  for (const ability of foundry.utils.objectValues(ryuutama.CONST.ABILITIES)) {
+    if (ability === key) return ability;
+    const abbr = ryuutama.config.abilityScores[ability].abbreviation.toLowerCase();
+    if (abbr === key) return ability;
+  }
+
+  return null;
 };
