@@ -237,8 +237,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       });
     };
 
-    const init = game.combat?.combatants.find(c => c.actor === this.parent)?.initiative ?? null;
-
     return {
       dp: {
         value: total,
