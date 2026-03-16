@@ -23,6 +23,11 @@ export default class TravelerData extends CreatureData {
 
   /** @inheritdoc */
   static defineSchema() {
+    const types = Object.values(ryuutama.CONST.TRAVELER_TYPES).reduce((acc, type) => {
+      acc[type] = new NumberField({ initial: 0, integer: true, min: 0, nullable: false });
+      return acc;
+    }, {});
+
     const schema = Object.assign(super.defineSchema(), {
       advancements: new TypedObjectField(
         new TypedSchemaField(Advancement.TYPES),
@@ -42,10 +47,7 @@ export default class TravelerData extends CreatureData {
           value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
         }),
         level: new NumberField({ nullable: false, integer: true, initial: 0, min: 0, max: 10 }),
-        type: new SchemaField(
-          Object.keys(ryuutama.config.travelerTypes)
-            .reduce((acc, type) => Object.assign(acc, { [type]: new NumberField({ initial: 0 }) }), {}),
-          { persisted: false }),
+        type: new SchemaField(types, { persisted: false }),
       }),
       equipped: new SchemaField({
         weapon: new LocalDocumentField(foundry.documents.Item, { subtype: "weapon" }),

@@ -183,3 +183,16 @@ export const STATUS_EFFECTS = {
   SHOCK: "shock",
 };
 toConfig(STATUS_EFFECTS, "statusEffects");
+
+/* -------------------------------------------------- */
+
+/**
+ * Traveler types.
+ * @enum {string}
+ */
+export const TRAVELER_TYPES = {
+  ATTACK: "attack",
+  TECHNICAL: "technical",
+  MAGIC: "magic",
+};
+toConfig(TRAVELER_TYPES, "travelerTypes");
