@@ -101,7 +101,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       enriched: {
         description: await CONFIG.ux.TextEditor.enrichHTML(
           this.document.system.description.value,
-          { rollData: this.document.getRollData(), relativeTo: this.document },
+          { rollData: this.document.getRollData(), relativeTo: this.document, secrets: this.document.isOwner },
         ),
       },
     });
