@@ -101,13 +101,17 @@ export default class ClassData extends BaseData {
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
 
-    if (this.parent.parent && !options.advancement) {
+    if (this.parent.isEmbedded && !options.advancement) {
       ui.notifications.warn("RYUUTAMA.ITEM.CLASS.creationWarning", { localize: true });
       return false;
     }
 
     if (!this.identifier) {
       this.parent.updateSource({ "system.identifier": ryuutama.utils.createDefaultIdentifier(this.parent.name) });
+    }
+
+    if (!this.parent.isEmbedded) {
+      this.parent.updateSource({ "system.tier": 1 });
     }
   }
 }
