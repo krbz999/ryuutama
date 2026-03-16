@@ -143,6 +143,12 @@
           "fumbles.value.label": "Fumble Points",
           "gold.value.label": "Gold"
         },
+        "TAGS": {
+          "dragonFavor": "Favor of the Seasonal Dragons: {season}",
+          "masteredWeapon": "Mastered Weapon: {weapon}",
+          "specialtyTerrain": "Terrain Specialty: {terrain}",
+          "specialtyWeather": "Weather Specialty: {weather}"
+        },
         "noteTabs": {
           "appearance": "Appearance",
           "hometown": "Hometown / Reason for Travel",
@@ -170,14 +176,11 @@
         "incantationSpells": "Incantations",
         "initiative": "Initiative: {value}",
         "level": "Level {level}",
-        "masteredWeapon": "Mastered Weapon: {weapon}",
         "otherSkills": "Other Skills",
         "rollCondition": "Roll Condition Check",
         "seasonAffinity": "Affinity",
         "shieldDodge": "Shield Dodge Value: {value}",
-        "skillSectionLabel": "{name} Skills",
-        "specialtyTerrain": "Terrain Specialty: {terrain}",
-        "specialtyWeather": "Weather Specialty: {weather}"
+        "skillSectionLabel": "{name} Skills"
       },
 
       "TABS": {
@@ -259,6 +262,13 @@
         "FIELDS": {
           "choice.chosen.label": "Class Item",
           "choice.chosen.placeholder": "Enter UUID or Drop Class Item"
+        }
+      },
+
+      "DRAGON_FAVOR": {
+        "label": "Configure Favor of the Seasonal Dragons",
+        "FIELDS": {
+          "choice.chosen.label": "Season"
         }
       },
 

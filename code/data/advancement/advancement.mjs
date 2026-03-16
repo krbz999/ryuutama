@@ -43,6 +43,7 @@ export default class Advancement extends foundry.abstract.DataModel {
   static get TYPES() {
     return Advancement.#TYPES ??= {
       [ryuutama.data.advancement.ClassAdvancement.TYPE]: ryuutama.data.advancement.ClassAdvancement,
+      [ryuutama.data.advancement.DragonFavorAdvancement.TYPE]: ryuutama.data.advancement.DragonFavorAdvancement,
       [ryuutama.data.advancement.HabitatAdvancement.TYPE]: ryuutama.data.advancement.HabitatAdvancement,
       [ryuutama.data.advancement.ResourceAdvancement.TYPE]: ryuutama.data.advancement.ResourceAdvancement,
       [ryuutama.data.advancement.StatIncreaseAdvancement.TYPE]: ryuutama.data.advancement.StatIncreaseAdvancement,

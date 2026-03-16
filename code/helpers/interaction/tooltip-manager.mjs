@@ -26,6 +26,8 @@ export default class RyuutamaTooltipManager extends foundry.helpers.interaction.
   /**
    * Helper method to construct tooltip HTML.
    * @param {object} options
+   * @param {string} [options.uuid]         Uuid of a document.
+   * @param {string} [options.identifier]   Identifier for reference lookup.
    * @returns {string}
    */
   static constructHTML(options) {

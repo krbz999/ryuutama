@@ -450,13 +450,12 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     // CLASSES
     const classes = Object.values(this.document.system.classes).map(item => {
       return {
-        label: item.name,
         icon: item.img,
         isSVG: false,
         dataset: {
+          "item-context": "",
           "tooltip-html": CONFIG.ux.TooltipManager.constructHTML({ uuid: item.uuid }),
           uuid: item.uuid,
-          "item-context": "",
         },
       };
     });
@@ -465,7 +464,11 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     const types = Object.entries(this.document.system.details.type)
       .flatMap(([type, value]) => {
         const { icon, label } = ryuutama.config.travelerTypes[type];
-        return Array(value).fill({ icon, label, isSVG: icon.endsWith(".svg"), dataset: { "tooltip-text": label } });
+        return Array(value).fill({
+          icon,
+          dataset: { "tooltip-text": label },
+          isSVG: icon.endsWith(".svg"),
+        });
       });
 
     // TERRAIN & WEATHER
@@ -473,10 +476,9 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     for (const k of this.document.system.mastered.terrain) {
       const { label, iconSmall } = ryuutama.config.terrainTypes[k] ?? {};
       if (label && iconSmall) habitats.push({
-        isSVG: iconSmall.endsWith(".svg"),
+        dataset: { "tooltip-text": _loc("RYUUTAMA.ACTOR.TRAVELER.TAGS.specialtyTerrain", { terrain: label }) },
         icon: iconSmall,
-        label: _loc("RYUUTAMA.ACTOR.TRAVELER.specialtyTerrain", { terrain: label }),
-        dataset: { "tooltip-text": label },
+        isSVG: iconSmall.endsWith(".svg"),
       });
     }
 
@@ -484,22 +486,32 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       const { label, icon } = ryuutama.config.weatherTypes[k] ?? {};
       if (label && icon) habitats.push({
         icon,
+        dataset: { "tooltip-text": _loc("RYUUTAMA.ACTOR.TRAVELER.TAGS.specialtyWeather", { weather: label }) },
         isSVG: icon.endsWith(".svg"),
-        label: _loc("RYUUTAMA.ACTOR.TRAVELER.specialtyWeather", { weather: label }),
-        dataset: { "tooltip-text": label },
       });
     }
 
     // WEAPONS
     const weapons = [];
     for (const k of this.document.system.mastered.weapons) {
-      const { label, icon } = ryuutama.config.weaponCategories[k] ?? {};
+      const { icon, label } = ryuutama.config.weaponCategories[k] ?? {};
       if (!icon) continue;
       weapons.push({
         icon,
-        label: _loc("RYUUTAMA.ACTOR.TRAVELER.masteredWeapon", { weapon: label }),
+        dataset: { "tooltip-text": _loc("RYUUTAMA.ACTOR.TRAVELER.TAGS.masteredWeapon", { weapon: label }) },
         isSVG: icon.endsWith(".svg"),
-        dataset: { "tooltip-text": label },
+      });
+    }
+
+    // DRAGON FAVOR
+    const dragonFavors = [];
+    const favor = this.document.system.details.dragonFavor;
+    if (favor) {
+      const { icon, label } = ryuutama.config.seasons[favor];
+      dragonFavors.push({
+        icon,
+        dataset: { "tooltip-text": _loc("RYUUTAMA.ACTOR.TRAVELER.TAGS.dragonFavor", { season: label }) },
+        isSVG: icon.endsWith(".svg"),
       });
     }
 
@@ -508,6 +520,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       types,
       weapons,
       habitats,
+      dragonFavors,
     ].flat();
   }
 

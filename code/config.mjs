@@ -53,7 +53,7 @@ export const advancement = {
   6: new Set(["resource", "statIncrease", "type"]),
   7: new Set(["resource", "habitat"]),
   8: new Set(["resource", "statIncrease"]),
-  9: new Set(["resource"]),
+  9: new Set(["resource", "dragonFavor"]),
   10: new Set(["resource", "statIncrease"]),
 };
 
@@ -428,15 +428,19 @@ export const references = {};
 export const seasons = {
   spring: {
     label: "RYUUTAMA.SEASONS.spring",
+    icon: "systems/ryuutama/assets/official/icons/magic/spring.svg",
   },
   summer: {
     label: "RYUUTAMA.SEASONS.summer",
+    icon: "systems/ryuutama/assets/official/icons/magic/summer.svg",
   },
   autumn: {
     label: "RYUUTAMA.SEASONS.autumn",
+    icon: "systems/ryuutama/assets/official/icons/magic/fall.svg",
   },
   winter: {
     label: "RYUUTAMA.SEASONS.winter",
+    icon: "systems/ryuutama/assets/official/icons/magic/winter.svg",
   },
 };
 Prelocalization.prelocalize(seasons);
