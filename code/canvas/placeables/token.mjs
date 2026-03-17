@@ -30,7 +30,6 @@ export default class RyuutamaToken extends foundry.canvas.placeables.Token {
     bar.scale.x = inverted ? -1 : 1;
     const posY = number === 0 ? height - bh : 0;
     bar.position.set(inverted ? bw : 0, posY);
-    return true;
   }
 
   /* -------------------------------------------------- */
