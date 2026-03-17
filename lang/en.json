@@ -59,6 +59,12 @@
     }
   },
   "RYUUTAMA": {
+    "ACTIVE_EFFECT": {
+      "CHANGE_TYPES": {
+        "check": "Check Bonus"
+      }
+    },
+
     "ACTOR": {
       "FIELDS": {},
       "CREATURE": {
