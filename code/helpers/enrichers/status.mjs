@@ -36,7 +36,7 @@ export async function enricher(match, options = {}) {
   }
 
   const anchor = document.createElement("A");
-  anchor.classList.add(ryuutama.id, "enricher");
+  anchor.classList.add("enricher");
   anchor.innerHTML = label ? label.trim() : `[${ryuutama.config.statusEffects[config.id].name}: ${config.strength}]`;
   anchor.dataset.statusId = config.id;
   anchor.dataset.strength = config.strength;

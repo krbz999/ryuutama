@@ -1,3 +1,27 @@
 enriched-content[enricher=status] {
   display: contents;
 }
+
+enriched-content[enricher=check],
+enriched-content[enricher=damage],
+enriched-content[enricher=status] {
+  font-family: var(--ryuutama-font-enrichers);
+  color: var(--ryuutama-color-gold);
+
+  .enricher {
+    --style: dotted;
+    --alpha: .5;
+    text-decoration: underline var(--style) hsl(from currentColor h s l / var(--alpha));
+    transition: all 200ms ease-out;
+
+    &:hover {
+      --style: solid;
+      --alpha: 1;
+    }
+  }
+
+  .request {
+    margin-left: .5rem;
+    margin-right: .25rem;
+  }
+}

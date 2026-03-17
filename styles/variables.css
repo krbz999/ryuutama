@@ -73,6 +73,7 @@
   --ryuutama-font-radley: Radley;
   --ryuutama-font-gothic: Carrois Gothic;
   --ryuutama-font-gabriela: Gabriela;
+  --ryuutama-font-enrichers: var(--ryuutama-font-gothic);
 
   .ryuutama {
     --font-body: var(--ryuutama-font-raleway);
