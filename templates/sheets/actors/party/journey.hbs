@@ -1,0 +1,40 @@
+<section data-tab="{{tabs.journey.id}}" data-group="{{tabs.journey.group}}" class="{{tabs.journey.cssClass}}">
+  {{log this level="warn"}}
+  <div class="contents">
+    <section class="member-list">
+      {{#each members}}
+      <img src="{{actor.img}}" alt="">
+      {{/each}}
+    </section>
+
+    {{!-- CAMPING --}}
+    <section class="camping">
+      <h4>primary camping</h4>
+      <span>{{journey.camping.primary.name}}</span>
+
+      <h5>result</h5>
+      <span>{{journey.data.camping.results.primary}}</span>
+
+      <h4>support camping</h4>
+      <span>{{journey.camping.support.name}}</span>
+
+      <h5>result</h5>
+      <span>{{journey.data.camping.results.support}}</span>
+    </section>
+
+    {{!-- DIRECTION --}}
+    <section class="direction">
+      <h4>primary direction</h4>
+      <span>{{journey.direction.primary.name}}</span>
+
+      <h5>result</h5>
+      <span>{{journey.data.direction.results.primary}}</span>
+
+      <h4>support direction</h4>
+      <span>{{journey.direction.support.name}}</span>
+
+      <h5>result</h5>
+      <span>{{journey.data.direction.results.support}}</span>
+    </section>
+  </div>
+</section>
