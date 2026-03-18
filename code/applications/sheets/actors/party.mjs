@@ -35,6 +35,11 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
       classes: ["tab"],
       scrollable: [".contents"],
     },
+    journey: {
+      template: "systems/ryuutama/templates/sheets/actors/party/journey.hbs",
+      classes: ["tab"],
+      scrollable: [".contents"],
+    },
     details: {
       template: "systems/ryuutama/templates/sheets/actors/party/details.hbs",
       classes: ["tab"],
@@ -50,6 +55,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
       tabs: [
         { id: "members" },
         { id: "rations" },
+        { id: "journey" },
         { id: "details" },
       ],
       initial: "members",
@@ -73,6 +79,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
 
     context.header = await this.#prepareHeader();
     context.members = await this.#prepareMembers();
+    context.journey = await this.#prepareJourney();
     context.rations = await this.#prepareRations();
     context.details = await this.#prepareDetails();
 
@@ -120,6 +127,19 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
         negative: pct < 0,
       },
     };
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare journey context.
+   * @returns {Promise<object>}
+   */
+  async #prepareJourney() {
+    const journey = this.document.system.journey;
+    const camping = journey.getStateOfType("camping");
+    const direction = journey.getStateOfType("direction");
+    return { data: journey, camping, direction };
   }
 
   /* -------------------------------------------------- */

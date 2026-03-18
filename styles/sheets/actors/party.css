@@ -162,6 +162,64 @@
     }
   }
 
+  [data-application-part=journey] {
+    overflow: hidden;
+
+    .contents {
+      overflow: auto;
+      scrollbar-gutter: stable;
+      height: 100%;
+      display: grid;
+      gap: 1rem;
+      grid:
+        "members camping" 0fr
+        "members direction" 0fr
+        / 15rem 1fr;
+
+      .member-list {
+        grid-area: members;
+        padding: 1rem;
+        border: 1px solid var(--ryuutama-color-firebrick);
+        border-radius: .5rem;
+
+        img {
+          width: 100%;
+          aspect-ratio: 1;
+          object-fit: cover;
+          object-position: top center;
+        }
+      }
+
+      .camping {
+        grid-area: camping;
+      }
+
+      .direction {
+        grid-area: direction;
+      }
+
+      .camping,
+      .direction {
+        padding: 1rem;
+        border: 1px solid var(--ryuutama-color-firebrick);
+        border-radius: .5rem;
+
+        h4,
+        h5 {
+          text-transform: uppercase;
+        }
+
+        span {
+          padding-left: 1rem;
+
+          &:empty::after {
+            content: "<none>";
+          }
+        }
+      }
+    }
+  }
+
   [data-application-part=details] {
     overflow: hidden;
     height: 100%;

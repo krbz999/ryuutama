@@ -325,6 +325,7 @@ export default class CreatureData extends BaseData {
       case "accuracy": break;
       case "check":
         roll.abilities = ["strength", "strength"];
+        roll.target = ui.habitat.targetNumber;
         break;
 
       case "condition":
@@ -343,6 +344,7 @@ export default class CreatureData extends BaseData {
         break;
 
       case "journey":
+        roll.target = ui.habitat.targetNumber;
         switch (rollConfig.journeyId) {
           case "camping": roll.abilities = ["dexterity", "intelligence"]; break;
           case "direction": roll.abilities = ["intelligence", "intelligence"]; break;
@@ -465,7 +467,6 @@ export default class CreatureData extends BaseData {
 
     // If a travel check, change hp or condition, depending.
     if (isTraveler && isTravelCheck && rollConfig.travel?.performChanges) {
-      const tn = ui.habitat.targetNumber;
       const hp = actor.system.resources.stamina;
       switch (true) {
         case roll.isCritical:
@@ -474,7 +475,7 @@ export default class CreatureData extends BaseData {
         case roll.isFumble:
           update["system.resources.stamina.spent"] = Math.ceil(hp.spent + hp.value * 3 / 4);
           break;
-        case roll.total < tn:
+        case roll.isFailure:
           update["system.resources.stamina.spent"] = Math.ceil(hp.spent + hp.value / 2);
           break;
       }
@@ -572,6 +573,9 @@ export default class CreatureData extends BaseData {
         : null;
     const rollOptions = item?.system.getRollOptions?.(rollConfig.type) ?? [];
     rollOptions.forEach(o => options[o] = true);
+
+    if (Number.isNumeric(rollConfig.target)) options.target = rollConfig.target;
+
     return foundry.utils.mergeObject(options, rollConfig.rollOptions ?? {});
   }
 

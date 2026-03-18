@@ -46,6 +46,7 @@
  * @property {object} [travel]
  * @property {boolean} [travel.performChanges=true]   If a travel check, perform the relevant changes
  *                                                    depending on the result.
+ * @property {number} [target]                        A target number required for evaluating success or failure.
  */
 
 /* -------------------------------------------------- */

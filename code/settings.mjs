@@ -1,4 +1,4 @@
-const { ForeignDocumentField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { ForeignDocumentField, SchemaField, StringField } = foundry.data.fields;
 
 export default function registerSettings() {
   // Storing the primary party's id.
