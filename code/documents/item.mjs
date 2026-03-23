@@ -58,7 +58,9 @@ export default class RyuutamaItem extends foundry.documents.Item {
 
   /** @inheritdoc */
   getRollData() {
-    const item = { ...this };
+    const item = (typeof this.system.getRollData === "function") ? this.system.getRollData() : { ...this.system };
+    item.name = this.name;
+    item.flags = this.flags;
     const rollData = this.actor?.getRollData() ?? {};
     rollData.item = item;
     return rollData;

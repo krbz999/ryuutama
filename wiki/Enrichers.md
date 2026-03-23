@@ -52,3 +52,15 @@ Example: `[[/damage 2d4 damageMental]]` or the long form syntax `[[/damage formu
 The `[[status]]` enricher serves to help apply one of the six statuses with a given strength, for example `[[status sickness 6]]` or the long form `[[status id=sickness strength=6]]` will display as '[Sickness: 6]', and when clicked will apply Sickness with the given strength to all controlled tokens.
 
 The available keys for `id` are `exhaustion`, `injury`, `muddled`, `poison`, `shock`, and `sickness`.
+
+## Lookup Enricher
+
+The `[[lookup]]` enricher allows for replacing references in text with properties from an actor's roll data.
+
+Example: `[[lookup @name]]{Traveler}` will display as the actor's name, or fall back to 'Traveler' if the lookup was not able to resolve.
+
+### Options
+
+The lookup enricher has only one option, `evaluate` (boolean). Using this, more complicated formulas can resolve into numeric values.
+
+Example: `[[lookup "@flags.world.test + @condition.value" evaluate]]` will display as the actor's condition value, plus whatever property is in the flag data. Properties that do not exist will evaluate to 0.

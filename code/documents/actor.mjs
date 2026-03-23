@@ -12,8 +12,9 @@ export default class RyuutamaActor extends foundry.documents.Actor {
 
   /** @inheritdoc */
   getRollData() {
-    const rollData = this.system.getRollData?.() ?? { ...this.system };
+    const rollData = (typeof this.system.getRollData === "function") ? this.system.getRollData() : { ...this.system };
     rollData.name = this.name;
+    rollData.flags = this.flags;
     return rollData;
   }
 

@@ -95,6 +95,17 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
+   * Return a data object which defines the data schema against which dice rolls can be evaluated.
+   * @returns {object}
+   */
+  getRollData() {
+    const rollData = { ...this };
+    return rollData;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Retrieve the options to apply to a Roll instance
    * when performing a specific kind of check or other roll.
    * @param {string} type   The type of check or roll.
