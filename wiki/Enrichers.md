@@ -47,6 +47,12 @@ The `[[/damage]]` enricher serves to make quick damage rolls that are specifical
 
 Example: `[[/damage 2d4 damageMental]]` or the long form syntax `[[/damage formula="2d4" damageMental=true]]`.
 
+### Options
+
+Roll data can be used in the formulas, e.g., `[[/damage "@stats.strength + @condition.value"]]`, in which case each contextual actor will perform the roll when clicked. By using the `replace` option, the formula will have roll data properties replaced immediately when rendered, and when clicked only a single out-of-character roll will be performed.
+
+Example: `[[/damage "@stats.strength + @condition.value" replace]]`.
+
 ## Status Enricher
 
 The `[[status]]` enricher serves to help apply one of the six statuses with a given strength, for example `[[status sickness 6]]` or the long form `[[status id=sickness strength=6]]` will display as '[Sickness: 6]', and when clicked will apply Sickness with the given strength to all controlled tokens.

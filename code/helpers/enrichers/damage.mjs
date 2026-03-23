@@ -37,13 +37,20 @@ export async function enricher(match, options = {}) {
   wrapper.classList.add(ryuutama.id);
   const elements = [];
 
+  const rollData = !foundry.utils.isEmpty(options.rollData) ? options.rollData : options.relativeTo?.getRollData?.();
+  const replace = (config.replace === true) || (config.values.includes("replace"));
+  const formula = replace
+    ? foundry.dice.Roll.defaultImplementation.replaceFormulaData(config.formula, rollData, { missing: 0 })
+    : config.formula;
+
   const anchor = document.createElement("A");
   elements.push(anchor);
   anchor.classList.add("enricher");
-  if (!label) label = `[${config.formula}]`;
+  if (!label) label = `[${formula}]`;
   anchor.innerHTML = label.trim();
 
-  wrapper.dataset.formula = config.formula;
+  wrapper.dataset.replace = replace;
+  wrapper.dataset.formula = formula;
   wrapper.dataset.properties = Array.from(config.properties).join(",");
   wrapper.innerHTML = elements.map(element => element.outerHTML).join("");
 
@@ -57,18 +64,25 @@ export async function enricher(match, options = {}) {
  * @type {Function(HTMLEnrichedContentElement)}
  */
 export function onRender(element) {
-  const { formula } = element.dataset;
+  const { formula, replace } = element.dataset;
   const enricher = element.querySelector(".enricher");
   if (enricher._hasEvent) return;
   enricher._hasEvent = true;
   enricher.addEventListener("click", async (event) => {
-    const actors = ryuutama.utils.contextualActors(event.currentTarget);
-    const Cls = getDocumentClass("ChatMessage");
     const options = Object.fromEntries(element.dataset.properties.split(",").map(p => [p, true]));
-    for (const actor of actors) {
-      const roll = new ryuutama.dice.DamageRoll(formula, actor?.getRollData(), options);
-      const speaker = Cls.getSpeaker({ actor });
-      await roll.toMessage({ speaker });
+    const Cls = getDocumentClass("ChatMessage");
+    if (replace !== "true") {
+      // Each controlled actor performs the roll.
+      const actors = ryuutama.utils.contextualActors(event.currentTarget);
+      for (const actor of actors) {
+        const roll = new ryuutama.dice.DamageRoll(formula, actor?.getRollData(), options);
+        const speaker = Cls.getSpeaker({ actor });
+        await roll.toMessage({ speaker });
+      }
+    } else {
+      // A single out-of-character roll.
+      const roll = new ryuutama.dice.DamageRoll(formula, {}, options);
+      roll.toMessage({ speaker: null });
     }
   });
 }
