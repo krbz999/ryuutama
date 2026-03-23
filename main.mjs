@@ -10,6 +10,10 @@ import * as utils from "./code/utils/_module.mjs";
 
 import registerSettings from "./code/settings.mjs";
 
+/**
+ * @import SpellRegistry from "./code/helpers/registries/spell-registry.mjs";
+ */
+
 globalThis.ryuutama = {
   applications,
   canvas,
@@ -21,6 +25,10 @@ globalThis.ryuutama = {
   utils,
   CONST: constants,
   id: "ryuutama",
+  registries: {
+    /** @type {SpellRegistry} */
+    spells: null,
+  },
 };
 
 /* -------------------------------------------------- */
@@ -203,6 +211,13 @@ Hooks.once("ready", () => {
     // SHARED PARTIALS
     "document-list": "systems/ryuutama/templates/sheets/shared/document-list.hbs",
   });
+
+  // Set up registries.
+  Object.assign(ryuutama.registries, {
+    spells: new helpers.registries.SpellRegistry(),
+  });
+  Object.freeze(ryuutama.registries);
+  Object.values(ryuutama.registries).forEach(registry => registry.initialize());
 });
 
 /* -------------------------------------------------- */
