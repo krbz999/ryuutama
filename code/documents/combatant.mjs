@@ -50,8 +50,11 @@ export default class RyuutamaCombatant extends foundry.documents.Combatant {
    * @returns {object}
    */
   getRollData() {
+    const combatant = (typeof this.system.getRollData === "function") ? this.system.getRollData() : { ...this.system };
+    combatant.name = this.name;
+    combatant.flags = this.flags;
     const rollData = this.actor?.getRollData() ?? {};
-    rollData.combatant = { ...this };
+    rollData.combatant = combatant;
     return rollData;
   }
 }

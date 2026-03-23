@@ -99,6 +99,8 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels.staff = data.item.StaffData;
   CONFIG.Item.dataModels.weapon = data.item.WeaponData;
 
+  CONFIG.JournalEntry.documentClass = documents.RyuutamaJournalEntry;
+
   CONFIG.JournalEntryPage.documentClass = documents.RyuutamaJournalEntryPage;
   CONFIG.JournalEntryPage.dataModels.reference = data.journalEntryPage.ReferenceData;
 
