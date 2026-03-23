@@ -133,4 +133,14 @@ export default class WeaponData extends PhysicalData {
       `${ryuutama.config.abilityScores[this.damage.ability].abbreviation}`
          + (this.damage.bonus ? ` ${this.damage.bonus.signedString()}` : "");
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  getRollData() {
+    const rollData = super.getRollData();
+    rollData.isImprovised = this.isImprovised;
+    rollData.isMastered = this.isMastered;
+    return rollData;
+  }
 }

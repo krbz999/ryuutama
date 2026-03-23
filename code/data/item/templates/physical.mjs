@@ -163,4 +163,14 @@ export default class PhysicalData extends BaseData {
     }
     context.modifiers = Object.values(choices);
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  getRollData() {
+    const rollData = super.getRollData();
+    rollData.isUsable = this.isUsable;
+    rollData.weight = this.weight;
+    return rollData;
+  }
 }

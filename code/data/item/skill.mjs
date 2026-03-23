@@ -91,4 +91,13 @@ export default class SkillData extends BaseData {
   async _prepareSubtypeContext(sheet, context, options) {
     context.identifierPlaceholder = ryuutama.utils.createDefaultIdentifier(this.parent._source.name);
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  getRollData() {
+    const rollData = super.getRollData();
+    rollData.tier = this.tier;
+    return rollData;
+  }
 }
