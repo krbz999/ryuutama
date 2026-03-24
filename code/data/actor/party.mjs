@@ -33,17 +33,16 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
 
-    const update = {};
-    if (!foundry.utils.hasProperty(data, "prototypeToken.actorLink"))
-      foundry.utils.setProperty(update, "prototypeToken.actorLink", true);
-
-    if (!foundry.utils.hasProperty(data, "prototypeToken.sight.enabled"))
-      foundry.utils.setProperty(update, "prototypeToken.sight.enabled", false);
-
-    if (!foundry.utils.hasProperty(data, "prototypeToken.disposition"))
-      foundry.utils.setProperty(update, "prototypeToken.disposition", CONST.TOKEN_DISPOSITIONS.FRIENDLY);
-
-    if (!foundry.utils.isEmpty(update)) this.parent.updateSource(update);
+    const update = foundry.utils.mergeObject({
+      prototypeToken: {
+        actorLink: true,
+        disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+        sight: {
+          enabled: false,
+        },
+      },
+    }, data, { insertKeys: false, insertValues: false, overwrite: true });
+    this.parent.updateSource(update);
   }
 
   /* -------------------------------------------------- */

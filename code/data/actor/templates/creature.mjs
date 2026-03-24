@@ -115,14 +115,13 @@ export default class CreatureData extends BaseData {
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
 
-    const update = {};
-    if (!foundry.utils.hasProperty(data, "prototypeToken.displayName"))
-      foundry.utils.setProperty(update, "prototypeToken.displayName", CONST.TOKEN_DISPLAY_MODES.HOVER);
-
-    if (!foundry.utils.hasProperty(data, "prototypeToken.displayBars"))
-      foundry.utils.setProperty(update, "prototypeToken.displayBars", CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER);
-
-    if (!foundry.utils.isEmpty(update)) this.parent.updateSource(update);
+    const update = foundry.utils.mergeObject({
+      prototypeToken: {
+        displayName: CONST.TOKEN_DISPLAY_MODES.HOVER,
+        displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      },
+    }, data, { insertKeys: false, insertValues: false, overwrite: true });
+    this.parent.updateSource(update);
   }
 
   /* -------------------------------------------------- */
