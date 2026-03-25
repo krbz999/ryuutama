@@ -159,8 +159,16 @@ Hooks.once("init", () => {
     { label: "RYUUTAMA.SHEETS.ReferencePageSheet", makeDefault: true, types: ["reference"] },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.JournalEntryPage, ryuutama.id, applications.sheets.pages.TextPageSheet,
+    { label: "RYUUTAMA.SHEETS.TextPageSheet", makeDefault: true, types: ["text"] },
+  );
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Combatant, ryuutama.id, applications.sheets.combatants.RyuutamaCombatantSheet,
     { label: "RYUUTAMA.SHEETS.CombatantSheet", makeDefault: true },
+  );
+  foundry.applications.apps.DocumentSheetConfig.registerSheet(
+    foundry.documents.JournalEntry, ryuutama.id, applications.sheets.RyuutamaJournalEntrySheet,
+    { label: "RYUUTAMA.SHEETS.JournalEntrySheet", makeDefault: true },
   );
 
   // Register status effects.

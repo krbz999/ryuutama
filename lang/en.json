@@ -708,6 +708,9 @@
         "FIELDS": {
           "tooltip.label": "Tooltip"
         }
+      },
+      "TEXT": {
+        "subtitle": "Subtitle"
       }
     },
 
@@ -790,9 +793,11 @@
     "SHEETS": {
       "CombatantSheet": "Ryuutama Combatant Sheet",
       "ItemSheet": "Ryuutama Item Sheet",
+      "JournalEntrySheet": "Ryuutama Journal Entry Sheet",
       "MonsterSheet": "Ryuutama Monster Sheet",
       "PartySheet": "Ryuutama Party Sheet",
       "ReferencePageSheet": "Ryuutama Reference Page Sheet",
+      "TextPageSheet": "Ryuutama Text Page Sheet",
       "TravelerSheet": "Ryuutama Traveler Sheet"
     },
 
