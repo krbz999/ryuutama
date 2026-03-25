@@ -1,5 +1,6 @@
-.application.journal-entry {
-  background: burlywood;
+.ryuutama.application.journal-entry {
+  --background: #a79778;
+  background: var(--background);
 
   * { scrollbar-color: var(--ryuutama-color-aside-corners) transparent; }
 
@@ -17,8 +18,8 @@
   .toc .active + .category:has(+ .active) {
     background: linear-gradient(
       90deg,
-      hsl(from var(--ryuutama-color-aside-corners) h s l / .5),
-      transparent 25%
+      hsl(from var(--background) h s calc(l * .2) / .5),
+      transparent 5%
     );
 
     &.active {
@@ -38,18 +39,18 @@
     margin-left: calc(2 * var(--level-indent));
   }
   .toc .level2 .headings {
-    margin-left: calc(3 * var(--level-indent));
+    margin-left: calc(2.5 * var(--level-indent));
   }
   .toc .level3 .headings {
-    margin-left: calc(4 * var(--level-indent));
+    margin-left: calc(3 * var(--level-indent));
   }
 
   .journal-entry-content {
     background:
-      linear-gradient(90deg, burlywood, transparent 5%),
-      linear-gradient(180deg, burlywood, transparent 5%),
-      linear-gradient(270deg, burlywood, transparent 5%),
-      linear-gradient(0deg, burlywood, transparent 5%),
+      linear-gradient(90deg, var(--background), transparent 5%),
+      linear-gradient(180deg, var(--background), transparent 5%),
+      linear-gradient(270deg, var(--background), transparent 5%),
+      linear-gradient(0deg, var(--background), transparent 5%),
       url("../../../../ui/parchment.jpg") repeat;
   }
 
@@ -88,13 +89,22 @@
         text-align: center;
         color: #ffffff;
         font-family: var(--ryuutama-font-radley);
-        padding: 3rem 2rem;
+        padding: 1rem 2rem;
         margin: 0;
         margin-bottom: 1rem;
 
         .journal-page-header:has(> &) {
           background: #cebc6a;
           border-radius: .5rem;
+        }
+
+        .subtitle {
+          font-size: 40px;
+
+          h1:has(> &) {
+            display: flex;
+            flex-direction: column;
+          }
         }
       }
 
@@ -125,6 +135,7 @@
 
         + p {
           text-indent: 1rem;
+          margin-top: .5rem;
         }
       }
 

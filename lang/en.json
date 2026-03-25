@@ -809,6 +809,9 @@
         "FIELDS": {
           "tooltip.label": "Tooltip"
         }
+      },
+      "TEXT": {
+        "subtitle": "Subtitle"
       }
     },
 
@@ -897,8 +900,12 @@
       "ITEM": {
         "ItemSheet": "Ryuutama Item Sheet"
       },
+      "JOURNAL": {
+        "JournalEntrySheet": "Ryuutama Journal Entry Sheet"
+      },
       "PAGE": {
-        "ReferencePageSheet": "Ryuutama Reference Page Sheet"
+        "ReferencePageSheet": "Ryuutama Reference Page Sheet",
+        "TextPageSheet": "Ryuutama Text Page Sheet"
       },
       "openSourceConfig": "Show Source Config",
       "toggleEditMode": "Toggle Edit Mode"
