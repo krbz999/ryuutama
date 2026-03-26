@@ -2,6 +2,10 @@
  * @import RyuutamaCombatant from "./combatant.mjs";
  */
 
+/**
+ * System implementation of the Combat document class.
+ * @extends foundry.documents.Combat
+ */
 export default class RyuutamaCombat extends foundry.documents.Combat {
   /**
    * Default turn marker.

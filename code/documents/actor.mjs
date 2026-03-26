@@ -1,5 +1,9 @@
 import RyuutamaPartySheet from "../applications/sheets/actors/party.mjs";
 
+/**
+ * System implementation of the Actor document class.
+ * @extends foundry.documents.Actor
+ */
 export default class RyuutamaActor extends foundry.documents.Actor {
   /** @inheritdoc */
   static async createDialog(data = {}, createOptions = {}, options = {}, renderOptions = {}) {

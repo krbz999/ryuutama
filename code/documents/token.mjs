@@ -1,3 +1,7 @@
+/**
+ * System implementation of the TokenDocument document class.
+ * @extends foundry.documents.TokenDocument
+ */
 export default class RyuutamaTokenDocument extends foundry.documents.TokenDocument {
   /** @inheritdoc */
   getBarAttribute(barName, { alternative } = {}) {

@@ -1,3 +1,7 @@
+/**
+ * System implementation of the Item document class.
+ * @extends foundry.documents.Item
+ */
 export default class RyuutamaItem extends foundry.documents.Item {
   /**
    * Identifier of this item.

@@ -1,3 +1,7 @@
+/**
+ * System implementation of the ChatMessage document class.
+ * @extends foundry.documents.ChatMessage
+ */
 export default class RyuutamaChatMessage extends foundry.documents.ChatMessage {
   /** @inheritdoc */
   get isRoll() {

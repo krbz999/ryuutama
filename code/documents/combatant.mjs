@@ -2,6 +2,10 @@
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../data/actor/_types.mjs";
  */
 
+/**
+ * System implementation of the Combatant document class.
+ * @extends foundry.documents.Combatant
+ */
 export default class RyuutamaCombatant extends foundry.documents.Combatant {
   /** @inheritdoc */
   _initializeSource(data = {}, options = {}) {

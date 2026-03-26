@@ -1,3 +1,7 @@
+/**
+ * System implementation of the ActiveEffect document class.
+ * @extends foundry.documents.ActiveEffect
+ */
 export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect {
   /** @inheritdoc */
   static async _fromStatusEffect(statusId, effectData, options) {

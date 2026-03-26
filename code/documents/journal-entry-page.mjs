@@ -1,3 +1,7 @@
+/**
+ * System implementation of the JournalEntryPage document class.
+ * @extends foundry.documents.JournalEntryPage
+ */
 export default class RyuutamaJournalEntryPage extends foundry.documents.JournalEntryPage {
   /** @inheritdoc */
   toAnchor({ attrs = {}, dataset = {}, classes = [], name, icon } = {}) {
