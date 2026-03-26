@@ -220,10 +220,7 @@ Hooks.once("ready", () => {
   });
   Object.freeze(ryuutama.registries);
   Object.values(ryuutama.registries).forEach(registry => registry.initialize());
-});
 
-/* -------------------------------------------------- */
-
-Hooks.once("renderPlayers", () => {
+  // Render UI elements.
   ui.habitat.render({ force: true });
 });
