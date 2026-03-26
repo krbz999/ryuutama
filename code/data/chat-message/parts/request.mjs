@@ -53,7 +53,21 @@ export default class RequestPart extends MessagePart {
   /** @inheritdoc */
   async _prepareContext(context) {
     await super._prepareContext(context);
-    context.ctx.requestText = CreatureData._createCheckLabel(this.check.configuration);
+
+    const makeLabel = config => {
+      const typeLabel = _loc(`RYUUTAMA.ROLL.TYPES.${config.type}`);
+      const subtitle = (config.type === "journey")
+        ? ryuutama.config.checkTypes.journey.subtypes[config.journeyId].label
+        : null;
+      return subtitle ? `${typeLabel} (${subtitle})` : typeLabel;
+    };
+
+    const config = this.check.configuration;
+    let label = makeLabel(config);
+    if (config.abilities?.length)
+      label = `${label} (${config.abilities.map(abi => ryuutama.config.abilityScores[abi].abbreviation).join(" + ")})`;
+
+    context.ctx.requestText = label;
     context.ctx.results = this.results.map(r => {
       const result = { ...r };
       result.disabled = !r.actor.isOwner;

@@ -305,21 +305,6 @@ export default class CreatureData extends BaseData {
   /* -------------------------------------------------- */
 
   /**
-   * Create the label for a roll configuration of a check.
-   * @param {CheckRollConfig} rollConfig
-   * @returns {string}
-   */
-  static _createCheckLabel(rollConfig) {
-    const typeLabel = _loc(`RYUUTAMA.ROLL.TYPES.${rollConfig.type}`);
-    const subtitle = (rollConfig.type === "journey")
-      ? ryuutama.config.checkTypes.journey.subtypes[rollConfig.journeyId].label
-      : null;
-    return subtitle ? `${typeLabel} (${subtitle})` : typeLabel;
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
    * Construct the configuration objects for a check.
    * @param {CheckRollConfig} rollConfig
    * @param {CheckDialogConfig} [dialogConfig={}]
@@ -372,11 +357,13 @@ export default class CreatureData extends BaseData {
         throw new Error(`Invalid check type '${rollConfig.type}' passed to rollConfig parameter.`);
     }
 
+    const abilities = rollConfig.abilities?.length ? rollConfig.abilities : roll.abilities;
     const result = {
       rollConfig: foundry.utils.mergeObject(roll, rollConfig),
       dialogConfig: foundry.utils.mergeObject(dialog, dialogConfig),
       messageConfig: foundry.utils.mergeObject(message, messageConfig),
     };
+    result.rollConfig.abilities = abilities;
 
     // Allow subclasses to perform changes.
     this._constructCheckConfigs(result.rollConfig, result.dialogConfig, result.messageConfig);
