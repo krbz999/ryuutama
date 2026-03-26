@@ -35,14 +35,13 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
 
   /** @inheritdoc */
   static migrateData(source, options, _state) {
-    for (const change of source.changes ?? []) {
-      if (change.key.startsWith("system.mastered.weapons.")) {
-        const weapon = change.key.slice("system.mastered.weapons.".length);
-        change.key = "system.mastered.weapons";
-        change.mode = "add",
-        change.value = weapon || "";
-      }
-    }
+    const prefix = "system.mastered.weapons.";
+    (source.changes ?? source.system?.changes ?? []).forEach(change => {
+      if (!change.key?.startsWith?.(prefix)) return;
+      change.value = change.key.slice(prefix.length);
+      change.key = prefix.slice(0, prefix.length - 1);
+      change.type = "add";
+    });
     return super.migrateData(source, options, _state);
   }
 
