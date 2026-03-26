@@ -1,7 +1,8 @@
 /**
  * @typedef ItemSubtypeMetadata
- * @property {boolean} [inventory]    Unless explicitly `false`, this item type appears in inventories.
- * @property {number} [sort]          The order in which this item appears as a section on actor sheets.
+ * @property {boolean} [inventory]        Unless explicitly `false`, this item type appears in inventories.
+ * @property {number} [sort]              The order in which this item appears as a section on actor sheets.
+ * @property {string} [defaultArtwork]    The default image used for an item of this type.
  */
 
 const { HTMLField, SchemaField } = foundry.data.fields;

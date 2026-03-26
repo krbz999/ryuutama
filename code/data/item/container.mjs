@@ -26,7 +26,10 @@ export default class ContainerData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    { sort: 303 },
+    {
+      sort: 303,
+      defaultArtwork: "systems/ryuutama/assets/official/icons/items/container.svg",
+    },
     { inplace: false },
   ));
 

@@ -24,7 +24,10 @@ export default class AnimalData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    { sort: 302 },
+    {
+      sort: 302,
+      defaultArtWork: "systems/ryuutama/assets/official/icons/items/animal.svg",
+    },
     { inplace: false },
   ));
 

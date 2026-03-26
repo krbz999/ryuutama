@@ -15,6 +15,14 @@ export default class RyuutamaActor extends foundry.documents.Actor {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  static getDefaultArtwork(actorData) {
+    const img = CONFIG.Actor.dataModels[actorData.type]?.metadata.defaultArtwork ?? RyuutamaActor.DEFAULT_ICON;
+    return { img: img, texture: { src: img } };
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   getRollData() {
     const rollData = (typeof this.system.getRollData === "function") ? this.system.getRollData() : { ...this.system };
     rollData.name = this.name;

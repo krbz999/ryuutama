@@ -4,6 +4,18 @@ const { SchemaField, StringField } = foundry.data.fields;
 
 export default class GearData extends PhysicalData {
   /** @inheritdoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(
+    super.metadata,
+    {
+      sort: 204,
+      defaultArtwork: "systems/ryuutama/assets/official/icons/items/equipment.svg",
+    },
+    { inplace: false },
+  ));
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       gear: new SchemaField({

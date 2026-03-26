@@ -24,7 +24,10 @@ export default class WeaponData extends PhysicalData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    { sort: 101 },
+    {
+      sort: 101,
+      defaultArtwork: "systems/ryuutama/assets/official/icons/items/equipment.svg",
+    },
     { inplace: false },
   ));
 
