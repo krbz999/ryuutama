@@ -70,6 +70,8 @@ Hooks.once("init", () => {
   CONFIG.Actor.dataModels.traveler = data.actor.TravelerData;
   CONFIG.Actor.defaultType = "traveler";
 
+  CONFIG.Canvas.vfx.enabled = true;
+
   CONFIG.ChatMessage.documentClass = documents.RyuutamaChatMessage;
   CONFIG.ChatMessage.dataModels.standard = data.message.StandardData;
 
