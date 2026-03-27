@@ -11,3 +11,4 @@ export * as fields from "./fields/_module.mjs";
 
 export { default as AbilityModel } from "./ability-model.mjs";
 export { default as ActionsModel } from "./actions-model.mjs";
+export { default as AttackModel } from "./attack-model.mjs";

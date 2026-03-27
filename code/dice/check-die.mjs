@@ -44,11 +44,11 @@ export default class CheckDie extends foundry.dice.terms.Die {
   /**
    * Construct a die using an actor's ability.
    * @param {RyuutamaActor} actor
-   * @param {string} ability
+   * @param {string} ability    A key in `ryuutama.CONST.ABILITIES` or a number-like string.
    * @returns {CheckDie}
    */
   static fromAbility(actor, ability) {
-    const faces = actor.system.abilities[ability].faces;
+    const faces = Number.isNumeric(ability) ? Number(ability) : actor.system.abilities[ability].faces;
     return new this({ faces, options: { ability } });
   }
 }

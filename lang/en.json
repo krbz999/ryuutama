@@ -105,8 +105,9 @@
       },
       "MONSTER": {
         "FIELDS": {
-          "attack.accuracy.label": "Accuracy Formula",
-          "attack.damage.label": "Damage Formula",
+          "attack.accuracy.bonus.label": "Bonus",
+          "attack.damage.bonus.label": "Bonus",
+          "attack.damage.die.label": "Ability",
           "description.special.name.label": "Special Ability",
           "description.value.label": "Description",
           "details.category.label": "Monster Category",
@@ -114,6 +115,16 @@
           "details.level.label": "Level",
           "environment.season.label": "Season",
           "initiative.value.label": "Initiative"
+        },
+        "ATTACK": {
+          "abilities": "Abilities",
+          "ability": "Ability",
+          "accuracy": "Accuracy",
+          "damage": "Damage",
+          "defaultAbility": "Default ({ability})",
+          "groupAbility": "Ability",
+          "groupFaces": "Faces",
+          "title": "Configure Attack: {name}"
         },
         "CATEGORIES": {
           "demon": "Demon",
@@ -346,10 +357,6 @@
           "choice.chosen.hint": "Choose a weapon type to master. Making an attack with a weapon type that you have not mastered incurs a 1 HP penalty with each attack."
         }
       }
-    },
-
-    "ATTACK": {
-      "title": "Configure Attack: {name}"
     },
     "CONDITION": {
       "title": "Configure Condition: {name}",

@@ -1,15 +1,12 @@
 import CreatureData from "./templates/creature.mjs";
 
-const { HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
+const { EmbeddedDataField, HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
 export default class MonsterData extends CreatureData {
   /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
-      attack: new SchemaField({
-        accuracy: new ryuutama.data.fields.FormulaField(),
-        damage: new ryuutama.data.fields.FormulaField(),
-      }),
+      attack: new EmbeddedDataField(ryuutama.data.AttackModel),
       description: new SchemaField({
         value: new HTMLField(),
       }),
@@ -37,21 +34,6 @@ export default class MonsterData extends CreatureData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ACTOR.MONSTER",
   ];
-
-  /* -------------------------------------------------- */
-
-  /**
-   * What is the default attack type of this monster?
-   * The sum of its abilities determine whether it is best suited for using
-   * STR + DEX or INT + SPI.
-   * @type {"physical"|"mental"}
-   */
-  get _defaultAttackType() {
-    const { abilities } = this._source;
-    const phys = abilities.strength.value + abilities.dexterity.value;
-    const ment = abilities.intelligence.value + abilities.spirit.value;
-    return phys >= ment ? "physical" : "mental";
-  }
 
   /* -------------------------------------------------- */
 
@@ -92,23 +74,9 @@ export default class MonsterData extends CreatureData {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    this.#prepareAttack();
+    this.attack._prepareDefaults();
     this.#prepareDefense();
     this.#prepareResources();
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare accuracy and damage.
-   */
-  #prepareAttack() {
-    const isPhysical = this._defaultAttackType === "physical";
-    const accuracy = isPhysical ? "@stats.strength + @stats.dexterity" : "@stats.intelligence + @stats.spirit";
-    const damage = isPhysical ? "@stats.strength" : "@stats.spirit";
-
-    if (!this.attack.accuracy) this.attack.accuracy = accuracy;
-    if (!this.attack.damage) this.attack.damage = damage;
   }
 
   /* -------------------------------------------------- */
@@ -155,10 +123,35 @@ export default class MonsterData extends CreatureData {
   _constructCheckConfigs(roll, dialog, message) {
     super._constructCheckConfigs(roll, dialog, message);
     switch (roll.type) {
-      case "accuracy": roll.formula = this.attack.accuracy; break;
-      case "condition": roll.condition.updateScore = false; break;
-      case "damage": roll.formula = this.attack.damage; break;
-      case "initiative": roll.formula = "@initiative.value"; dialog.configure ??= false; break;
+      case "accuracy":
+        roll.abilities = [this.attack.accuracy.die1, this.attack.accuracy.die2];
+        roll.modifier ??= 0;
+        roll.modifier += this.attack.accuracy.bonus;
+        break;
+      case "condition":
+        roll.condition.updateScore = false;
+        break;
+      case "damage":
+        roll.abilities = [this.attack.damage.die];
+        roll.modifier ??= 0;
+        roll.modifier += this.attack.damage.bonus;
+        break;
+      case "initiative":
+        roll.formula = "@initiative.value";
+        dialog.configure ??= false;
+        break;
     }
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static migrateData(source, options, _state) {
+    if (typeof source.attack?.accuracy === "string") {
+      const { accuracy, damage } = source.attack;
+      const data = ryuutama.data.AttackModel._migrateFormulasToModelData(accuracy, damage);
+      source.attack = data;
+    }
+    return super.migrateData(source, options, _state);
   }
 }

@@ -142,6 +142,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     context.abilityOptions = ryuutama.CONST.ABILITIES._toConfig;
     const [abi1, abi2] = this.#configurations.rollConfig.abilities ?? [];
     context.abilities = { abi1, abi2 };
+    context.displayAbilities = [abi1, abi2].every(abi => Object.values(ryuutama.CONST.ABILITIES).includes(abi));
 
     context.buttons = [{ label: "COMMON.Confirm", type: "submit", icon: "fa-solid fa-check" }];
     context.roll = this.actor.system._constructCheckRoll(
@@ -165,7 +166,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
 
     if (!context.showAccuracy) foundry.utils.setProperty(roll, "accuracy.consumeStamina", false);
     context.showCondition = roll.type === "condition";
-    context.showAbilities = !roll.formula;
+    context.showAbilities = !roll.formula && context.displayAbilities;
 
     const combatant = game.combat?.combatants.find(c => c.actor === this.actor);
 
