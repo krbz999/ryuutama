@@ -1,0 +1,15 @@
+<section>
+  <div class="form-group stacked">
+    <label>{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.members"}}</label>
+    <div class="form-fields">
+      {{{inputs "createMultiSelectInput" name="members" value=configuration.members type="checkboxes" options=memberOptions}}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="{{rootId}}-createCombatants">{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.createCombatants"}}</label>
+    <div class="form-fields">
+      {{{inputs "createCheckboxInput" name="createCombatants" value=configuration.createCombatants id=(concat rootId "-createCombatants")}}}
+    </div>
+    <p class="hint">{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.createCombatantsHint"}}</p>
+  </div>
+</section>

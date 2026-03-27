@@ -119,7 +119,7 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
     switch (partId) {
       case "footer":
         context.buttons = [{
-          label: "Confirm", icon: "fa-solid fa-check", type: "submit", disabled: !this.chain.isConfigured,
+          label: "COMMON.Confirm", icon: "fa-solid fa-check", type: "submit", disabled: !this.chain.isConfigured,
         }];
         break;
       case "advancements":

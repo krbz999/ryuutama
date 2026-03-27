@@ -143,7 +143,7 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     const [abi1, abi2] = this.#configurations.rollConfig.abilities ?? [];
     context.abilities = { abi1, abi2 };
 
-    context.buttons = [{ label: "Confirm", type: "submit", icon: "fa-solid fa-check" }];
+    context.buttons = [{ label: "COMMON.Confirm", type: "submit", icon: "fa-solid fa-check" }];
     context.roll = this.actor.system._constructCheckRoll(
       this.#configurations.rollConfig,
       this.#configurations.dialogConfig,
