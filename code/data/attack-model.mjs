@@ -17,37 +17,19 @@ export default class AttackModel extends foundry.abstract.DataModel {
         };
       });
       [2, 4, 6, 8, 10, 12, 20].forEach(faces => {
-        options[faces] = {
-          label: `d${faces}`,
-          group: groupF,
-        };
+        options[faces] = { label: `d${faces}`, group: groupF };
       });
       return options;
     };
 
     return {
       accuracy: new SchemaField({
-        die1: new StringField({
-          choices,
-          required: true,
-          initial: null,
-          nullable: true,
-        }),
-        die2: new StringField({
-          choices,
-          required: true,
-          initial: null,
-          nullable: true,
-        }),
+        die1: new StringField({ choices, required: true, initial: null, nullable: true }),
+        die2: new StringField({ choices, required: true, initial: null, nullable: true }),
         bonus: new NumberField({ nullable: true, initial: null }),
       }),
       damage: new SchemaField({
-        die: new StringField({
-          choices,
-          required: true,
-          initial: null,
-          nullable: true,
-        }),
+        die: new StringField({ choices, required: true, initial: null, nullable: true }),
         bonus: new NumberField({ nullable: true, initial: null }),
       }),
     };
