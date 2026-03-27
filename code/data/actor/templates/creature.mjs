@@ -512,18 +512,25 @@ export default class CreatureData extends BaseData {
   _constructCheckRoll(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
     let { parts, rollData } = this._prepareCheckModifiers(rollConfig, dialogConfig, messageConfig);
 
-    if (rollConfig.formula) {
-      parts.unshift(rollConfig.formula);
-    } else {
-      parts = [
-        `@stats.${rollConfig.abilities[0]}`,
-        (rollConfig.abilities.length > 1) ? `@stats.${rollConfig.abilities[1]}` : null,
-      ].concat(parts);
-    }
-
     const Cls = this.#determineRollClass(rollConfig, dialogConfig, messageConfig);
     const options = this.#constructRollOptions(rollConfig, dialogConfig, messageConfig);
-    const roll = new Cls(parts.filterJoin(" + "), rollData, options);
+
+    let roll;
+    if (rollConfig.formula) {
+      parts.unshift(rollConfig.formula);
+      roll = new Cls(parts.filterJoin(" + "), rollData, options);
+    } else {
+      const terms = Cls.fromAbilities(this.parent, rollConfig.abilities).terms;
+      const additionalTerms = new Cls(parts.filterJoin(" + "), rollData).terms;
+      if (additionalTerms.length) {
+        terms.push(
+          new foundry.dice.terms.OperatorTerm({ operator: "+" }),
+          ...additionalTerms,
+        );
+      }
+      roll = Cls.fromTerms(terms, options);
+    }
+
     if (rollConfig.critical?.allowed && rollConfig.critical.isCritical) roll.alter(2, 0);
     return roll;
   }
