@@ -32,9 +32,7 @@
     "condition": {
       "value": 9,
       "immunities": [],
-      "shape": {
-        "high": ""
-      }
+      "travel": false
     },
     "abilities": {
       "strength": {
@@ -51,8 +49,15 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.strength + @stats.dexterity + 1",
-      "damage": "@stats.strength + 1"
+      "accuracy": {
+        "die1": "strength",
+        "die2": "dexterity",
+        "bonus": 1
+      },
+      "damage": {
+        "die": "strength",
+        "bonus": 1
+      }
     },
     "description": {
       "value": "<p>A certain percentage of gobroaches grow large enough to grow wings that sprout from their carapace. The filth that spreads when they flap their wings gets into the eyes of those around them, forcing their opponents to freeze in their tracks. Like normal gobroaches, they are determined to make the world a dirty place, but they are more willing to use underhanded techniques.</p>"
@@ -65,7 +70,8 @@
       }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "name": "Sky Gobroach",
@@ -82,12 +88,9 @@
       "src": "",
       "anchorX": 0.5,
       "anchorY": 0.5,
-      "offsetX": 0,
-      "offsetY": 0,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "rotation": 0,
       "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
@@ -138,7 +141,7 @@
       "saturation": 0,
       "contrast": 0
     },
-    "detectionModes": [],
+    "detectionModes": {},
     "occludable": {
       "radius": 0
     },
@@ -164,7 +167,8 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false
+    "prependAdjective": false,
+    "depth": 1
   },
   "img": "",
   "items": [
@@ -175,6 +179,11 @@
       "system": {
         "description": {
           "value": "<p>During battle, if a Sky Gobroach flaps his wings, any character that doesn't have eye protection must make a [SPI+SPI] check at difficulty 8. Those that fail may only Defend on their next action.</p>"
+        },
+        "identifier": "",
+        "source": {
+          "book": "",
+          "custom": ""
         }
       },
       "img": "icons/svg/item-bag.svg",
@@ -189,10 +198,10 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.350",
+        "coreVersion": "14.357",
         "systemId": "ryuutama",
-        "systemVersion": "1.0.0",
-        "createdTime": 1760662081703,
+        "systemVersion": "2.0.0",
+        "createdTime": 1774636471164,
         "modifiedTime": null,
         "lastModifiedBy": "ryuutama00000000"
       },
@@ -209,10 +218,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760293207261,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774636471163,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

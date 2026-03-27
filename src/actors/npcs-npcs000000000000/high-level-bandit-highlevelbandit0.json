@@ -32,9 +32,7 @@
     "condition": {
       "value": 8,
       "immunities": [],
-      "shape": {
-        "high": ""
-      }
+      "travel": false
     },
     "abilities": {
       "strength": {
@@ -51,8 +49,15 @@
       }
     },
     "attack": {
-      "accuracy": "@stats.strength + @stats.dexterity + 1",
-      "damage": "@stats.strength + 1"
+      "accuracy": {
+        "die1": "strength",
+        "die2": "dexterity",
+        "bonus": 1
+      },
+      "damage": {
+        "die": "strength",
+        "bonus": 1
+      }
     },
     "defense": {
       "armor": 1,
@@ -65,7 +70,8 @@
       "value": "<p>These guys are the bosses of the low-level bandits, or are bandits that live in deep forests, deserts, or other tough terrain. These bandits are well equipped to handle long journeys and target high-end goods--they may even target whole towns! Compared to weaker bandits, they possess a sharp wit, and are known for stealing hearts as well as gold. Those that live in the jungle are called \"junglers\", while those that reside in the desert are known as \"desert vikings\".</p>"
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "name": "High-level Bandit",
@@ -82,12 +88,9 @@
       "src": "",
       "anchorX": 0.5,
       "anchorY": 0.5,
-      "offsetX": 0,
-      "offsetY": 0,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "rotation": 0,
       "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
@@ -138,7 +141,7 @@
       "saturation": 0,
       "contrast": 0
     },
-    "detectionModes": [],
+    "detectionModes": {},
     "occludable": {
       "radius": 0
     },
@@ -164,7 +167,8 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false
+    "prependAdjective": false,
+    "depth": 1
   },
   "img": "",
   "items": [],
@@ -178,10 +182,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1761254178985,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774636471121,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

@@ -21,9 +21,7 @@
     "condition": {
       "immunities": [],
       "value": 4,
-      "shape": {
-        "high": ""
-      }
+      "travel": false
     },
     "resources": {
       "mental": {
@@ -44,8 +42,15 @@
       }
     },
     "attack": {
-      "accuracy": "",
-      "damage": ""
+      "accuracy": {
+        "die1": null,
+        "die2": null,
+        "bonus": null
+      },
+      "damage": {
+        "die": null,
+        "bonus": null
+      }
     },
     "description": {
       "value": "<p>It is said that a kamaitachi is actually three weasels with sickle-like claws that have joined together to harass travelers. In this form, they look like a single giant weasel with huge claws. Kamaitachi are known to be wily pranksters. They chase, cut, and heal those they come across, leaving bewildered but unharmed hikers in their wake. If they are angered, however, the three weasels will simply attack.</p>"
@@ -69,7 +74,8 @@
       }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "prototypeToken": {
@@ -82,12 +88,9 @@
       "src": "",
       "anchorX": 0.5,
       "anchorY": 0.5,
-      "offsetX": 0,
-      "offsetY": 0,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "rotation": 0,
       "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
@@ -138,7 +141,7 @@
       "saturation": 0,
       "contrast": 0
     },
-    "detectionModes": [],
+    "detectionModes": {},
     "occludable": {
       "radius": 0
     },
@@ -164,7 +167,8 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false
+    "prependAdjective": false,
+    "depth": 1
   },
   "items": [
     {
@@ -174,6 +178,11 @@
       "system": {
         "description": {
           "value": "<p>Kamaitachi can attack the Back Area from the Front Area.</p>"
+        },
+        "identifier": "",
+        "source": {
+          "book": "",
+          "custom": ""
         }
       },
       "img": "icons/svg/item-bag.svg",
@@ -188,10 +197,10 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.350",
+        "coreVersion": "14.357",
         "systemId": "ryuutama",
-        "systemVersion": "1.0.0",
-        "createdTime": 1760662081666,
+        "systemVersion": "2.0.0",
+        "createdTime": 1774636471150,
         "modifiedTime": null,
         "lastModifiedBy": "ryuutama00000000"
       },
@@ -209,10 +218,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1759793425041,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774636471150,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

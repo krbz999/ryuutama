@@ -113,8 +113,10 @@ export default class AttackModel extends foundry.abstract.DataModel {
 
         if (abilities[0]?.[1]) d1 = abilities[0][1];
         if (abilities[1]?.[1]) d2 = abilities[1][1];
-        d1 ??= roll.dice[0]?.faces ?? null;
-        d2 ??= roll.dice[1]?.faces ?? null;
+
+        const dice = [...roll.dice];
+        d1 ??= dice.pop()?.faces ?? null;
+        d2 ??= dice.pop()?.faces ?? null;
 
         data.accuracy.die1 = d1;
         data.accuracy.die2 = d2;
