@@ -234,10 +234,8 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static async #placeMembers(event, target) {
-    const isMaximized = this.rendered && !this.minimized;
-    if (isMaximized) await this.minimize();
-    await this.document.system.placeMembers();
-    if (isMaximized) this.maximize();
+    const configure = !event.shiftKey;
+    this.document.system.placeMembers({ configure });
   }
 
   /* -------------------------------------------------- */

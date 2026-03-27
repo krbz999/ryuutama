@@ -114,13 +114,44 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
 
   /**
    * Place down the members of this party.
+   * @param {object} [options]
+   * @param {boolean} [options.configure=true]      Display a configuration dialog?
    * @returns {Promise<RyuutamaTokenDocument[]>}    A promise that resolves to the created tokens.
    */
-  async placeMembers() {
-    const promises = this.members.map(m => m.actor.getTokenDocument());
-    const tokens = await Promise.all(promises);
+  async placeMembers({ configure = true, ...configuration } = {}) {
+    const sheet = this.parent.sheet;
+
+    configuration = foundry.utils.mergeObject({
+      createCombatants: !!game.combat,
+      members: this.members.filter(m => !m.actor.getActiveTokens().length).map(m => m.actor.id),
+    }, configuration);
+
+    if (configure) {
+      const configured = await ryuutama.applications.apps.PlaceMembersDialog.create({
+        configuration, document: this.parent,
+      });
+      if (!configured) return null;
+    }
+
+    if (!configuration.members.length) return [];
+
+    const isMaximized = sheet.rendered && !sheet.minimized;
+    if (isMaximized) await sheet.minimize();
+
+    const promises = configuration.members.map(
+      id => this.members.get(id).actor.getTokenDocument({}, { parent: canvas.scene }),
+    );
+    let tokens = await Promise.all(promises);
     const data = tokens.map(token => token.toObject());
-    return canvas.tokens.placeTokens(data, { create: true });
+    tokens = await canvas.tokens.placeTokens(data, { create: true });
+
+    if (tokens.length && configuration.createCombatants) {
+      await getDocumentClass("Token").createCombatants(tokens, { combat: game.combat });
+    }
+
+    if (isMaximized) await sheet.maximize();
+
+    return tokens;
   }
 
   /* -------------------------------------------------- */
