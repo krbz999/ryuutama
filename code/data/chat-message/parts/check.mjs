@@ -52,7 +52,7 @@ export default class CheckPart extends MessagePart {
   /** @inheritdoc */
   async _prepareContext(context) {
     await super._prepareContext(context);
-    context.ctx.hasFumble = this.rolls.some(roll => roll.isFumble);
+    context.ctx.hasFumble = context.actor?.hasPlayerOwner && this.rolls.some(roll => roll.isFumble);
   }
 
   /* -------------------------------------------------- */
