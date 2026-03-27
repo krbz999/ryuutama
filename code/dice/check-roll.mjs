@@ -28,18 +28,8 @@ export default class CheckRoll extends BaseRoll {
    */
   get isCritical() {
     if (!this._evaluated) throw new Error("Cannot check for state of a Check prior to evaluation.");
-    if (!this.dice.length) return false;
     const checkDice = this.checkDice;
-    if (checkDice.length) {
-      return checkDice.every(die => die.isMax) || checkDice.every(die => die.isSix);
-    }
-
-    // For compatibility with monsters which do not currently always construct rolls with CheckDie.
-    return this.dice.every(die => {
-      return die.results.every(result => result.result === 6);
-    }) || this.dice.every(die => {
-      return die.results.every(result => result.result === die.faces);
-    });
+    return !!checkDice.length && (checkDice.every(die => die.isMax) || checkDice.every(die => die.isSix));
   }
 
   /* -------------------------------------------------- */
@@ -63,16 +53,8 @@ export default class CheckRoll extends BaseRoll {
    */
   get isFumble() {
     if (!this._evaluated) throw new Error("Cannot check for state of a Check prior to evaluation.");
-    if (!this.dice.length) return false;
     const checkDice = this.checkDice;
-    if (checkDice.length) {
-      return checkDice.every(die => die.isMin);
-    }
-
-    // For compatibility with monsters which do not currently always construct rolls with CheckDie.
-    return this.dice.every(die => {
-      return die.results.every(result => result.result === 1);
-    });
+    return !!checkDice.length && checkDice.every(die => die.isMin);
   }
 
   /* -------------------------------------------------- */
