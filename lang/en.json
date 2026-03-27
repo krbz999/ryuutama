@@ -118,7 +118,6 @@
         },
         "ATTACK": {
           "abilities": "Abilities",
-          "ability": "Ability",
           "accuracy": "Accuracy",
           "damage": "Damage",
           "defaultAbility": "Default ({ability})",
