@@ -23,17 +23,23 @@
       },
       "target": {
         "custom": "1 person"
-      },
-      "effects": {}
+      }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     },
     "actions": {
       "damage": {
-        "formula": "1d6"
+        "formula": "1d6",
+        "properties": []
+      },
+      "healing": {
+        "formula": "",
+        "properties": []
       }
-    }
+    },
+    "identifier": "attack-of-the-killer-object"
   },
   "_id": "attackofthekille",
   "type": "spell",
@@ -49,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760192651876,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638906424,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

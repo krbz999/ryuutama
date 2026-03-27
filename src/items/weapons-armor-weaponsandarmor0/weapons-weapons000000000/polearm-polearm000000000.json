@@ -33,8 +33,10 @@
       "bonus": 1
     },
     "source": {
-      "book": "Ryuutama"
-    }
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "identifier": "polearm"
   },
   "effects": [],
   "sort": 0,
@@ -46,10 +48,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1759431823793,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638902768,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

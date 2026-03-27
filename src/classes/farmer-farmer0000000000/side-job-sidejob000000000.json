@@ -8,7 +8,8 @@
     },
     "identifier": "side-job",
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "img": "icons/skills/trades/construction-carpentry-hammer-gray.webp",
@@ -23,10 +24,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760283884159,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638708684,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

@@ -23,11 +23,22 @@
       },
       "target": {
         "custom": "1 person"
-      },
-      "effects": {}
+      }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "identifier": "dragon-fly",
+    "actions": {
+      "damage": {
+        "formula": "",
+        "properties": []
+      },
+      "healing": {
+        "formula": "",
+        "properties": []
+      }
     }
   },
   "_id": "dragonfly0000000",
@@ -44,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760192876836,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638906430,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

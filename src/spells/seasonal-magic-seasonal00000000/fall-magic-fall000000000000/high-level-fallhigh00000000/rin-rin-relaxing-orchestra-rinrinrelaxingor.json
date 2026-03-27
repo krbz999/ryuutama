@@ -23,11 +23,22 @@
       },
       "target": {
         "custom": "All who can hear"
-      },
-      "effects": {}
+      }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "identifier": "rin-rin-relaxing-orchestra",
+    "actions": {
+      "damage": {
+        "formula": "",
+        "properties": []
+      },
+      "healing": {
+        "formula": "",
+        "properties": []
+      }
     }
   },
   "_id": "rinrinrelaxingor",
@@ -44,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760194661856,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638906435,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

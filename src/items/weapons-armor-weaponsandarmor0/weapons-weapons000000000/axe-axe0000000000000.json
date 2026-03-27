@@ -33,8 +33,10 @@
       "bonus": null
     },
     "source": {
-      "book": "Ryuutama"
-    }
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "identifier": "axe"
   },
   "effects": [],
   "sort": 0,
@@ -46,10 +48,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1759431823823,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638902763,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

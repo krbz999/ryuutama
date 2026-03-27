@@ -19,8 +19,10 @@
     },
     "modifiers": [],
     "source": {
-      "book": "Ryuutama"
-    }
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "identifier": "climbing-shoes"
   },
   "_id": "climbingshoes000",
   "img": "icons/equipment/feet/boots-leather-engraved-brown.webp",
@@ -35,10 +37,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1759431823803,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638902764,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

@@ -23,17 +23,23 @@
       },
       "target": {
         "custom": "All areas"
-      },
-      "effects": {}
+      }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     },
     "actions": {
       "damage": {
-        "formula": "@stats.intelligence + @stats.spirit"
+        "formula": "@stats.intelligence + @stats.spirit",
+        "properties": []
+      },
+      "healing": {
+        "formula": "",
+        "properties": []
       }
-    }
+    },
+    "identifier": "bloodbath-blades"
   },
   "_id": "bloodbathblades0",
   "type": "spell",
@@ -49,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760192968393,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638906427,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

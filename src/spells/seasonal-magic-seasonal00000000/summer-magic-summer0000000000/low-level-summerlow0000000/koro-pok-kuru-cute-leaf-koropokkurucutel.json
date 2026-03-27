@@ -23,11 +23,22 @@
       },
       "target": {
         "custom": "Up to 7 people"
-      },
-      "effects": {}
+      }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "identifier": "koro-pok-kuru-cute-leaf",
+    "actions": {
+      "damage": {
+        "formula": "",
+        "properties": []
+      },
+      "healing": {
+        "formula": "",
+        "properties": []
+      }
     }
   },
   "_id": "koropokkurucutel",
@@ -44,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760193749427,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638906433,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

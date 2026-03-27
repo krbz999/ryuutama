@@ -60,6 +60,17 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  async _preCreate(data, options, user) {
+    if ((await super._preCreate(data, options, user)) === false) return false;
+
+    if (!this.identifier) {
+      this.parent.updateSource({ "system.identifier": ryuutama.utils.createDefaultIdentifier(this.parent.name) });
+    }
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Create data for an enriched tooltip.
    * @returns {Promise<HTMLElement[]>}

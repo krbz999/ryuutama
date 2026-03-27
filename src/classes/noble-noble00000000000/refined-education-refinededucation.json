@@ -8,7 +8,8 @@
     },
     "identifier": "refined-education",
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "img": "icons/sundries/books/book-open-red.webp",
@@ -23,10 +24,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760284180438,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638708683,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

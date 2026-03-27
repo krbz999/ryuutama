@@ -20,8 +20,10 @@
       "details": ""
     },
     "source": {
-      "book": "Ryuutama"
-    }
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "identifier": "kingmilk-salve"
   },
   "img": "icons/commodities/materials/slime-white.webp",
   "effects": [],
@@ -34,10 +36,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1759688458969,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638902767,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

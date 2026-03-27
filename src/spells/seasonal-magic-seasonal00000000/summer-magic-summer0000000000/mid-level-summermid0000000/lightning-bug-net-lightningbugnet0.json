@@ -23,11 +23,22 @@
       },
       "target": {
         "custom": "5 sqm"
-      },
-      "effects": {}
+      }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "identifier": "lightning-bug-net",
+    "actions": {
+      "damage": {
+        "formula": "",
+        "properties": []
+      },
+      "healing": {
+        "formula": "",
+        "properties": []
+      }
     }
   },
   "_id": "lightningbugnet0",
@@ -44,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760193913024,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638906433,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

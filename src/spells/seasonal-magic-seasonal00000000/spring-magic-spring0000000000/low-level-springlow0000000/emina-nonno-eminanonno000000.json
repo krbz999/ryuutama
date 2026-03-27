@@ -23,11 +23,22 @@
       },
       "target": {
         "custom": "Touched area"
-      },
-      "effects": {}
+      }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "identifier": "emina-nonno",
+    "actions": {
+      "damage": {
+        "formula": "",
+        "properties": []
+      },
+      "healing": {
+        "formula": "",
+        "properties": []
+      }
     }
   },
   "_id": "eminanonno000000",
@@ -44,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760193313965,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638906431,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

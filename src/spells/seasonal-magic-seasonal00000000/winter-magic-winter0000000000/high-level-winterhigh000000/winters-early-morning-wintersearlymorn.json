@@ -23,11 +23,22 @@
       },
       "target": {
         "custom": "Caster's area"
-      },
-      "effects": {}
+      }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "identifier": "winters-early-morning",
+    "actions": {
+      "damage": {
+        "formula": "",
+        "properties": []
+      },
+      "healing": {
+        "formula": "",
+        "properties": []
+      }
     }
   },
   "_id": "wintersearlymorn",
@@ -44,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760194990484,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638906438,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

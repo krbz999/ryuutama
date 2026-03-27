@@ -23,17 +23,23 @@
       },
       "target": {
         "custom": "1 person + caster"
-      },
-      "effects": {}
+      }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     },
     "actions": {
       "damage": {
-        "formula": "@stats.dexterity + @stats.spirit"
+        "formula": "@stats.dexterity + @stats.spirit",
+        "properties": []
+      },
+      "healing": {
+        "formula": "",
+        "properties": []
       }
-    }
+    },
+    "identifier": "cyclone"
   },
   "_id": "cyclone000000000",
   "type": "spell",
@@ -49,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760194003385,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638906430,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

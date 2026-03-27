@@ -23,17 +23,23 @@
       },
       "target": {
         "custom": "1 area"
-      },
-      "effects": {}
+      }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     },
     "actions": {
       "damage": {
-        "formula": "@stats.spirit"
+        "formula": "@stats.spirit",
+        "properties": []
+      },
+      "healing": {
+        "formula": "",
+        "properties": []
       }
-    }
+    },
+    "identifier": "snowball-storm"
   },
   "_id": "snowballstorm000",
   "type": "spell",
@@ -49,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760194727171,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638906436,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

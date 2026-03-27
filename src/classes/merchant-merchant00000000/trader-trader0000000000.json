@@ -8,7 +8,8 @@
     },
     "identifier": "trader",
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "img": "icons/skills/social/trading-justice-scale-gold.webp",
@@ -23,10 +24,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760283460528,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774638708685,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
