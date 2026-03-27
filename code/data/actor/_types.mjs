@@ -8,7 +8,8 @@
 
 /**
  * @typedef CheckRollConfig
- * @property {string[]} [abilities]
+ * @property {string[]} [abilities]                     Keys from `ryuutama.CONST.ABILITIES` or number-like strings
+ *                                                      representing die faces.
  * @property {string} [formula]                         An explicit formula can be provided, in which case
  *                                                      abilities are ignored for the formula creation. Modifiers
  *                                                      are still added on top.

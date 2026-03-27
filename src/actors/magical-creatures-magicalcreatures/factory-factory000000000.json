@@ -32,9 +32,7 @@
     "condition": {
       "value": 14,
       "immunities": [],
-      "shape": {
-        "high": ""
-      }
+      "travel": false
     },
     "abilities": {
       "strength": {
@@ -51,8 +49,15 @@
       }
     },
     "attack": {
-      "accuracy": "",
-      "damage": ""
+      "accuracy": {
+        "die1": null,
+        "die2": null,
+        "bonus": null
+      },
+      "damage": {
+        "die": null,
+        "bonus": null
+      }
     },
     "defense": {
       "armor": 2,
@@ -65,7 +70,8 @@
       "value": "<p>These are magical constructs in the shape of small castles. They are said to have been made by the most powerful sorcerers, long ago, since today's magic lacks the power to create them. They don't have very powerful fighting skills, but they have the ability to consume weapons and spit out the magical animals that it produces within itself. Sometimes they make deals with towns in need of protection.</p>"
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "name": "Factory",
@@ -82,12 +88,9 @@
       "src": "",
       "anchorX": 0.5,
       "anchorY": 0.5,
-      "offsetX": 0,
-      "offsetY": 0,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "rotation": 0,
       "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
@@ -138,7 +141,7 @@
       "saturation": 0,
       "contrast": 0
     },
-    "detectionModes": [],
+    "detectionModes": {},
     "occludable": {
       "radius": 0
     },
@@ -164,7 +167,8 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false
+    "prependAdjective": false,
+    "depth": 1
   },
   "img": "",
   "items": [
@@ -175,6 +179,11 @@
       "system": {
         "description": {
           "value": "<p>On its turn, this factory may spend 5 HP to create any magical animal in addition to its action. It may use this ability 3 times in one day.</p>"
+        },
+        "identifier": "",
+        "source": {
+          "book": "",
+          "custom": ""
         }
       },
       "img": "icons/svg/item-bag.svg",
@@ -189,10 +198,10 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.350",
+        "coreVersion": "14.357",
         "systemId": "ryuutama",
-        "systemVersion": "1.0.0",
-        "createdTime": 1761253662103,
+        "systemVersion": "2.0.0",
+        "createdTime": 1774636471142,
         "modifiedTime": null,
         "lastModifiedBy": "ryuutama00000000"
       },
@@ -209,10 +218,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1761253662085,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774636471142,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

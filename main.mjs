@@ -136,6 +136,9 @@ Hooks.once("init", () => {
     DamageRoll: dice.DamageRoll,
     HealingRoll: dice.HealingRoll,
   });
+  Object.assign(CONFIG.Dice.termTypes, {
+    CheckDie: dice.CheckDie,
+  });
 
   // Register sheets.
   foundry.applications.apps.DocumentSheetConfig.registerSheet(

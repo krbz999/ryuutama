@@ -32,9 +32,7 @@
     "condition": {
       "value": 12,
       "immunities": [],
-      "shape": {
-        "high": ""
-      }
+      "travel": false
     },
     "abilities": {
       "strength": {
@@ -51,8 +49,15 @@
       }
     },
     "attack": {
-      "accuracy": "",
-      "damage": ""
+      "accuracy": {
+        "die1": null,
+        "die2": null,
+        "bonus": null
+      },
+      "damage": {
+        "die": null,
+        "bonus": null
+      }
     },
     "description": {
       "value": "<p>The largest carnivorous animal in the world, the Ghost Beast measures tens of meters in length (though its exact dimensions are unknown). Its exact form and details have never been confirmed. Due to its size, it does not hunt humans, but it is extremely sensitive to imbalances in the natural order. It has been known to appear near advanced human civilizations, and when it appears... humans can only flee.</p>"
@@ -65,7 +70,8 @@
       }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "name": "Ghost Beast",
@@ -82,12 +88,9 @@
       "src": "",
       "anchorX": 0.5,
       "anchorY": 0.5,
-      "offsetX": 0,
-      "offsetY": 0,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "rotation": 0,
       "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
@@ -138,7 +141,7 @@
       "saturation": 0,
       "contrast": 0
     },
-    "detectionModes": [],
+    "detectionModes": {},
     "occludable": {
       "radius": 0
     },
@@ -164,7 +167,8 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false
+    "prependAdjective": false,
+    "depth": 1
   },
   "img": "",
   "items": [
@@ -175,6 +179,11 @@
       "system": {
         "description": {
           "value": "<p>Attacks from this beast are so strong that even the mountains crack and dragons run. Anytime this creature attacks, it attacks all areas. Also, any Fumbles it rolls automatically become criticals.</p>"
+        },
+        "identifier": "",
+        "source": {
+          "book": "",
+          "custom": ""
         }
       },
       "img": "icons/svg/item-bag.svg",
@@ -189,10 +198,10 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.350",
+        "coreVersion": "14.357",
         "systemId": "ryuutama",
-        "systemVersion": "1.0.0",
-        "createdTime": 1760662081651,
+        "systemVersion": "2.0.0",
+        "createdTime": 1774636471145,
         "modifiedTime": null,
         "lastModifiedBy": "ryuutama00000000"
       },
@@ -209,10 +218,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1759798485986,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774636471144,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

@@ -32,9 +32,7 @@
     "condition": {
       "value": 8,
       "immunities": [],
-      "shape": {
-        "high": ""
-      }
+      "travel": false
     },
     "abilities": {
       "strength": {
@@ -51,8 +49,15 @@
       }
     },
     "attack": {
-      "accuracy": "1d4 + 1d10",
-      "damage": "1d10"
+      "accuracy": {
+        "die1": "4",
+        "die2": "10",
+        "bonus": null
+      },
+      "damage": {
+        "die": "10",
+        "bonus": null
+      }
     },
     "description": {
       "value": "<p>A parasitic eggplant that draws nutrients from its host animal. The host, in turn, benefits from a boost in their abilities, causing some people to go out of their way to become infested. The plant's seed is exceedingly rare, so many soldiers go out of their way to hunt it down.</p>"
@@ -65,7 +70,8 @@
       }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "name": "Parasite Eggplant",
@@ -82,12 +88,9 @@
       "src": "",
       "anchorX": 0.5,
       "anchorY": 0.5,
-      "offsetX": 0,
-      "offsetY": 0,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "rotation": 0,
       "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
@@ -138,7 +141,7 @@
       "saturation": 0,
       "contrast": 0
     },
-    "detectionModes": [],
+    "detectionModes": {},
     "occludable": {
       "radius": 0
     },
@@ -164,7 +167,8 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false
+    "prependAdjective": false,
+    "depth": 1
   },
   "img": "",
   "items": [
@@ -175,6 +179,11 @@
       "system": {
         "description": {
           "value": "<p>The being that is hosting the parasite eggplant gains Max HP and MP +10, as well as a +1 bonus to Initiative, Condition, and Defense Points for as long as the eggplant is attached.</p>"
+        },
+        "identifier": "",
+        "source": {
+          "book": "",
+          "custom": ""
         }
       },
       "img": "icons/svg/item-bag.svg",
@@ -189,10 +198,10 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.350",
+        "coreVersion": "14.357",
         "systemId": "ryuutama",
-        "systemVersion": "1.0.0",
-        "createdTime": 1760662081691,
+        "systemVersion": "2.0.0",
+        "createdTime": 1774636471159,
         "modifiedTime": null,
         "lastModifiedBy": "ryuutama00000000"
       },
@@ -209,10 +218,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760289993660,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774636471159,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

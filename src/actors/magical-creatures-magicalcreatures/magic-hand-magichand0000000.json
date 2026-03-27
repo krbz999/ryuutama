@@ -32,9 +32,7 @@
     "condition": {
       "value": 8,
       "immunities": [],
-      "shape": {
-        "high": ""
-      }
+      "travel": false
     },
     "abilities": {
       "strength": {
@@ -51,8 +49,15 @@
       }
     },
     "attack": {
-      "accuracy": "",
-      "damage": ""
+      "accuracy": {
+        "die1": null,
+        "die2": null,
+        "bonus": null
+      },
+      "damage": {
+        "die": null,
+        "bonus": null
+      }
     },
     "defense": {
       "armor": null,
@@ -65,7 +70,8 @@
       "value": "<p>A magical hand made by some mad magician. It appears as a large hand wearing a white glove. They seem to display the same intelligence as a human and can communicate through sign language. Records exist of other giant body parts, such as magic eyes and feet, so it is thought that magic hands are a part of some ancient giant. It is thought that if someone were to gather up the parts of this giant, it would be resurrected, but so far nobody has attempted this.</p>"
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "name": "Magic Hand",
@@ -82,12 +88,9 @@
       "src": "",
       "anchorX": 0.5,
       "anchorY": 0.5,
-      "offsetX": 0,
-      "offsetY": 0,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "rotation": 0,
       "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
@@ -138,7 +141,7 @@
       "saturation": 0,
       "contrast": 0
     },
-    "detectionModes": [],
+    "detectionModes": {},
     "occludable": {
       "radius": 0
     },
@@ -164,7 +167,8 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false
+    "prependAdjective": false,
+    "depth": 1
   },
   "img": "",
   "items": [],
@@ -178,10 +182,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1761253480492,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774636471125,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

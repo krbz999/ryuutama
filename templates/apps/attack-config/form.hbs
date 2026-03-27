@@ -1,4 +1,22 @@
 <section>
-  {{formGroup systemFields.attack.fields.accuracy value=accuracyValue disabled=disabled placeholder=accuracyPlaceholder}}
-  {{formGroup systemFields.attack.fields.damage value=damageValue disabled=disabled placeholder=damagePlaceholder}}
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ACTOR.MONSTER.ATTACK.accuracy"}}</legend>
+
+    <div class="form-group">
+      <label>{{localize "RYUUTAMA.ACTOR.MONSTER.ATTACK.abilities"}}</label>
+      <div class="form-fields">
+        {{formInput systemFields.attack.fields.accuracy.fields.die1 value=accuracyValue1 disabled=disabled blank=accuracyPlaceholder1}}
+        {{formInput systemFields.attack.fields.accuracy.fields.die2 value=accuracyValue2 disabled=disabled blank=accuracyPlaceholder2}}
+      </div>
+    </div>
+
+    {{formGroup systemFields.attack.fields.accuracy.fields.bonus value=accuracyBonus disabled=disabled placeholder="0" rootId=rootId classes="slim"}}
+  </fieldset>
+
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ACTOR.MONSTER.ATTACK.damage"}}</legend>
+    {{formGroup systemFields.attack.fields.damage.fields.die value=damageValue disabled=disabled blank=damagePlaceholder rootId=rootId classes="slim"}}
+    {{formGroup systemFields.attack.fields.damage.fields.bonus value=damageBonus disabled=disabled placeholder="0" rootId=rootId classes="slim"}}
+  </fieldset>
+
 </section>

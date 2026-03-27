@@ -13,7 +13,7 @@ export default class AttackConfig extends DocumentConfig {
 
   /** @inheritdoc */
   get title() {
-    return _loc("RYUUTAMA.ATTACK.title", { name: this.document.name });
+    return _loc("RYUUTAMA.ACTOR.MONSTER.ATTACK.title", { name: this.document.name });
   }
 
   /* -------------------------------------------------- */
@@ -22,18 +22,43 @@ export default class AttackConfig extends DocumentConfig {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
-    const isPhysical = this.document.system._defaultAttackType === "physical";
-    context.accuracyPlaceholder = isPhysical
-      ? "@stats.strength + @stats.dexterity"
-      : "@stats.intelligence + @stats.spirit";
-    context.accuracyValue = context.disabled
-      ? this.document.system.attack.accuracy
-      : this.document.system._source.attack.accuracy;
+    const isPhysical = this.document.system.attack._defaultAttackType === "physical";
+    context.accuracyPlaceholder1 = _loc("RYUUTAMA.ACTOR.MONSTER.ATTACK.defaultAbility", {
+      ability: isPhysical
+        ? ryuutama.config.abilityScores.strength.abbreviation
+        : ryuutama.config.abilityScores.intelligence.abbreviation,
+    });
+    context.accuracyPlaceholder2 = _loc("RYUUTAMA.ACTOR.MONSTER.ATTACK.defaultAbility", {
+      ability: isPhysical
+        ? ryuutama.config.abilityScores.dexterity.abbreviation
+        : ryuutama.config.abilityScores.spirit.abbreviation,
+    });
 
-    context.damagePlaceholder = isPhysical ? "@stats.strength" : "@stats.spirit";
+    context.accuracyValue1 = context.disabled
+      ? this.document.system.attack.accuracy.die1
+      : this.document.system._source.attack.accuracy.die1;
+
+    context.accuracyValue2 = context.disabled
+      ? this.document.system.attack.accuracy.die2
+      : this.document.system._source.attack.accuracy.die2;
+
+    context.accuracyBonus = context.disabled
+      ? this.document.system.attack.accuracy.bonus
+      : this.document.system._source.attack.accuracy.bonus;
+
+    context.damagePlaceholder = _loc("RYUUTAMA.ACTOR.MONSTER.ATTACK.defaultAbility", {
+      ability: isPhysical
+        ? ryuutama.config.abilityScores.strength.abbreviation
+        : ryuutama.config.abilityScores.spirit.abbreviation,
+    });
+
     context.damageValue = context.disabled
-      ? this.document.system.attack.damage
-      : this.document.system._source.attack.damage;
+      ? this.document.system.attack.damage.die
+      : this.document.system._source.attack.damage.die;
+
+    context.damageBonus = context.disabled
+      ? this.document.system.attack.damage.bonus
+      : this.document.system._source.attack.damage.bonus;
 
     return context;
   }

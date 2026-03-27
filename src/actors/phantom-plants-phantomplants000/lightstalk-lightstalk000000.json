@@ -32,9 +32,7 @@
     "condition": {
       "value": 13,
       "immunities": [],
-      "shape": {
-        "high": ""
-      }
+      "travel": false
     },
     "abilities": {
       "strength": {
@@ -51,8 +49,15 @@
       }
     },
     "attack": {
-      "accuracy": "",
-      "damage": ""
+      "accuracy": {
+        "die1": null,
+        "die2": null,
+        "bonus": null
+      },
+      "damage": {
+        "die": null,
+        "bonus": null
+      }
     },
     "description": {
       "value": "<p>A type of tree that can grow up to sixty meters tall. It stores enough light in its leaves to shine like a beacon through cloudy weather. It is able to concentrate the light it emanates, shooting laser-like beams to protect itself. It is said that a city called Zeperion once harnessed their energy to protect the town from powerful monsters, but was destroyed by the power these plants possess.</p>"
@@ -65,7 +70,8 @@
       }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "name": "Lightstalk",
@@ -82,12 +88,9 @@
       "src": "",
       "anchorX": 0.5,
       "anchorY": 0.5,
-      "offsetX": 0,
-      "offsetY": 0,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "rotation": 0,
       "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
@@ -138,7 +141,7 @@
       "saturation": 0,
       "contrast": 0
     },
-    "detectionModes": [],
+    "detectionModes": {},
     "occludable": {
       "radius": 0
     },
@@ -164,7 +167,8 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false
+    "prependAdjective": false,
+    "depth": 1
   },
   "img": "",
   "items": [
@@ -175,6 +179,11 @@
       "system": {
         "description": {
           "value": "<p>This monster may attack using its laser beam with Accuracy [[/check accuracy formula=\"d10 + d10\"]] and damage [[/check damage d12]], ignoring Defense Points.</p>"
+        },
+        "identifier": "",
+        "source": {
+          "book": "",
+          "custom": ""
         }
       },
       "img": "icons/svg/item-bag.svg",
@@ -189,10 +198,10 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.350",
+        "coreVersion": "14.357",
         "systemId": "ryuutama",
-        "systemVersion": "1.0.0",
-        "createdTime": 1760662081675,
+        "systemVersion": "2.0.0",
+        "createdTime": 1774636471152,
         "modifiedTime": null,
         "lastModifiedBy": "ryuutama00000000"
       },
@@ -209,10 +218,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1760290712678,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774636471152,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

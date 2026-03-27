@@ -32,9 +32,7 @@
     "condition": {
       "value": 13,
       "immunities": [],
-      "shape": {
-        "high": ""
-      }
+      "travel": false
     },
     "abilities": {
       "strength": {
@@ -51,8 +49,15 @@
       }
     },
     "attack": {
-      "accuracy": "",
-      "damage": ""
+      "accuracy": {
+        "die1": null,
+        "die2": null,
+        "bonus": null
+      },
+      "damage": {
+        "die": null,
+        "bonus": null
+      }
     },
     "description": {
       "value": "<p>One of the strongest demons known to man. It looks like a giant black skull, and has the power to control rats that are infected with the plague, driving them to multiply and spread the disease until huge numbers of people are infected. Anyone infected with this plague is afflicted with boils and dies within a week. It is said that the only cure is to defeat this monster, though there may be a certain high level healer or magician who can cure it...</p>"
@@ -65,7 +70,8 @@
       }
     },
     "source": {
-      "book": "Ryuutama"
+      "book": "Ryuutama",
+      "custom": ""
     }
   },
   "name": "Black Death Skull",
@@ -82,12 +88,9 @@
       "src": "",
       "anchorX": 0.5,
       "anchorY": 0.5,
-      "offsetX": 0,
-      "offsetY": 0,
       "fit": "contain",
       "scaleX": 1,
       "scaleY": 1,
-      "rotation": 0,
       "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
@@ -138,7 +141,7 @@
       "saturation": 0,
       "contrast": 0
     },
-    "detectionModes": [],
+    "detectionModes": {},
     "occludable": {
       "radius": 0
     },
@@ -164,7 +167,8 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false
+    "prependAdjective": false,
+    "depth": 1
   },
   "img": "",
   "items": [
@@ -175,6 +179,11 @@
       "system": {
         "description": {
           "value": "<p>As plague rats infest the battle area, everyone in battle with this monster suffers [Sick: 13].</p>"
+        },
+        "identifier": "",
+        "source": {
+          "book": "",
+          "custom": ""
         }
       },
       "img": "icons/svg/item-bag.svg",
@@ -189,10 +198,10 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "13.350",
+        "coreVersion": "14.357",
         "systemId": "ryuutama",
-        "systemVersion": "1.0.0",
-        "createdTime": 1761252787459,
+        "systemVersion": "2.0.0",
+        "createdTime": 1774636471133,
         "modifiedTime": null,
         "lastModifiedBy": "ryuutama00000000"
       },
@@ -209,10 +218,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.351",
+    "coreVersion": "14.357",
     "systemId": "ryuutama",
-    "systemVersion": "1.4.0",
-    "createdTime": 1761252787447,
+    "systemVersion": "2.0.0",
+    "createdTime": 1774636471133,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
