@@ -79,7 +79,7 @@ export default class MessagePart extends foundry.abstract.DataModel {
    */
   #id;
   get id() {
-    return this.#id ??= Object.entries(this.parent.parts)
+    return this.#id ??= foundry.utils.objectEntries(this.parent.parts)
       .find(([, part]) => part === this)[0];
   }
 
