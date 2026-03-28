@@ -90,6 +90,12 @@
       },
       "PARTY": {
         "FIELDS": {},
+        "JOURNEY": {
+          "camping": "Camping",
+          "direction": "Direction",
+          "unassign": "Unassign Role",
+          "selectMember": "Select Member"
+        },
         "PLACE_MEMBERS": {
           "createCombatants": "Create Combatants",
           "createCombatantsHint": "Once placed, create combatants for the tokens in the currently active encounter. An encounter will be created if none is active.",

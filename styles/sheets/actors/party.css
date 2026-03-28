@@ -171,51 +171,21 @@
       height: 100%;
       display: grid;
       gap: 1rem;
-      grid:
-        "members camping" 0fr
-        "members direction" 0fr
-        / 15rem 1fr;
 
-      .member-list {
-        grid-area: members;
-        padding: 1rem;
-        border: 1px solid var(--ryuutama-color-firebrick);
-        border-radius: .5rem;
-
-        img {
-          width: 100%;
-          aspect-ratio: 1;
-          object-fit: cover;
-          object-position: top center;
-        }
+      .section-line {
+        text-align: center;
       }
 
-      .camping {
-        grid-area: camping;
+      section.inputs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
       }
 
-      .direction {
-        grid-area: direction;
-      }
-
-      .camping,
-      .direction {
-        padding: 1rem;
-        border: 1px solid var(--ryuutama-color-firebrick);
-        border-radius: .5rem;
-
-        h4,
-        h5 {
-          text-transform: uppercase;
-        }
-
-        span {
-          padding-left: 1rem;
-
-          &:empty::after {
-            content: "<none>";
-          }
-        }
+      .role:has(button) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
     }
   }

@@ -10,6 +10,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
     actions: {
       consumeRation: RyuutamaPartySheet.#consumeRation,
       placeMembers: RyuutamaPartySheet.#placeMembers,
+      removeJourneyAssigned: RyuutamaPartySheet.#removeJourneyAssigned,
       removeMember: RyuutamaPartySheet.#removeMember,
       showMember: RyuutamaPartySheet.#showMember,
     },
@@ -136,10 +137,26 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
    * @returns {Promise<object>}
    */
   async #prepareJourney() {
-    const journey = this.document.system.journey;
-    const camping = journey.getStateOfType("camping");
-    const direction = journey.getStateOfType("direction");
-    return { data: journey, camping, direction };
+    const journey = {
+      data: this.document.system.journey,
+      camping: this.document.system.journey.getStateOfType("camping"),
+      direction: this.document.system.journey.getStateOfType("direction"),
+    };
+
+    const assigned = [
+      journey.camping.primary,
+      journey.camping.support,
+      journey.direction.primary,
+      journey.direction.support,
+    ].filter(_ => _);
+
+    const unassigned = this.document.system.members
+      .map(m => m.actor)
+      .filter(a => !assigned.includes(a));
+
+    journey.actorOptions = unassigned.map(a => ({ value: a.id, label: a.name }));
+
+    return journey;
   }
 
   /* -------------------------------------------------- */
@@ -219,6 +236,27 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  _attachPartListeners(partId, htmlElement, options) {
+    super._attachPartListeners(partId, htmlElement, options);
+    if (partId === "journey") this.#attachJourneyListeners(htmlElement, options);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Attach listeners to a given part.
+   * @param {HTMLElement} element   The rendered element.
+   * @param {object} options        Rendering options.
+   */
+  #attachJourneyListeners(element, options) {
+    element.querySelectorAll("select[data-change]").forEach(select => {
+      select.addEventListener("change", event => RyuutamaPartySheet.#onChangeJourneyAssigned.call(this, event, select));
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   async _onClose(options) {
     for (const actor of this.#appActors) delete actor.apps[this.id];
     this.#appActors.clear();
@@ -250,12 +288,36 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
 
   /**
    * @this RyuutamaPartySheet
+   * @param {Event} event                 The initiating change event.
+   * @param {HTMLSelectElement} target    The targeted select element.
+   */
+  static #onChangeJourneyAssigned(event, target) {
+    const path = `system.journey.${target.dataset.change}`;
+    this.document.system.journey.assignJourneyChange({ [path]: target.value });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaPartySheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static async #placeMembers(event, target) {
     const configure = !event.shiftKey;
     this.document.system.placeMembers({ configure });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaPartySheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #removeJourneyAssigned(event, target) {
+    const path = `system.journey.${target.dataset.journey}`;
+    this.document.system.journey.assignJourneyChange({ [path]: null });
   }
 
   /* -------------------------------------------------- */
