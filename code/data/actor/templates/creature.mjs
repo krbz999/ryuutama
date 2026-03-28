@@ -564,7 +564,10 @@ export default class CreatureData extends BaseData {
    * @returns {Record<string, boolean>}
    */
   #constructRollOptions(rollConfig = {}, dialogConfig = {}, messageConfig = {}) {
-    const options = {};
+    const options = {
+      type: rollConfig.type,
+      subtype: rollConfig.subtype ?? rollConfig.journeyId ?? null,
+    };
     const item = ["accuracy", "damage"].includes(rollConfig.type)
       ? this.parent.items.get(rollConfig.accuracy?.weapon)
       : (rollConfig.type === "magic")
