@@ -4,7 +4,6 @@ import RyuutamaDocumentSheet from "../../api/document-sheet.mjs";
  * @import { ApplicationConfiguration } from "@client/applications/_types.mjs";
  * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
  * @import { SearchCategory } from "../../../_types.mjs";
- * @import RyuutamaItem from "../../../documents/item.mjs";
  * @import RyuutamaSearchManager from "../../ux/search-manager.mjs";
  */
 
@@ -151,7 +150,14 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
     this._createContextMenu(
       RyuutamaBaseActorSheet.#createActiveEffectContextOptions.bind(this),
       "[data-effect-context]",
-      { hookName: "Get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
+      { hookName: "get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
+    );
+
+    // Adjust tip-top shape.
+    this._createContextMenu(
+      RyuutamaBaseActorSheet.#createTipTopShapeContextOptions.bind(this),
+      "[data-tiptopshape-context]",
+      { hookName: "get{}TipTopShapeContextOptions", parentClassHooks: false, fixed: true },
     );
   }
 
@@ -310,6 +316,23 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
       },
     ];
     return options;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Create context menu options for tip-top shape.
+   * @this RyuutamaBaseActorSheet
+   * @returns {ContextMenuEntry[]}
+   */
+  static #createTipTopShapeContextOptions() {
+    if (!this.isEditable) return [];
+    return Object.values(ryuutama.CONST.ABILITIES).map(ability => {
+      return {
+        label: _loc("RYUUTAMA.ACTOR.TRAVELER.increaseAbility", { ability: ryuutama.config.abilityScores[ability].label }),
+        onClick: () => this.document.update({ "system.condition.shape.high": ability }),
+      };
+    });
   }
 
   /* -------------------------------------------------- */

@@ -13,7 +13,9 @@
       <span class="label" {{#if condition.tooltip}} data-tooltip-text="{{condition.tooltip}}" {{/if}}>
         <span class="numeric-display">{{document.system.condition.value}}</span>
         {{#if condition.high}}
-        <ryuutama-icon src="{{condition.abilityIcon}}"></ryuutama-icon>
+        <span data-tiptopshape-context data-action="contextMenu">
+          <ryuutama-icon src="{{condition.abilityIcon}}"></ryuutama-icon>
+        </span>
         {{/if}}
       </span>
     </section>

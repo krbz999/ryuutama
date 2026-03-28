@@ -190,6 +190,7 @@
         "imageColor": "Image color",
         "incantationLearned": "Learned Incantation Spells",
         "incantationSpells": "Incantations",
+        "increaseAbility": "Increase {ability}",
         "initiative": "Initiative: {value}",
         "level": "Level {level}",
         "otherSkills": "Other Skills",

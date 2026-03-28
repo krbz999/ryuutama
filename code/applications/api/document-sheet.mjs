@@ -245,12 +245,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
   static #contextMenu(event, target) {
     const { clientX, clientY } = event;
     event.stopPropagation();
-    target.closest("[data-uuid]").dispatchEvent(new PointerEvent("contextmenu", {
-      clientX, clientY,
-      view: window, // TODO: v14 will likely require this to be a specific window.
-      bubbles: true,
-      cancelable: true,
-    }));
+    target.dispatchEvent(new PointerEvent("contextmenu", { clientX, clientY, bubbles: true, cancelable: true }));
   }
 
   /* -------------------------------------------------- */

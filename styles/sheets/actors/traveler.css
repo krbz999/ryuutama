@@ -475,6 +475,10 @@
           position: absolute;
           inset: 0 .5rem 0 auto;
         }
+
+        [data-tiptopshape-context] {
+          cursor: var(--cursor-pointer);
+        }
       }
     }
 
