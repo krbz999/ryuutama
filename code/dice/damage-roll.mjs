@@ -21,6 +21,13 @@ export default class DamageRoll extends CheckRoll {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  get total() {
+    return Math.max(0, super.total);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   _getTooltipProperties() {
     const properties = [];
     for (const [property, active] of Object.entries(this.damageProperties)) {
