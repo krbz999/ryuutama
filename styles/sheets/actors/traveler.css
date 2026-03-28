@@ -53,20 +53,26 @@
     column-gap: .5rem;
     position: relative;
 
+    --background-image-attributes: url("/systems/ryuutama/assets/official/ui/header-dragon.webp");
+    --background-image-spells: url("/systems/ryuutama/assets/official/ui/header-spellcasting.webp");
+    --background-image-inventory: url("/systems/ryuutama/assets/official/ui/header-inventory.webp");
+    --background-image-effects: url("/systems/ryuutama/assets/official/ui/header-healing.webp");
+    --background-image-notes: url("/systems/ryuutama/assets/official/ui/header-forest.webp");
+
     &:has([data-application-part=attributes].active) {
-      --background-image: url("/systems/ryuutama/assets/official/ui/header-dragon.webp");
+      --background-image: var(--background-image-attributes);
     }
     &:has([data-application-part=spells].active) {
-      --background-image: url("/systems/ryuutama/assets/official/ui/header-spellcasting.webp");
+      --background-image: var(--background-image-spells);
     }
     &:has([data-application-part=inventory].active) {
-      --background-image: url("/systems/ryuutama/assets/official/ui/header-inventory.webp");
+      --background-image: var(--background-image-inventory);
     }
     &:has([data-application-part=effects].active) {
-      --background-image: url("/systems/ryuutama/assets/official/ui/header-healing.webp");
+      --background-image: var(--background-image-effects);
     }
     &:has([data-application-part=notes].active) {
-      --background-image: url("/systems/ryuutama/assets/official/ui/header-forest.webp");
+      --background-image: var(--background-image-notes);
     }
 
     &::before {
@@ -79,6 +85,8 @@
       pointer-events: none;
       aspect-ratio: 3 / 1;
       z-index: -1;
+      transition: background 200ms ease-out;
+      min-width: 300px;
     }
   }
 
