@@ -302,6 +302,9 @@ export default class TravelerData extends CreatureData {
    * Prepare resources.
    */
   #prepareResources() {
+    this.resources.stamina.min = -this.condition.value;
+    this.resources.mental.min = 0;
+
     const { stamina: hp, mental: mp } = this.resources;
     const orichalcum = Object.keys(this._source.equipped)
       .map(key => this.equipped[key])

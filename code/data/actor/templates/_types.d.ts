@@ -14,9 +14,10 @@ export type ResourceData = {
     level: number | null;
   };
   gear?: number;
-  pct: number;
   max: number;
+  min: number,
   negative: boolean;
+  pct: number;
   spent: number;
   typeBonus?: number;
   value: number;

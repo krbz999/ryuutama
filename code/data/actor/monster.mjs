@@ -94,6 +94,9 @@ export default class MonsterData extends CreatureData {
    * Prepare resources.
    */
   #prepareResources() {
+    this.resources.stamina.min = -this.condition.value;
+    this.resources.mental.min = 0;
+
     const setupResource = (key, allowNegative = false) => {
       const resource = this.resources[key];
       const src = this._source.resources[key];
