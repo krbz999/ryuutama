@@ -232,6 +232,7 @@ export default class CreatureData extends BaseData {
       const configured = await ryuutama.applications.apps.CheckConfigurationDialog.create({
         rollConfig, dialogConfig, messageConfig,
         document: this.parent,
+        parentWindow: this.parent.sheet?.window?.windowId,
       });
       if (!configured) return null;
     }

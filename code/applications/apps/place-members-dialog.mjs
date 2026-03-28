@@ -12,14 +12,16 @@ const { HandlebarsApplicationMixin, Application } = foundry.applications.api;
 export default class PlaceMembersDialog extends HandlebarsApplicationMixin(Application) {
   /**
    * Factory method for asynchronous behavior.
-   * @param {ApplicationConfiguration & { configuration?: object, document: RyuutamaActor }} options
+   * @param {ApplicationConfiguration & { parentWindow?: string, configuration?: object, document: RyuutamaActor }} options
    * @returns {Promise<object>}   A promise that resolves once the dialog has been closed.
    */
   static async create(options) {
     const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
     application.addEventListener("close", () => resolve(application.config), { once: true });
-    application.render({ force: true });
+    const parentWindow = foundry.applications.instances.get(options.parentWindow);
+    if (parentWindow) parentWindow.renderChild(application);
+    else application.render({ force: true });
     return promise;
   }
 

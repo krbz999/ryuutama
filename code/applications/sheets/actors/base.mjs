@@ -214,7 +214,9 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
       {
         label: "RYUUTAMA.ACTOR.CONTEXT.ITEM.delete",
         icon: "fa-solid fa-trash",
-        onClick: (event, target) => getItem(target).deleteDialog(),
+        onClick: (event, target) => getItem(target).deleteDialog({
+          renderOptions: { window: { windowId: this.window.windowId } },
+        }),
         visible: target => this.isEditable && (getItem(target).type !== "class"),
       },
       {
@@ -299,7 +301,9 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
       {
         label: "RYUUTAMA.ACTOR.CONTEXT.EFFECT.delete",
         icon: "fa-solid fa-trash",
-        onClick: (event, target) => getItem(target).deleteDialog(),
+        onClick: (event, target) => getItem(target).deleteDialog({
+          renderOptions: { window: { windowId: this.window.windowId } },
+        }),
         visible: target => (getItem(target).parent === this.document) && this.isEditable,
       },
       {
@@ -463,7 +467,10 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
    */
   static #deleteEffect(event, target) {
     const effect = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
-    effect.deleteDialog({ yes: { default: true } });
+    effect.deleteDialog({
+      yes: { default: true },
+      renderOptions: { window: { windowId: this.window.windowId } },
+    });
   }
 
   /* -------------------------------------------------- */
@@ -475,7 +482,10 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
    */
   static #deleteItem(event, target) {
     const item = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
-    item?.deleteDialog();
+    item?.deleteDialog({
+      yes: { default: true },
+      renderOptions: { window: { windowId: this.window.windowId } },
+    });
   }
 
   /* -------------------------------------------------- */

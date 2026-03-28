@@ -10,6 +10,7 @@
  * @property {CheckDialogConfig} dialogConfig
  * @property {CheckMessageConfig} messageConfig
  * @property {RyuutamaActor} document
+ * @property {string} [parentWindow]    Id of the parent window to attach this application to.
  */
 
 /**

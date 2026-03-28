@@ -129,13 +129,14 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
     if (configure) {
       const configured = await ryuutama.applications.apps.PlaceMembersDialog.create({
         configuration, document: this.parent,
+        parentWindow: sheet.window.windowId,
       });
       if (!configured) return null;
     }
 
     if (!configuration.members.length) return [];
 
-    const isMaximized = sheet.rendered && !sheet.minimized;
+    const isMaximized = !sheet.window.windowId && sheet.rendered && !sheet.minimized;
     if (isMaximized) await sheet.minimize();
 
     const promises = configuration.members.map(

@@ -187,7 +187,9 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       {
         label: "RYUUTAMA.ITEM.CONTEXT.EFFECT.delete",
         icon: "fa-solid fa-trash",
-        onClick: (event, target) => getItem(target).deleteDialog(),
+        onClick: (event, target) => getItem(target).deleteDialog({
+          renderOptions: { window: { windowId: this.window.windowId } },
+        }),
         visible: () => this.isEditable,
       },
       {

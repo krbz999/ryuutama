@@ -21,7 +21,9 @@ export default class CheckConfigurationDialog extends HandlebarsApplicationMixin
     const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
     application.addEventListener("close", () => resolve(application.config), { once: true });
-    application.render({ force: true });
+    const parentWindow = foundry.applications.instances.get(options.parentWindow);
+    if (parentWindow) parentWindow.renderChild(application);
+    else application.render({ force: true });
     return promise;
   }
 

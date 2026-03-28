@@ -196,7 +196,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
   static #openSourceConfig(event, target) {
     let application = new ryuutama.applications.apps.SourceConfig({ document: this.document });
     application = foundry.applications.instances.get(application.id) ?? application;
-    application.render({ force: true });
+    this.renderChild(application);
   }
 
   /* -------------------------------------------------- */
