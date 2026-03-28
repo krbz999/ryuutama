@@ -83,6 +83,72 @@ export default class CheckRoll extends BaseRoll {
   }
 
   /* -------------------------------------------------- */
+  /*   Instance Methods                                 */
+  /* -------------------------------------------------- */
+
+  /**
+   * Get localizable label for the result of this roll.
+   * @returns {string|null}
+   */
+  getResultLabel() {
+    switch (true) {
+      case this.isCritical: return "RYUUTAMA.DICE.LABELS.critical";
+      case this.isFumble: return "RYUUTAMA.DICE.LABELS.fumble";
+      case this.isSuccess: return "RYUUTAMA.DICE.LABELS.success";
+      case this.isFailure: return "RYUUTAMA.DICE.LABELS.failure";
+      default: return null;
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async render(options = {}) {
+    options = { template: "systems/ryuutama/templates/chat/parts/_roll.hbs", ...options };
+    return super.render(options);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _prepareChatRenderContext({ flavor, isPrivate = false, ...options } = {}) {
+    const context = await super._prepareChatRenderContext({ flavor, isPrivate, ...options });
+    const checkDice = this.checkDice.map(die => {
+      const total = die.total;
+      const dieIcon = `systems/${ryuutama.id}/assets/icons/dice/d${die.faces}.svg`;
+      const results = die.results.map(result => {
+        const cssClass = die.getResultCSS(result).filterJoin(" ");
+        return { cssClass, result: result.result, dieIcon };
+      });
+      return { total, results };
+    });
+
+    const bonuses = this.terms
+      .filter(term => term instanceof foundry.dice.terms.NumericTerm)
+      .map(term => {
+        return {
+          cssClass: "",
+          result: term.total,
+        };
+      });
+
+    const total = {
+      value: context.total,
+      label: this.getResultLabel(),
+      bonus: bonuses.reduce((acc, b) => acc + b.result, 0),
+    };
+
+    Object.assign(context, {
+      bonuses, checkDice, total,
+      showBonuses: bonuses.some(bonus => bonus.result),
+      target: this.targetNumber,
+      showTarget: this.targetNumber !== null,
+    });
+
+    return context;
+  }
+
+  /* -------------------------------------------------- */
   /*   Factory Methods                                  */
   /* -------------------------------------------------- */
 

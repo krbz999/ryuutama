@@ -361,6 +361,17 @@
       "title": "Configure Condition: {name}",
       "current": "Current Condition"
     },
+
+    "DICE": {
+      "LABELS": {
+        "critical": "Critical",
+        "fumble": "Fumble",
+        "success": "Success",
+        "failure": "Failure",
+        "targetNumber": "Target Number: {target}"
+      }
+    },
+
     "DEFENSE": {
       "title": "Configure Defense: {name}",
       "modifiers": "Damage Modifers",

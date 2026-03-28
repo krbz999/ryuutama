@@ -18,3 +18,13 @@ This system includes icon artwork licensed from The Noun Project. These icons ar
 
 - Hexagon by Abd Majd from <a href="https://thenounproject.com/browse/icons/term/hexagon/" target="_blank" title="Hexagon Icons">Noun Project</a> (CC BY 3.0)
 - Shield by Paonkz from <a href="https://thenounproject.com/browse/icons/term/shield/" target="_blank" title="Shield Icons">Noun Project</a> (CC BY 3.0)
+
+This system includes icon artwork licensed from Kenney (www.kenney.nl), attribution for which can be found in `LICENSE_kenney.txt`.
+
+- `/assets/icons/dice/d2.svg`
+- `/assets/icons/dice/d4.svg`
+- `/assets/icons/dice/d6.svg`
+- `/assets/icons/dice/d8.svg`
+- `/assets/icons/dice/d10.svg`
+- `/assets/icons/dice/d12.svg`
+- `/assets/icons/dice/d20.svg`

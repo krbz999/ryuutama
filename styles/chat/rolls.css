@@ -1,0 +1,76 @@
+.dice-roll .dice-result .dice-total {
+  display: grid;
+  grid-template-columns: 1fr 0;
+
+  --ryuutama-color-roll-property: rgb(85 85 85);
+
+  .dice-properties {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row-reverse;
+
+    svg {
+      width: auto;
+      padding: 4px 2px;
+    }
+  }
+}
+
+.message-check-roll {
+  .check-dice {
+    .check-die {
+      display: grid;
+      grid-template-columns: 1fr 2rem;
+      align-items: center;
+
+      .results {
+        display: flex;
+
+        .result {
+          --die-size: 4rem;
+          display: grid;
+          position: relative;
+          flex: 0 0 var(--die-size);
+          height: var(--die-size);
+          place-content: center;
+
+          ryuutama-icon {
+            position: absolute;
+            inset: 0;
+
+            .max & {
+              --ryuutama-die-fill: rgb(36, 139, 36);
+            }
+            .min & {
+              --ryuutama-die-fill: rgb(148, 57, 57);
+            }
+          }
+
+          .result-total {
+            z-index: 1;
+            color: white;
+            font-size: 20px;
+            text-shadow: 0 0 3px black;
+          }
+        }
+      }
+    }
+  }
+
+  .bonuses {}
+
+  .roll-total {
+    display: grid;
+    width: 100%;
+    text-align: center;
+    background: darkgray;
+
+    .total-result {
+      font-size: 20px;
+    }
+
+    .total-value {
+      font-size: 30px;
+    }
+  }
+}

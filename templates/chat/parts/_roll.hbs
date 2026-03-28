@@ -1,0 +1,40 @@
+<section class="message-check-roll">
+  <section class="check-dice">
+    {{#each checkDice}}
+    <section class="check-die">
+      <div class="results">
+        {{#each results}}
+        <div class="result {{cssClass}}">
+          <ryuutama-icon src="{{dieIcon}}"></ryuutama-icon>
+          <span class="result-total">{{result}}</span>
+        </div>
+        {{/each}}
+      </div>
+      <div class="die-total">{{total}}</div>
+    </section>
+    {{/each}}
+  </section>
+
+  {{#if bonuses.length}}
+  <section class="bonuses">
+    {{#each bonuses}}
+    <section class="bonus">
+      <div class="results">
+        <span class="result {{cssClass}}">{{result}}</span>
+      </div>
+    </section>
+    {{/each}}
+    <div class="bonuses-total">{{total.bonus}}</div>
+  </section>
+  {{/if}}
+
+  <section class="roll-total">
+    {{#if total.label}}
+    <span class="total-result">{{localize total.label}}</span>
+    {{/if}}
+    <span class="total-value">{{total.value}}</span>
+    {{#if showTarget}}
+    <span class="target">{{localize "RYUUTAMA.DICE.LABELS.targetNumber" target=target}}</span>
+    {{/if}}
+  </section>
+</section>
