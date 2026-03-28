@@ -1,40 +1,75 @@
 <section data-tab="{{tabs.journey.id}}" data-group="{{tabs.journey.group}}" class="{{tabs.journey.cssClass}}">
-  {{log this level="warn"}}
   <div class="contents">
-    <section class="member-list">
-      {{#each members}}
-      <img src="{{actor.img}}" alt="">
-      {{/each}}
-    </section>
 
     {{!-- CAMPING --}}
     <section class="camping">
-      <h4>primary camping</h4>
-      <span>{{journey.camping.primary.name}}</span>
+      <h3 class="section-line">{{localize "RYUUTAMA.ACTOR.PARTY.JOURNEY.camping"}}</h3>
+      <section class="inputs">
 
-      <h5>result</h5>
-      <span>{{journey.data.camping.results.primary}}</span>
+        <div class="role">
+          {{#if journey.camping.primary}}
+          <span>{{journey.camping.primary.name}}</span>
+          <button type="button" data-action="removeJourneyAssigned" data-journey="camping.primary" class="icon fa-solid fa-fw fa-ban" data-tooltip="RYUUTAMA.ACTOR.PARTY.JOURNEY.unassign"></button>
+          {{else}}
+          <select data-change="camping.primary">
+            <option value="">{{localize "RYUUTAMA.ACTOR.PARTY.JOURNEY.selectMember"}}</option>
+            {{#each journey.actorOptions}}
+            <option value="{{value}}">{{label}}</option>
+            {{/each}}
+          </select>
+          {{/if}}
+        </div>
 
-      <h4>support camping</h4>
-      <span>{{journey.camping.support.name}}</span>
-
-      <h5>result</h5>
-      <span>{{journey.data.camping.results.support}}</span>
+        <div class="role">
+          {{#if journey.camping.support}}
+          <span>{{journey.camping.support.name}}</span>
+          <button type="button" data-action="removeJourneyAssigned" data-journey="camping.support" class="icon fa-solid fa-fw fa-ban" data-tooltip="RYUUTAMA.ACTOR.PARTY.JOURNEY.unassign"></button>
+          {{else}}
+          <select data-change="camping.support">
+            <option value="">{{localize "RYUUTAMA.ACTOR.PARTY.JOURNEY.selectMember"}}</option>
+            {{#each journey.actorOptions}}
+            <option value="{{value}}">{{label}}</option>
+            {{/each}}
+          </select>
+          {{/if}}
+        </div>
+      </section>
     </section>
 
     {{!-- DIRECTION --}}
     <section class="direction">
-      <h4>primary direction</h4>
-      <span>{{journey.direction.primary.name}}</span>
+      <h3 class="section-line">{{localize "RYUUTAMA.ACTOR.PARTY.JOURNEY.direction"}}</h3>
+      <section class="inputs">
 
-      <h5>result</h5>
-      <span>{{journey.data.direction.results.primary}}</span>
+        <div class="role">
+          {{#if journey.direction.primary}}
+          <span>{{journey.direction.primary.name}}</span>
+          <button type="button" data-action="removeJourneyAssigned" data-journey="direction.primary" class="icon fa-solid fa-fw fa-ban" data-tooltip="RYUUTAMA.ACTOR.PARTY.JOURNEY.unassign"></button>
+          {{else}}
+          <select data-change="direction.primary">
+            <option value="">{{localize "RYUUTAMA.ACTOR.PARTY.JOURNEY.selectMember"}}</option>
+            {{#each journey.actorOptions}}
+            <option value="{{value}}">{{label}}</option>
+            {{/each}}
+          </select>
+          {{/if}}
+        </div>
 
-      <h4>support direction</h4>
-      <span>{{journey.direction.support.name}}</span>
-
-      <h5>result</h5>
-      <span>{{journey.data.direction.results.support}}</span>
+        <div class="role">
+          {{#if journey.direction.support}}
+          <span>{{journey.direction.support.name}}</span>
+          <button type="button" data-action="removeJourneyAssigned" data-journey="direction.support" class="icon fa-solid fa-fw fa-ban" data-tooltip="RYUUTAMA.ACTOR.PARTY.JOURNEY.unassign"></button>
+          {{else}}
+          <select data-change="direction.support">
+            <option value="">{{localize "RYUUTAMA.ACTOR.PARTY.JOURNEY.selectMember"}}</option>
+            {{#each journey.actorOptions}}
+            <option value="{{value}}">{{label}}</option>
+            {{/each}}
+          </select>
+          {{/if}}
+        </div>
+      </section>
     </section>
+
   </div>
 </section>
