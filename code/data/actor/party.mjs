@@ -1,4 +1,6 @@
 /**
+ * @import { PlaceMembersDialogConfiguration } from "../../applications/apps/_types.mjs";
+ * @import RegionLayer from "@client/canvas/layers/regions.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import RyuutamaTokenDocument from "../../documents/token.mjs";
  */
@@ -116,14 +118,16 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
    * Place down the members of this party.
    * @param {object} [options]
    * @param {boolean} [options.configure=true]      Display a configuration dialog?
+   * @param {PlaceMembersDialogConfiguration} [options.configuration]
    * @returns {Promise<RyuutamaTokenDocument[]>}    A promise that resolves to the created tokens.
    */
-  async placeMembers({ configure = true, ...configuration } = {}) {
+  async placeMembers({ configure = true, configuration } = {}) {
     const sheet = this.parent.sheet;
 
     configuration = foundry.utils.mergeObject({
       createCombatants: !!game.combat,
       members: this.members.filter(m => !m.actor.getActiveTokens().length).map(m => m.actor.id),
+      selectArea: true,
     }, configuration);
 
     if (configure) {
@@ -142,10 +146,60 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
     const promises = configuration.members.map(
       id => this.members.get(id).actor.getTokenDocument({}, { parent: canvas.scene }),
     );
-    let tokens = await Promise.all(promises);
-    const data = tokens.map(token => token.toObject());
-    tokens = await canvas.tokens.placeTokens(data, { create: true });
+    const tokenData = (await Promise.all(promises)).map(token => token.toObject());
+    let tokens = [];
 
+    // Place a region and spawn tokens randomly within.
+    if (configuration.selectArea) {
+      const minRadius = Math.ceil(Math.sqrt(this.members.size / 2)) * canvas.grid.size;
+      const regionData = {
+        color: game.user.color.css,
+        displayMeasurements: false,
+        name: _loc("RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.partyMembers"),
+        shapes: [new foundry.data.CircleShapeData({
+          radius: minRadius,
+          type: "circle", x: 0, y: 0,
+        })],
+      };
+
+      /** @type {RegionLayer} */
+      const layer = canvas.regions;
+
+      /** @type {foundry.documents.RegionDocument} */
+      const region = await layer.placeRegion(regionData, { create: false, onRotate: ({ event, shape }) => {
+        if (event.ctrlKey) {
+          shape.updateSource({ radius: Math.max(shape.radius - canvas.grid.size * Math.sign(event.delta), minRadius) });
+          return false;
+        }
+      } });
+      if (region) tokens = await region.spawnTokens(tokenData, { snap: true, avoidOccupied: true });
+    }
+
+    // Select each token's position.
+    else {
+      const names = Iterator.from(tokenData.map(t => t.name));
+
+      const notification = ui.notifications.info("RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.notification", {
+        format: { name: names.next().value },
+        pct: 0,
+        progress: true,
+      });
+
+      const updateNotification = ({ index, count }) => {
+        const { value: name, done } = names.next();
+        notification.update({
+          message: _loc(`RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.notification${done ? "Done" : ""}`, { name }),
+          pct: (index + 1) / count,
+        });
+        if (done) notification.element?.classList.add("success");
+      };
+
+      tokens = await canvas.tokens.placeTokens(tokenData, {
+        create: true, preConfirm: updateNotification, preSkip: updateNotification,
+      });
+    }
+
+    // Create combatants.
     if (tokens.length && configuration.createCombatants) {
       await getDocumentClass("Token").createCombatants(tokens, { combat: game.combat });
     }

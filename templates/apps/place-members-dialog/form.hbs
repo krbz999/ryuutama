@@ -1,15 +1,28 @@
-<section>
-  <div class="form-group stacked">
-    <label>{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.members"}}</label>
-    <div class="form-fields">
-      {{{inputs "createMultiSelectInput" name="members" value=configuration.members type="checkboxes" options=memberOptions}}}
+<section class="standard-form">
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.legendMembers"}}</legend>
+    {{{inputs "createMultiSelectInput" name="members" value=configuration.members type="checkboxes" options=memberOptions}}}
+  </fieldset>
+
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.legendPlacement"}}</legend>
+    <div class="form-group slim">
+      <label for="{{rootId}}-selectArea">{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.selectArea"}}</label>
+      <div class="form-fields">
+        {{{inputs "createCheckboxInput" name="selectArea" value=configuration.selectArea id=(concat rootId "-selectArea")}}}
+      </div>
+      <p class="hint">{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.selectAreaHint"}}</p>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="{{rootId}}-createCombatants">{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.createCombatants"}}</label>
-    <div class="form-fields">
-      {{{inputs "createCheckboxInput" name="createCombatants" value=configuration.createCombatants id=(concat rootId "-createCombatants")}}}
+  </fieldset>
+
+  <fieldset>
+    <legend>{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.legendCombat"}}</legend>
+    <div class="form-group slim">
+      <label for="{{rootId}}-createCombatants">{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.createCombatants"}}</label>
+      <div class="form-fields">
+        {{{inputs "createCheckboxInput" name="createCombatants" value=configuration.createCombatants id=(concat rootId "-createCombatants")}}}
+      </div>
+      <p class="hint">{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.createCombatantsHint"}}</p>
     </div>
-    <p class="hint">{{localize "RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.createCombatantsHint"}}</p>
-  </div>
+  </fieldset>
 </section>

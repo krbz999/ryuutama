@@ -92,8 +92,15 @@
         "FIELDS": {},
         "PLACE_MEMBERS": {
           "createCombatants": "Create Combatants",
-          "createCombatantsHint": "Once placed, create combatants for the tokens in the currently active encounter. An encounter will be created if none is active.",
-          "members": "Members",
+          "createCombatantsHint": "Create combatants for an encounter for each spawned token.",
+          "legendCombat": "Combat",
+          "legendMembers": "Members",
+          "legendPlacement": "Placement",
+          "notification": "Place Party Member: {name} ...",
+          "notificationDone": "Placed All Party Members!",
+          "partyMembers": "Party Members Location",
+          "selectArea": "Select Area",
+          "selectAreaHint": "Spawn the tokens randomly within a selected area instead of manual positioning of each party member.",
           "title": "Place Members: {name}"
         },
         "actorOwner": "Owner",

@@ -1,6 +1,7 @@
 /**
  * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import { ApplicationConfiguration } from "@client/applications/_types.mjs";
+ * @import { PlaceMembersDialogConfiguration } from "./_types.mjs";
  */
 
 const { HandlebarsApplicationMixin, Application } = foundry.applications.api;
@@ -12,7 +13,9 @@ const { HandlebarsApplicationMixin, Application } = foundry.applications.api;
 export default class PlaceMembersDialog extends HandlebarsApplicationMixin(Application) {
   /**
    * Factory method for asynchronous behavior.
-   * @param {ApplicationConfiguration & { parentWindow?: string, configuration?: object, document: RyuutamaActor }} options
+   * @param {ApplicationConfiguration & {
+   *  parentWindow?: string, configuration?: PlaceMembersDialogConfiguration, document: RyuutamaActor
+   * }} options
    * @returns {Promise<object>}   A promise that resolves once the dialog has been closed.
    */
   static async create(options) {

@@ -16,3 +16,10 @@
 /**
  * @typedef {ApplicationConfiguration & _CheckConfigurationDialogConfiguration} CheckConfigurationDialogConfiguration
  */
+
+/**
+ * @typedef PlaceMembersDialogConfiguration
+ * @property {string[]} members             Actor ids of party members to place.
+ * @property {boolean} [selectArea=true]    Place tokens in an area instead of manual.
+ * @property {boolean} [createCombatants]   Create combatants (and a Combat if missing) for placed tokens.
+ */
