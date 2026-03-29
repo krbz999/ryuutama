@@ -354,7 +354,7 @@
         "label": "Configure Mastered Weapon",
         "FIELDS": {
           "choice.chosen.label": "Chosen Weapon",
-          "choice.chosen.hint": "Choose a weapon type to master. Making an attack with a weapon type that you have not mastered incurs a 1 HP penalty with each attack."
+          "choice.chosen.hint": "Choose a weapon category to master. Making an attack with a weapon category that you have not mastered incurs a 1 HP penalty with each attack."
         }
       }
     },

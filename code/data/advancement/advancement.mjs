@@ -2,7 +2,7 @@
  * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
-const { DocumentTypeField, NumberField, StringField } = foundry.data.fields;
+const { NumberField, StringField } = foundry.data.fields;
 
 export default class Advancement extends foundry.abstract.DataModel {
   /** @inheritdoc */
