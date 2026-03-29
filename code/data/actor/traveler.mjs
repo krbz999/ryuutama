@@ -1,14 +1,12 @@
 import Advancement from "../advancement/advancement.mjs";
-import LocalDocumentField from "../fields/local-document-field.mjs";
 import CreatureData from "./templates/creature.mjs";
+import LocalDocumentField from "../fields/local-document-field.mjs";
 
 /**
  * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
-const {
-  ColorField, HTMLField, NumberField, SchemaField, SetField, StringField, TypedObjectField, TypedSchemaField,
-} = foundry.data.fields;
+const { ColorField, HTMLField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 export default class TravelerData extends CreatureData {
   static {
@@ -29,10 +27,7 @@ export default class TravelerData extends CreatureData {
     }, {});
 
     const schema = Object.assign(super.defineSchema(), {
-      advancements: new TypedObjectField(
-        new TypedSchemaField(Advancement.TYPES),
-        { validateKey: key => foundry.data.validators.isValidId(key) },
-      ),
+      advancements: new ryuutama.data.fields.TypedRecordField(Advancement.TYPES),
       background: new SchemaField({
         appearance: new HTMLField(),
         hometown: new HTMLField(),
@@ -165,31 +160,22 @@ export default class TravelerData extends CreatureData {
 
   /** @inheritdoc */
   prepareBaseData() {
-    Object.entries(this.advancements).forEach(([id, adv]) => {
-      Object.defineProperty(adv, "id", { value: id, writable: false, enumerable: true });
-    });
-
     this.classes = Object.fromEntries(this.parent.items.documentsByType.class.map(cls => [cls.identifier, cls]));
 
     // Add a +1 bonus from a critical travel check. TODO: Consider moving to AE.
     if (this.condition.travel) this.condition.value = this._source.condition.value + 1;
 
+    const { habitat = [], statusImmunity = [], type = [], weapon = [] } = this.advancements.documentsByType;
+
     // Status immunities are prepared prior to statuses in CreatureData.
-    for (const si of Object.values(this.advancements)) {
-      if (si.isConfigured && (si.type === "statusImmunity")) this.#prepareStatusImmunityAdvancement(si);
-    }
+    statusImmunity.forEach(a => this.#prepareStatusImmunityAdvancement(a));
 
     super.prepareBaseData();
 
-    // Types, Habitat, Status Immunities, and Mastered Weapons.
-    for (const advancement of Object.values(this.advancements)) {
-      if (!advancement.isConfigured) continue;
-      switch (advancement.type) {
-        case "type": this.#prepareTypeAdvancement(advancement); break;
-        case "habitat": this.#prepareHabitatAdvancement(advancement); break;
-        case "weapon": this.#prepareWeaponAdvancement(advancement); break;
-      }
-    }
+    // Habitats, Types, and Mastered Weapons.
+    habitat.forEach(a => this.#prepareHabitatAdvancement(a));
+    type.forEach(a => this.#prepareTypeAdvancement(a));
+    weapon.forEach(a => this.#prepareWeaponAdvancement(a));
   }
 
   /* -------------------------------------------------- */
@@ -199,6 +185,7 @@ export default class TravelerData extends CreatureData {
    * @param {Advancement} advancement
    */
   #prepareTypeAdvancement(advancement) {
+    if (!advancement.isConfigured) return;
     this.details.type[advancement.choice.chosen]++;
 
     if (advancement.choice.chosen === "magic") {
@@ -213,6 +200,7 @@ export default class TravelerData extends CreatureData {
    * @param {Advancement} advancement
    */
   #prepareHabitatAdvancement(advancement) {
+    if (!advancement.isConfigured) return;
     const type = advancement.choice.type;
     this.mastered[type].add(advancement.choice.chosen[type]);
   }
@@ -224,6 +212,7 @@ export default class TravelerData extends CreatureData {
    * @param {Advancement} advancement
    */
   #prepareStatusImmunityAdvancement(advancement) {
+    if (!advancement.isConfigured) return;
     this.condition.immunities.add(advancement.choice.chosen);
   }
 
@@ -234,6 +223,7 @@ export default class TravelerData extends CreatureData {
    * @param {Advancement} advancement
    */
   #prepareWeaponAdvancement(advancement) {
+    if (!advancement.isConfigured) return;
     this.mastered.weapons.add(advancement.choice.chosen);
   }
 
@@ -258,8 +248,8 @@ export default class TravelerData extends CreatureData {
   _prepareAbilities() {
     super._prepareAbilities();
 
-    for (const advancement of Object.values(this.advancements)) {
-      if ((advancement.type !== "statIncrease") || !advancement.isConfigured) continue;
+    for (const advancement of this.advancements.documentsByType.statIncrease ?? []) {
+      if (!advancement.isConfigured) continue;
       const ability = advancement.choice.chosen;
       this.schema.getField(`abilities.${ability}.value`).increase(this.parent, 1);
       this.abilities[ability].advancement += 1;
@@ -317,9 +307,8 @@ export default class TravelerData extends CreatureData {
       const src = this._source.resources[key];
 
       resource.typeBonus = typeBonus;
-      resource.advancement = Object.values(this.advancements)
-        .filter(a => a.type === "resource")
-        .reduce((acc, advancement) => acc + advancement.choice.chosen[key], 0);
+      resource.advancement = (this.advancements.documentsByType.resource ?? [])
+        .reduce((acc, a) => acc + (a.isConfigured ? a.choice.chosen[key] : 0), 0);
 
       resource.max = src.max
         + resource.bonuses.flat
@@ -402,7 +391,7 @@ export default class TravelerData extends CreatureData {
   #prepareIncantationSpells() {
     this.magic ??= {};
     const inc = this.magic.incantation = { value: 0, max: 0 };
-    for (const advancement of Object.values(this.advancements).filter(a => a.type === "type")) {
+    for (const advancement of this.advancements.documentsByType.type ?? []) {
       const chosen = advancement.choice.chosen;
       if (chosen !== "magic") continue;
       const levels = Math.max(0, this.details.level - advancement.level + 1);

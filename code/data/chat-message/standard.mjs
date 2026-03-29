@@ -1,16 +1,12 @@
 import MessagePart from "./parts/base.mjs";
 
-const { TypedObjectField, TypedSchemaField } = foundry.data.fields;
 const { handlebars } = foundry.applications;
 
 export default class StandardData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static defineSchema() {
     return {
-      parts: new TypedObjectField(
-        new TypedSchemaField(MessagePart.TYPES),
-        { validateKey: key => foundry.data.validators.isValidId(key) },
-      ),
+      parts: new ryuutama.data.fields.TypedRecordField(MessagePart.TYPES),
     };
   }
 
@@ -31,7 +27,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get isRoll() {
-    return Object.values(this.parts).some(part => part.isRoll);
+    return foundry.utils.objectValues(this.parts).some(part => part.isRoll);
   }
 
   /* -------------------------------------------------- */
@@ -41,7 +37,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
    * @type {boolean}
    */
   get visible() {
-    return Object.values(this.parts).some(part => part.visible);
+    return foundry.utils.objectValues(this.parts).some(part => part.visible);
   }
 
   /* -------------------------------------------------- */

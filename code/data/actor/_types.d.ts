@@ -9,7 +9,7 @@ declare module "./traveler.mjs" {
       intelligence: AbilityData;
       spirit: AbilityData;
     };
-    advancements: Map<string, any>;
+    advancements: Record<string, any>;
     background: {
       appearance: string;
       hometown: string;
