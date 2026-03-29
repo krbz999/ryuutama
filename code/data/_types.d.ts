@@ -1,1 +1,1 @@
-import "./actor/_types";
+import "./actor/_types.d.ts";

@@ -6,10 +6,7 @@ import "@common/primitives/global.mjs";
 
 import CurrentHabitat from "./code/applications/ui/current-habitat.mjs";
 
-// Foundry's use of `Object.assign(globalThis)` means many globally available objects are not read as such
-// This declare global hopefully fixes that
 declare global {
-  // not a real extension of course but simplest way for this to work with the intellisense.
   /**
    * A simple event framework used throughout Foundry Virtual Tabletop.
    * When key actions or events occur, a "hook" is defined where user-defined callback functions can execute.
