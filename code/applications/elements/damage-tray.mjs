@@ -63,15 +63,7 @@ export default class DamageTray extends HTMLElement {
   #createActor(actor) {
     if (!["traveler", "monster"].includes(actor.type)) return;
 
-    // TODO: Simplify once 'damage' messages are removed.
-    let damages;
-    if (this.#message.type === "damage") damages = this.#message.system.damages;
-    else if (this.#message.type === "standard") {
-      const partId = this.closest("[data-message-part]").dataset.messagePart;
-      damages = this.#message.system.parts[partId].damages;
-    }
-    if (!damages) return;
-
+    const damages = this.#message.system.parts[this.closest("[data-message-part]").dataset.messagePart].damages;
     const htmlString = `
     <div data-actor-uuid="${actor.uuid}">
       <img src="${actor.img}" alt="${actor.name}">

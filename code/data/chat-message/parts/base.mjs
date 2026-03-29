@@ -74,18 +74,6 @@ export default class MessagePart extends foundry.abstract.DataModel {
   /* -------------------------------------------------- */
 
   /**
-   * The unique id of this part.
-   * @type {string}
-   */
-  #id;
-  get id() {
-    return this.#id ??= foundry.utils.objectEntries(this.parent.parts)
-      .find(([, part]) => part === this)[0];
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
    * Does this part contain dice roll?
    * @type {boolean}
    */
