@@ -155,7 +155,12 @@ export default class PartyData extends foundry.abstract.TypeDataModel {
       const regionData = {
         color: game.user.color.css,
         displayMeasurements: false,
+        levels: [canvas.level.id],
         name: _loc("RYUUTAMA.ACTOR.PARTY.PLACE_MEMBERS.partyMembers"),
+        restriction: {
+          enabled: true,
+          type: "move",
+        },
         shapes: [new foundry.data.CircleShapeData({
           radius: minRadius,
           type: "circle", x: 0, y: 0,
