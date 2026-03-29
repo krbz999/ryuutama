@@ -240,6 +240,13 @@ export default class TravelerData extends CreatureData {
     this.#prepareCapacity();
     this.#prepareExp();
     this.#prepareIncantationSpells();
+
+    // Add weapon grace to mastered weapons if not already mastered, then remove the flag.
+    Array.from(this.properties.weaponGrace).forEach(type => {
+      if (this.mastered.weapons.has(type)) return;
+      this.mastered.weapons.add(type);
+      this.properties.weaponGrace.delete(type);
+    });
   }
 
   /* -------------------------------------------------- */
@@ -566,6 +573,7 @@ export default class TravelerData extends CreatureData {
     super._constructCheckConfigs(roll, dialog, message);
 
     const weapon = this.equipped.weapon;
+    roll.modifier ??= 0;
 
     switch (roll.type) {
       case "accuracy": {
@@ -574,10 +582,12 @@ export default class TravelerData extends CreatureData {
         if (weapon?.system.isUsable) {
           abilities = [...weapon.system.accuracy.abilities];
           roll.accuracy.consumeStamina = !weapon.system.isMastered;
+          if (this.properties.weaponGrace.has(weapon.system.category.value)) roll.modifier += 1;
         } else {
           // Unarmed.
           abilities = [...ryuutama.config.weaponUnarmedTypes.unarmed.accuracy.abilities];
           roll.accuracy.consumeStamina = !this.mastered.weapons.has("unarmed");
+          if (this.properties.weaponGrace.has("unarmed")) roll.modifier += 1;
         }
         roll.abilities = abilities;
         break;
