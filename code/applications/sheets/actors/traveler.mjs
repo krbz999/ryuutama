@@ -371,6 +371,10 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     for (const effect of this.document.allApplicableEffects()) {
       if (effect.type !== "standard") continue;
       const key = !effect.active ? "inactive" : effect.isTemporary ? "temporary" : "active";
+
+      // Skip passive effects from items.
+      if ((key === "active") && (effect.parent !== this.document)) continue;
+
       const section = sections[key];
       section.entries.push({
         document: effect,

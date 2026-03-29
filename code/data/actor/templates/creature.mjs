@@ -53,6 +53,9 @@ export default class CreatureData extends BaseData {
           physical: new NumberField({ nullable: true, integer: true, initial: null }),
         }),
       }),
+      properties: new SchemaField({
+        weaponGrace: new SetField(new StringField({ choices: ryuutama.config.weaponCategories })),
+      }, { persisted: false }),
       resources: new SchemaField({
         mental: makeResource(),
         stamina: makeResource(),
@@ -318,12 +321,18 @@ export default class CreatureData extends BaseData {
   #constructCheckConfigs(rollConfig, dialogConfig = {}, messageConfig = {}) {
     ({ rollConfig, dialogConfig, messageConfig } = foundry.utils.deepClone({ rollConfig, dialogConfig, messageConfig }));
 
+    /** @type {CheckRollConfig} */
     let roll = { accuracy: {}, condition: {}, concentration: {}, critical: {}, magic: {} };
+
+    /** @type {CheckDialogConfig} */
     let dialog = {};
+
+    /** @type {CheckMessageConfig} */
     let message = { create: true };
 
     switch (rollConfig.type) {
       case "accuracy": break;
+
       case "check":
         roll.abilities = ["strength", "strength"];
         break;

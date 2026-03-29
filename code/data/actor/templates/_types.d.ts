@@ -58,6 +58,9 @@ declare module "./creature.mjs" {
         physical: number | null;
       };
     };
+    properties: {
+      weaponGrace: Set<string>;
+    };
     resources: {
       mental: ResourceData;
       stamina: ResourceData;

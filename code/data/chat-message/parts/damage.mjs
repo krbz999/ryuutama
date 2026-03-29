@@ -77,7 +77,7 @@ export default class DamagePart extends CheckPart {
     const dialogConfig = { configure: !event.shiftKey };
     const messageConfig = { messageId: message.id };
 
-    if (message.system.parts.documentsBytype.check?.some(part => {
+    if (message.system.parts.documentsByType.check?.some(part => {
       return part.rolls.some(roll => (roll.options.type === "accuracy") && roll.isCritical);
     })) {
       rollConfig.critical = { isCritical: true };
