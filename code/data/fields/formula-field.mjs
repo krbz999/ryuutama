@@ -5,17 +5,12 @@
 /**
  * @typedef _FormulaFieldOptions
  * @property {boolean} [deterministic=false]    Is this formula not allowed to have dice values?
- */
-
-/**
+ *
  * @typedef {StringFieldOptions & _FormulaFieldOptions} FormulaFieldOptions
  */
 
 /**
  * Special case StringField which represents a formula.
- *
- * @param {FormulaFieldOptions} [options={}]            Options which configure the behavior of the field.
- * @property {boolean} [options.deterministic=false]    Is this formula not allowed to have dice values?
  */
 export default class FormulaField extends foundry.data.fields.StringField {
 
@@ -38,11 +33,32 @@ export default class FormulaField extends foundry.data.fields.StringField {
   }
 
   /* -------------------------------------------------- */
+  /*   Form Field Integration                           */
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  toFormGroup(groupConfig = {}, inputConfig = {}) {
+    groupConfig.classes ||= [];
+    groupConfig.classes.push("formula-input");
+    return super.toFormGroup(groupConfig, inputConfig);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritDoc */
+  _toInput(config) {
+    const input = super._toInput(config);
+    if (input.tagName !== "INPUT") return input;
+    config.value ??= this.getInitialValue({}) ?? "";
+    return foundry.applications.elements.HTMLFormulaInputElement.create(config);
+  }
+
+  /* -------------------------------------------------- */
   /*   Active Effect Integration                        */
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  _castChangeDelta(delta) {
+  _castChangeDelta(delta, replacementData = {}) {
     return this._cast(delta).trim();
   }
 
@@ -59,10 +75,18 @@ export default class FormulaField extends foundry.data.fields.StringField {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  _applyChangeSubtract(value, delta, model, change) {
+    if (!value) return `-(${delta})`;
+    return `${value} - (${delta})`;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   _applyChangeMultiply(value, delta, model, change) {
     if (!value) return value;
-    const terms = new foundry.dice.Roll(value).terms;
-    if (terms.length > 1) return `(${value}) * ${delta}`;
+    if (new foundry.dice.Roll(value).terms.length > 1) value = `(${value})`;
+    if (new foundry.dice.Roll(delta).terms.length > 1) delta = `(${delta})`;
     return `${value} * ${delta}`;
   }
 
