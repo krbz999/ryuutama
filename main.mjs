@@ -12,6 +12,7 @@ import registerSettings from "./code/settings.mjs";
 
 /**
  * @import ClassRegistry from "./code/helpers/registries/classes.mjs";
+ * @import SkillRegistry from "./code/helpers/registries/skills.mjs";
  * @import SpellRegistry from "./code/helpers/registries/spells.mjs";
  */
 
@@ -29,6 +30,8 @@ globalThis.ryuutama = {
   registries: {
     /** @type {ClassRegistry} */
     classes: null,
+    /** @type {SkillRegistry} */
+    skills: null,
     /** @type {SpellRegistry} */
     spells: null,
   },
@@ -237,6 +240,7 @@ Hooks.once("ready", () => {
 async function setupRegistries() {
   Object.assign(ryuutama.registries, {
     classes: new helpers.registries.ClassRegistry(),
+    skills: new helpers.registries.SkillRegistry(),
     spells: new helpers.registries.SpellRegistry(),
   });
 
