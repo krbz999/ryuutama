@@ -11,7 +11,8 @@ import * as utils from "./code/utils/_module.mjs";
 import registerSettings from "./code/settings.mjs";
 
 /**
- * @import SpellRegistry from "./code/helpers/registries/spell-registry.mjs";
+ * @import ClassRegistry from "./code/helpers/registries/classes.mjs";
+ * @import SpellRegistry from "./code/helpers/registries/spells.mjs";
  */
 
 globalThis.ryuutama = {
@@ -26,6 +27,8 @@ globalThis.ryuutama = {
   CONST: constants,
   id: "ryuutama",
   registries: {
+    /** @type {ClassRegistry} */
+    classes: null,
     /** @type {SpellRegistry} */
     spells: null,
   },
@@ -217,13 +220,30 @@ Hooks.once("ready", () => {
     "document-list": "systems/ryuutama/templates/sheets/shared/document-list.hbs",
   });
 
-  // Set up registries.
-  Object.assign(ryuutama.registries, {
-    spells: new helpers.registries.SpellRegistry(),
-  });
-  Object.freeze(ryuutama.registries);
-  Object.values(ryuutama.registries).forEach(registry => registry.initialize());
-
   // Render UI elements.
   ui.habitat.render({ force: true });
+
+  // Set up registries.
+  setupRegistries();
 });
+
+/* -------------------------------------------------- */
+
+/**
+ * Set up registries.
+ * This method accumulates all the required fields and indexes data from item packs.
+ */
+async function setupRegistries() {
+  Object.assign(ryuutama.registries, {
+    classes: new helpers.registries.ClassRegistry(),
+    spells: new helpers.registries.SpellRegistry(),
+  });
+
+  Object.freeze(ryuutama.registries);
+  const fields = Object.values(ryuutama.registries).reduce((acc, cls) => {
+    return cls.constructor.FIELDS.reduce((accu, field) => accu.add(field), acc);
+  }, new Set());
+  const packs = game.packs.filter(pack => pack.metadata.type === "Item");
+  await Promise.all(packs.map(pack => pack.getIndex({ fields: Array.from(fields) })));
+  Object.values(ryuutama.registries).forEach(registry => registry.initialize());
+}
