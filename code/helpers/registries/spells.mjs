@@ -2,7 +2,7 @@ import BaseRegistry from "./registry.mjs";
 
 export default class SpellRegistry extends BaseRegistry {
   /** @inheritdoc */
-  static PROPERTIES = ["category", "indentifier", "level", "source"];
+  static PROPERTIES = ["category", "identifier", "level", "source"];
 
   /* -------------------------------------------------- */
 
@@ -39,9 +39,7 @@ export default class SpellRegistry extends BaseRegistry {
       && Object.values(ryuutama.CONST.SPELL_LEVELS).includes(entry.properties.level);
 
     if (!valid) {
-      console.warn(
-        `Malformed or expired data detected on spell '${index.uuid}'. This spell was not added to the registry.`,
-      );
+      console.warn(`Unable to add spell item '${index.uuid}' to the registry.`);
       return null;
     }
 
