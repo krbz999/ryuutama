@@ -25,10 +25,10 @@ export default class WeaponData extends PhysicalData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
-      sort: 101,
-      defaultArtwork: "systems/ryuutama/assets/official/icons/items/equipment.svg",
       createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.weaponsArmor",
       createSort: 100,
+      defaultArtwork: "systems/ryuutama/assets/icons/items/weapon.svg",
+      sort: 101,
     },
     { inplace: false },
   ));
@@ -63,6 +63,16 @@ export default class WeaponData extends PhysicalData {
         bonus: new NumberField({ nullable: true, integer: true, initial: null }),
       }),
     });
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static getDefaultArtwork(itemData) {
+    if (itemData.system?.category?.value) {
+      return ryuutama.config.weaponTypes[itemData.system.category.value]?.icon;
+    }
+    return super.getDefaultArtwork(itemData);
   }
 
   /* -------------------------------------------------- */

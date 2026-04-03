@@ -33,7 +33,10 @@ export default class SpellData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    { inventory: false },
+    {
+      inventory: false,
+      defaultArtwork: "systems/ryuutama/assets/icons/items/spell.svg",
+    },
     { inplace: false },
   ));
 
