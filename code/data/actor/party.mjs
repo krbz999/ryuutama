@@ -215,4 +215,72 @@ export default class PartyData extends BaseData {
     });
     return getDocumentClass("Actor").updateDocuments(updates);
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Recover resources for the entire party.
+   * @param {object} [options]
+   * @param {"recoverAll"|"loseAll"|number} [options.stamina]
+   * @param {"recoverAll"|"loseAll"|number} [options.mental]
+   * @returns {Promise}
+   * @throws If the user is not a GM.
+   */
+  async performRecovery(options = {}) {
+    if (!game.user.isGM) throw new Error("Only a GM can perform party-wide recovery.");
+    const updates = [];
+    const members = this.members.map(m => m.actor);
+
+    // Get the new `stamina.spent` value. If this returns `null`, no update gets performed.
+    const staminaRecovery = actor => {
+      const { stamina } = actor.system.resources;
+      switch (options.stamina) {
+        case "recoverAll":
+          return 0;
+        case "loseAll":
+          return stamina.max;
+      }
+
+      if (Number.isInteger(options.stamina)) {
+        return stamina.max - (stamina.value + options.stamina);
+      }
+
+      return null;
+    };
+
+    // Get the new `mental.spent` value. If this returns `null`, no update gets performed.
+    const mentalRecovery = actor => {
+      const { mental } = actor.system.resources;
+      switch (options.mental) {
+        case "recoverAll":
+          return 0;
+        case "loseAll":
+          return mental.max;
+      }
+
+      if (Number.isInteger(options.mental)) {
+        return mental.max - (mental.value + options.mental);
+      }
+
+      return null;
+    };
+
+    members.forEach(actor => {
+      const update = { _id: actor.id };
+
+      const stamina = staminaRecovery(actor);
+      if (stamina !== null) Object.assign(update, { "system.resources.stamina.spent": stamina });
+
+      const mental = mentalRecovery(actor);
+      if (mental !== null) Object.assign(update, { "system.resources.mental.spent": mental });
+
+      updates.push(update);
+    });
+
+    return foundry.documents.modifyBatch([{
+      updates,
+      action: "update",
+      documentName: "Actor",
+    }]);
+  }
 }
