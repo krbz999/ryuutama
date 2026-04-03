@@ -26,7 +26,7 @@ export default class AnimalData extends BaseData {
     super.metadata,
     {
       sort: 302,
-      defaultArtWork: "systems/ryuutama/assets/official/icons/items/animal.svg",
+      defaultArtwork: "systems/ryuutama/assets/official/icons/items/animal.svg",
     },
     { inplace: false },
   ));
