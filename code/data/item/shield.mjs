@@ -30,6 +30,8 @@ export default class ShieldData extends PhysicalData {
     {
       sort: 102,
       defaultArtwork: "systems/ryuutama/assets/official/icons/items/equipment.svg",
+      createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.weaponsArmor",
+      createSort: 103,
     },
     { inplace: false },
   ));

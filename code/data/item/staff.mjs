@@ -21,7 +21,11 @@ export default class StaffData extends GearData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    { sort: 205 },
+    {
+      sort: 205,
+      createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.travelingGear",
+      createSort: 203,
+    },
     { inplace: false },
   ));
 }
