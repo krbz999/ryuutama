@@ -21,7 +21,10 @@ export default class HatData extends GearData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    { sort: 201 },
+    {
+      sort: 201,
+      defaultArtwork: "systems/ryuutama/assets/icons/items/hat.svg",
+    },
     { inplace: false },
   ));
 }

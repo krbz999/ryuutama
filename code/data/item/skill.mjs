@@ -18,7 +18,10 @@ export default class SkillData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    { inventory: false },
+    {
+      inventory: false,
+      defaultArtwork: "systems/ryuutama/assets/icons/items/skill.svg",
+    },
     { inplace: false },
   ));
 

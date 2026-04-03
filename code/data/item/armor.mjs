@@ -28,7 +28,7 @@ export default class ArmorData extends PhysicalData {
     super.metadata,
     {
       sort: 103,
-      defaultArtwork: "systems/ryuutama/assets/official/icons/items/equipment.svg",
+      defaultArtwork: "systems/ryuutama/assets/icons/items/armor.svg",
     },
     { inplace: false },
   ));
