@@ -2,7 +2,7 @@
   "name": "Walking Egg",
   "type": "monster",
   "_id": "walkingegg000000",
-  "img": "",
+  "img": null,
   "system": {
     "description": {
       "value": "<p>A mysterious thirty-centimeter tall egg with human-like arms and legs that can be seen walking around the world. Many people have tried to solve the mystery of where they came from and what they're going to become, but so far none have.</p>"
@@ -85,7 +85,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "",
+      "src": null,
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -154,7 +154,7 @@
       "effects": 1,
       "subject": {
         "scale": 1,
-        "texture": ""
+        "texture": null
       }
     },
     "turnMarker": {

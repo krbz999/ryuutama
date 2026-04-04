@@ -10,11 +10,15 @@ import { compilePack, extractPack } from "@foundryvtt/foundryvtt-cli";
  */
 const PACK_DEST = "packs";
 
+/* -------------------------------------------------- */
+
 /**
  * Folder where source JSON files should be located relative to the repository folder.
  * @type {string}
  */
 const PACK_SRC = "src";
+
+/* -------------------------------------------------- */
 
 const argv = yargs(hideBin(process.argv))
   .command(packageCommand())
@@ -48,80 +52,75 @@ function packageCommand() {
   };
 }
 
-/* ----------------------------------------- */
-/*  Clean Packs                              */
-/* ----------------------------------------- */
+/* -------------------------------------------------- */
 
 /**
- * Removes unwanted flags, permissions, and other data from entries before extracting or compiling.
- * @param {object} data                     Data for a single entry to clean.
- * @param {object} options
- * @param {string} options.documentName         The document name (false positive for folders).
- * @param {boolean} [options.isFolder=false]    Is this a folder document?
- * @param {number} [options.ownership=0]        Value to reset default ownership to.
+ * Structure of documents and their embedded collections (except token deltas).
+ * @type {Record<string, Record<string, string>>}
  */
-function cleanPackEntry(data, { documentName, isFolder = false, ownership = 0 }) {
+const documentStructure = {
+  Actor: {
+    ActiveEffect: "effects",
+    Item: "items",
+  },
+  Cards: {
+    Card: "cards",
+  },
+  Item: {
+    ActiveEffect: "effects",
+  },
+  JournalEntry: {
+    JournalEntryCategory: "categories",
+    JournalEntryPage: "pages",
+  },
+  Playlist: {
+    PlaylistSound: "sounds",
+  },
+  Region: {
+    RegionBehavior: "behaviors",
+  },
+  RollTable: {
+    TableResult: "results",
+  },
+  Scene: {
+    AmbientLight: "lights",
+    AmbientSound: "sounds",
+    Drawing: "drawings",
+    Note: "notes",
+    Region: "regions",
+    Level: "levels",
+    Tile: "tiles",
+    Token: "tokens",
+    Wall: "walls",
+  },
+};
+
+/* -------------------------------------------------- */
+/*   Clean Packs                                      */
+/* -------------------------------------------------- */
+
+/**
+ * Recursively clean data of an entry and embedded documents before extracting or compiling.
+ * @param {object} data                   Data for a single entry to clean.
+ * @param {object} options
+ * @param {string} options.documentName   The document name.
+ */
+function cleanPackEntry(data, { documentName }) {
+  const ownership = documentName === "JournalEntryPage" ? -1 : 0;
   if (data.ownership) data.ownership = { default: ownership };
 
   const flags = data.flags ?? {};
   delete flags.importSource;
   delete flags.exportSource;
 
-  for (const k in flags) {
-    if (!Object.keys(flags[k]).length) delete flags[k];
-  }
-
   // Remove mystery-man.svg from Actors
-  if (!isFolder && (documentName === "Actor") && (data.img === "icons/svg/mystery-man.svg")) {
-    data.img = "";
-    data.prototypeToken.texture.src = "";
-    data.prototypeToken.ring.subject.texture = "";
-  }
+  if (documentName === "Actor") cleanActorArtwork(data);
 
-  // Clean embedded.
-  if (!isFolder) {
-    if (["Actor", "Item"].includes(documentName)) {
-      for (const effect of data.effects) cleanPackEntry(effect, { documentName: "ActiveEffect" });
-    }
-
-    if (["Actor"].includes(documentName)) {
-      for (const item of data.items) cleanPackEntry(item, { documentName: "Item" });
-    }
-
-    if (["JournalEntry"].includes(documentName)) {
-      for (const page of data.pages) cleanPackEntry(page, { documentName: "JournalEntryPage", ownership: -1 });
-    }
-
-    if (["RollTable"].includes(documentName)) {
-      for (const result of data.results) cleanPackEntry(result, { documentName: "TableResult" });
-    }
-
-    // Remove sort.
-    if (["Actor", "ActiveEffect", "Item", "JournalEntry", "Macro", "Playlist", "RollTable", "Scene"].includes(documentName)) {
-      data.sort = 0;
-    }
-
-    if (["Scene"].includes(documentName)) {
-      const embedded = {
-        AmbientLight: "lights",
-        AmbientSound: "sounds",
-        Drawing: "drawings",
-        MeasuredTemplate: "templates",
-        Note: "notes",
-        Region: "regions",
-        Tile: "tiles",
-        Token: "tokens",
-        Wall: "walls",
-      };
-
-      for (const [documentName, collectionName] of Object.entries(embedded)) {
-        for (const embedded of data[collectionName]) cleanPackEntry(embedded, { documentName });
-      }
-    }
-
-    if (["Region"].includes(documentName)) {
-      for (const behavior of data.behaviors) cleanPackEntry(behavior, { documentName: "RegionBehavior" });
-    }
+  // Clean embedded data.
+  const embedded = documentStructure[documentName] ?? {};
+  for (const [embeddedName, collectionName] of Object.entries(embedded)) {
+    const collection = data[collectionName];
+    for (const c of collection) cleanPackEntry(c, { documentName: embeddedName });
   }
 
   if (data._stats) {
@@ -177,8 +176,6 @@ async function extractPacks(packName) {
     const dest = path.join(PACK_SRC, packInfo.name);
     console.log(`Extracting pack ${packInfo.name}`);
 
-    const isFolder = entry => entry.type === packInfo.type;
-
     await extractPack(path.join(PACK_DEST, packInfo.name), dest, {
       log: false,
       clean: true,
@@ -187,7 +184,7 @@ async function extractPacks(packName) {
       yaml: false,
       jsonOptions: { space: 2 },
       transformEntry: (entry, context = {}) => {
-        cleanPackEntry(entry, { documentName: packInfo.type, isFolder: isFolder(entry) });
+        cleanPackEntry(entry, { documentName: context.documentType });
       },
       transformFolderName: (entry, context = {}) => {
         let name = `${slugify(entry.name)}-${entry._id}`;
@@ -197,7 +194,7 @@ async function extractPacks(packName) {
       transformName: (entry, context = {}) => {
         let name = `${slugify(entry.name)}-${entry._id}.json`;
 
-        if (isFolder(entry)) {
+        if (context.documentType === "Folder") {
           name = path.join(`${slugify(entry.name)}-${entry._id}`, "_folder.json");
         }
 
@@ -219,4 +216,19 @@ async function extractPacks(packName) {
  */
 function slugify(name) {
   return name.toLowerCase().replace("'", "").replace(/[^a-z0-9]+/gi, " ").trim().replace(/\s+|-{2,}/g, "-");
+}
+
+/* -------------------------------------------------- */
+
+/**
+ * Remove falsy or default artwork from image filepath fields on actors.
+ * @param {object} data   The actor data. **Will be mutated.**
+ */
+function cleanActorArtwork(data) {
+  const defaultArtwork = "icons/svg/mystery-man.svg";
+  if (!data.img || (data.img === defaultArtwork)) data.img = null;
+  if (!data.prototypeToken.texture.src || (data.prototypeToken.texture.src === defaultArtwork))
+    data.prototypeToken.texture.src = null;
+  if (!data.prototypeToken.ring.subject.texture || (data.prototypeToken.ring.subject.texture === defaultArtwork))
+    data.prototypeToken.ring.subject.texture = null;
 }

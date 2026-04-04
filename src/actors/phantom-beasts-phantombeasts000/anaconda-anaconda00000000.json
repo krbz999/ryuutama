@@ -85,7 +85,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "",
+      "src": null,
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -154,7 +154,7 @@
       "effects": 1,
       "subject": {
         "scale": 1,
-        "texture": ""
+        "texture": null
       }
     },
     "turnMarker": {
@@ -170,7 +170,7 @@
     "prependAdjective": false,
     "depth": 1
   },
-  "img": "",
+  "img": null,
   "items": [
     {
       "name": "Coil",

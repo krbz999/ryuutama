@@ -2,7 +2,7 @@
   "name": "Running Egg",
   "type": "monster",
   "_id": "runningegg000000",
-  "img": "",
+  "img": null,
   "system": {
     "description": {
       "value": "<p>A mysterious fifty-centimeter tall egg with human-like arms and muscular legs that can be seen running around the world. Running eggs can move with such speed that it is said that none can catch them. Defeating a Running Egg will bring even more luck than a Walking Egg.</p>"
@@ -85,7 +85,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "",
+      "src": null,
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -154,7 +154,7 @@
       "effects": 1,
       "subject": {
         "scale": 1,
-        "texture": ""
+        "texture": null
       }
     },
     "turnMarker": {
