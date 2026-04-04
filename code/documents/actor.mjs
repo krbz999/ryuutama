@@ -63,6 +63,14 @@ export default class RyuutamaActor extends foundry.documents.Actor {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    this.img ??= RyuutamaActor.getDefaultArtwork({ type: this.type }).img;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   _onDelete(options, userId) {
     // Remove party sheets and re-render them.
     Object.values(this.apps).forEach(app => {
