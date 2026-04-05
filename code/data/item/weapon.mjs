@@ -26,7 +26,7 @@ export default class WeaponData extends PhysicalData {
     super.metadata,
     {
       sort: 101,
-      defaultArtwork: "systems/ryuutama/assets/icons/items/weapon.svg",
+      defaultArtwork: "systems/ryuutama/assets/official/icons/items/equipment.svg",
     },
     { inplace: false },
   ));
@@ -61,16 +61,6 @@ export default class WeaponData extends PhysicalData {
         bonus: new NumberField({ nullable: true, integer: true, initial: null }),
       }),
     });
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  static getDefaultArtwork(itemData) {
-    if (itemData.system?.category?.value) {
-      return ryuutama.config.weaponTypes[itemData.system.category.value]?.icon;
-    }
-    return super.getDefaultArtwork(itemData);
   }
 
   /* -------------------------------------------------- */

@@ -21,10 +21,7 @@ export default class StaffData extends GearData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    {
-      sort: 205,
-      defaultArtwork: "systems/ryuutama/assets/icons/items/staff.svg",
-    },
+    { sort: 205 },
     { inplace: false },
   ));
 }

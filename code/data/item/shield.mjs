@@ -29,7 +29,7 @@ export default class ShieldData extends PhysicalData {
     super.metadata,
     {
       sort: 102,
-      defaultArtwork: "systems/ryuutama/assets/icons/items/shield.svg",
+      defaultArtwork: "systems/ryuutama/assets/official/icons/items/equipment.svg",
     },
     { inplace: false },
   ));

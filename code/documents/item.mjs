@@ -16,8 +16,7 @@ export default class RyuutamaItem extends foundry.documents.Item {
 
   /** @inheritdoc */
   static getDefaultArtwork(itemData) {
-    const model = CONFIG.Item.dataModels[itemData.type];
-    const img = model?.getDefaultArtwork?.(itemData) ?? model?.metadata?.defaultArtwork ?? RyuutamaItem.DEFAULT_ICON;
+    const img = CONFIG.Item.dataModels[itemData.type]?.metadata.defaultArtwork ?? RyuutamaItem.DEFAULT_ICON;
     return { img: img };
   }
 

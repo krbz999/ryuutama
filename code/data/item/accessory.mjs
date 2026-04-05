@@ -21,10 +21,7 @@ export default class AccessoryData extends GearData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    {
-      sort: 204,
-      defaultArtwork: "systems/ryuutama/assets/icons/items/accessory.svg",
-    },
+    { sort: 204 },
     { inplace: false },
   ));
 }

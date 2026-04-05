@@ -32,15 +32,6 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
-  /**
-   * Retrieve default artwork for an item of this type.
-   * @param {object} itemData
-   * @returns {string|void}
-   */
-  static getDefaultArtwork(itemData) {}
-
-  /* -------------------------------------------------- */
-
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     "RYUUTAMA.ITEM",
