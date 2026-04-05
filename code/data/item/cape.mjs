@@ -21,7 +21,11 @@ export default class CapeData extends GearData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    { sort: 202 },
+    {
+      sort: 202,
+      createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.travelingGear",
+      createSort: 202,
+    },
     { inplace: false },
   ));
 }

@@ -487,6 +487,10 @@
           "enable":"Enable Effect"
         }
       },
+      "CREATE_GROUP": {
+        "travelingGear": "Traveling Gear",
+        "weaponsArmor": "Weapons & Armor"
+      },
       "MODIFIERS": {
         "beautiful": "Beautiful",
         "broken": "Broken",

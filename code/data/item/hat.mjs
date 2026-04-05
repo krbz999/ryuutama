@@ -21,7 +21,11 @@ export default class HatData extends GearData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    { sort: 201 },
+    {
+      sort: 201,
+      createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.travelingGear",
+      createSort: 204,
+    },
     { inplace: false },
   ));
 }
