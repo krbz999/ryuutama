@@ -15,6 +15,36 @@ export default class RyuutamaItem extends foundry.documents.Item {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  static async createDialog(data, createOptions, { types, context, ...dialogOptions } = {}, renderOptions) {
+    const itemOptions = Object.entries(CONFIG.Item.dataModels)
+      .map(([type, model]) => {
+        if (types?.length && !types.includes(type)) return null;
+        const label = _loc(`TYPES.Item.${type}`);
+        const group = model.metadata?.createGroup ? _loc(model.metadata.createGroup) : undefined;
+        return { group, label, value: type, _sort: model.metadata?.createSort };
+      })
+      .filter(_ => _);
+
+    itemOptions.sort((a, b) => {
+      // Grouped entries go after un-grouped entries.
+      if (!a.group && b.group) return -1;
+      if (!b.group && a.group) return 1;
+
+      // Two ungrouped entries are sorted by explicit sort or by label, as are two entries in the same group.
+      if ((!a.group && !b.group) || (a.group === b.group))
+        return (a._sort && b._sort) ? (a._sort - b._sort) : a.label.localeCompare(b.label);
+
+      // Two entries in different groups are sorted by group label.
+      return a.group.localeCompare(b.group);
+    });
+
+    context = { ...context, types: itemOptions };
+    return super.createDialog(data, createOptions, { context, ...dialogOptions }, renderOptions);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   static getDefaultArtwork(itemData) {
     const img = CONFIG.Item.dataModels[itemData.type]?.metadata.defaultArtwork ?? RyuutamaItem.DEFAULT_ICON;
     return { img: img };

@@ -27,6 +27,8 @@ export default class WeaponData extends PhysicalData {
     {
       sort: 101,
       defaultArtwork: "systems/ryuutama/assets/official/icons/items/equipment.svg",
+      createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.weaponsArmor",
+      createSort: 100,
     },
     { inplace: false },
   ));

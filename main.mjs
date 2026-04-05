@@ -101,6 +101,7 @@ Hooks.once("init", () => {
   CONFIG.Item.dataModels.spell = data.item.SpellData;
   CONFIG.Item.dataModels.staff = data.item.StaffData;
   CONFIG.Item.dataModels.weapon = data.item.WeaponData;
+  CONFIG.Item.defaultType = "weapon";
 
   CONFIG.JournalEntry.documentClass = documents.RyuutamaJournalEntry;
 
