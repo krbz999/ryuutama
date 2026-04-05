@@ -149,7 +149,7 @@ Hooks.once("init", () => {
 
   // Register sheets.
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
-    foundry.documents.Item, ryuutama.id, applications.sheets.RyuutamaItemSheet,
+    foundry.documents.Item, ryuutama.id, applications.sheets.items.RyuutamaItemSheet,
     { label: "RYUUTAMA.SHEETS.ItemSheet", makeDefault: true },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(

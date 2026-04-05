@@ -430,7 +430,7 @@ export default class TravelerData extends CreatureData {
     }
     actor._advancing = true;
 
-    const results = await ryuutama.applications.apps.AdvancementDialog.create(actor, { level: level + 1 });
+    const results = await ryuutama.applications.apps.actors.AdvancementDialog.create(actor, { level: level + 1 });
     if (!results) {
       delete actor._advancing;
       return null;

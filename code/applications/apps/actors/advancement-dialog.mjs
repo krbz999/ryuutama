@@ -1,8 +1,8 @@
-import AdvancementChain from "../../utils/advancement/chain.mjs";
+import AdvancementChain from "../../../utils/advancement/chain.mjs";
 
 /**
- * @import Advancement from "../../data/advancement/advancement.mjs";
- * @import RyuutamaActor from "../../documents/actor.mjs";
+ * @import Advancement from "../../../data/advancement/advancement.mjs";
+ * @import RyuutamaActor from "../../../documents/actor.mjs";
  */
 
 const { Application, HandlebarsApplicationMixin } = foundry.applications.api;

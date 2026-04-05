@@ -394,20 +394,20 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
     switch (target.dataset.config) {
       case "ability":
         options.ability = target.dataset.ability;
-        application = new ryuutama.applications.apps.AbilityConfig(options);
+        application = new ryuutama.applications.apps.actors.AbilityConfig(options);
         break;
       case "attack":
-        application = new ryuutama.applications.apps.AttackConfig(options);
+        application = new ryuutama.applications.apps.actors.AttackConfig(options);
         break;
       case "condition":
-        application = new ryuutama.applications.apps.ConditionConfig(options);
+        application = new ryuutama.applications.apps.actors.ConditionConfig(options);
         break;
       case "defense":
-        application = new ryuutama.applications.apps.DefenseConfig(options);
+        application = new ryuutama.applications.apps.actors.DefenseConfig(options);
         break;
       case "resource":
         options.resource = target.dataset.resource;
-        application = new ryuutama.applications.apps.ResourceConfig(options);
+        application = new ryuutama.applications.apps.actors.ResourceConfig(options);
         break;
     }
     if (!application) return;

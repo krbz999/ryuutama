@@ -1,4 +1,4 @@
-import DocumentConfig from "../api/document-config.mjs";
+import DocumentConfig from "../../api/document-config.mjs";
 
 export default class AbilityConfig extends DocumentConfig {
   /** @inheritdoc */

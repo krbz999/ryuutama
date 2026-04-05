@@ -1,7 +1,7 @@
 /**
- * @import RyuutamaActor from "../../documents/actor.mjs";
+ * @import RyuutamaActor from "../../../documents/actor.mjs";
  * @import { ApplicationConfiguration } from "@client/applications/_types.mjs";
- * @import { PlaceMembersDialogConfiguration } from "./_types.mjs";
+ * @import { PlaceMembersDialogConfiguration } from "../_types.mjs";
  */
 
 const { HandlebarsApplicationMixin, Application } = foundry.applications.api;

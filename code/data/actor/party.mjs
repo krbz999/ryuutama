@@ -133,7 +133,7 @@ export default class PartyData extends BaseData {
     }, configuration);
 
     if (configure) {
-      const configured = await ryuutama.applications.apps.PlaceMembersDialog.create({
+      const configured = await ryuutama.applications.apps.actors.PlaceMembersDialog.create({
         configuration, document: this.parent,
         parentWindow: sheet.window.windowId,
       });

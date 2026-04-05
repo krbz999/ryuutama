@@ -1,4 +1,4 @@
-import RyuutamaDocumentSheet from "../api/document-sheet.mjs";
+import RyuutamaDocumentSheet from "../../api/document-sheet.mjs";
 
 /**
  * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";

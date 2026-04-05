@@ -2,7 +2,7 @@
  * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../../data/actor/_types.mjs";
  * @import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
- * @import { CheckConfigurationDialogConfiguration } from "./_types.mjs";
+ * @import { CheckConfigurationDialogConfiguration } from "../_types.mjs";
  */
 
 const { HandlebarsApplicationMixin, Application } = foundry.applications.api;

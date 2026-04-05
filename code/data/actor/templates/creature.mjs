@@ -234,7 +234,7 @@ export default class CreatureData extends BaseData {
 
     if (dialogConfig.configure !== false) {
       // The dialog modifies the three configurations inplace.
-      const configured = await ryuutama.applications.apps.CheckConfigurationDialog.create({
+      const configured = await ryuutama.applications.apps.actors.CheckConfigurationDialog.create({
         rollConfig, dialogConfig, messageConfig,
         document: this.parent,
         parentWindow: this.parent.sheet?.window?.windowId,
