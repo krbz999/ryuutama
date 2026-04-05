@@ -28,10 +28,10 @@ export default class ShieldData extends PhysicalData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
-      sort: 102,
-      defaultArtwork: "systems/ryuutama/assets/official/icons/items/equipment.svg",
       createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.weaponsArmor",
       createSort: 103,
+      defaultArtwork: "systems/ryuutama/assets/icons/items/shield.svg",
+      sort: 102,
     },
     { inplace: false },
   ));

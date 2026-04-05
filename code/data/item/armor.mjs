@@ -27,10 +27,10 @@ export default class ArmorData extends PhysicalData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
-      sort: 103,
-      defaultArtwork: "systems/ryuutama/assets/official/icons/items/equipment.svg",
       createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.weaponsArmor",
       createSort: 101,
+      defaultArtwork: "systems/ryuutama/assets/icons/items/armor.svg",
+      sort: 103,
     },
     { inplace: false },
   ));

@@ -22,9 +22,10 @@ export default class StaffData extends GearData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
-      sort: 205,
       createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.travelingGear",
       createSort: 203,
+      defaultArtwork: "systems/ryuutama/assets/icons/items/staff.svg",
+      sort: 205,
     },
     { inplace: false },
   ));

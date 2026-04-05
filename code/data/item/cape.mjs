@@ -22,9 +22,10 @@ export default class CapeData extends GearData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
-      sort: 202,
       createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.travelingGear",
       createSort: 202,
+      defaultArtwork: "systems/ryuutama/assets/icons/items/cape.svg",
+      sort: 202,
     },
     { inplace: false },
   ));
