@@ -4,6 +4,14 @@
  */
 export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect {
   /** @inheritdoc */
+  static async createDialog(data, createOptions, { types, ...dialogOptions } = {}, renderOptions) {
+    types = (types ?? this.TYPES).filter(type => ![CONST.BASE_DOCUMENT_TYPE, "status"].includes(type));
+    return super.createDialog(data, createOptions, { types, ...dialogOptions }, renderOptions);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   static async _fromStatusEffect(statusId, effectData, options) {
     // Select the strength of the status.
     if (Object.values(ryuutama.CONST.STATUS_EFFECTS).includes(statusId)) {
