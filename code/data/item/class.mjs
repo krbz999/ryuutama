@@ -22,7 +22,10 @@ export default class ClassData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
-    { inventory: false },
+    {
+      inventory: false,
+      defaultArtwork: "systems/ryuutama/assets/icons/items/class.svg",
+    },
     { inplace: false },
   ));
 

@@ -178,25 +178,25 @@ Prelocalization.prelocalize(checkTypes.journey.subtypes);
 export const damageRollProperties = {
   damageMental: {
     label: "RYUUTAMA.DAMAGE.PROPERTIES.damageMental",
-    icon: "systems/ryuutama/assets/icons/bolt-eye.svg",
+    icon: "systems/ryuutama/assets/icons/properties/bolt-eye.svg",
   },
   ignoreArmor: {
     label: "RYUUTAMA.DAMAGE.PROPERTIES.ignoreArmor",
-    icon: "systems/ryuutama/assets/icons/shield-disabled.svg",
+    icon: "systems/ryuutama/assets/icons/properties/shield-disabled.svg",
   },
   magical: {
     label: "RYUUTAMA.DAMAGE.PROPERTIES.magical",
-    icon: "systems/ryuutama/assets/icons/eclipse-flare.svg",
+    icon: "systems/ryuutama/assets/icons/properties/eclipse-flare.svg",
     hidden: true,
   },
   mythril: {
     label: "RYUUTAMA.DAMAGE.PROPERTIES.mythril",
-    icon: "systems/ryuutama/assets/icons/fish-scales.svg",
+    icon: "systems/ryuutama/assets/icons/properties/fish-scales.svg",
     hidden: true,
   },
   orichalcum: {
     label: "RYUUTAMA.DAMAGE.PROPERTIES.orichalcum",
-    icon: "systems/ryuutama/assets/icons/layered-armor.svg",
+    icon: "systems/ryuutama/assets/icons/properties/layered-armor.svg",
     hidden: true,
   },
 };
@@ -766,14 +766,14 @@ export const weaponTypes = {
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.axePl",
     grip: 2,
     baseItem: "Compendium.ryuutama.items.Item.axe0000000000000",
-    icon: "systems/ryuutama/assets/icons/weapons/axe.svg",
+    icon: "systems/ryuutama/assets/icons/items/weapons/axe.svg",
   },
   blade: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.blade",
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.bladePl",
     grip: 1,
     baseItem: "Compendium.ryuutama.items.Item.blade00000000000",
-    icon: "systems/ryuutama/assets/icons/weapons/blade.svg",
+    icon: "systems/ryuutama/assets/icons/items/weapons/blade.svg",
   },
   bow: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.bow",
@@ -781,21 +781,21 @@ export const weaponTypes = {
     grip: 2,
     ranged: true,
     baseItem: "Compendium.ryuutama.items.Item.bow0000000000000",
-    icon: "systems/ryuutama/assets/icons/weapons/bow.svg",
+    icon: "systems/ryuutama/assets/icons/items/weapons/bow.svg",
   },
   lightBlade: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.lightBlade",
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.lightBladePl",
     grip: 1,
     baseItem: "Compendium.ryuutama.items.Item.lightblade000000",
-    icon: "systems/ryuutama/assets/icons/weapons/light-blade.svg",
+    icon: "systems/ryuutama/assets/icons/items/weapons/light-blade.svg",
   },
   polearm: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.polearm",
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.polearmPl",
     grip: 2,
     baseItem: "Compendium.ryuutama.items.Item.polearm000000000",
-    icon: "systems/ryuutama/assets/icons/weapons/polearm.svg",
+    icon: "systems/ryuutama/assets/icons/items/weapons/polearm.svg",
   },
 };
 Prelocalization.prelocalize(weaponTypes, { properties: ["label", "labelPlural"] });
@@ -809,7 +809,7 @@ export const weaponUnarmedTypes = {
   unarmed: {
     label: "RYUUTAMA.ITEM.WEAPON.TYPES.unarmed",
     labelPlural: "RYUUTAMA.ITEM.WEAPON.TYPES.unarmedPl",
-    icon: "systems/ryuutama/assets/icons/weapons/unarmed.svg",
+    icon: "systems/ryuutama/assets/icons/items/weapons/unarmed.svg",
     accuracy: {
       abilities: ["strength", "dexterity"],
       bonus: 0,
