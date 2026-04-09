@@ -60,6 +60,7 @@ export default class CreatureData extends BaseData {
         mental: makeResource(),
         stamina: makeResource(),
       }),
+      source: new ryuutama.data.fields.SourceField(),
     });
   }
 
@@ -69,6 +70,7 @@ export default class CreatureData extends BaseData {
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ACTOR.CREATURE",
+    "RYUUTAMA.SOURCE",
   ];
 
   /* -------------------------------------------------- */

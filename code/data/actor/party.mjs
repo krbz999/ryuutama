@@ -1,3 +1,5 @@
+import BaseData from "./templates/base.mjs";
+
 /**
  * @import { PlaceMembersDialogConfiguration } from "../../applications/apps/_types.mjs";
  * @import RegionLayer from "@client/canvas/layers/regions.mjs";
@@ -7,7 +9,7 @@
 
 const { HTMLField, SchemaField, TypedObjectField } = foundry.data.fields;
 
-export default class PartyData extends foundry.abstract.TypeDataModel {
+export default class PartyData extends BaseData {
   /** @inheritdoc */
   static defineSchema() {
     return {
