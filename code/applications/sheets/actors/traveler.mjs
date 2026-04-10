@@ -18,6 +18,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     },
     actions: {
       adjustFumbles: RyuutamaTravelerSheet.#adjustFumbles,
+      toggleEffect: RyuutamaTravelerSheet.#toggleEffect,
     },
   };
 
@@ -327,64 +328,68 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
   #prepareEffects(context) {
     const sections = {
       temporary: {
-        label: "RYUUTAMA.ACTOR.temporaryEffects",
-        create: false,
-        attributeLabel: "RYUUTAMA.ACTOR.TRAVELER.effectDuration",
+        label: _loc("RYUUTAMA.ACTOR.temporaryEffects"),
+        attributeLabel: _loc("RYUUTAMA.ACTOR.TRAVELER.effectDuration"),
         attribute: "duration.label",
+        entries: [],
       },
-      active: {
-        label: "RYUUTAMA.ACTOR.activeEffects",
-        create: true,
-        disabled: false,
-        attributeLabel: "RYUUTAMA.ACTOR.TRAVELER.effectSource",
+      passive: {
+        label: _loc("RYUUTAMA.ACTOR.passiveEffects"),
+        attributeLabel: _loc("RYUUTAMA.ACTOR.TRAVELER.effectSource"),
         attribute: "sourceName",
-      },
-      inactive: {
-        label: "RYUUTAMA.ACTOR.disabledEffects",
-        create: true,
-        disabled: true,
-        attributeLabel: "RYUUTAMA.ACTOR.TRAVELER.effectSource",
-        attribute: "sourceName",
+        entries: [],
+        controlWidgets: context.isInteractive ? `
+        <a data-action="createEffect">
+          <i class="fa-solid fa-fw fa-plus" inert></i>
+        </a>` : null,
       },
     };
 
-    for (const s of Object.values(sections)) {
-      s.label = _loc(s.label);
-      s.attributeLabel = _loc(s.attributeLabel);
-      s.controlWidgets = s.create && this.isInteractive ? `
-      <a data-action="createEffect" data-disabled="${s.disabled}">
-        <i class="fa-solid fa-fw fa-plus" inert></i>
-      </a>` : null;
-      s.entries = [];
-    }
+    // Should the effect be displayed?
+    const displayEffect = effect => {
+      // Display only 'standard' effects.
+      if (effect.type !== "standard") return false;
 
-    /**
-     * Should a delete button be displayed?
-     * @param {RyuutamaActiveEffect} effect
-     * @returns {boolean}
-     */
+      // Display passive effects only if they are in the actor's own embedded collection.
+      return effect.isTemporary || (effect.parent === this.document);
+    };
+
+    // Should a delete button be displayed?
     const canDelete = effect => {
       if (!context.isInteractive || context.disabled) return false;
       return effect.parent === this.document;
     };
 
+    // Can this effect be toggled?
+    const canToggle = effect => {
+      return context.isInteractive && context.disabled;
+    };
+
     for (const effect of this.document.allApplicableEffects()) {
-      if (effect.type !== "standard") continue;
-      const key = !effect.active ? "inactive" : effect.isTemporary ? "temporary" : "active";
+      if (!displayEffect(effect)) continue;
 
-      // Skip passive effects from items.
-      if ((key === "active") && (effect.parent !== this.document)) continue;
-
-      const section = sections[key];
+      const section = sections[effect.isTemporary ? "temporary" : "passive"];
       section.entries.push({
         document: effect,
         dataset: { "effect-context": "" },
         attribute: `<span>${foundry.utils.getProperty(effect, section.attribute)}</span>`,
+        classes: [effect.disabled ? "inactive" : null],
         buttons: [
-          canDelete(effect) ? { action: "deleteEffect", icon: "fa-solid fa-trash" } : null,
+          canDelete(effect)
+            ? { action: "deleteEffect", icon: "fa-solid fa-fw fa-trash" }
+            : null,
+          canToggle(effect)
+            ? { action: "toggleEffect", icon: `fa-solid fa-fw fa-toggle-${effect.disabled ? "off" : "on"}` }
+            : null,
         ],
       });
     }
+
+    Object.values(sections).forEach(section => section.entries.sort((a, b) => {
+      if (a.document.disabled) return 1;
+      if (b.document.disabled) return -1;
+      return a.document.name.localeCompare(b.document.name);
+    }));
 
     return { sections: Object.values(sections) };
   }
@@ -862,5 +867,17 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
   static #adjustFumbles(event, target) {
     const delta = target.dataset.direction === "UP" ? 1 : -1;
     this.document.update({ "system.fumbles.value": this.document.system.fumbles.value + delta });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaTravelerSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #toggleEffect(event, target) {
+    const effect = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
+    effect.update({ disabled: !effect.disabled });
   }
 }
