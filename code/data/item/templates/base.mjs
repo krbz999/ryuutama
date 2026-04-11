@@ -108,11 +108,13 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /** @inheritdoc */
   async toEmbed(config, options = {}) {
+    const section = document.createElement("SECTION");
     const enriched = await CONFIG.ux.TextEditor.enrichHTML(this.description.value, {
       ...options,
       relativeTo: this.parent,
     });
-    return foundry.utils.parseHTML(enriched);
+    if (enriched) section.insertAdjacentHTML("beforeend", `<section class="item-description">${enriched}</section>`);
+    return section.children;
   }
 
   /* -------------------------------------------------- */
