@@ -12,6 +12,7 @@ export default class DocumentConfig extends HandlebarsApplicationMixin(DocumentS
       height: "auto",
     },
     sheetConfig: false,
+    ownershipConfig: false,
   };
 
   /* -------------------------------------------------- */
