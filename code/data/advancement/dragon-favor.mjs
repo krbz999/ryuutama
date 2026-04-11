@@ -10,7 +10,7 @@ export default class DragonFavorAdvancement extends Advancement {
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
-        chosen: new StringField({ blank: true, required: true, choices: () => ryuutama.config.seasons }),
+        chosen: new StringField({ blank: true, required: true, choices: ryuutama.CONST.SEASONS._toConfig }),
       }),
     });
   }

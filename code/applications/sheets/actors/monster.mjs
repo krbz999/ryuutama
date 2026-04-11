@@ -73,10 +73,6 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
 
     context.attackImage = ryuutama.config.weaponUnarmedTypes.unarmed.icon;
 
-    context.seasonOptions = Object.entries(ryuutama.config.seasons).map(([k, v]) => {
-      return { value: k, label: v.label };
-    });
-
     // Tags.
     context.tags = this.#prepareTags();
 

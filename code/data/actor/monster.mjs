@@ -23,7 +23,7 @@ export default class MonsterData extends CreatureData {
         level: new NumberField({ required: true, min: 0, initial: 0, integer: true, nullable: false }),
       }),
       environment: new SchemaField({
-        season: new StringField({ required: true, blank: true, initial: "", choices: () => ryuutama.config.seasons }),
+        season: new StringField({ required: true, blank: true, initial: "", choices: ryuutama.CONST.SEASONS._toConfig }),
       }),
       initiative: new SchemaField({
         value: new NumberField({ required: true, min: 0, initial: 0, integer: true, nullable: false }),

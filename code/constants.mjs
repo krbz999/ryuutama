@@ -97,6 +97,20 @@ toConfig(RATION_TYPES, "rationTypes");
 /* -------------------------------------------------- */
 
 /**
+ * Seasons.
+ * @enum {string}
+ */
+export const SEASONS = {
+  SPRING: "spring",
+  SUMMER: "summer",
+  AUTUMN: "autumn",
+  WINTER: "winter",
+};
+toConfig(SEASONS, "seasons");
+
+/* -------------------------------------------------- */
+
+/**
  * Spell activation types.
  * @enum {string}
  */

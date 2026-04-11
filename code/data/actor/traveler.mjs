@@ -38,7 +38,7 @@ export default class TravelerData extends CreatureData {
       }, { persisted: false }),
       details: new SchemaField({
         color: new ColorField(),
-        dragonFavor: new StringField({ required: true, choices: () => ryuutama.config.seasons, blank: true }),
+        dragonFavor: new StringField({ required: true, choices: ryuutama.CONST.SEASONS._toConfig, blank: true }),
         exp: new SchemaField({
           value: new NumberField({ integer: true, nullable: false, initial: 0, min: 0 }),
         }),

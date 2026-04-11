@@ -11,7 +11,7 @@ export default class TypeAdvancement extends Advancement {
     return Object.assign(super.defineSchema(), {
       choice: new SchemaField({
         chosen: new StringField({ blank: true, required: true, choices: ryuutama.CONST.TRAVELER_TYPES._toConfig }),
-        magic: new StringField({ blank: true, required: true, choices: () => ryuutama.config.seasons }),
+        magic: new StringField({ blank: true, required: true, choices: ryuutama.CONST.SEASONS._toConfig }),
       }),
     });
   }
