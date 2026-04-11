@@ -1,5 +1,9 @@
 import CreatureData from "./templates/creature.mjs";
 
+/**
+ * @import RyuutamaItem from "../../documents/item.mjs";
+ */
+
 const { EmbeddedDataField, HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
 export default class MonsterData extends CreatureData {
@@ -34,6 +38,18 @@ export default class MonsterData extends CreatureData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ACTOR.MONSTER",
   ];
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The monster's special ability.
+   * @type {RyuutamaItem|null}
+   */
+  get specialAbility() {
+    let skill = this.parent.items.get(this.parent.getFlag(ryuutama.id, "specialAbility"));
+    if (!skill || (skill.type !== "skill")) return this.parent.items.documentsByType.skill[0] ?? null;
+    return skill;
+  }
 
   /* -------------------------------------------------- */
 

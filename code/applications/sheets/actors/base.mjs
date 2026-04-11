@@ -257,7 +257,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
         visible: target => {
           if (this.document.type !== "monster") return false;
           const item = getItem(target);
-          const isSpecial = this.document.getFlag(ryuutama.id, "specialAbility") === item.id;
+          const isSpecial = this.document.system.specialAbility === item;
           return (item.type === "skill") && !isSpecial;
         },
         onClick: (event, target) => {

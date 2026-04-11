@@ -86,9 +86,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
       context.skills.push({ document: skill, dataset: { "item-context": "" } });
     }
     context.specialAbility = {
-      item: this.document.items
-        .get(this.document.getFlag(ryuutama.id, "specialAbility"))
-        ?? context.skills[0]?.document,
+      item: this.document.system.specialAbility,
     };
     if (context.specialAbility.item) {
       const item = context.specialAbility.item;
