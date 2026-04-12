@@ -45,16 +45,7 @@ export default class TravelerData extends CreatureData {
         level: new NumberField({ nullable: false, integer: true, initial: 0, min: 0, max: 10 }),
         type: new SchemaField(types, { persisted: false }),
       }),
-      equipped: new SchemaField({
-        accessory: new LocalDocumentField(foundry.documents.Item, { subtype: "accessory" }),
-        armor: new LocalDocumentField(foundry.documents.Item, { subtype: "armor" }),
-        cape: new LocalDocumentField(foundry.documents.Item, { subtype: "cape" }),
-        hat: new LocalDocumentField(foundry.documents.Item, { subtype: "hat" }),
-        shield: new LocalDocumentField(foundry.documents.Item, { subtype: "shield" }),
-        shoes: new LocalDocumentField(foundry.documents.Item, { subtype: "shoes" }),
-        staff: new LocalDocumentField(foundry.documents.Item, { subtype: "staff" }),
-        weapon: new LocalDocumentField(foundry.documents.Item, { subtype: "weapon" }),
-      }),
+      equipped: new ryuutama.data.fields.EquipmentField(),
       fumbles: new SchemaField({
         value: new NumberField({ nullable: true, min: 0, integer: true, initial: null }),
       }),
@@ -124,11 +115,11 @@ export default class TravelerData extends CreatureData {
    * @type {number}
    */
   get cursePenalty() {
-    let penalty = 0;
-    for (const key of Object.keys(this._source.equipped)) {
-      if (this.equipped[key]?.system.modifiers.has("cursed")) penalty++;
-    }
-    return penalty;
+    foundry.utils.logCompatibilityWarning(
+      "Ryuutama | TravelerData#cursePenalty has been deprecated in favor of TravelerData#equipped.cursed.",
+      { since: "2.1.0", until: "2.2.0", once: true },
+    );
+    return this.equipped.cursed;
   }
 
   /* -------------------------------------------------- */
@@ -276,6 +267,15 @@ export default class TravelerData extends CreatureData {
   #prepareEquipped() {
     // Remove shield if using 2-handed weapon.
     if (!this.canEquipShield) Object.defineProperty(this.equipped, "shield", { value: null });
+
+    this.equipped.cursed = 0;
+    this.equipped.orichalcum = 0;
+
+    for (const item of this.equipped) {
+      if (!item.system.isUsable) continue;
+      if (item.system.modifiers.has("cursed")) this.equipped.cursed++;
+      if (item.system.modifiers.has("orichalcum")) this.equipped.orichalcum++;
+    }
   }
 
   /* -------------------------------------------------- */
@@ -303,11 +303,7 @@ export default class TravelerData extends CreatureData {
     this.resources.mental.min = 0;
 
     const { stamina: hp, mental: mp } = this.resources;
-    const orichalcum = Object.keys(this._source.equipped)
-      .map(key => this.equipped[key])
-      .filter(item => item?.system.modifiers.has("orichalcum") && item.system.isUsable)
-      .length;
-    hp.gear = mp.gear = orichalcum * 2;
+    hp.gear = mp.gear = this.equipped.orichalcum * 2;
 
     const setupResource = (key, typeBonus, allowNegative = false) => {
       const resource = this.resources[key];
@@ -496,9 +492,9 @@ export default class TravelerData extends CreatureData {
     }
 
     // Penalties from cursed items apply to condition checks.
-    if ((rollConfig.type === "condition") && this.cursePenalty) {
+    if ((rollConfig.type === "condition") && this.equipped.cursed) {
       parts.push("@cursePenalty");
-      rollData.cursePenalty = -this.cursePenalty;
+      rollData.cursePenalty = -this.equipped.cursed;
     }
 
     // Technical types gain a +1 bonus to initiative.

@@ -401,7 +401,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
    */
   #prepareEquipment() {
     const equipped = {};
-    for (const type of ["weapon", "shield", "armor", "hat", "cape", "shoes", "accessory", "staff"]) {
+    for (const type of ryuutama.data.fields.EquipmentField.EQUIPMENT_ORDER) {
       const item = this.document.system.equipped[type];
       equipped[type] = {
         item, type,

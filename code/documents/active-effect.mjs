@@ -60,6 +60,19 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  static _applyChangeUnguided(targetDoc, change, changes, options = {}) {
+    /**
+     * "If non-persisted fields end up being viewed as suitable to take on that
+     * replacement role, unguided changes might one day at the core level be locked
+     * down to flag values and other similarly unstructured object fields."
+     */
+    if (!change.key || !change.key.startsWith("flags.")) return;
+    return super._applyChangeUnguided(targetDoc, change, changes, options);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
     if (this.parent?.type === "party") return false;

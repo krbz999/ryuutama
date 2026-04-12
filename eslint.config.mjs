@@ -99,7 +99,7 @@ export default defineConfig([
         checkConstructors: false,
       }],
       "@jsdoc/require-description": ["warn", { checkConstructors: false, contexts: ["FunctionDeclaration", "ClassDeclaration"] }],
-      "@jsdoc/require-description-complete-sentence": "warn",
+      // "@jsdoc/require-description-complete-sentence": "warn",
     },
   }, {
     files: ["**/*.hbs", "**/*.html"],
