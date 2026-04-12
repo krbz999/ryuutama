@@ -24,7 +24,10 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
       width: 580,
       height: "auto",
     },
-    actions: {},
+    actions: {
+      removeClass: AdvancementDialog.#removeClass,
+      selectClass: AdvancementDialog.#selectClass,
+    },
     actor: null,
     chain: null,
     level: null,
@@ -272,5 +275,47 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
       const results = await node.advancement._getAdvancementResults(this.actor);
       this.#config.push(...results);
     }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this AdvancementDialog
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   */
+  static async #removeClass(event, target) {
+    const partId = target.closest("FORM").dataset.applicationPart;
+    const node = this.chain.get(partId);
+    node.advancement.updateSource({ "choice.chosen": null });
+    for (const d of node.descendants()) {
+      this.element.querySelector(`[data-application-part="${d.id}"]`)?.remove();
+    }
+    await node._initializeLeafNodes();
+    this.render();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this AdvancementDialog
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   */
+  static async #selectClass(event, target) {
+    const partId = target.closest("FORM").dataset.applicationPart;
+    const node = this.chain.get(partId);
+    const selected = await ryuutama.applications.apps.RyuutamaCompendiumBrowser.pick({
+      documentName: "Item",
+      filters: { itemTypes: { class: 1 } },
+      locked: { itemTypes: true },
+    });
+    if (!selected?.length) return;
+    node.advancement.updateSource({ "choice.chosen": selected[0].uuid });
+    for (const d of node.descendants()) {
+      this.element.querySelector(`[data-application-part="${d.id}"]`)?.remove();
+    }
+    await node._initializeLeafNodes();
+    this.render();
   }
 }

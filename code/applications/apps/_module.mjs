@@ -1,3 +1,4 @@
+export { default as RyuutamaCompendiumBrowser } from "./compendium-browser.mjs";
 export { default as RollRequestor } from "./roll-requestor.mjs";
 export { default as SourceConfig } from "./source-config.mjs";
 

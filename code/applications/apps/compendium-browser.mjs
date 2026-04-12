@@ -1,0 +1,821 @@
+/**
+ * @import { ApplicationConfiguration } from "@client/applications/_types.mjs";
+ * @import DragDrop from "@client/applications/ux/drag-drop.mjs";
+ * @import RyuutamaActor from "../../documents/actor.mjs";
+ * @import RyuutamaItem from "../../documents/item.mjs";
+ */
+
+/**
+ * @typedef {Record<string, -1|0|1>} BrowserFilter
+ *
+ * @typedef {{ min: number, max: number }} BrowserNumberFilter
+ *
+ * @typedef {string} BrowserTextFilter
+ *
+ * @typedef {Record<string, BrowserFilter|BrowserNumberFilter|BrowserTextFilter>} BrowserFilterConfiguration
+ *
+ * @typedef {Record<string, boolean|Record<string, boolean>>|boolean} BrowserLockedConfiguration
+ *
+ * @typedef {"Actor"|"Item"} FilterDocumentName
+ *
+ * @typedef {(entry: object, filters: BrowserFilterConfiguration) => boolean} CompendiumFilterCallback
+ *
+ * @typedef {(filters: BrowserFilterConfiguration) => boolean} CompendiumFilterVisibility
+ *
+ * @typedef {{ value: string, label: string }} CompendiumFilterOption
+ *
+ * @typedef {"checkboxes"|"range"|"text"} CompendiumFilterType
+ *
+ * @typedef {Set<RyuutamaActor>|Set<RyuutamaItem>|Set<object>} BrowserFetchResults
+ *
+ * @typedef CompendiumFilter
+ * @property {string} [label]                             Human-readable label.
+ * @property {CompendiumFilterCallback} callback          A callback invoked when filtering an entry.
+ * @property {CompendiumFilterVisibility} [visible]       A callback invoked to determine visibility.
+ * @property {FilterDocumentName[]} modes                 Which modes have this filter available.
+ * @property {CompendiumFilterOption[]} [options]         The array of options to display in a checkbox-like fashion.
+ * @property {CompendiumFilterType} [type="checkboxes"]   The display type of the filter.
+ * @property {number[]} [range]                           An 2-length array which determines the min and max of a 'range'.
+ *
+ * @typedef _CompendiumBrowserOptions
+ * @property {FilterDocumentName} [documentName="Item"]   Initial document type to browse.
+ * @property {BrowserFilterConfiguration} [filters]       Initial filters.
+ * @property {BrowserLockedConfiguration} [locked]        Locked filters.
+ * @property {number} [selection]                         Number of documents to select.
+ *
+ * @typedef { _CompendiumBrowserOptions & ApplicationConfiguration} CompendiumBrowserOptions
+ */
+
+const { Application, HandlebarsApplicationMixin } = foundry.applications.api;
+
+/**
+ * Application class responsible for filtering and searching through Actor and Item compendiums.
+ */
+export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixin(Application) {
+  /**
+   * Application class responsible for filtering and searching through Actor and Item compendiums.
+   * @param {CompendiumBrowserOptions} [options]
+   */
+  constructor({ documentName = "Item", filters = {}, locked = {}, selection = null, ...options } = {}) {
+    super(options);
+    this.#filter = RyuutamaCompendiumBrowser.#toInitialFilters(documentName, filters);
+    this.#locked = locked;
+    this.#documentName = documentName;
+    this.#selection = (selection > 0) ? { max: selection, selected: new Set() } : null;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static DEFAULT_OPTIONS = {
+    id: "compendium-browser-{id}",
+    classes: ["ryuutama", "compendium-browser"],
+    tag: "form",
+    position: {
+      width: 800,
+      height: 800,
+    },
+    window: {
+      title: "RYUUTAMA.BROWSER.title",
+      icon: "fa-solid fa-map",
+      resizable: true,
+    },
+    actions: {
+      adjustFilter: {
+        handler: RyuutamaCompendiumBrowser.#adjustFilter,
+        buttons: [0, 2],
+      },
+      changeDocumentType: RyuutamaCompendiumBrowser.#changeDocumentType,
+      confirmSelection: RyuutamaCompendiumBrowser.#confirmSelection,
+      openDocument: RyuutamaCompendiumBrowser.#openDocument,
+      selectResult: RyuutamaCompendiumBrowser.#selectResult,
+    },
+  };
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  static PARTS = {
+    filters: {
+      template: "systems/ryuutama/templates/apps/compendium-browser/filters.hbs",
+      scrollable: [""],
+    },
+    selected: {
+      template: "systems/ryuutama/templates/apps/compendium-browser/selected.hbs",
+      scrollable: [".content"],
+    },
+    results: {
+      template: "systems/ryuutama/templates/apps/compendium-browser/results.hbs",
+      scrollable: [""],
+    },
+    controls: {
+      template: "systems/ryuutama/templates/apps/compendium-browser/controls.hbs",
+    },
+  };
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Additional indexed fields.
+   * @type {Record<FilterDocumentName, string[]>}
+   */
+  static COMPENDIUM_INDEX_PATHS = {
+    Actor: [
+      "system.details.category",
+      "system.details.level",
+      "system.environment.season",
+      "system.source.book",
+      "system.source.custom",
+    ],
+    Item: [
+      "system.category.value", // spell category, herb category
+      "system.identifier",
+      "system.source.book",
+      "system.source.custom",
+      "system.spell.activation.cast",
+      "system.spell.level",
+    ],
+  };
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Configuration of all compendium browser filters.
+   * @type {Record<string, CompendiumFilter>}
+   */
+  static get FILTERS() {
+    const isExactType = (filters, type) => {
+      const types = RyuutamaCompendiumBrowser._toSetOptions(filters.itemTypes);
+      return (types.size === 1) && types.has(type);
+    };
+
+    const evaluateFilter = (entry, filters, name, path, allowBlank = false) => {
+      const value = Array.from(RyuutamaCompendiumBrowser._toSetOptions(filters[name]));
+      if (allowBlank && !foundry.utils.getProperty(entry, path)) {
+        return !value.length || !foundry.utils.objectValues(filters[name]).some(v => v === 1);
+      }
+
+      return foundry.applications.ux.SearchFilter.evaluateFilter(entry, {
+        value,
+        operator: foundry.applications.ux.SearchFilter.OPERATORS.CONTAINS,
+        field: path,
+      });
+    };
+
+    const isMonster = entry => entry.type === "monster";
+
+    return RyuutamaCompendiumBrowser.#FILTERS ??= {
+      search: {
+        callback: (entry, filters) => {
+          const query = foundry.applications.ux.SearchFilter.cleanQuery(filters.search);
+          const rgx = new RegExp(RegExp.escape(query), "i");
+          return !query || rgx.test(foundry.applications.ux.SearchFilter.cleanQuery(entry.name));
+        },
+        modes: ["Actor", "Item"],
+        type: "text",
+        input: {
+          type: "search",
+          placeholder: (documentName) => _loc("SIDEBAR.Search", { types: _loc(`DOCUMENT.${documentName}s`) }),
+        },
+      },
+      itemTypes: {
+        callback: (entry, filters) => {
+          const value = RyuutamaCompendiumBrowser._toSetOptions(filters.itemTypes);
+          const { types = [], categories = [] } = Object.groupBy(
+            value,
+            v => (v in CONFIG.Item.dataModels) ? "types" : "categories",
+          );
+          Object.keys(CONFIG.Item.dataModels).forEach(type => {
+            if (categories.includes(CONFIG.Item.dataModels[type]?.metadata?.itemGroup)) types.push(type);
+          });
+
+          return foundry.applications.ux.SearchFilter.evaluateFilter(entry, {
+            value: types,
+            operator: foundry.applications.ux.SearchFilter.OPERATORS.CONTAINS,
+            field: "type",
+          });
+        },
+        modes: ["Item"],
+        options: new Set(Object.keys(CONFIG.Item.dataModels).map(type => {
+          return CONFIG.Item.dataModels[type]?.metadata?.itemGroup ?? type;
+        })).toObject().map(value => {
+          const grp = `RYUUTAMA.ITEM.CREATE_GROUP.${value}`;
+          if (game.i18n.has(grp)) return { value, label: _loc(grp), isGroup: true };
+          return { value, label: _loc(`TYPES.Item.${value}`) };
+        }).sort((a, b) => a.isGroup ? 1 : a.label.localeCompare(b.label)),
+      },
+      spellCategory: {
+        label: _loc("RYUUTAMA.BROWSER.FILTERS.spellCategory"),
+        callback: (entry, filters) => evaluateFilter(entry, filters, "spellCategory", "system.category.value"),
+        visible: (filters) => isExactType(filters, "spell"),
+        modes: ["Item"],
+        options: Object.entries(ryuutama.CONST.SPELL_CATEGORIES._toConfig)
+          .map(([value, { label }]) => ({ value, label })),
+      },
+      spellLevel: {
+        label: _loc("RYUUTAMA.BROWSER.FILTERS.spellLevel"),
+        callback: (entry, filters) => evaluateFilter(entry, filters, "spellLevel", "system.spell.level"),
+        modes: ["Item"],
+        visible: (filters) => isExactType(filters, "spell"),
+        options: Object.entries(ryuutama.CONST.SPELL_LEVELS._toConfig)
+          .map(([value, { label }]) => ({ value, label })),
+      },
+      herbCategory: {
+        label: _loc("RYUUTAMA.BROWSER.FILTERS.herbCategory"),
+        callback: (entry, filters) => evaluateFilter(entry, filters, "herbCategory", "system.category.value"),
+        modes: ["Item"],
+        visible: (filters) => isExactType(filters, "herb"),
+        options: Object.entries(ryuutama.CONST.HERB_TYPES._toConfig)
+          .map(([value, { label }]) => ({ value, label })),
+      },
+      monsterLevel: {
+        label: _loc("RYUUTAMA.BROWSER.FILTERS.monsterLevel"),
+        modes: ["Actor"],
+        type: "range",
+        callback: (entry, filters) => {
+          if (!isMonster(entry)) return false;
+          let value = filters.monsterLevel.min || 0;
+          let operator = foundry.applications.ux.SearchFilter.OPERATORS.GREATER_THAN_EQUAL;
+          if (Number.isInteger(filters.monsterLevel.max)) {
+            value = [value, filters.monsterLevel.max];
+            operator = foundry.applications.ux.SearchFilter.OPERATORS.BETWEEN;
+          }
+
+          return foundry.applications.ux.SearchFilter.evaluateFilter(entry, {
+            operator, value,
+            field: "system.details.level",
+          });
+        },
+      },
+      monsterCategory: {
+        label: _loc("RYUUTAMA.BROWSER.FILTERS.monsterCategory"),
+        callback: (entry, filters) => isMonster(entry)
+          && evaluateFilter(entry, filters, "monsterCategory", "system.details.category", true),
+        modes: ["Actor"],
+        options: Object.entries(ryuutama.config.monsterCategories)
+          .map(([value, { label }]) => ({ value, label })),
+      },
+      monsterSeason: {
+        label: _loc("RYUUTAMA.BROWSER.FILTERS.monsterSeason"),
+        callback: (entry, filters) => isMonster(entry)
+          && evaluateFilter(entry, filters, "monsterSeason", "system.environment.season", true),
+        modes: ["Actor"],
+        options: Object.entries(ryuutama.config.seasons)
+          .map(([value, { label }]) => ({ value, label })),
+      },
+      source: {
+        label: _loc("RYUUTAMA.BROWSER.FILTERS.sources"),
+        callback: (entry, filters) => {
+          const source = entry.system.source.custom || entry.system.source.book || "";
+          const value = Array.from(RyuutamaCompendiumBrowser._toSetOptions(filters.source));
+          if (!source) {
+            return !value.length || !foundry.utils.objectValues(filters.source).some(v => v === 1);
+          }
+
+          return foundry.applications.ux.SearchFilter.evaluateFilter({ source }, {
+            value,
+            operator: foundry.applications.ux.SearchFilter.OPERATORS.CONTAINS,
+            field: "source",
+          });
+        },
+        modes: ["Actor", "Item"],
+        options: Object.entries(ryuutama.config.sources)
+          .map(([value, label]) => ({ value, label })),
+      },
+    };
+  }
+
+  /**
+   * Configuration of all compendium browser filters.
+   * @type {Record<string, CompendiumFilter>}
+   */
+  static #FILTERS;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Utility object for retrieving index entries.
+   * @type {Record<FilterDocumentName, object>}
+   */
+  static ENTRIES = Object.freeze({
+    get Actor() {
+      return Object.fromEntries(
+        game.packs
+          .filter(pack => pack.metadata.type === "Actor")
+          .map(pack => [pack.metadata.id, pack.index.contents]),
+      );
+    },
+    get Item() {
+      return Object.fromEntries(
+        game.packs
+          .filter(pack => pack.metadata.type === "Item")
+          .map(pack => [pack.metadata.id, pack.index.contents]),
+      );
+    },
+  });
+
+  /* -------------------------------------------------- */
+  /*   Public Methods                                   */
+  /* -------------------------------------------------- */
+
+  /**
+   * Fetch documents that match search parameters.
+   * @param {FilterDocumentName} documentName                 The type of documents to fetch.
+   * @param {object} [options]
+   * @param {BrowserFilterConfiguration} [options.filters]    Search filters to apply.
+   * @param {boolean} [options.indexOnly=false]               Return the index rather than full documents.
+   * @returns {Promise<BrowserFetchResults>}                  A promise that resolves to the fetched entries.
+   */
+  static async fetch(documentName, { filters, indexOnly = false } = {}) {
+    filters = RyuutamaCompendiumBrowser.#toInitialFilters(documentName, filters);
+
+    const methods = Object.entries(RyuutamaCompendiumBrowser.FILTERS)
+      .filter(([, { visible, modes }]) =>
+        modes.includes(documentName) && ((typeof visible !== "function") || visible(filters)),
+      )
+      .map(([name]) => name);
+    if (!methods.length) return new Set();
+
+    const match = entry => methods.every(name => RyuutamaCompendiumBrowser.FILTERS[name].callback(entry, filters));
+    const matches = Object.entries(RyuutamaCompendiumBrowser.ENTRIES[documentName]).reduce((acc, [pack, entries]) => {
+      if (!game.packs.get(pack).visible) return acc;
+      return acc.concat(entries.filter(match));
+    }, []);
+
+    if (indexOnly) return new Set(matches);
+    return new Set((await Promise.all(matches.map(a => fromUuid(a.uuid)))).filter(_ => _));
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Create an instance of the compendium browser that allowed for selecting a specific number of documents.
+   * @param {CompendiumBrowserOptions} [options]
+   * @returns {Promise<BrowserFetchResults|null>}   A promise that resolves to the selected documents.
+   */
+  static async pick({ documentName, filters, locked, selection = 1, ...options } = {}) {
+    const application = new this({ documentName, filters, locked, selection, ...options });
+    const { promise, resolve } = Promise.withResolvers();
+    application.addEventListener("close", () => resolve(application.selected), { once: true });
+    application.render({ force: true });
+    return promise;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Construct base filter configuration.
+   * @param {FilterDocumentName} documentName
+   * @returns {BrowserFilterConfiguration}
+   */
+  static #baseFilterConfiguration(documentName) {
+    return Object.entries(RyuutamaCompendiumBrowser.FILTERS).reduce((acc, [name, filter]) => {
+      if (!filter.modes.includes(documentName)) return acc;
+      let obj;
+      switch (filter.type) {
+        case "range": {
+          const [min = 0, max = null] = filter.range ?? [];
+          obj = { min, max };
+          break;
+        }
+        case "text": {
+          obj = "";
+          break;
+        }
+        default: {
+          obj = Object.fromEntries(filter.options.map(({ value }) => [value, 0]));
+        }
+      }
+      return Object.assign(acc, { [name]: obj });
+    }, {});
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is changing the document name allowed?
+   * @type {boolean}
+   */
+  get allowChangingTabs() {
+    return !this.#selection?.max && (this.#locked !== true) && foundry.utils.isEmpty(this.#locked);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Current document type being filtered.
+   * @type {FilterDocumentName}
+   */
+  #documentName;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Re-used drag-drop instance.
+   * @type {DragDrop}
+   */
+  #dragdrop;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The current filter.
+   * @type {BrowserFilterConfiguration}
+   */
+  #filter;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The filter options that are locked.
+   * @type {BrowserLockedConfiguration}
+   */
+  #locked;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Selected documents. This value is returned during a `pick` operation.
+   * @type {RyuutamaActor[]|RyuutamaItem[]|null}
+   */
+  #selected = null;
+
+  /**
+   * Selected documents. This value is returned during a `pick` operation.
+   * @type {RyuutamaActor[]|RyuutamaItem[]|null}
+   */
+  get selected() {
+    return this.#selected;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Selection configuration.
+   * @type {{ max: number, selected: Set<string> }|null}
+   */
+  #selection;
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    Object.assign(context, {
+      defaultArtwork: getDocumentClass(this.#documentName).getDefaultArtwork({}).img,
+      displayTooltips: this.#documentName === "Item",
+      rootId: this.id,
+    });
+    return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preparePartContext(partId, context, options) {
+    context = await super._preparePartContext(partId, context, options);
+    switch (partId) {
+      case "filters":
+        await this.#prepareFiltersPart(context, options);
+        break;
+      case "selected":
+        await this.#prepareSelectedPart(context, options);
+        break;
+      case "results":
+        await this.#prepareResultsPart(context, options);
+        break;
+      case "controls":
+        await this.#prepareControlsPart(context, options);
+        break;
+    }
+    return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare context for a part.
+   * @param {object} context    Rendering context. **will be mutated.**
+   * @param {object} options    Rendering options.
+   * @returns {Promise<void>}
+   */
+  async #prepareSelectedPart(context, options) {
+    if (!this.#selection?.selected.size) return;
+    context.currentlySelected = Array.from(this.#selection.selected)
+      .map(uuid => fromUuidSync(uuid))
+      .filter(_ => _)
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare context for a part.
+   * @param {object} context    Rendering context. **will be mutated.**
+   * @param {object} options    Rendering options.
+   * @returns {Promise<void>}
+   */
+  async #prepareFiltersPart(context, options) {
+    const filters = Object.entries(RyuutamaCompendiumBrowser.FILTERS)
+      .filter(([, filter]) => filter.modes.includes(this.#documentName)
+        && ((typeof filter.visible !== "function") || filter.visible(this.#filter)))
+      .map(([name, filter]) => {
+        let range;
+        let text;
+        let options;
+
+        switch (filter.type) {
+          case "text":
+            text = {
+              type: filter.input.type,
+              placeholder: filter.input.placeholder(this.#documentName) ?? "",
+              value: this.#filter[name],
+              isLocked: this.#isLocked(name),
+            };
+            break;
+          case "range":
+            range = {
+              min: foundry.utils.getProperty(this.#filter, `${name}.min`) ?? null,
+              max: foundry.utils.getProperty(this.#filter, `${name}.max`) ?? null,
+              minLocked: this.#isLocked(`${name}.min`),
+              maxLocked: this.#isLocked(`${name}.max`),
+              minPh: filter.range?.[0] ?? "0",
+              maxPh: filter.range?.[1] ?? "ထ",
+            };
+            break;
+          default: {
+            options = filter.options.map(o => {
+              const _name = `${name}.${o.value}`;
+              const value = foundry.utils.getProperty(this.#filter, _name) ?? 0;
+              return {
+                value: o.value,
+                label: o.label,
+                icon: (value === 1)
+                  ? "fa-solid fa-check"
+                  : (value === -1)
+                    ? "fa-solid fa-times"
+                    : "fa-regular fa-square",
+                isLocked: this.#isLocked(_name),
+              };
+            });
+          }
+        }
+
+        return {
+          name, range, options,
+          input: text,
+          label: filter.label ?? null,
+          type: filter.type ?? "checkboxes",
+        };
+      });
+
+    Object.assign(context, {
+      filters,
+      lockType: !this.allowChangingTabs,
+      documentNameButtons: [
+        {
+          label: _loc("DOCUMENT.Actors"),
+          icon: getDocumentClass("Actor").getDefaultArtwork({}).img,
+          documentName: "Actor",
+          active: this.#documentName === "Actor",
+        },
+        {
+          label: _loc("DOCUMENT.Items"),
+          icon: getDocumentClass("Item").getDefaultArtwork({}).img,
+          documentName: "Item",
+          active: this.#documentName === "Item",
+        },
+      ],
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare context for a part.
+   * @param {object} context    Rendering context. **will be mutated.**
+   * @param {object} options    Rendering options.
+   * @returns {Promise<void>}
+   */
+  async #prepareResultsPart(context, options) {
+    context.selectedResults = Object.fromEntries(Array.from(this.#selection?.selected ?? []).map(uuid => [uuid, true]));
+    context.displayResultSelection = !!this.#selection?.max;
+
+    let results = await RyuutamaCompendiumBrowser.fetch(this.#documentName, { filters: this.#filter, indexOnly: true });
+    results = Array.from(results).filter(_ => _).sort((a, b) => a.name.localeCompare(b.name));
+    context.results = results;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare context for a part.
+   * @param {object} context    Rendering context. **will be mutated.**
+   * @param {object} options    Rendering options.
+   * @returns {Promise<void>}
+   */
+  async #prepareControlsPart(context, options) {
+    if (!this.#selection) return;
+    context.selection = {
+      value: this.#selection.selected.size,
+      max: this.#selection.max,
+    };
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+
+    const dd = this.#dragdrop ??= new CONFIG.ux.DragDrop({
+      dragSelector: "[data-dragstart]",
+      callbacks: {
+        dragstart: RyuutamaCompendiumBrowser.#onDragStart.bind(this),
+      },
+    });
+    dd.bind(this.element);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _attachPartListeners(partId, element, options) {
+    super._attachPartListeners(partId, element, options);
+
+    if (partId === "filters") {
+      const listener = foundry.utils.debounce(RyuutamaCompendiumBrowser.#onChangeRangeTextFilter, 200);
+      element.querySelectorAll("[data-change]").forEach(element => {
+        const eventName = element.dataset.change;
+        element.addEventListener(eventName, event => listener.call(this, event, element));
+      });
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {DragEvent} event
+   */
+  static #onDragStart(event) {
+    const uuid = event.currentTarget.closest("[data-uuid]").dataset.uuid;
+    const { type } = foundry.utils.parseUuid(uuid);
+    event.dataTransfer.setData("text/plain", JSON.stringify({ uuid, type }));
+  }
+
+  /* -------------------------------------------------- */
+  /*   Event Handlers                                   */
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {Event} event           The initiating change or input event.
+   * @param {HTMLElement} target    The element the change event listener was attached to.
+   */
+  static #onChangeRangeTextFilter(event, target) {
+    const { filter, type, value } = target.dataset;
+    const parts = Object.keys(RyuutamaCompendiumBrowser.PARTS).filter(p => p !== "filters");
+
+    if (type === "range") {
+      const name = `${filter}.${value}`;
+      if (this.#isLocked(name)) return;
+
+      let v = target.valueAsNumber;
+      if (isNaN(v) || (v < 0)) v = 0;
+      foundry.utils.setProperty(this.#filter, name, v);
+      parts.unshift("filters");
+    }
+
+    else if (type === "text") {
+      if (this.#isLocked(filter)) return;
+      foundry.utils.setProperty(this.#filter, filter, target.value);
+    }
+
+    this.render({ parts });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   */
+  static #adjustFilter(event, target) {
+    const { filter, value } = target.dataset;
+    const name = `${filter}.${value}`;
+
+    // Locked filters cannot be modified.
+    if (this.#isLocked(name)) return;
+
+    const current = foundry.utils.getProperty(this.#filter, name) ?? 0;
+    const options = [0, 1, -1];
+    if (event.button === 2) options.reverse();
+    const index = options.indexOf(current);
+    const next = options[index + 1] ?? options[0];
+    foundry.utils.setProperty(this.#filter, name, next);
+    this.render();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   */
+  static async #changeDocumentType(event, target) {
+    if (!this.allowChangingTabs) return;
+    const documentName = target.dataset.documentName;
+    if (documentName === this.#documentName) return;
+    this.#documentName = documentName;
+    this.#filter = RyuutamaCompendiumBrowser.#baseFilterConfiguration(this.#documentName);
+    this.#locked = {};
+    this.render();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   */
+  static async #confirmSelection(event, target) {
+    target.disabled = true;
+    const uuids = Array.from(this.#selection.selected);
+    const documents = await Promise.all(uuids.map(uuid => fromUuid(uuid)));
+    this.#selected = documents.filter(_ => _);
+    this.close();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   */
+  static #openDocument(event, target) {
+    fromUuid(target.closest("[data-uuid]").dataset.uuid)
+      .then(doc => doc.sheet.render({ force: true }));
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   */
+  static #selectResult(event, target) {
+    const uuid = target.closest("[data-uuid]").dataset.uuid;
+    if (this.#selection.selected.has(uuid)) this.#selection.selected.delete(uuid);
+    else this.#selection.selected.add(uuid);
+    this.render();
+  }
+
+  /* -------------------------------------------------- */
+  /*   Utility Methods                                  */
+  /* -------------------------------------------------- */
+
+  /**
+   * Utility method for retrieving the set of values from a filter.
+   * @param {BrowserFilter} [filter]
+   * @returns {Set<string>}
+   */
+  static _toSetOptions(filter = {}) {
+    filter = foundry.utils.objectValues(filter).some(v => v === 1)
+      ? Object.keys(filter).filter(k => filter[k] === 1)
+      : Object.keys(filter).filter(k => filter[k] !== -1);
+    return new Set(filter);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Utility method for creating initial filter configurations.
+   * @param {FilterDocumentName} documentName
+   * @param {BrowserFilterConfiguration} [filters]
+   * @returns {BrowserFilterConfiguration}
+   */
+  static #toInitialFilters(documentName, filters = {}) {
+    const base = RyuutamaCompendiumBrowser.#baseFilterConfiguration(documentName);
+    return foundry.utils.mergeObject(base, filters, { insertKeys: false, insertValues: false });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is this filter locked?
+   * @param {string} name   A key like `spellLevel.mid` to check for a specific
+   *                        option, or `spellLevel` for an entire category.
+   * @returns {boolean}
+   */
+  #isLocked(name) {
+    if (this.#locked === true) return true;
+    const [a, b] = name.split(".");
+    return (this.#locked[a] === true) || (this.#locked[a]?.[b] === true);
+  }
+}

@@ -1,0 +1,19 @@
+<section {{#unless currentlySelected}} class="hidden" {{/unless}}>
+  {{#if currentlySelected}}
+  <div class="content">
+    {{#each currentlySelected}}
+    <div class="result" data-uuid="{{uuid}}" {{#if @root.displayTooltips}} data-tooltip-html="{{ryuutama-tooltip uuid=uuid}}" {{/if}} data-dragstart>
+      <a class="identity" data-action="openDocument">
+        <img src="{{ifThen img img @root.defaultArtwork}}" alt="{{name}}">
+        <span class="name">{{name}}</span>
+      </a>
+      <span class="controls">
+        <a data-action="selectResult">
+          <i class="fa-regular fa-square-check" inert></i>
+        </a>
+      </span>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+</section>

@@ -120,9 +120,13 @@ export default class BaseRegistry {
   /**
    * Search and filter the registry.
    * @param {Record<string, any|any[]} [properties]   The data to filter by, a record of keys from `PROPERTIES`.
-   * @returns {string[]}                              Uuids osf the items that satisfied the filters.
+   * @returns {string[]}                              Uuids of the items that satisfied the filters.
    */
   search(properties = {}) {
+    foundry.utils.logCompatibilityWarning(
+      "Ryuutama | The registries in 'ryuutama.registries' have been deprecated in favor of using the Compendium Browser.",
+      { since: "2.1.0", until: "2.3.0", once: true },
+    );
     const filters = [];
     const SearchFilter = foundry.applications.ux.SearchFilter;
     const filter = (field, value) => {

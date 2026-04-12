@@ -7,6 +7,7 @@ export default class WeaponData extends PhysicalData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
+      itemGroup: "weaponsArmor",
       createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.weaponsArmor",
       createSort: 100,
       defaultArtwork: "systems/ryuutama/assets/icons/items/weapon.svg",
