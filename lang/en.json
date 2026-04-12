@@ -105,7 +105,11 @@
         },
         "actorOwner": "Owner",
         "placeMembers": "Place Members",
-        "removeRation": "Remove Ration"
+        "rationsHintEmptyA": "The party currently has no accumulated rations. To add rations (food, water, and animal feed) to the party, configure any container on a party member.",
+        "rationsHintEmptyB": "Any rations stored in containers on party members will be displayed here and can be removed via this shared sheet as well.",
+        "rationsHintMissingFeed": "The party has no accumulated animal feed. Animals require animal feed each day.",
+        "rationsHintMissingFood": "The party has no accumulated rations of food.",
+        "rationsHintMissingWater": "The party has no accumulated rations of water."
       },
       "RYUUJIN": {
         "FIELDS": {}

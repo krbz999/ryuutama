@@ -13,6 +13,9 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
       removeMember: RyuutamaPartySheet.#removeMember,
       showMember: RyuutamaPartySheet.#showMember,
     },
+    position: {
+      height: 800,
+    },
   };
 
   /* -------------------------------------------------- */
@@ -160,15 +163,14 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
       ].filterJoin("");
     };
 
-    for (const { actor } of this.document.system.members) {
-      for (const container of actor.items.documentsByType.container) {
-        for (const type of Object.values(ryuutama.CONST.RATION_TYPES)) {
-          rations[type] ??= {
-            type,
-            label: ryuutama.config.rationTypes[type].label,
-            rations: [],
-          };
-          for (const ration of container.system.rations[type]) {
+    let hasAnimals = false;
+    const { WATER, FOOD, RATION, ANIMAL_FEED } = ryuutama.CONST.RATION_TYPES;
+    this.document.system.members.forEach(({ actor }) => {
+      hasAnimals = hasAnimals || !!actor.items.documentsByType.animal.length;
+      actor.items.documentsByType.container.forEach(container => {
+        foundry.utils.objectValues(ryuutama.CONST.RATION_TYPES).forEach(type => {
+          rations[type] ??= { type, label: ryuutama.config.rationTypes[type].label, rations: [] };
+          container.system.rations[type].forEach(ration => {
             rations[type].rations.push({
               ...ration, actor, container,
               cssClass: [ration.modifier].filterJoin(" "),
@@ -176,11 +178,20 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
               icon: ryuutama.config.rationTypes[type].icon,
               tooltip: makeTooltip(actor, container, ration),
             });
-          }
-        }
-      }
-    }
-    return Object.values(rations);
+          });
+        });
+      });
+    });
+
+    const context = { rations: Object.values(rations) };
+
+    context.missingWater = !rations[WATER]?.rations.length;
+    context.missingFood = !rations[FOOD]?.rations.length && !rations[RATION]?.rations.length;
+    context.missingFeed = !rations[ANIMAL_FEED]?.rations.length;
+    context.isEmpty = context.missingFeed && context.missingFood && context.missingWater;
+    context.hasAnimals = hasAnimals;
+
+    return context;
   }
 
   /* -------------------------------------------------- */

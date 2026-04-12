@@ -122,6 +122,10 @@
       height: 100%;
     }
 
+    .empty {
+      text-wrap-style: balance;
+    }
+
     .rations {
       display: grid;
       gap: .5rem;
