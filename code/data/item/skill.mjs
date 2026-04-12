@@ -4,16 +4,6 @@ import BaseData from "./templates/base.mjs";
  * @import RyuutamaItem from "../../documents/item.mjs";
  */
 
-/**
- * @typedef SkillData
- * @property {object} description
- * @property {string} description.value
- * @property {string} identifier
- * @property {object} source
- * @property {string} source.book
- * @property {string} source.custom
- */
-
 export default class SkillData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(

@@ -1,9 +1,9 @@
-/**
- * @import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
- * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../../data/actor/_types.mjs";
- */
-
 import RyuutamaActor from "../../documents/actor.mjs";
+
+/**
+ * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "./actors/check-configuration-dialog.mjs";
+ * @import FormDataExtended from "@client/applications/ux/form-data-extended.mjs";
+ */
 
 const { Application, HandlebarsApplicationMixin } = foundry.applications.api;
 
@@ -116,7 +116,7 @@ export default class RollRequestor extends HandlebarsApplicationMixin(Applicatio
 
   /**
    * Prepare context for the root request part.
-   * @param {object} context    Rendering context. **will be mutated**
+   * @param {object} context    Rendering context. **will be mutated**.
    * @param {object} options
    * @returns {Promise<void>}
    */
@@ -128,7 +128,7 @@ export default class RollRequestor extends HandlebarsApplicationMixin(Applicatio
 
   /**
    * Prepare context for the root footer part.
-   * @param {object} context    Rendering context. **will be mutated**
+   * @param {object} context    Rendering context. **will be mutated**.
    * @param {object} options
    * @returns {Promise<void>}
    */
@@ -144,7 +144,7 @@ export default class RollRequestor extends HandlebarsApplicationMixin(Applicatio
 
   /**
    * Prepare context for an actor request.
-   * @param {object} context    Rendering context. **will be mutated**
+   * @param {object} context    Rendering context. **will be mutated**.
    * @param {object} options
    * @returns {Promise<void>}
    */

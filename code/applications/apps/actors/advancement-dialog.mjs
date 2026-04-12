@@ -87,6 +87,11 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
    * @type {object[]|null}
    */
   #config = null;
+
+  /**
+   * The data that will be submitted.
+   * @type {object[]|null}
+   */
   get config() {
     return this.#config;
   }

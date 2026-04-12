@@ -26,7 +26,9 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static defineSchema() {
     return {
-      description: new SchemaField(this.HTMLFields),
+      description: new SchemaField({
+        value: new HTMLField(),
+      }),
       identifier: new ryuutama.data.fields.IdentifierField(),
       source: new ryuutama.data.fields.SourceField(),
     };
@@ -56,18 +58,6 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
    * @type {string}
    */
   static DETAILS_TEMPLATE;
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Define the HTML fields within `description`.
-   * @type {object}
-   */
-  static get HTMLFields() {
-    return {
-      value: new HTMLField(),
-    };
-  }
 
   /* -------------------------------------------------- */
 

@@ -1,12 +1,19 @@
 /**
- * @import RyuutamaActor from "../../../documents/actor.mjs";
  * @import { ApplicationConfiguration } from "@client/applications/_types.mjs";
- * @import { PlaceMembersDialogConfiguration } from "../_types.mjs";
+ * @import RyuutamaActor from "../../../documents/actor.mjs";
+ */
+
+/**
+ * @typedef PlaceMembersDialogConfiguration
+ * @property {string[]} members             Actor ids of party members to place.
+ * @property {boolean} [selectArea=true]    Place tokens in an area instead of manual.
+ * @property {boolean} [createCombatants]   Create combatants (and a Combat if missing) for placed tokens.
  */
 
 const { HandlebarsApplicationMixin, Application } = foundry.applications.api;
 
 /**
+ * A configuration dialog for placing party members onto the canvas.
  * @extends Application
  * @mixes HandlebarsApplicationMixin
  */

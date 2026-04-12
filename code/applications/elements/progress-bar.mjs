@@ -21,6 +21,11 @@ export default class ProgressBar extends HTMLElement {
    * @type {HTMLSpanElement}
    */
   #bar;
+
+  /**
+   * The inner bar that holds the fill.
+   * @type {HTMLSpanElement}
+   */
   get bar() {
     return this.#bar;
   }
@@ -32,6 +37,11 @@ export default class ProgressBar extends HTMLElement {
    * @type {HTMLSpanElement}
    */
   #display;
+
+  /**
+   * The element displaying the values.
+   * @type {HTMLSpanElement}
+   */
   get display() {
     return this.#display;
   }
@@ -43,6 +53,11 @@ export default class ProgressBar extends HTMLElement {
    * @type {HTMLInputElement|null}
    */
   #input = null;
+
+  /**
+   * An input field displayed when the progress bar is clicked.
+   * @type {HTMLInputElement|null}
+   */
   get input() {
     return this.#input;
   }

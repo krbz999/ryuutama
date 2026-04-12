@@ -3,7 +3,7 @@ import RyuutamaDocumentSheet from "../../api/document-sheet.mjs";
 /**
  * @import { ApplicationConfiguration } from "@client/applications/_types.mjs";
  * @import { ContextMenuEntry } from "@client/applications/ux/context-menu.mjs";
- * @import { SearchCategory } from "../../../_types.mjs";
+ * @import { SearchCategory } from "../../ux/search-manager.mjs";
  * @import RyuutamaSearchManager from "../../ux/search-manager.mjs";
  */
 
@@ -75,6 +75,10 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
    * @type {RyuutamaSearchManager}
    */
   #search = new ryuutama.applications.ux.RyuutamaSearchManager(this.document, this.constructor.SEARCH);
+
+  /**
+   * @type {RyuutamaSearchManager}
+   */
   get search() {
     return this.#search;
   }
@@ -95,6 +99,12 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
    * @type {Set<string>}
    */
   #expandedFilters = new Set();
+
+  /**
+   * The search inputs with currently expanded filter lists.
+   * If the key is in the set, the list is expanded.
+   * @type {Set<string>}
+   */
   get expandedFilters() {
     return this.#expandedFilters;
   }

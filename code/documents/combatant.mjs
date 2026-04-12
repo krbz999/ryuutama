@@ -1,5 +1,7 @@
 /**
- * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../data/actor/_types.mjs";
+ * @import {
+ *   CheckRollConfig, CheckDialogConfig, CheckMessageConfig,
+ * } from "../applications/apps/actors/check-configuration-dialog.mjs";
  */
 
 /**

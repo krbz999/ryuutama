@@ -142,7 +142,7 @@ export default class RyuutamaMonsterSheet extends RyuutamaBaseActorSheet {
 
   /**
    * Prepare effects.
-   * @param {object} context    Rendering context. **will be mutated**
+   * @param {object} context    Rendering context. **will be mutated**.
    * @returns {{ enabledEffects: object[], disabledEffects: object[] }}
    */
   #prepareEffects(context) {

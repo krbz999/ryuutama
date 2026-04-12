@@ -2,24 +2,6 @@ import PhysicalData from "./templates/physical.mjs";
 
 const { ArrayField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
-/**
- * @typedef WeaponData
- * @property {object} accuracy
- * @property {string[]} accuracy.abilities
- * @property {number|null} accuracy.bonus
- * @property {object} category
- * @property {string} category.value
- * @property {object} damage
- * @property {string} damage.ability
- * @property {number|null} damage.bonus
- * @property {object} description
- * @property {string} description.value
- * @property {object} durability
- * @property {number} durability.spent
- * @property {string} identifier
- * @property {string[]} modifiers
- */
-
 export default class WeaponData extends PhysicalData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(

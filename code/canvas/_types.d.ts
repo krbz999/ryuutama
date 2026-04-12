@@ -1,3 +1,6 @@
+export {};
+
+// This is surely a workaround for a bug, that none of the layers are known by intellisense.
 declare module "@client/canvas/board.mjs" {
   export default interface Canvas {
     controls: foundry.canvas.layers.ControlsLayer;

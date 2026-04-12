@@ -46,14 +46,14 @@ export default class TravelerData extends CreatureData {
         type: new SchemaField(types, { persisted: false }),
       }),
       equipped: new SchemaField({
-        weapon: new LocalDocumentField(foundry.documents.Item, { subtype: "weapon" }),
+        accessory: new LocalDocumentField(foundry.documents.Item, { subtype: "accessory" }),
         armor: new LocalDocumentField(foundry.documents.Item, { subtype: "armor" }),
+        cape: new LocalDocumentField(foundry.documents.Item, { subtype: "cape" }),
+        hat: new LocalDocumentField(foundry.documents.Item, { subtype: "hat" }),
         shield: new LocalDocumentField(foundry.documents.Item, { subtype: "shield" }),
         shoes: new LocalDocumentField(foundry.documents.Item, { subtype: "shoes" }),
-        cape: new LocalDocumentField(foundry.documents.Item, { subtype: "cape" }),
         staff: new LocalDocumentField(foundry.documents.Item, { subtype: "staff" }),
-        hat: new LocalDocumentField(foundry.documents.Item, { subtype: "hat" }),
-        accessory: new LocalDocumentField(foundry.documents.Item, { subtype: "accessory" }),
+        weapon: new LocalDocumentField(foundry.documents.Item, { subtype: "weapon" }),
       }),
       fumbles: new SchemaField({
         value: new NumberField({ nullable: true, min: 0, integer: true, initial: null }),

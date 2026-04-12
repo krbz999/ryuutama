@@ -1,7 +1,6 @@
-import "./code/_types.d.ts";
-import "@client/global.d.mts";
-import "@common/global.d.mts";
-import "@common/primitives/global.d.mts";
+import "./code/_types";
+import "@client/global.mjs";
+import "@common/global.mjs";
 import "@common/primitives/global.mjs";
 
 import CurrentHabitat from "./code/applications/ui/current-habitat.mjs";
