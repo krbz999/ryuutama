@@ -1,7 +1,7 @@
 import CheckPart from "./check.mjs";
 
 /**
- * @import { DamageConfiguration } from "../../actor/templates/_types.mjs";
+ * @import { DamageConfiguration } from "../../actor/templates/creature.mjs";
  */
 
 export default class DamagePart extends CheckPart {

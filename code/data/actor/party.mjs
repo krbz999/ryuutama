@@ -1,7 +1,7 @@
 import BaseData from "./templates/base.mjs";
 
 /**
- * @import { PlaceMembersDialogConfiguration } from "../../applications/apps/_types.mjs";
+ * @import { PlaceMembersDialogConfiguration } from "../../applications/apps/actors/place-members-dialog.mjs";
  * @import RegionLayer from "@client/canvas/layers/regions.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import RyuutamaTokenDocument from "../../documents/token.mjs";

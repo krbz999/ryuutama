@@ -1,7 +1,6 @@
 import RyuutamaBaseActorSheet from "./base.mjs";
 
 /**
- * @import RyuutamaActiveEffect from "../../../documents/active-effect.mjs";
  * @import RyuutamaActor from "../../../documents/actor.mjs";
  */
 

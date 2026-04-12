@@ -6,18 +6,6 @@ import BaseData from "./templates/base.mjs";
 
 const { DocumentUUIDField, NumberField, SchemaField, SetField } = foundry.data.fields;
 
-/**
- * @typedef ClassData
- * @property {object} description
- * @property {string} description.value
- * @property {string} identifier
- * @property {string[]} skills
- * @property {object} source
- * @property {string} source.book
- * @property {string} source.custom
- * @property {number} tier
- */
-
 export default class ClassData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(

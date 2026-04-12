@@ -52,9 +52,15 @@ export default class CurrentHabitat extends Application {
    * @type {boolean}
    */
   #terrain = false;
+
+  /**
+   * Is the terrain menu currently expanded?
+   * @type {boolean}
+   */
   get #terrainOpen() {
     return this.#terrain;
   }
+
   set #terrainOpen(open) {
     this.#terrain = !!open;
     this.element.querySelector("menu.terrain").classList.toggle("open", this.#terrain);
@@ -67,9 +73,15 @@ export default class CurrentHabitat extends Application {
    * @type {boolean}
    */
   #weather = false;
+
+  /**
+   * Is the weather menu currently expanded?
+   * @type {boolean}
+   */
   get #weatherOpen() {
     return this.#weather;
   }
+
   set #weatherOpen(open) {
     this.#weather = !!open;
     this.element.querySelector("menu.weather").classList.toggle("open", this.#weather);

@@ -3,32 +3,6 @@ import BaseData from "./templates/base.mjs";
 
 const { EmbeddedDataField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
-/**
- * @typedef SpellData
- * @property {ActionsModel} actions
- * @property {object} category
- * @property {string} category.value
- * @property {object} description
- * @property {string} description.value
- * @property {string} identifier
- * @property {object} source
- * @property {string} source.book
- * @property {string} source.custom
- * @property {object} spell
- * @property {object} spell.activation
- * @property {string} spell.activation.cast
- * @property {number|null} spell.activation.mental
- * @property {object} spell.duration
- * @property {number} spell.duration.value
- * @property {string} spell.duration.type
- * @property {string} spell.duration.custom
- * @property {string} spell.level
- * @property {object} spell.range
- * @property {string} spell.range.value
- * @property {object} spell.target
- * @property {string} spell.target.custom
- */
-
 export default class SpellData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(

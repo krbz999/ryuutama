@@ -121,7 +121,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
   /**
    * Prepare actions.
-   * @param {object} context    Rendering context. **will be mutated**
+   * @param {object} context    Rendering context. **will be mutated**.
    */
   #prepareActions(context) {
     context.actions = {

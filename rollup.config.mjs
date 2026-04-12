@@ -1,8 +1,12 @@
 import postcss from "rollup-plugin-postcss";
-import resolve from "@rollup/plugin-node-resolve";
 import postcssImport from "postcss-import";
 import postcssValueParser from "postcss-value-parser";
+import resolve from "@rollup/plugin-node-resolve";
 
+/**
+ * Adjust css urls; each url that starts with `/systems/ryuutama/`
+ * gets said prefix sliced off such that all urls are relative.
+ */
 function adjustCSSUrls() {
   return {
     postcssPlugin: "rewrite-system-urls",

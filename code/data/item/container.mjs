@@ -6,22 +6,6 @@ import BaseData from "./templates/base.mjs";
 
 const { NumberField, SchemaField, StringField, TypedObjectField, TypedSchemaField } = foundry.data.fields;
 
-/**
- * @typedef ContainerData
- * @property {object} capacity
- * @property {number|null} capacity.max
- * @property {object} description
- * @property {string} description.value
- * @property {string} identifier
- * @property {object} price
- * @property {number} price.value
- * @property {object} size
- * @property {number} size.value
- * @property {object} source
- * @property {string} source.book
- * @property {string} source.custom
- */
-
 export default class ContainerData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(

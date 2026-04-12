@@ -2,24 +2,6 @@ import BaseData from "./templates/base.mjs";
 
 const { HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
-/**
- * @typedef HerbData
- * @property {object} category
- * @property {string} category.value
- * @property {object} description
- * @property {string} description.value
- * @property {string} identifier
- * @property {object} price
- * @property {number|null} price.value
- * @property {object} source
- * @property {string} source.book
- * @property {string} source.custom
- * @property {object} terrain
- * @property {number} terrain.level
- * @property {string} terrain.type
- * @property {string} terrain.details
- */
-
 export default class HerbData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
@@ -35,7 +17,7 @@ export default class HerbData extends BaseData {
 
   /** @inheritdoc */
   static defineSchema() {
-    return Object.assign(super.defineSchema(), {
+    const schema = Object.assign(super.defineSchema(), {
       category: new SchemaField({
         value: new StringField({ required: true, initial: "physical", choices: ryuutama.CONST.HERB_TYPES._toConfig }),
       }),
@@ -43,21 +25,17 @@ export default class HerbData extends BaseData {
         value: new NumberField({ nullable: true, initial: null, min: 0, integer: true }),
       }),
       terrain: new SchemaField({
+        details: new StringField({ required: true }),
         level: new NumberField({ initial: 1, nullable: false, integer: true, min: 1, max: 5 }),
         type: new StringField({ required: true }),
-        details: new StringField({ required: true }),
       }),
     });
-  }
 
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  static get HTMLFields() {
-    return {
-      ...super.HTMLFields,
+    schema.description.extendFields({
       effect: new HTMLField(),
-    };
+    });
+
+    return schema;
   }
 
   /* -------------------------------------------------- */

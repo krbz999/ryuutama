@@ -1,69 +1,63 @@
-export type AbilityData = {
-  die: string;
-  faces: number;
-  // The die size of the ability.
-  value: number;
-};
+export {};
 
-/* -------------------------------------------------- */
+import AbilityModel from "../../ability-model.mjs";
 
-export type ResourceData = {
-  advancement?: number;
+type ResourceData = {
   bonuses: {
     flat: number | null;
     level: number | null;
   };
-  gear?: number;
   max: number;
-  min: number,
-  negative: boolean;
-  pct: number;
   spent: number;
-  typeBonus?: number;
   value: number;
-};
+}
 
 /* -------------------------------------------------- */
 
 declare module "./base.mjs" {
-  export default interface BaseData {
-    source: {
-      book: string;
-      custom: string;
-    };
-  }
+  export default interface BaseData {}
 }
 
 /* -------------------------------------------------- */
 
 declare module "./creature.mjs" {
   export default interface CreatureData {
+    abilities: {
+      strength: AbilityModel;
+      dexterity: AbilityModel;
+      intelligence: AbilityModel;
+      spirit: AbilityModel;
+    }
     condition: {
       immunities: Set<string>;
-      rationing: number;
-      shape: {
-        high: string;
-      };
-      statuses: Record<string, number>;
+      statuses: {
+        injury: number;
+        poison: number;
+        sickness: number;
+        exhaustion: number;
+        muddled: number;
+        shock: number;
+      }
       travel: boolean;
       value: number;
-    };
+    }
     defense: {
-      // Baseline defense/armor.
       armor: number | null;
       modifiers: {
-        // Damage modification to magical damage received.
         magical: number | null;
-        // Damage modification to physical damage received.
         physical: number | null;
-      };
-    };
+      }
+    }
     properties: {
       weaponGrace: Set<string>;
-    };
+    }
     resources: {
       mental: ResourceData;
       stamina: ResourceData;
-    };
+    }
+    source: {
+      book: string;
+      custom: string;
+    }
   }
 }

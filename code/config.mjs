@@ -2,15 +2,22 @@ import Prelocalization from "./helpers/prelocalization.mjs";
 
 /**
  * @import {
- * AbilityScoreConfig, AnimalModifierConfig, AnimalTypeConfig, CheckTypeConfig, DamageRollPropertyConfig,
+ * CheckTypeConfig, DamageRollPropertyConfig,
  * HerbTypeConfig, ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, RationModifierConfig,
  * RationTypeConfig, SeasonConfig, SpecialStatusEffectConfig, SpellCategoryConfig, SpellActivationTypeConfig,
  * SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig,
  * TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig,
- * } from "./_types.mjs";
+ * } from "./_types";
  */
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef AbilityScoreConfig
+ * @property {string} label           Human-readable label.
+ * @property {string} abbreviation    Short-form of the label.
+ * @property {string} icon            File path to the ability's icon.
+ */
 
 /**
  * @type {Record<string, AbilityScoreConfig>}
@@ -62,6 +69,13 @@ export const advancement = {
 /* -------------------------------------------------- */
 
 /**
+ * @typedef AnimalModifierConfig
+ * @property {string} label         Human-readable label.
+ * @property {number} cost          A multiplicative modifier on the base cost.
+ * @property {boolean} [additive]   If `true`, the `cost` property is addtive.
+ */
+
+/**
  * @type {Record<string, AnimalModifierConfig>}
  */
 export const animalModifiers = {
@@ -101,6 +115,15 @@ Prelocalization.prelocalize(animalModifiers);
 /* -------------------------------------------------- */
 
 /**
+ * @typedef AnimalTypeConfig
+ * @property {string} label         Human-readable label.
+ * @property {number} price         Default base price.
+ * @property {number} [ride]        Number of people who can ride this animal. If non-zero, it is assumed this grants
+ *                                  a +1 bonus to travel checks on topographies of Level 2 or less.
+ * @property {number} [capacity]    Carrying capacity of this animal.
+ */
+
+/**
  * @type {Record<string, AnimalTypeConfig>}
  */
 export const animalTypes = Object.freeze({
@@ -132,6 +155,12 @@ export const animalTypes = Object.freeze({
 Prelocalization.prelocalize(animalTypes);
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef CheckTypeConfig
+ * @property {string} label                                   Human-readable label.
+ * @property {Record<string, { string: label }>} [subtypes]   Subtypes of this kind of check.
+ */
 
 /**
  * @type {Record<string, CheckTypeConfig>}
@@ -171,6 +200,14 @@ Prelocalization.prelocalize(checkTypes);
 Prelocalization.prelocalize(checkTypes.journey.subtypes);
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef DamageRollPropertyConfig
+ * @property {string} label       Human-readable label.
+ * @property {string} icon        Icon displayed in chat messages for this property.
+ * @property {boolean} [hidden]   Whether damage roll derive this property from the item,
+ *                                and so does not show this on the item sheet for configuration.
+ */
 
 /**
  * @type {Record<string, DamageRollPropertyConfig>}
@@ -221,6 +258,11 @@ export const experienceLevels = [
 /* -------------------------------------------------- */
 
 /**
+ * @typedef HerbTypeConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/**
  * @type {Record<string, HerbTypeConfig>}
  */
 export const herbTypes = Object.freeze({
@@ -237,6 +279,16 @@ export const herbTypes = Object.freeze({
 Prelocalization.prelocalize(herbTypes);
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef ItemModifierConfig
+ * The configuration of an item modifier, which modifies the sell price of an item.
+ * @property {string} label         Human-readable label.
+ * @property {number} cost          A multiplicative modifier on the base cost, if non-magical, otherwise additive.
+ * @property {boolean} [hidden]     If `true`, this modifier is not shown on the item sheet unless the item has this
+ *                                  modifier and derived data is being shown.
+ * @property {boolean} [magical]    If `true`, the `cost` property is additive.
+ */
 
 /**
  * @type {Record<string, ItemModifierConfig>}
@@ -317,6 +369,11 @@ Prelocalization.prelocalize(itemModifiers);
 /* -------------------------------------------------- */
 
 /**
+ * @typedef ItemSizeConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/**
  * @type {Record<number, ItemSizeConfig>}
  */
 export const itemSizes = Object.freeze({
@@ -333,6 +390,12 @@ export const itemSizes = Object.freeze({
 Prelocalization.prelocalize(itemSizes);
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef MonsterCategoryConfig
+ * @property {string} label                             Human-readable label.
+ * @property {"body"|"mind"|"all"} [statusImmunities]   The type of status effects the monster type is always immune to.
+ */
 
 /**
  * @type {Record<string, MonsterCategoryConfig>}
@@ -368,6 +431,12 @@ Prelocalization.prelocalize(monsterCategories);
 /* -------------------------------------------------- */
 
 /**
+ * @typedef RationModifierConfig
+ * @property {string} label       Human-readable label.
+ * @property {boolean} [prefix]   Applies a prefix when this ration type is viewed.
+ */
+
+/**
  * @type {Record<string, RationModifierConfig>}
  */
 export const rationModifiers = Object.freeze({
@@ -386,6 +455,13 @@ export const rationModifiers = Object.freeze({
 Prelocalization.prelocalize(rationModifiers);
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef RationTypeConfig
+ * @property {string} label               Human-readable label.
+ * @property {string} icon                File path of image asset to represent the type.
+ * @property {boolean} [allowModifiers]   Does this subtype allow for modifiers/prefixes?
+ */
 
 /**
  * @type {Record<string, RationTypeConfig>}
@@ -423,6 +499,12 @@ export const references = {};
 /* -------------------------------------------------- */
 
 /**
+ * @typedef SeasonConfig
+ * @property {string} label   Human-readable label.
+ * @property {string} icon    Filepath to an SVG.
+ */
+
+/**
  * @type {Record<string, SeasonConfig>}
  */
 export const seasons = {
@@ -457,6 +539,11 @@ export const sources = {};
 /* -------------------------------------------------- */
 
 /**
+ * @typedef SpellActivationTypeConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/**
  * @type {Record<string, SpellActivationTypeConfig>}
  */
 export const spellActivationTypes = Object.freeze({
@@ -470,6 +557,13 @@ export const spellActivationTypes = Object.freeze({
 Prelocalization.prelocalize(spellActivationTypes);
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef SpellCategoryConfig
+ * @property {string} label           Human-readable label.
+ * @property {string} [icon]          Filepath to an SVG.
+ * @property {boolean} [isSeasonal]   Is this a seasonal magic category?
+ */
 
 /**
  * @type {Record<string, SpellCategoryConfig>}
@@ -502,6 +596,12 @@ export const spellCategories = Object.freeze({
 Prelocalization.prelocalize(spellCategories);
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef SpellDurationTypeConfig
+ * @property {string} label       Human-readable label.
+ * @property {boolean} [units]    Does this display units?
+ */
 
 /**
  * @type {Record<string, SpellDurationTypeConfig>}
@@ -541,6 +641,11 @@ Prelocalization.prelocalize(spellDurationTypes);
 /* -------------------------------------------------- */
 
 /**
+ * @typedef SpellLevelConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/**
  * @type {Record<string, SpellLevelConfig>}
  */
 export const spellLevels = Object.freeze({
@@ -557,6 +662,11 @@ export const spellLevels = Object.freeze({
 Prelocalization.prelocalize(spellLevels);
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef SpellRangeTypeConfig
+ * @property {string} label   Human-readable label.
+ */
 
 /**
  * @type {Record<string, SpellRangeTypeConfig>}
@@ -584,6 +694,14 @@ export const spellRangeTypes = Object.freeze({
 Prelocalization.prelocalize(spellRangeTypes);
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef StatusEffectConfig
+ * @property {string} name              Human-readable label.
+ * @property {string} img               The image used for the status effect.
+ * @property {string} _id               Unique document id of the status effect.
+ * @property {"body"|"mind"} category   The status effect category.
+ */
 
 /**
  * @type {Record<string, StatusEffectConfig>}
@@ -631,6 +749,16 @@ Prelocalization.prelocalize(statusEffects, { properties: ["name"] });
 /* -------------------------------------------------- */
 
 /**
+ * @typedef _SpecialStatusEffectConfig
+ * @property {boolean} hud        Whether the status is shown on the token HUD.
+ * @property {object} [system]    System-specific data.
+ */
+
+/**
+ * @typedef {StatusEffectConfig & _SpecialStatusEffectConfig} SpecialStatusEffectConfig
+ */
+
+/**
  * @type {Record<string, SpecialStatusEffectConfig>}
  */
 export const specialStatusEffects = {
@@ -643,6 +771,16 @@ export const specialStatusEffects = {
 };
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef TerrainTypeConfig
+ * @property {string} label                 Human-readable label.
+ * @property {number} level                 The terrain level.
+ * @property {number} difficulty            Terrain difficulty.
+ * @property {string} icon                  Filepath to the terrain icon.
+ * @property {string} iconSmall             A smaller, and square, image used for thumbnails.
+ * @property {number} [movementModifier]    A modifier to movement speed through this terrain.
+ */
 
 /**
  * @type {Record<string, TerrainTypeConfig>}
@@ -737,6 +875,12 @@ Prelocalization.prelocalize(terrainTypes);
 /* -------------------------------------------------- */
 
 /**
+ * @typedef TravelerTypeConfig
+ * @property {string} label   Human-readable label.
+ * @property {string} icon    Filepath to the Type icon.
+ */
+
+/**
  * @type {Record<string, TravelerTypeConfig>}
  */
 export const travelerTypes = Object.freeze({
@@ -756,6 +900,15 @@ export const travelerTypes = Object.freeze({
 Prelocalization.prelocalize(travelerTypes);
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef WeaponTypeConfig
+ * @property {string} label         Human-readable label.
+ * @property {string} labelPlural   Pluralized human-readable label.
+ * @property {0|1|2} grip           The number of hands needed to wield.
+ * @property {string} icon          Artwork for the weapon type.
+ * @property {boolean} [ranged]     Can this weapon attack from long range?
+ */
 
 /**
  * @type {Record<string, WeaponTypeConfig>}
@@ -803,6 +956,18 @@ Prelocalization.prelocalize(weaponTypes, { properties: ["label", "labelPlural"] 
 /* -------------------------------------------------- */
 
 /**
+ * @typedef UnarmedConfiguration
+ * @property {string} label                   Human-readable label.
+ * @property {string} [icon]                  Icon displayed when unarmed.
+ * @property {object} accuracy
+ * @property {string[]} accuracy.abilities    Default abilities used for accuracy checks of unarmed attacks.
+ * @property {number} accuracy.bonus          Default bonus for accuracy checks of unarmed attacks.
+ * @property {object} damage
+ * @property {string} damage.ability          Default ability used for damage checks of unarmed attacks.
+ * @property {number} damage.bonus            Default bonus for damage checks of unarmed attacks.
+ */
+
+/**
  * @type {Record<string, UnarmedConfiguration>}
  */
 export const weaponUnarmedTypes = {
@@ -842,6 +1007,13 @@ export const weaponCategories = {
 };
 
 /* -------------------------------------------------- */
+
+/**
+ * @typedef WeatherTypeConfig
+ * @property {string} label       Human-readable label.
+ * @property {number} modifier    The weather modifier for a journey check.
+ * @property {string} icon        Filepath for an icon.
+ */
 
 /**
  * @type {Record<string, WeatherTypeConfig>}

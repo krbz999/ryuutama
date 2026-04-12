@@ -1,14 +1,26 @@
 import BaseData from "./base.mjs";
-import RyuutamaItem from "../../../documents/item.mjs";
-import RyuutamaToken from "../../../canvas/placeables/token.mjs";
 
 /**
- * @import { CheckRollConfig, CheckDialogConfig, CheckMessageConfig } from "../_types.mjs";
- * @import { DamageConfiguration } from "./_types.mjs";
+ * @import {
+ *  CheckRollConfig, CheckDialogConfig, CheckMessageConfig,
+ * } from "../../../applications/apps/actors/check-configuration-dialog.mjs";
  * @import BaseRoll from "../../../dice/base-roll.mjs";
  * @import CheckRoll from "../../../dice/check-roll.mjs";
  * @import RyuutamaActor from "../../../documents/actor.mjs";
  * @import RyuutamaChatMessage from "../../../documents/chat-message.mjs";
+ * @import RyuutamaItem from "../../../documents/item.mjs";
+ */
+
+/**
+ * @typedef DamageConfiguration
+ * @property {number} value   The damage total.
+ * @property {object} [options]
+ * @property {boolean} [options.damageMental]   Does this damage apply to MP as well?
+ * @property {boolean} [options.ignoreArmor]    Does this damage ignore defense points?
+ * @property {boolean} [options.magical]        Is this magical damage, i.e., from a spell?
+ * @property {boolean} [options.mythril]        Is this damage from a mythril item?
+ * @property {boolean} [options.orichalcum]     Is this damage from an orichalcum item?
+ *                                              Mythril and orichalcum items ignore Armor Points on Undead.
  */
 
 const { BooleanField, EmbeddedDataField, NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
@@ -94,7 +106,7 @@ export default class CreatureData extends BaseData {
   static #displayScrollingDamageNumbers(actor, delta) {
     if (!delta) return;
 
-    const color = delta > 0 ? RyuutamaToken.RYUUTAMA_COLORS.hp : "#b8006d";
+    const color = delta > 0 ? ryuutama.canvas.placeables.RyuutamaToken.RYUUTAMA_COLORS.hp : "#b8006d";
     const tokens = actor.isToken ? [actor.token?.object] : actor.getActiveTokens(true);
     const options = {
       duration: 3000,

@@ -2,24 +2,6 @@ import BaseData from "./templates/base.mjs";
 
 const { NumberField, SetField, SchemaField, StringField } = foundry.data.fields;
 
-/**
- * @typedef AnimalData
- * @property {object} capacity
- * @property {number|null} capacity.max
- * @property {number|null} capacity.riders
- * @property {object} category
- * @property {string} category.value
- * @property {object} description
- * @property {string} description.value
- * @property {string} identifier
- * @property {string[]} modifiers
- * @property {object} price
- * @property {number} price.value
- * @property {object} source
- * @property {string} source.book
- * @property {string} source.custom
- */
-
 export default class AnimalData extends BaseData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(

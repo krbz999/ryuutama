@@ -1,49 +1,76 @@
-import { AbilityData } from "./templates/_types";
+export {};
+
 import "./templates/_types";
+import Advancement from "../advancement/advancement.mjs";
+import AttackModel from "../attack-model.mjs";
+import Collection from "@common/utils/collection.mjs";
+import CreatureData from "./templates/creature.mjs";
+import RyuutamaActor from "../../documents/actor.mjs";
+import RyuutamaItem from "../../documents/item.mjs";
+
+declare module "./monster.mjs" {
+  export default interface MonsterData {
+    attack: AttackModel;
+    description: {
+      value: string;
+    }
+    details: {
+      category: string;
+      dragonica: number | null;
+      level: number;
+    }
+    environment: {
+      season: string;
+    }
+    initiative: {
+      value: number;
+    }
+  }
+}
+
+/* -------------------------------------------------- */
+
+declare module "./party.mjs" {
+  export default interface PartyData {
+    description: {
+      value: string;
+    }
+    members: Collection<string, { actor: RyuutamaActor }>;
+  }
+}
+
+/* -------------------------------------------------- */
 
 declare module "./traveler.mjs" {
   export default interface TravelerData {
-    abilities: {
-      strength: AbilityData;
-      dexterity: AbilityData;
-      intelligence: AbilityData;
-      spirit: AbilityData;
-    };
-    advancements: Record<string, any>;
+    advancements: Record<string, Advancement> & { documentsByType: Record<string, Advancement[]> };
     background: {
       appearance: string;
       hometown: string;
       notes: string;
-    };
+    }
     capacity: {
       bonus: number;
-      container: number;
-      max: number;
-      pct: number;
-      penalty: number;
-      value: number;
-    };
-    classes: Record<string, RyuutamaItem>;
-    defense: {
-      armor: number | null;
-      dodge: number;
-      gear: number;
-      modifiers: {
-        magical: number | null;
-        physical: number | null;
-      };
-      total: number;
-    };
+    }
+    condition: CreatureData["condition"] & {
+      rationing: number;
+      shape: {
+        high: string;
+      }
+    }
     details: {
       color: number;
+      dragonFavor: string;
       exp: {
-        max: number;
-        pct: number;
         value: number;
-      };
+      }
       level: number;
-      type: Record<string, number>;
-    };
+      type: {
+        attack: number;
+        technical: number;
+        magic: number;
+      }
+    }
     equipped: {
       accessory: RyuutamaItem | null;
       armor: RyuutamaItem | null;
@@ -53,25 +80,20 @@ declare module "./traveler.mjs" {
       shoes: RyuutamaItem | null;
       staff: RyuutamaItem | null;
       weapon: RyuutamaItem | null;
-    };
+    }
     fumbles: {
       value: number | null;
-    };
+    }
     gold: {
       value: number;
-    };
+    }
     magic: {
-      incantation: {
-        max: number;
-        pct: number;
-        value: number;
-      };
       seasons: Set<string>;
-    };
+    }
     mastered: {
       terrain: Set<string>;
       weapons: Set<string>;
       weather: Set<string>;
-    };
-  };
+    }
+  }
 }

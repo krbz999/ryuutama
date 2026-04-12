@@ -1,5 +1,8 @@
 const { ForeignDocumentField, SchemaField, SetField, StringField } = foundry.data.fields;
 
+/**
+ * Register settings.
+ */
 export default function registerSettings() {
   // Storing the primary party's id.
   game.settings.register(ryuutama.id, "PRIMARY_PARTY", {
