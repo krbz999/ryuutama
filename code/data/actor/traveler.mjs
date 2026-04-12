@@ -533,12 +533,18 @@ export default class TravelerData extends CreatureData {
     const unarmed = ryuutama.config.weaponUnarmedTypes.unarmed;
     let weaponBonus = 0;
     if (rollConfig.type === "accuracy") {
-      // TODO: Grant an additional +1 if the weapon (or unarmed) is "double-mastered" eg as Noble.
       weaponBonus = isUsable ? weapon.system.accuracy.bonus : unarmed.accuracy.bonus;
-
       if (weaponBonus) {
         parts.push("@weaponBonus");
         rollData.weaponBonus = weaponBonus;
+      }
+
+      // Weapon Grace bonus
+      const isGrace = (isUsable && this.properties.weaponGrace.has(weapon.system.category.value))
+        || (!isUsable && this.properties.weaponGrace.has("unarmed"));
+      if (isGrace) {
+        parts.push("@weaponGrace");
+        rollData.weaponGrace = 1;
       }
     }
 
@@ -578,12 +584,10 @@ export default class TravelerData extends CreatureData {
         if (weapon?.system.isUsable) {
           abilities = [...weapon.system.accuracy.abilities];
           roll.accuracy.consumeStamina = !weapon.system.isMastered;
-          if (this.properties.weaponGrace.has(weapon.system.category.value)) roll.modifier += 1;
         } else {
           // Unarmed.
           abilities = [...ryuutama.config.weaponUnarmedTypes.unarmed.accuracy.abilities];
           roll.accuracy.consumeStamina = !this.mastered.weapons.has("unarmed");
-          if (this.properties.weaponGrace.has("unarmed")) roll.modifier += 1;
         }
         roll.abilities = abilities;
         break;
