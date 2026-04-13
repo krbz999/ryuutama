@@ -34,17 +34,11 @@ export default class StandardData extends foundry.data.ActiveEffectTypeDataModel
 
   /**
    * Is this effect prevented from affecting the actor?
-   * @type {boolean}
+   * Return `null` to fall back to expiration.
+   * @type {boolean|null}
    */
   get isSuppressed() {
-    const effect = this.parent;
-
-    if (effect.parent instanceof foundry.documents.Item) {
-      const item = effect.parent;
-      return item.system.isEffectSuppressed(effect);
-    }
-
-    return false;
+    return null;
   }
 
   /* -------------------------------------------------- */

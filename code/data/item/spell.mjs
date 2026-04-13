@@ -135,11 +135,4 @@ export default class SpellData extends BaseData {
         };
       });
   }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  isEffectSuppressed(effect) {
-    return super.isEffectSuppressed(effect);
-  }
 }
