@@ -1,23 +1,9 @@
 <section>
   <div class="content">
-    {{#each results}}
-    <div class="result {{#if (lookup ../selectedResults uuid)}} selected {{/if}}" data-uuid="{{uuid}}" {{#if @root.displayTooltips}} data-tooltip-html="{{ryuutama-tooltip uuid=uuid}}" {{/if}} data-dragstart data-name="{{name}}">
-      <a class="identity" data-action="openDocument">
-        <img src="{{ifThen img img @root.defaultArtwork}}" alt="{{name}}" loading="lazy">
-        <span class="name">{{name}}</span>
-      </a>
-      <span class="controls">
-        {{#if ../displayResultSelection}}
-        <a data-action="selectResult">
-          <i class="{{ifThen (lookup ../selectedResults uuid) 'fa-regular fa-square-check' 'fa-regular fa-square'}}" inert></i>
-        </a>
-        {{/if}}
-      </span>
-    </div>
-    {{/each}}
-
-    {{#unless results}}
+    {{#if _results}}
+    {{{_results}}}
+    {{else}}
     <div class="empty-results">{{localize "RYUUTAMA.BROWSER.noResults"}}</div>
-    {{/unless}}
+    {{/if}}
   </div>
 </section>

@@ -379,6 +379,7 @@
         "spellCategory": "Spell Category",
         "spellLevel": "Spell Level"
       },
+      "dropSelectionsHere": "Drop selections here",
       "noResults": "No results found. Adjust the filters on the left.",
       "openCompendiumBrowser": "Open Compendium Browser",
       "selected": "Selected: {value} / {max}",

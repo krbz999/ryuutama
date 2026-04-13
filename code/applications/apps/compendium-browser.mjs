@@ -88,7 +88,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       changeDocumentType: RyuutamaCompendiumBrowser.#changeDocumentType,
       confirmSelection: RyuutamaCompendiumBrowser.#confirmSelection,
       openDocument: RyuutamaCompendiumBrowser.#openDocument,
-      selectResult: RyuutamaCompendiumBrowser.#selectResult,
+      removeSelected: RyuutamaCompendiumBrowser.#removeSelected,
     },
   };
 
@@ -100,16 +100,13 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       template: "systems/ryuutama/templates/apps/compendium-browser/filters.hbs",
       scrollable: [""],
     },
-    selected: {
-      template: "systems/ryuutama/templates/apps/compendium-browser/selected.hbs",
-      scrollable: [".content"],
-    },
     results: {
       template: "systems/ryuutama/templates/apps/compendium-browser/results.hbs",
       scrollable: [""],
     },
-    controls: {
-      template: "systems/ryuutama/templates/apps/compendium-browser/controls.hbs",
+    selected: {
+      template: "systems/ryuutama/templates/apps/compendium-browser/selected.hbs",
+      scrollable: [".content"],
     },
   };
 
@@ -478,14 +475,11 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       case "filters":
         await this.#prepareFiltersPart(context, options);
         break;
-      case "selected":
-        await this.#prepareSelectedPart(context, options);
-        break;
       case "results":
         await this.#prepareResultsPart(context, options);
         break;
-      case "controls":
-        await this.#prepareControlsPart(context, options);
+      case "selected":
+        await this.#prepareSelectedPart(context, options);
         break;
     }
     return context;
@@ -500,11 +494,18 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   async #prepareSelectedPart(context, options) {
-    if (!this.#selection?.selected.size) return;
+    if (!this.#selection?.max) return;
+    context.displaySelected = true;
     context.currentlySelected = Array.from(this.#selection.selected)
       .map(uuid => fromUuidSync(uuid))
       .filter(_ => _)
       .sort((a, b) => a.name.localeCompare(b.name));
+
+    context.displayControls = true;
+    context.selection = {
+      value: this.#selection.selected.size,
+      max: this.#selection.max,
+    };
   }
 
   /* -------------------------------------------------- */
@@ -603,24 +604,11 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
 
     let results = await RyuutamaCompendiumBrowser.fetch(this.#documentName, { filters: this.#filter, indexOnly: true });
     results = Array.from(results).filter(_ => _).sort((a, b) => a.name.localeCompare(b.name));
-    context.results = results;
+    this.#results = context.results = Iterator.from(results);
+    context._results = Array.from(context.results.take(50)).map(index => this.#createResult(index).outerHTML).join("");
   }
 
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare context for a part.
-   * @param {object} context    Rendering context. **will be mutated.**
-   * @param {object} options    Rendering options.
-   * @returns {Promise<void>}
-   */
-  async #prepareControlsPart(context, options) {
-    if (!this.#selection) return;
-    context.selection = {
-      value: this.#selection.selected.size,
-      max: this.#selection.max,
-    };
-  }
+  #results;
 
   /* -------------------------------------------------- */
 
@@ -630,8 +618,10 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
 
     const dd = this.#dragdrop ??= new CONFIG.ux.DragDrop({
       dragSelector: "[data-dragstart]",
+      dropSelector: "[data-drop]",
       callbacks: {
         dragstart: RyuutamaCompendiumBrowser.#onDragStart.bind(this),
+        drop: RyuutamaCompendiumBrowser.#onDrop.bind(this),
       },
     });
     dd.bind(this.element);
@@ -650,6 +640,70 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
         element.addEventListener(eventName, event => listener.call(this, event, element));
       });
     }
+
+    else if (partId === "results") {
+      const listener = foundry.utils.debounce(RyuutamaCompendiumBrowser.#onScrollResults, 100);
+      element.addEventListener("scroll", (event) => listener.call(this, event, element));
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {WheelEvent} event      The initiating scroll event.
+   * @param {HTMLElement} target    The element the change event listener was attached to.
+   */
+  static #onScrollResults(event, target) {
+    const { scrollTop, scrollHeight, clientHeight } = target;
+    if ((scrollTop + clientHeight) < (scrollHeight - 50)) return;
+
+    /** @type {HTMLElement} */
+    const parent = event.target.querySelector(".content");
+    this.#results.take(50).forEach(index => {
+      const html = this.#createResult(index);
+      html.draggable = true;
+      html.addEventListener("dragstart", this.#dragdrop.callbacks.dragstart.bind(this));
+      parent.insertAdjacentElement("beforeend", html);
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Create result HTML for an indexed document.
+   * @param {object} index
+   * @returns {HTMLElement}
+   */
+  #createResult(index) {
+    const { max, selected } = this.#selection ?? {};
+    const { name, type, uuid, img } = index;
+    const displayTooltip = this.#documentName === "Item";
+    const isSelected = selected?.has(uuid);
+    const displaySelection = !!max;
+    const src = img || getDocumentClass(this.#documentName).getDefaultArtwork({ type }).img;
+
+    const identity = `
+    <a class="identity" data-action="openDocument">
+      <img src="${src}" alt="${name}" loading="lazy">
+      <span class="name">${name}</span>
+    </a>`;
+
+    /** @type {HTMLElement} */
+    const controls = foundry.utils.parseHTML("<span class='controls'></span>");
+
+    const result = document.createElement("DIV");
+    result.classList.add("result");
+    if (displaySelection && isSelected) result.classList.add("selected");
+    result.dataset.uuid = uuid;
+    result.dataset.dragstart = "";
+    result.dataset.name = name;
+    if (displayTooltip) result.dataset.tooltipHtml = CONFIG.ux.TooltipManager.constructHTML({ uuid });
+
+    result.insertAdjacentHTML("beforeend", identity);
+    result.insertAdjacentElement("beforeend", controls);
+
+    return result;
   }
 
   /* -------------------------------------------------- */
@@ -661,7 +715,20 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
   static #onDragStart(event) {
     const uuid = event.currentTarget.closest("[data-uuid]").dataset.uuid;
     const { type } = foundry.utils.parseUuid(uuid);
-    event.dataTransfer.setData("text/plain", JSON.stringify({ uuid, type }));
+    event.dataTransfer.setData("text/plain", JSON.stringify({ uuid, type, fromBrowser: true }));
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {DragEvent} event
+   */
+  static #onDrop(event) {
+    const { type, uuid, fromBrowser } = CONFIG.ux.TextEditor.getDragEventData(event);
+    if (!fromBrowser) return;
+    this.#selection.selected.add(uuid);
+    this.render({ parts: ["selected"] });
   }
 
   /* -------------------------------------------------- */
@@ -769,11 +836,10 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
-  static #selectResult(event, target) {
+  static #removeSelected(event, target) {
     const uuid = target.closest("[data-uuid]").dataset.uuid;
-    if (this.#selection.selected.has(uuid)) this.#selection.selected.delete(uuid);
-    else this.#selection.selected.add(uuid);
-    this.render();
+    this.#selection.selected.delete(uuid);
+    this.render({ parts: ["selected"] });
   }
 
   /* -------------------------------------------------- */

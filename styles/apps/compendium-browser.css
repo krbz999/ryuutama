@@ -9,7 +9,6 @@
     grid:
       "filters results" 1fr
       "filters selected" 0fr
-      "filters controls" 0fr
       / 300px 1fr;
   }
 
@@ -94,20 +93,6 @@
     }
   }
 
-  [data-application-part="selected"] {
-    grid-area: selected;
-    border-top: 1px solid var(--ryuutama-color-burlywood);
-
-    .content {
-      display: grid;
-      gap: 0;
-      margin: .5rem;
-      overflow: hidden auto;
-      max-height: 200px;
-      scrollbar-gutter: stable;
-    }
-  }
-
   [data-application-part="results"] {
     grid-area: results;
     overflow: hidden auto;
@@ -126,17 +111,37 @@
     }
   }
 
-  [data-application-part="controls"] {
-    grid-area: controls;
-    height: fit-content;
+  [data-application-part="selected"] {
+    grid-area: selected;
     border-top: 1px solid var(--ryuutama-color-burlywood);
-    margin-top: .5rem;
-    padding: 1rem 2rem .5rem 2rem;
 
     .content {
+      display: grid;
+      gap: 0;
+      margin: .5rem;
+      overflow: hidden auto;
+      max-height: 120px;
+      min-height: 120px;
+      height: 120px;
+      scrollbar-gutter: stable;
+      align-content: baseline;
+
+      &.empty {
+        text-align: center;
+        border: 2px dashed gray;
+        border-radius: .5rem;
+        align-content: center;
+        font-style: italic;
+      }
+    }
+
+    .footer {
+      border-top: 1px solid var(--ryuutama-color-burlywood);
+      padding: 1rem 2rem .5rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      /* border-bottom: 1px solid var(--ryuutama-color-burlywood); */
 
       button {
         padding: 1rem 3rem;
@@ -155,10 +160,6 @@
       grid-template-columns: 2rem 1fr;
       align-items: inherit;
       gap: inherit;
-    }
-
-    &.selected {
-      background: rgb(250 250 250 / .25);
     }
 
     .controls {

@@ -1,6 +1,6 @@
-<section {{#unless currentlySelected}} class="hidden" {{/unless}}>
+<section {{#if displaySelected}} {{else}} class="hidden" {{/if}}>
   {{#if currentlySelected}}
-  <div class="content">
+  <div class="content" data-drop>
     {{#each currentlySelected}}
     <div class="result" data-uuid="{{uuid}}" {{#if @root.displayTooltips}} data-tooltip-html="{{ryuutama-tooltip uuid=uuid}}" {{/if}} data-dragstart>
       <a class="identity" data-action="openDocument">
@@ -8,12 +8,22 @@
         <span class="name">{{name}}</span>
       </a>
       <span class="controls">
-        <a data-action="selectResult">
-          <i class="fa-regular fa-square-check" inert></i>
-        </a>
+        <a data-action="removeSelected" class="fa-solid fa-trash"></a>
       </span>
     </div>
     {{/each}}
   </div>
+  {{else}}
+  <div class="content empty" data-drop>{{localize "RYUUTAMA.BROWSER.dropSelectionsHere"}}</div>
   {{/if}}
+
+  <div class="footer">
+    {{#if selection.max}}
+    <span>{{localize "RYUUTAMA.BROWSER.selected" value=selection.value max=selection.max}}</span>
+    <button type="button" data-action="confirmSelection" {{disabled (not (eq selection.value selection.max))}}>
+      <i class="fa-solid fa-check" inert></i>
+      <span>{{localize "COMMON.Confirm"}}</span>
+    </button>
+    {{/if}}
+  </div>
 </section>
