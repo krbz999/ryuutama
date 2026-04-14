@@ -1,9 +1,9 @@
 export {};
 
 import "./templates/_types";
+import { MembersCollection } from "../fields/members-field.mjs";
 import Advancement from "../advancement/advancement.mjs";
 import AttackModel from "../attack-model.mjs";
-import Collection from "@common/utils/collection.mjs";
 import CreatureData from "./templates/creature.mjs";
 import RyuutamaActor from "../../documents/actor.mjs";
 import RyuutamaItem from "../../documents/item.mjs";
@@ -35,7 +35,7 @@ declare module "./party.mjs" {
     description: {
       value: string;
     }
-    members: Collection<string, { actor: RyuutamaActor }>;
+    members: MembersCollection<string, { actor: RyuutamaActor }>;
   }
 }
 
