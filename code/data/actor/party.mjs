@@ -16,10 +16,7 @@ export default class PartyData extends BaseData {
       description: new SchemaField({
         value: new HTMLField(),
       }),
-      members: new TypedObjectField(
-        new SchemaField({}),
-        { validateKey: key => foundry.data.validators.isValidId(key) },
-      ),
+      members: new ryuutama.data.fields.MembersField(),
     };
   }
 
@@ -30,6 +27,27 @@ export default class PartyData extends BaseData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.ACTOR.PARTY",
   ];
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Actor types that can be members of a party.
+   * @type {string[]}
+   */
+  static ALLOWED_MEMBER_TYPES = Object.freeze(["traveler"]);
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Is a given actor valid to be a member of a party?
+   * @param {RyuutamaActor} actor
+   * @returns {boolean}
+   */
+  static validMember(actor) {
+    return (actor instanceof foundry.documents.Actor)
+      && PartyData.ALLOWED_MEMBER_TYPES.includes(actor.type)
+      && !actor.inCompendium && !actor.isToken;
+  }
 
   /* -------------------------------------------------- */
 
@@ -51,49 +69,17 @@ export default class PartyData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
-  prepareBaseData() {
-    super.prepareBaseData();
-
-    Object.defineProperty(this, "members", {
-      enumerable: true,
-      get() {
-        return Object.entries(this._source.members).reduce((acc, [id, data]) => {
-          const actor = game.actors.get(id);
-          if (this.validMember(actor)) acc.set(actor.id, { ...data, actor });
-          return acc;
-        }, new foundry.utils.Collection());
-      },
-    });
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Is a given actor valid to be a member of this party?
-   * @param {RyuutamaActor} actor
-   * @returns {boolean}
-   */
-  validMember(actor) {
-    return (actor instanceof foundry.documents.Actor) && ["traveler"].includes(actor.type)
-      && !actor.inCompendium && !actor.isToken;
-  }
-
-  /* -------------------------------------------------- */
-
   /**
    * Add members to the party.
    * @param {RyuutamaActor[]} [actors]    The actors to add.
    * @returns {Promise<RyuutamaActor>}    A promise that resolves to the updated party actor.
    */
   async addMembers(actors = []) {
-    actors = new Set(actors.filter(this.validMember)).filter(actor => !this.members.has(actor.id));
-    const ids = [...this.members.keys(), ...actors.map(a => a.id)];
-    const update = Object.entries(this.toObject().members).reduce((acc, [id, src]) => {
-      if (ids.includes(id)) acc[id] = src;
-      return acc;
-    }, {});
-    ids.forEach(id => update[id] = {});
+    const update = Object.fromEntries(this.members.map(m => [m.actor.id, this._source.members[m.actor.id]]));
+    actors.forEach(actor => {
+      if (!PartyData.validMember(actor) || (actor.id in update)) return;
+      update[actor.id] = {};
+    });
     await this.parent.update({ "system.members": _replace(update) });
     return this.parent;
   }
@@ -106,11 +92,9 @@ export default class PartyData extends BaseData {
    * @returns {Promise<RyuutamaActor>}    A promise that resolves to the updated party actor.
    */
   async removeMembers(actors = []) {
-    const update = {};
-    actors.forEach(actor => {
-      if (this.validMember(actor) && this.members.has(actor.id)) update[actor.id] = _del;
-    });
-    await this.parent.update({ "system.members": update });
+    const update = Object.fromEntries(this.members.actors.map(a => [a.id, this._source.members[a.id]]));
+    actors.forEach(actor => delete update[actor.id]);
+    await this.parent.update({ "system.members": _replace(update) });
     return this.parent;
   }
 
