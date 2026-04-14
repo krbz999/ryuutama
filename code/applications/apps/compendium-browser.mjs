@@ -3,16 +3,15 @@
  * @import DragDrop from "@client/applications/ux/drag-drop.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import RyuutamaItem from "../../documents/item.mjs";
+ * @import RyuutamaSearchFilter from "../ux/search-filter.mjs";
  */
 
 /**
- * @typedef {Record<string, -1|0|1>} BrowserFilter
+ * @typedef {Record<string, -1|0|1>} BrowserCheckboxFilter
  *
- * @typedef {{ min: number, max: number }} BrowserNumberFilter
+ * @typedef {{ min: number, max: number }} BrowserRangeFilter
  *
- * @typedef {string} BrowserTextFilter
- *
- * @typedef {Record<string, BrowserFilter|BrowserNumberFilter|BrowserTextFilter>} BrowserFilterConfiguration
+ * @typedef {Record<string, BrowserCheckboxFilter|BrowserRangeFilter>} BrowserFilterConfiguration
  *
  * @typedef {Record<string, boolean|Record<string, boolean>>|boolean} BrowserLockedConfiguration
  *
@@ -22,20 +21,16 @@
  *
  * @typedef {(filters: BrowserFilterConfiguration) => boolean} CompendiumFilterVisibility
  *
- * @typedef {{ value: string, label: string }} CompendiumFilterOption
- *
- * @typedef {"checkboxes"|"range"|"text"} CompendiumFilterType
- *
  * @typedef {Set<RyuutamaActor>|Set<RyuutamaItem>|Set<object>} BrowserFetchResults
  *
  * @typedef CompendiumFilter
- * @property {string} [label]                             Human-readable label.
- * @property {CompendiumFilterCallback} callback          A callback invoked when filtering an entry.
- * @property {CompendiumFilterVisibility} [visible]       A callback invoked to determine visibility.
- * @property {FilterDocumentName[]} modes                 Which modes have this filter available.
- * @property {CompendiumFilterOption[]} [options]         The array of options to display in a checkbox-like fashion.
- * @property {CompendiumFilterType} [type="checkboxes"]   The display type of the filter.
- * @property {number[]} [range]                           An 2-length array which determines the min and max of a 'range'.
+ * @property {string} [label]                                 Human-readable label.
+ * @property {"checkboxes"|"range"} type                      The display type of the filter.
+ * @property {CompendiumFilterCallback} callback              A callback invoked when filtering an entry.
+ * @property {CompendiumFilterVisibility} [visible]           A callback invoked to determine visibility.
+ * @property {FilterDocumentName[]} modes                     Which modes have this filter available.
+ * @property {{ value: string, label: string }[]} [options]   The array of options to display in a checkbox-like fashion.
+ * @property {number[]} [range]                               An 2-length array which determines the min/max of a 'range'.
  *
  * @typedef _CompendiumBrowserOptions
  * @property {FilterDocumentName} [documentName="Item"]   Initial document type to browse.
@@ -96,6 +91,15 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
 
   /** @inheritdoc */
   static PARTS = {
+    sidebar: {
+      template: "systems/ryuutama/templates/apps/compendium-browser/sidebar.hbs",
+    },
+    tabs: {
+      template: "systems/ryuutama/templates/apps/compendium-browser/tabs.hbs",
+    },
+    search: {
+      template: "systems/ryuutama/templates/apps/compendium-browser/search.hbs",
+    },
     filters: {
       template: "systems/ryuutama/templates/apps/compendium-browser/filters.hbs",
       scrollable: [""],
@@ -162,20 +166,8 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     const isMonster = entry => entry.type === "monster";
 
     return RyuutamaCompendiumBrowser.#FILTERS ??= {
-      search: {
-        callback: (entry, filters) => {
-          const query = foundry.applications.ux.SearchFilter.cleanQuery(filters.search);
-          const rgx = new RegExp(RegExp.escape(query), "i");
-          return !query || rgx.test(foundry.applications.ux.SearchFilter.cleanQuery(entry.name));
-        },
-        modes: ["Actor", "Item"],
-        type: "text",
-        input: {
-          type: "search",
-          placeholder: (documentName) => _loc("SIDEBAR.Search", { types: _loc(`DOCUMENT.${documentName}s`) }),
-        },
-      },
       itemTypes: {
+        type: "checkboxes",
         callback: (entry, filters) => {
           const value = RyuutamaCompendiumBrowser._toSetOptions(filters.itemTypes);
           const { types = [], categories = [] } = Object.groupBy(
@@ -203,6 +195,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       },
       spellCategory: {
         label: _loc("RYUUTAMA.BROWSER.FILTERS.spellCategory"),
+        type: "checkboxes",
         callback: (entry, filters) => evaluateFilter(entry, filters, "spellCategory", "system.category.value"),
         visible: (filters) => isExactType(filters, "spell"),
         modes: ["Item"],
@@ -211,6 +204,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       },
       spellLevel: {
         label: _loc("RYUUTAMA.BROWSER.FILTERS.spellLevel"),
+        type: "checkboxes",
         callback: (entry, filters) => evaluateFilter(entry, filters, "spellLevel", "system.spell.level"),
         modes: ["Item"],
         visible: (filters) => isExactType(filters, "spell"),
@@ -219,6 +213,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       },
       herbCategory: {
         label: _loc("RYUUTAMA.BROWSER.FILTERS.herbCategory"),
+        type: "checkboxes",
         callback: (entry, filters) => evaluateFilter(entry, filters, "herbCategory", "system.category.value"),
         modes: ["Item"],
         visible: (filters) => isExactType(filters, "herb"),
@@ -227,8 +222,8 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       },
       monsterLevel: {
         label: _loc("RYUUTAMA.BROWSER.FILTERS.monsterLevel"),
-        modes: ["Actor"],
         type: "range",
+        modes: ["Actor"],
         callback: (entry, filters) => {
           if (!isMonster(entry)) return false;
           let value = filters.monsterLevel.min || 0;
@@ -246,6 +241,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       },
       monsterCategory: {
         label: _loc("RYUUTAMA.BROWSER.FILTERS.monsterCategory"),
+        type: "checkboxes",
         callback: (entry, filters) => isMonster(entry)
           && evaluateFilter(entry, filters, "monsterCategory", "system.details.category", true),
         modes: ["Actor"],
@@ -254,6 +250,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       },
       monsterSeason: {
         label: _loc("RYUUTAMA.BROWSER.FILTERS.monsterSeason"),
+        type: "checkboxes",
         callback: (entry, filters) => isMonster(entry)
           && evaluateFilter(entry, filters, "monsterSeason", "system.environment.season", true),
         modes: ["Actor"],
@@ -262,6 +259,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       },
       source: {
         label: _loc("RYUUTAMA.BROWSER.FILTERS.sources"),
+        type: "checkboxes",
         callback: (entry, filters) => {
           const source = entry.system.source.custom || entry.system.source.book || "";
           const value = Array.from(RyuutamaCompendiumBrowser._toSetOptions(filters.source));
@@ -359,34 +357,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
   }
 
   /* -------------------------------------------------- */
-
-  /**
-   * Construct base filter configuration.
-   * @param {FilterDocumentName} documentName
-   * @returns {BrowserFilterConfiguration}
-   */
-  static #baseFilterConfiguration(documentName) {
-    return Object.entries(RyuutamaCompendiumBrowser.FILTERS).reduce((acc, [name, filter]) => {
-      if (!filter.modes.includes(documentName)) return acc;
-      let obj;
-      switch (filter.type) {
-        case "range": {
-          const [min = 0, max = null] = filter.range ?? [];
-          obj = { min, max };
-          break;
-        }
-        case "text": {
-          obj = "";
-          break;
-        }
-        default: {
-          obj = Object.fromEntries(filter.options.map(({ value }) => [value, 0]));
-        }
-      }
-      return Object.assign(acc, { [name]: obj });
-    }, {});
-  }
-
+  /*   Instance Properties                              */
   /* -------------------------------------------------- */
 
   /**
@@ -432,6 +403,30 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
   /* -------------------------------------------------- */
 
   /**
+   * Cached results.
+   * @type {Iterator<object>}
+   */
+  #results;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Number of results that have been filtered and appended.
+   * @type {number}
+   */
+  #resultsCount;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Re-used search-filter instance.
+   * @type {RyuutamaSearchFilter}
+   */
+  #searchFilter;
+
+  /* -------------------------------------------------- */
+
+  /**
    * Selected documents. This value is returned during a `pick` operation.
    * @type {RyuutamaActor[]|RyuutamaItem[]|null}
    */
@@ -458,11 +453,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
   /** @inheritdoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    Object.assign(context, {
-      defaultArtwork: getDocumentClass(this.#documentName).getDefaultArtwork({}).img,
-      displayTooltips: this.#documentName === "Item",
-      rootId: this.id,
-    });
+    Object.assign(context, { rootId: this.id });
     return context;
   }
 
@@ -472,6 +463,12 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
     switch (partId) {
+      case "tabs":
+        await this.#prepareTabsPart(context, options);
+        break;
+      case "search":
+        await this.#prepareSearchPart(context, options);
+        break;
       case "filters":
         await this.#prepareFiltersPart(context, options);
         break;
@@ -483,6 +480,132 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
         break;
     }
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare context for a part.
+   * @param {object} context    Rendering context. **will be mutated.**
+   * @param {object} options    Rendering options.
+   * @returns {Promise<void>}
+   */
+  async #prepareTabsPart(context, options) {
+    const disabled = !this.allowChangingTabs;
+    context.buttons = [
+      {
+        disabled,
+        label: _loc("DOCUMENT.Actors"),
+        icon: getDocumentClass("Actor").getDefaultArtwork({}).img,
+        documentName: "Actor",
+        active: this.#documentName === "Actor",
+      },
+      {
+        disabled,
+        label: _loc("DOCUMENT.Items"),
+        icon: getDocumentClass("Item").getDefaultArtwork({}).img,
+        documentName: "Item",
+        active: this.#documentName === "Item",
+
+      },
+    ];
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare context for a part.
+   * @param {object} context    Rendering context. **will be mutated.**
+   * @param {object} options    Rendering options.
+   * @returns {Promise<void>}
+   */
+  async #prepareSearchPart(context, options) {
+    context.placeholder = _loc("SIDEBAR.Search", { types: _loc(`DOCUMENT.${this.#documentName}s`) });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare context for a part.
+   * @param {object} context    Rendering context. **will be mutated.**
+   * @param {object} options    Rendering options.
+   * @returns {Promise<void>}
+   */
+  async #prepareFiltersPart(context, options) {
+    const filters = Object.entries(RyuutamaCompendiumBrowser.FILTERS)
+      .filter(([, filter]) => filter.modes.includes(this.#documentName)
+        && ((typeof filter.visible !== "function") || filter.visible(this.#filter)))
+      .map(([name, filter]) => {
+        let range;
+        let options;
+
+        switch (filter.type) {
+          case "checkboxes": {
+            options = filter.options.map(o => {
+              const _name = `${name}.${o.value}`;
+              const value = foundry.utils.getProperty(this.#filter, _name);
+              return {
+                value: o.value,
+                label: o.label,
+                icon: (value === 1)
+                  ? "fa-solid fa-check"
+                  : (value === -1)
+                    ? "fa-solid fa-times"
+                    : "fa-regular fa-square",
+                isLocked: this.#isLocked(_name),
+              };
+            });
+            break;
+          }
+          case "range":
+            range = {
+              min: foundry.utils.getProperty(this.#filter, `${name}.min`) ?? null,
+              max: foundry.utils.getProperty(this.#filter, `${name}.max`) ?? null,
+              minLocked: this.#isLocked(`${name}.min`),
+              maxLocked: this.#isLocked(`${name}.max`),
+              minPh: filter.range?.[0] ?? "0",
+              maxPh: filter.range?.[1] ?? "ထ",
+            };
+            break;
+        }
+
+        return {
+          name, range, options,
+          label: filter.label ?? null,
+          type: filter.type,
+        };
+      });
+
+    context.filters = filters;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare context for a part.
+   * @param {object} context    Rendering context. **will be mutated.**
+   * @param {object} options    Rendering options.
+   * @returns {Promise<void>}
+   */
+  async #prepareResultsPart(context, options) {
+    context.selectedResults = Object.fromEntries(Array.from(this.#selection?.selected ?? []).map(uuid => [uuid, true]));
+    context.displayResultSelection = !!this.#selection?.max;
+    context.documentName = this.#documentName;
+
+    let results = await RyuutamaCompendiumBrowser.fetch(this.#documentName, { filters: this.#filter, indexOnly: true });
+    results = Array.from(results).filter(_ => _).sort((a, b) => a.name.localeCompare(b.name));
+    this.#results = context.results = Iterator.from(results);
+
+    if (options.isFirstRender || options.clearCachedResults) {
+      // A first render of re-render by changing the filters means the results are entirely new.
+      context._results = Array.from(context.results.take(50))
+        .map(index => this.#createResult(index).outerHTML).join("");
+      this.#resultsCount = 50;
+    } else {
+      // A general re-render should fetch the same number of results.
+      context._results = Array.from(context.results.take(this.#resultsCount))
+        .map(index => this.#createResult(index).outerHTML).join("");
+    }
   }
 
   /* -------------------------------------------------- */
@@ -506,125 +629,8 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       value: this.#selection.selected.size,
       max: this.#selection.max,
     };
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare context for a part.
-   * @param {object} context    Rendering context. **will be mutated.**
-   * @param {object} options    Rendering options.
-   * @returns {Promise<void>}
-   */
-  async #prepareFiltersPart(context, options) {
-    const filters = Object.entries(RyuutamaCompendiumBrowser.FILTERS)
-      .filter(([, filter]) => filter.modes.includes(this.#documentName)
-        && ((typeof filter.visible !== "function") || filter.visible(this.#filter)))
-      .map(([name, filter]) => {
-        let range;
-        let text;
-        let options;
-
-        switch (filter.type) {
-          case "text":
-            text = {
-              type: filter.input.type,
-              placeholder: filter.input.placeholder(this.#documentName) ?? "",
-              value: this.#filter[name],
-              isLocked: this.#isLocked(name),
-            };
-            break;
-          case "range":
-            range = {
-              min: foundry.utils.getProperty(this.#filter, `${name}.min`) ?? null,
-              max: foundry.utils.getProperty(this.#filter, `${name}.max`) ?? null,
-              minLocked: this.#isLocked(`${name}.min`),
-              maxLocked: this.#isLocked(`${name}.max`),
-              minPh: filter.range?.[0] ?? "0",
-              maxPh: filter.range?.[1] ?? "ထ",
-            };
-            break;
-          default: {
-            options = filter.options.map(o => {
-              const _name = `${name}.${o.value}`;
-              const value = foundry.utils.getProperty(this.#filter, _name) ?? 0;
-              return {
-                value: o.value,
-                label: o.label,
-                icon: (value === 1)
-                  ? "fa-solid fa-check"
-                  : (value === -1)
-                    ? "fa-solid fa-times"
-                    : "fa-regular fa-square",
-                isLocked: this.#isLocked(_name),
-              };
-            });
-          }
-        }
-
-        return {
-          name, range, options,
-          input: text,
-          label: filter.label ?? null,
-          type: filter.type ?? "checkboxes",
-        };
-      });
-
-    Object.assign(context, {
-      filters,
-      lockType: !this.allowChangingTabs,
-      documentNameButtons: [
-        {
-          label: _loc("DOCUMENT.Actors"),
-          icon: getDocumentClass("Actor").getDefaultArtwork({}).img,
-          documentName: "Actor",
-          active: this.#documentName === "Actor",
-        },
-        {
-          label: _loc("DOCUMENT.Items"),
-          icon: getDocumentClass("Item").getDefaultArtwork({}).img,
-          documentName: "Item",
-          active: this.#documentName === "Item",
-        },
-      ],
-    });
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare context for a part.
-   * @param {object} context    Rendering context. **will be mutated.**
-   * @param {object} options    Rendering options.
-   * @returns {Promise<void>}
-   */
-  async #prepareResultsPart(context, options) {
-    context.selectedResults = Object.fromEntries(Array.from(this.#selection?.selected ?? []).map(uuid => [uuid, true]));
-    context.displayResultSelection = !!this.#selection?.max;
-
-    let results = await RyuutamaCompendiumBrowser.fetch(this.#documentName, { filters: this.#filter, indexOnly: true });
-    results = Array.from(results).filter(_ => _).sort((a, b) => a.name.localeCompare(b.name));
-    this.#results = context.results = Iterator.from(results);
-    context._results = Array.from(context.results.take(50)).map(index => this.#createResult(index).outerHTML).join("");
-  }
-
-  #results;
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _onRender(context, options) {
-    await super._onRender(context, options);
-
-    const dd = this.#dragdrop ??= new CONFIG.ux.DragDrop({
-      dragSelector: "[data-dragstart]",
-      dropSelector: "[data-drop]",
-      callbacks: {
-        dragstart: RyuutamaCompendiumBrowser.#onDragStart.bind(this),
-        drop: RyuutamaCompendiumBrowser.#onDrop.bind(this),
-      },
-    });
-    dd.bind(this.element);
+    context.defaultArtwork = getDocumentClass(this.#documentName).getDefaultArtwork({}).img;
+    context.displayTooltips = this.#documentName === "Item";
   }
 
   /* -------------------------------------------------- */
@@ -634,7 +640,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     super._attachPartListeners(partId, element, options);
 
     if (partId === "filters") {
-      const listener = foundry.utils.debounce(RyuutamaCompendiumBrowser.#onChangeRangeTextFilter, 200);
+      const listener = foundry.utils.debounce(RyuutamaCompendiumBrowser.#onChangeRangeFilter, 200);
       element.querySelectorAll("[data-change]").forEach(element => {
         const eventName = element.dataset.change;
         element.addEventListener(eventName, event => listener.call(this, event, element));
@@ -644,28 +650,34 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     else if (partId === "results") {
       const listener = foundry.utils.debounce(RyuutamaCompendiumBrowser.#onScrollResults, 100);
       element.addEventListener("scroll", (event) => listener.call(this, event, element));
+
+      const dd = this.#dragdrop ??= new CONFIG.ux.DragDrop({
+        dragSelector: "[data-dragstart]",
+        callbacks: {
+          dragstart: RyuutamaCompendiumBrowser.#onDragStart.bind(this),
+        },
+      });
+      dd.bind(this.element);
+
+      const sf = this.#searchFilter ??= new ryuutama.applications.ux.RyuutamaSearchFilter({
+        inputSelector: "[name=search]",
+        contentSelector: "[data-application-part=results] .content",
+        callback: RyuutamaCompendiumBrowser.#onSearch.bind(this),
+      });
+      sf.bind(this.element, false);
     }
   }
 
   /* -------------------------------------------------- */
 
-  /**
-   * @this RyuutamaCompendiumBrowser
-   * @param {WheelEvent} event      The initiating scroll event.
-   * @param {HTMLElement} target    The element the change event listener was attached to.
-   */
-  static #onScrollResults(event, target) {
-    const { scrollTop, scrollHeight, clientHeight } = target;
-    if ((scrollTop + clientHeight) < (scrollHeight - 50)) return;
+  /** @inheritdoc */
+  _syncPartState(partId, newElement, priorElement, state) {
+    if ((partId === "results") && (newElement.dataset.documentName !== priorElement.dataset.documentName)) {
+      // Do not retain scroll position of the results when swapping document name.
+      state.scrollPositions = [];
+    }
 
-    /** @type {HTMLElement} */
-    const parent = event.target.querySelector(".content");
-    this.#results.take(50).forEach(index => {
-      const html = this.#createResult(index);
-      html.draggable = true;
-      html.addEventListener("dragstart", this.#dragdrop.callbacks.dragstart.bind(this));
-      parent.insertAdjacentElement("beforeend", html);
-    });
+    super._syncPartState(partId, newElement, priorElement, state);
   }
 
   /* -------------------------------------------------- */
@@ -691,6 +703,11 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
 
     /** @type {HTMLElement} */
     const controls = foundry.utils.parseHTML("<span class='controls'></span>");
+    if (displaySelection) {
+      controls.insertAdjacentHTML("beforeend",
+        `<input type="checkbox" data-change="selectResult" ${isSelected ? "checked" : ""}>`,
+      );
+    }
 
     const result = document.createElement("DIV");
     result.classList.add("result");
@@ -707,59 +724,20 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
   }
 
   /* -------------------------------------------------- */
-
-  /**
-   * @this RyuutamaCompendiumBrowser
-   * @param {DragEvent} event
-   */
-  static #onDragStart(event) {
-    const uuid = event.currentTarget.closest("[data-uuid]").dataset.uuid;
-    const { type } = foundry.utils.parseUuid(uuid);
-    event.dataTransfer.setData("text/plain", JSON.stringify({ uuid, type, fromBrowser: true }));
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * @this RyuutamaCompendiumBrowser
-   * @param {DragEvent} event
-   */
-  static #onDrop(event) {
-    const { type, uuid, fromBrowser } = CONFIG.ux.TextEditor.getDragEventData(event);
-    if (!fromBrowser) return;
-    this.#selection.selected.add(uuid);
-    this.render({ parts: ["selected"] });
-  }
-
-  /* -------------------------------------------------- */
   /*   Event Handlers                                   */
   /* -------------------------------------------------- */
 
-  /**
-   * @this RyuutamaCompendiumBrowser
-   * @param {Event} event           The initiating change or input event.
-   * @param {HTMLElement} target    The element the change event listener was attached to.
-   */
-  static #onChangeRangeTextFilter(event, target) {
-    const { filter, type, value } = target.dataset;
-    const parts = Object.keys(RyuutamaCompendiumBrowser.PARTS).filter(p => p !== "filters");
+  /** @inheritdoc */
+  _onChangeForm(formConfig, event) {
+    super._onChangeForm(formConfig, event);
 
-    if (type === "range") {
-      const name = `${filter}.${value}`;
-      if (this.#isLocked(name)) return;
-
-      let v = target.valueAsNumber;
-      if (isNaN(v) || (v < 0)) v = 0;
-      foundry.utils.setProperty(this.#filter, name, v);
-      parts.unshift("filters");
+    if (event.target?.dataset.change === "selectResult") {
+      const checked = event.target.checked;
+      const uuid = event.target.closest("[data-uuid]").dataset.uuid;
+      if (!checked) this.#selection.selected.delete(uuid);
+      else this.#selection.selected.add(uuid);
+      this.render({ parts: ["selected"] });
     }
-
-    else if (type === "text") {
-      if (this.#isLocked(filter)) return;
-      foundry.utils.setProperty(this.#filter, filter, target.value);
-    }
-
-    this.render({ parts });
   }
 
   /* -------------------------------------------------- */
@@ -782,7 +760,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     const index = options.indexOf(current);
     const next = options[index + 1] ?? options[0];
     foundry.utils.setProperty(this.#filter, name, next);
-    this.render();
+    this.render({ parts: ["filters", "results"] });
   }
 
   /* -------------------------------------------------- */
@@ -792,14 +770,14 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
-  static async #changeDocumentType(event, target) {
+  static #changeDocumentType(event, target) {
     if (!this.allowChangingTabs) return;
     const documentName = target.dataset.documentName;
     if (documentName === this.#documentName) return;
     this.#documentName = documentName;
     this.#filter = RyuutamaCompendiumBrowser.#baseFilterConfiguration(this.#documentName);
     this.#locked = {};
-    this.render();
+    this.render({ clearCachedResults: true });
   }
 
   /* -------------------------------------------------- */
@@ -815,6 +793,76 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     const documents = await Promise.all(uuids.map(uuid => fromUuid(uuid)));
     this.#selected = documents.filter(_ => _);
     this.close();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {Event} event           The initiating change or input event.
+   * @param {HTMLElement} target    The element the change event listener was attached to.
+   */
+  static #onChangeRangeFilter(event, target) {
+    const { filter, value } = target.dataset;
+
+    const name = `${filter}.${value}`;
+    if (this.#isLocked(name)) return;
+
+    let v = target.valueAsNumber;
+    if (isNaN(v) || (v < 0)) v = 0;
+    foundry.utils.setProperty(this.#filter, name, v);
+
+    this.render({ parts: ["filters", "results"] });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {DragEvent} event
+   */
+  static #onDragStart(event) {
+    const uuid = event.currentTarget.closest("[data-uuid]").dataset.uuid;
+    const { type } = foundry.utils.parseUuid(uuid);
+    event.dataTransfer.setData("text/plain", JSON.stringify({ uuid, type }));
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {WheelEvent} event      The initiating scroll event.
+   * @param {HTMLElement} target    The element the change event listener was attached to.
+   */
+  static #onScrollResults(event, target) {
+    const { scrollTop, scrollHeight, clientHeight } = target;
+    if ((scrollTop + clientHeight) < (scrollHeight - 50)) return;
+
+    /** @type {HTMLElement} */
+    const parent = event.target.querySelector(".content");
+    this.#results.take(50).forEach(index => {
+      const html = this.#createResult(index);
+      html.draggable = true;
+      html.addEventListener("dragstart", this.#dragdrop.callbacks.dragstart.bind(this));
+      parent.insertAdjacentElement("beforeend", html);
+    });
+    this.#resultsCount += 50;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaCompendiumBrowser
+   * @param {InputEvent|null} event
+   * @param {string} query
+   * @param {RegExp} rgx
+   * @param {HTMLElement} container
+   */
+  static #onSearch(event, query, rgx, container) {
+    container.querySelectorAll(".result").forEach(element => {
+      const hidden = !!query && !rgx.test(this.#searchFilter.constructor.cleanQuery(element.dataset.name));
+      element.classList.toggle("hidden", hidden);
+    });
   }
 
   /* -------------------------------------------------- */
@@ -839,7 +887,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
   static #removeSelected(event, target) {
     const uuid = target.closest("[data-uuid]").dataset.uuid;
     this.#selection.selected.delete(uuid);
-    this.render({ parts: ["selected"] });
+    this.render({ parts: ["results", "selected"] });
   }
 
   /* -------------------------------------------------- */
@@ -847,8 +895,22 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
   /* -------------------------------------------------- */
 
   /**
+   * Is this filter locked?
+   * @param {string} name   A key like `spellLevel.mid` to check for a specific
+   *                        option, or `spellLevel` for an entire category.
+   * @returns {boolean}
+   */
+  #isLocked(name) {
+    if (this.#locked === true) return true;
+    const [a, b] = name.split(".");
+    return (this.#locked[a] === true) || (this.#locked[a]?.[b] === true);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Utility method for retrieving the set of values from a filter.
-   * @param {BrowserFilter} [filter]
+   * @param {BrowserCheckboxFilter} [filter]
    * @returns {Set<string>}
    */
   static _toSetOptions(filter = {}) {
@@ -856,6 +918,31 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       ? Object.keys(filter).filter(k => filter[k] === 1)
       : Object.keys(filter).filter(k => filter[k] !== -1);
     return new Set(filter);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Construct base filter configuration.
+   * @param {FilterDocumentName} documentName
+   * @returns {BrowserFilterConfiguration}
+   */
+  static #baseFilterConfiguration(documentName) {
+    return Object.entries(RyuutamaCompendiumBrowser.FILTERS).reduce((acc, [name, filter]) => {
+      if (!filter.modes.includes(documentName)) return acc;
+      let obj;
+      switch (filter.type) {
+        case "checkboxes":
+          obj = Object.fromEntries(filter.options.map(({ value }) => [value, 0]));
+          break;
+        case "range": {
+          const [min = 0, max = null] = filter.range ?? [];
+          obj = { min, max };
+          break;
+        }
+      }
+      return Object.assign(acc, { [name]: obj });
+    }, {});
   }
 
   /* -------------------------------------------------- */
@@ -869,19 +956,5 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
   static #toInitialFilters(documentName, filters = {}) {
     const base = RyuutamaCompendiumBrowser.#baseFilterConfiguration(documentName);
     return foundry.utils.mergeObject(base, filters, { insertKeys: false, insertValues: false });
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Is this filter locked?
-   * @param {string} name   A key like `spellLevel.mid` to check for a specific
-   *                        option, or `spellLevel` for an entire category.
-   * @returns {boolean}
-   */
-  #isLocked(name) {
-    if (this.#locked === true) return true;
-    const [a, b] = name.split(".");
-    return (this.#locked[a] === true) || (this.#locked[a]?.[b] === true);
   }
 }

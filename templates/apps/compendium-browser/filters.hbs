@@ -1,24 +1,8 @@
 <section>
   <div class="content">
-    <div class="types">
-      {{#each documentNameButtons}}
-      <a data-action="changeDocumentType" {{#if active}} class="active" {{/if}} data-document-name="{{documentName}}" {{disabled ../lockType}}>
-        <ryuutama-icon src="{{icon}}" inert></ryuutama-icon>
-        <span>{{label}}</span>
-      </a>
-      {{/each}}
-    </div>
-
     {{#each filters}}
     {{#if label}}
     <h3 class="label">{{label}}</h3>
-    {{/if}}
-
-    {{!-- TEXT --}}
-    {{#if (eq type "text")}}
-    <div class="filter text">
-      <input type="{{input.type}}" data-filter="{{name}}" placeholder="{{input.placeholder}}" data-type="text" value="{{input.value}}" {{disabled input.isLocked}} data-change="input" id="{{rootId}}-{{name}}">
-    </div>
     {{/if}}
 
     {{!-- CHECKBOXES --}}

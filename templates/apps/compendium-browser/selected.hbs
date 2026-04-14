@@ -1,6 +1,5 @@
 <section {{#if displaySelected}} {{else}} class="hidden" {{/if}}>
-  {{#if currentlySelected}}
-  <div class="content" data-drop>
+  <div class="content">
     {{#each currentlySelected}}
     <div class="result" data-uuid="{{uuid}}" {{#if @root.displayTooltips}} data-tooltip-html="{{ryuutama-tooltip uuid=uuid}}" {{/if}} data-dragstart>
       <a class="identity" data-action="openDocument">
@@ -13,9 +12,6 @@
     </div>
     {{/each}}
   </div>
-  {{else}}
-  <div class="content empty" data-drop>{{localize "RYUUTAMA.BROWSER.dropSelectionsHere"}}</div>
-  {{/if}}
 
   <div class="footer">
     {{#if selection.max}}
