@@ -5,6 +5,8 @@
  * @property {string} [defaultArtwork]    The default image used for an item of this type.
  * @property {number} [createSort]        The order in which this item type appears in the Create Dialog,
  *                                        relative to its group.
+ * @property {string} [itemGroup]         An item group this subtype belongs to.
+ * @property {string} [createGroup]       Label of the group this subtype belongs to.
  */
 
 const { HTMLField, SchemaField } = foundry.data.fields;

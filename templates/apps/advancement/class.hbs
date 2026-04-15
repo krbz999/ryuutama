@@ -1,6 +1,20 @@
 <form>
   <fieldset>
     <legend>{{localize "RYUUTAMA.ADVANCEMENT.CLASS.label"}}</legend>
-    {{formGroup fields.choice.fields.chosen value=advancement.choice.chosen}}
+    {{#if classItem}}
+    <div class="form-group">
+      <label>
+        <span data-tooltip-html="{{ryuutama-tooltip uuid=classItem.uuid}}">{{classItem.name}}</span>
+      </label>
+      <div class="form-fields">
+        <button type="button" data-action="removeClass" class="icon fa-solid fa-trash"></button>
+      </div>
+    </div>
+    {{else}}
+    <button type="button" data-action="selectClass">
+      <i class="fa-solid fa-map" inert></i>
+      <span>{{localize "RYUUTAMA.ADVANCEMENT.CLASS.selectClass"}}</span>
+    </button>
+    {{/if}}
   </fieldset>
 </form>

@@ -11,8 +11,6 @@ import * as utils from "./code/utils/_module.mjs";
 import registerSettings from "./code/settings.mjs";
 
 /**
- * @import ClassRegistry from "./code/helpers/registries/classes.mjs";
- * @import SkillRegistry from "./code/helpers/registries/skills.mjs";
  * @import SpellRegistry from "./code/helpers/registries/spells.mjs";
  */
 
@@ -28,10 +26,6 @@ globalThis.ryuutama = {
   CONST: constants,
   id: "ryuutama",
   registries: {
-    /** @type {ClassRegistry} */
-    classes: null,
-    /** @type {SkillRegistry} */
-    skills: null,
     /** @type {SpellRegistry} */
     spells: null,
   },
@@ -120,6 +114,7 @@ Hooks.once("init", () => {
 
   CONFIG.ui.actors = applications.sidebar.tabs.RyuutamaActorDirectory;
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
+  CONFIG.ui.compendium = applications.sidebar.tabs.RyuutamaCompendiumDirectory;
   CONFIG.ui.habitat = applications.ui.CurrentHabitat;
   CONFIG.ui.pause = applications.ui.RyuutamaGamePause;
 
@@ -131,6 +126,10 @@ Hooks.once("init", () => {
     if (id && (rgx instanceof RegExp) && (typeof fn === "function"))
       CONFIG.ui.chat.CHAT_COMMANDS[id] = { rgx, fn };
   }
+
+  // Additional indexed fields.
+  CONFIG.Actor.compendiumIndexFields.push(...applications.apps.RyuutamaCompendiumBrowser.COMPENDIUM_INDEX_PATHS.Actor);
+  CONFIG.Item.compendiumIndexFields.push(...applications.apps.RyuutamaCompendiumBrowser.COMPENDIUM_INDEX_PATHS.Item);
 
   // Assign rolls.
   CONFIG.Dice.rolls.unshift(dice.HealingRoll);
@@ -227,28 +226,14 @@ Hooks.once("ready", () => {
   // Render UI elements.
   ui.habitat.render({ force: true });
 
-  // Set up registries.
-  setupRegistries();
-});
+  // Load additional index fields.
+  const { Actor, Item } = Object.groupBy(game.packs, pack => pack.metadata.type);
+  const promises = Actor.concat(Item).map(pack => pack.getIndex());
 
-/* -------------------------------------------------- */
-
-/**
- * Set up registries.
- * This method accumulates all the required fields and indexes data from item packs.
- */
-async function setupRegistries() {
+  // Deprecated since 2.1.0 until 2.3.0.
   Object.assign(ryuutama.registries, {
-    classes: new helpers.registries.ClassRegistry(),
-    skills: new helpers.registries.SkillRegistry(),
     spells: new helpers.registries.SpellRegistry(),
   });
-
   Object.freeze(ryuutama.registries);
-  const fields = Object.values(ryuutama.registries).reduce((acc, cls) => {
-    return cls.constructor.FIELDS.reduce((accu, field) => accu.add(field), acc);
-  }, new Set());
-  const packs = game.packs.filter(pack => pack.metadata.type === "Item");
-  await Promise.all(packs.map(pack => pack.getIndex({ fields: Array.from(fields) })));
-  Object.values(ryuutama.registries).forEach(registry => registry.initialize());
-}
+  Promise.all(promises).then(() => ryuutama.registries.spells.initialize());
+});

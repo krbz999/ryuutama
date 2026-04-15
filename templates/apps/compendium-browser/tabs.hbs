@@ -1,0 +1,8 @@
+<section>
+  {{#each buttons}}
+  <a data-action="changeDocumentType" {{#if active}} class="active" {{/if}} data-document-name="{{documentName}}" {{disabled disabled}}>
+    <ryuutama-icon src="{{icon}}" inert></ryuutama-icon>
+    <span>{{label}}</span>
+  </a>
+  {{/each}}
+</section>

@@ -5,6 +5,7 @@ export default class StaffData extends GearData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
+      itemGroup: "travelingGear",
       createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.travelingGear",
       createSort: 203,
       defaultArtwork: "systems/ryuutama/assets/icons/items/staff.svg",
