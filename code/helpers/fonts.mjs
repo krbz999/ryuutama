@@ -1,3 +1,6 @@
+/**
+ * Register fonts in the config.
+ */
 export function registerFonts() {
   Object.assign(CONFIG.fontDefinitions, {
     "Carrois Gothic": {

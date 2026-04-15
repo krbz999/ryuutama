@@ -31,6 +31,11 @@ export default class AdvancementChain {
    * @type {RyuutamaActor}
    */
   #actor;
+
+  /**
+   * The actor advancing.
+   * @type {RyuutamaActor}
+   */
   get actor() {
     return this.#actor;
   }
@@ -60,6 +65,11 @@ export default class AdvancementChain {
    * @type {number}
    */
   #level;
+
+  /**
+   * The level the actor is advancing to.
+   * @type {number}
+   */
   get level() {
     return this.#level;
   }

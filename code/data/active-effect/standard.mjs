@@ -2,6 +2,9 @@
  * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
+/**
+ * Base ActiveEffect model.
+ */
 export default class StandardData extends foundry.data.ActiveEffectTypeDataModel {
   /** @inheritdoc */
   static defineSchema() {

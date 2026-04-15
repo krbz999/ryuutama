@@ -1,7 +1,8 @@
 import MessagePart from "./parts/base.mjs";
 
-const { handlebars } = foundry.applications;
-
+/**
+ * Base chat message model which renders chat messages in parts.
+ */
 export default class StandardData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static defineSchema() {
@@ -75,7 +76,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
     const element = this.#renderFrame(options);
 
     // Render header always.
-    const htmlString = await handlebars.renderTemplate(headerTemplate, context);
+    const htmlString = await foundry.applications.handlebars.renderTemplate(headerTemplate, context);
     element.insertAdjacentHTML("beforeend", htmlString);
 
     // If content is explicitly included, insert it.
@@ -93,7 +94,7 @@ export default class StandardData extends foundry.abstract.TypeDataModel {
       if (!part.visible) continue;
       Object.assign(context, { part, id });
       await part._prepareContext(context);
-      const htmlString = await handlebars.renderTemplate(part.constructor.TEMPLATE, context);
+      const htmlString = await foundry.applications.handlebars.renderTemplate(part.constructor.TEMPLATE, context);
       const html = foundry.utils.parseHTML(`
         <section data-message-part="${id}" data-message-part-type="${part.constructor.TYPE}">${htmlString}</section>`,
       );

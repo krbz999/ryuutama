@@ -6,6 +6,9 @@
 
 const { BooleanField, ForeignDocumentField, SchemaField, StringField, TypedObjectField } = foundry.data.fields;
 
+/**
+ * Base combat model.
+ */
 export default class StandardData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static defineSchema() {

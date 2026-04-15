@@ -1,5 +1,8 @@
 const { SchemaField, StringField } = foundry.data.fields;
 
+/**
+ * Base combatant model.
+ */
 export default class StandardData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static defineSchema() {

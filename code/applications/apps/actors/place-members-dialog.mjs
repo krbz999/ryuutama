@@ -86,6 +86,11 @@ export default class PlaceMembersDialog extends HandlebarsApplicationMixin(Appli
    * @type {boolean}
    */
   #config = false;
+
+  /**
+   * The value to be returned by the form when submitted.
+   * @type {boolean}
+   */
   get config() {
     return this.#config;
   }

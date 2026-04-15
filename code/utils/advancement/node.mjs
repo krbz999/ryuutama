@@ -41,6 +41,11 @@ export default class AdvancementNode {
    * @type {Advancement}
    */
   #advancement;
+
+  /**
+   * The advancement of this node.
+   * @type {Advancement}
+   */
   get advancement() {
     return this.#advancement;
   }
@@ -52,6 +57,11 @@ export default class AdvancementNode {
    * @type {AdvancementChain}
    */
   #chain;
+
+  /**
+   * The containing advancement chain.
+   * @type {AdvancementChain}
+   */
   get chain() {
     return this.#chain;
   }
@@ -125,6 +135,11 @@ export default class AdvancementNode {
    * @type {AdvancementNode|null}
    */
   #parent;
+
+  /**
+   * A parent node that resulted in the creation of this node.
+   * @type {AdvancementNode|null}
+   */
   get parent() {
     return this.#parent;
   }
@@ -136,6 +151,11 @@ export default class AdvancementNode {
    * @type {string}
    */
   #type;
+
+  /**
+   * The advancement subtype.
+   * @type {string}
+   */
   get type() {
     return this.#type;
   }
