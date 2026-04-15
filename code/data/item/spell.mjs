@@ -37,7 +37,6 @@ export default class SpellData extends BaseData {
           mental: new NumberField({ initial: null, nullable: true, integer: true, min: 0 }),
         }),
         duration: new SchemaField({
-          // TODO: allow for dice (eg 'd4 rounds')
           value: new NumberField({ initial: 1, nullable: false, integer: true, min: 1 }),
           type: new StringField({
             required: true,
