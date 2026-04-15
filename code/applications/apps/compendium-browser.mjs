@@ -777,6 +777,8 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     this.#documentName = documentName;
     this.#filter = RyuutamaCompendiumBrowser.#baseFilterConfiguration(this.#documentName);
     this.#locked = {};
+    this.#selected = null;
+    this.#selection?.selected.clear();
     this.render({ clearCachedResults: true });
   }
 
@@ -841,12 +843,12 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     /** @type {HTMLElement} */
     const parent = event.target.querySelector(".content");
     this.#results.take(50).forEach(index => {
+      this.#resultsCount++;
       const html = this.#createResult(index);
       html.draggable = true;
       html.addEventListener("dragstart", this.#dragdrop.callbacks.dragstart.bind(this));
       parent.insertAdjacentElement("beforeend", html);
     });
-    this.#resultsCount += 50;
   }
 
   /* -------------------------------------------------- */
