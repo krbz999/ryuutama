@@ -351,8 +351,13 @@ export default class TravelerData extends CreatureData {
       const size = item.system.weight ?? 0;
       capacity.value += size;
 
-      if (["animal", "container"].includes(item.type)) {
-        capacity.container += item.system.capacity.max;
+      switch (item.type) {
+        case "animal":
+          capacity.container += item.system.capacity.total;
+          break;
+        case "container":
+          capacity.container += item.system.capacity.total;
+          break;
       }
     });
 

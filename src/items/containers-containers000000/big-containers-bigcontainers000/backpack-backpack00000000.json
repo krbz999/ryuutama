@@ -1,0 +1,46 @@
+{
+  "folder": "bigcontainers000",
+  "name": "Backpack",
+  "type": "container",
+  "_id": "backpack00000000",
+  "img": "icons/containers/bags/pack-leather-strapped-tan.webp",
+  "system": {
+    "description": {
+      "value": "<p>A rucksack used by many travelers.</p>"
+    },
+    "identifier": "backpack",
+    "source": {
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "capacity": {
+      "max": 5,
+      "water": null
+    },
+    "price": {
+      "value": 20
+    },
+    "rations": {},
+    "size": {
+      "value": 3
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1776287945479,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!items!backpack00000000"
+}

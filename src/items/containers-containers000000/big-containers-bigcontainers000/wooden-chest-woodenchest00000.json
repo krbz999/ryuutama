@@ -1,0 +1,46 @@
+{
+  "folder": "bigcontainers000",
+  "name": "Wooden Chest",
+  "type": "container",
+  "_id": "woodenchest00000",
+  "img": "icons/containers/chest/chest-reinforced-box-brown.webp",
+  "system": {
+    "description": {
+      "value": "<p>If carried by a human, they take a -1 penalty to Travel Checks.</p>"
+    },
+    "identifier": "wooden-chest",
+    "source": {
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "capacity": {
+      "max": 15,
+      "water": null
+    },
+    "price": {
+      "value": 10
+    },
+    "rations": {},
+    "size": {
+      "value": 5
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1776287945491,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!items!woodenchest00000"
+}

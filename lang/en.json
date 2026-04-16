@@ -599,7 +599,11 @@
 
       "CONTAINER": {
         "FIELDS": {
-          "capacity.max.label": "Can Hold"
+          "capacity.max.label": "Item Capacity",
+          "capacity.water.label": "Water Capacity"
+        },
+        "PROPERTIES": {
+          "waterContainer": "Water Container"
         },
         "capacity": "Capacity"
       },

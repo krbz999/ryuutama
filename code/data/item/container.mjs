@@ -4,7 +4,7 @@ import BaseData from "./templates/base.mjs";
  * @import RyuutamaItem from "../../documents/item.mjs";
  */
 
-const { NumberField, SchemaField, StringField, TypedObjectField, TypedSchemaField } = foundry.data.fields;
+const { NumberField, SchemaField, SetField, StringField, TypedObjectField, TypedSchemaField } = foundry.data.fields;
 
 export default class ContainerData extends BaseData {
   /** @inheritdoc */
@@ -24,10 +24,12 @@ export default class ContainerData extends BaseData {
     return Object.assign(super.defineSchema(), {
       capacity: new SchemaField({
         max: new NumberField({ nullable: true, initial: null, integer: true, min: 0 }),
+        water: new NumberField({ nullable: true, initial: null, integer: true, min: 0 }),
       }),
       price: new SchemaField({
         value: new NumberField({ nullable: false, initial: 1, min: 0, integer: true }),
       }),
+      properties: new SetField(new StringField({ choices: ryuutama.CONST.CONTAINER_PROPERTIES._toConfig })),
       rations: new TypedObjectField(
         new TypedSchemaField(rationTypes()),
         { validateKey: key => foundry.data.validators.isValidId(key) },
@@ -54,20 +56,13 @@ export default class ContainerData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /**
-   * The amount this adds to the capacity.
-   * @type {number}
-   */
-  get weight() {
-    return this.size.total + Object.keys(this.rations).length;
-  }
-
-  /* -------------------------------------------------- */
-
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
     this.size.total = this.size.value;
+    this.capacity.value = 0;
+
+    const isWaterContainer = this.properties.has("waterContainer");
 
     Object.defineProperties(this.rations, Object.values(ryuutama.CONST.RATION_TYPES).reduce((acc, k) => {
       acc[k] = {
@@ -90,7 +85,14 @@ export default class ContainerData extends BaseData {
           return label;
         },
       });
-      this.rations[r.type].push(r);
+
+      const display = isWaterContainer
+        ? r.type === ryuutama.CONST.RATION_TYPES.WATER
+        : r.type !== ryuutama.CONST.RATION_TYPES.WATER;
+      if (display) {
+        this.rations[r.type].push(r);
+        this.capacity.value++;
+      }
     }
 
     const m = {
@@ -105,6 +107,12 @@ export default class ContainerData extends BaseData {
         return a - b;
       });
     }
+
+    this.capacity.total = isWaterContainer ? this.capacity.water : this.capacity.max;
+    this.capacity.pct = Math.clamp(Math.round(this.capacity.value / this.capacity.total * 100), 0, 100) || 0;
+
+    // The amount this adds to a Traveler's capacity.
+    this.weight = this.size.total + this.capacity.value;
   }
 
   /* -------------------------------------------------- */
@@ -115,9 +123,15 @@ export default class ContainerData extends BaseData {
       rations: {},
     };
     Object.values(ryuutama.CONST.RATION_TYPES).forEach(type => {
+      const entries = sheet.document.system.rations[type];
       ctx.rations[type] = {
-        entries: sheet.document.system.rations[type],
+        entries,
+        display: this.properties.has("waterContainer")
+          ? (type === ryuutama.CONST.RATION_TYPES.WATER)
+          : (type !== ryuutama.CONST.RATION_TYPES.WATER),
         label: ryuutama.config.rationTypes[type].label,
+        disableDown: !entries.length || !context.editable,
+        disableUp: !context.editable || ((this.capacity.pct === 100) && (this.capacity.total !== null)),
       };
     });
   }

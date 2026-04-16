@@ -1,0 +1,46 @@
+{
+  "folder": "bigcontainers000",
+  "name": "Barrel",
+  "type": "container",
+  "_id": "barrel0000000000",
+  "img": "icons/containers/barrels/barrel-apple-steel-orange.webp",
+  "system": {
+    "description": {
+      "value": "<p>Holds 15 days worth of water, or holds 10 size worth of other items.</p>"
+    },
+    "identifier": "barrel",
+    "source": {
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "capacity": {
+      "max": 10,
+      "water": 15
+    },
+    "price": {
+      "value": 10
+    },
+    "rations": {},
+    "size": {
+      "value": 5
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1776287945479,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!items!barrel0000000000"
+}
