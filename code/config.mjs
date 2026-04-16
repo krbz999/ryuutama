@@ -214,6 +214,7 @@ export const containerProperties = {
     label: "RYUUTAMA.ITEM.CONTAINER.PROPERTIES.waterContainer",
   },
 };
+Prelocalization.prelocalize(containerProperties);
 
 /* -------------------------------------------------- */
 

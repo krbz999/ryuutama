@@ -6,7 +6,7 @@
   {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.total source.system.size.value) disabled=disabled classes="slim" rootId=rootId}}
 
   {{!-- CAPACITY --}}
-  {{formGroup systemFields.properties value=(ifThen disabled document.system.properties source.system.properties) disabled=disabled type="checkboxes" localize=true classes="stacked"}}
+  {{formGroup systemFields.properties value=(ifThen disabled document.system.properties source.system.properties) disabled=disabled type="checkboxes" classes="stacked"}}
   {{formGroup systemFields.capacity.fields.max value=(ifThen disabled document.system.capacity.max source.system.capacity.max) disabled=disabled placeholder="-" classes="slim" rootId=rootId}}
   {{formGroup systemFields.capacity.fields.water value=(ifThen disabled document.system.capacity.water source.system.capacity.water) disabled=disabled placeholder="-" classes="slim" rootId=rootId}}
 
