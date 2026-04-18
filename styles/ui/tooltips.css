@@ -23,6 +23,19 @@
 
   .tooltip-name {
     margin: 0;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    font-size: 20px;
+    border-bottom: 1px solid var(--ryuutama-enriched-tooltip-border);
+    text-align: center;
+  }
+
+  .tooltip-type {
+    font-style: italic;
+  }
+
+  .tooltip-content {
+    margin: 1rem;
   }
 
   section.tooltip-tags {

@@ -87,6 +87,7 @@ export default class HerbData extends BaseData {
     }
 
     this.terrain.label = this.#prepareTerrainLabel();
+    this.category.label = ryuutama.config.herbTypes[this.category.value].label;
   }
 
   /* -------------------------------------------------- */
@@ -132,5 +133,20 @@ export default class HerbData extends BaseData {
     }
     context.herbTypes = herbTypes;
     context.herbLevelOptions = herbLevelOptions;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareTooltipContext(context, options = {}) {
+    super._prepareTooltipContext(context, options);
+
+    context.tagSections.push({
+      tags: [
+        { label: _loc("RYUUTAMA.TOOLTIP.terrain", { label: this.terrain.label }) },
+      ],
+    });
+
+    context.typeTag = `${_loc("TYPES.Item.herb")} (${this.category.label})`;
   }
 }

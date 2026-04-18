@@ -883,6 +883,22 @@
       "highlands": "Highlands"
     },
 
+    "TOOLTIP": {
+      "accuracy": "Accuracy: {formula}",
+      "capacity": "Capacity: {formula}",
+      "damage": "Damage: {formula}",
+      "defense": "Defense: {formula}",
+      "dodge": "Dodge: {formula}",
+      "duration": "Duration: {formula}",
+      "mastered": "Mastered",
+      "notMastered": "Not Mastered",
+      "penalty": "Penalty: {formula}",
+      "range": "Range: {formula}",
+      "riders": "Riders: {formula}",
+      "target": "Target: {formula}",
+      "terrain": "Terrain: {label}"
+    },
+
     "WEATHER": {
       "blizzard": "Blizzard",
       "clearSkies": "Clear Skies",

@@ -124,6 +124,19 @@ export default class ContainerData extends BaseData {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  _prepareTooltipContext(context, options = {}) {
+    super._prepareTooltipContext(context, options);
+
+    context.tagSections.push({
+      tags: [
+        { label: _loc("RYUUTAMA.TOOLTIP.capacity", { formula: this.capacity.max }) },
+      ],
+    });
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Add new rations.
    * @param {number} [quantity=1]   Number of rations of the type to add.

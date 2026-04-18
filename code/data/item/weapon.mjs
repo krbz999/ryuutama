@@ -141,4 +141,25 @@ export default class WeaponData extends PhysicalData {
     rollData.isMastered = this.isMastered;
     return rollData;
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareTooltipContext(context, options = {}) {
+    super._prepareTooltipContext(context, options);
+    context.tagSections.push({
+      tags: [
+        { label: _loc("RYUUTAMA.TOOLTIP.accuracy", { formula: this.accuracy.label }) },
+        { label: _loc("RYUUTAMA.TOOLTIP.damage", { formula: this.damage.label }) },
+      ],
+    });
+
+    if (this.parent.isEmbedded) {
+      context.tagSections.push({
+        tags: [{ label: this.isMastered ? _loc("RYUUTAMA.TOOLTIP.mastered") : _loc("RYUUTAMA.TOOLTIP.notMastered") }],
+      });
+    }
+
+    context.typeTag = `${_loc("TYPES.Item.weapon")} (${this.category.label})`;
+  }
 }
