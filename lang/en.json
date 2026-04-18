@@ -900,7 +900,8 @@
       "range": "Range: {formula}",
       "riders": "Riders: {formula}",
       "target": "Target: {formula}",
-      "terrain": "Terrain: {label}"
+      "terrain": "Terrain: {label}",
+      "waterCapacity": "Water Capacity: {formula}"
     },
 
     "WEATHER": {

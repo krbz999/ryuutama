@@ -142,9 +142,11 @@ export default class ContainerData extends BaseData {
   _prepareTooltipContext(context, options = {}) {
     super._prepareTooltipContext(context, options);
 
+    const isWaterContainer = this.properties.has("waterContainer");
+    const formula = `${this.capacity.value} / ${this.capacity.total}`;
     context.tagSections.push({
       tags: [
-        { label: _loc("RYUUTAMA.TOOLTIP.capacity", { formula: this.capacity.max }) },
+        { label: _loc(isWaterContainer ? "RYUUTAMA.TOOLTIP.waterCapacity" : "RYUUTAMA.TOOLTIP.capacity", { formula }) },
       ],
     });
   }
