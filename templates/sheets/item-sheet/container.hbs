@@ -1,22 +1,26 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
   {{!-- PRICE --}}
-  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.total source.system.price.value) disabled=disabled classes="slim" placeholder="1" rootId=rootId}}
+  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="1" rootId=rootId}}
 
   {{!-- CONTAINER SIZE --}}
   {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.total source.system.size.value) disabled=disabled classes="slim" rootId=rootId}}
 
   {{!-- CAPACITY --}}
+  {{formGroup systemFields.properties value=(ifThen disabled document.system.properties source.system.properties) disabled=disabled type="checkboxes" classes="stacked"}}
   {{formGroup systemFields.capacity.fields.max value=(ifThen disabled document.system.capacity.max source.system.capacity.max) disabled=disabled placeholder="-" classes="slim" rootId=rootId}}
+  {{formGroup systemFields.capacity.fields.water value=(ifThen disabled document.system.capacity.water source.system.capacity.water) disabled=disabled placeholder="-" classes="slim" rootId=rootId}}
 
   {{!-- RATIONS --}}
   {{#each container.rations as |rations type|}}
+  {{#if display}}
   <div class="form-group slim" data-ration-type="{{type}}">
     <span>{{rations.label}}</span>
     <div class="form-fields">
-      <button type="button" data-action="decreaseRation" class="icon fa-solid fa-minus" {{disabled (not @root.editable)}}></button>
+      <a data-action="decreaseRation" class="fa-solid fa-minus" {{disabled rations.disableDown}}></a>
       <span>{{rations.entries.length}}</span>
-      <button type="button" data-action="increaseRation" class="icon fa-solid fa-plus" {{disabled (not @root.editable)}}></button>
+      <a data-action="increaseRation" class="fa-solid fa-plus" {{disabled rations.disableUp}}></a>
     </div>
   </div>
+  {{/if}}
   {{/each}}
 </section>

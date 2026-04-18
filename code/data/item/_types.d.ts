@@ -57,15 +57,21 @@ declare module "./class.mjs" {
 declare module "./container.mjs" {
   export default interface ContainerData {
     capacity: {
-      max: number;
+      max: number | null;
+      water: number | null;
+      value: number;
+      total: number | null;
+      pct: number;
     }
     price: {
       value: number;
     }
+    properties: Set<"waterContainer">;
     rations: Record<string, { type: string, modifier?: string }>;
     size: {
       value: 1 | 3 | 5;
     }
+    weight: number;
   }
 }
 

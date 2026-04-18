@@ -49,6 +49,17 @@ toConfig(ANIMAL_TYPES, "animalTypes");
 /* -------------------------------------------------- */
 
 /**
+ * Properties for containers.
+ * @enum {string}
+ */
+export const CONTAINER_PROPERTIES = {
+  WATER_CONTAINER: "waterContainer",
+};
+toConfig(CONTAINER_PROPERTIES, "containerProperties");
+
+/* -------------------------------------------------- */
+
+/**
  * Herb types.
  * @enum {string}
  */

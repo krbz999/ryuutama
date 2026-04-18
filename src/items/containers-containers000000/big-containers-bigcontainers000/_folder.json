@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": "containers000000",
+  "name": "Big Containers",
+  "color": "#38558f",
+  "sorting": "a",
+  "_id": "bigcontainers000",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1776285494239,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!folders!bigcontainers000"
+}

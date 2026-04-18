@@ -1,0 +1,46 @@
+{
+  "folder": "containers000000",
+  "name": "Herb Bottle",
+  "type": "container",
+  "_id": "herbbottle000000",
+  "img": "icons/containers/kitchenware/vase-bottle-brown.webp",
+  "system": {
+    "description": {
+      "value": "<p>Magically keeps up to ten herbs fresh; once opened for the first time, the bottle is good for seven days before it no longer works.</p>"
+    },
+    "identifier": "herb-bottle",
+    "source": {
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "capacity": {
+      "max": null,
+      "water": null
+    },
+    "price": {
+      "value": 100
+    },
+    "rations": {},
+    "size": {
+      "value": 3
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1776287945485,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!items!herbbottle000000"
+}

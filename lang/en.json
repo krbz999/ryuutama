@@ -599,7 +599,11 @@
 
       "CONTAINER": {
         "FIELDS": {
-          "capacity.max.label": "Can Hold"
+          "capacity.max.label": "Item Capacity",
+          "capacity.water.label": "Water Capacity"
+        },
+        "PROPERTIES": {
+          "waterContainer": "Water Container"
         },
         "capacity": "Capacity"
       },
@@ -896,7 +900,8 @@
       "range": "Range: {formula}",
       "riders": "Riders: {formula}",
       "target": "Target: {formula}",
-      "terrain": "Terrain: {label}"
+      "terrain": "Terrain: {label}",
+      "waterCapacity": "Water Capacity: {formula}"
     },
 
     "WEATHER": {

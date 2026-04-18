@@ -55,6 +55,8 @@ export default class AnimalData extends BaseData {
   prepareDerivedData() {
     super.prepareDerivedData();
 
+    this.capacity.total = this.capacity.max;
+
     this.#preparePrice();
     this.#prepareCategory();
     this.#prepareModifierLabels();

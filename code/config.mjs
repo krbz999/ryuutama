@@ -202,6 +202,23 @@ Prelocalization.prelocalize(checkTypes.journey.subtypes);
 /* -------------------------------------------------- */
 
 /**
+ * @typedef ContainerPropertyConfig
+ * @property {string} label   Human-readable label.
+ */
+
+/**
+ * @type {Record<string, ContainerPropertyConfig>}
+ */
+export const containerProperties = {
+  waterContainer: {
+    label: "RYUUTAMA.ITEM.CONTAINER.PROPERTIES.waterContainer",
+  },
+};
+Prelocalization.prelocalize(containerProperties);
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef DamageRollPropertyConfig
  * @property {string} label       Human-readable label.
  * @property {string} icon        Icon displayed in chat messages for this property.

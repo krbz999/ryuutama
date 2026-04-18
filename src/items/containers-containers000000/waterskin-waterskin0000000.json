@@ -1,0 +1,50 @@
+{
+  "folder": "containers000000",
+  "name": "Waterskin",
+  "type": "container",
+  "_id": "waterskin0000000",
+  "img": "icons/containers/bags/pack-simple-leather-fur-tan.webp",
+  "system": {
+    "description": {
+      "value": "<p>A pouch of leather that can hold a day's ration of water.</p>"
+    },
+    "identifier": "waterskin",
+    "source": {
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "capacity": {
+      "max": null,
+      "water": 1
+    },
+    "price": {
+      "value": 30
+    },
+    "rations": {
+      "waterration00000": {
+        "type": "water"
+      }
+    },
+    "size": {
+      "value": 1
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1776287945490,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!items!waterskin0000000"
+}

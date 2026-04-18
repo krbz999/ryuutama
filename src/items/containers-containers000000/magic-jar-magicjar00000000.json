@@ -1,0 +1,46 @@
+{
+  "folder": "containers000000",
+  "name": "Magic Jar",
+  "type": "container",
+  "_id": "magicjar00000000",
+  "img": "icons/containers/kitchenware/vase-clay-painted-brown-white.webp",
+  "system": {
+    "description": {
+      "value": "<p>A magical jar that keeps cold liquids cold or hot liquids hot: +1 Travel Checks while in hot/cold weather.</p>"
+    },
+    "identifier": "magic-jar",
+    "source": {
+      "book": "Ryuutama",
+      "custom": ""
+    },
+    "capacity": {
+      "max": null,
+      "water": null
+    },
+    "price": {
+      "value": 2000
+    },
+    "rations": {},
+    "size": {
+      "value": 1
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1776287945487,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!items!magicjar00000000"
+}
