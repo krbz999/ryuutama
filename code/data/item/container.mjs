@@ -56,6 +56,62 @@ export default class ContainerData extends BaseData {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Contained items.
+   * @type {RyuutamaItem[]|Promise<RyuutamaItem[]>}
+   */
+  get contents() {
+    const item = this.parent;
+
+    // This container is on an actor.
+    if (item.isEmbedded) {
+      return item.collection.filter(i => i.system.container === item.id);
+    }
+
+    // This is an unowned container in a pack.
+    if (item.inCompendium) {
+      return item.compendium.getDocuments({ system: { container: item.id } });
+    }
+
+    // This is an unowned container in the world.
+    return item.collection.filter(i => i.system.container === item.id);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _onUpdate(changed, options, userId) {
+    // Keep contents folder synchronized with container.
+    if ((game.user.id === userId) && foundry.utils.hasProperty(changed, "folder")) {
+      const contents = await this.contents;
+      const updates = contents.map(item => ({ _id: item.id, folder: changed.folder }));
+      const { pack, parent } = this.parent;
+      await getDocumentClass("Item").updateDocuments(updates, { pack, parent, ...options });
+    }
+
+    super._onUpdate(changed, options, userId);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    if (userId !== game.user.id) return;
+
+    // Delete all contents of the container.
+    if (options.deleteContents) {
+      const items = await this.contents;
+      if (items.length) {
+        const ids = items.map(item => item.id);
+        const { pack, parent } = this.parent;
+        await getDocumentClass("Item").deleteDocuments(ids, { pack, parent });
+      }
+    }
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
@@ -121,6 +177,7 @@ export default class ContainerData extends BaseData {
   async _prepareSubtypeContext(sheet, context, options) {
     const ctx = context.container = {
       rations: {},
+      contents: (await this.contents).map(item => ({ document: item })),
     };
     Object.values(ryuutama.CONST.RATION_TYPES).forEach(type => {
       const entries = sheet.document.system.rations[type];
@@ -148,6 +205,29 @@ export default class ContainerData extends BaseData {
       tags: [
         { label: _loc(isWaterContainer ? "RYUUTAMA.TOOLTIP.waterCapacity" : "RYUUTAMA.TOOLTIP.capacity", { formula }) },
       ],
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareDeleteDialogOptions(options, operation) {
+    return foundry.utils.mergeObject(super._prepareDeleteDialogOptions(), {
+      yes: {
+        callback: async (event, button, dialog) => {
+          const deleteContents = button.form.elements["deleteContents"].checked;
+          return this.parent.delete({ ...operation, deleteContents });
+        },
+      },
+      render: (event, dialog) => {
+        const { createFormGroup, createCheckboxInput } = foundry.applications.fields;
+        dialog.element.querySelector(".dialog-content").insertAdjacentElement("beforeend", createFormGroup({
+          label: _loc("RYUUTAMA.ITEM.CONTAINER.deleteDialogLabel"),
+          hint: _loc("RYUUTAMA.ITEM.CONTAINER.deleteDialogHint"),
+          input: createCheckboxInput({ value: true, name: "deleteContents" }),
+          rootId: dialog.id,
+        }));
+      },
     });
   }
 

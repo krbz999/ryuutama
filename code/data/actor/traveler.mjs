@@ -273,6 +273,10 @@ export default class TravelerData extends CreatureData {
 
     for (const item of this.equipped) {
       if (!item.system.isUsable) continue;
+      if (!item.system.isEquippable) {
+        Object.defineProperty(this.equipped, item.type, { value: null });
+        continue;
+      }
       if (item.system.modifiers.has("cursed")) this.equipped.cursed++;
       if (item.system.modifiers.has("orichalcum")) this.equipped.orichalcum++;
     }

@@ -44,6 +44,53 @@ export default class RyuutamaItem extends foundry.documents.Item {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Create items with respect to containers and their contents. This returns item data,
+   * which should be used with `Item.createDocuments` with `keepId: true`.
+   * @param {RyuutamaItem[]} items                The items to create.
+   * @param {object} [options]
+   * @param {RyuutamaItem} [options.container]    A container to place the items in.
+   * @returns {Promise<object[]>}                 Data for items to be created.
+   */
+  static async createWithContents(items, { container } = {}) {
+    let { containers = [], physical = [], other = [] } = Object.groupBy(items, item => {
+      if (item.type === "container") return "containers";
+      if (item.system.schema.has("container")) return "physical";
+      return "other";
+    });
+
+    physical = new Set(physical);
+
+    /**
+     * Containers and their new ids.
+     * @type {Map<string, string>}
+     */
+    const containerMap = new Map();
+
+    containers = await Promise.all(containers.map(async (item) => {
+      const id = foundry.utils.randomID();
+      containerMap.set(item.uuid, id);
+      const contents = await item.system.contents;
+      contents.forEach(c => physical.add(c));
+      item = game.items.fromCompendium(item);
+      foundry.utils.setProperty(item, "_id", id);
+      return item;
+    }));
+
+    physical = await Promise.all(Array.from(physical).map(async (item) => {
+      const parent = await ryuutama.data.fields.ContainerField.getContainer(item);
+      item = game.items.fromCompendium(item);
+      foundry.utils.setProperty(item, "system.container", containerMap.get(parent?.uuid) ?? container?.id ?? null);
+      return item;
+    }));
+
+    other = other.map(item => game.items.fromCompendium(item));
+
+    return [containers, physical, other].flat();
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static getDefaultArtwork(itemData) {
     const model = CONFIG.Item.dataModels[itemData.type];
@@ -62,6 +109,63 @@ export default class RyuutamaItem extends foundry.documents.Item {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  _onCreate(data, options, userId) {
+    super._onCreate(data, options, userId);
+    if (options.render !== false) this.#renderContainers();
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preUpdate(changed, options, user) {
+    if ((await super._preUpdate(changed, options, user)) === false) return false;
+
+    if (foundry.utils.hasProperty(changed, "system.container")) {
+      options.formerContainer = (await ryuutama.data.fields.ContainerField.getContainer(this))?.uuid ?? null;
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onUpdate(changed, options, userId) {
+    super._onUpdate(changed, options, userId);
+    if (options.render !== false) this.#renderContainers(options.formerContainer);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onDelete(options, userId) {
+    super._onDelete(options, userId);
+    if (options.render !== false) this.#renderContainers();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Render old and new containers.
+   * @param {string} [formerContainer]    Uuid of a former container to re-render.
+   */
+  async #renderContainers(formerContainer) {
+    // Re-render old container.
+    formerContainer = await fromUuid(formerContainer);
+    formerContainer?.sheet?.render();
+
+    // Re-render new container.
+    const newContainer = await ryuutama.data.fields.ContainerField.getContainer(this);
+    newContainer?.sheet?.render();
+
+    if (this.isEmbedded) return;
+
+    // Re-render the sidebar or containing compendium.
+    if (!this.inCompendium) ui.items.render();
+    else game.packs.get(this.pack).apps.forEach(a => a.render());
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   getRollData() {
     const item = (typeof this.system.getRollData === "function") ? this.system.getRollData() : { ...this.system };
     item.name = this.name;
@@ -69,5 +173,13 @@ export default class RyuutamaItem extends foundry.documents.Item {
     const rollData = this.actor?.getRollData() ?? {};
     rollData.item = item;
     return rollData;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async deleteDialog(options = {}, operation = {}) {
+    options = foundry.utils.mergeObject(this.system._prepareDeleteDialogOptions?.() ?? {}, options);
+    return super.deleteDialog(options, operation);
   }
 }

@@ -17,6 +17,7 @@ declare module "./base.mjs" {
 
 declare module "./physical.mjs" {
   export default interface PhysicalData {
+    container: RyuutamaItem | Promise<RyuutamaItem> | null;
     durability: {
       spent: number;
     }
@@ -35,6 +36,7 @@ declare module "./physical.mjs" {
 declare module "./gear.mjs" {
   export default interface GearData {
     gear: {
+      check: number;
       custom: string;
     }
   }

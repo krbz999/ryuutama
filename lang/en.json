@@ -505,6 +505,12 @@
           "delete": "Delete Effect",
           "disable": "Disable Effect",
           "enable":"Enable Effect"
+        },
+        "ITEM": {
+          "delete": "Delete Item",
+          "edit": "Edit Item",
+          "view": "View Item",
+          "remove": "Remove Item"
         }
       },
       "CREATE_GROUP": {
@@ -605,7 +611,10 @@
         "PROPERTIES": {
           "waterContainer": "Water Container"
         },
-        "capacity": "Capacity"
+        "capacity": "Capacity",
+        "contents": "Contents",
+        "deleteDialogLabel": "Delete Contents",
+        "deleteDialogHint": "Deleting this container will also delete its contents."
       },
 
       "HERB": {

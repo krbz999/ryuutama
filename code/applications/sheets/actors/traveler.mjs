@@ -575,8 +575,12 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       return buttons;
     };
 
+    const inContainer = item => {
+      return ryuutama.data.fields.ContainerField.getContainer(item);
+    };
+
     const makeSection = (type, props = true) => {
-      const items = this.document.items.documentsByType[type];
+      const items = this.document.items.documentsByType[type].filter(item => !inContainer(item));
       if (!items.length) return null;
       const durability = props && CONFIG.Item.dataModels[type].schema.has("durability");
       return {
@@ -608,6 +612,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       } else {
         if (!groups.length) groups.push({ labelPlural: _loc("DOCUMENT.Items"), items: [] });
         for (const item of this.document.items.documentsByType[type]) {
+          if (inContainer(item)) continue;
           groups[0].items.push({
             document: item,
             dataset: { "item-context": "" },
@@ -848,6 +853,20 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     // Equip the item if dropped onto the equipment section.
     if (toEquip) {
       await this.document.update({ [`system.equipped.${item.type}`]: item.id });
+      return true;
+    }
+
+    // Dropping a container from elsewhere.
+    if ((item.type === "container") && (item.parent !== this.document)) {
+      const Item = getDocumentClass("Item");
+      const itemData = await Item.createWithContents([item]);
+      await Item.createDocuments(itemData, { parent: this.document, keepId: true });
+      return true;
+    }
+
+    // Dropping an item from this actor's container should move it out.
+    if (ryuutama.data.fields.ContainerField.getContainer(item)?.actor === this.document) {
+      await item.update({ "system.container": null });
       return true;
     }
 

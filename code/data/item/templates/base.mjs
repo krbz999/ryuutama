@@ -163,4 +163,14 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
    * @returns {Promise<void>}
    */
   async _prepareSubtypeContext(sheet, context, options) {}
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare dialog options for a deletion dialog for an item of this type.
+   * @returns {object}
+   */
+  _prepareDeleteDialogOptions() {
+    return {};
+  }
 }

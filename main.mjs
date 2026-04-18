@@ -83,6 +83,7 @@ Hooks.once("init", () => {
 
   CONFIG.CombatantGroup.documentClass = documents.RyuutamaCombatantGroup;
 
+  CONFIG.Item.collection = documents.collections.RyuutamaItems;
   CONFIG.Item.documentClass = documents.RyuutamaItem;
   CONFIG.Item.dataModels.accessory = data.item.AccessoryData;
   CONFIG.Item.dataModels.animal = data.item.AnimalData;
@@ -116,6 +117,7 @@ Hooks.once("init", () => {
   CONFIG.ui.combat = applications.sidebar.tabs.RyuutamaCombatTracker;
   CONFIG.ui.compendium = applications.sidebar.tabs.RyuutamaCompendiumDirectory;
   CONFIG.ui.habitat = applications.ui.CurrentHabitat;
+  CONFIG.ui.items = applications.sidebar.tabs.RyuutamaItemDirectory;
   CONFIG.ui.pause = applications.ui.RyuutamaGamePause;
 
   CONFIG.ux.TooltipManager = helpers.interaction.RyuutamaTooltipManager;
@@ -207,6 +209,11 @@ Hooks.once("i18nInit", () => {
 Hooks.once("setup", () => {
   Handlebars.registerHelper({
     "ryuutama-tooltip": helpers.interaction.RyuutamaTooltipManager.handlebarsHelper,
+  });
+
+  game.packs.forEach(pack => {
+    if (pack.metadata.type !== "Item") return;
+    pack.applicationClass = applications.sidebar.apps.RyuutamaItemCompendium;
   });
 });
 

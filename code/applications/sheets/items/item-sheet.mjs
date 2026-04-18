@@ -165,6 +165,13 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       ".document-listing .document-list .entry[data-document-name=ActiveEffect]",
       { hookName: "Get{}ActiveEffectContextOptions", parentClassHooks: false, fixed: true },
     );
+
+    // Manage a container's contents.
+    this._createContextMenu(
+      RyuutamaItemSheet.#createItemContextOptions.bind(this),
+      ".document-listing .document-list .entry[data-document-name=Item]",
+      { hookName: "get{}ItemContextOptions", parentClassHooks: false, fixed: true },
+    );
   }
 
   /* -------------------------------------------------- */
@@ -210,17 +217,83 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Create context menu options for items.
+   * @this RyuutamaItemSheet
+   * @returns {ContextMenuEntry[]}
+   */
+  static #createItemContextOptions() {
+    const getContainedItem = target => fromUuid(target.closest("[data-uuid]").dataset.uuid);
+
+    return [
+      {
+        label: "RYUUTAMA.ITEM.CONTEXT.ITEM.view",
+        icon: "fa-solid fa-eye",
+        onClick: (event, target) => getContainedItem(target).then(item => item.sheet.render({ force: true, mode: 1 })),
+      },
+      {
+        label: "RYUUTAMA.ITEM.CONTEXT.ITEM.edit",
+        icon: "fa-solid fa-edit",
+        onClick: (event, target) => getContainedItem(target).then(item => item.sheet.render({ force: true, mode: 0 })),
+      },
+      {
+        label: "RYUUTAMA.ITEM.CONTEXT.ITEM.delete",
+        icon: "fa-solid fa-trash",
+        onClick: (event, target) => getContainedItem(target).then(item => {
+          item.deleteDialog({ renderOptions: { window: { windowId: this.window.windowId } } });
+        }),
+        visible: target => this.isEditable,
+      },
+      {
+        label: "RYUUTAMA.ITEM.CONTEXT.ITEM.remove",
+        icon: "fa-solid fa-hand",
+        onClick: (event, target) => getContainedItem(target).then(item => {
+          item.update({ "system.container": null });
+        }),
+        visible: target => (this.document.type === "container") && this.isEditable,
+        group: "system",
+      },
+    ];
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _onDropItem(event, item) {
     const target = event.target;
+
+    // Dropping a Skill item onto a Class item sheet.
     const isSkillDrop = target.classList.contains("droparea")
       && (this.document.type === "class")
       && (item.type === "skill");
-    if (!isSkillDrop) return super._onDropItem(event, item);
-    await this.document.update({
-      "system.skills": this.document.system.toObject().skills.concat({ uuid: item.uuid }),
-    });
-    return true;
+    if (isSkillDrop) {
+      await this.document.update({
+        "system.skills": this.document.system.toObject().skills.concat({ uuid: item.uuid }),
+      });
+      return true;
+    }
+
+    // Dropping a physical item onto a Container item sheet.
+    if (item.system.schema.has("container") && (this.document.type === "container")) {
+      // Case 1: The two items are in the same collection.
+      if (item.collection.has(this.document.id)) {
+        await item.update({ "system.container": this.document.id });
+        return true;
+      }
+
+      // Case 2: Owned or unowned container, and an item from elsewhere.
+      else {
+        const { pack, parent } = this.document;
+        const keepId = !this.document.collection.has(item.id);
+        const itemData = game.items.fromCompendium(item, { clearFolder: true, keepId });
+        foundry.utils.setProperty(itemData, "system.container", this.document.id);
+        foundry.utils.setProperty(itemData, "folder", this.document.folder?.id);
+        await getDocumentClass("Item").create(itemData, { pack, parent, keepId });
+        return true;
+      }
+    }
+
+    return super._onDropItem(event, item);
   }
 
   /* -------------------------------------------------- */
