@@ -179,7 +179,7 @@ export default class RyuutamaItem extends foundry.documents.Item {
 
   /** @inheritdoc */
   async deleteDialog(options = {}, operation = {}) {
-    options = foundry.utils.mergeObject(this.system._prepareDeleteDialogOptions?.() ?? {}, options);
+    options = foundry.utils.mergeObject(await this.system._prepareDeleteDialogOptions?.(options, operation) ?? {}, options);
     return super.deleteDialog(options, operation);
   }
 }

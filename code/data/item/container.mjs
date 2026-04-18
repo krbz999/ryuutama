@@ -211,8 +211,13 @@ export default class ContainerData extends BaseData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  _prepareDeleteDialogOptions(options, operation) {
-    return foundry.utils.mergeObject(super._prepareDeleteDialogOptions(), {
+  async _prepareDeleteDialogOptions(options = {}, operation = {}) {
+    const dialogOptions = await super._prepareDeleteDialogOptions(options, operation) ?? {};
+    const contents = await this.contents;
+    const rations = Object.values(ryuutama.CONST.RATION_TYPES).reduce((acc, type) => acc + this.rations[type].length, 0);
+    if (!contents.length && !rations) return dialogOptions;
+
+    return foundry.utils.mergeObject(dialogOptions, {
       yes: {
         callback: async (event, button, dialog) => {
           const deleteContents = button.form.elements["deleteContents"].checked;
@@ -223,7 +228,7 @@ export default class ContainerData extends BaseData {
         const { createFormGroup, createCheckboxInput } = foundry.applications.fields;
         dialog.element.querySelector(".dialog-content").insertAdjacentElement("beforeend", createFormGroup({
           label: _loc("RYUUTAMA.ITEM.CONTAINER.deleteDialogLabel"),
-          hint: _loc("RYUUTAMA.ITEM.CONTAINER.deleteDialogHint"),
+          hint: _loc("RYUUTAMA.ITEM.CONTAINER.deleteDialogHint", { items: contents.length, rations }),
           input: createCheckboxInput({ value: true, name: "deleteContents" }),
           rootId: dialog.id,
         }));

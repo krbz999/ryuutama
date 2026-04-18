@@ -1,4 +1,8 @@
 /**
+ * @import { DatabaseDeleteOperation } from "@common/abstract/_types.mjs";
+ */
+
+/**
  * @typedef ItemSubtypeMetadata
  * @property {boolean} [inventory]        Unless explicitly `false`, this item type appears in inventories.
  * @property {number} [sort]              The order in which this item type appears as a section on actor sheets.
@@ -168,9 +172,9 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /**
    * Prepare dialog options for a deletion dialog for an item of this type.
-   * @returns {object}
+   * @param {object} [options]                      Additional options passed to `DialogV2.confirm`
+   * @param {DatabaseDeleteOperation} [operation]   Document deletion options.
+   * @returns {Promise<object|void>}
    */
-  _prepareDeleteDialogOptions() {
-    return {};
-  }
+  async _prepareDeleteDialogOptions(options = {}, operation = {}) {}
 }

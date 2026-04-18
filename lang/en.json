@@ -614,7 +614,7 @@
         "capacity": "Capacity",
         "contents": "Contents",
         "deleteDialogLabel": "Delete Contents",
-        "deleteDialogHint": "Deleting this container will also delete its contents."
+        "deleteDialogHint": "This container has contents inside it, and deleting it will also delete the {items} items and {rations} rations contained within."
       },
 
       "HERB": {
