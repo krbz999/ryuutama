@@ -79,13 +79,19 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
    * @returns {Promise<HTMLElement[]>}
    */
   async richTooltip() {
-    const enriched = await CONFIG.ux.TextEditor.enrichHTML(this.description.value, {
-      rollData: this.parent.getRollData(), relativeTo: this.parent,
-    });
+    const rollData = this.parent.getRollData();
+    const enriched = await CONFIG.ux.TextEditor.enrichHTML(this.description.value, { rollData, relativeTo: this.parent });
+
     const context = {
       item: this.parent,
       enriched,
+      rollData,
+      tagSections: [],
+      typeTag: _loc(`TYPES.Item.${this.parent.type}`),
     };
+
+    this._prepareTooltipContext(context);
+
     const htmlString = await foundry.applications.handlebars.renderTemplate(
       "systems/ryuutama/templates/ui/items/tooltip.hbs",
       context,
@@ -94,6 +100,21 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
     const div = document.createElement("DIV");
     div.innerHTML = htmlString;
     return div.children;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare subtype specific context for tooltips.
+   * @param {object} context
+   * @param {object} [options]
+   */
+  _prepareTooltipContext(context, options = {}) {
+    if (this.modifierLabels?.length) {
+      context.tagSections.push({
+        tags: this.modifierLabels.map(label => ({ label })),
+      });
+    }
   }
 
   /* -------------------------------------------------- */

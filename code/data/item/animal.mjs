@@ -98,6 +98,8 @@ export default class AnimalData extends BaseData {
 
     this.capacity.riders = this.capacity.canRide ? (this.capacity.riders ?? config.ride) : null;
     this.capacity.max = this.capacity.canCarry ? (this.capacity.max ?? config.capacity) : null;
+
+    this.category.label = config.label;
   }
 
   /* -------------------------------------------------- */
@@ -139,5 +141,21 @@ export default class AnimalData extends BaseData {
     // Animal capacity details.
     const { ride, capacity } = ryuutama.config.animalTypes[this.category.value];
     context.animal = { defaultRiding: ride, defaultCapacity: capacity };
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareTooltipContext(context, options = {}) {
+    super._prepareTooltipContext(context, options);
+
+    context.typeTag = this.category.label;
+    const section = {
+      tags: [
+        this.capacity.max ? { label: _loc("RYUUTAMA.TOOLTIP.capacity", { formula: this.capacity.max }) } : null,
+        this.capacity.riders ? { label: _loc("RYUUTAMA.TOOLTIP.riders", { formula: this.capacity.riders }) } : null,
+      ].filter(_ => _),
+    };
+    if (section.tags.length) context.tagSections.push(section);
   }
 }

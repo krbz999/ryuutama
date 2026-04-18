@@ -134,4 +134,23 @@ export default class SpellData extends BaseData {
         };
       });
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareTooltipContext(context, options = {}) {
+    super._prepareTooltipContext(context, options);
+
+    context.tagSections.push({
+      tags: [
+        this.spell.costLabel ? { label: this.spell.costLabel } : null,
+        this.spell.activation.cast === "ritual" ? { label: this.spell.activation.label } : null,
+        { label: _loc("RYUUTAMA.TOOLTIP.duration", { formula: this.spell.duration.label }) },
+        { label: _loc("RYUUTAMA.TOOLTIP.range", { formula: this.spell.range.label }) },
+        this.spell.target.label ? { label: _loc("RYUUTAMA.TOOLTIP.target", { formula: this.spell.target.label }) } : null,
+      ].filter(_ => _),
+    });
+
+    context.typeTag = `${ryuutama.config.spellLevels[this.spell.level].label} (${ryuutama.config.spellCategories[this.category.value].label})`;
+  }
 }

@@ -55,4 +55,19 @@ export default class ShieldData extends PhysicalData {
     this.armor.dodge = this._source.armor.dodge + bonus;
     if (this.modifiers.has("mythril") && (this.armor.penalty > 0)) this.armor.penalty = this._source.armor.penalty - 1;
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _prepareTooltipContext(context, options = {}) {
+    super._prepareTooltipContext(context, options);
+
+    context.tagSections.push({
+      tags: [
+        this.armor.defense ? { label: _loc("RYUUTAMA.TOOLTIP.defense", { formula: this.armor.defense }) } : null,
+        this.armor.penalty ? { label: _loc("RYUUTAMA.TOOLTIP.penalty", { formula: this.armor.penalty }) } : null,
+        this.armor.dodge ? { label: _loc("RYUUTAMA.TOOLTIP.dodge", { formula: this.armor.dodge }) } : null,
+      ].filter(_ => _),
+    });
+  }
 }
