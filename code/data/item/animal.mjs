@@ -53,9 +53,6 @@ export default class AnimalData extends StorageData {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-
-    this.capacity.total = this.capacity.max;
-
     this.#preparePrice();
     this.#prepareCategory();
     this.#prepareModifierLabels();
@@ -99,6 +96,7 @@ export default class AnimalData extends StorageData {
 
     this.capacity.riders = this.capacity.canRide ? (this.capacity.riders ?? config.ride) : null;
     this.capacity.max = this.capacity.canCarry ? (this.capacity.max ?? config.capacity) : null;
+    this.capacity.total = this.capacity.max;
 
     this.category.label = config.label;
   }
@@ -158,13 +156,17 @@ export default class AnimalData extends StorageData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  _prepareTooltipContext(context, options = {}) {
-    super._prepareTooltipContext(context, options);
+  async _prepareTooltipContext(context, options = {}) {
+    await super._prepareTooltipContext(context, options);
 
     context.typeTag = this.category.label;
+
+    const cValue = await this.calculateCapacity();
+    const formula = `${cValue} / ${this.capacity.total}`;
+
     const section = {
       tags: [
-        this.capacity.max ? { label: _loc("RYUUTAMA.TOOLTIP.capacity", { formula: this.capacity.max }) } : null,
+        this.capacity.canCarry ? { label: _loc("RYUUTAMA.TOOLTIP.capacity", { formula }) } : null,
         this.capacity.riders ? { label: _loc("RYUUTAMA.TOOLTIP.riders", { formula: this.capacity.riders }) } : null,
       ].filter(_ => _),
     };

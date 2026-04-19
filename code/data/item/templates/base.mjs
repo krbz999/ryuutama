@@ -125,7 +125,7 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
       typeTag: _loc(`TYPES.Item.${this.parent.type}`),
     };
 
-    this._prepareTooltipContext(context);
+    await this._prepareTooltipContext(context);
 
     const htmlString = await foundry.applications.handlebars.renderTemplate(
       "systems/ryuutama/templates/ui/items/tooltip.hbs",
@@ -141,10 +141,11 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /**
    * Prepare subtype specific context for tooltips.
-   * @param {object} context
-   * @param {object} [options]
+   * @param {object} context      Rendering context. **will be mutated.**
+   * @param {object} [options]    Rendering options.
+   * @returns {Promise<void>}     A promise thast resolves once context has been mutated.
    */
-  _prepareTooltipContext(context, options = {}) {
+  async _prepareTooltipContext(context, options = {}) {
     if (this.modifierLabels?.length) {
       context.tagSections.push({
         tags: this.modifierLabels.map(label => ({ label })),

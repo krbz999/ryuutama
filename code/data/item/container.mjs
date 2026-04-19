@@ -150,11 +150,13 @@ export default class ContainerData extends StorageData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  _prepareTooltipContext(context, options = {}) {
-    super._prepareTooltipContext(context, options);
+  async _prepareTooltipContext(context, options = {}) {
+    await super._prepareTooltipContext(context, options);
+
+    const cValue = await this.calculateCapacity();
 
     const isWaterContainer = this.properties.has("waterContainer");
-    const formula = `${this.capacity.value} / ${this.capacity.total}`;
+    const formula = `${cValue} / ${this.capacity.total}`;
     context.tagSections.push({
       tags: [
         { label: _loc(isWaterContainer ? "RYUUTAMA.TOOLTIP.waterCapacity" : "RYUUTAMA.TOOLTIP.capacity", { formula }) },

@@ -59,8 +59,8 @@ export default class ShieldData extends PhysicalData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  _prepareTooltipContext(context, options = {}) {
-    super._prepareTooltipContext(context, options);
+  async _prepareTooltipContext(context, options = {}) {
+    await super._prepareTooltipContext(context, options);
 
     context.tagSections.push({
       tags: [

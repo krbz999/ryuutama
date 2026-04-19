@@ -22,6 +22,15 @@
     {{!-- ITEM FILTERS --}}
     {{> "systems/ryuutama/templates/sheets/actors/traveler/search.hbs" search=inventory.search}}
 
+    {{!-- CONTAINERS --}}
+    <section class="containers">
+      {{#each inventory.containers}}
+      <a class="container" data-uuid="{{item.uuid}}" data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}" data-action="changeInventoryView" data-item-context>
+        <img src="{{item.img}}" alt="{{item.name}}">
+      </a>
+      {{/each}}
+    </section>
+
     {{!-- INVENTORY --}}
     <section class="inventory" data-search-container="inventory">
       {{#each inventory.groups}}

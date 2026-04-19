@@ -535,7 +535,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
   /**
    * Prepare inventory sections.
    * @param {object} context    Rendering context.
-   * @returns {{ search: object, groups: object[] }}
+   * @returns {{ search: object, groups: object[], containers: object[] }}
    */
   #prepareInventory(context) {
     const catMode = this.search.currentCategorizationMode("inventory");
@@ -650,7 +650,15 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       options: menuOptions,
     };
 
-    return { search, groups };
+    const containers = [];
+    this.document.items.documentsByType.container.forEach(item => {
+      containers.push({ item });
+    });
+    this.document.items.documentsByType.animal.forEach(item => {
+      containers.push({ item });
+    });
+
+    return { search, groups, containers };
   }
 
   /* -------------------------------------------------- */
