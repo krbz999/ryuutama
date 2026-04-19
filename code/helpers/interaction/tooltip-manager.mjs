@@ -113,7 +113,7 @@ export default class RyuutamaTooltipManager extends foundry.helpers.interaction.
     this.tooltip.classList.remove("themed", "theme-dark", "theme-light");
 
     const direction = this.element.closest("[data-tooltip-direction]")?.dataset.tooltipDirection
-      ?? this._determineDirection();
+      || (this.element.classList.contains("content-link") && "LEFT") || this._determineDirection();
     this._setAnchor(direction);
   }
 }
