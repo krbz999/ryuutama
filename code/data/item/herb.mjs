@@ -21,10 +21,10 @@ export default class HerbData extends BaseData {
       category: new SchemaField({
         value: new StringField({ required: true, initial: "physical", choices: ryuutama.CONST.HERB_TYPES._toConfig }),
       }),
-      container: new ryuutama.data.fields.ContainerField(),
       price: new SchemaField({
         value: new NumberField({ nullable: true, initial: null, min: 0, integer: true }),
       }),
+      storage: new ryuutama.data.fields.StorageField(),
       terrain: new SchemaField({
         details: new StringField({ required: true }),
         level: new NumberField({ initial: 1, nullable: false, integer: true, min: 1, max: 5 }),

@@ -71,7 +71,7 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
    * Is this a container able to hold other items?
    * @type {boolean}
    */
-  get isContainer() {
+  get isStorage() {
     return false;
   }
 

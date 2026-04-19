@@ -32,7 +32,7 @@ export default class StorageData extends BaseData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  get isContainer() {
+  get isStorage() {
     return true;
   }
 
@@ -48,16 +48,16 @@ export default class StorageData extends BaseData {
 
     // This container is on an actor.
     if (item.isEmbedded) {
-      return item.collection.filter(i => i.system.container === item.id);
+      return item.collection.filter(i => i.system.storage === item.id);
     }
 
     // This is an unowned container in a pack.
     if (item.inCompendium) {
-      return item.compendium.getDocuments({ system: { container: item.id } });
+      return item.compendium.getDocuments({ system: { storage: item.id } });
     }
 
     // This is an unowned container in the world.
-    return item.collection.filter(i => i.system.container === item.id);
+    return item.collection.filter(i => i.system.storage === item.id);
   }
 
   /* -------------------------------------------------- */

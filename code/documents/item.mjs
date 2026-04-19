@@ -47,17 +47,19 @@ export default class RyuutamaItem extends foundry.documents.Item {
   /**
    * Create items with respect to containers and their contents. This returns item data,
    * which should be used with `Item.createDocuments` with `keepId: true`.
-   * @param {RyuutamaItem[]} items                The items to create.
+   * @param {RyuutamaItem[]} items              The items to create.
    * @param {object} [options]
-   * @param {RyuutamaItem} [options.container]    A container to place the items in.
-   * @returns {Promise<object[]>}                 Data for items to be created.
+   * @param {RyuutamaItem} [options.storage]    A container to place the items in.
+   * @returns {Promise<object[]>}               Data for items to be created.
    */
-  static async createWithContents(items, { container } = {}) {
+  static async createWithContents(items, { storage } = {}) {
     let { containers = [], physical = [], other = [] } = Object.groupBy(items, item => {
-      if (item.system.isContainer) return "containers";
-      if (item.system.schema.has("container")) return "physical";
+      if (item.system.isStorage) return "containers";
+      if (item.system.schema.has("storage")) return "physical";
       return "other";
     });
+
+    // TODO: Container items in Animal items.
 
     physical = new Set(physical);
 
@@ -78,9 +80,9 @@ export default class RyuutamaItem extends foundry.documents.Item {
     }));
 
     physical = await Promise.all(Array.from(physical).map(async (item) => {
-      const parent = await ryuutama.data.fields.ContainerField.getContainer(item);
+      const parent = await ryuutama.data.fields.StorageField.getParentStorage(item);
       item = game.items.fromCompendium(item);
-      foundry.utils.setProperty(item, "system.container", containerMap.get(parent?.uuid) ?? container?.id ?? null);
+      foundry.utils.setProperty(item, "system.storage", containerMap.get(parent?.uuid) ?? storage?.id ?? null);
       return item;
     }));
 
@@ -111,7 +113,7 @@ export default class RyuutamaItem extends foundry.documents.Item {
   /** @inheritdoc */
   _onCreate(data, options, userId) {
     super._onCreate(data, options, userId);
-    if (options.render !== false) this.#renderContainers();
+    if (options.render !== false) this.#renderStorages();
   }
 
   /* -------------------------------------------------- */
@@ -120,8 +122,8 @@ export default class RyuutamaItem extends foundry.documents.Item {
   async _preUpdate(changed, options, user) {
     if ((await super._preUpdate(changed, options, user)) === false) return false;
 
-    if (foundry.utils.hasProperty(changed, "system.container")) {
-      options.formerContainer = (await ryuutama.data.fields.ContainerField.getContainer(this))?.uuid ?? null;
+    if (foundry.utils.hasProperty(changed, "system.storage")) {
+      options.formerStorage = (await ryuutama.data.fields.StorageField.getParentStorage(this))?.uuid ?? null;
     }
   }
 
@@ -130,7 +132,7 @@ export default class RyuutamaItem extends foundry.documents.Item {
   /** @inheritdoc */
   _onUpdate(changed, options, userId) {
     super._onUpdate(changed, options, userId);
-    if (options.render !== false) this.#renderContainers(options.formerContainer);
+    if (options.render !== false) this.#renderStorages(options.formerStorage);
   }
 
   /* -------------------------------------------------- */
@@ -138,22 +140,22 @@ export default class RyuutamaItem extends foundry.documents.Item {
   /** @inheritdoc */
   _onDelete(options, userId) {
     super._onDelete(options, userId);
-    if (options.render !== false) this.#renderContainers();
+    if (options.render !== false) this.#renderStorages();
   }
 
   /* -------------------------------------------------- */
 
   /**
    * Render old and new containers.
-   * @param {string} [formerContainer]    Uuid of a former container to re-render.
+   * @param {string} [formerStorage]    Uuid of a former container to re-render.
    */
-  async #renderContainers(formerContainer) {
+  async #renderStorages(formerStorage) {
     // Re-render old container.
-    formerContainer = await fromUuid(formerContainer);
-    formerContainer?.sheet?.render();
+    formerStorage = await fromUuid(formerStorage);
+    formerStorage?.sheet?.render();
 
     // Re-render new container.
-    const newContainer = await ryuutama.data.fields.ContainerField.getContainer(this);
+    const newContainer = await ryuutama.data.fields.StorageField.getParentStorage(this);
     newContainer?.sheet?.render();
 
     if (this.isEmbedded) return;
@@ -179,7 +181,10 @@ export default class RyuutamaItem extends foundry.documents.Item {
 
   /** @inheritdoc */
   async deleteDialog(options = {}, operation = {}) {
-    options = foundry.utils.mergeObject(await this.system._prepareDeleteDialogOptions?.(options, operation) ?? {}, options);
+    options = foundry.utils.mergeObject(
+      await this.system._prepareDeleteDialogOptions?.(options, operation) ?? {},
+      options,
+    );
     return super.deleteDialog(options, operation);
   }
 }

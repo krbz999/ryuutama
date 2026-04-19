@@ -248,9 +248,9 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         label: "RYUUTAMA.ITEM.CONTEXT.ITEM.remove",
         icon: "fa-solid fa-hand",
         onClick: (event, target) => getContainedItem(target).then(item => {
-          item.update({ "system.container": null });
+          item.update({ "system.storage": null });
         }),
-        visible: target => this.document.system.isContainer && this.isEditable,
+        visible: target => this.document.system.isStorage && this.isEditable,
         group: "system",
       },
     ];
@@ -274,10 +274,10 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     }
 
     // Dropping a physical item onto a container item sheet.
-    if (item.system.schema.has("container") && this.document.system.isContainer) {
+    if (item.system.schema.has("storage") && !item.system.isStorage && this.document.system.isStorage) {
       // Case 1: The two items are in the same collection.
       if (item.collection.has(this.document.id)) {
-        await item.update({ "system.container": this.document.id });
+        await item.update({ "system.storage": this.document.id });
         return true;
       }
 
@@ -286,7 +286,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         const { pack, parent } = this.document;
         const keepId = !this.document.collection.has(item.id);
         const itemData = game.items.fromCompendium(item, { clearFolder: true, keepId });
-        foundry.utils.setProperty(itemData, "system.container", this.document.id);
+        foundry.utils.setProperty(itemData, "system.storage", this.document.id);
         foundry.utils.setProperty(itemData, "folder", this.document.folder?.id);
         await getDocumentClass("Item").create(itemData, { pack, parent, keepId });
         return true;

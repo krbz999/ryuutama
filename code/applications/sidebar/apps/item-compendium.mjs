@@ -11,7 +11,7 @@ export default class RyuutamaItemCompendium extends foundry.applications.sidebar
     }
 
     items.forEach(item => {
-      if (items.has(item.system?.container)) this.element?.querySelector(`[data-entry-id="${item._id}"]`)?.remove();
+      if (items.has(item.system?.storage)) this.element?.querySelector(`[data-entry-id="${item._id}"]`)?.remove();
     });
   }
 
@@ -19,7 +19,7 @@ export default class RyuutamaItemCompendium extends foundry.applications.sidebar
 
   /** @inheritdoc */
   async _createDroppedEntry(entry, updates = {}) {
-    if (!entry.system.isContainer) return super._createDroppedEntry(entry, updates);
+    if (!entry.system.isStorage) return super._createDroppedEntry(entry, updates);
 
     const Item = getDocumentClass("Item");
     const itemData = await Item.createWithContents([entry]);
@@ -36,9 +36,9 @@ export default class RyuutamaItemCompendium extends foundry.applications.sidebar
 
     if (!this._entryAlreadyExists(entry)) return super._handleDroppedEntry(target, data);
 
-    const container = await ryuutama.data.fields.ContainerField.getContainer(entry);
+    const container = await ryuutama.data.fields.StorageField.getParentStorage(entry);
     if (!container || !this._entryAlreadyExists(container)) return super._handleDroppedEntry(target, data);
 
-    await entry.update({ "system.container": null });
+    await entry.update({ "system.storage": null });
   }
 }

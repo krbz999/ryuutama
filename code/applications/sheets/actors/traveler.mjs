@@ -609,7 +609,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
     // Is an item visible on the character sheet by being in the current container view?
     const inView = item => {
-      const parent = ryuutama.data.fields.ContainerField.getContainer(item);
+      const parent = ryuutama.data.fields.StorageField.getParentStorage(item);
       if (activeContainer) return parent === activeContainer;
       else return !parent;
     };
@@ -927,14 +927,14 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
           action: "update",
           parent: this.document,
           documentName: "Item",
-          updates: [{ _id: item.id, "system.container": null }],
+          updates: [{ _id: item.id, "system.storage": null }],
         },
       ]);
       return true;
     }
 
     // Dropping a container from elsewhere.
-    if (item.system.isContainer && (item.parent !== this.document)) {
+    if (item.system.isStorage && (item.parent !== this.document)) {
       const Item = getDocumentClass("Item");
       const itemData = await Item.createWithContents([item]);
       await Item.createDocuments(itemData, { parent: this.document, keepId: true });
@@ -942,7 +942,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     }
 
     // Dropping an item from this actor's containers should move it out or to different container.
-    const parent = ryuutama.data.fields.ContainerField.getContainer(item);
+    const parent = ryuutama.data.fields.StorageField.getParentStorage(item);
     if (parent?.actor === this.document) {
       // If dropping onto the Inventory section, add to active container, otherwise move out of container.
       if (event.target?.closest("[data-search-container='inventory']")) {
@@ -954,13 +954,13 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
         // Dropping onto different container's view, add to that container.
         if (this.activeContainer) {
-          await item.update({ "system.container": this.activeContainer.id });
+          await item.update({ "system.storage": this.activeContainer.id });
           return true;
         }
       }
 
       // Otherwise, simply move the contents out of the container.
-      await item.update({ "system.container": null });
+      await item.update({ "system.storage": null });
       return true;
     }
 

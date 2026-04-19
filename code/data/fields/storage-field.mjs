@@ -5,7 +5,7 @@
 /**
  * Extension of foreign document field to store parent container id.
  */
-export default class ContainerField extends foundry.data.fields.ForeignDocumentField {
+export default class StorageField extends foundry.data.fields.ForeignDocumentField {
   constructor() {
     super(foundry.documents.BaseItem, { idOnly: true });
   }
@@ -17,16 +17,16 @@ export default class ContainerField extends foundry.data.fields.ForeignDocumentF
    * @param {RyuutamaItem} item
    * @returns {RyuutamaItem|null|Promise<RyuutamaItem|null>}
    */
-  static getContainer(item) {
-    if (!item.system.schema.has("container")) return null;
+  static getParentStorage(item) {
+    if (!item.system.schema.has("storage")) return null;
 
     let container;
 
     // Embedded documents imply that the parent document is also loaded, so can be accessed synchronously.
-    if (item.isEmbedded || !item.inCompendium) container = item.collection.get(item.system.container);
-    else container = item.collection.getDocument(item.system.container);
+    if (item.isEmbedded || !item.inCompendium) container = item.collection.get(item.system.storage);
+    else container = item.collection.getDocument(item.system.storage);
 
-    const verify = item => item && item.system.isContainer ? item : null;
+    const verify = item => item && item.system.isStorage ? item : null;
     return (container instanceof Promise) ? container.then(verify) : verify(container);
   }
 }

@@ -3,13 +3,13 @@ import BaseData from "./base.mjs";
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 /**
- * Extension of the base item data model for items with physical properties, such as weapons, containers, etc.
+ * Extension of the base item data model for items with physical properties.
+ * These are all the items that can be equipped.
  */
 export default class PhysicalData extends BaseData {
   /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
-      container: new ryuutama.data.fields.ContainerField(),
       durability: new SchemaField({
         spent: new NumberField({ nullable: false, initial: 0, integer: true, min: 0 }),
       }),
@@ -20,6 +20,7 @@ export default class PhysicalData extends BaseData {
       size: new SchemaField({
         value: new NumberField({ nullable: false, initial: 1, choices: ryuutama.CONST.ITEM_SIZES._toConfig }),
       }),
+      storage: new ryuutama.data.fields.StorageField(),
     });
   }
 
@@ -30,19 +31,6 @@ export default class PhysicalData extends BaseData {
     ...super.LOCALIZATION_PREFIXES,
     "RYUUTAMA.PHYSICAL",
   ];
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Can this item be equipped? For unowned items, this returns `null`.
-   * @type {boolean|null}
-   */
-  get isEquippable() {
-    const item = this.parent;
-    if (!item.isEmbedded) return null;
-    return ryuutama.data.fields.EquipmentField.EQUIPMENT_ORDER.includes(item.type)
-      && !ryuutama.data.fields.ContainerField.getContainer(item);
-  }
 
   /* -------------------------------------------------- */
 

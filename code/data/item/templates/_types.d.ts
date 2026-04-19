@@ -29,7 +29,6 @@ declare module "./gear.mjs" {
 
 declare module "./physical.mjs" {
   export default interface PhysicalData {
-    container: RyuutamaItem | Promise<RyuutamaItem> | null;
     durability: {
       max: number;
       multiplier: number;
@@ -47,6 +46,7 @@ declare module "./physical.mjs" {
     size: {
       value: 1 | 3 | 5;
     }
+    storage: string | null;
   }
 }
 

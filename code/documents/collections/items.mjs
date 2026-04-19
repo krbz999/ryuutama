@@ -3,9 +3,9 @@
  */
 export default class RyuutamaItems extends foundry.documents.collections.Items {
   /** @inheritdoc */
-  fromCompendium(document, { clearContainer = true, ...options } = {}) {
+  fromCompendium(document, { clearStorage = true, ...options } = {}) {
     const itemData = super.fromCompendium(document, options);
-    if (clearContainer) delete itemData.system?.container;
+    if (clearStorage) delete itemData.system?.storage;
     return itemData;
   }
 }

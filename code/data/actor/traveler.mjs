@@ -272,11 +272,15 @@ export default class TravelerData extends CreatureData {
     this.equipped.orichalcum = 0;
 
     for (const item of this.equipped) {
-      if (!item.system.isUsable) continue;
-      if (!item.system.isEquippable) {
+      if (ryuutama.data.fields.StorageField.getParentStorage(item)) {
+        // The item is in storage, cannot be equipped.
         Object.defineProperty(this.equipped, item.type, { value: null });
         continue;
       }
+
+      // Broken weapon cannot add to cursed/orichalcum count.
+      if (!item.system.isUsable) continue;
+
       if (item.system.modifiers.has("cursed")) this.equipped.cursed++;
       if (item.system.modifiers.has("orichalcum")) this.equipped.orichalcum++;
     }
@@ -354,7 +358,7 @@ export default class TravelerData extends CreatureData {
       if (equipped[item.type] === item) return;
 
       // Items in containers do not add to capacity.
-      if (ryuutama.data.fields.ContainerField.getContainer(item)) return;
+      if (ryuutama.data.fields.StorageField.getParentStorage(item)) return;
 
       const size = item.system.weight ?? 0;
       capacity.value += size;

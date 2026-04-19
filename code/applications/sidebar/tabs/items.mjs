@@ -8,7 +8,7 @@ export default class RyuutamaItemDirectory extends foundry.applications.sidebar.
 
     this.element.querySelectorAll("[data-entry-id]").forEach(element => {
       const item = game.items.get(element.dataset.entryId);
-      if (ryuutama.data.fields.ContainerField.getContainer(item)) element.remove();
+      if (ryuutama.data.fields.StorageField.getParentStorage(item)) element.remove();
     });
   }
 
@@ -16,7 +16,7 @@ export default class RyuutamaItemDirectory extends foundry.applications.sidebar.
 
   /** @inheritdoc */
   async _createDroppedEntry(entry, updates = {}) {
-    if (!entry.system.isContainer) return super._createDroppedEntry(entry, updates);
+    if (!entry.system.isStorage) return super._createDroppedEntry(entry, updates);
 
     const Item = getDocumentClass("Item");
     const itemData = await Item.createWithContents([entry]);

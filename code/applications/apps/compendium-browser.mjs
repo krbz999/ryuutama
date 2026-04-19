@@ -130,12 +130,12 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     ],
     Item: [
       "system.category.value", // spell category, herb category
-      "system.container",
       "system.identifier",
       "system.source.book",
       "system.source.custom",
       "system.spell.activation.cast",
       "system.spell.level",
+      "system.storage",
     ],
   };
 
@@ -333,7 +333,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     if (!methods.length) return new Set();
 
     const match = (entry, pack) => {
-      if (pack.index.has(entry.system.container)) return false;
+      if (pack.index.has(entry.system.storage)) return false;
       return methods.every(name => RyuutamaCompendiumBrowser.FILTERS[name].callback(entry, filters));
     };
 
