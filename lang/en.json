@@ -505,6 +505,12 @@
           "delete": "Delete Effect",
           "disable": "Disable Effect",
           "enable":"Enable Effect"
+        },
+        "ITEM": {
+          "delete": "Delete Item",
+          "edit": "Edit Item",
+          "view": "View Item",
+          "remove": "Remove Item"
         }
       },
       "CREATE_GROUP": {
@@ -584,7 +590,10 @@
           "pet": "Pet Animal"
         },
 
-        "configuration": "Animal Configuration"
+        "configuration": "Animal Configuration",
+        "contents": "Contents",
+        "deleteDialogLabel": "Delete Contents",
+        "deleteDialogHint": "{name} is carrying contents, and deleting it will also delete the {items} items."
       },
 
       "CLASS": {
@@ -605,7 +614,10 @@
         "PROPERTIES": {
           "waterContainer": "Water Container"
         },
-        "capacity": "Capacity"
+        "capacity": "Capacity",
+        "contents": "Contents",
+        "deleteDialogLabel": "Delete Contents",
+        "deleteDialogHint": "This container has contents inside it, and deleting it will also delete the {items} items and {rations} rations contained within."
       },
 
       "HERB": {

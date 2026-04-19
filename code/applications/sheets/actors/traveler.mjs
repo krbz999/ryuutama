@@ -2,6 +2,7 @@ import RyuutamaBaseActorSheet from "./base.mjs";
 
 /**
  * @import RyuutamaActor from "../../../documents/actor.mjs";
+ * @import RyuutamaItem from "../../../documents/item.mjs";
  */
 
 /**
@@ -17,6 +18,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     },
     actions: {
       adjustFumbles: RyuutamaTravelerSheet.#adjustFumbles,
+      changeInventoryView: RyuutamaTravelerSheet.#changeInventoryView,
       toggleEffect: RyuutamaTravelerSheet.#toggleEffect,
     },
   };
@@ -132,6 +134,26 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       ],
     },
   };
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The inventory being viewed, either `null` if viewing the actor's direct inventory,
+   * or the id of an item that can store contents.
+   * @type {string|null}
+   */
+  #inventoryView = null;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The active storage item whose inventory is being viewed.
+   * @type {RyuutamaItem|null}
+   */
+  get activeContainer() {
+    const item = this.document.items.get(this.#inventoryView);
+    return item ? item : null;
+  }
 
   /* -------------------------------------------------- */
 
@@ -535,10 +557,20 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
   /**
    * Prepare inventory sections.
    * @param {object} context    Rendering context.
-   * @returns {{ search: object, groups: object[] }}
+   * @returns {{ search: object, groups: object[], containers: object[] }}
    */
   #prepareInventory(context) {
+    const activeContainer = this.activeContainer;
+
+    const itemCollection = activeContainer
+      ? Object.groupBy(activeContainer.system.contents, item => item.type)
+      : this.document.items.documentsByType;
+
+    const menuOptions = [];
+    const groups = [];
+    const sortMode = this.search.currentSortMode("inventory");
     const catMode = this.search.currentCategorizationMode("inventory");
+    const containers = [];
 
     const makeDur = item => {
       const id = `${context.rootId}-${item.id}-durability`;
@@ -575,14 +607,28 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       return buttons;
     };
 
+    // Is an item visible on the character sheet by being in the current container view?
+    const inView = item => {
+      const parent = ryuutama.data.fields.StorageField.getParentStorage(item);
+      if (activeContainer) return parent === activeContainer;
+      else return !parent;
+    };
+
+    // Make label for a section with (or without) item subtype.
+    const makeLabel = type => {
+      let label = type ? _loc(`TYPES.Item.${type}Pl`) : _loc("DOCUMENT.Items");
+      if (activeContainer) return `${label} (${activeContainer.name})`;
+      return label;
+    };
+
     const makeSection = (type, props = true) => {
-      const items = this.document.items.documentsByType[type];
-      if (!items.length) return null;
+      const items = itemCollection[type]?.filter(item => inView(item));
+      if (!items?.length) return null;
       const durability = props && CONFIG.Item.dataModels[type].schema.has("durability");
       return {
         sort: CONFIG.Item.dataModels[type].metadata.sort,
         durability,
-        labelPlural: _loc(`TYPES.Item.${type}Pl`),
+        labelPlural: makeLabel(type),
         attributeLabel: durability ? _loc("RYUUTAMA.ACTOR.durability") : null,
         items: items.map(item => ({
           document: item,
@@ -593,47 +639,70 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       };
     };
 
-    const menuOptions = [];
-    const groups = [];
-    const sortMode = this.search.currentSortMode("inventory");
-
-    for (const type of Object.keys(CONFIG.Item.dataModels)) {
-      if (type === CONST.BASE_DOCUMENT_TYPE) continue;
-      if (!CONFIG.Item.dataModels[type].metadata?.inventory) continue;
-
-      menuOptions.push(makeMenuOption(type));
-      if (catMode === ryuutama.applications.ux.RyuutamaSearchManager.CATEGORIZATION_MODES.GROUPED) {
-        const section = makeSection(type);
-        if (section) groups.push(section);
-      } else {
-        if (!groups.length) groups.push({ labelPlural: _loc("DOCUMENT.Items"), items: [] });
-        for (const item of this.document.items.documentsByType[type]) {
-          groups[0].items.push({
-            document: item,
-            dataset: { "item-context": "" },
-            buttons: makeButtons(item),
-          });
-        }
-      }
-    }
-
-    groups.sort((a, b) => {
-      const sort = a.sort - b.sort;
-      if (sort) return sort;
-      return a.labelPlural.localeCompare(b.labelPlural);
-    });
-
-    for (const group of groups) group.items.sort((a, b) => {
+    // Sorting method for groups and containers.
+    const sortGroup = (a, b) => {
       switch (sortMode) {
         case ryuutama.applications.ux.RyuutamaSearchManager.SORT_MODES.ALPHABETIC:
           return a.document.name.localeCompare(b.document.name);
         case ryuutama.applications.ux.RyuutamaSearchManager.SORT_MODES.MANUAL:
           return a.document.sort - b.document.sort;
       }
+    };
+
+    const makeGroupedSection = type => {
+      const section = makeSection(type);
+      if (section) groups.push(section);
+    };
+
+    const makeUngroupedSection = type => {
+      if (!groups.length) groups.push({ labelPlural: makeLabel(), items: [] });
+
+      itemCollection[type]?.forEach(item => {
+        if (!inView(item)) return;
+        groups[0].items.push({
+          document: item,
+          dataset: { "item-context": "" },
+          buttons: makeButtons(item),
+        });
+      });
+    };
+
+    const iterateItemType = type => {
+      if (type === CONST.BASE_DOCUMENT_TYPE) return;
+      if (!CONFIG.Item.dataModels[type]?.metadata?.inventory) return;
+
+      // Menu options are made regardless of container view.
+      menuOptions.push(makeMenuOption(type));
+
+      switch (catMode) {
+        case ryuutama.applications.ux.RyuutamaSearchManager.CATEGORIZATION_MODES.GROUPED:
+          return makeGroupedSection(type);
+        default:
+          return makeUngroupedSection(type);
+      }
+    };
+
+    // Set up all the sections.
+    getDocumentClass("Item").TYPES.forEach(iterateItemType);
+
+    // Set up container section.
+    ["container", "animal"].forEach(type => {
+      this.document.items.documentsByType[type].forEach(item => {
+        containers.push({ document: item, active: item === activeContainer });
+      });
     });
 
+    // Sort all the groups and menu options.
+    groups.sort((a, b) => {
+      const sort = a.sort - b.sort;
+      if (sort) return sort;
+      return a.labelPlural.localeCompare(b.labelPlural);
+    });
     menuOptions.sort((a, b) => a.sort - b.sort);
+    groups.forEach(group => group.items.sort(sortGroup));
+    containers.sort(sortGroup);
 
+    // Set up search.
     const key = "inventory";
     const search = {
       key,
@@ -645,7 +714,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       options: menuOptions,
     };
 
-    return { search, groups };
+    return { search, groups, containers };
   }
 
   /* -------------------------------------------------- */
@@ -847,7 +916,51 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
     // Equip the item if dropped onto the equipment section.
     if (toEquip) {
-      await this.document.update({ [`system.equipped.${item.type}`]: item.id });
+      await foundry.documents.modifyBatch([
+        {
+          action: "update",
+          parent: this.document.parent,
+          documentName: "Actor",
+          updates: [{ _id: this.document.id, [`system.equipped.${item.type}`]: item.id }],
+        },
+        {
+          action: "update",
+          parent: this.document,
+          documentName: "Item",
+          updates: [{ _id: item.id, "system.storage": null }],
+        },
+      ]);
+      return true;
+    }
+
+    // Dropping a container from elsewhere.
+    if (item.system.isStorage && (item.parent !== this.document)) {
+      const Item = getDocumentClass("Item");
+      const itemData = await Item.createWithContents([item]);
+      await Item.createDocuments(itemData, { parent: this.document, keepId: true });
+      return true;
+    }
+
+    // Dropping an item from this actor's containers should move it out or to different container.
+    const parent = ryuutama.data.fields.StorageField.getParentStorage(item);
+    if (parent?.actor === this.document) {
+      // If dropping onto the Inventory section, add to active container, otherwise move out of container.
+      if (event.target?.closest("[data-search-container='inventory']")) {
+        // Dropping onto self. Sort contents.
+        if (this.activeContainer === parent) {
+          await this._onSortItem(event, item);
+          return true;
+        }
+
+        // Dropping onto different container's view, add to that container.
+        if (this.activeContainer) {
+          await item.update({ "system.storage": this.activeContainer.id });
+          return true;
+        }
+      }
+
+      // Otherwise, simply move the contents out of the container.
+      await item.update({ "system.storage": null });
       return true;
     }
 
@@ -874,6 +987,19 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
    * @this RyuutamaTravelerSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   */
+  static #changeInventoryView(event, target) {
+    const id = target.closest("[data-uuid]").dataset.uuid.split(".").at(-1);
+    this.#inventoryView = this.#inventoryView === id ? null : id;
+    this.render();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaTravelerSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static #toggleEffect(event, target) {
     const effect = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);

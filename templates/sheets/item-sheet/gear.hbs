@@ -1,12 +1,12 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
   {{!-- PRICE --}}
-  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.total source.system.price.value) disabled=disabled classes="slim" placeholder="1"}}
+  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="1"}}
 
   <div class="form-group stacked">
     <label>{{localize "RYUUTAMA.ITEM.durability" value=document.system.durability.value max=document.system.durability.max}}</label>
     <div class="form-fields">
       {{formGroup systemFields.durability.fields.spent value=(ifThen disabled document.system.durability.spent source.system.durability.spent) disabled=disabled max=document.system.durability.max type="number"}}
-      {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.total source.system.size.value) disabled=disabled}}
+      {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.value source.system.size.value) disabled=disabled}}
     </div>
   </div>
 

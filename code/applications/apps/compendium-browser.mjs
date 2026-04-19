@@ -135,6 +135,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       "system.source.custom",
       "system.spell.activation.cast",
       "system.spell.level",
+      "system.storage",
     ],
   };
 
@@ -331,10 +332,15 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       .map(([name]) => name);
     if (!methods.length) return new Set();
 
-    const match = entry => methods.every(name => RyuutamaCompendiumBrowser.FILTERS[name].callback(entry, filters));
+    const match = (entry, pack) => {
+      if (pack.index.has(entry.system.storage)) return false;
+      return methods.every(name => RyuutamaCompendiumBrowser.FILTERS[name].callback(entry, filters));
+    };
+
     const matches = Object.entries(RyuutamaCompendiumBrowser.ENTRIES[documentName]).reduce((acc, [pack, entries]) => {
-      if (!game.packs.get(pack).visible) return acc;
-      return acc.concat(entries.filter(match));
+      pack = game.packs.get(pack);
+      if (!pack.visible) return acc;
+      return acc.concat(entries.filter(entry => match(entry, pack)));
     }, []);
 
     if (indexOnly) return new Set(matches);

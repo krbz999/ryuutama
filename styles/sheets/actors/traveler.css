@@ -386,7 +386,7 @@
 
     .contents {
       display: grid;
-      grid-template-rows: 0fr 0fr 1fr;
+      grid-template-rows: 0fr 0fr 0fr 1fr;
       height: 100%;
       gap: .5rem;
       padding-top: .5rem;
@@ -418,6 +418,23 @@
           text-align: center;
           background-color: inherit;
           border-color: var(--c-primary);
+        }
+      }
+
+      .containers {
+        display: flex;
+        flex-wrap: wrap;
+
+        .container {
+          flex: 0 0 2.75rem;
+          margin: .25rem;
+          border: 1px solid var(--c-accent);
+          transition: all 150ms ease-out;
+
+          &.active,
+          &:hover {
+            transform: scale(1.15);
+          }
         }
       }
     }
@@ -626,7 +643,8 @@
   .defense-icon,
   .filters search .controls,
   .gold > label,
-  .experience {
+  .experience,
+  .containers .container {
     filter: drop-shadow(0 0 var(--shadow-spread, .1rem) var(--ryuutama-color-shadow-black));
   }
 

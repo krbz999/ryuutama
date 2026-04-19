@@ -1,9 +1,11 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
+  <progress-bar id="{{rootId}}-capacity" data-pct="{{container.capacity.pct}}" data-label="{{container.capacity.value}} / {{container.capacity.max}}"></progress-bar>
+
   {{!-- PRICE --}}
   {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="1" rootId=rootId}}
 
   {{!-- CONTAINER SIZE --}}
-  {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.total source.system.size.value) disabled=disabled classes="slim" rootId=rootId}}
+  {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.value source.system.size.value) disabled=disabled classes="slim" rootId=rootId}}
 
   {{!-- CAPACITY --}}
   {{formGroup systemFields.properties value=(ifThen disabled document.system.properties source.system.properties) disabled=disabled type="checkboxes" classes="stacked"}}
@@ -23,4 +25,7 @@
   </div>
   {{/if}}
   {{/each}}
+
+  {{!-- CONTENTS --}}
+  {{> document-list label=(localize "RYUUTAMA.ITEM.CONTAINER.contents") entries=container.contents}}
 </section>

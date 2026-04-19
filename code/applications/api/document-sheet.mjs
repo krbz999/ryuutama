@@ -157,7 +157,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
 
     // Set up drag-drop.
     this._dragDrop ??= new CONFIG.ux.DragDrop({
-      dragSelector: ".document-listing .document-list .entry",
+      dragSelector: ".document-listing .document-list .entry, [data-drag-start]",
       dropSelector: null,
       permissions: {
         dragstart: RyuutamaDocumentSheet._canDragstart.bind(this),

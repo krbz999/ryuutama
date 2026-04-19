@@ -5,4 +5,5 @@ export { default as IdentifierField } from "./identifier-field.mjs";
 export { default as LocalDocumentField } from "./local-document-field.mjs";
 export { default as MembersField } from "./members-field.mjs";
 export { default as SourceField } from "./source-field.mjs";
+export { default as StorageField } from "./storage-field.mjs";
 export { default as TypedRecordField } from "./typed-record-field.mjs";

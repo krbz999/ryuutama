@@ -2,6 +2,10 @@ import BaseData from "./base.mjs";
 
 const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
 
+/**
+ * Extension of the base item data model for items with physical properties.
+ * These are all the items that can be equipped.
+ */
 export default class PhysicalData extends BaseData {
   /** @inheritdoc */
   static defineSchema() {
@@ -16,6 +20,7 @@ export default class PhysicalData extends BaseData {
       size: new SchemaField({
         value: new NumberField({ nullable: false, initial: 1, choices: ryuutama.CONST.ITEM_SIZES._toConfig }),
       }),
+      storage: new ryuutama.data.fields.StorageField(),
     });
   }
 
@@ -39,37 +44,15 @@ export default class PhysicalData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /**
-   * The amount this adds to the capacity.
-   * @type {number}
-   */
-  get weight() {
-    return this.size.total;
-  }
-
-  /* -------------------------------------------------- */
-
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    this.#prepareSize();
     this.#prepareDurability();
 
     // An item is broken if it has no durability remaining. This property is required for the price calculation.
     if (!this.durability.value) this.modifiers.add("broken");
     this.#preparePrice();
-
     this.#prepareModifierLabels();
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Prepare the size category.
-   */
-  #prepareSize() {
-    this.size.total = this.size.value;
-    if (this.modifiers.has("mythril")) this.size.total = Math.max(1, this.size.total - 2);
   }
 
   /* -------------------------------------------------- */
@@ -78,7 +61,7 @@ export default class PhysicalData extends BaseData {
    * Prepare durability data.
    */
   #prepareDurability() {
-    const max = this.modifiers.has("mythril") ? 5 : this.size.total;
+    const max = this.modifiers.has("mythril") ? 5 : this.size.value;
     let multiplier = 1;
 
     if (this.modifiers.has("sturdy")) multiplier = 2;
@@ -102,7 +85,6 @@ export default class PhysicalData extends BaseData {
     const p = this.price;
     p.magical = 0;
     p.multiplier = 1;
-    p.total = p.value;
 
     for (const mod of this.modifiers) {
       const config = ryuutama.config.itemModifiers[mod];
@@ -112,7 +94,7 @@ export default class PhysicalData extends BaseData {
       else p.multiplier *= cost;
     }
 
-    p.total = Math.floor(p.total * p.multiplier + p.magical);
+    p.value = Math.floor(p.value * p.multiplier + p.magical);
     p.sell = Math.floor(p.total / 2);
     p.saleable = (p.sell > 0) && !this.modifiers.has("broken");
   }

@@ -1,4 +1,8 @@
 /**
+ * @import { DatabaseDeleteOperation } from "@common/abstract/_types.mjs";
+ */
+
+/**
  * @typedef ItemSubtypeMetadata
  * @property {boolean} [inventory]        Unless explicitly `false`, this item type appears in inventories.
  * @property {number} [sort]              The order in which this item type appears as a section on actor sheets.
@@ -63,6 +67,37 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Is this a container able to hold other items?
+   * @type {boolean}
+   */
+  get isStorage() {
+    return false;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The amount this adds to the capacity of a parent actor.
+   * @type {number}
+   */
+  get weight() {
+    return this.size?.value ?? 0;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareBaseData() {
+    super.prepareBaseData();
+
+    // Prepare size.
+    if (!this.size) return;
+    if (this.modifiers?.has("mythril")) this.size.value = Math.max(1, this.size.value - 2);
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
@@ -90,7 +125,7 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
       typeTag: _loc(`TYPES.Item.${this.parent.type}`),
     };
 
-    this._prepareTooltipContext(context);
+    await this._prepareTooltipContext(context);
 
     const htmlString = await foundry.applications.handlebars.renderTemplate(
       "systems/ryuutama/templates/ui/items/tooltip.hbs",
@@ -106,10 +141,11 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /**
    * Prepare subtype specific context for tooltips.
-   * @param {object} context
-   * @param {object} [options]
+   * @param {object} context      Rendering context. **will be mutated.**
+   * @param {object} [options]    Rendering options.
+   * @returns {Promise<void>}     A promise thast resolves once context has been mutated.
    */
-  _prepareTooltipContext(context, options = {}) {
+  async _prepareTooltipContext(context, options = {}) {
     if (this.modifierLabels?.length) {
       context.tagSections.push({
         tags: this.modifierLabels.map(label => ({ label })),
@@ -163,4 +199,14 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
    * @returns {Promise<void>}
    */
   async _prepareSubtypeContext(sheet, context, options) {}
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare dialog options for a deletion dialog for an item of this type.
+   * @param {object} [options]                      Additional options passed to `DialogV2.confirm`
+   * @param {DatabaseDeleteOperation} [operation]   Document deletion options.
+   * @returns {Promise<object|void>}
+   */
+  async _prepareDeleteDialogOptions(options = {}, operation = {}) {}
 }

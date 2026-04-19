@@ -272,7 +272,15 @@ export default class TravelerData extends CreatureData {
     this.equipped.orichalcum = 0;
 
     for (const item of this.equipped) {
+      if (ryuutama.data.fields.StorageField.getParentStorage(item)) {
+        // The item is in storage, cannot be equipped.
+        Object.defineProperty(this.equipped, item.type, { value: null });
+        continue;
+      }
+
+      // Broken weapon cannot add to cursed/orichalcum count.
       if (!item.system.isUsable) continue;
+
       if (item.system.modifiers.has("cursed")) this.equipped.cursed++;
       if (item.system.modifiers.has("orichalcum")) this.equipped.orichalcum++;
     }
@@ -345,20 +353,15 @@ export default class TravelerData extends CreatureData {
     const techBonus = this.details.type.technical;
 
     capacity.value = 0;
-    capacity.container = 0;
     this.parent.items.forEach(item => {
+      // Equipped items do not add to capacity.
       if (equipped[item.type] === item) return;
+
+      // Items in containers do not add to capacity.
+      if (ryuutama.data.fields.StorageField.getParentStorage(item)) return;
+
       const size = item.system.weight ?? 0;
       capacity.value += size;
-
-      switch (item.type) {
-        case "animal":
-          capacity.container += item.system.capacity.total;
-          break;
-        case "container":
-          capacity.container += item.system.capacity.total;
-          break;
-      }
     });
 
     capacity.max =
@@ -366,8 +369,7 @@ export default class TravelerData extends CreatureData {
       + 3
       + capacity.bonus
       + (details.level - 1)
-      + techBonus * 3
-      + capacity.container;
+      + techBonus * 3;
 
     capacity.penalty = Math.max(0, capacity.value - capacity.max);
     capacity.pct = Math.clamp(Math.round(capacity.value / capacity.max * 100), 0, 100);

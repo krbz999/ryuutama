@@ -24,6 +24,7 @@ export default class HerbData extends BaseData {
       price: new SchemaField({
         value: new NumberField({ nullable: true, initial: null, min: 0, integer: true }),
       }),
+      storage: new ryuutama.data.fields.StorageField(),
       terrain: new SchemaField({
         details: new StringField({ required: true }),
         level: new NumberField({ initial: 1, nullable: false, integer: true, min: 1, max: 5 }),
@@ -80,9 +81,9 @@ export default class HerbData extends BaseData {
 
     if (this.price.value === null) {
       switch (this.terrain.level) {
-        case 1: this.price.total = 100; break;
-        case 2: this.price.total = 300; break;
-        case 3: this.price.total = 800; break;
+        case 1: this.price.value = 100; break;
+        case 2: this.price.value = 300; break;
+        case 3: this.price.value = 800; break;
       }
     }
 
@@ -138,8 +139,8 @@ export default class HerbData extends BaseData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  _prepareTooltipContext(context, options = {}) {
-    super._prepareTooltipContext(context, options);
+  async _prepareTooltipContext(context, options = {}) {
+    await super._prepareTooltipContext(context, options);
 
     context.tagSections.push({
       tags: [

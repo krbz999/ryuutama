@@ -1,4 +1,4 @@
-import BaseData from "./templates/base.mjs";
+import StorageData from "./templates/storage.mjs";
 
 /**
  * @import RyuutamaItem from "../../documents/item.mjs";
@@ -6,7 +6,7 @@ import BaseData from "./templates/base.mjs";
 
 const { NumberField, SchemaField, SetField, StringField, TypedObjectField, TypedSchemaField } = foundry.data.fields;
 
-export default class ContainerData extends BaseData {
+export default class ContainerData extends StorageData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
@@ -21,14 +21,7 @@ export default class ContainerData extends BaseData {
 
   /** @inheritdoc */
   static defineSchema() {
-    return Object.assign(super.defineSchema(), {
-      capacity: new SchemaField({
-        max: new NumberField({ nullable: true, initial: null, integer: true, min: 0 }),
-        water: new NumberField({ nullable: true, initial: null, integer: true, min: 0 }),
-      }),
-      price: new SchemaField({
-        value: new NumberField({ nullable: false, initial: 1, min: 0, integer: true }),
-      }),
+    const schema = Object.assign(super.defineSchema(), {
       properties: new SetField(new StringField({ choices: ryuutama.CONST.CONTAINER_PROPERTIES._toConfig })),
       rations: new TypedObjectField(
         new TypedSchemaField(rationTypes()),
@@ -38,6 +31,12 @@ export default class ContainerData extends BaseData {
         value: new NumberField({ nullable: false, initial: 1, choices: ryuutama.CONST.ITEM_SIZES._toConfig }),
       }),
     });
+
+    schema.capacity.extendFields({
+      water: new NumberField({ nullable: true, initial: null, integer: true, min: 0 }),
+    });
+
+    return schema;
   }
 
   /* -------------------------------------------------- */
@@ -57,10 +56,17 @@ export default class ContainerData extends BaseData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  async calculateCapacity() {
+    const total = await super.calculateCapacity();
+    return total + this.capacity.rations;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    this.size.total = this.size.value;
-    this.capacity.value = 0;
+    this.capacity.rations = 0;
 
     const isWaterContainer = this.properties.has("waterContainer");
 
@@ -91,7 +97,7 @@ export default class ContainerData extends BaseData {
         : r.type !== ryuutama.CONST.RATION_TYPES.WATER;
       if (display) {
         this.rations[r.type].push(r);
-        this.capacity.value++;
+        this.capacity.rations++;
       }
     }
 
@@ -108,20 +114,23 @@ export default class ContainerData extends BaseData {
       });
     }
 
-    this.capacity.total = isWaterContainer ? this.capacity.water : this.capacity.max;
-    this.capacity.pct = Math.clamp(Math.round(this.capacity.value / this.capacity.total * 100), 0, 100) || 0;
-
-    // The amount this adds to a Traveler's capacity.
-    this.weight = this.size.total + this.capacity.value;
+    this.capacity.total = (isWaterContainer ? this.capacity.water : this.capacity.max) ?? 0;
   }
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
   async _prepareSubtypeContext(sheet, context, options) {
+    const contents = await this.contents;
+    const capacity = await this.calculateCapacity();
+    const pct = Math.clamp(Math.round(capacity / this.capacity.total * 100), 0, 100);
+
     const ctx = context.container = {
+      capacity: { pct, value: capacity, max: this.capacity.total },
+      contents: contents.map(item => ({ document: item })),
       rations: {},
     };
+
     Object.values(ryuutama.CONST.RATION_TYPES).forEach(type => {
       const entries = sheet.document.system.rations[type];
       ctx.rations[type] = {
@@ -131,7 +140,7 @@ export default class ContainerData extends BaseData {
           : (type !== ryuutama.CONST.RATION_TYPES.WATER),
         label: ryuutama.config.rationTypes[type].label,
         disableDown: !entries.length || !context.editable,
-        disableUp: !context.editable || ((this.capacity.pct === 100) && (this.capacity.total !== null)),
+        disableUp: !context.editable || (pct === 100),
       };
     });
   }
@@ -139,15 +148,44 @@ export default class ContainerData extends BaseData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  _prepareTooltipContext(context, options = {}) {
-    super._prepareTooltipContext(context, options);
+  async _prepareTooltipContext(context, options = {}) {
+    await super._prepareTooltipContext(context, options);
 
+    const cValue = await this.calculateCapacity();
     const isWaterContainer = this.properties.has("waterContainer");
-    const formula = `${this.capacity.value} / ${this.capacity.total}`;
+    const formula = `${cValue} / ${this.capacity.total}`;
     context.tagSections.push({
       tags: [
         { label: _loc(isWaterContainer ? "RYUUTAMA.TOOLTIP.waterCapacity" : "RYUUTAMA.TOOLTIP.capacity", { formula }) },
       ],
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _prepareDeleteDialogOptions(options = {}, operation = {}) {
+    const dialogOptions = await super._prepareDeleteDialogOptions(options, operation) ?? {};
+    const contents = await this.contents;
+    const rations = Object.values(ryuutama.CONST.RATION_TYPES).reduce((acc, type) => acc + this.rations[type].length, 0);
+    if (!contents.length && !rations) return dialogOptions;
+
+    return foundry.utils.mergeObject(dialogOptions, {
+      yes: {
+        callback: async (event, button, dialog) => {
+          const deleteContents = button.form.elements["deleteContents"].checked;
+          return this.parent.delete({ ...operation, deleteContents });
+        },
+      },
+      render: (event, dialog) => {
+        const { createFormGroup, createCheckboxInput } = foundry.applications.fields;
+        dialog.element.querySelector(".dialog-content").insertAdjacentElement("beforeend", createFormGroup({
+          label: _loc("RYUUTAMA.ITEM.CONTAINER.deleteDialogLabel"),
+          hint: _loc("RYUUTAMA.ITEM.CONTAINER.deleteDialogHint", { items: contents.length, rations }),
+          input: createCheckboxInput({ value: true, name: "deleteContents" }),
+          rootId: dialog.id,
+        }));
+      },
     });
   }
 
