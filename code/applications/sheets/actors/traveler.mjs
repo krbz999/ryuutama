@@ -560,6 +560,17 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
    * @returns {{ search: object, groups: object[], containers: object[] }}
    */
   #prepareInventory(context) {
+    const activeContainer = this.activeContainer;
+
+    const itemCollection = activeContainer
+      ? Object.groupBy(activeContainer.system.contents, item => item.type)
+      : this.document.items.documentsByType;
+
+    const menuOptions = [];
+    const groups = [];
+    const sortMode = this.search.currentSortMode("inventory");
+    const catMode = this.search.currentCategorizationMode("inventory");
+    const containers = [];
 
     const makeDur = item => {
       const id = `${context.rootId}-${item.id}-durability`;
@@ -596,8 +607,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       return buttons;
     };
 
-    const activeContainer = this.activeContainer;
-
     // Is an item visible on the character sheet by being in the current container view?
     const inView = item => {
       const parent = ryuutama.data.fields.ContainerField.getContainer(item);
@@ -605,10 +614,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       else return !parent;
     };
 
-    const itemCollection = activeContainer
-      ? Object.groupBy(activeContainer.system.contents, item => item.type)
-      : this.document.items.documentsByType;
-
+    // Make label for a section with (or without) item subtype.
     const makeLabel = type => {
       let label = type ? _loc(`TYPES.Item.${type}Pl`) : _loc("DOCUMENT.Items");
       if (activeContainer) return `${label} (${activeContainer.name})`;
@@ -633,55 +639,70 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       };
     };
 
-    const menuOptions = [];
-    const groups = [];
-    const sortMode = this.search.currentSortMode("inventory");
-    const catMode = this.search.currentCategorizationMode("inventory");
-
-    for (const type of getDocumentClass("Item").TYPES) {
-      if (type === CONST.BASE_DOCUMENT_TYPE) continue;
-      if (!CONFIG.Item.dataModels[type]?.metadata?.inventory) continue;
-
-      // Menu options are made regardless of container view.
-      menuOptions.push(makeMenuOption(type));
-
-      if (catMode === ryuutama.applications.ux.RyuutamaSearchManager.CATEGORIZATION_MODES.GROUPED) {
-        const section = makeSection(type);
-        if (section) groups.push(section);
-      } else {
-        if (!groups.length) groups.push({
-          labelPlural: makeLabel(),
-          items: [],
-        });
-
-        for (const item of itemCollection[type] ?? []) {
-          if (!inView(item)) continue;
-          groups[0].items.push({
-            document: item,
-            dataset: { "item-context": "" },
-            buttons: makeButtons(item),
-          });
-        }
-      }
-    }
-
-    groups.sort((a, b) => {
-      const sort = a.sort - b.sort;
-      if (sort) return sort;
-      return a.labelPlural.localeCompare(b.labelPlural);
-    });
-
-    for (const group of groups) group.items.sort((a, b) => {
+    // Sorting method for groups and containers.
+    const sortGroup = (a, b) => {
       switch (sortMode) {
         case ryuutama.applications.ux.RyuutamaSearchManager.SORT_MODES.ALPHABETIC:
           return a.document.name.localeCompare(b.document.name);
         case ryuutama.applications.ux.RyuutamaSearchManager.SORT_MODES.MANUAL:
           return a.document.sort - b.document.sort;
       }
+    };
+
+    const makeGroupedSection = type => {
+      const section = makeSection(type);
+      if (section) groups.push(section);
+    };
+
+    const makeUngroupedSection = type => {
+      if (!groups.length) groups.push({ labelPlural: makeLabel(), items: [] });
+
+      itemCollection[type]?.forEach(item => {
+        if (!inView(item)) return;
+        groups[0].items.push({
+          document: item,
+          dataset: { "item-context": "" },
+          buttons: makeButtons(item),
+        });
+      });
+    };
+
+    const iterateItemType = type => {
+      if (type === CONST.BASE_DOCUMENT_TYPE) return;
+      if (!CONFIG.Item.dataModels[type]?.metadata?.inventory) return;
+
+      // Menu options are made regardless of container view.
+      menuOptions.push(makeMenuOption(type));
+
+      switch (catMode) {
+        case ryuutama.applications.ux.RyuutamaSearchManager.CATEGORIZATION_MODES.GROUPED:
+          return makeGroupedSection(type);
+        default:
+          return makeUngroupedSection(type);
+      }
+    };
+
+    // Set up all the sections.
+    getDocumentClass("Item").TYPES.forEach(iterateItemType);
+
+    // Set up container section.
+    ["container", "animal"].forEach(type => {
+      this.document.items.documentsByType[type].forEach(item => {
+        containers.push({ document: item, active: item === activeContainer });
+      });
     });
 
+    // Sort all the groups and menu options.
+    groups.sort((a, b) => {
+      const sort = a.sort - b.sort;
+      if (sort) return sort;
+      return a.labelPlural.localeCompare(b.labelPlural);
+    });
     menuOptions.sort((a, b) => a.sort - b.sort);
+    groups.forEach(group => group.items.sort(sortGroup));
+    containers.sort(sortGroup);
 
+    // Set up search.
     const key = "inventory";
     const search = {
       key,
@@ -692,21 +713,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       expanded: this.expandedFilters.has(key),
       options: menuOptions,
     };
-
-    const containers = [];
-    ["container", "animal"].forEach(type => {
-      this.document.items.documentsByType[type].forEach(item => {
-        containers.push({ item, sort: item.sort, active: item === activeContainer });
-      });
-    });
-    containers.sort((a, b) => {
-      switch (sortMode) {
-        case ryuutama.applications.ux.RyuutamaSearchManager.SORT_MODES.ALPHABETIC:
-          return a.item.name.localeCompare(b.item.name);
-        case ryuutama.applications.ux.RyuutamaSearchManager.SORT_MODES.MANUAL:
-          return a.sort - b.sort;
-      }
-    });
 
     return { search, groups, containers };
   }

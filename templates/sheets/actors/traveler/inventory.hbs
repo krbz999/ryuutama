@@ -25,8 +25,8 @@
     {{!-- CONTAINERS --}}
     <section class="containers document-list">
       {{#each inventory.containers}}
-      <a class="container {{ifThen active 'active' 'inactive'}}" data-uuid="{{item.uuid}}" data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}" data-action="changeInventoryView" data-item-context data-drag-start>
-        <img src="{{item.img}}" alt="{{item.name}}">
+      <a class="container {{ifThen active 'active' 'inactive'}}" data-uuid="{{document.uuid}}" data-tooltip-html="{{ryuutama-tooltip uuid=document.uuid}}" data-action="changeInventoryView" data-item-context data-drag-start>
+        <img src="{{document.img}}" alt="{{document.name}}">
       </a>
       {{/each}}
     </section>

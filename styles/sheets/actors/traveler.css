@@ -426,15 +426,13 @@
         flex-wrap: wrap;
 
         .container {
-          flex: 0 0 3rem;
+          flex: 0 0 2.75rem;
           margin: .25rem;
           border: 1px solid var(--c-accent);
+          transition: all 150ms ease-out;
 
-          img {
-            border: none;
-          }
-
-          &.active {
+          &.active,
+          &:hover {
             transform: scale(1.15);
           }
         }
