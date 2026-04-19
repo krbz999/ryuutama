@@ -46,7 +46,8 @@ export default class RyuutamaCombatTracker extends foundry.applications.sidebar.
 
   /**
    * Add a new set of 5 objects to the combat.
-   * @param {PointerEvent} event    Initiating click event.
+   * @this RyuutamaCombatTracker
+   * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #addObjects(event, target) {
@@ -59,7 +60,8 @@ export default class RyuutamaCombatTracker extends foundry.applications.sidebar.
 
   /**
    * Toggle the disabled state of an object.
-   * @param {PointerEvent} event    Initiating click event.
+   * @this RyuutamaCombatTracker
+   * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #toggleObject(event, target) {

@@ -51,7 +51,7 @@ export default class DamagePart extends CheckPart {
   /**
    * Apply damage from this part.
    * @this DamagePart
-   * @param {PointerEvent} event    Initiating click event.
+   * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #applyDamage(event, target) {
@@ -68,7 +68,7 @@ export default class DamagePart extends CheckPart {
   /**
    * Roll unresolved damage.
    * @this DamagePart
-   * @param {PointerEvent} event    Initiating click event.
+   * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #rollDamage(event, target) {

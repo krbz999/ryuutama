@@ -861,7 +861,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
   /**
    * @this RyuutamaTravelerSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #adjustFumbles(event, target) {
     const delta = target.dataset.direction === "UP" ? 1 : -1;
@@ -873,7 +873,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
   /**
    * @this RyuutamaTravelerSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #toggleEffect(event, target) {
     const effect = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);

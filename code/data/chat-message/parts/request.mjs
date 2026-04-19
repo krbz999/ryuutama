@@ -80,14 +80,14 @@ export default class RequestPart extends MessagePart {
   /**
    * Perform an initial roll for the request.
    * @this RequestPart
-   * @param {PointerEvent} event    Initiating click event.
+   * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static async #rollRequest(event, target) {
     let actors;
     if (canvas?.tokens?.controlled.length) actors = new Set(canvas.tokens.controlled.map(token => token.actor));
     else actors = [game.user.character];
-    for (const actor of actors) if (actor) await this._rollRequest(actor, event);
+    for (const actor of actors) if (actor) await this.#rollRequestActor(actor, event, target);
   }
 
   /* -------------------------------------------------- */
@@ -95,12 +95,12 @@ export default class RequestPart extends MessagePart {
   /**
    * Perform a reroll.
    * @this RequestPart
-   * @param {PointerEvent} event    Initiating click event.
+   * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static async #rerollRequest(event, target) {
     const actor = fromUuidSync(target.closest("[data-actor-uuid]").dataset.actorUuid);
-    this._rollRequest(actor, event);
+    this.#rollRequestActor(actor, event, target);
   }
 
   /* -------------------------------------------------- */
@@ -108,10 +108,11 @@ export default class RequestPart extends MessagePart {
   /**
    * Roll the request.
    * @param {RyuutamaActor} actor   The actor performing the roll.
-   * @param {PointerEvent} event    Initiating click event.
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    * @returns {Promise}             A promise that resolves once the roll has been completed.
    */
-  async _rollRequest(actor, event) {
+  async #rollRequestActor(actor, event, target) {
     const rollConfig = foundry.utils.deepClone(this.check.configuration);
     const dialogConfig = { configure: !event.shiftKey };
     const messageConfig = { requestId: [this.message.id, this.id].join(".") };

@@ -189,9 +189,13 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
   }
 
   /* -------------------------------------------------- */
+  /*   Event Handlers                                   */
+  /* -------------------------------------------------- */
 
   /**
    * @this RyuutamaDocumentSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #openSourceConfig(event, target) {
     let application = new ryuutama.applications.apps.SourceConfig({ document: this.document });
@@ -203,6 +207,8 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
 
   /**
    * @this RyuutamaDocumentSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #toggleEditMode(event, target) {
     const modes = RyuutamaDocumentSheet.SHEET_MODES;
@@ -214,6 +220,8 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
 
   /**
    * @this RyuutamaDocumentSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #createEffect(event, target) {
     const disabled = target.dataset.disabled === "true";
@@ -229,6 +237,8 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
 
   /**
    * @this RyuutamaDocumentSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #renderEmbedded(event, target) {
     const uuid = target.closest("[data-uuid]").dataset.uuid;
@@ -239,8 +249,8 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
 
   /**
    * @this RyuutamaDocumentSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #contextMenu(event, target) {
     const { clientX, clientY } = event;
@@ -252,8 +262,8 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
 
   /**
    * @this RyuutamaDocumentSheet
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #renderDocument(event, target) {
     const uuid = target.closest("[data-uuid]").dataset.uuid;

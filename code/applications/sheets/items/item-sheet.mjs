@@ -228,7 +228,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaItemSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #decreaseRation(event, target) {
     const type = target.closest("[data-ration-type]").dataset.rationType;
@@ -240,7 +240,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaItemSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #increaseRation(event, target) {
     const type = target.closest("[data-ration-type]").dataset.rationType;
@@ -252,7 +252,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaItemSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #removeSkill(event, target) {
     const uuid = target.closest("[data-uuid]").dataset.uuid;

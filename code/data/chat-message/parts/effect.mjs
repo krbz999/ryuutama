@@ -114,7 +114,7 @@ export default class EffectPart extends MessagePart {
   /**
    * Apply effects from this part.
    * @this EffectPart
-   * @param {PointerEvent} event    Initiating click event.
+   * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static async #applyEffects(event, target) {

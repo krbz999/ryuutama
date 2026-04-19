@@ -229,7 +229,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
   /**
    * @this RyuutamaPartySheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #consumeRation(event, target) {
     const { containerUuid, rationId } = target.closest(".ration").dataset;
@@ -242,7 +242,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
   /**
    * @this RyuutamaPartySheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static async #placeMembers(event, target) {
     const configure = !event.shiftKey;
@@ -254,7 +254,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
   /**
    * @this RyuutamaPartySheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #removeMember(event, target) {
     const id = target.closest("[data-member-id]").dataset.memberId;
@@ -267,7 +267,7 @@ export default class RyuutamaPartySheet extends RyuutamaBaseActorSheet {
   /**
    * @this RyuutamaPartySheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #showMember(event, target) {
     const id = target.closest("[data-member-id]").dataset.memberId;

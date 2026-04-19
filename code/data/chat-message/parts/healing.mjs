@@ -46,7 +46,7 @@ export default class HealingPart extends MessagePart {
   /**
    * Apply healing from this part.
    * @this HealingPart
-   * @param {PointerEvent} event    Initiating click event.
+   * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static async #applyHealing(event, target) {

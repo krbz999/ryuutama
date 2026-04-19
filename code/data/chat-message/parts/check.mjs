@@ -60,7 +60,7 @@ export default class CheckPart extends MessagePart {
   /**
    * Grant a fumble point to all party members.
    * @this CheckPart
-   * @param {PointerEvent} event    Initiating click event.
+   * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static async #grantFumble(event, target) {

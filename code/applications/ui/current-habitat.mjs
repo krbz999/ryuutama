@@ -184,7 +184,7 @@ export default class CurrentHabitat extends Application {
   /**
    * @this CurrentHabitat
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #configureTerrain(event, target) {
     const terrain = target.dataset.terrainId;
@@ -196,7 +196,7 @@ export default class CurrentHabitat extends Application {
   /**
    * @this CurrentHabitat
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #configureWeather(event, target) {
     const weather = target.dataset.weatherId;
@@ -208,7 +208,7 @@ export default class CurrentHabitat extends Application {
   /**
    * @this CurrentHabitat
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #openMenu(event, target) {
     const type = target.dataset.menu;
@@ -221,7 +221,7 @@ export default class CurrentHabitat extends Application {
   /**
    * @this CurrentHabitat
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #openParty(event, target) {
     const party = game.actors.party;

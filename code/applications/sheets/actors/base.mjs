@@ -372,7 +372,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #advance(event, target) {
     this.document.system.advance();
@@ -383,7 +383,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #castSpell(event, target) {
     const item = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
@@ -395,7 +395,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #configure(event, target) {
     /** @type {ApplicationConfiguration} */
@@ -429,7 +429,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #configurePrototypeToken(event, target) {
     const application = new CONFIG.Token.prototypeSheetClass({
@@ -447,7 +447,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static async #cycleCategorizationMode(event, target) {
     const key = target.closest("[data-search]").dataset.search;
@@ -460,7 +460,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static async #cycleSortMode(event, target) {
     const key = target.closest("[data-search]").dataset.search;
@@ -473,7 +473,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #deleteEffect(event, target) {
     const effect = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
@@ -488,7 +488,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #deleteItem(event, target) {
     const item = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
@@ -503,7 +503,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #renderItem(event, target) {
     const item = this.getEmbeddedDocument(target.dataset.uuid);
@@ -515,7 +515,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #rollAttack(event, target) {
     this.document.system.rollAttack({}, { configure: !event.shiftKey }, {});
@@ -526,7 +526,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #rollCheck(event, target) {
     const type = target.dataset.check;
@@ -539,7 +539,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #showPortrait(event, target) {
     const { img: src, uuid, name: title } = this.document;
@@ -551,7 +551,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #toggleFilterList(event, target) {
     const key = target.closest("[data-search]").dataset.search;
@@ -565,7 +565,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #toggleFilterOption(event, target) {
     const { id, option } = target.dataset;
@@ -581,7 +581,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #toggleSectionCollapse(event, target) {
     const section = target.closest("[data-collapse-section]").dataset.collapseSection;
@@ -595,7 +595,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #toggleStatus(event, target) {
     const status = target.dataset.status;
@@ -607,7 +607,7 @@ export default class RyuutamaBaseActorSheet extends RyuutamaDocumentSheet {
   /**
    * @this RyuutamaBaseActorSheet
    * @param {PointerEvent} event    The initiating click event.
-   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static #unequipItem(event, target) {
     const item = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
