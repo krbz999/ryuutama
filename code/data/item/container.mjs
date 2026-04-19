@@ -114,7 +114,7 @@ export default class ContainerData extends StorageData {
       });
     }
 
-    this.capacity.total = isWaterContainer ? this.capacity.water : this.capacity.max;
+    this.capacity.total = (isWaterContainer ? this.capacity.water : this.capacity.max) ?? 0;
   }
 
   /* -------------------------------------------------- */
@@ -123,9 +123,7 @@ export default class ContainerData extends StorageData {
   async _prepareSubtypeContext(sheet, context, options) {
     const contents = await this.contents;
     const capacity = await this.calculateCapacity();
-    const pct = this.capacity.total === null
-      ? null
-      : Math.clamp(Math.round(capacity / this.capacity.total * 100), 0, 100);
+    const pct = Math.clamp(Math.round(capacity / this.capacity.total * 100), 0, 100);
 
     const ctx = context.container = {
       capacity: { pct, value: capacity, max: this.capacity.total },
@@ -154,7 +152,6 @@ export default class ContainerData extends StorageData {
     await super._prepareTooltipContext(context, options);
 
     const cValue = await this.calculateCapacity();
-
     const isWaterContainer = this.properties.has("waterContainer");
     const formula = `${cValue} / ${this.capacity.total}`;
     context.tagSections.push({

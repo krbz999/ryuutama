@@ -2,6 +2,7 @@ import RyuutamaBaseActorSheet from "./base.mjs";
 
 /**
  * @import RyuutamaActor from "../../../documents/actor.mjs";
+ * @import RyuutamaItem from "../../../documents/item.mjs";
  */
 
 /**
@@ -17,6 +18,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     },
     actions: {
       adjustFumbles: RyuutamaTravelerSheet.#adjustFumbles,
+      changeInventoryView: RyuutamaTravelerSheet.#changeInventoryView,
       toggleEffect: RyuutamaTravelerSheet.#toggleEffect,
     },
   };
@@ -132,6 +134,26 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       ],
     },
   };
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The inventory being viewed, either `null` if viewing the actor's direct inventory,
+   * or the id of an item that can store contents.
+   * @type {string|null}
+   */
+  #inventoryView = null;
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The active storage item whose inventory is being viewed.
+   * @type {RyuutamaItem|null}
+   */
+  get activeContainer() {
+    const item = this.document.items.get(this.#inventoryView);
+    return item ? item : null;
+  }
 
   /* -------------------------------------------------- */
 
@@ -538,7 +560,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
    * @returns {{ search: object, groups: object[], containers: object[] }}
    */
   #prepareInventory(context) {
-    const catMode = this.search.currentCategorizationMode("inventory");
 
     const makeDur = item => {
       const id = `${context.rootId}-${item.id}-durability`;
@@ -575,18 +596,33 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       return buttons;
     };
 
-    const inContainer = item => {
-      return ryuutama.data.fields.ContainerField.getContainer(item);
+    const activeContainer = this.activeContainer;
+
+    // Is an item visible on the character sheet by being in the current container view?
+    const inView = item => {
+      const parent = ryuutama.data.fields.ContainerField.getContainer(item);
+      if (activeContainer) return parent === activeContainer;
+      else return !parent;
+    };
+
+    const itemCollection = activeContainer
+      ? Object.groupBy(activeContainer.system.contents, item => item.type)
+      : this.document.items.documentsByType;
+
+    const makeLabel = type => {
+      let label = type ? _loc(`TYPES.Item.${type}Pl`) : _loc("DOCUMENT.Items");
+      if (activeContainer) return `${label} (${activeContainer.name})`;
+      return label;
     };
 
     const makeSection = (type, props = true) => {
-      const items = this.document.items.documentsByType[type].filter(item => !inContainer(item));
-      if (!items.length) return null;
+      const items = itemCollection[type]?.filter(item => inView(item));
+      if (!items?.length) return null;
       const durability = props && CONFIG.Item.dataModels[type].schema.has("durability");
       return {
         sort: CONFIG.Item.dataModels[type].metadata.sort,
         durability,
-        labelPlural: _loc(`TYPES.Item.${type}Pl`),
+        labelPlural: makeLabel(type),
         attributeLabel: durability ? _loc("RYUUTAMA.ACTOR.durability") : null,
         items: items.map(item => ({
           document: item,
@@ -600,19 +636,26 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     const menuOptions = [];
     const groups = [];
     const sortMode = this.search.currentSortMode("inventory");
+    const catMode = this.search.currentCategorizationMode("inventory");
 
-    for (const type of Object.keys(CONFIG.Item.dataModels)) {
+    for (const type of getDocumentClass("Item").TYPES) {
       if (type === CONST.BASE_DOCUMENT_TYPE) continue;
-      if (!CONFIG.Item.dataModels[type].metadata?.inventory) continue;
+      if (!CONFIG.Item.dataModels[type]?.metadata?.inventory) continue;
 
+      // Menu options are made regardless of container view.
       menuOptions.push(makeMenuOption(type));
+
       if (catMode === ryuutama.applications.ux.RyuutamaSearchManager.CATEGORIZATION_MODES.GROUPED) {
         const section = makeSection(type);
         if (section) groups.push(section);
       } else {
-        if (!groups.length) groups.push({ labelPlural: _loc("DOCUMENT.Items"), items: [] });
-        for (const item of this.document.items.documentsByType[type]) {
-          if (inContainer(item)) continue;
+        if (!groups.length) groups.push({
+          labelPlural: makeLabel(),
+          items: [],
+        });
+
+        for (const item of itemCollection[type] ?? []) {
+          if (!inView(item)) continue;
           groups[0].items.push({
             document: item,
             dataset: { "item-context": "" },
@@ -651,11 +694,18 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     };
 
     const containers = [];
-    this.document.items.documentsByType.container.forEach(item => {
-      containers.push({ item });
+    ["container", "animal"].forEach(type => {
+      this.document.items.documentsByType[type].forEach(item => {
+        containers.push({ item, sort: item.sort, active: item === activeContainer });
+      });
     });
-    this.document.items.documentsByType.animal.forEach(item => {
-      containers.push({ item });
+    containers.sort((a, b) => {
+      switch (sortMode) {
+        case ryuutama.applications.ux.RyuutamaSearchManager.SORT_MODES.ALPHABETIC:
+          return a.item.name.localeCompare(b.item.name);
+        case ryuutama.applications.ux.RyuutamaSearchManager.SORT_MODES.MANUAL:
+          return a.sort - b.sort;
+      }
     });
 
     return { search, groups, containers };
@@ -860,7 +910,20 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
 
     // Equip the item if dropped onto the equipment section.
     if (toEquip) {
-      await this.document.update({ [`system.equipped.${item.type}`]: item.id });
+      await foundry.documents.modifyBatch([
+        {
+          action: "update",
+          parent: this.document.parent,
+          documentName: "Actor",
+          updates: [{ _id: this.document.id, [`system.equipped.${item.type}`]: item.id }],
+        },
+        {
+          action: "update",
+          parent: this.document,
+          documentName: "Item",
+          updates: [{ _id: item.id, "system.container": null }],
+        },
+      ]);
       return true;
     }
 
@@ -872,8 +935,25 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       return true;
     }
 
-    // Dropping an item from this actor's container should move it out.
-    if (ryuutama.data.fields.ContainerField.getContainer(item)?.actor === this.document) {
+    // Dropping an item from this actor's containers should move it out or to different container.
+    const parent = ryuutama.data.fields.ContainerField.getContainer(item);
+    if (parent?.actor === this.document) {
+      // If dropping onto the Inventory section, add to active container, otherwise move out of container.
+      if (event.target?.closest("[data-search-container='inventory']")) {
+        // Dropping onto self. Sort contents.
+        if (this.activeContainer === parent) {
+          await this._onSortItem(event, item);
+          return true;
+        }
+
+        // Dropping onto different container's view, add to that container.
+        if (this.activeContainer) {
+          await item.update({ "system.container": this.activeContainer.id });
+          return true;
+        }
+      }
+
+      // Otherwise, simply move the contents out of the container.
       await item.update({ "system.container": null });
       return true;
     }
@@ -901,6 +981,19 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
    * @this RyuutamaTravelerSheet
    * @param {PointerEvent} event    The initiating click event.
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
+   */
+  static #changeInventoryView(event, target) {
+    const id = target.closest("[data-uuid]").dataset.uuid.split(".").at(-1);
+    this.#inventoryView = this.#inventoryView === id ? null : id;
+    this.render();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaTravelerSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
    */
   static #toggleEffect(event, target) {
     const effect = this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);

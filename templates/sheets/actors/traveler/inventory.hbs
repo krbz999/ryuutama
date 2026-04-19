@@ -23,9 +23,9 @@
     {{> "systems/ryuutama/templates/sheets/actors/traveler/search.hbs" search=inventory.search}}
 
     {{!-- CONTAINERS --}}
-    <section class="containers">
+    <section class="containers document-list">
       {{#each inventory.containers}}
-      <a class="container" data-uuid="{{item.uuid}}" data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}" data-action="changeInventoryView" data-item-context>
+      <a class="container {{ifThen active 'active' 'inactive'}}" data-uuid="{{item.uuid}}" data-tooltip-html="{{ryuutama-tooltip uuid=item.uuid}}" data-action="changeInventoryView" data-item-context data-drag-start>
         <img src="{{item.img}}" alt="{{item.name}}">
       </a>
       {{/each}}
