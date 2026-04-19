@@ -857,7 +857,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     }
 
     // Dropping a container from elsewhere.
-    if ((item.type === "container") && (item.parent !== this.document)) {
+    if (item.system.isContainer && (item.parent !== this.document)) {
       const Item = getDocumentClass("Item");
       const itemData = await Item.createWithContents([item]);
       await Item.createDocuments(itemData, { parent: this.document, keepId: true });

@@ -250,7 +250,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         onClick: (event, target) => getContainedItem(target).then(item => {
           item.update({ "system.container": null });
         }),
-        visible: target => (this.document.type === "container") && this.isEditable,
+        visible: target => this.document.system.isContainer && this.isEditable,
         group: "system",
       },
     ];
@@ -273,8 +273,8 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       return true;
     }
 
-    // Dropping a physical item onto a Container item sheet.
-    if (item.system.schema.has("container") && (this.document.type === "container")) {
+    // Dropping a physical item onto a container item sheet.
+    if (item.system.schema.has("container") && this.document.system.isContainer) {
       // Case 1: The two items are in the same collection.
       if (item.collection.has(this.document.id)) {
         await item.update({ "system.container": this.document.id });

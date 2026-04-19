@@ -1,8 +1,8 @@
-import BaseData from "./templates/base.mjs";
+import StorageData from "./templates/storage.mjs";
 
 const { NumberField, SetField, SchemaField, StringField } = foundry.data.fields;
 
-export default class AnimalData extends BaseData {
+export default class AnimalData extends StorageData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
@@ -17,11 +17,7 @@ export default class AnimalData extends BaseData {
 
   /** @inheritdoc */
   static defineSchema() {
-    return Object.assign(super.defineSchema(), {
-      capacity: new SchemaField({
-        max: new NumberField({ nullable: true, integer: true, initial: null, min: 0 }),
-        riders: new NumberField({ nullable: true, integer: true, initial: null, min: 0 }),
-      }),
+    const schema = Object.assign(super.defineSchema(), {
       category: new SchemaField({
         value: new StringField({
           required: true,
@@ -30,10 +26,13 @@ export default class AnimalData extends BaseData {
         }),
       }),
       modifiers: new SetField(new StringField()),
-      price: new SchemaField({
-        value: new NumberField({ nullable: true, integer: true, initial: null, min: 0 }),
-      }),
     });
+
+    schema.capacity.extendFields({
+      riders: new NumberField({ nullable: true, integer: true, initial: null, min: 0 }),
+    });
+
+    return schema;
   }
 
   /* -------------------------------------------------- */
@@ -122,6 +121,10 @@ export default class AnimalData extends BaseData {
 
   /** @inheritdoc */
   async _prepareSubtypeContext(sheet, context, options) {
+    const contents = await this.contents;
+    const capacity = await this.calculateCapacity();
+    const pct = Math.clamp(Math.round(capacity / this.capacity.max * 100), 0, 100);
+
     // Prepare modifiers.
     const config = ryuutama.config.animalModifiers;
     const isEditable = sheet.isEditable && sheet.isEditMode;
@@ -135,14 +138,21 @@ export default class AnimalData extends BaseData {
     // 'Well-Traveled' applies only to Riding Animals.
     if (![ryuutama.CONST.ANIMAL_TYPES.RIDING, ryuutama.CONST.ANIMAL_TYPES.RIDING_LARGE].includes(this.category.value))
       delete choices.wellTraveled;
+
     for (const k of this._source.modifiers) {
       if (!(k in choices)) choices[k] = { value: k, label: k };
     }
     context.modifiers = Object.values(choices);
 
     // Animal capacity details.
-    const { ride, capacity } = ryuutama.config.animalTypes[this.category.value];
-    context.animal = { defaultRiding: ride, defaultCapacity: capacity };
+    const animalConfig = ryuutama.config.animalTypes[this.category.value];
+    context.animal = {
+      canCarry: this.capacity.canCarry,
+      defaultRiding: animalConfig.ride,
+      defaultCapacity: animalConfig.capacity,
+      capacity: { pct, value: capacity, max: this.capacity.max },
+      contents: contents.map(item => ({ document: item })),
+    };
   }
 
   /* -------------------------------------------------- */
@@ -159,5 +169,32 @@ export default class AnimalData extends BaseData {
       ].filter(_ => _),
     };
     if (section.tags.length) context.tagSections.push(section);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _prepareDeleteDialogOptions(options = {}, operation = {}) {
+    const dialogOptions = await super._prepareDeleteDialogOptions(options, operation) ?? {};
+    const contents = await this.contents;
+    if (!contents.length) return dialogOptions;
+
+    return foundry.utils.mergeObject(dialogOptions, {
+      yes: {
+        callback: async (event, button, dialog) => {
+          const deleteContents = button.form.elements["deleteContents"].checked;
+          return this.parent.delete({ ...operation, deleteContents });
+        },
+      },
+      render: (event, dialog) => {
+        const { createFormGroup, createCheckboxInput } = foundry.applications.fields;
+        dialog.element.querySelector(".dialog-content").insertAdjacentElement("beforeend", createFormGroup({
+          label: _loc("RYUUTAMA.ITEM.ANIMAL.deleteDialogLabel"),
+          hint: _loc("RYUUTAMA.ITEM.ANIMAL.deleteDialogHint", { items: contents.length, name: this.parent.name }),
+          input: createCheckboxInput({ value: true, name: "deleteContents" }),
+          rootId: dialog.id,
+        }));
+      },
+    });
   }
 }

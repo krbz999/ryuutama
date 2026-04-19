@@ -26,7 +26,7 @@ export default class ContainerField extends foundry.data.fields.ForeignDocumentF
     if (item.isEmbedded || !item.inCompendium) container = item.collection.get(item.system.container);
     else container = item.collection.getDocument(item.system.container);
 
-    const verify = item => item && (item.type === "container") ? item : null;
+    const verify = item => item && item.system.isContainer ? item : null;
     return (container instanceof Promise) ? container.then(verify) : verify(container);
   }
 }

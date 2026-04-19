@@ -54,7 +54,7 @@ export default class RyuutamaItem extends foundry.documents.Item {
    */
   static async createWithContents(items, { container } = {}) {
     let { containers = [], physical = [], other = [] } = Object.groupBy(items, item => {
-      if (item.type === "container") return "containers";
+      if (item.system.isContainer) return "containers";
       if (item.system.schema.has("container")) return "physical";
       return "other";
     });

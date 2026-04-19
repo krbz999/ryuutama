@@ -349,7 +349,6 @@ export default class TravelerData extends CreatureData {
     const techBonus = this.details.type.technical;
 
     capacity.value = 0;
-    capacity.container = 0;
     this.parent.items.forEach(item => {
       // Equipped items do not add to capacity.
       if (equipped[item.type] === item) return;
@@ -359,12 +358,6 @@ export default class TravelerData extends CreatureData {
 
       const size = item.system.weight ?? 0;
       capacity.value += size;
-
-      switch (item.type) {
-        case "animal":
-          capacity.container += item.system.capacity.total;
-          break;
-      }
     });
 
     capacity.max =
@@ -372,8 +365,7 @@ export default class TravelerData extends CreatureData {
       + 3
       + capacity.bonus
       + (details.level - 1)
-      + techBonus * 3
-      + capacity.container;
+      + techBonus * 3;
 
     capacity.penalty = Math.max(0, capacity.value - capacity.max);
     capacity.pct = Math.clamp(Math.round(capacity.value / capacity.max * 100), 0, 100);

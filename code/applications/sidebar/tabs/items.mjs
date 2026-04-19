@@ -16,7 +16,7 @@ export default class RyuutamaItemDirectory extends foundry.applications.sidebar.
 
   /** @inheritdoc */
   async _createDroppedEntry(entry, updates = {}) {
-    if (entry.type !== "container") return super._createDroppedEntry(entry, updates);
+    if (!entry.system.isContainer) return super._createDroppedEntry(entry, updates);
 
     const Item = getDocumentClass("Item");
     const itemData = await Item.createWithContents([entry]);

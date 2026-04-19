@@ -590,7 +590,10 @@
           "pet": "Pet Animal"
         },
 
-        "configuration": "Animal Configuration"
+        "configuration": "Animal Configuration",
+        "contents": "Contents",
+        "deleteDialogLabel": "Delete Contents",
+        "deleteDialogHint": "{name} is carrying contents, and deleting it will also delete the {items} items."
       },
 
       "CLASS": {

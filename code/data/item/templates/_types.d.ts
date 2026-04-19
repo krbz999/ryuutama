@@ -15,6 +15,18 @@ declare module "./base.mjs" {
 
 /* -------------------------------------------------- */
 
+declare module "./gear.mjs" {
+  export default interface GearData {
+    gear: {
+      check: number;
+      custom: string;
+    }
+  }
+}
+
+
+/* -------------------------------------------------- */
+
 declare module "./physical.mjs" {
   export default interface PhysicalData {
     container: RyuutamaItem | Promise<RyuutamaItem> | null;
@@ -40,11 +52,13 @@ declare module "./physical.mjs" {
 
 /* -------------------------------------------------- */
 
-declare module "./gear.mjs" {
-  export default interface GearData {
-    gear: {
-      check: number;
-      custom: string;
+declare module "./storage.mjs" {
+  export default interface StorageData {
+    capacity: {
+      max: number;
+    }
+    price: {
+      value: number;
     }
   }
 }

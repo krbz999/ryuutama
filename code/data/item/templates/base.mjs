@@ -68,6 +68,16 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
+   * Is this a container able to hold other items?
+   * @type {boolean}
+   */
+  get isContainer() {
+    return false;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * The amount this adds to the capacity of a parent actor.
    * @type {number}
    */

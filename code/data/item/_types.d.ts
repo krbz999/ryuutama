@@ -3,6 +3,7 @@ export {};
 import "./templates/_types";
 import ActionsModel from "../actions-model.mjs";
 import BaseData from "./templates/base.mjs";
+import StorageData from "./templates/storage.mjs";
 
 declare module "./accessory.mjs" {
   export default interface AccessoryData {}
@@ -12,20 +13,22 @@ declare module "./accessory.mjs" {
 
 declare module "./animal.mjs" {
   export default interface AnimalData {
-    capacity: {
-      max: number | null;
+    capacity: StorageData["capacity"] & {
+      canCarry: boolean;
+      canRide: boolean;
       riders: number | null;
+      total: number | null;
+      label: string;
     }
     category: {
       value: string;
     }
     modifiers: Set<string>;
-    price: {
+    price: StorageData["price"] & {
       bonus: number;
       multiplier: number;
       saleable: boolean;
       sell: number;
-      value: number;
     }
   }
 }
@@ -67,14 +70,10 @@ interface RationData {
 
 declare module "./container.mjs" {
   export default interface ContainerData {
-    capacity: {
-      max: number | null;
+    capacity: StorageData["capacity"] & {
       rations: number;
       water: number | null;
       total: number | null;
-    }
-    price: {
-      value: number;
     }
     properties: Set<"waterContainer">;
     rations: Record<string, RationData> & { animalFeed: RationData[], food: RationData[], ration: RationData[], water: RationData[] };

@@ -1,4 +1,4 @@
-import BaseData from "./templates/base.mjs";
+import StorageData from "./templates/storage.mjs";
 
 /**
  * @import RyuutamaItem from "../../documents/item.mjs";
@@ -6,7 +6,7 @@ import BaseData from "./templates/base.mjs";
 
 const { NumberField, SchemaField, SetField, StringField, TypedObjectField, TypedSchemaField } = foundry.data.fields;
 
-export default class ContainerData extends BaseData {
+export default class ContainerData extends StorageData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
@@ -21,14 +21,7 @@ export default class ContainerData extends BaseData {
 
   /** @inheritdoc */
   static defineSchema() {
-    return Object.assign(super.defineSchema(), {
-      capacity: new SchemaField({
-        max: new NumberField({ nullable: true, initial: null, integer: true, min: 0 }),
-        water: new NumberField({ nullable: true, initial: null, integer: true, min: 0 }),
-      }),
-      price: new SchemaField({
-        value: new NumberField({ nullable: false, initial: 1, min: 0, integer: true }),
-      }),
+    const schema = Object.assign(super.defineSchema(), {
       properties: new SetField(new StringField({ choices: ryuutama.CONST.CONTAINER_PROPERTIES._toConfig })),
       rations: new TypedObjectField(
         new TypedSchemaField(rationTypes()),
@@ -38,6 +31,12 @@ export default class ContainerData extends BaseData {
         value: new NumberField({ nullable: false, initial: 1, choices: ryuutama.CONST.ITEM_SIZES._toConfig }),
       }),
     });
+
+    schema.capacity.extendFields({
+      water: new NumberField({ nullable: true, initial: null, integer: true, min: 0 }),
+    });
+
+    return schema;
   }
 
   /* -------------------------------------------------- */
@@ -56,69 +55,10 @@ export default class ContainerData extends BaseData {
 
   /* -------------------------------------------------- */
 
-  /**
-   * Contained items.
-   * @type {RyuutamaItem[]|Promise<RyuutamaItem[]>}
-   */
-  get contents() {
-    const item = this.parent;
-
-    // This container is on an actor.
-    if (item.isEmbedded) {
-      return item.collection.filter(i => i.system.container === item.id);
-    }
-
-    // This is an unowned container in a pack.
-    if (item.inCompendium) {
-      return item.compendium.getDocuments({ system: { container: item.id } });
-    }
-
-    // This is an unowned container in the world.
-    return item.collection.filter(i => i.system.container === item.id);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Calculate the capacity in use from contained items and rations.
-   * @returns {Promise<number>}
-   */
+  /** @inheritdoc */
   async calculateCapacity() {
-    const items = await this.contents;
-    return items.reduce((acc, item) => acc + item.system.weight, this.capacity.rations);
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _onUpdate(changed, options, userId) {
-    // Keep contents folder synchronized with container.
-    if ((game.user.id === userId) && foundry.utils.hasProperty(changed, "folder")) {
-      const contents = await this.contents;
-      const updates = contents.map(item => ({ _id: item.id, folder: changed.folder }));
-      const { pack, parent } = this.parent;
-      await getDocumentClass("Item").updateDocuments(updates, { pack, parent, ...options });
-    }
-
-    super._onUpdate(changed, options, userId);
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _onDelete(options, userId) {
-    super._onDelete(options, userId);
-    if (userId !== game.user.id) return;
-
-    // Delete all contents of the container.
-    if (options.deleteContents) {
-      const items = await this.contents;
-      if (items.length) {
-        const ids = items.map(item => item.id);
-        const { pack, parent } = this.parent;
-        await getDocumentClass("Item").deleteDocuments(ids, { pack, parent });
-      }
-    }
+    const total = await super.calculateCapacity();
+    return total + this.capacity.rations;
   }
 
   /* -------------------------------------------------- */
