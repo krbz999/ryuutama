@@ -111,41 +111,9 @@ export default class RyuutamaTooltipManager extends foundry.helpers.interaction.
     this.tooltip.replaceChildren(...content);
     this.tooltip.classList.add(ryuutama.id);
     this.tooltip.classList.remove("themed", "theme-dark", "theme-light");
-    requestAnimationFrame(() => this._positionItemTooltip());
-  }
 
-  /* -------------------------------------------------- */
-
-  /**
-   * Position a tooltip after rendering.
-   * @param {string} [direction]    The direction to position the tooltip.
-   * @protected
-   */
-  _positionItemTooltip(direction) {
-    const Cls = this.constructor;
-
-    if (!direction) {
-      direction = Cls.TOOLTIP_DIRECTIONS.LEFT;
-      this._setAnchor(direction);
-    }
-
-    const pos = this.tooltip.getBoundingClientRect();
-    const dirs = Cls.TOOLTIP_DIRECTIONS;
-    switch (direction) {
-      case dirs.UP:
-        if (pos.y - Cls.TOOLTIP_MARGIN_PX <= 0) direction = dirs.DOWN;
-        break;
-      case dirs.DOWN:
-        if (pos.y + this.tooltip.offsetHeight > window.innerHeight) direction = dirs.UP;
-        break;
-      case dirs.LEFT:
-        if (pos.x - Cls.TOOLTIP_MARGIN_PX <= 0) direction = dirs.RIGHT;
-        break;
-      case dirs.RIGHT:
-        if (pos.x + this.tooltip.offsetWidth > window.innerWidth) direction = dirs.LEFT;
-        break;
-    }
-
+    const direction = this.element.closest("[data-tooltip-direction]")?.dataset.tooltipDirection
+      ?? this._determineDirection();
     this._setAnchor(direction);
   }
 }
