@@ -351,15 +351,17 @@ export default class TravelerData extends CreatureData {
     capacity.value = 0;
     capacity.container = 0;
     this.parent.items.forEach(item => {
+      // Equipped items do not add to capacity.
       if (equipped[item.type] === item) return;
+
+      // Items in containers do not add to capacity.
+      if (ryuutama.data.fields.ContainerField.getContainer(item)) return;
+
       const size = item.system.weight ?? 0;
       capacity.value += size;
 
       switch (item.type) {
         case "animal":
-          capacity.container += item.system.capacity.total;
-          break;
-        case "container":
           capacity.container += item.system.capacity.total;
           break;
       }

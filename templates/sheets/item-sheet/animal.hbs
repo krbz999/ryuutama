@@ -1,6 +1,6 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
   {{!-- PRICE --}}
-  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.total source.system.price.value) disabled=disabled classes="slim" placeholder="1"}}
+  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="1"}}
 
   {{!-- MODIFIERS --}}
   {{formGroup systemFields.modifiers value=(ifThen disabled document.system.modifiers source.system.modifiers) disabled=disabled options=modifiers type="checkboxes" classes="stacked"}}

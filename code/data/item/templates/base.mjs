@@ -67,6 +67,27 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
 
   /* -------------------------------------------------- */
 
+  /**
+   * The amount this adds to the capacity of a parent actor.
+   * @type {number}
+   */
+  get weight() {
+    return this.size?.value ?? 0;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareBaseData() {
+    super.prepareBaseData();
+
+    // Prepare size.
+    if (!this.size) return;
+    if (this.modifiers?.has("mythril")) this.size.value = Math.max(1, this.size.value - 2);
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;

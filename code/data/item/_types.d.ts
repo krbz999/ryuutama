@@ -21,7 +21,11 @@ declare module "./animal.mjs" {
     }
     modifiers: Set<string>;
     price: {
-      value: number | null;
+      bonus: number;
+      multiplier: number;
+      saleable: boolean;
+      sell: number;
+      value: number;
     }
   }
 }
@@ -54,24 +58,29 @@ declare module "./class.mjs" {
 
 /* -------------------------------------------------- */
 
+interface RationData {
+  type: string;
+  modifier?: string;
+  id: string;
+  label: string;
+}
+
 declare module "./container.mjs" {
   export default interface ContainerData {
     capacity: {
       max: number | null;
+      rations: number;
       water: number | null;
-      value: number;
       total: number | null;
-      pct: number;
     }
     price: {
       value: number;
     }
     properties: Set<"waterContainer">;
-    rations: Record<string, { type: string, modifier?: string }>;
+    rations: Record<string, RationData> & { animalFeed: RationData[], food: RationData[], ration: RationData[], water: RationData[] };
     size: {
       value: 1 | 3 | 5;
     }
-    weight: number;
   }
 }
 
@@ -92,7 +101,7 @@ declare module "./herb.mjs" {
       effect: string;
     }
     price: {
-      value: number | null;
+      value: number;
     }
     terrain: {
       details: string;

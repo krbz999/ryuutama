@@ -79,6 +79,17 @@ export default class ContainerData extends BaseData {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Calculate the capacity in use from contained items and rations.
+   * @returns {Promise<number>}
+   */
+  async calculateCapacity() {
+    const items = await this.contents;
+    return items.reduce((acc, item) => acc + item.system.weight, this.capacity.rations);
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async _onUpdate(changed, options, userId) {
     // Keep contents folder synchronized with container.
@@ -115,8 +126,7 @@ export default class ContainerData extends BaseData {
   /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
-    this.size.total = this.size.value;
-    this.capacity.value = 0;
+    this.capacity.rations = 0;
 
     const isWaterContainer = this.properties.has("waterContainer");
 
@@ -147,7 +157,7 @@ export default class ContainerData extends BaseData {
         : r.type !== ryuutama.CONST.RATION_TYPES.WATER;
       if (display) {
         this.rations[r.type].push(r);
-        this.capacity.value++;
+        this.capacity.rations++;
       }
     }
 
@@ -165,20 +175,24 @@ export default class ContainerData extends BaseData {
     }
 
     this.capacity.total = isWaterContainer ? this.capacity.water : this.capacity.max;
-    this.capacity.pct = Math.clamp(Math.round(this.capacity.value / this.capacity.total * 100), 0, 100) || 0;
-
-    // The amount this adds to a Traveler's capacity.
-    this.weight = this.size.total + this.capacity.value;
   }
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
   async _prepareSubtypeContext(sheet, context, options) {
+    const contents = await this.contents;
+    const capacity = await this.calculateCapacity();
+    const pct = this.capacity.total === null
+      ? null
+      : Math.clamp(Math.round(capacity / this.capacity.total * 100), 0, 100);
+
     const ctx = context.container = {
+      capacity: { pct, value: capacity, max: this.capacity.total },
+      contents: contents.map(item => ({ document: item })),
       rations: {},
-      contents: (await this.contents).map(item => ({ document: item })),
     };
+
     Object.values(ryuutama.CONST.RATION_TYPES).forEach(type => {
       const entries = sheet.document.system.rations[type];
       ctx.rations[type] = {
@@ -188,7 +202,7 @@ export default class ContainerData extends BaseData {
           : (type !== ryuutama.CONST.RATION_TYPES.WATER),
         label: ryuutama.config.rationTypes[type].label,
         disableDown: !entries.length || !context.editable,
-        disableUp: !context.editable || ((this.capacity.pct === 100) && (this.capacity.total !== null)),
+        disableUp: !context.editable || (pct === 100),
       };
     });
   }

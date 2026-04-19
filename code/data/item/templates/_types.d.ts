@@ -19,14 +19,21 @@ declare module "./physical.mjs" {
   export default interface PhysicalData {
     container: RyuutamaItem | Promise<RyuutamaItem> | null;
     durability: {
+      max: number;
+      multiplier: number;
       spent: number;
+      value: number;
     }
     modifiers: Set<string>;
     price: {
+      magical: number;
+      multiplier: number;
+      saleable: boolean;
+      sell: number;
       value: number;
     }
     size: {
-      value: number;
+      value: 1 | 3 | 5;
     }
   }
 }

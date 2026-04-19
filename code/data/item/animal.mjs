@@ -73,7 +73,7 @@ export default class AnimalData extends BaseData {
     const p = this.price;
     p.bonus = 0;
     p.multiplier = 1;
-    p.total = p.value ?? base;
+    p.value = p.value ?? base;
 
     for (const mod of this.modifiers) {
       const config = ryuutama.config.animalModifiers[mod];
@@ -83,7 +83,7 @@ export default class AnimalData extends BaseData {
       else p.multiplier *= cost;
     }
 
-    p.total = Math.floor(p.total * p.multiplier + p.bonus);
+    p.value = Math.floor(p.value * p.multiplier + p.bonus);
     p.sell = Math.floor(p.total / 2);
     p.saleable = p.sell > 0;
   }
