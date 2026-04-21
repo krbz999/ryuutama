@@ -431,8 +431,7 @@
           border: 1px solid var(--c-accent);
           transition: all 150ms ease-out;
 
-          &.active,
-          &:hover {
+          &.active {
             transform: scale(1.15);
           }
         }

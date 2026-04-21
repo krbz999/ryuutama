@@ -276,8 +276,23 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     // Dropping a physical item onto a container item sheet.
     if (item.system.schema.has("storage") && !item.system.isStorage && this.document.system.isStorage) {
       // Case 1: The two items are in the same collection.
-      if (item.collection.has(this.document.id)) {
-        await item.update({ "system.storage": this.document.id });
+      if (item.collection.contents.includes(this.document)) {
+        const batches = [{
+          action: "update",
+          parent: item.parent,
+          documentName: "Item",
+          updates: [{ _id: item.id, "system.storage": this.document.id }],
+        }];
+
+        // If the item is equipped, it should be unequipped.
+        if (item.actor?.system.equipped?.[item.type] === item) batches.push({
+          action: "update",
+          parent: item.actor.parent,
+          documentName: "Actor",
+          updates: [{ _id: item.actor.id, [`system.equipped.${item.type}`]: null }],
+        });
+
+        await foundry.documents.modifyBatch(batches);
         return true;
       }
 
