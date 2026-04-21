@@ -29,7 +29,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
       controls: [{
         action: "openSourceConfig",
         icon: "fa-solid fa-book-bookmark",
-        label: "RYUUTAMA.SHEET.openSourceConfig",
+        label: "RYUUTAMA.SHEETS.openSourceConfig",
         ownership: "OWNER",
         visible: function() { return this.isEditable; },
       }],
@@ -119,7 +119,7 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
     const button = document.createElement("BUTTON");
     button.type = "button";
     button.classList.add("header-control", "icon", "fa-solid", "fa-fw", "fa-lock");
-    Object.assign(button.dataset, { action: "toggleEditMode", tooltip: "RYUUTAMA.SHEET.toggleEditMode" });
+    Object.assign(button.dataset, { action: "toggleEditMode", tooltip: "RYUUTAMA.SHEETS.toggleEditMode" });
     this.window.controls.insertAdjacentElement("afterend", button);
     return frame;
   }

@@ -7,12 +7,14 @@
         "traveler": "A player character that embarks on a journey through unknown lands."
       }
     },
+
     "ActiveEffect": {
       "standard": "Standard Effect",
       "standardPl": "Standard Effects",
       "status": "Status Effect",
       "statusPl": "Status Effects"
     },
+
     "Actor": {
       "monster": "Monster",
       "monsterPl": "Monsters",
@@ -23,6 +25,7 @@
       "traveler": "Traveler",
       "travelerPl": "Travelers"
     },
+
     "Item": {
       "accessory": "Accessory",
       "accessoryPl": "Accessories",
@@ -53,14 +56,17 @@
       "weapon": "Weapon",
       "weaponPl": "Weapons"
     },
+
     "JournalEntryPage": {
       "reference": "Reference",
       "referencePl": "References"
     }
   },
+
   "RYUUTAMA": {
     "ACTOR": {
       "FIELDS": {},
+
       "CREATURE": {
         "FIELDS": {
           "condition.immunities.label": "Status Immunities",
@@ -88,8 +94,10 @@
           "resources.stamina.spent.label": "Spent"
         }
       },
+
       "PARTY": {
         "FIELDS": {},
+
         "PLACE_MEMBERS": {
           "createCombatants": "Create Combatants",
           "createCombatantsHint": "Create combatants for an encounter for each spawned token.",
@@ -103,6 +111,7 @@
           "selectAreaHint": "Spawn the tokens randomly within a selected area instead of manual positioning of each party member.",
           "title": "Place Members: {name}"
         },
+
         "actorOwner": "Owner",
         "placeMembers": "Place Members",
         "rationsHintEmptyA": "The party currently has no accumulated rations. To add rations (food, water, and animal feed) to the party, configure any container on a party member.",
@@ -111,9 +120,11 @@
         "rationsHintMissingFood": "The party has no accumulated rations of food.",
         "rationsHintMissingWater": "The party has no accumulated rations of water."
       },
+
       "RYUUJIN": {
         "FIELDS": {}
       },
+
       "MONSTER": {
         "FIELDS": {
           "attack.accuracy.bonus.label": "Bonus",
@@ -127,6 +138,7 @@
           "environment.season.label": "Season",
           "initiative.value.label": "Initiative"
         },
+
         "ATTACK": {
           "abilities": "Abilities",
           "accuracy": "Accuracy",
@@ -136,6 +148,7 @@
           "groupFaces": "Faces",
           "title": "Configure Attack: {name}"
         },
+
         "CATEGORIES": {
           "demon": "Demon",
           "demonstone": "Demonstone",
@@ -145,6 +158,7 @@
           "phantomPlant": "Phantom Plant",
           "undead": "Undead"
         },
+
         "armor": "Armor",
         "baseArmor": "Base Armor",
         "category": "Category: {category}",
@@ -160,6 +174,7 @@
         "season": "Season: {season}",
         "specialAbility": "Special Ability"
       },
+
       "TRAVELER": {
         "FIELDS": {
           "background.appearance.label": "Appearance",
@@ -170,22 +185,26 @@
           "fumbles.value.label": "Fumble Points",
           "gold.value.label": "Gold"
         },
+
         "TAGS": {
           "dragonFavor": "Favor of the Seasonal Dragons: {season}",
           "masteredWeapon": "Mastered Weapon: {weapon}",
           "specialtyTerrain": "Terrain Specialty: {terrain}",
           "specialtyWeather": "Weather Specialty: {weather}"
         },
+
         "noteTabs": {
           "appearance": "Appearance",
           "hometown": "Hometown / Reason for Travel",
           "notes": "Notes"
         },
+
         "TYPES": {
           "attack": "Attack Type",
           "magic": "Magic Type",
           "technical": "Technical Type"
         },
+
         "abilities": "Abilities",
         "baseDefensePoints": "Base Defense Points",
         "capacity": "Capacity",
@@ -222,6 +241,7 @@
         "skills": "Skills",
         "spells": "Magic"
       },
+
       "CONTEXT": {
         "EFFECT": {
           "edit": "Edit Effect",
@@ -229,6 +249,7 @@
           "disable": "Disable Effect",
           "enable": "Enable Effect"
         },
+
         "ITEM": {
           "assignSpecialAbility": "Special Ability",
           "castSpell": "Cast Spell",
@@ -237,11 +258,9 @@
           "equip": "Equip Item",
           "unequip": "Unequip Item",
           "view": "View Item"
-        },
-        "MISC": {
-          "classTag": "Class: {name}"
         }
       },
+
       "activeEffects": "Active Effects",
       "condition": "Condition",
       "defenseMagical": "Mag {value}",
@@ -267,6 +286,11 @@
     },
 
     "ABILITIES": {
+      "CONFIG": {
+        "title": "Configure {ability}: {name}",
+        "base": "Base Value"
+      },
+
       "strength": "Strength",
       "strengthAbbr": "STR",
       "dexterity": "Dexterity",
@@ -274,62 +298,60 @@
       "intelligence": "Intelligence",
       "intelligenceAbbr": "INT",
       "spirit": "Spirit",
-      "spiritAbbr": "SPI",
-
-      "CONFIG": {
-        "title": "Configure {ability}: {name}",
-        "base": "Base Value"
-      }
+      "spiritAbbr": "SPI"
     },
 
     "ADVANCEMENT": {
       "FIELDS": {},
-      "title": "Level Up: {name} - {nth} Level",
 
       "CLASS": {
+        "FIELDS": {},
+
         "label": "Configure Class",
-        "selectClass": "Select Class",
-        "FIELDS": {}
+        "selectClass": "Select Class"
       },
 
       "DRAGON_FAVOR": {
-        "label": "Configure Favor of the Seasonal Dragons",
         "FIELDS": {
           "choice.chosen.label": "Season"
-        }
+        },
+
+        "label": "Configure Favor of the Seasonal Dragons"
       },
 
       "HABITAT": {
-        "label": "Configure Terrain / Weather Specialty",
         "FIELDS": {
           "choice.chosen.terrain.label": "Terrain Type",
           "choice.chosen.weather.label": "Weather Pattern",
           "choice.type.label": "Subtype",
           "choice.type.hint": "Choose 1 from the twenty-two types of terrain and weather patterns. You gain a +2 bonus to any rolls involving that terrain or weather."
         },
+
+        "label": "Configure Terrain / Weather Specialty",
         "optionTerrain": "Terrain",
         "optionWeather": "Weather"
       },
 
       "STAT_INCREASE": {
-        "label": "Configure Stat Increase",
         "FIELDS": {
           "choice.chosen.label": "Chosen Ability",
           "choice.chosen.hint": "Every even level, you can choose one ability from [STR], [DEX], [INT], and [SPI] to increase by 1 die size (to a maximum of d12)."
-        }
+        },
+
+        "label": "Configure Stat Increase"
       },
 
       "RESOURCE": {
-        "label": "Configure Resource Increase",
         "FIELDS": {
           "choice.chosen.stamina.label": "HP",
           "choice.chosen.mental.label": "MP"
         },
-        "hint": "Each level, you gain three points to divide between HP and MP."
+
+        "hint": "Each level, you gain three points to divide between HP and MP.",
+        "label": "Configure Resource Increase"
       },
 
       "STATS": {
-        "label": "Configure Starting Stats",
         "FIELDS": {
           "choice.type.label": "Ability Score Set",
           "choice.type.hint": "Choose your starting ability scores from one of the three sets, arranged the way you prefer between the four abilities.",
@@ -338,35 +360,42 @@
           "choice.chosen.intelligence.label": "Intelligence",
           "choice.chosen.spirit.label": "Spirit"
         },
+
         "average": "Average (6, 6, 6, 6)",
-        "standard": "Standard (4, 6, 6, 8)",
-        "specialized": "Specialized (4, 4, 8, 8)"
+        "label": "Configure Starting Stats",
+        "specialized": "Specialized (4, 4, 8, 8)",
+        "standard": "Standard (4, 6, 6, 8)"
       },
 
       "STATUS_IMMUNITY": {
-        "label": "Configure Status Immunity",
         "FIELDS": {
           "choice.chosen.label": "Chosen Status Effect",
           "choice.chosen.hint": "Choose one of the six status effects. You are immune to that effect from now on."
-        }
+        },
+
+        "label": "Configure Status Immunity"
       },
 
       "TYPE": {
-        "label": "Configure Type",
         "FIELDS": {
           "choice.chosen.label": "Chosen Type",
           "choice.chosen.hint": "Choose one of the three archetypes. If you choose one that you already have, the abilities are cumulative.",
           "choice.magic.label": "Seasonal Magic"
-        }
+        },
+
+        "label": "Configure Type"
       },
 
       "WEAPON": {
-        "label": "Configure Mastered Weapon",
         "FIELDS": {
           "choice.chosen.label": "Chosen Weapon",
           "choice.chosen.hint": "Choose a weapon category to master. Making an attack with a weapon category that you have not mastered incurs a 1 HP penalty with each attack."
-        }
-      }
+        },
+
+        "label": "Configure Mastered Weapon"
+      },
+
+      "title": "Level Up: {name} - {nth} Level"
     },
 
     "BROWSER": {
@@ -379,6 +408,7 @@
         "spellCategory": "Spell Category",
         "spellLevel": "Spell Level"
       },
+
       "noResults": "No results found. Adjust the filters on the left.",
       "openCompendiumBrowser": "Open Compendium Browser",
       "selected": "Selected: {value} / {max}",
@@ -389,11 +419,13 @@
       "title": "Configure Condition: {name}",
       "current": "Current Condition"
     },
+
     "DEFENSE": {
       "title": "Configure Defense: {name}",
       "modifiers": "Damage Modifers",
       "modifiersHint": "Modifiers are added to any damage this actor will receive."
     },
+
     "JOURNEY": {
       "TYPES": {
         "travel": "Travel Check",
@@ -401,12 +433,14 @@
         "camping": "Camping Check"
       }
     },
+
     "RESOURCE": {
       "title": "Configure {resource}: {name}",
       "bonuses": "Bonuses",
       "stamina": "HP",
       "mental": "MP"
     },
+
     "SEASONS": {
       "spring": "Spring",
       "summer": "Summer",
@@ -447,8 +481,7 @@
         },
 
         "objects": "Objects"
-      },
-      "rollDelayed": "Roll Delayed Initiative"
+      }
     },
 
     "COMBATANT": {
@@ -460,16 +493,6 @@
       }
     },
 
-    "DAMAGE": {
-      "PROPERTIES": {
-        "damageMental": "Damage MP",
-        "ignoreArmor": "Ignore Armor",
-        "magical": "Magical",
-        "mythril": "Mythril",
-        "orichalcum": "Orichalcum"
-      }
-    },
-
     "EFFECT": {
       "STATUS": {
         "FIELDS": {
@@ -478,20 +501,19 @@
           "strength.value.hint": "The strength of the status effect determines how likely a character is to succumb to it.",
           "strength.value.label": "Strength"
         },
-        "HUD_APPLY": {
-          "title": "Configure Strength"
-        },
+        "configureStrength": "Configure Strength",
         "noActors": "No controlled tokens' actors were valid for application of this status."
       }
     },
 
     "HABITAT": {
-      "noPrimaryParty": "No primary party has been assigned.",
-      "openParty": "Display Party",
-      "targetNumber": "Target Number: {number}",
       "CONTEXT": {
         "viewFullImage": "View Full Image"
-      }
+      },
+
+      "noPrimaryParty": "No primary party has been assigned.",
+      "openParty": "Display Party",
+      "targetNumber": "Target Number: {number}"
     },
 
     "ITEM": {
@@ -499,6 +521,18 @@
         "identifier.label": "Identifier",
         "identifier.hint": "A unique identifier for this item. Two items with the same identifier are, for all intents and purposes, considered to be the same item."
       },
+
+      "ACTIONS": {
+        "FIELDS": {
+          "damage.formula.label": "Formula",
+          "damage.properties.label": "Properties",
+          "healing.formula.label": "Formula",
+          "healing.properties.label": "Properties"
+        },
+        "damage": "Damage",
+        "healing": "Healing"
+      },
+
       "CONTEXT": {
         "EFFECT": {
           "edit": "Edit Effect",
@@ -513,10 +547,12 @@
           "remove": "Remove Item"
         }
       },
+
       "CREATE_GROUP": {
         "travelingGear": "Traveling Gear",
         "weaponsArmor": "Weapons & Armor"
       },
+
       "MODIFIERS": {
         "beautiful": "Beautiful",
         "broken": "Broken",
@@ -535,27 +571,20 @@
         "used": "Used",
         "walking": "Walking"
       },
+
       "SIZES": {
         "size1": "Size 1",
         "size3": "Size 3",
         "size5": "Size 5"
       },
+
       "TABS": {
         "actions": "Actions",
         "details": "Details",
         "effects": "Effects",
         "identity": "Identity"
       },
-      "ACTIONS": {
-        "FIELDS": {
-          "damage.formula.label": "Formula",
-          "damage.properties.label": "Properties",
-          "healing.formula.label": "Formula",
-          "healing.properties.label": "Properties"
-        },
-        "damage": "Damage",
-        "healing": "Healing"
-      },
+
       "activeEffects": "Active",
       "defenses": "Defenses",
       "description": "Description",
@@ -563,6 +592,22 @@
       "disabledEffects": "Inactive",
       "durability": "Durability ({value}/{max})",
       "identifierError": "Invalid identifier.",
+
+      "EQUIPPABLE": {
+        "FIELDS": {
+          "price.value.label": "Gold Value",
+          "size.value.label": "Size",
+          "durability.spent.label": "Spent"
+        }
+      },
+
+      "GEAR": {
+        "FIELDS": {
+          "gear.custom.label": "Requirements",
+          "gear.custom.hint": "When the check bonus from this item applies."
+        },
+        "checkBonuses": "Check Bonuses"
+      },
 
       "ANIMAL": {
         "FIELDS": {
@@ -596,6 +641,13 @@
         "deleteDialogHint": "{name} is carrying contents, and deleting it will also delete the {items} items."
       },
 
+      "ARMOR": {
+        "FIELDS": {
+          "armor.penalty.label": "Penalty",
+          "armor.defense.label": "Defense Points"
+        }
+      },
+
       "CLASS": {
         "FIELDS": {
           "skills.label": "Skills",
@@ -609,7 +661,9 @@
       "CONTAINER": {
         "FIELDS": {
           "capacity.max.label": "Item Capacity",
-          "capacity.water.label": "Water Capacity"
+          "capacity.water.label": "Water Capacity",
+          "price.value.label": "Gold Value",
+          "size.value.label": "Size"
         },
         "PROPERTIES": {
           "waterContainer": "Water Container"
@@ -645,6 +699,14 @@
         "anyTerrain": "Any Terrain",
 
         "configuration": "Herb Details"
+      },
+
+      "SHIELD": {
+        "FIELDS": {
+          "armor.penalty.label": "Penalty",
+          "armor.defense.label": "Defense Points",
+          "armor.dodge.label": "Shield Dodge Value"
+        }
       },
 
       "SKILL": {
@@ -733,34 +795,13 @@
         "weaponDamage": "Damage"
       }
     },
-    "GEAR": {
-      "FIELDS": {
-        "gear.custom.label": "Requirements",
-        "gear.custom.hint": "When the check bonus from this item applies."
-      },
-      "checkBonuses": "Check Bonuses"
-    },
-    "PHYSICAL": {
-      "FIELDS": {
-        "price.value.label": "Gold Value",
-        "size.value.label": "Size",
-        "durability.spent.label": "Spent"
-      }
-    },
-    "ACCESSORY": {},
-    "ARMOR": {
-      "FIELDS": {
-        "armor.penalty.label": "Penalty",
-        "armor.defense.label": "Defense Points"
-      }
-    },
-    "CAPE": {},
-    "SHIELD": {
-      "FIELDS": {
-        "armor.penalty.label": "Penalty",
-        "armor.defense.label": "Defense Points",
-        "armor.dodge.label": "Shield Dodge Value"
-      }
+
+    "PACKS": {
+      "ACTORS": "Actors",
+      "CLASSES": "Classes",
+      "ITEMS": "Items",
+      "SPELLS": "Spells",
+      "TABLES": "Tables"
     },
 
     "PAGE": {
@@ -769,14 +810,6 @@
           "tooltip.label": "Tooltip"
         }
       }
-    },
-
-    "PACKS": {
-      "ACTORS": "Actors",
-      "CLASSES": "Classes",
-      "ITEMS": "Items",
-      "SPELLS": "Spells",
-      "TABLES": "Tables"
     },
 
     "RATIONS": {
@@ -802,11 +835,22 @@
     },
 
     "ROLL": {
+      "DAMAGE": {
+        "PROPERTIES": {
+          "damageMental": "Damage MP",
+          "ignoreArmor": "Ignore Armor",
+          "magical": "Magical",
+          "mythril": "Mythril",
+          "orichalcum": "Orichalcum"
+        }
+      },
+
       "WARNING": {
         "fumblesUnavailable": "{name} does not have any Fumble Points available.",
         "mentalUnavailable": "{name} does not have any MP available.",
         "staminaUnavailable": "{name} does not have any HP available."
       },
+
       "TYPES": {
         "accuracy": "Accuracy Check",
         "check": "Check",
@@ -816,6 +860,7 @@
         "journey": "Journey Check",
         "magic": "Magic Check"
       },
+
       "abilities": "Abilities",
       "concentration": "Concentration",
       "conditionRemoveStatuses": "Remove Statuses",
@@ -840,26 +885,32 @@
       "weaponBroken": "{weapon} (Broken)"
     },
 
-    "SETTINGS": {},
-
-    "SHEET": {
+    "SHEETS": {
+      "ACTOR": {
+        "MonsterSheet": "Ryuutama Monster Sheet",
+        "PartySheet": "Ryuutama Party Sheet",
+        "TravelerSheet": "Ryuutama Traveler Sheet"
+      },
+      "COMBATANT": {
+        "CombatantSheet": "Ryuutama Combatant Sheet"
+      },
+      "ITEM": {
+        "ItemSheet": "Ryuutama Item Sheet"
+      },
+      "PAGE": {
+        "ReferencePageSheet": "Ryuutama Reference Page Sheet"
+      },
       "openSourceConfig": "Show Source Config",
       "toggleEditMode": "Toggle Edit Mode"
-    },
-
-    "SHEETS": {
-      "CombatantSheet": "Ryuutama Combatant Sheet",
-      "ItemSheet": "Ryuutama Item Sheet",
-      "MonsterSheet": "Ryuutama Monster Sheet",
-      "PartySheet": "Ryuutama Party Sheet",
-      "ReferencePageSheet": "Ryuutama Reference Page Sheet",
-      "TravelerSheet": "Ryuutama Traveler Sheet"
     },
 
     "SIDEBAR": {
       "ACTORS": {
         "contextMenuAssignPrimaryParty": "Assign Primary Party",
         "contextMenuRemovePrimaryParty": "Remove Primary Party"
+      },
+      "COMBATS": {
+        "contextMenuRollDelayed": "Roll Delayed Initiative"
       }
     },
 

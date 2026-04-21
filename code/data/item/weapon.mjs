@@ -1,8 +1,8 @@
-import PhysicalData from "./templates/physical.mjs";
+import EquippableData from "./templates/equippable.mjs";
 
 const { ArrayField, NumberField, SchemaField, StringField } = foundry.data.fields;
 
-export default class WeaponData extends PhysicalData {
+export default class WeaponData extends EquippableData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,

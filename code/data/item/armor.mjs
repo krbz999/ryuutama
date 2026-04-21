@@ -1,8 +1,8 @@
-import PhysicalData from "./templates/physical.mjs";
+import EquippableData from "./templates/equippable.mjs";
 
 const { NumberField, SchemaField } = foundry.data.fields;
 
-export default class ArmorData extends PhysicalData {
+export default class ArmorData extends EquippableData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
@@ -33,7 +33,7 @@ export default class ArmorData extends PhysicalData {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.ARMOR",
+    "RYUUTAMA.ITEM.ARMOR",
   ];
 
   /* -------------------------------------------------- */

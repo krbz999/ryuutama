@@ -26,7 +26,7 @@ export default class RyuutamaCombatTracker extends foundry.applications.sidebar.
     const index = options.findIndex(o => o.label === "COMBATANT.ACTIONS.Reroll");
 
     const option = {
-      label: "RYUUTAMA.COMBAT.rollDelayed",
+      label: "RYUUTAMA.SIDEBAR.COMBATS.contextMenuRollDelayed",
       icon: "fa-solid fa-dice-d20",
       visible: target => this.viewed.combatants.get(target.dataset.combatantId).isOwner,
       onClick: (event, target) => {

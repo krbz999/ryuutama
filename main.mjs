@@ -151,27 +151,27 @@ Hooks.once("init", () => {
   // Register sheets.
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Item, ryuutama.id, applications.sheets.items.RyuutamaItemSheet,
-    { label: "RYUUTAMA.SHEETS.ItemSheet", makeDefault: true },
+    { label: "RYUUTAMA.SHEETS.ITEM.ItemSheet", makeDefault: true },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Actor, ryuutama.id, applications.sheets.actors.RyuutamaTravelerSheet,
-    { label: "RYUUTAMA.SHEETS.TravelerSheet", makeDefault: true, types: ["traveler"] },
+    { label: "RYUUTAMA.SHEETS.ACTOR.TravelerSheet", makeDefault: true, types: ["traveler"] },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Actor, ryuutama.id, applications.sheets.actors.RyuutamaPartySheet,
-    { label: "RYUUTAMA.SHEETS.PartySheet", makeDefault: true, types: ["party"] },
+    { label: "RYUUTAMA.SHEETS.ACTOR.PartySheet", makeDefault: true, types: ["party"] },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Actor, ryuutama.id, applications.sheets.actors.RyuutamaMonsterSheet,
-    { label: "RYUUTAMA.SHEETS.MonsterSheet", makeDefault: true, types: ["monster"] },
+    { label: "RYUUTAMA.SHEETS.ACTOR.MonsterSheet", makeDefault: true, types: ["monster"] },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.JournalEntryPage, ryuutama.id, applications.sheets.pages.ReferencePageSheet,
-    { label: "RYUUTAMA.SHEETS.ReferencePageSheet", makeDefault: true, types: ["reference"] },
+    { label: "RYUUTAMA.SHEETS.PAGE.ReferencePageSheet", makeDefault: true, types: ["reference"] },
   );
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     foundry.documents.Combatant, ryuutama.id, applications.sheets.combatants.RyuutamaCombatantSheet,
-    { label: "RYUUTAMA.SHEETS.CombatantSheet", makeDefault: true },
+    { label: "RYUUTAMA.SHEETS.COMBATANT.CombatantSheet", makeDefault: true },
   );
 
   // Register status effects.

@@ -231,25 +231,25 @@ Prelocalization.prelocalize(containerProperties);
  */
 export const damageRollProperties = {
   damageMental: {
-    label: "RYUUTAMA.DAMAGE.PROPERTIES.damageMental",
+    label: "RYUUTAMA.ROLL.DAMAGE.PROPERTIES.damageMental",
     icon: "systems/ryuutama/assets/icons/properties/bolt-eye.svg",
   },
   ignoreArmor: {
-    label: "RYUUTAMA.DAMAGE.PROPERTIES.ignoreArmor",
+    label: "RYUUTAMA.ROLL.DAMAGE.PROPERTIES.ignoreArmor",
     icon: "systems/ryuutama/assets/icons/properties/shield-disabled.svg",
   },
   magical: {
-    label: "RYUUTAMA.DAMAGE.PROPERTIES.magical",
+    label: "RYUUTAMA.ROLL.DAMAGE.PROPERTIES.magical",
     icon: "systems/ryuutama/assets/icons/properties/eclipse-flare.svg",
     hidden: true,
   },
   mythril: {
-    label: "RYUUTAMA.DAMAGE.PROPERTIES.mythril",
+    label: "RYUUTAMA.ROLL.DAMAGE.PROPERTIES.mythril",
     icon: "systems/ryuutama/assets/icons/properties/fish-scales.svg",
     hidden: true,
   },
   orichalcum: {
-    label: "RYUUTAMA.DAMAGE.PROPERTIES.orichalcum",
+    label: "RYUUTAMA.ROLL.DAMAGE.PROPERTIES.orichalcum",
     icon: "systems/ryuutama/assets/icons/properties/layered-armor.svg",
     hidden: true,
   },

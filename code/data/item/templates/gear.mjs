@@ -1,8 +1,11 @@
-import PhysicalData from "./physical.mjs";
+import EquippableData from "./equippable.mjs";
 
 const { SchemaField, StringField } = foundry.data.fields;
 
-export default class GearData extends PhysicalData {
+/**
+ * A shared subclass used for travel gear; accessories, capes, hats, shoes, staffs.
+ */
+export default class GearData extends EquippableData {
   /** @inheritdoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
@@ -29,20 +32,13 @@ export default class GearData extends PhysicalData {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.GEAR",
+    "RYUUTAMA.ITEM.GEAR",
   ];
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
   static DETAILS_TEMPLATE = "systems/ryuutama/templates/sheets/item-sheet/gear.hbs";
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _prepareSubtypeContext(context, options) {
-    await super._prepareSubtypeContext(context, options);
-  }
 
   /* -------------------------------------------------- */
 
