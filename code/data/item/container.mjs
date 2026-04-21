@@ -49,7 +49,6 @@ export default class ContainerData extends StorageData {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PHYSICAL",
     "RYUUTAMA.ITEM.CONTAINER",
   ];
 

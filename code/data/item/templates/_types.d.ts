@@ -15,20 +15,8 @@ declare module "./base.mjs" {
 
 /* -------------------------------------------------- */
 
-declare module "./gear.mjs" {
-  export default interface GearData {
-    gear: {
-      check: number;
-      custom: string;
-    }
-  }
-}
-
-
-/* -------------------------------------------------- */
-
-declare module "./physical.mjs" {
-  export default interface PhysicalData {
+declare module "./equippable.mjs" {
+  export default interface EquippableData {
     durability: {
       max: number;
       multiplier: number;
@@ -47,6 +35,17 @@ declare module "./physical.mjs" {
       value: 1 | 3 | 5;
     }
     storage: string | null;
+  }
+}
+
+/* -------------------------------------------------- */
+
+declare module "./gear.mjs" {
+  export default interface GearData {
+    gear: {
+      check: number;
+      custom: string;
+    }
   }
 }
 

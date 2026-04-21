@@ -11,13 +11,6 @@ const { NumberField, SchemaField } = foundry.data.fields;
  */
 export default class StorageData extends BaseData {
   /** @inheritdoc */
-  static metadata = Object.freeze(foundry.utils.mergeObject(super.metadata, {
-    inventory: false,
-  }, { inplace: false }));
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
       capacity: new SchemaField({

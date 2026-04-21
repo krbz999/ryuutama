@@ -6,7 +6,16 @@ const { NumberField, SchemaField, SetField, StringField } = foundry.data.fields;
  * Extension of the base item data model for items with physical properties.
  * These are all the items that can be equipped.
  */
-export default class PhysicalData extends BaseData {
+export default class EquippableData extends BaseData {
+  /** @inheritdoc */
+  static metadata = Object.freeze(foundry.utils.mergeObject(
+    super.metadata,
+    { inventory: true },
+    { inplace: false },
+  ));
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
@@ -29,7 +38,7 @@ export default class PhysicalData extends BaseData {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = [
     ...super.LOCALIZATION_PREFIXES,
-    "RYUUTAMA.PHYSICAL",
+    "RYUUTAMA.ITEM.EQUIPPABLE",
   ];
 
   /* -------------------------------------------------- */
@@ -140,9 +149,9 @@ export default class PhysicalData extends BaseData {
       if (v.hidden && !isEditable && !this.modifiers.has(k)) continue;
       choices[k] = { value: k, label: v.label };
     }
-    for (const k of this._source.modifiers) {
-      if (!(k in choices)) choices[k] = { value: k, label: k };
-    }
+    this._source.modifiers.forEach(k => {
+      choices[k] ??= { value: k, label: k };
+    });
     context.modifiers = Object.values(choices);
   }
 

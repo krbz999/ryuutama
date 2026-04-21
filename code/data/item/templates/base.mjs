@@ -24,7 +24,7 @@ export default class BaseData extends foundry.abstract.TypeDataModel {
    * @type {ItemSubtypeMetadata}
    */
   static metadata = Object.freeze({
-    inventory: true,
+    inventory: false,
   });
 
   /* -------------------------------------------------- */

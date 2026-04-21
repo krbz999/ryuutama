@@ -23,7 +23,7 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
 
         const result = await foundry.applications.api.Dialog.input({
           window: {
-            title: `${_loc("RYUUTAMA.EFFECT.STATUS.HUD_APPLY.title")}: ${effectData.name}`,
+            title: `${_loc("RYUUTAMA.EFFECT.STATUS.configureStrength")}: ${effectData.name}`,
           },
           position: {
             width: 420,
