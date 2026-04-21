@@ -8,4 +8,11 @@ export default class RyuutamaItems extends foundry.documents.collections.Items {
     if (clearStorage) delete itemData.system?.storage;
     return itemData;
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _getVisibleTreeContents() {
+    return this.contents.filter(item => item.visible && !ryuutama.data.fields.StorageField.getParentStorage(item));
+  }
 }
