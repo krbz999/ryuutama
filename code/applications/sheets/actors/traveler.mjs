@@ -933,6 +933,31 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       return true;
     }
 
+    const ownItemOntoContainer = (item.parent === this.document)
+      && event.target.hasAttribute("data-drop-container")
+      && !item.system.isStorage
+      && (item.uuid !== event.target.closest("[data-uuid]").dataset.uuid);
+
+    // Dropping an item from this actor's collection onto one of its containers' icons.
+    if (ownItemOntoContainer) {
+      const batches = [{
+        action: "update",
+        parent: this.document,
+        documentName: "Item",
+        updates: [{ _id: item.id, "system.storage": event.target.closest("[data-uuid]").dataset.uuid.split(".").at(-1) }],
+      }];
+      if (this.document.system.equipped[item.type] === item) {
+        batches.push({
+          action: "update",
+          parent: this.document.parent,
+          documentName: "Actor",
+          updates: [{ _id: this.document.id, [`system.equipped.${item.type}`]: null }],
+        });
+      }
+      await foundry.documents.modifyBatch(batches);
+      return true;
+    }
+
     // Dropping a container from elsewhere.
     if (item.system.isStorage && (item.parent !== this.document)) {
       const Item = getDocumentClass("Item");
