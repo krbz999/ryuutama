@@ -15,4 +15,25 @@ export default class RyuutamaItems extends foundry.documents.collections.Items {
   _getVisibleTreeContents() {
     return this.contents.filter(item => item.visible && !ryuutama.data.fields.StorageField.getParentStorage(item));
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritDoc */
+  async importFromCompendium(pack, id, updateData = {}, options = {}) {
+    const created = await super.importFromCompendium(pack, id, updateData, options);
+    if (!created.system.isStorage) return created;
+
+    const item = await pack.getDocument(id);
+    const contents = await item.system.contents;
+    if (contents.length) {
+      // const fromOptions = foundry.utils.mergeObject({ clearSort: false }, options);
+      const toCreate = await getDocumentClass("Item").createWithContents(
+        contents,
+        { storage: created, keepId: options.keepId },
+      );
+      await getDocumentClass("Item").createDocuments(toCreate, { fromCompendium: true, keepId: true });
+    }
+
+    return created;
+  }
 }
