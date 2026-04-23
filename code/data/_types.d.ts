@@ -1,7 +1,12 @@
 export {};
 
+import "./active-effect/_types";
 import "./actor/_types";
+import "./chat-message/_types";
+import "./combat/_types";
+import "./combatant/_types";
 import "./item/_types";
+import "./journal-entry-page/_types";
 
 declare module "./ability-model.mjs" {
   export default interface AbilityModel {
