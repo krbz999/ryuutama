@@ -13,7 +13,7 @@ export default class EquipmentField extends foundry.data.fields.SchemaField {
    * All equippable item types, and the order in which they appear on the traveler sheet.
    * @type {string}
    */
-  static EQUIPMENT_ORDER = [
+  static EQUIPMENT_ORDER = Object.freeze([
     "weapon",
     "shield",
     "armor",
@@ -22,7 +22,7 @@ export default class EquipmentField extends foundry.data.fields.SchemaField {
     "shoes",
     "accessory",
     "staff",
-  ];
+  ]);
 
   /* -------------------------------------------------- */
 
