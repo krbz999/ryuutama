@@ -23,14 +23,21 @@ export default class AbilityScoreField extends NumberField {
    * For addition, upgrade, and downgrade, as well as base value, these are the possible options.
    * @type {number[]}
    */
-  get BASE_OPTIONS() {
-    const options = this.VALUES;
+  get baseOptions() {
+    if (this.#baseOptions) return this.#baseOptions;
+    const options = [...this.#values];
     if (this.isRestricted) {
       options.shift();
       options.pop();
     }
-    return options;
+    return this.#baseOptions = Object.freeze(options);
   }
+
+  /**
+   * For addition, upgrade, and downgrade, as well as base value, these are the possible options.
+   * @type {number[]}
+   */
+  #baseOptions;
 
   /* -------------------------------------------------- */
 
@@ -38,9 +45,7 @@ export default class AbilityScoreField extends NumberField {
    * For overrides, the superset of die faces.
    * @type {number[]}
    */
-  get VALUES() {
-    return [2, 4, 6, 8, 10, 12, 20];
-  }
+  #values = [2, 4, 6, 8, 10, 12, 20];
 
   /* -------------------------------------------------- */
 
@@ -77,8 +82,8 @@ export default class AbilityScoreField extends NumberField {
   _applyChangeAdd(value, delta, model, change) {
     if (![-1, 1].includes(delta)) return value;
 
-    const options = this.BASE_OPTIONS;
-    if (delta === -1) options.reverse();
+    let options = this.baseOptions;
+    if (delta === -1) options = options.toReversed();
 
     const index = options.indexOf(value);
     if (index === -1) return 4;
@@ -92,8 +97,8 @@ export default class AbilityScoreField extends NumberField {
   _applyChangeSubtract(value, delta, model, change) {
     if (![-1, 1].includes(delta)) return value;
 
-    const options = this.BASE_OPTIONS;
-    if (delta === 1) options.reverse();
+    let options = this.baseOptions;
+    if (delta === 1) options = options.toReversed();
 
     const index = options.indexOf(value);
     if (index === -1) return 4;
@@ -105,7 +110,7 @@ export default class AbilityScoreField extends NumberField {
 
   /** @inheritdoc */
   _applyChangeOverride(value, delta, model, change) {
-    if (!this.VALUES.includes(delta)) return value;
+    if (!this.#values.includes(delta)) return value;
     return delta;
   }
 
@@ -120,7 +125,7 @@ export default class AbilityScoreField extends NumberField {
 
   /** @inheritdoc */
   _applyChangeUpgrade(value, delta, model, change) {
-    const options = this.BASE_OPTIONS;
+    const options = this.baseOptions;
     if (!options.includes(delta)) return value;
     return Math.max(value, delta);
   }
@@ -129,7 +134,7 @@ export default class AbilityScoreField extends NumberField {
 
   /** @inheritdoc */
   _applyChangeDowngrade(value, delta, model, change) {
-    const options = this.BASE_OPTIONS;
+    const options = this.baseOptions;
     if (!options.includes(delta)) return value;
     return Math.min(value, delta);
   }
