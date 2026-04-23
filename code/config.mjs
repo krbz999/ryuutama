@@ -1,18 +1,6 @@
 import Prelocalization from "./helpers/prelocalization.mjs";
 
 /**
- * @import {
- * CheckTypeConfig, DamageRollPropertyConfig,
- * HerbTypeConfig, ItemModifierConfig, ItemSizeConfig, MonsterCategoryConfig, RationModifierConfig,
- * RationTypeConfig, SeasonConfig, SpecialStatusEffectConfig, SpellCategoryConfig, SpellActivationTypeConfig,
- * SpellDurationTypeConfig, SpellLevelConfig, SpellRangeTypeConfig, StatusEffectConfig, TerrainTypeConfig,
- * TravelerTypeConfig, UnarmedConfiguration, WeaponTypeConfig, WeatherTypeConfig,
- * } from "./_types";
- */
-
-/* -------------------------------------------------- */
-
-/**
  * @typedef AbilityScoreConfig
  * @property {string} label           Human-readable label.
  * @property {string} abbreviation    Short-form of the label.
