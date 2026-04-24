@@ -5,6 +5,9 @@
 
 const { SchemaField, StringField } = foundry.data.fields;
 
+/**
+ * A reuseable schema for data of source material for items and actors.
+ */
 export default class SourceField extends SchemaField {
   constructor(fields, options = {}) {
     fields = {

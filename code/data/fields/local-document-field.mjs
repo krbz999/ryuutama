@@ -13,6 +13,10 @@
  * @typedef {StringFieldOptions & _LocalDocumentFieldOptions} LocalDocumentFieldOptions
  */
 
+/**
+ * A string field that allows referencing an embedded document of a parent model,
+ * such as an actor's item. A subtype must be specified.
+ */
 export default class LocalDocumentField extends foundry.data.fields.DocumentIdField {
   /**
    * @param {typeof Document} model               The local DataModel class definition

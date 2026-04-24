@@ -4,6 +4,10 @@
 
 const { NumberField } = foundry.data.fields;
 
+/**
+ * A numeric field that handles die size steps. A parent DataModel can define
+ * whether the '2' and '20' options are naturally allowed.
+ */
 export default class AbilityScoreField extends NumberField {
   /** @inheritdoc */
   static get _defaults() {

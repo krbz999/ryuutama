@@ -1,3 +1,7 @@
+/**
+ * A schema of a Traveler's equipment slots, which defines the equipment order of appearance,
+ * allows for iterating over the initialized object, and stores references to local items.
+ */
 export default class EquipmentField extends foundry.data.fields.SchemaField {
   constructor(fields, options, context) {
     fields = EquipmentField.EQUIPMENT_ORDER.reduce((acc, name) => {
