@@ -290,6 +290,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
           parent: item.actor.parent,
           documentName: "Actor",
           updates: [{ _id: item.actor.id, [`system.equipped.${item.type}`]: null }],
+          pack: item.actor.pack,
         });
 
         await foundry.documents.modifyBatch(batches);

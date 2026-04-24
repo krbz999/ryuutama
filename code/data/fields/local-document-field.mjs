@@ -69,8 +69,6 @@ export default class LocalDocumentField extends foundry.data.fields.DocumentIdFi
   /** @inheritdoc */
   initialize(value, model, options = {}) {
     if (this.idOnly) return value;
-    if (model?.pack) return null;
-    if (!game.collections) return value; // Server-side.
     return () => {
       const item = model.parent.getEmbeddedDocument(this.model.documentName, value) ?? null;
       return item && (item.type === this.subtype) ? item : null;

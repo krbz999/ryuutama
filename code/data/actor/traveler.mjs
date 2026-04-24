@@ -467,6 +467,7 @@ export default class TravelerData extends CreatureData {
       documentName: "Actor",
       parent: actor.parent,
       updates: [actorUpdate],
+      pack: actor.pack,
     }, {
       action: "create",
       advancement: true,

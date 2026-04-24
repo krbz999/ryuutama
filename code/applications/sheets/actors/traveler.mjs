@@ -922,6 +922,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
           parent: this.document.parent,
           documentName: "Actor",
           updates: [{ _id: this.document.id, [`system.equipped.${item.type}`]: item.id }],
+          pack: this.document.pack,
         },
         {
           action: "update",
@@ -952,6 +953,7 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
           parent: this.document.parent,
           documentName: "Actor",
           updates: [{ _id: this.document.id, [`system.equipped.${item.type}`]: null }],
+          pack: this.document.pack,
         });
       }
       await foundry.documents.modifyBatch(batches);
