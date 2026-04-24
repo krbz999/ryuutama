@@ -1,4 +1,3 @@
-import CreatureData from "../../actor/templates/creature.mjs";
 import MessagePart from "./base.mjs";
 
 /**

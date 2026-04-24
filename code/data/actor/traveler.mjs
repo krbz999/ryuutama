@@ -1,6 +1,5 @@
 import Advancement from "../advancement/advancement.mjs";
 import CreatureData from "./templates/creature.mjs";
-import LocalDocumentField from "../fields/local-document-field.mjs";
 
 /**
  * @import RyuutamaActor from "../../documents/actor.mjs";

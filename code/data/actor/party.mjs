@@ -7,7 +7,7 @@ import BaseData from "./templates/base.mjs";
  * @import RyuutamaTokenDocument from "../../documents/token.mjs";
  */
 
-const { HTMLField, SchemaField, TypedObjectField } = foundry.data.fields;
+const { HTMLField, SchemaField } = foundry.data.fields;
 
 export default class PartyData extends BaseData {
   /** @inheritdoc */
