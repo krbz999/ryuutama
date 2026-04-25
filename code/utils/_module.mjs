@@ -3,6 +3,7 @@ export { default as contextualActors } from "./contextual-actors.mjs";
 export { default as createDefaultIdentifier } from "./create-default-identifier.mjs";
 export { default as formatNumber } from "./format-number.mjs";
 export { default as isValidIdentifier } from "./is-valid-identifier.mjs";
+export { default as parseDelta } from "./parse-delta.mjs";
 export { default as parseEnricherConfig } from "./parse-enricher-config.mjs";
 export { default as parseInputDelta } from "./parse-input-delta.mjs";
 export { default as prelocalize } from "./prelocalize.mjs";

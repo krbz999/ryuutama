@@ -201,9 +201,6 @@ export default class AdvancementDialog extends HandlebarsApplicationMixin(Applic
 
     for (const input of this.element.querySelectorAll("input[type=number], input[type=text].delta")) {
       input.addEventListener("focus", () => input.select());
-      if (input.classList.contains("delta")) {
-        input.addEventListener("change", () => ryuutama.utils.parseInputDelta(input, this.document));
-      }
     }
 
     if (!options.isFirstRender) this.element.querySelector("button[type=submit]").disabled = !this.chain.isConfigured;

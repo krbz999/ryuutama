@@ -578,7 +578,9 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
       const value = foundry.utils.getProperty(item, name);
       return `
       <span class="values">
-        <input type="text" id="${id}" class="delta" data-name="${name}" value="${value}">
+        <input type="text" id="${id}" class="delta" data-change="durability" data-name="${
+          name.replace(".value", ".spent")
+        }" value="${value}">
         <span class="sep">/</span>
         <span class="max">${item.system.durability.max}</span>
       </span>`;
@@ -885,25 +887,6 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
     // Apply tooltip-direction to navigation.
     if (result.navigation) result.navigation.dataset.tooltipDirection = "UP";
     super._replaceHTML(result, content, options);
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _onRender(context, options) {
-    await super._onRender(context, options);
-
-    for (const input of this.element.querySelectorAll("input.delta[data-name='system.durability.value']")) {
-      input.addEventListener("change", event => {
-        const item = this.getEmbeddedDocument(event.currentTarget.closest("[data-uuid]").dataset.uuid);
-        const value = ryuutama.utils.parseInputDelta(event.currentTarget, item);
-        if (value === undefined) return;
-
-        const dur = item.system.durability;
-        const spent = dur.max - parseInt(value);
-        item.update({ "system.durability.spent": spent });
-      });
-    }
   }
 
   /* -------------------------------------------------- */

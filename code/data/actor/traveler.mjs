@@ -116,7 +116,7 @@ export default class TravelerData extends CreatureData {
   get cursePenalty() {
     foundry.utils.logCompatibilityWarning(
       "Ryuutama | TravelerData#cursePenalty has been deprecated in favor of TravelerData#equipped.cursed.",
-      { since: "2.1.0", until: "2.2.0", once: true },
+      { since: "2.1.0", until: "2.3.0", once: true },
     );
     return this.equipped.cursed;
   }

@@ -150,9 +150,6 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
 
     for (const input of this.element.querySelectorAll("input[type=number], input[type=text].delta")) {
       input.addEventListener("focus", () => input.select());
-      if (input.classList.contains("delta")) {
-        input.addEventListener("change", () => ryuutama.utils.parseInputDelta(input, this.document));
-      }
     }
 
     // Set up drag-drop.
@@ -169,6 +166,27 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
       },
     });
     this._dragDrop.bind(this.element);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onChangeForm(formConfig, event) {
+    const target = event.target;
+
+    if (target.classList.contains("delta") && (target.name || target.dataset.name)) {
+      RyuutamaDocumentSheet.#onChangeDelta.call(this, event, target);
+    }
+
+    super._onChangeForm(formConfig, event);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _syncPartState(partId, newElement, priorElement, state) {
+    super._syncPartState(partId, newElement, priorElement, state);
+    newElement.querySelector(".delta:focus")?.select();
   }
 
   /* -------------------------------------------------- */
@@ -190,6 +208,33 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
 
   /* -------------------------------------------------- */
   /*   Event Handlers                                   */
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaDocumentSheet
+   * @param {Event} event           The initiating change event.
+   * @param {HTMLElement} target    The capturing element that defined the [data-change].
+   */
+  static #onChangeDelta(event, target) {
+    const name = target.name || target.dataset.name;
+    const document = target.name ? this.document : this.getEmbeddedDocument(target.closest("[data-uuid]").dataset.uuid);
+
+    const delta = target.value;
+    const object = name.endsWith(".value") || name.endsWith(".spent")
+      ? foundry.utils.getProperty(document, name.slice(0, name.length - 6))
+      : foundry.utils.getProperty(document, name);
+
+    const { value, min, max } = (typeof object === "object") ? object : { value: object };
+    const newValue = ryuutama.utils.parseDelta(String(delta), { value, min, max });
+    target.value = newValue;
+
+    if (document !== this.document) {
+      // Update embedded document.
+      const value = name.endsWith(".spent") ? (max - newValue) : newValue;
+      document.update({ [name]: value });
+    }
+  }
+
   /* -------------------------------------------------- */
 
   /**

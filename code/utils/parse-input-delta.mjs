@@ -8,6 +8,17 @@
  * @returns {number|void}                       The new value.
  */
 export default function parseInputDelta(input, target) {
+  foundry.utils.logCompatibilityWarning(
+    "Ryuutama | The `parseInputDelta` method has been deprecated without replacement.",
+    {
+      mode: CONST.COMPATIBILITY_MODES.WARNING,
+      since: "2.1.0",
+      until: "2.3.0",
+      details: "You can use `ryuutama.utils.parseDelta` instead.",
+      once: true,
+    },
+  );
+
   let name = input.dataset.name ?? input.name;
   let attr;
   if (name.endsWith(".value")) {
