@@ -21,8 +21,14 @@ export default class RyuutamaItemCompendium extends foundry.applications.sidebar
   async _createDroppedEntry(entry, updates = {}) {
     if (!entry.system.isStorage) return super._createDroppedEntry(entry, updates);
 
+    const transformer = item => {
+      item = item.toCompendium();
+      item.folder = updates.folder;
+      return item;
+    };
+
     const Item = getDocumentClass("Item");
-    const itemData = await Item.createWithContents([entry]);
+    const itemData = await Item.createWithContents([entry], { transformer });
     const [container] = await Item.createDocuments(itemData, { pack: this.collection.metadata.id, keepId: true });
     return container;
   }

@@ -27,10 +27,7 @@ export default class RyuutamaItems extends foundry.documents.collections.Items {
     const contents = await item.system.contents;
     if (contents.length) {
       // const fromOptions = foundry.utils.mergeObject({ clearSort: false }, options);
-      const toCreate = await getDocumentClass("Item").createWithContents(
-        contents,
-        { storage: created, keepId: options.keepId },
-      );
+      const toCreate = await getDocumentClass("Item").createWithContents(contents, { storage: created });
       await getDocumentClass("Item").createDocuments(toCreate, { fromCompendium: true, keepId: true });
     }
 

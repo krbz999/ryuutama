@@ -49,10 +49,11 @@ export default class RyuutamaItem extends foundry.documents.Item {
    * which should be used with `Item.createDocuments` with `keepId: true`.
    * @param {RyuutamaItem[]} items              The items to create.
    * @param {object} [options]
-   * @param {RyuutamaItem} [options.storage]    A container to place the items in.
+   * @param {RyuutamaItem} [options.storage]                    A container to place the items in.
+   * @param {(RyuutamaItem) => object} [options.transformer]    Method to use when preparing and cleaning the items.
    * @returns {Promise<object[]>}               Data for items to be created.
    */
-  static async createWithContents(items, { storage } = {}) {
+  static async createWithContents(items, { storage, transformer } = {}) {
     let { containers = [], physical = [], other = [] } = Object.groupBy(items, item => {
       if (item.system.isStorage) return "containers";
       if (item.system.schema.has("storage")) return "physical";
@@ -69,24 +70,28 @@ export default class RyuutamaItem extends foundry.documents.Item {
      */
     const containerMap = new Map();
 
+    transformer = (typeof transformer === "function")
+      ? transformer
+      : item => game.items.fromCompendium(item, { clearFolder: true });
+
     containers = await Promise.all(containers.map(async (item) => {
       const id = foundry.utils.randomID();
       containerMap.set(item.uuid, id);
       const contents = await item.system.contents;
       contents.forEach(c => physical.add(c));
-      item = game.items.fromCompendium(item);
+      item = transformer(item);
       foundry.utils.setProperty(item, "_id", id);
       return item;
     }));
 
     physical = await Promise.all(Array.from(physical).map(async (item) => {
       const parent = await ryuutama.data.fields.StorageField.getParentStorage(item);
-      item = game.items.fromCompendium(item);
+      item = transformer(item);
       foundry.utils.setProperty(item, "system.storage", containerMap.get(parent?.uuid) ?? storage?.id ?? null);
       return item;
     }));
 
-    other = other.map(item => game.items.fromCompendium(item));
+    other = other.map(transformer);
 
     return [containers, physical, other].flat();
   }
