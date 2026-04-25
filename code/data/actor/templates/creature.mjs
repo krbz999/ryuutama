@@ -254,6 +254,12 @@ export default class CreatureData extends BaseData {
       if (!configured) return null;
     }
 
+    // Cache abilities for generic checks.
+    if (rollConfig.type === "check") {
+      const abilities = rollConfig.abilities;
+      if (abilities?.length === 2) this.parent._cachedAbilities = [...abilities];
+    }
+
     const roll = this._constructCheckRoll(rollConfig, dialogConfig, messageConfig);
     await roll.evaluate();
 
@@ -344,11 +350,17 @@ export default class CreatureData extends BaseData {
     /** @type {CheckMessageConfig} */
     let message = { create: true };
 
+    const sortedAbilities = Object.entries(this.abilities)
+      .sort(([, { value: a }], [, { value: b }]) => b - a)
+      .map(([a]) => a);
+
     switch (rollConfig.type) {
       case "accuracy": break;
 
       case "check":
-        roll.abilities = ["strength", "strength"];
+        roll.abilities = this.parent._cachedAbilities
+          ? this.parent._cachedAbilities
+          : sortedAbilities.slice(0, 2);
         break;
 
       case "condition":

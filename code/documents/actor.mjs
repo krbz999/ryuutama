@@ -22,6 +22,14 @@ export default class RyuutamaActor extends foundry.documents.Actor {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Cached abilities for repurposing in generic checks.
+   * @type {string[]|void}
+   */
+  _cachedAbilities;
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   getRollData() {
     const rollData = (typeof this.system.getRollData === "function") ? this.system.getRollData() : { ...this.system };
