@@ -718,6 +718,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     const result = document.createElement("DIV");
     result.classList.add("result");
     if (displaySelection && isSelected) result.classList.add("selected");
+    result.dataset.tooltipDirection = "RIGHT";
     result.dataset.uuid = uuid;
     result.dataset.dragstart = "";
     result.dataset.name = name;
