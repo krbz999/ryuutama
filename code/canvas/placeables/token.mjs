@@ -40,6 +40,9 @@ export default class RyuutamaToken extends foundry.canvas.placeables.Token {
    * @return {boolean}
    */
   #getBarInverted(data) {
+    const actor = this.actor;
+    if (!actor) return false;
+
     switch (data.attribute) {
       case "resources.stamina": return this.actor.system.resources.stamina.value < 0;
       default: return false;
@@ -54,6 +57,9 @@ export default class RyuutamaToken extends foundry.canvas.placeables.Token {
    * @returns {number}    The percentage, a number between 0 and 1.
    */
   #getBarPercentage(data) {
+    const actor = this.actor;
+    if (!actor) return 0;
+
     switch (data.attribute) {
       case "resources.stamina":
         return this.actor.system.resources.stamina.pct / 100;
