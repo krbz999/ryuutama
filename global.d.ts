@@ -4,6 +4,11 @@ import "@common/global.mjs";
 import "@common/primitives/global.mjs";
 
 import CurrentHabitat from "./code/applications/ui/current-habitat.mjs";
+import RyuutamaActorsDirectory from "./code/applications/sidebar/tabs/actors.mjs";
+import RyuutamaCombatTracker from "./code/applications/sidebar/tabs/combats.mjs";
+import RyuutamaCompendiumDirectory from "./code/applications/sidebar/tabs/compendium.mjs";
+import RyuutamaGamePause from "./code/applications/ui/game-pause.mjs";
+import RyuutamaItemsDirectory from "./code/applications/sidebar/tabs/items.mjs";
 
 declare global {
   /**
@@ -17,6 +22,11 @@ declare global {
   const getDocumentClass = foundry.utils.getDocumentClass;
 
   namespace ui {
+    let actors: RyuutamaActorsDirectory;
+    let combats: RyuutamaCombatTracker;
+    let compendium: RyuutamaCompendiumDirectory;
     let habitat: CurrentHabitat;
+    let items: RyuutamaItemsDirectory;
+    let pause: RyuutamaGamePause;
   }
 }
