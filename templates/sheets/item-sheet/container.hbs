@@ -2,7 +2,7 @@
   <progress-bar id="{{rootId}}-capacity" data-pct="{{container.capacity.pct}}" data-label="{{container.capacity.value}} / {{container.capacity.max}}"></progress-bar>
 
   {{!-- PRICE --}}
-  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="1" rootId=rootId}}
+  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="-" rootId=rootId}}
 
   {{!-- CONTAINER SIZE --}}
   {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.value source.system.size.value) disabled=disabled classes="slim" rootId=rootId}}

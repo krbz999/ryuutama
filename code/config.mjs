@@ -105,7 +105,6 @@ Prelocalization.prelocalize(animalModifiers);
 /**
  * @typedef AnimalTypeConfig
  * @property {string} label         Human-readable label.
- * @property {number} price         Default base price.
  * @property {number} [ride]        Number of people who can ride this animal. If non-zero, it is assumed this grants
  *                                  a +1 bonus to travel checks on topographies of Level 2 or less.
  * @property {number} [capacity]    Carrying capacity of this animal.
@@ -117,27 +116,22 @@ Prelocalization.prelocalize(animalModifiers);
 export const animalTypes = Object.freeze({
   riding: {
     label: "RYUUTAMA.ITEM.ANIMAL.TYPES.riding",
-    price: 900,
     ride: 1,
   },
   ridingLarge: {
     label: "RYUUTAMA.ITEM.ANIMAL.TYPES.ridingLarge",
-    price: 3800,
     ride: 4,
   },
   pack: {
     label: "RYUUTAMA.ITEM.ANIMAL.TYPES.pack",
-    price: 500,
     capacity: 15,
   },
   packLarge: {
     label: "RYUUTAMA.ITEM.ANIMAL.TYPES.packLarge",
-    price: 2000,
     capacity: 30,
   },
   pet: {
     label: "RYUUTAMA.ITEM.ANIMAL.TYPES.pet",
-    price: 300,
   },
 });
 Prelocalization.prelocalize(animalTypes);

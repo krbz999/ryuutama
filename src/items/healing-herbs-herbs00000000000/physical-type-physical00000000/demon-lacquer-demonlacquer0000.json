@@ -9,7 +9,7 @@
       "value": "<p>A decidious tree that grows to about 12 feet tall with ash-white bark. A dark sap oozes from cuts in the bark.</p>"
     },
     "price": {
-      "value": null
+      "value": 300
     },
     "category": {
       "value": "physical"
@@ -36,9 +36,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
+    "systemVersion": "2.1.0",
     "createdTime": 1774638902765,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

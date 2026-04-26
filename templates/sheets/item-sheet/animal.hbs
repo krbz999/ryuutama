@@ -4,22 +4,22 @@
   {{/if}}
 
   {{!-- PRICE --}}
-  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="1"}}
+  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="-" rootId=rootId}}
 
   {{!-- MODIFIERS --}}
   {{formGroup systemFields.modifiers value=(ifThen disabled document.system.modifiers source.system.modifiers) disabled=disabled options=modifiers type="checkboxes" classes="stacked"}}
 
   {{!-- ANIMAL TYPE --}}
-  {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim"}}
+  {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim" rootId=rootId}}
 
   {{!-- RIDING CAPACITY --}}
   {{#if document.system.capacity.canRide}}
-  {{formGroup systemFields.capacity.fields.riders value=(ifThen disabled document.system.capacity.riders source.system.capacity.riders) disabled=disabled classes="slim" placeholder=animal.defaultRiding}}
+  {{formGroup systemFields.capacity.fields.riders value=(ifThen disabled document.system.capacity.riders source.system.capacity.riders) disabled=disabled classes="slim" placeholder=animal.defaultRiding rootId=rootId}}
   {{/if}}
 
   {{!-- CARRY CAPACITY --}}
   {{#if document.system.capacity.canCarry}}
-  {{formGroup systemFields.capacity.fields.max value=(ifThen disabled document.system.capacity.max source.system.capacity.max) disabled=disabled classes="slim" placeholder=animal.defaultCapacity}}
+  {{formGroup systemFields.capacity.fields.max value=(ifThen disabled document.system.capacity.max source.system.capacity.max) disabled=disabled classes="slim" placeholder=animal.defaultCapacity rootId=rootId}}
   {{/if}}
 
   {{!-- CONTENTS --}}

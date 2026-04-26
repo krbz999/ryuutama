@@ -9,7 +9,7 @@
       "value": "<p>An annual that produces light green leaves covered in mucuous. It prefers wet climates.</p>"
     },
     "price": {
-      "value": null
+      "value": 300
     },
     "category": {
       "value": "physical"
@@ -36,9 +36,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
+    "systemVersion": "2.1.0",
     "createdTime": 1774638902766,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

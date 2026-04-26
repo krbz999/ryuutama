@@ -64,12 +64,9 @@ export default class AnimalData extends StorageData {
    * Prepare the total price derived from modifiers.
    */
   #preparePrice() {
-    const base = ryuutama.config.animalTypes[this.category.value].price;
-
     const p = this.price;
     p.bonus = 0;
     p.multiplier = 1;
-    p.value = p.value ?? base;
 
     for (const mod of this.modifiers) {
       const config = ryuutama.config.animalModifiers[mod];
@@ -79,7 +76,8 @@ export default class AnimalData extends StorageData {
       else p.multiplier *= cost;
     }
 
-    p.value = Math.floor(p.value * p.multiplier + p.bonus);
+    p.multiplier = p.multiplier.toNearest(0.1);
+    p.value = (p.value === null) ? null : Math.floor(p.value * p.multiplier + p.bonus);
     p.sell = Math.floor(p.value / 2);
     p.saleable = p.sell > 0;
   }

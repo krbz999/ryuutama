@@ -12,7 +12,7 @@
       "value": "<p>An annual that blooms only at night. The light-purple flowers resembles a pouch and glows in total darkness.</p>"
     },
     "price": {
-      "value": null
+      "value": 800
     },
     "terrain": {
       "details": "Night only",
@@ -36,9 +36,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
+    "systemVersion": "2.1.0",
     "createdTime": 1774638902766,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

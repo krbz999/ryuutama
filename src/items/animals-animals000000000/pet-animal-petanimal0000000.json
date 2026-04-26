@@ -1,0 +1,46 @@
+{
+  "name": "Pet Animal",
+  "_id": "petanimal0000000",
+  "folder": "animals000000000",
+  "type": "animal",
+  "sort": 500000,
+  "system": {
+    "price": {
+      "value": 300
+    },
+    "description": {
+      "value": "<p>A pet; must be no larger than one meter, e.g., cat, turtle, rabbit, etc.</p>"
+    },
+    "category": {
+      "value": "pet"
+    },
+    "identifier": "pet-animal",
+    "source": {
+      "book": "",
+      "custom": ""
+    },
+    "capacity": {
+      "max": null,
+      "riders": null
+    },
+    "modifiers": []
+  },
+  "img": "systems/ryuutama/assets/official/icons/items/animal.svg",
+  "effects": [],
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1777214007177,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!items!petanimal0000000"
+}

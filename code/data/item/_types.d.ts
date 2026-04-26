@@ -104,7 +104,9 @@ declare module "./herb.mjs" {
       effect: string;
     }
     price: {
-      value: number;
+      saleable: boolean;
+      sell: number | null;
+      value: number | null;
     }
     terrain: {
       details: string;

@@ -79,13 +79,9 @@ export default class HerbData extends BaseData {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    if (this.price.value === null) {
-      switch (this.terrain.level) {
-        case 1: this.price.value = 100; break;
-        case 2: this.price.value = 300; break;
-        case 3: this.price.value = 800; break;
-      }
-    }
+    const p = this.price;
+    p.sell = Math.floor(p.value / 2);
+    p.saleable = p.sell > 0;
 
     this.terrain.label = this.#prepareTerrainLabel();
     this.category.label = ryuutama.config.herbTypes[this.category.value].label;

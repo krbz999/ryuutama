@@ -1,11 +1,14 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
+  {{!-- PRICE --}}
+  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="-" rootId=rootId}}
+
   {{!-- SUBTYPE --}}
-  {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim"}}
+  {{formGroup systemFields.category.fields.value value=(ifThen disabled document.system.category.value source.system.category.value) disabled=disabled classes="slim" rootId=rootId}}
 
   {{!-- TERRAIN --}}
-  {{formGroup systemFields.terrain.fields.level value=(ifThen disabled document.system.terrain.level source.system.terrain.level) disabled=disabled options=herbLevelOptions classes="slim"}}
-  {{formGroup systemFields.terrain.fields.type value=(ifThen disabled document.system.terrain.type source.system.terrain.type) disabled=disabled options=herbTypes classes="slim"}}
-  {{formGroup systemFields.terrain.fields.details value=(ifThen disabled document.system.terrain.details source.system.terrain.details) disabled=disabled classes="stacked"}}
+  {{formGroup systemFields.terrain.fields.level value=(ifThen disabled document.system.terrain.level source.system.terrain.level) disabled=disabled options=herbLevelOptions classes="slim" rootId=rootId}}
+  {{formGroup systemFields.terrain.fields.type value=(ifThen disabled document.system.terrain.type source.system.terrain.type) disabled=disabled options=herbTypes classes="slim" rootId=rootId}}
+  {{formGroup systemFields.terrain.fields.details value=(ifThen disabled document.system.terrain.details source.system.terrain.details) disabled=disabled classes="stacked" rootId=rootId}}
 
   {{!-- EFFECT DESCRIPTION --}}
   {{#if disabled}}

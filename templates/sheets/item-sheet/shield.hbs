@@ -1,22 +1,22 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
   {{!-- PRICE --}}
-  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="1"}}
+  {{formGroup systemFields.price.fields.value value=(ifThen disabled document.system.price.value source.system.price.value) disabled=disabled classes="slim" placeholder="-" rootId=rootId}}
 
   {{!-- SIZE & DURABILITY --}}
   <div class="form-group stacked">
     <label>{{localize "RYUUTAMA.ITEM.durability" value=document.system.durability.value max=document.system.durability.max}}</label>
     <div class="form-fields">
-      {{formGroup systemFields.durability.fields.spent value=(ifThen disabled document.system.durability.spent source.system.durability.spent) disabled=disabled max=document.system.durability.max type="number"}}
-      {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.value source.system.size.value) disabled=disabled}}
+      {{formGroup systemFields.durability.fields.spent value=(ifThen disabled document.system.durability.spent source.system.durability.spent) disabled=disabled max=document.system.durability.max type="number" rootId=rootId}}
+      {{formGroup systemFields.size.fields.value value=(ifThen disabled document.system.size.value source.system.size.value) disabled=disabled rootId=rootId}}
     </div>
   </div>
 
   {{!-- ARMOR --}}
-  {{formGroup systemFields.armor.fields.defense value=(ifThen disabled document.system.armor.defense source.system.armor.defense) disabled=disabled classes="slim" placeholder="0"}}
-  {{formGroup systemFields.armor.fields.penalty value=(ifThen disabled document.system.armor.penalty source.system.armor.penalty) disabled=disabled classes="slim" placeholder="0"}}
+  {{formGroup systemFields.armor.fields.defense value=(ifThen disabled document.system.armor.defense source.system.armor.defense) disabled=disabled classes="slim" placeholder="0" rootId=rootId}}
+  {{formGroup systemFields.armor.fields.penalty value=(ifThen disabled document.system.armor.penalty source.system.armor.penalty) disabled=disabled classes="slim" placeholder="0" rootId=rootId}}
 
   {{!-- SHIELD DODGE VALUE --}}
-  {{formGroup systemFields.armor.fields.dodge value=(ifThen disabled document.system.armor.dodge source.system.armor.dodge) disabled=disabled placeholder="0" rootId=rootId classes="slim"}}
+  {{formGroup systemFields.armor.fields.dodge value=(ifThen disabled document.system.armor.dodge source.system.armor.dodge) disabled=disabled placeholder="0" classes="slim" rootId=rootId}}
 
   {{!-- MODIFIERS --}}
   {{formGroup systemFields.modifiers value=(ifThen disabled document.system.modifiers source.system.modifiers) disabled=disabled options=modifiers type="checkboxes" classes="stacked"}}

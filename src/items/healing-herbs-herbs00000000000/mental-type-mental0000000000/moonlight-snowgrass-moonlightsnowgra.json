@@ -12,7 +12,7 @@
       "value": "<p>A diminutive species of grass that only flourishes in moonlight. It is said that it takes an entire year to grow even a single centimeter. The juice squeezed from this grass is used to arouse one's spirit.</p>"
     },
     "price": {
-      "value": null
+      "value": 800
     },
     "terrain": {
       "type": "deepForest",
@@ -36,9 +36,9 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
+    "systemVersion": "2.1.0",
     "createdTime": 1774638902768,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"

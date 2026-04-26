@@ -1,5 +1,5 @@
 <section data-tab="{{tabs.details.id}}" class="{{tabs.details.cssClass}}" data-group="{{tabs.details.group}}">
-  {{formGroup systemFields.identifier value=(ifThen disabled document.identifier source.system.identifier) disabled=disabled placeholder=identifierPlaceholder}}
+  {{formGroup systemFields.identifier value=(ifThen disabled document.identifier source.system.identifier) disabled=disabled placeholder=identifierPlaceholder rootId=rootId}}
 
   {{#unless disabled}}
   <div class="droparea">

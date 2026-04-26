@@ -1,0 +1,46 @@
+{
+  "name": "Riding Animal",
+  "_id": "ridinganimal0000",
+  "folder": "animals000000000",
+  "type": "animal",
+  "sort": 100000,
+  "system": {
+    "price": {
+      "value": 900
+    },
+    "description": {
+      "value": "<p>+1 bonus to travel checks on topographies of Level 2 or less. Only one person may ride at a time.</p>"
+    },
+    "category": {
+      "value": "riding"
+    },
+    "identifier": "riding-animal",
+    "source": {
+      "book": "",
+      "custom": ""
+    },
+    "capacity": {
+      "max": null,
+      "riders": null
+    },
+    "modifiers": []
+  },
+  "img": "systems/ryuutama/assets/official/icons/items/animal.svg",
+  "effects": [],
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1777214007175,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!items!ridinganimal0000"
+}

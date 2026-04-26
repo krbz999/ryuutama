@@ -24,7 +24,7 @@ export default class EquippableData extends BaseData {
       }),
       modifiers: new SetField(new StringField()),
       price: new SchemaField({
-        value: new NumberField({ nullable: false, initial: 1, min: 0, integer: true }),
+        value: new NumberField({ nullable: true, initial: null, min: 0, integer: true }),
       }),
       size: new SchemaField({
         value: new NumberField({ nullable: false, initial: 1, choices: ryuutama.CONST.ITEM_SIZES._toConfig }),
@@ -103,7 +103,8 @@ export default class EquippableData extends BaseData {
       else p.multiplier *= cost;
     }
 
-    p.value = Math.floor(p.value * p.multiplier + p.magical);
+    p.multiplier = p.multiplier.toNearest(0.1);
+    p.value = (p.value === null) ? null : Math.floor(p.value * p.multiplier + p.magical);
     p.sell = Math.floor(p.value / 2);
     p.saleable = (p.sell > 0) && !this.modifiers.has("broken");
   }

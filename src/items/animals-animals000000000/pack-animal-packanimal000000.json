@@ -1,0 +1,46 @@
+{
+  "name": "Pack Animal",
+  "_id": "packanimal000000",
+  "folder": "animals000000000",
+  "type": "animal",
+  "sort": 300000,
+  "system": {
+    "price": {
+      "value": 500
+    },
+    "description": {
+      "value": "<p>This animal has a carrying capacity of 15.</p>"
+    },
+    "category": {
+      "value": "pack"
+    },
+    "identifier": "pack-animal",
+    "source": {
+      "book": "",
+      "custom": ""
+    },
+    "capacity": {
+      "max": null,
+      "riders": null
+    },
+    "modifiers": []
+  },
+  "img": "systems/ryuutama/assets/official/icons/items/animal.svg",
+  "effects": [],
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1777214007176,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!items!packanimal000000"
+}
