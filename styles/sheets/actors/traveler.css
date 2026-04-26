@@ -480,6 +480,7 @@
           font-size: 1.5rem;
           place-content: center;
           opacity: 0;
+          width: 100%;
         }
       }
 
