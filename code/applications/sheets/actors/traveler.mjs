@@ -988,7 +988,8 @@ export default class RyuutamaTravelerSheet extends RyuutamaBaseActorSheet {
    */
   static #adjustFumbles(event, target) {
     const delta = target.dataset.direction === "UP" ? 1 : -1;
-    this.document.update({ "system.fumbles.value": this.document.system.fumbles.value + delta });
+    const value = this.document.system.fumbles.value + delta;
+    this.document.update({ "system.fumbles.value": value || null });
   }
 
   /* -------------------------------------------------- */
