@@ -809,6 +809,9 @@
         "FIELDS": {
           "tooltip.label": "Tooltip"
         }
+      },
+      "SHOP": {
+        "FIELDS": {}
       }
     },
 
