@@ -75,6 +75,10 @@ declare module "./container.mjs" {
       water: number | null;
       total: number | null;
     }
+    price: StorageData["price"] & {
+      saleable: boolean;
+      sell: number;
+    }
     properties: Set<"waterContainer">;
     rations: Record<string, RationData> & { animalFeed: RationData[], food: RationData[], ration: RationData[], water: RationData[] };
     size: {

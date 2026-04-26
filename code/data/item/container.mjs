@@ -114,6 +114,19 @@ export default class ContainerData extends StorageData {
     }
 
     this.capacity.total = (isWaterContainer ? this.capacity.water : this.capacity.max) ?? 0;
+
+    this.#preparePrice();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Prepare the gold value.
+   */
+  #preparePrice() {
+    const p = this.price;
+    p.sell = Math.floor(p.value / 2);
+    p.saleable = p.sell > 0;
   }
 
   /* -------------------------------------------------- */

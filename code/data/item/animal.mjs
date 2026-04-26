@@ -80,7 +80,7 @@ export default class AnimalData extends StorageData {
     }
 
     p.value = Math.floor(p.value * p.multiplier + p.bonus);
-    p.sell = Math.floor(p.total / 2);
+    p.sell = Math.floor(p.value / 2);
     p.saleable = p.sell > 0;
   }
 

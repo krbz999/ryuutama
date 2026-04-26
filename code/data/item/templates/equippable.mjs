@@ -104,7 +104,7 @@ export default class EquippableData extends BaseData {
     }
 
     p.value = Math.floor(p.value * p.multiplier + p.magical);
-    p.sell = Math.floor(p.total / 2);
+    p.sell = Math.floor(p.value / 2);
     p.saleable = (p.sell > 0) && !this.modifiers.has("broken");
   }
 

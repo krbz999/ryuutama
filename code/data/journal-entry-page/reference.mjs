@@ -23,11 +23,10 @@ export default class ReferenceData extends foundry.abstract.TypeDataModel {
 
   /**
    * Create data for an enriched tooltip.
-   * @returns {Promise<HTMLElement[]>}
+   * @returns {Promise<HTMLCollection>}
    */
   async richTooltip() {
     const text = this.tooltip || this.parent.text.content;
-
     const enriched = await CONFIG.ux.TextEditor.enrichHTML(text, {
       rollData: this.parent.getRollData?.(), relativeTo: this.parent,
     });
@@ -36,10 +35,7 @@ export default class ReferenceData extends foundry.abstract.TypeDataModel {
       "systems/ryuutama/templates/ui/pages/tooltip.hbs",
       context,
     );
-
-    const div = document.createElement("DIV");
-    div.innerHTML = htmlString;
-    return div.children;
+    return foundry.utils.parseHTML(`<div>${htmlString}</div>`).children;
   }
 
   /* -------------------------------------------------- */
