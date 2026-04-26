@@ -1,5 +1,8 @@
 const { HTMLField } = foundry.data.fields;
 
+/**
+ * A page type for displaying a rule of the game, with explicit tooltip support.
+ */
 export default class ReferenceData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static defineSchema() {
@@ -44,7 +47,7 @@ export default class ReferenceData extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   async toEmbed(config, options = {}) {
     config.long = (config.long === true) || (config.values.includes("long"));
-    const text = config.long || !this.tooltip ? this.parent.text.content : this.tooltip;
+    const text = (config.long || !this.tooltip) ? this.parent.text.content : this.tooltip;
 
     options = { ...options, relativeTo: this.parent };
     const {
