@@ -1,11 +1,10 @@
 /**
- * @import Advancement from "../../data/advancement/advancement.mjs";
+ * @import { getDocumentClass } from "@client/utils/helpers.mjs";
+ * @import DragDrop from "@client/applications/ux/drag-drop.mjs";
+ * @import Folder from "@client/documents/folder.mjs";
  * @import RyuutamaActiveEffect from "../../documents/active-effect.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import RyuutamaItem from "../../documents/item.mjs";
- * @import DragDrop from "@client/applications/ux/drag-drop.mjs";
- * @import Folder from "@client/documents/folder.mjs";
- * @import { getDocumentClass } from "@client/utils/helpers.mjs";
  */
 
 const { HandlebarsApplicationMixin, DocumentSheet } = foundry.applications.api;

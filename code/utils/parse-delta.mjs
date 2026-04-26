@@ -1,6 +1,6 @@
 /**
  * @typedef DeltaConfig
- * @property {number} value         The field's current value.
+ * @property {number|null} value    The field's current value.
  * @property {number} [min]         The field's minimum value.
  * @property {number} [max]         The field's maximum value.
  * @property {boolean} isPercent    Is this a percentage delta?
@@ -11,9 +11,11 @@
  * Parse an change to a numeric value from an input change event.
  * @param {string} delta    The input value.
  * @param {Omit<DeltaConfig, "isPercent">} config
- * @returns {number}
+ * @returns {number|null}
  */
 export default function parseDelta(delta, config) {
+  if (!delta) return null;
+
   /** @type {DeltaConfig} */
   config = foundry.utils.mergeObject(config, {
     isPercent: delta.endsWith("%"),
