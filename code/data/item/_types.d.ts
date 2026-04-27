@@ -146,7 +146,7 @@ declare module "./spell.mjs" {
   export default interface SpellData {
     actions: ActionsModel;
     category: {
-      value: "incantation" | "spring" | "summer" | "autumn" | "winter";
+      value: "incantation" | "spring" | "summer" | "fall" | "winter";
     }
     spell: {
       activation: {

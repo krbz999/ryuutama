@@ -25,7 +25,8 @@
       "book": "Ryuutama",
       "custom": ""
     },
-    "identifier": "sun-hat"
+    "identifier": "sun-hat",
+    "storage": null
   },
   "effects": [],
   "sort": 0,
@@ -37,10 +38,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638902769,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394806,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

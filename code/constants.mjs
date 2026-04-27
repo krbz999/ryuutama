@@ -114,7 +114,7 @@ toConfig(RATION_TYPES, "rationTypes");
 export const SEASONS = {
   SPRING: "spring",
   SUMMER: "summer",
-  AUTUMN: "autumn",
+  FALL: "fall",
   WINTER: "winter",
 };
 toConfig(SEASONS, "seasons");
@@ -141,7 +141,7 @@ export const SPELL_CATEGORIES = {
   INCANTATION: "incantation",
   SPRING: "spring",
   SUMMER: "summer",
-  AUTUMN: "autumn",
+  FALL: "fall",
   WINTER: "winter",
 };
 toConfig(SPELL_CATEGORIES, "spellCategories");

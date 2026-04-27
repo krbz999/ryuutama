@@ -171,6 +171,9 @@ export default class MonsterData extends CreatureData {
       const data = ryuutama.data.AttackModel._migrateFormulasToModelData(accuracy, damage);
       source.attack = data;
     }
+
+    if (source.environment?.season === "autumn") source.environment.season = "fall";
+
     return super.migrateData(source, options, _state);
   }
 }

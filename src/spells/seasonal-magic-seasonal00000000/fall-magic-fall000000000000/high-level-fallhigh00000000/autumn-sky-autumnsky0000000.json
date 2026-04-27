@@ -2,7 +2,7 @@
   "name": "Autumn Sky",
   "system": {
     "category": {
-      "value": "autumn"
+      "value": "fall"
     },
     "description": {
       "value": "<p>Completely destroys a target's willpower, as they gaze longingly at the autumn sky. Regardless of what they had resolved to do previously, they become lost in thought or second guess themselves and just give up. If used in combat, the target loses their next action.</p>"
@@ -55,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906424,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394818,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

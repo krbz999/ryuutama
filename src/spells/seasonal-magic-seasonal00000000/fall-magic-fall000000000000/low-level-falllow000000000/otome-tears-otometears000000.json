@@ -2,7 +2,7 @@
   "name": "Otome Tears",
   "system": {
     "category": {
-      "value": "autumn"
+      "value": "fall"
     },
     "description": {
       "value": "<p>The target's eyes are filled with tears, blurring their vision and giving them a -2 penalty to Accuracy Checks.</p>"
@@ -55,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906434,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394820,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

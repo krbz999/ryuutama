@@ -2,7 +2,7 @@
   "name": "Chocolate Cosmos",
   "system": {
     "category": {
-      "value": "autumn"
+      "value": "fall"
     },
     "description": {
       "value": "<p>The target remembers or thinks of a past or recent heartbreak. The target suffers [Shock:6], no matter its Condition, though the normal Magic Check is still required. The target must have loved or must be in love, and the strength of their love may raise the Shock value (at the GM's discretion).</p>"
@@ -55,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906428,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394818,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

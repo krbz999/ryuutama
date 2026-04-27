@@ -23,7 +23,8 @@
     "rations": {},
     "size": {
       "value": 1
-    }
+    },
+    "properties": []
   },
   "effects": [],
   "sort": 0,
@@ -35,7 +36,7 @@
     "coreVersion": "14.360",
     "systemId": "ryuutama",
     "systemVersion": "2.1.0",
-    "createdTime": 1776287945487,
+    "createdTime": 1777252394805,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000",
     "compendiumSource": null,

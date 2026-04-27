@@ -23,7 +23,8 @@
       "book": "Ryuutama",
       "custom": ""
     },
-    "identifier": "black-temple-melon"
+    "identifier": "black-temple-melon",
+    "storage": null
   },
   "img": "icons/consumables/fruit/plum-ripe-purple.webp",
   "effects": [],
@@ -36,10 +37,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638902763,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394804,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

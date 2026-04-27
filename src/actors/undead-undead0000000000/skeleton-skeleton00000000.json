@@ -6,7 +6,7 @@
       "dragonica": 133
     },
     "environment": {
-      "season": "autumn"
+      "season": "fall"
     },
     "resources": {
       "stamina": {
@@ -182,10 +182,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774636471130,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394737,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

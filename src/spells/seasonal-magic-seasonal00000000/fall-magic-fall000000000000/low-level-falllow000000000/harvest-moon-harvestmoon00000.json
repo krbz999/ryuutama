@@ -2,7 +2,7 @@
   "name": "Harvest Moon",
   "system": {
     "category": {
-      "value": "autumn"
+      "value": "fall"
     },
     "description": {
       "value": "<p>A beautiful full moon appears in the night sky. This magic may only be used at night, in an area where the sky is visible. While the spell is in effect, the weather becomes “clear” and moonlight illuminates the area. The Spring Magic “Kaguya's Leylance” may use this moon as though it was a real moon.</p>"
@@ -55,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906432,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394819,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

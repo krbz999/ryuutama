@@ -77,6 +77,14 @@ export default class SpellData extends BaseData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  static migrateData(source, options, _state) {
+    if (source?.category?.value === "autumn") source.category.value = "fall";
+    return super.migrateData(source, options, _state);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   prepareDerivedData() {
     super.prepareDerivedData();
 
