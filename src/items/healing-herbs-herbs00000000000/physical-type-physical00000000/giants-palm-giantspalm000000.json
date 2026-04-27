@@ -5,7 +5,7 @@
   "type": "herb",
   "system": {
     "description": {
-      "effect": "<p>Used to help ease foot pain. Used after a taking damage from a Movement Check: recover that damage.</p>",
+      "effect": "<p>Used to help ease foot pain. Used after a taking damage from a Travel Check: recover that damage.</p>",
       "value": "<p>An annual that produces light green leaves covered in mucuous. It prefers wet climates.</p>"
     },
     "price": {
