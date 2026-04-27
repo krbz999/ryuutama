@@ -799,6 +799,7 @@
     "PACKS": {
       "ACTORS": "Actors",
       "CLASSES": "Classes",
+      "EFFECTS": "Effects",
       "ITEMS": "Items",
       "SPELLS": "Spells",
       "TABLES": "Tables"

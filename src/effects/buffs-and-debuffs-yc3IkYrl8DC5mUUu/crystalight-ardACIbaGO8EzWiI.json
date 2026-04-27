@@ -1,0 +1,70 @@
+{
+  "name": "Crystalight",
+  "type": "standard",
+  "_id": "ardACIbaGO8EzWiI",
+  "img": "icons/magic/light/light-lantern-lit-white.webp",
+  "system": {
+    "changes": [
+      {
+        "key": "token.light",
+        "type": "override",
+        "value": {
+          "negative": false,
+          "priority": 0,
+          "alpha": 0.35,
+          "angle": 360,
+          "bright": 1,
+          "color": "#737b32",
+          "coloration": 1,
+          "dim": 2,
+          "attenuation": 0.75,
+          "luminosity": 0.5,
+          "saturation": 0,
+          "contrast": 0,
+          "shadows": 0,
+          "animation": {
+            "type": "torch",
+            "speed": 7,
+            "intensity": 5,
+            "reverse": false
+          },
+          "darkness": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "phase": "initial",
+        "priority": null
+      }
+    ]
+  },
+  "disabled": false,
+  "start": null,
+  "duration": {
+    "value": null,
+    "units": "seconds",
+    "expiry": null,
+    "expired": false
+  },
+  "description": "<p>Emitting a white light similar in intensity to the glow of a lantern.</p>",
+  "origin": null,
+  "tint": "#ffffff",
+  "transfer": false,
+  "statuses": [],
+  "showIcon": 1,
+  "folder": "yc3IkYrl8DC5mUUu",
+  "sort": 300000,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1777319673227,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!effects!ardACIbaGO8EzWiI"
+}

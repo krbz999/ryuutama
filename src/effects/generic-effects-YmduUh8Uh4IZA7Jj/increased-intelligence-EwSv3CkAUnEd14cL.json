@@ -1,0 +1,46 @@
+{
+  "name": "Increased Intelligence",
+  "type": "standard",
+  "_id": "EwSv3CkAUnEd14cL",
+  "img": "systems/ryuutama/assets/official/icons/stats/intelligence.svg",
+  "system": {
+    "changes": [
+      {
+        "key": "system.abilities.intelligence.value",
+        "type": "add",
+        "value": 1,
+        "phase": "initial",
+        "priority": null
+      }
+    ]
+  },
+  "disabled": false,
+  "start": null,
+  "duration": {
+    "value": null,
+    "units": "seconds",
+    "expiry": null,
+    "expired": false
+  },
+  "description": "<p>Your Intelligence is raised to the next denomination.</p>",
+  "origin": null,
+  "tint": "#ffffff",
+  "transfer": false,
+  "statuses": [],
+  "showIcon": 1,
+  "folder": "YmduUh8Uh4IZA7Jj",
+  "sort": 137500,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1777324136378,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!effects!EwSv3CkAUnEd14cL"
+}
