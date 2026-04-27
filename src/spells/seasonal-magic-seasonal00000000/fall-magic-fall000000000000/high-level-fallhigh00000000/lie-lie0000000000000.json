@@ -2,7 +2,7 @@
   "name": "Lie",
   "system": {
     "category": {
-      "value": "autumn"
+      "value": "fall"
     },
     "description": {
       "value": "<p>The caster speaks a word and the target withers. If the target has 2 HP or more, they are reduced to 1 HP. Only affects phantom beasts, phantom plants and humanoid targets.</p>"
@@ -55,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906433,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394820,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

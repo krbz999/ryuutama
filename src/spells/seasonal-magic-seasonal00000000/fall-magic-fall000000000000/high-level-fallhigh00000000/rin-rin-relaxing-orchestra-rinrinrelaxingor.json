@@ -2,7 +2,7 @@
   "name": "Rin-Rin Relaxing Orchestra",
   "system": {
     "category": {
-      "value": "autumn"
+      "value": "fall"
     },
     "description": {
       "value": "<p>The soft calls of crickets (which sound like, “rin rin rin rin rin”) creates a pleasant and relaxing background tapestry of sound. All within earshot of the insect orchestra recover [SPI] (1 die) MP.</p>"
@@ -55,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906435,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394820,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

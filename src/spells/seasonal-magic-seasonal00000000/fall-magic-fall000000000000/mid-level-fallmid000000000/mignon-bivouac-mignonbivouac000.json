@@ -2,7 +2,7 @@
   "name": "Mignon Bivouac",
   "system": {
     "category": {
-      "value": "autumn"
+      "value": "fall"
     },
     "description": {
       "value": "<p>Creates a cocoon-like hanging sleeping bag, that maintains a constant temperature whatever its surroundings. Sleeping in this bag grants a +1 bonus to the next day's Condition, but this spell may only be used if there is a ceiling or something for the ‘cocoon' to hang from.</p>"
@@ -55,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906434,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394820,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

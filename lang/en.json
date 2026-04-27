@@ -444,7 +444,7 @@
     "SEASONS": {
       "spring": "Spring",
       "summer": "Summer",
-      "autumn": "Autumn",
+      "fall": "Fall",
       "winter": "Winter"
     },
 
@@ -733,7 +733,7 @@
           "incantation": "Incantation Magic",
           "spring": "Spring Magic",
           "summer": "Summer Magic",
-          "autumn": "Autumn Magic",
+          "fall": "Fall Magic",
           "winter": "Winter Magic",
           "seasonal": "Seasonal Magic"
         },

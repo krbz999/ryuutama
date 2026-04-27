@@ -59,18 +59,6 @@ class PrimaryPartyModel extends foundry.abstract.DataModel {
 /* -------------------------------------------------- */
 
 /**
- * Set migration version.
- * If there is a migration in the future, this can be removed,
- * and instead checked against a flag in the system manifest.
- */
-Hooks.once("ready", () => {
-  if (!game.user.isActiveGM) return;
-  game.settings.set(ryuutama.id, "MIGRATION_VERSION", game.system.version);
-});
-
-/* -------------------------------------------------- */
-
-/**
  * Perform migration on settings.
  */
 function migrateSettings() {

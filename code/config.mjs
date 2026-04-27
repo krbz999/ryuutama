@@ -515,8 +515,8 @@ export const seasons = {
     label: "RYUUTAMA.SEASONS.summer",
     icon: "systems/ryuutama/assets/official/icons/magic/summer.svg",
   },
-  autumn: {
-    label: "RYUUTAMA.SEASONS.autumn",
+  fall: {
+    label: "RYUUTAMA.SEASONS.fall",
     icon: "systems/ryuutama/assets/official/icons/magic/fall.svg",
   },
   winter: {
@@ -581,8 +581,8 @@ export const spellCategories = Object.freeze({
     icon: "systems/ryuutama/assets/official/icons/magic/summer.svg",
     isSeasonal: true,
   },
-  autumn: {
-    label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.autumn",
+  fall: {
+    label: "RYUUTAMA.ITEM.SPELL.CATEGORIES.fall",
     icon: "systems/ryuutama/assets/official/icons/magic/fall.svg",
     isSeasonal: true,
   },

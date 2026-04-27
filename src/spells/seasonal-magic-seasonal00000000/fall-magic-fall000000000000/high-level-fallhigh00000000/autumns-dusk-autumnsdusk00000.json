@@ -2,7 +2,7 @@
   "name": "Autumn's Dusk",
   "system": {
     "category": {
-      "value": "autumn"
+      "value": "fall"
     },
     "description": {
       "value": "<p>The most beautiful sight to behold in autumn is dusk, when the subtlety and elegance of all things in nature can be felt the most; even crows in the sky. The targets may fly with a flock of migrating birds. Calling a flock of migrating birds from a range of one kilometer, the targets may fly to the same destination as the flock. The spell's effect wears off when the birds land. Details such as whether and how many birds are nearby, and how far they are flying are left up to the GM.</p>"
@@ -55,10 +55,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906424,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777252394818,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

@@ -23,7 +23,8 @@
       "book": "Ryuutama",
       "custom": ""
     },
-    "identifier": "giants-palm"
+    "identifier": "giants-palm",
+    "storage": null
   },
   "img": "icons/commodities/flowers/cornflower-gold.webp",
   "effects": [],
@@ -39,7 +40,7 @@
     "coreVersion": "14.360",
     "systemId": "ryuutama",
     "systemVersion": "2.1.0",
-    "createdTime": 1774638902766,
+    "createdTime": 1777252394804,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
