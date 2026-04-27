@@ -31,13 +31,6 @@ export default class EquipmentField extends foundry.data.fields.SchemaField {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  _applyChangeOverride(value, delta, model, change) {
-    return value;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
   initialize(value, model, options) {
     const initialized = super.initialize(value, model, options);
 
@@ -50,5 +43,13 @@ export default class EquipmentField extends foundry.data.fields.SchemaField {
     };
 
     return initialized;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  applyChange(value, model, change, { replacementData={}}={}) {
+    // ActiveEffects may not modify this field.
+    return value;
   }
 }

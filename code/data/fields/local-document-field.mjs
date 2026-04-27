@@ -78,4 +78,12 @@ export default class LocalDocumentField extends foundry.data.fields.DocumentIdFi
       return item && (item.type === this.subtype) ? item : null;
     };
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  applyChange(value, model, change, { replacementData={}}={}) {
+    // ActiveEffects may not modify this field.
+    return value;
+  }
 }
