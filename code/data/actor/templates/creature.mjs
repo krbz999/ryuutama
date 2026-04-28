@@ -168,8 +168,8 @@ export default class CreatureData extends BaseData {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  prepareBaseData() {
-    super.prepareBaseData();
+  prepareDerivedData() {
+    super.prepareDerivedData();
 
     this.#prepareStatuses();
     this._prepareAbilities();

@@ -1,4 +1,5 @@
 /**
+ * @import AbilityModel from "../ability-model.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
  */
 
@@ -84,30 +85,27 @@ export default class AbilityScoreField extends NumberField {
 
   /** @inheritdoc */
   _applyChangeAdd(value, delta, model, change) {
-    if (![-1, 1].includes(delta)) return value;
-
-    let options = this.baseOptions;
-    if (delta === -1) options = options.toReversed();
-
-    const index = options.indexOf(value);
-    if (index === -1) return 4;
-
-    return options[index + 1] ?? options.at(-1);
+    /** @type {AbilityModel} */
+    const ability = model.system.abilities[this.parent.name];
+    switch (delta) {
+      case -1:
+        ability.decreases++;
+        break;
+      case 1:
+        ability.increases++;
+        break;
+      default:
+        return value;
+    }
+    return ability.determineDenomination(this.baseOptions);
   }
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
   _applyChangeSubtract(value, delta, model, change) {
-    if (![-1, 1].includes(delta)) return value;
-
-    let options = this.baseOptions;
-    if (delta === 1) options = options.toReversed();
-
-    const index = options.indexOf(value);
-    if (index === -1) return 4;
-
-    return options[index + 1] ?? options.at(-1);
+    if ([-1, 1].includes(delta)) return this._applyChangeAdd(value, -delta, model, change);
+    return value;
   }
 
   /* -------------------------------------------------- */
@@ -115,6 +113,7 @@ export default class AbilityScoreField extends NumberField {
   /** @inheritdoc */
   _applyChangeOverride(value, delta, model, change) {
     if (!this.#values.includes(delta)) return value;
+    model.system.abilities[this.parent.name].overridden = true;
     return delta;
   }
 
@@ -131,7 +130,11 @@ export default class AbilityScoreField extends NumberField {
   _applyChangeUpgrade(value, delta, model, change) {
     const options = this.baseOptions;
     if (!options.includes(delta)) return value;
-    return Math.max(value, delta);
+    /** @type {AbilityModel} */
+    const ability = model.system.abilities[this.parent.name];
+    ability.minimum = delta;
+    if (ability.maximum < ability.minimum) ability.maximum = null;
+    return ability.determineDenomination(options);
   }
 
   /* -------------------------------------------------- */
@@ -140,6 +143,10 @@ export default class AbilityScoreField extends NumberField {
   _applyChangeDowngrade(value, delta, model, change) {
     const options = this.baseOptions;
     if (!options.includes(delta)) return value;
-    return Math.min(value, delta);
+    /** @type {AbilityModel} */
+    const ability = model.system.abilities[this.parent.name];
+    ability.maximum = delta;
+    if (ability.minimum > ability.maximum) ability.minimum = null;
+    return ability.determineDenomination(options);
   }
 }

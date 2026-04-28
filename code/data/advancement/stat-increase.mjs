@@ -51,11 +51,9 @@ export default class StatIncreaseAdvancement extends Advancement {
     await super._prepareAdvancementContext(context, options);
 
     const getScore = ability => {
-      let base = context.actor.system._source.abilities[ability].value;
+      const base = context.actor.system.abilities[ability]._source.value;
       const steps = context.actor.system.abilities[ability].advancement;
-      const field = context.actor.system.schema.getField(`abilities.${ability}.value`);
-      for (let i = 0; i < steps; i++) base = field._applyChangeAdd(base, 1);
-      return base;
+      return base + 2 * steps;
     };
 
     context.abilityOptions = Object.entries(ryuutama.CONST.ABILITIES._toConfig)
