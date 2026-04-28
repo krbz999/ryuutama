@@ -503,7 +503,10 @@
         },
         "configureStrength": "Configure Strength",
         "noActors": "No controlled tokens' actors were valid for application of this status."
-      }
+      },
+
+      "unableToDeleteDueToDependents": "Unable to delete effect {effect} as it has dependents that no active user are able to remove.",
+      "willAlsoDeleteDependents": "Removing this Active Effect will also remove dependent effects, items, and regions."
     },
 
     "HABITAT": {

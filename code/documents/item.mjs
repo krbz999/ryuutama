@@ -150,6 +150,14 @@ export default class RyuutamaItem extends foundry.documents.Item {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    ryuutama.helpers.registries.EffectDependencyRegistry._registerDependent(this);
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Render old and new containers.
    * @param {string} [formerStorage]    Uuid of a former container to re-render.
