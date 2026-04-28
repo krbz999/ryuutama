@@ -150,6 +150,8 @@ export default class TravelerData extends CreatureData {
 
   /** @inheritdoc */
   prepareBaseData() {
+    super.prepareBaseData();
+
     this.classes = Object.fromEntries(this.parent.items.documentsByType.class.map(cls => [cls.identifier, cls]));
 
     // Add a +1 bonus from a critical travel check. TODO: Consider moving to AE.
@@ -157,13 +159,8 @@ export default class TravelerData extends CreatureData {
 
     const { habitat = [], statusImmunity = [], type = [], weapon = [] } = this.advancements.documentsByType;
 
-    // Status immunities are prepared prior to statuses in CreatureData.
-    statusImmunity.forEach(a => this.#prepareStatusImmunityAdvancement(a));
-
-    super.prepareBaseData();
-
-    // Habitats, Types, and Mastered Weapons.
     habitat.forEach(a => this.#prepareHabitatAdvancement(a));
+    statusImmunity.forEach(a => this.#prepareStatusImmunityAdvancement(a));
     type.forEach(a => this.#prepareTypeAdvancement(a));
     weapon.forEach(a => this.#prepareWeaponAdvancement(a));
   }
@@ -249,7 +246,7 @@ export default class TravelerData extends CreatureData {
       if (!advancement.isConfigured) continue;
       const ability = advancement.choice.chosen;
       this.schema.getField(`abilities.${ability}.value`).increase(this.parent, 1);
-      this.abilities[ability].advancement += 1;
+      this.abilities[ability].advancement++;
     }
 
     if (this.condition.value >= 10) {
@@ -427,12 +424,15 @@ export default class TravelerData extends CreatureData {
     }
 
     const actor = this.parent;
+
     if (actor._advancing) {
       throw new Error("Actor is already in the process of advancing!");
     }
+
+    const clone = actor.clone({ effects: _replace([]) }, { keepId: true });
     actor._advancing = true;
 
-    const results = await ryuutama.applications.apps.actors.AdvancementDialog.create(actor, { level: level + 1 });
+    const results = await ryuutama.applications.apps.actors.AdvancementDialog.create(clone, { level: level + 1 });
     if (!results) {
       delete actor._advancing;
       return null;

@@ -4,9 +4,9 @@ Effects can perform changes to characters and monsters. The most commonly used a
 
 ## Abilities
 
-For example `system.abilities.strength.value | Add | 1` to increase the die size of the Strength stat to the next size up, to a maximum of 12. The system handles validating that the stats remain within 4 to 12; `Unit` can be either `-1` or `1` to decrease or increase the size, respectively.
+For example `system.abilities.strength.value | Add | 1` to increase the dice denomination of the Strength stat to the next size up, to a maximum of 12. The system handles validating that the stats remain within 4 to 12 for Travelers but allow 2 and 20 for Monsters; `Unit` can be either `-1` or `1` to decrease or increase the size, respectively (with inverted behavior for the `Subtract` change type).
 
-The `Override` mode can be used to force the ability to be any of the valid die sizes; 2, 4, 6, 8, 10, 12, and 20.
+The `Override` change type can be used to force the ability to be any of the valid die sizes (2, 4, 6, 8, 10, 12, and 20), and similarly the `Upgrade` and `Downgrade` change types enforce a minimum or maximum denomination.
 
 The valid ability keys are `strength`, `dexterity`, `intelligence`, and `spirit`.
 
@@ -14,6 +14,7 @@ Attribute Key | Mode | Value
 :- | :-: | :-:
 `system.abilities.<ability>.value` | Add | Unit
 `system.abilities.<ability>.value` | Override | Faces
+`system.abilities.<ability>.value` | Upgrade | Faces
 
 ## Capacity
 

@@ -10,7 +10,6 @@ import "./journal-entry-page/_types";
 
 declare module "./ability-model.mjs" {
   export default interface AbilityModel {
-    advancement: number;
     value: number;
   }
 }
