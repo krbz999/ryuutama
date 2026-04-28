@@ -85,4 +85,73 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
     if (!data.type || (data.type === "base")) data.type = "standard";
     return super._initializeSource(data, options);
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    ryuutama.helpers.registries.EffectDependencyRegistry._registerDependent(this);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preDelete(options, user) {
+    if ((await super._preDelete(options, user)) === false) return false;
+
+    // This is a dependent effect being deleted.
+    if (options.dependentDeletionDesignatedUser || options.isDependentDeletion) return;
+
+    // Designate User to perform deletion of dependents.
+    const designatedUser = ryuutama.helpers.registries.EffectDependencyRegistry._getDesignatedUser(this);
+    if (designatedUser === false) {
+      // A user was needed but no designated user was found.
+      ui.notifications.warn("RYUUTAMA.EFFECT.unableToDeleteDueToDependents", { format: { effect: this.name } });
+      return false;
+    } else if (designatedUser === null) {
+      // No designated user was needed.
+      return;
+    } else {
+      // A designated User was found.
+      options.dependentDeletionDesignatedUser = designatedUser.id;
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onDelete(options, userId) {
+    super._onDelete(options, userId);
+
+    if ((options.dependentDeletionDesignatedUser === userId) && !options.isDependentDeletion) {
+      ryuutama.helpers.registries.EffectDependencyRegistry._expireDependents(this);
+    }
+
+    // Remove from registry *after* expiration.
+    ryuutama.helpers.registries.EffectDependencyRegistry._unregister(this);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async deleteDialog(options = {}, operation = {}) {
+    let message;
+    const user = ryuutama.helpers.registries.EffectDependencyRegistry._getDesignatedUser(this);
+    switch (user) {
+      case false:
+        message = _loc("RYUUTAMA.EFFECT.unableToDeleteDueToDependents", { effect: this.name });
+        foundry.utils.setProperty(options, "yes.disabled", true);
+        break;
+      case null:
+        return super.deleteDialog(options, operation);
+      default:
+        message = _loc("RYUUTAMA.EFFECT.willAlsoDeleteDependents");
+    }
+
+    options.render = (event, dialog) => {
+      dialog.element.querySelector(".dialog-content").insertAdjacentHTML("beforeend", `<p>${message}</p>`);
+    };
+    return super.deleteDialog(options, operation);
+  }
 }

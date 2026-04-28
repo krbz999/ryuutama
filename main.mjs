@@ -106,6 +106,8 @@ Hooks.once("init", () => {
   CONFIG.JournalEntryPage.documentClass = documents.RyuutamaJournalEntryPage;
   CONFIG.JournalEntryPage.dataModels.reference = data.journalEntryPage.ReferenceData;
 
+  CONFIG.Region.documentClass = documents.RyuutamaRegionDocument;
+
   CONFIG.Scene.documentClass = documents.RyuutamaScene;
 
   CONFIG.Token.documentClass = documents.RyuutamaTokenDocument;
