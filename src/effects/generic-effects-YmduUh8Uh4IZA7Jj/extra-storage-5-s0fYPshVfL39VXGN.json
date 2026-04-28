@@ -1,0 +1,46 @@
+{
+  "name": "Extra Storage +5",
+  "type": "standard",
+  "_id": "s0fYPshVfL39VXGN",
+  "img": "icons/containers/barrels/barrel-reinforced-steel.webp",
+  "system": {
+    "changes": [
+      {
+        "key": "system.capacity.bonus",
+        "type": "add",
+        "value": 5,
+        "phase": "initial",
+        "priority": null
+      }
+    ]
+  },
+  "disabled": false,
+  "start": null,
+  "duration": {
+    "value": null,
+    "units": "seconds",
+    "expiry": null,
+    "expired": false
+  },
+  "description": "<p>You have a +5 additional storage capacity.</p>",
+  "origin": null,
+  "tint": "#ffffff",
+  "transfer": false,
+  "statuses": [],
+  "showIcon": 1,
+  "folder": "YmduUh8Uh4IZA7Jj",
+  "sort": 100000,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1777323822688,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!effects!s0fYPshVfL39VXGN"
+}

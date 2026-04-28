@@ -191,6 +191,12 @@
       "banner": "systems/ryuutama/assets/official/banners/classes.webp"
     },
     {
+      "name": "effects",
+      "label": "RYUUTAMA.PACKS.EFFECTS",
+      "type": "ActiveEffect",
+      "banner": "systems/ryuutama/assets/official/banners/effects.webp"
+    },
+    {
       "name": "items",
       "label": "RYUUTAMA.PACKS.ITEMS",
       "type": "Item",
@@ -216,6 +222,7 @@
       "packs": [
         "actors",
         "classes",
+        "effects",
         "items",
         "spells",
         "tables"
