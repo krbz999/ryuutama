@@ -61,13 +61,16 @@ export default class RyuutamaActiveEffect extends foundry.documents.ActiveEffect
 
   /** @inheritdoc */
   static _applyChangeUnguided(targetDoc, change, changes, options = {}) {
+    // FIXME: This method is called when trying to insert a new property in a TypedObjectField
+    // as TOF does not find an element to use. Currently this is only relevant for token detection modes.
+
     /**
      * "If non-persisted fields end up being viewed as suitable to take on that
      * replacement role, unguided changes might one day at the core level be locked
      * down to flag values and other similarly unstructured object fields."
      */
-    if (!change.key || !change.key.startsWith("flags.")) return;
-    return super._applyChangeUnguided(targetDoc, change, changes, options);
+    if (!change.key || !(change.key.startsWith?.("flags.") || (targetDoc.documentName === "Token"))) return;
+    super._applyChangeUnguided(targetDoc, change, changes, options);
   }
 
   /* -------------------------------------------------- */
