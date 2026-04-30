@@ -7,10 +7,10 @@ export default class WeaponData extends EquippableData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
-      itemGroup: "weaponsArmor",
       createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.weaponsArmor",
       createSort: 100,
       defaultArtwork: "systems/ryuutama/assets/icons/items/weapon.svg",
+      itemGroup: "weaponsArmor",
       sort: 101,
     },
     { inplace: false },

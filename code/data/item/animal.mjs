@@ -7,8 +7,8 @@ export default class AnimalData extends StorageData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
-      sort: 302,
       defaultArtwork: "systems/ryuutama/assets/official/icons/items/animal.svg",
+      sort: 302,
     },
     { inplace: false },
   ));

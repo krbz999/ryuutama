@@ -7,8 +7,9 @@ export default class HerbData extends BaseData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
-      sort: 301,
       defaultArtwork: "systems/ryuutama/assets/icons/items/herb.svg",
+      inventory: true,
+      sort: 301,
     },
     { inplace: false },
   ));

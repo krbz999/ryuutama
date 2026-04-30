@@ -11,8 +11,8 @@ export default class ContainerData extends StorageData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
-      sort: 303,
       defaultArtwork: "systems/ryuutama/assets/official/icons/items/container.svg",
+      sort: 303,
     },
     { inplace: false },
   ));

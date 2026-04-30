@@ -5,10 +5,10 @@ export default class AccessoryData extends GearData {
   static metadata = Object.freeze(foundry.utils.mergeObject(
     super.metadata,
     {
-      itemGroup: "travelingGear",
       createGroup: "RYUUTAMA.ITEM.CREATE_GROUP.travelingGear",
       createSort: 205,
       defaultArtwork: "systems/ryuutama/assets/icons/items/accessory.svg",
+      itemGroup: "travelingGear",
       sort: 204,
     },
     { inplace: false },
