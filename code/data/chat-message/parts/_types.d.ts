@@ -30,8 +30,7 @@ declare module "./damage.mjs" {
 
 declare module "./effect.mjs" {
   export default interface EffectPart {
-    effects: string[];
-    statuses: Record<string, number>;
+    itemUuid: string;
   }
 }
 

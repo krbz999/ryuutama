@@ -2,27 +2,12 @@
 <span class="flavor">{{part.flavor}}</span>
 {{/if}}
 
-<section class="effect-list">
-  {{#each ctx.effects}}
-  <span class="effect" data-effect-uuid="{{effect.uuid}}">
-    <img src="{{effect.img}}" alt="{{effect.name}}" data-tooltip-html="{{ryuutama-tooltip uuid=effect.uuid}}">
-    <span class="name">{{effect.name}}</span>
-    <input type="checkbox" {{checked checked}}>
-  </span>
-  {{/each}}
-  {{#each ctx.statuses}}
-  <span class="effect" data-status-id="{{statusId}}">
-    <img src="{{icon}}" alt="{{label}}">
-    <span class="name">{{label}}</span>
-    <input type="checkbox" {{checked checked}}>
-  </span>
-  {{/each}}
-</section>
-
 <section>
+  {{#if ctx.showTray}}
   <effect-tray></effect-tray>
+  {{/if}}
   <button type="button" data-action="applyEffects">
-    <i class="fa-solid fa-burst" inert></i>
+    <i class="fa-solid fa-person-rays" inert></i>
     <span>{{localize "RYUUTAMA.CHAT.EFFECT.applyEffects"}}</span>
   </button>
 </section>

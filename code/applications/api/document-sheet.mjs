@@ -369,6 +369,8 @@ export default class RyuutamaDocumentSheet extends HandlebarsApplicationMixin(Do
    * @returns {Promise}         Whether the drop was fully resolved, either truthy or falsy.
    */
   static async _onDrop(event) {
+    if (event.target.closest("document-tags")) return true;
+
     const { uuid } = CONFIG.ux.TextEditor.getDragEventData(event);
     const model = await fromUuid(uuid);
     if (!model) return false;

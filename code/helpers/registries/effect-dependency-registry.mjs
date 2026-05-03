@@ -147,11 +147,14 @@ export default class EffectDependencyRegistry {
     Object.entries(dependents).forEach(([documentName, documents]) => {
       documents.forEach(document => {
         batches.push({
+          documentName,
           action: "delete",
           ids: [document.id],
           parent: document.parent,
+          // Do not delete contents of containers; if a container was added as a dependent,
+          // then its contents were also each added as dependents.
+          deleteContents: false,
           isDependentDeletion: true,
-          documentName,
         });
       });
     });

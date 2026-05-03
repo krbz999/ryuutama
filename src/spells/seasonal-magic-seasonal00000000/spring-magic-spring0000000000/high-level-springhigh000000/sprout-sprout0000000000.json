@@ -38,6 +38,25 @@
       "healing": {
         "formula": "",
         "properties": []
+      },
+      "effects": {
+        "config": {
+          "uuids": [
+            "Compendium.ryuutama.effects.ActiveEffect.sproutdexterity0",
+            "Compendium.ryuutama.effects.ActiveEffect.sproutintelligen",
+            "Compendium.ryuutama.effects.ActiveEffect.sproutspirit0000",
+            "Compendium.ryuutama.effects.ActiveEffect.sproutstrength00"
+          ],
+          "riders": {
+            "items": []
+          },
+          "duration": {
+            "units": "seconds",
+            "value": null
+          },
+          "self": false
+        },
+        "statuses": {}
       }
     }
   },
@@ -55,10 +74,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906436,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777770731678,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

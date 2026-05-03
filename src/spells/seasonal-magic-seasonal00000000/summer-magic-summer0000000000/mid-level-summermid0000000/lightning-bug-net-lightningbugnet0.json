@@ -5,7 +5,7 @@
       "value": "summer"
     },
     "description": {
-      "value": "<p>Summons a tent of magical mosquito netting that zaps approaching bugs. Grants a +2 bonus to Camp Checks in areas with flying insects.</p>"
+      "value": "<p>Summons a tent of magical mosquito netting that zaps approaching bugs. Grants a +2 bonus to Camping Checks in areas with flying insects.</p>"
     },
     "spell": {
       "activation": {
@@ -38,6 +38,22 @@
       "healing": {
         "formula": "",
         "properties": []
+      },
+      "effects": {
+        "config": {
+          "uuids": [
+            "Compendium.ryuutama.effects.ActiveEffect.85ItUEZjQY2OHgSn"
+          ],
+          "riders": {
+            "items": []
+          },
+          "duration": {
+            "value": 12,
+            "units": "hours"
+          },
+          "self": false
+        },
+        "statuses": {}
       }
     }
   },
@@ -55,10 +71,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906433,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777770731672,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

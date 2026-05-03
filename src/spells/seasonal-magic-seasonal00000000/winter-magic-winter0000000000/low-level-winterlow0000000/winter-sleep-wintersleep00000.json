@@ -5,7 +5,7 @@
       "value": "winter"
     },
     "description": {
-      "value": "<p>The targets feels the lethargy of winter overcome them, and they fall asleep. On the targets' next action and every action thereafter, they may attempt to wake up by rolling a [[/check check \"@stats.strength + @stats.spirit\"]]{[STR + SPI]} check with a target number of 6. If they succeed, they awaken, but their turn is over. If a sleeping creature takes any damage, they immediately wake up.</p>"
+      "value": "<p>The targets feels the lethargy of winter overcome them, and they fall asleep. On the targets' next action and every action thereafter, they may attempt to wake up by rolling a [[/check str spi]] check with a target number of 6. If they succeed, they awaken, but their turn is over. If a sleeping creature takes any damage, they immediately wake up.</p>"
     },
     "spell": {
       "activation": {
@@ -38,6 +38,22 @@
       "healing": {
         "formula": "",
         "properties": []
+      },
+      "effects": {
+        "config": {
+          "uuids": [
+            "Compendium.ryuutama.effects.ActiveEffect.VZ9DkJrrYgxJ4Zep"
+          ],
+          "riders": {
+            "items": []
+          },
+          "duration": {
+            "units": "seconds",
+            "value": null
+          },
+          "self": false
+        },
+        "statuses": {}
       }
     }
   },
@@ -55,10 +71,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906438,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777770731681,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

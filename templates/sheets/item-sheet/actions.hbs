@@ -1,17 +1,59 @@
 <section data-tab="{{tabs.actions.id}}" class="{{tabs.actions.cssClass}}" data-group="{{tabs.actions.group}}">
   {{#with actions}}
+
+  {{> "templates/generic/tab-navigation.hbs" tabs=tabs}}
+
   {{!-- DAMAGE --}}
-  <fieldset>
-    <legend>{{localize "RYUUTAMA.ITEM.ACTIONS.damage"}}</legend>
-    {{formGroup fields.damage.fields.formula value=document.damage.formula disabled=@root.disabled rootId=@root.rootId}}
-    {{formGroup fields.damage.fields.properties value=document.damage.properties options=damageOptions disabled=@root.disabled type="checkboxes" classes="stacked"}}
-  </fieldset>
+  <section data-tab="{{tabs.actionDamage.id}}" class="tab {{tabs.actionDamage.cssClass}}" data-group="{{tabs.actionDamage.group}}">
+    <fieldset>
+      <legend>{{localize "RYUUTAMA.ITEM.ACTIONS.damage"}}</legend>
+      {{formGroup fields.damage.fields.formula value=document.damage.formula disabled=@root.disabled rootId=@root.rootId}}
+      {{formGroup fields.damage.fields.properties value=document.damage.properties options=damageOptions disabled=@root.disabled type="checkboxes" classes="stacked"}}
+    </fieldset>
+  </section>
 
   {{!-- HEALING --}}
-  <fieldset>
-    <legend>{{localize "RYUUTAMA.ITEM.ACTIONS.healing"}}</legend>
-    {{formGroup fields.healing.fields.formula value=document.healing.formula disabled=@root.disabled rootId=@root.rootId}}
-    {{!-- {{formGroup fields.healing.fields.properties value=document.healing.properties options=healingOptions disabled=@root.disabled type="checkboxes" classes="stacked"}} --}}
-  </fieldset>
+  <section data-tab="{{tabs.actionHealing.id}}" class="tab {{tabs.actionHealing.cssClass}}" data-group="{{tabs.actionHealing.group}}">
+    <fieldset>
+      <legend>{{localize "RYUUTAMA.ITEM.ACTIONS.healing"}}</legend>
+      {{formGroup fields.healing.fields.formula value=document.healing.formula disabled=@root.disabled rootId=@root.rootId}}
+      {{!-- {{formGroup fields.healing.fields.properties value=document.healing.properties options=healingOptions disabled=@root.disabled type="checkboxes" classes="stacked"}} --}}
+    </fieldset>
+  </section>
+
+  {{!-- EFFECTS --}}
+  <section data-tab="{{tabs.actionEffects.id}}" class="tab {{tabs.actionEffects.cssClass}}" data-group="{{tabs.actionEffects.group}}">
+    <fieldset>
+      <legend>{{localize "RYUUTAMA.ITEM.ACTIONS.statuses"}}</legend>
+      <p class="hint">{{localize "RYUUTAMA.ITEM.ACTIONS.statusesHint"}}</p>
+      {{#each statuses}}
+      {{#if display}}
+      <div class="form-group" data-status="{{status}}">
+        <label for="{{id}}">{{label}}</label>
+        <div class="form-fields action-status-row">
+          {{formInput field type="number" value=strength name=name disabled=disabledInput id=id}}
+          <a class="{{icon}}" {{disabled @root.disabled}} data-action="toggleActionEffectStatus"></a>
+        </div>
+      </div>
+      {{/if}}
+      {{/each}}
+    </fieldset>
+
+    <fieldset>
+      <legend>{{localize "RYUUTAMA.ITEM.ACTIONS.effectApplied"}}</legend>
+      <div class="form-group slim">
+        <label for="{{@root.rootId}}-{{effectConfig.fields.duration.fields.units.fieldPath}}">{{localize "RYUUTAMA.ITEM.ACTIONS.durationLabel"}}</label>
+        <div class="form-fields">
+          {{formInput effectConfig.fields.duration.fields.value value=effectConfig.values.duration.value placeholder="-" disabled=@root.disabled}}
+          {{formInput effectConfig.fields.duration.fields.units value=effectConfig.values.duration.units id=(concat @root.rootId "-" effectConfig.fields.duration.fields.units.fieldPath) options=effectConfig.durationOptions disabled=@root.disabled}}
+        </div>
+        <p class="hint">{{localize "RYUUTAMA.ITEM.ACTIONS.durationHint"}}</p>
+      </div>
+      {{formGroup effectConfig.fields.uuids value=effectConfig.values.uuids disabled=@root.disabled rootId=@root.rootId}}
+      {{formGroup effectConfig.fields.self value=effectConfig.values.self disabled=@root.disabled rootId=@root.rootId}}
+      {{formGroup effectConfig.fields.riders.fields.items value=effectConfig.values.riders.items disabled=@root.disabled rootId=@root.rootId}}
+    </fieldset>
+  </section>
+
   {{/with}}
 </section>

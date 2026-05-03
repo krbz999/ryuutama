@@ -37,6 +37,20 @@
       "healing": {
         "formula": "",
         "properties": []
+      },
+      "effects": {
+        "config": {
+          "duration": {
+            "units": "seconds",
+            "value": null
+          },
+          "riders": {
+            "items": []
+          },
+          "self": false,
+          "uuids": []
+        },
+        "statuses": {}
       }
     },
     "identifier": "attack-of-the-killer-object"
@@ -55,10 +69,10 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "14.357",
+    "coreVersion": "14.360",
     "systemId": "ryuutama",
-    "systemVersion": "2.0.0",
-    "createdTime": 1774638906424,
+    "systemVersion": "2.1.0",
+    "createdTime": 1777770731660,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },
