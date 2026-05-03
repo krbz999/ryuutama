@@ -13,6 +13,7 @@
     {{formGroup systemFields.spell.fields.level value=(ifThen disabled document.system.spell.level source.system.spell.level) disabled=disabled classes="slim" rootId=rootId}}
 
     {{!-- TARGET --}}
+    {{formGroup systemFields.spell.fields.target.fields.type value=(ifThen disabled document.system.spell.target.type source.system.spell.target.type) disabled=disabled rootId=rootId classes="slim"}}
     {{formGroup systemFields.spell.fields.target.fields.custom value=(ifThen disabled document.system.spell.target.custom source.system.spell.target.custom) disabled=disabled rootId=rootId}}
 
     {{!-- RANGE --}}
@@ -28,7 +29,7 @@
     {{formGroup systemFields.spell.fields.activation.fields.cast value=(ifThen disabled document.system.spell.activation.cast source.system.spell.activation.cast) classes="slim" disabled=disabled rootId=rootId}}
 
     {{!-- DURATION --}}
-    <div class="form-group {{#if spell.duration.units}} slim-wide {{/if}}">
+    <div class="form-group slim">
       <label for="{{rootId}}-system.spell.duration.type">{{localize "RYUUTAMA.ITEM.SPELL.duration"}}</label>
       <div class="form-fields">
         {{#if spell.duration.units}}

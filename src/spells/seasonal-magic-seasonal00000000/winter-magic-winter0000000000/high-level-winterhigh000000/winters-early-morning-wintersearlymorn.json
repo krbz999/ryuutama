@@ -22,7 +22,8 @@
         "value": "caster"
       },
       "target": {
-        "custom": "Caster's area"
+        "custom": "Caster's area",
+        "type": "area"
       }
     },
     "source": {

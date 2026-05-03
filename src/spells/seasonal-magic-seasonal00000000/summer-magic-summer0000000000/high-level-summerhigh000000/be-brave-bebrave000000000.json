@@ -22,7 +22,8 @@
         "value": "allAreas"
       },
       "target": {
-        "custom": "All areas"
+        "custom": "",
+        "type": "allAreas"
       }
     },
     "source": {

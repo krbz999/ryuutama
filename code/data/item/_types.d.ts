@@ -163,6 +163,7 @@ declare module "./spell.mjs" {
         value: string;
       }
       target: {
+        type: "area" | "allAreas" | "special";
         custom: string;
       }
     }

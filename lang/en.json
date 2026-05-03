@@ -623,13 +623,6 @@
         "effects": "Effects",
         "identity": "Identity"
       },
-      "activeEffects": "Active",
-      "defenses": "Defenses",
-      "description": "Description",
-      "details": "Details",
-      "disabledEffects": "Inactive",
-      "durability": "Durability ({value}/{max})",
-      "identifierError": "Invalid identifier.",
 
       "EQUIPPABLE": {
         "FIELDS": {
@@ -760,13 +753,16 @@
           "spell.duration.custom.placeholder": "Special duration",
           "spell.level.label": "Spell Level",
           "spell.range.value.label": "Range",
-          "spell.target.custom.label": "Targets",
-          "spell.target.custom.placeholder": "E.g. '1 person'"
+          "spell.target.custom.label": "Targeting Details",
+          "spell.target.custom.placeholder": "E.g. '1 person'",
+          "spell.target.type.label": "Target"
         },
+
         "ACTIVATION": {
           "normal": "Normal Spell",
           "ritual": "Ritual"
         },
+
         "CATEGORIES": {
           "incantation": "Incantation Magic",
           "spring": "Spring Magic",
@@ -775,6 +771,7 @@
           "winter": "Winter Magic",
           "seasonal": "Seasonal Magic"
         },
+
         "DURATION": {
           "days": "Days",
           "hours": "Hours",
@@ -785,11 +782,13 @@
           "rounds": "Rounds",
           "special": "Special"
         },
+
         "LEVEL": {
           "low": "Low Level Spell",
           "mid": "Mid Level Spell",
           "high": "High Level Spell"
         },
+
         "RANGE": {
           "allAreas": "All areas",
           "any": "Any",
@@ -798,6 +797,13 @@
           "touch": "Touch",
           "special": "Special"
         },
+
+        "TARGET": {
+          "allAreas": "All Areas",
+          "area": "1 Area",
+          "special": "Special"
+        },
+
         "activation": "Activation",
         "configuration": "Spell Configuration",
         "costLabel": "{mp} MP",
@@ -831,7 +837,15 @@
         "weaponConfiguration": "Weapon Configuration",
         "weaponAccuracy": "Accuracy",
         "weaponDamage": "Damage"
-      }
+      },
+
+      "activeEffects": "Active",
+      "defenses": "Defenses",
+      "description": "Description",
+      "details": "Details",
+      "disabledEffects": "Inactive",
+      "durability": "Durability ({value}/{max})",
+      "identifierError": "Invalid identifier."
     },
 
     "PACKS": {

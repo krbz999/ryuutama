@@ -55,6 +55,11 @@ export default class SpellData extends BaseData {
           }),
         }),
         target: new SchemaField({
+          type: new StringField({
+            required: true,
+            initial: ryuutama.CONST.SPELL_TARGETS.SPECIAL,
+            choices: ryuutama.CONST.SPELL_TARGETS._toConfig,
+          }),
           custom: new StringField({ required: true }),
         }),
       }),
@@ -80,6 +85,16 @@ export default class SpellData extends BaseData {
   static migrateData(source, options, _state) {
     if (source?.category?.value === "autumn") source.category.value = "fall";
     return super.migrateData(source, options, _state);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Does this spell have an area that can be created out of combat?
+   * @type {boolean}
+   */
+  get hasArea() {
+    return Number.isInteger(ryuutama.config.spellTargetTypes[this.spell.target.type].area);
   }
 
   /* -------------------------------------------------- */

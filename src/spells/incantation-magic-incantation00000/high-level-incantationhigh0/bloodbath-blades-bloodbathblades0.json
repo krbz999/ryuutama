@@ -22,7 +22,8 @@
         "value": "caster"
       },
       "target": {
-        "custom": "All areas"
+        "custom": "",
+        "type": "allAreas"
       }
     },
     "source": {

@@ -695,6 +695,32 @@ Prelocalization.prelocalize(spellRangeTypes);
 /* -------------------------------------------------- */
 
 /**
+ * @typedef SpellTargetTypeConfig
+ * @property {string} label     Human-readable label.
+ * @property {number} [area]    The size of the area created, if out of combat.
+ */
+
+/**
+ * @type {Record<string, SpellTargetTypeConfig>}
+ */
+export const spellTargetTypes = Object.freeze({
+  area: {
+    label: "RYUUTAMA.ITEM.SPELL.TARGET.area",
+    area: 5,
+  },
+  allAreas: {
+    label: "RYUUTAMA.ITEM.SPELL.TARGET.allAreas",
+    area: 15,
+  },
+  special: {
+    label: "RYUUTAMA.ITEM.SPELL.TARGET.special",
+  },
+});
+Prelocalization.prelocalize(spellTargetTypes);
+
+/* -------------------------------------------------- */
+
+/**
  * @typedef StatusEffectConfig
  * @property {string} name              Human-readable label.
  * @property {string} img               The image used for the status effect.

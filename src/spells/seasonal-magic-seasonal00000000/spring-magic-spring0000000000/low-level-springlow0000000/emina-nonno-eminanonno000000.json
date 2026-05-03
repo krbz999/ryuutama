@@ -22,7 +22,8 @@
         "value": "touch"
       },
       "target": {
-        "custom": "Touched area"
+        "custom": "Touched area",
+        "type": "area"
       }
     },
     "source": {

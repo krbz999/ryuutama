@@ -196,6 +196,19 @@ toConfig(SPELL_RANGES, "spellRangeTypes");
 /* -------------------------------------------------- */
 
 /**
+ * Spell target types.
+ * @enum {string}
+ */
+export const SPELL_TARGETS = {
+  AREA: "area",
+  AREA_ALL: "allAreas",
+  SPECIAL: "special",
+};
+toConfig(SPELL_TARGETS, "spellTargetTypes");
+
+/* -------------------------------------------------- */
+
+/**
  * Status effects.
  * @enum {string}
  */
