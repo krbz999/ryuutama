@@ -3,7 +3,6 @@
  * @import DragDrop from "@client/applications/ux/drag-drop.mjs";
  * @import RyuutamaActor from "../../documents/actor.mjs";
  * @import RyuutamaItem from "../../documents/item.mjs";
- * @import RyuutamaSearchFilter from "../ux/search-filter.mjs";
  */
 
 /**
@@ -425,10 +424,10 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
   /* -------------------------------------------------- */
 
   /**
-   * Re-used search-filter instance.
-   * @type {RyuutamaSearchFilter}
+   * Current search filter input.
+   * @type {string}
    */
-  #searchFilter;
+  #searchInput;
 
   /* -------------------------------------------------- */
 
@@ -526,6 +525,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
    * @returns {Promise<void>}
    */
   async #prepareSearchPart(context, options) {
+    context.value = this.#searchInput;
     context.placeholder = _loc("SIDEBAR.Search", { types: _loc(`DOCUMENT.${this.#documentName}s`) });
   }
 
@@ -598,8 +598,15 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     context.displayResultSelection = !!this.#selection?.max;
     context.documentName = this.#documentName;
 
+    const rgx = new RegExp(RegExp.escape(this.#searchInput ?? ""), "i");
     let results = await RyuutamaCompendiumBrowser.fetch(this.#documentName, { filters: this.#filter, indexOnly: true });
-    results = Array.from(results).filter(_ => _).sort((a, b) => a.name.localeCompare(b.name));
+    results = Array.from(results)
+      .filter(result => {
+        if (!this.#searchInput || !rgx) return true;
+        return rgx.test(foundry.applications.ux.SearchFilter.cleanQuery(result.name));
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
+
     this.#results = context.results = Iterator.from(results);
 
     if (options.isFirstRender || options.clearCachedResults) {
@@ -653,6 +660,12 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
       });
     }
 
+    else if (partId === "search") {
+      const input = element.querySelector("[name=search]");
+      const listener = foundry.utils.debounce(RyuutamaCompendiumBrowser.#onSearch, 200);
+      input.addEventListener("input", event => listener.call(this, event, input));
+    }
+
     else if (partId === "results") {
       const listener = foundry.utils.debounce(RyuutamaCompendiumBrowser.#onScrollResults, 100);
       element.addEventListener("scroll", (event) => listener.call(this, event, element));
@@ -664,13 +677,6 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
         },
       });
       dd.bind(this.element);
-
-      const sf = this.#searchFilter ??= new ryuutama.applications.ux.RyuutamaSearchFilter({
-        inputSelector: "[name=search]",
-        contentSelector: "[data-application-part=results] .content",
-        callback: RyuutamaCompendiumBrowser.#onSearch.bind(this),
-      });
-      sf.bind(this.element, false);
     }
   }
 
@@ -786,6 +792,7 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
     this.#locked = {};
     this.#selected = null;
     this.#selection?.selected.clear();
+    this.#searchInput = "";
     this.render({ clearCachedResults: true });
   }
 
@@ -862,16 +869,12 @@ export default class RyuutamaCompendiumBrowser extends HandlebarsApplicationMixi
 
   /**
    * @this RyuutamaCompendiumBrowser
-   * @param {InputEvent|null} event
-   * @param {string} query
-   * @param {RegExp} rgx
-   * @param {HTMLElement} container
+   * @param {InputEvent} event
+   * @param {HTMLElement} target
    */
-  static #onSearch(event, query, rgx, container) {
-    container.querySelectorAll(".result").forEach(element => {
-      const hidden = !!query && !rgx.test(this.#searchFilter.constructor.cleanQuery(element.dataset.name));
-      element.classList.toggle("hidden", hidden);
-    });
+  static #onSearch(event, target) {
+    this.#searchInput = target.value;
+    this.render({ parts: ["results"] });
   }
 
   /* -------------------------------------------------- */
