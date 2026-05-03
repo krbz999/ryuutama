@@ -1,0 +1,23 @@
+{
+  "type": "ActiveEffect",
+  "folder": null,
+  "name": "Check Bonuses",
+  "color": null,
+  "sorting": "a",
+  "_id": "Kz6HA1kRTPikWSfJ",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "ryuutama",
+    "systemVersion": "2.1.0",
+    "createdTime": 1777724806352,
+    "modifiedTime": null,
+    "lastModifiedBy": "ryuutama00000000",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_key": "!folders!Kz6HA1kRTPikWSfJ"
+}

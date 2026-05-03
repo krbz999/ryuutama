@@ -7,7 +7,7 @@ import RyuutamaDocumentSheet from "../../api/document-sheet.mjs";
 export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
-    position: { width: 400 },
+    position: { width: 500 },
     window: {
       contentClasses: ["standard-form"],
     },
@@ -15,6 +15,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
       decreaseRation: RyuutamaItemSheet.#decreaseRation,
       increaseRation: RyuutamaItemSheet.#increaseRation,
       removeSkill: RyuutamaItemSheet.#removeSkill,
+      toggleActionEffectStatus: RyuutamaItemSheet.#toggleActionEffectStatus,
     },
   };
 
@@ -37,7 +38,8 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     },
     actions: {
       template: "systems/ryuutama/templates/sheets/item-sheet/actions.hbs",
-      classes: ["tab", "scrollable", "standard-form"],
+      templates: ["templates/generic/tab-navigation.hbs"],
+      classes: ["tab", "standard-form"],
       scrollable: [""],
     },
     effects: {
@@ -59,6 +61,15 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
         { id: "effects" },
       ],
       initial: "identity",
+      labelPrefix: "RYUUTAMA.ITEM.TABS",
+    },
+    actions: {
+      tabs: [
+        { id: "actionDamage" },
+        { id: "actionHealing" },
+        { id: "actionEffects" },
+      ],
+      initial: "actionDamage",
       labelPrefix: "RYUUTAMA.ITEM.TABS",
     },
   };
@@ -98,6 +109,7 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     const context = await super._prepareContext(options);
 
     Object.assign(context, {
+      tabs: this._prepareTabs("primary"),
       enriched: {
         description: await CONFIG.ux.TextEditor.enrichHTML(
           this.document.system.description.value,
@@ -124,15 +136,46 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
    * @param {object} context    Rendering context. **will be mutated**.
    */
   #prepareActions(context) {
-    context.actions = {
+    const a = context.actions = {
       document: this.document.system.actions,
       source: this.document.system.actions._source,
       fields: this.document.system.actions.schema.fields,
+      tabs: this._prepareTabs("actions"),
     };
 
-    context.actions.damageOptions = Object.keys(ryuutama.config.damageRollProperties)
+    a.damageOptions = Object.keys(ryuutama.config.damageRollProperties)
       .filter(key => !ryuutama.config.damageRollProperties[key].hidden)
       .map(key => ({ value: key, label: ryuutama.config.damageRollProperties[key].label }));
+
+    a.statuses = Object.values(ryuutama.CONST.STATUS_EFFECTS).map(status => {
+      const active = status in context.actions.document.effects.statuses;
+      const field = context.actions.document.schema.getField("effects.statuses.element.strength");
+      const name = field.fieldPath.replace("element", status);
+      return {
+        active, status, field, name,
+        strength: context.actions.document.effects.statuses[status]?.strength ?? null,
+        disabledInput: !active || context.disabled,
+        icon: active ? "fa-solid fa-fw fa-trash" : "fa-solid fa-fw fa-pen",
+        label: ryuutama.config.statusEffects[status].name,
+        display: active || !context.disabled,
+        id: [context.rootId, "-", name].join(""),
+      };
+    });
+
+    const groups = {
+      time: _loc("EFFECT.DURATION.UNITS.GROUPS.time"),
+      combat: _loc("EFFECT.DURATION.UNITS.GROUPS.combat"),
+    };
+
+    a.effectConfig = {
+      values: a.document.effects.config,
+      fields: a.document.schema.getField("effects.config").fields,
+      durationOptions: CONST.ACTIVE_EFFECT_DURATION_UNITS.map(unit => {
+        const label = _loc(`EFFECT.DURATION.UNITS.${unit}`);
+        const group = CONST.ACTIVE_EFFECT_TIME_DURATION_UNITS.includes(unit) ? groups.time : groups.combat;
+        return { label, group, value: unit };
+      }),
+    };
   }
 
   /* -------------------------------------------------- */
@@ -314,6 +357,14 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  async _onDropActiveEffect(event, effect) {
+    if (this.tabGroups.primary !== "effects") return true;
+    return super._onDropActiveEffect(event, effect);
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * @this RyuutamaItemSheet
    * @param {PointerEvent} event    The initiating click event.
@@ -348,5 +399,20 @@ export default class RyuutamaItemSheet extends RyuutamaDocumentSheet {
     const skills = this.document.system.toObject().skills;
     skills.findSplice(s => s.uuid === uuid);
     this.document.update({ "system.skills": skills });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @this RyuutamaItemSheet
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing html element that defined the [data-action].
+   */
+  static #toggleActionEffectStatus(event, target) {
+    const status = target.closest("[data-status]").dataset.status;
+    const action = this.document.system.actions.effects.statuses;
+    this.document.update({
+      [`system.actions.effects.statuses.${status}`]: (status in action) ? _del : { strength: null },
+    });
   }
 }

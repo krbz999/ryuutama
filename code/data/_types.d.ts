@@ -22,6 +22,20 @@ declare module "./actions-model.mjs" {
       formula: string;
       properties: Set<string>;
     }
+    effects: {
+      config: {
+        duration: {
+          units: string;
+          value: number | null;
+        }
+        riders: {
+          items: Set<string>;
+        }
+        self: boolean;
+        uuids: Set<string>;
+      }
+      statuses: Record<string, { strength: number }>;
+    }
     healing: {
       formula: string;
       properties: Set<string>;

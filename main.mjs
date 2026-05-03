@@ -61,6 +61,7 @@ Hooks.once("init", () => {
   CONFIG.ActiveEffect.documentClass = documents.RyuutamaActiveEffect;
   CONFIG.ActiveEffect.dataModels.standard = data.effect.StandardData;
   CONFIG.ActiveEffect.dataModels.status = data.effect.StatusData;
+  CONFIG.ActiveEffect.expiryAction = "delete";
 
   CONFIG.Actor.collection = documents.collections.RyuutamaActors;
   CONFIG.Actor.documentClass = documents.RyuutamaActor;

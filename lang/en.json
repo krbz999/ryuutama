@@ -528,12 +528,45 @@
       "ACTIONS": {
         "FIELDS": {
           "damage.formula.label": "Formula",
+          "damage.formula.placeholder": "E.g. '@stats.spirit'",
           "damage.properties.label": "Properties",
           "healing.formula.label": "Formula",
-          "healing.properties.label": "Properties"
+          "healing.formula.placeholder": "E.g. '@stats.spirit'",
+          "healing.properties.label": "Properties",
+          "effects.config": {
+            "uuids": {
+              "label": "Primary Effect",
+              "hint": "The effect that will be applied. If multiple effects are referenced here, you choose one effect when applying."
+            },
+            "self": {
+              "label": "Apply to Self",
+              "hint": "If checked, the primary effect and riders are immediately granted to the actor using this item without requiring their selection."
+            },
+            "riders": {
+              "items": {
+                "label": "Rider Items",
+                "hint": "Riders will be granted to the target in addition to the primary effect and will be removed when the primary effect is removed."
+              }
+            }
+          }
         },
+
+        "WARNINGS": {
+          "effectPack": "The ActiveEffect must exist in a Compendium.",
+          "itemPack": "The Item must exist in a Compendium.",
+          "itemType": "An Item of type '{type}' cannot be linked to a granted effect."
+        },
+
+        "effectApplied": "Applied Effects",
         "damage": "Damage",
-        "healing": "Healing"
+        "durationEffectName": "Duration: {item}",
+        "durationHint": "A duration will override the default duration of the Primary Effect. If a Primary Effect is omitted, a more generic effect is created to track the duration.",
+        "durationLabel": "Duration",
+        "healing": "Healing",
+        "selectEffect": "Select Effect",
+        "selectEffectHint": "Select which option to apply.",
+        "statuses": "Statuses",
+        "statusesHint": "Configure statuses that are applied by this item."
       },
 
       "CONTEXT": {
@@ -541,7 +574,7 @@
           "edit": "Edit Effect",
           "delete": "Delete Effect",
           "disable": "Disable Effect",
-          "enable":"Enable Effect"
+          "enable": "Enable Effect"
         },
         "ITEM": {
           "delete": "Delete Item",
@@ -582,12 +615,14 @@
       },
 
       "TABS": {
+        "actionDamage": "Damage",
+        "actionEffects": "Effects",
+        "actionHealing": "Healing",
         "actions": "Actions",
         "details": "Details",
         "effects": "Effects",
         "identity": "Identity"
       },
-
       "activeEffects": "Active",
       "defenses": "Defenses",
       "description": "Description",

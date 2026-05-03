@@ -1,11 +1,10 @@
 import MessagePart from "./base.mjs";
 
 /**
- * @import RyuutamaActor from "../../../documents/actor.mjs";
- * @import RyuutamaActiveEffect from "../../../documents/active-effect.mjs";
+ * @import RyuutamaItem from "../../../documents/item.mjs";
  */
 
-const { ArrayField, DocumentUUIDField, NumberField, TypedObjectField } = foundry.data.fields;
+const { DocumentUUIDField } = foundry.data.fields;
 
 export default class EffectPart extends MessagePart {
   static {
@@ -29,47 +28,25 @@ export default class EffectPart extends MessagePart {
   /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
-      effects: new ArrayField(new DocumentUUIDField({ embedded: true, type: "ActiveEffect" })),
-      statuses: new TypedObjectField(
-        new NumberField({ min: 2, max: 20, integer: true, nullable: false, initial: 4 }),
-        { validateKey: key => Object.values(ryuutama.CONST.STATUS_EFFECTS).includes(key) },
-      ),
+      itemUuid: new DocumentUUIDField({ type: "Item", embedded: true }),
     });
   }
 
   /* -------------------------------------------------- */
 
   /**
-   * The damage configs that will be applied by this message.
-   * @type {RyuutamaActiveEffect[]}
+   * The item used.
+   * @type {RyuutamaItem|null}
    */
-  get appliedEffects() {
-    return this.effects.map(uuid => fromUuidSync(uuid)).filter(_ => _);
+  get item() {
+    return fromUuidSync(this.itemUuid);
   }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * The statuses to be applied.
-   * @type {Record<string, number>}
-   */
-  get appliedStatuses() {
-    return foundry.utils.deepClone(this.statuses);
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Effects and statuses to ignore. Storing either uuids or status ids.
-   * @type {Set<string>}
-   */
-  #ignoredEffects = new Set();
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
   get visible() {
-    return game.user.isGM;
+    return game.user.isGM || (this.item?.system.actions.effects.config.self ?? false);
   }
 
   /* -------------------------------------------------- */
@@ -77,20 +54,9 @@ export default class EffectPart extends MessagePart {
   /** @inheritdoc */
   async _prepareContext(context) {
     await super._prepareContext(context);
-    context.ctx.effects = this.appliedEffects.map(effect => {
-      return {
-        effect,
-        checked: !this.#ignoredEffects.has(effect.uuid),
-      };
-    });
-    context.ctx.statuses = Object.entries(this.appliedStatuses).map(([statusId, strength]) => {
-      return {
-        statusId, strength,
-        label: ryuutama.config.statusEffects[statusId].name,
-        icon: ryuutama.config.statusEffects[statusId].img,
-        checked: !this.#ignoredEffects.has(statusId),
-      };
-    });
+    const item = this.item;
+    const { statuses, config } = item?.system.actions.effects ?? {};
+    context.ctx.showTray = !!item && (!config.self || !foundry.utils.isEmpty(statuses));
   }
 
   /* -------------------------------------------------- */
@@ -98,15 +64,6 @@ export default class EffectPart extends MessagePart {
   /** @inheritdoc */
   _addListeners(html, context) {
     super._addListeners(html, context);
-
-    for (const input of html.querySelectorAll("input[type=checkbox]")) {
-      input.addEventListener("change", () => {
-        const div = input.closest(".effect");
-        const id = div.dataset.effectUuid ?? div.dataset.statusId;
-        if (input.checked) this.#ignoredEffects.delete(id);
-        else this.#ignoredEffects.add(id);
-      });
-    }
   }
 
   /* -------------------------------------------------- */
@@ -118,78 +75,7 @@ export default class EffectPart extends MessagePart {
    * @param {HTMLElement} target    The capturing element that defined the [data-action].
    */
   static async #applyEffects(event, target) {
-    const element = target.closest("[data-message-part]");
-    const effects = this.appliedEffects.filter(effect => !this.#ignoredEffects.has(effect.uuid));
-    const statuses = this.appliedStatuses;
-    for (const k in statuses) if (this.#ignoredEffects.has(k)) delete statuses[k];
-    for (const actorElement of element.querySelectorAll("effect-tray [data-actor-uuid]")) {
-      const actor = fromUuidSync(actorElement.dataset.actorUuid);
-      EffectPart.applyEffects(actor, effects, statuses);
-    }
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Apply effects to one actor.
-   * @param {RyuutamaActor} actor
-   * @param {RyuutamaActiveEffect[]} effects
-   * @param {Record<string, number>} statuses
-   * @returns {Promise}
-   */
-  static async applyEffects(actor, effects, statuses) {
-    const toDelete = [];
-    const toCreate = [];
-
-    effects.forEach(effect => {
-      const existing = actor.effects.find(e => e.origin === effect.uuid);
-      if (existing) toDelete.push(existing.id);
-      const data = effect.toObject();
-      data.origin = effect.uuid;
-      toCreate.push(data);
-    });
-
-    const updateStatuses = [];
-    const createStatuses = [];
-    for (const [status, strength] of Object.entries(statuses)) {
-      const effect = await getDocumentClass("ActiveEffect").fromStatusEffect(status, { strength });
-      if (actor.effects.has(effect.id)) {
-        updateStatuses.push({ _id: effect.id, system: _replace(effect.toObject().system) });
-      } else {
-        createStatuses.push(effect.toObject());
-      }
-    }
-
-    return foundry.documents.modifyBatch([
-      {
-        action: "delete",
-        parent: actor,
-        documentName: "ActiveEffect",
-        ids: toDelete,
-      },
-      {
-        action: "create",
-        parent: actor,
-        documentName: "ActiveEffect",
-        data: toCreate,
-      },
-
-      // Statuses
-      {
-        action: "update",
-        updates: updateStatuses,
-        documentName: "ActiveEffect",
-        parent: actor,
-        diff: false,
-        recursive: false,
-      },
-      {
-        action: "create",
-        data: createStatuses,
-        documentName: "ActiveEffect",
-        parent: actor,
-        keepId: true,
-      },
-    ]);
+    const item = this.item;
+    item.system.actions.applyEffects();
   }
 }

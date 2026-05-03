@@ -11,4 +11,17 @@
     text-align: center;
     font-style: italic;
   }
+
+  .action-status-row {
+    justify-content: space-between;
+
+    input {
+      text-align: center;
+      flex: 0 0 3rem;
+    }
+
+    a {
+      flex: none;
+    }
+  }
 }

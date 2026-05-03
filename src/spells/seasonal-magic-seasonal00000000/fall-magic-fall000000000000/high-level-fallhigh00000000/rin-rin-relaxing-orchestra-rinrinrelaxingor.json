@@ -38,6 +38,20 @@
       "healing": {
         "formula": "",
         "properties": []
+      },
+      "effects": {
+        "config": {
+          "duration": {
+            "units": "seconds",
+            "value": null
+          },
+          "riders": {
+            "items": []
+          },
+          "self": false,
+          "uuids": []
+        },
+        "statuses": {}
       }
     }
   },
@@ -58,7 +72,7 @@
     "coreVersion": "14.360",
     "systemId": "ryuutama",
     "systemVersion": "2.1.0",
-    "createdTime": 1777252394820,
+    "createdTime": 1777770731676,
     "modifiedTime": null,
     "lastModifiedBy": "ryuutama00000000"
   },

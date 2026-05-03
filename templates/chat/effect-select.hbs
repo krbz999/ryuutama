@@ -1,0 +1,9 @@
+{{#each options}}
+<div class="form-group slim" data-tooltip-direction="LEFT">
+  <label for="{{@root.rootId}}-{{value}}" data-tooltip-html="{{ryuutama-tooltip uuid=uuid}}">{{label}}</label>
+  <div class="form-fields">
+    <input type="radio" name="dependency" id="{{@root.rootId}}-{{value}}" value="{{value}}" {{checked checked}}>
+  </div>
+</div>
+{{/each}}
+<p class="hint">{{localize "RYUUTAMA.ITEM.ACTIONS.selectEffectHint"}}</p>

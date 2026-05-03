@@ -47,11 +47,11 @@ export default class RyuutamaItem extends foundry.documents.Item {
   /**
    * Create items with respect to containers and their contents. This returns item data,
    * which should be used with `Item.createDocuments` with `keepId: true`.
-   * @param {RyuutamaItem[]} items              The items to create.
+   * @param {RyuutamaItem[]} items                              The items to create.
    * @param {object} [options]
    * @param {RyuutamaItem} [options.storage]                    A container to place the items in.
    * @param {(RyuutamaItem) => object} [options.transformer]    Method to use when preparing and cleaning the items.
-   * @returns {Promise<object[]>}               Data for items to be created.
+   * @returns {Promise<object[]>}                               Data for items to be created.
    */
   static async createWithContents(items, { storage, transformer } = {}) {
     let { containers = [], physical = [], other = [] } = Object.groupBy(items, item => {
@@ -111,6 +111,12 @@ export default class RyuutamaItem extends foundry.documents.Item {
   async _preCreate(data, options, user) {
     if ((await super._preCreate(data, options, user)) === false) return false;
     if (this.parent?.type === "party") return false;
+
+    if (options.dependencyUuid) {
+      const { type } = foundry.utils.parseUuid(options.dependencyUuid) ?? {};
+      if (type === "ActiveEffect")
+        this.updateSource({ [`flags.${ryuutama.id}.dependency.parent`]: options.dependencyUuid });
+    }
   }
 
   /* -------------------------------------------------- */
