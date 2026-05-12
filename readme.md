@@ -1,3 +1,9 @@
+# We Have Moved
+
+As of May 2026, this repository has moved to a new site found [here](https://git.gay/Zhell/ryuutama). All feature requests, bug reports, and other inquiries should go there.
+
+-----
+
 A Foundry VTT implementation of the Ryuutama Natural Fantasy RPG.
 
 ![image](https://raw.githubusercontent.com/krbz999/ryuutama/refs/heads/main/assets/official/ui/ryuutama-logo.svg)
